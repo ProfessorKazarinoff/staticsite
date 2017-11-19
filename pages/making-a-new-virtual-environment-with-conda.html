@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Making a new virtual environment with Conda - Pelican Bootstrap3 Example Site</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="/pages/making-a-new-virtual-environment-with-conda.html">
+
+        <meta name="author" content="Peter Kazarinoff" />
+
+    <meta property="og:site_name" content="Pelican Bootstrap3 Example Site" />
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Making a new virtual environment with Conda"/>
+    <meta property="og:url" content="/pages/making-a-new-virtual-environment-with-conda.html"/>
+    <meta property="og:description" content="" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="/theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+
+
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand">
+Pelican Bootstrap3 Example Site            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="/pages/about.html">
+                             About
+                          </a></li>
+                         <li class="active"><a href="/pages/making-a-new-virtual-environment-with-conda.html">
+                             Making a new virtual environment with Conda
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+    <ol class="breadcrumb">
+        <li><a href="" title="Pelican Bootstrap3 Example Site"><i class="fa fa-home fa-lg"></i></a></li>
+        <li class="active">Making a new virtual environment with Conda</li>
+    </ol>
+    <section id="content" class="body">
+        <h1 class="entry-title">Making a new virtual environment with Conda</h1>
+        
+        <div class="entry-content">
+            <p>To start a new project, it is best pratice to create a new virtual environment. I have the Anaconda distribution of python installed on machine at work. Using the conda prompt is a bit like using the terminal on a Mac or Linux. To start it go to the windows start button on the lower left and select anaconda prompt. To make the new environment we need to use the following commands:</p>
+<div class="highlight"><pre><span></span>C:\Users\user.name&gt; conda create --name webscrape python=3.6
+
+The following NEW packages will be INSTALLED:
+
+    certifi:        2016.2.28-py36_0
+    pip:            9.0.1-py36_1
+    python:         3.6.2-0
+    setuptools:     36.4.0-py36_0
+    vs2015_runtime: 14.0.25420-0
+    wheel:          0.29.0-py36_0
+    wincertstore:   0.2-py36_0
+
+Proceed ([y]/n)? y
+
+#
+# To activate this environment, use:
+# &gt; activate webscrape
+#
+# To deactivate an active environment, use:
+# &gt; deactivate
+#
+# * for power-users using bash, you must source
+#
+C:\Users\user.name&gt; activate webscrape
+
+(webscrape) C:\Users\peter.kazarinoff&gt;
+````
+
+If you see the ```(webscrape)``` in parenthesis before the command prompt, that means you set up the new virtual environment and are now using it. You can get a list of your virtual environments using the ```conda env list``` command.
+
+```terminal
+pelican                  C:\Users\peter.kazarinoff\AppData\Local\Continuum\Anaconda3\envs\pelican
+webscrape             *  C:\Users\peter.kazarinoff\AppData\Local\Continuum\Anaconda3\envs\webscrape
+root                     C:\Users\peter.kazarinoff\AppData\Local\Continuum\Anaconda3
+</pre></div>
+
+
+<p>Notice the <code>*</code> asterisk on the line with webscrape. The virtual environment with the <code>*</code> is the currenly active environment. </p>
+<p>To exit the virtual enviroment, use the command <code>deactivate</code>. If you do this and then run <code>conda env list</code> again, you will see that there is no <code>*</code> because you are not currently usinging one of the virtual environments. We can spin up the virtual environment again with the <code>activate</code> command.</p>
+<div class="highlight"><pre><span></span>(webscrape) C:\Users\peter.kazarinoff&gt;deactivate
+
+C:\Users\peter.kazarinoff&gt; conda env list
+
+pelican                  C:\Users\peter.kazarinoff\AppData\Local\Continuum\Anaconda3\envs\pelican
+webscrape                C:\Users\peter.kazarinoff\AppData\Local\Continuum\Anaconda3\envs\webscrape
+root                     C:\Users\peter.kazarinoff\AppData\Local\Continuum\Anaconda3
+
+C:\Users\peter.kazarinoff&gt; activate webscrape
+(webscrape) C:\Users\peter.kazarinoff&gt;
+</pre></div>
+        </div>
+    </section>
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<div id="aboutme">
+    <p>
+      <strong>About Peter Kazarinoff</strong><br/>
+        I teach engineering at a communtiy college in the Pacific Northwest. I am interested in programming and how to help students. Here I mostly blog about python, MATLAB and how programing can be incorporated into engineering education.
+    </p>
+</div><!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Recent Posts -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+  <ul class="list-group" id="recentposts">
+    <li class="list-group-item"><a href="/python-and-beautifulsoup-read-multiple-course-pages.html">Using Python and Beautiful Soup to read course information</a></li>
+    <li class="list-group-item"><a href="/python-beautifulsoup-course-info.html">Using Python and Beautiful Soup to read course information</a></li>
+    <li class="list-group-item"><a href="/a-college-web-api.html">A college web API?</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Recent Posts -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="/tag/animation.html">animation</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="/tag/beautiful-soup.html">beautiful soup</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="/tag/code.html">code</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/college.html">college</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/matplotlib.html">matplotlib</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="/tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/this-site.html">this site</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/web-api.html">Web API</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/web-crawling.html">web crawling</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/web-scraping.html">web scraping</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Github -->
+<li class="list-group-item">
+  <h4><i class="fa fa-github fa-lg"></i><span class="icon-label">GitHub Repos</span></h4>
+  <div id="gh_repos">
+    <p class="list-group-item">Status updating...</p>
+  </div>
+  <a href="https://github.com/professorkazarinoff">@professorkazarinoff</a> on GitHub
+</li>
+<!-- End Sidebar/Github -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2017 Peter Kazarinoff
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="/theme/js/respond.min.js"></script>
+
+
+<!-- GitHub JS Code -->
+<script type="text/javascript">
+$(document).ready(function () {
+  if (!window.jXHR) {
+    var jxhr = document.createElement('script');
+    jxhr.type = 'text/javascript';
+    jxhr.src = '/theme/js/jXHR.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(jxhr, s);
+  }
+
+  github.showRepos({
+    user: 'professorkazarinoff',
+    count: 5,
+    skip_forks: true,
+    target: '#gh_repos'
+  });
+});
+</script>
+<script src="/theme/js/github.js" type="text/javascript"></script>
+<!-- End GitHub JS Code -->
+
+
+</body>
+</html>

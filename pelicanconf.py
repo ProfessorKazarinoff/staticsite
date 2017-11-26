@@ -56,7 +56,7 @@ PLUGINS = [
     'liquid_tags.img', 'liquid_tags.video', 'liquid_tags.youtube',
     'liquid_tags.vimeo',
     'liquid_tags.include_code','liquid_tags.notebook',
-    'render_math','tipue_search', 'pelican-bootstrapify',
+    'render_math','tipue_search', 'pelican_javascript', 'pelican-bootstrapify',
     'ipynb.markup']
 
 NOTEBOOK_DIR = 'posts'

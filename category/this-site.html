@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>Using Python and Pint to do Unit Conversions - Python Programming for Undergraduate Engineers</title>
+    <title>this site - Python Programming for Undergraduate Engineers</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -174,22 +174,16 @@ init_mathjax();
 </script>
     <link href="/extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="/drafts/python-and-pint-unit-conversion.html">
 
-        <meta name="author" content="Peter Kazarinoff" />
-        <meta name="keywords" content="python,pint,unit conversion" />
+    <meta name="author" content="Peter Kazarinoff" />
+    <meta name="keywords" content="this site" />
 
+    <!-- Open Graph tags -->
         <meta property="og:site_name" content="Python Programming for Undergraduate Engineers" />
-        <meta property="og:type" content="article"/>
-        <meta property="og:title" content="Using Python and Pint to do Unit Conversions"/>
-        <meta property="og:url" content="/drafts/python-and-pint-unit-conversion.html"/>
-        <meta property="og:description" content=""/>
-        <meta property="article:published_time" content="2017-09-27" />
-            <meta property="article:section" content="Python" />
-            <meta property="article:tag" content="python" />
-            <meta property="article:tag" content="pint" />
-            <meta property="article:tag" content="unit conversion" />
-            <meta property="article:author" content="Peter Kazarinoff" />
+        <meta property="og:type" content="website"/>
+        <meta property="og:title" content="Python Programming for Undergraduate Engineers"/>
+        <meta property="og:url" content=""/>
+        <meta property="og:description" content="Python Programming for Undergraduate Engineers"/>
 
 
 
@@ -249,33 +243,22 @@ Python Programming for Undergraduate Engineers            </a>
 <div class="container">
     <div class="row">
         <div class="col-sm-9">
-            <ol class="breadcrumb">
-                <li><a href="" title="Python Programming for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="/category/python.html" title="Python">Python</a></li>
-                <li class="active">Using Python and Pint to do Unit Conversions</li>
-            </ol>
-    <section id="content">
-        <article>
-            <header class="page-header">
-                <h1>
-                    <a href="/drafts/python-and-pint-unit-conversion.html"
-                       rel="bookmark"
-                       title="Permalink to Using Python and Pint to do Unit Conversions">
-                        Using Python and Pint to do Unit Conversions
-                    </a>
-                </h1>
-            </header>
-            <div class="entry-content">
-                <div class="panel">
-                    <div class="panel-body">
+    <ol class="breadcrumb">
+        <li><a href="" title="Python Programming for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+        <li><a href="/" title="Python Programming for Undergraduate Engineers Categories">Categories</a></li>
+        <li class="active">this site</li>
+    </ol>
+            <article>
+                <h2><a href="/how-built-site-1.html">How I build this site - Part 1</a></h2>
+                    <div class="well well-sm">
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2017-09-27T12:03:00-07:00"> Wed 27 September 2017</time>
+        <i class="fa fa-calendar"></i><time datetime="2017-11-22T12:40:00-08:00"> Wed 22 November 2017</time>
     </span>
 
             <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x106ea6c70> of 
+            Part 1 of How I built this site
 
 
 
@@ -283,148 +266,16 @@ Python Programming for Undergraduate Engineers            </a>
 <span class="label label-default">Tags</span>
 	<a href="/tag/python.html">python</a>
         /
-	<a href="/tag/pint.html">pint</a>
+	<a href="/tag/pelican.html">pelican</a>
         /
-	<a href="/tag/unit-conversion.html">unit conversion</a>
+	<a href="/tag/staticsite.html">staticsite</a>
     
 </footer><!-- /.post-info -->                    </div>
+                <div class="summary"><p>This is the first part of a multi-part series on how I built this site. In this first post, I'll review the development environment, Python, virtual environments, installing the necessary packages and setting up git.</p>
+                    <a class="btn btn-default btn-xs" href="/how-built-site-1.html">more ...</a>
                 </div>
-                <p>Units and unit conversions are <strong>BIG</strong> in engineering. Engineers solve the worlds problems in teams. Any problem that is solved has to have a context that it is solved in. How heavy can a rocket be and still make it off the ground, what thickness bodypannels should be used to keep occupants save during a crash. In engineering a number without a unit is like a fish without water. It just flops around hopelessly without context and is useless. </p>
-<p>How can we get help using unit? Programming is one way. We are going to use Python and Pint, a python package used for unit conversions to do a couple of sample unit conversions and some simple density problems. These could be problems on engineering homework problems sets. Below are is the first problem:</p>
-<p>Convert the following measurements into the units provided</p>
-<ol>
-<li>13.2 in to cm</li>
-<li>1100 W to Btu / hr</li>
-<li>63.2 lb ft to N m</li>
-<li>1150 J s/m2 to kcal min/in2</li>
-</ol>
-<p>First we should fire up a new virtual environment, let's call it <code>units</code></p>
-<div class="highlight"><pre><span></span>$ mkvirtualenv units
-</pre></div>
-<p>Next we need to activate our new <code>units</code> environment and install the pint package using pip. Pint is a python package used to work with units(like meter, gram, pound, inch, foot) and convert between different units (like converting 12 inches = 30.48 cm).</p>
-<div class="highlight"><pre><span></span>$ workon units
-<span class="o">(</span>units<span class="o">)</span>$ pip install pint
-<span class="o">(</span>units<span class="o">)</span>$ pip freeze
-<span class="nv">Pint</span><span class="o">==</span><span class="m">0</span>.8.1
-</pre></div>
-<p>OK. Now on to our first problem. We can do these first four problems directly in the python interpreter. To open up the interpreter, just type <code>python</code> on the command line.</p>
-<div class="highlight"><pre><span></span>(units)$ python
-Python 3.5.1 (default, Apr 18 2016, 03:49:24) 
-[GCC 4.2.1 Compatible Apple LLVM 7.0.2 (clang-700.1.81)] on darwin
-Type "help", "copyright", "credits" or "license" for more information.
-&gt;&gt;&gt;
-</pre></div>
-<p>First we need to import the UnitRegistry from pint and create a UnitRegistry object</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">pint</span> <span class="kn">import</span> <span class="n">UnitRegistry</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">ureg</span> <span class="o">=</span> <span class="n">UnitRegistry</span><span class="p">()</span>
-</pre></div>
-<p>Now let's create our measurement value, 13.2 inches</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; measurement = 13.2 * ureg.inch
-&gt;&gt;&gt; print(measurement)
-13. 2 inch
-&gt;&gt;&gt;
-</pre></div>
-<p>Our <code>measurement</code> now has a couple defined attributes, <code>magnitude</code> , <code>units</code> , and <code>dimensionality</code></p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; &gt;&gt;&gt; print(measurement.magnitude)
-13.2
-&gt;&gt;&gt; print(measurement.units)
-inch
-&gt;&gt;&gt; print(measurement.dimensionality)
-[length]
-</pre></div>
-<p>There are two ways we can convert our measurement 13.2 inches into centimeters. One is by creating a new object <code>measurement_in_cm</code> using the <code>.to()</code> method on our <code>measurement</code> object.</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; measurement_in_cm = measurement.to(ureg.cm)
-&gt;&gt;&gt; print(measurement_in_cm)
-33.528 centimeter
-&gt;&gt;&gt; 
-</pre></div>
-<p>The other way is to convert the measurement in place using the <code>.ito()</code> method</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; measurement.ito(ureg.cm)
-&gt;&gt;&gt; print(measurement)
-33.528 centimeter
-&gt;&gt;&gt; 
-</pre></div>
-<p>OK, let's try a problem which is a little bit harder. This time we will convert between to units of power, watts and Btu / hr</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; power = 1100 * ureg.W
-&gt;&gt;&gt; print(power)
-1100 watt
-&gt;&gt;&gt; 
-</pre></div>
-<p>The units we are going to convert to are Btu / hr. Compound units in pint are done with simple multiplication <code>*</code> or division <code>/</code> symbols</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; power_in_Btu_per_hour = power.to(ureg.Btu / ureg.hr)
-&gt;&gt;&gt; print(power_in_Btu_per_hour)
-3753.355796440737 btu / hour
-&gt;&gt;&gt; print(power_in_Btu_per_hour.units)
-btu / hour
-</pre></div>
-<p>Or run the method in place with:</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; power.ito(ureg.Btu / ureg.hr)
-&gt;&gt;&gt; print(power)
-3753.355796440737 btu / hour
-&gt;&gt;&gt; 
-</pre></div>
-<p>Our next problem is: 63.2 lb ft to N m. Note here that pounds(lb) is a unit of <em>force</em> that will be converted to Newtons (N) also a unit of <em>force</em>. We need to make sure that we tell pint that we want pounds as a unit of <em>force</em>, not a unit of <em>mass</em>.</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; torque = 63.2 * ureg.lb * ureg.ft
-&gt;&gt;&gt; print(torque)
-63.2 foot * pound
-&gt;&gt;&gt; print(torque.dimensionality)
-[length] * [mass]
-</pre></div>
-<p>This shows that our <code>torque</code> is in units of <em>length</em> x <em>mass</em>, but we want lbs as a unit of <em>force</em>, not a unit of <em>mass</em>. To do this we need to use the pint attribute <code>ureg.lbf</code></p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; torque = 63.2 * ureg.lbf * ureg.ft
-&gt;&gt;&gt; print(torque)
-63.2 foot * force_pound
-&gt;&gt;&gt; 
-</pre></div>
-<p>To convert our torque into Newtons x meters, we enter the following:</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; torque_in_N_m = torque.to(ureg.N * ureg.m)
-&gt;&gt;&gt; print(torque_in_N_m)
-85.68769433454449 meter * newton
-&gt;&gt;&gt; 
-</pre></div>
-<p>We can then check and make sure the dimensionality of both <code>torque</code> and <code>torque_in_N_m</code> are the same</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; print(torque.dimensionality)
-[length] ** 2 * [mass] / [time] ** 2
-&gt;&gt;&gt; print(torque_in_N_m.dimensionality)
-[length] ** 2 * [mass] / [time] ** 2
-&gt;&gt;&gt; torque_in_N_m.dimensionality == torque.dimensionality
-True
-&gt;&gt;&gt; 
-</pre></div>
-<p>Now on to the last one. It is a doozy. </p>
-<p>11150 J s/m2 to kcal min/in2</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; value3 = 1150 * ureg.J * ureg.s / ureg.m**2
-&gt;&gt;&gt; print(value3)
-1150.0 joule * second / meter ** 2
-&gt;&gt;&gt; print(value3.dimensionality)
-[mass] / [time]
-</pre></div>
-<p>Let's try this this conversion one unit at a time. First let's go from Js/m2 to kcals/m2</p>
-<div class="highlight"><pre><span></span>value3.ito(ureg.kcal * ureg.s / ureg.m**2)&gt;&gt;&gt; value3.ito(ureg.kcal * ureg.s / ureg.m**2)
-&gt;&gt;&gt; print(value3)
-0.2748565965583174 kilocalorie * second / meter ** 2
-&gt;&gt;&gt;
-</pre></div>
-<p>Now we will convert from kcals/m2 to kcalmin/in2</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; value3.ito(ureg.kcal * ureg.min / ureg.m**2)
-&gt;&gt;&gt; print(value3)
-0.004580943275971957 kilocalorie * minute / meter ** 2
-&gt;&gt;&gt; 
-</pre></div>
-<p>And finally convert from kcalmin/m2 to kcalmin/in2</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; value3.ito(ureg.kcal * ureg.min / ureg.inch**2)
-&gt;&gt;&gt; print(value3)
-2.9554413639260674e-06 kilocalorie * minute / inch ** 2
-&gt;&gt;&gt; 
-</pre></div>
-<p>Great! Now you know how to use python and pint to do unit conversions. Next we will use python and pint to convert numbers into scientific notion and engineering notation.</p>
-            </div>
-            <!-- /.entry-content -->
-<section class="well" id="related-posts">
-    <h4>This article is the <built-in method index of str object at 0x106ea6c70> of the  series</h4>
-</section>
-        </article>
-    </section>
+            </article>
+            <hr/>
 
         </div>
         <div class="col-sm-3" id="sidebar">
@@ -446,8 +297,6 @@ True
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
     <li class="list-group-item"><a href="/how-built-site-1.html">How I build this site - Part 1</a></li>
-    <li class="list-group-item"><a href="/new-virtual-environment-with-conda.html">Create a new virtual environment with Conda</a></li>
-    <li class="list-group-item"><a href="/installing-anaconda-on-windows.html">Installing Anaconda on Windows</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
@@ -483,15 +332,6 @@ True
   </ul>
 </li>
 <!-- End Sidebar/Tag Cloud -->
-
-<!-- Sidebar/Series -->
-<li class="list-group-item">
-  <h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Series</span></h4>
-  <ul class="list-group">
-  </ul>
-</li>
-<!-- End Sidebar/Series -->
-
 
 <!-- Sidebar/Github -->
 <li class="list-group-item">

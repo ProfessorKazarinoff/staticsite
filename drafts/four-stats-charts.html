@@ -301,7 +301,7 @@ Python Programming for Undergraduate Engineers            </a>
 <p>The finished compilation of the charts is shown below. The bar graph is on the top followed by the historgram, box plot and violin plot.</p>
 <p><img alt="plot with error bars" class="img-responsive" src="/images/bar_plot_with_error_bars.png"/></p>
 <p>To build these plots, we will use the dataset below. The data is in a .csv file and has three columns. The data represents the density of four different shaped blocks from Ikea. The idea is to see if the density of each shape is different. If the density of each shape is different, one possible theory is that the shapes are made of different types of wood. We will use the statistics plots to help us visualize the problem. Each shape has about 100 density measurements. The first column is for rectangles, the second column is for squares the third column is triagles and the fourth column is squares. All of the density measurements are in units of <span class="math">\(g/cm^3\)</span>.  The .csv file looks something like below:</p>
-<table class="table-bordered table-striped table-responsive table-hover table">
+<table class="table-hover table-striped table table-bordered table-responsive">
 <thead>
 <tr>
 <th>Rectangle</th>
@@ -493,6 +493,7 @@ df = pd.read_csv('data.csv', header =0)
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
+    <li class="list-group-item"><a href="/how-built-site-1.html">How I build this site - Part 1</a></li>
     <li class="list-group-item"><a href="/new-virtual-environment-with-conda.html">Create a new virtual environment with Conda</a></li>
     <li class="list-group-item"><a href="/installing-anaconda-on-windows.html">Installing Anaconda on Windows</a></li>
   </ul>
@@ -503,17 +504,23 @@ df = pd.read_csv('data.csv', header =0)
 <li class="list-group-item">
   <a href="/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
   <ul class="list-group list-inline tagcloud" id="tags">
-    <li class="list-group-item tag-1">
+    <li class="list-group-item tag-2">
       <a href="/tag/anaconda.html">anaconda</a>
     </li>
-    <li class="list-group-item tag-1">
+    <li class="list-group-item tag-2">
       <a href="/tag/conda.html">conda</a>
     </li>
     <li class="list-group-item tag-4">
       <a href="/tag/miniconda.html">miniconda</a>
     </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/pelican.html">pelican</a>
+    </li>
     <li class="list-group-item tag-1">
       <a href="/tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/staticsite.html">staticsite</a>
     </li>
     <li class="list-group-item tag-4">
       <a href="/tag/virtualenv.html">virtualenv</a>

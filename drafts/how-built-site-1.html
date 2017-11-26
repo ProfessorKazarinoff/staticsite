@@ -177,18 +177,19 @@ init_mathjax();
 <link rel="canonical" href="/drafts/how-built-site-1.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
-        <meta name="keywords" content="python,pelican" />
-        <meta name="description" content="This is the first part in a multi-part series on how I built this site. In this first post, I&#39;ll review the development environment, python, virtual environments, installing the necessary modules and setting up git." />
+        <meta name="keywords" content="python,pelican,staticsite" />
+        <meta name="description" content="This is the first part in a multi-part series on how I built this site. In this first post, I&#39;ll review the development environment, Python, virtual environments, installing the necessary packages and setting up git." />
 
         <meta property="og:site_name" content="Python Programming for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="How I build this site - Part 1"/>
         <meta property="og:url" content="/drafts/how-built-site-1.html"/>
-        <meta property="og:description" content="This is the first part in a multi-part series on how I built this site. In this first post, I&#39;ll review the development environment, python, virtual environments, installing the necessary modules and setting up git."/>
+        <meta property="og:description" content="This is the first part in a multi-part series on how I built this site. In this first post, I&#39;ll review the development environment, Python, virtual environments, installing the necessary packages and setting up git."/>
         <meta property="article:published_time" content="2017-10-13" />
             <meta property="article:section" content="This site" />
             <meta property="article:tag" content="python" />
             <meta property="article:tag" content="pelican" />
+            <meta property="article:tag" content="staticsite" />
             <meta property="article:author" content="Peter D. Kazarinoff" />
 
 
@@ -275,7 +276,7 @@ Python Programming for Undergraduate Engineers            </a>
     </span>
 
             <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x106461810> of 
+            Part <built-in method index of str object at 0x106660bb8> of 
 
 
 
@@ -284,50 +285,85 @@ Python Programming for Undergraduate Engineers            </a>
 	<a href="/tag/python.html">python</a>
         /
 	<a href="/tag/pelican.html">pelican</a>
+        /
+	<a href="/tag/staticsite.html">staticsite</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>This is the first part in a multi-part series on how I built this site. In this first post, I'll review the development environment, python, virtual environments, installing the necessary modules and setting up git.</p>
+                <p>This is the first part in a multi-part series on how I built this site. In this first post, we'll review the development environment, Python, virtual environments, installing the necessary packages and setting up git.</p>
 <h3>Setting up the development environment</h3>
-<p>What does that even mean? Before I started building this site I needed to make sure the the necessary software, packages and settings were in place. This starts with setting up a development environment. To me, a development environment is simply what is installed the computer that allows me to get work done. In this case that means the tools necessary to  build this site. A list of the tools and technologies are below:</p>
+<p>What does that even mean? Before I started building this site I needed to make sure the the necessary software, packages and settings were in place. This starts with setting up a development environment. To me, a development environment is simply what is installed the computer that allows you to get work done. In this case the <em>development environment</em> means the tools necessary to  build this site. A list of the tools and technologies are below:</p>
 <ol>
-<li>An opperating system: This website was developed using Windows 10, Mac OSX and Linux (Ubuntu 16.04 LTS).</li>
+<li>An operating system: This website was developed using Windows 10, Mac OSX and Linux (Ubuntu 16.04 LTS).</li>
 <li>Python: Python 3.5 or 3.6 depending on the system</li>
-<li>Anaconda: The Anaconda prompt and Anaconda python distribution</li>
+<li>Anaconda: The Anaconda Prompt and the Anaconda Python distribution</li>
 <li>Pelican: A static site generator written in Python</li>
-<li>markdown, beautiful soup: Python modules used to support Pelican</li>
-<li>pelican-bootstrap3: A theme for Pelican that makes the site look good and play well with phones and tablets</li>
-<li>Custom css and javascript: A few custom settings to personalize the pelican-bootstrap3 theme</li>
-<li>pelican-plugins: A couple plugins to make tables look nice, allow youtube videos to embed easily and use custom javascript and css in posts</li>
 <li>Markdown: the posts on this website are written in markdown, or .md format</li>
-<li>Github.com and git: With some many computers used at different times to build the site, a central place where the most up-todate version is kept. </li>
-<li>fabric and make: fabric is a python module to automate builds and tasks</li>
-<li>Github pages: The server where the static site is hosted</li>
+<li>Github.com and git: With some many computers used at different times to build the site, a central place where the most up to date version is kept. </li>
+<li>fabric and make: fabric is a python package to automate builds and tasks. Fabric works on Windows, make works on Mac OSX and Linux.</li>
 </ol>
 <h3>Installing Python (the Anaconda distribution)</h3>
-<p>I highly recommend installing the Anaconda distribution of python. I have the Anaconda distribution installed on my Windows 10 desktop at work, Macbook Air at home, Ubuntu desktop at home, and my notebook computer at work. Download the lastest release at:</p>
+<p>I highly recommend installing the Anaconda distribution of python. I have the Anaconda distribution installed on my Windows 10 desktop and Mac Laptop at work, and Macbook Air and Ubuntu, Ubuntu desktop at home, and my . Download the lastest release at:</p>
 <p>https://www.anaconda.com/download/</p>
-<p>Anaconda will have an upto date version of Python (Python 3.6) and the anaconda prompt. The anaconda prompt is usefull because it allows me to run shell commands like I would on my linux machine at home on my Windows 10 machine at work. It makes creating and logging into virtual environmets easy and gives me access to git. </p>
-<h3>Creating a new virtual enviroment</h3>
-<p>Before we can start downloading Pelican, we need to create a new virtual environment. Open up the conda prompt or a terminal on Linux or OSX. Type:</p>
+<p>Anaconda distribution of Python comes with an up to date version of Python (Python 3.6) and the <strong>Anaconda Prompt</strong>. The <strong>Anaconda Prompt</strong> is useful because it allows me to run shell command on my Windows 10 machine at work, just like I would run in the terminal on my linux desktop or Mac OSX laptop at home. It makes creating and logging into virtual environments easy and allows me to use git on Windows 10. Follow this post to <a href="{filename}/posts/installing_anaconda_on_windows">install the Anaconda on Windows 10.</a></p>
+<h3>Create a new virtual environment</h3>
+<p>Before we can start downloading Pelican, we need to create a new virtual environment. Open up the Anaconda Prompt (on Windows) or a terminal (on Linux or Mac). We will call our new virtual environment <strong><em>pelican</em></strong>. The <code>create</code> command creates the environment and the <code>-n pelican</code> flag adds the name.</p>
 <div class="highlight"><pre><span></span>$ conda create -n pelican
 </pre></div>
-<p>This will create a new virtual environment called pelican. Becuase I use 4 different computers to work on this site depending on where I am, I need to make sure that the same Python modules are installed on each one. Using virtual environments is one way to ensure that. Once the virtual environment <code>(pelican)</code> is created, we need to activate it and start using it</p>
+<p>This will create a new virtual environment called <strong><em>pelican</em></strong>. Becuase I use 4 different computers to work on this site depending on where I am, I need to make sure the same Python packages are installed on each computer. Using virtual environments ensures consistency. Once the virtual environment <code>**_pelican_**</code> is created, we need to activate it and start using it</p>
 <div class="highlight"><pre><span></span>$ <span class="nb">source</span> activate pelican
 </pre></div>
-<p>We should now see <code>(pelican</code> before the terminal prompt. </p>
+<p>We should now see <code>(pelican)</code> before the terminal prompt. </p>
 <h3>Install Pelican</h3>
-<p>Time for some fun! Installing Pelican. Pelican is a python module that creates static websites. Static sites are websites that only have html, css and javascript. A static site is not connected to a database. To get pelican we need to install <code>pip</code> first.</p>
+<p>Time for some fun! Installing Pelican. Pelican is a Python package that creates static websites. Static sites are websites that only have html, css and javascript. A static site is not connected to a database and there is no code run on the server side. Just static files served to the client that requests them. To get Pelican we need to install <code>pip</code> first.</p>
 <div class="highlight"><pre><span></span>(pelican)$ conda install pip
 </pre></div>
-<p>Once <code>pip</code> is installed, we can install <code>pelican</code> and <code>markdown</code>. These are two of the core peices we need to build the website.</p>
+<p>Once <code>pip</code> is installed, we can install <code>pelican</code> and <code>markdown</code>. These are two of the core pieces we need to build the website.</p>
 <div class="highlight"><pre><span></span>(pelican)$ pip install pelican
 (pelican)$ pip install markdown
+(pelican)$ pip install fabric
 </pre></div>
+<h3>Create a github account and create a new repository</h3>
+<p>While I was making this site it became clear that I had to keep track of <strong><em>version control</em></strong>. I would make some changes to the site on my computer at work and then come home and make more changes to the site on my laptop. Bringing a USB thumb drive back and forth was hard because I would forget the thumb drive and then couldn't edit the site. The solution is to use git and github. Git is a command line utility that assists with version control and allow you to add changes from one computer to the changes made on another. Github.com is the where the site content and settings are remotely stored. </p>
+<p>To sign up for a github.com account go here:</p>
+<p><a href="https://github.com/join">https://github.com/join</a></p>
+<p>The account activation screen looks something like:</p>
+<p><img alt="Github.com Join" class="img-responsive" src="../images/join_github.png"/></p>
+<p>Once the account is set up, log in and create a new repository. Use the + button on the upper right-hand menu:</p>
+<p><img alt="new github repo" class="img-responsive" src="../images/new_github_repo.png"/></p>
+<p>I named the new repo: <strong>staticsite</strong> and included both a <strong>README.md</strong> and a <strong>GNU General Public License v3.0</strong>. </p>
+<p><img alt="new github repo details" class="img-responsive" src="../images/create_a_new_repo_details.png"/></p>
+<h3>Make a directory for the site and link it to github</h3>
+<p>Once the github repo (short for repository) is set up, the last step in setting up the development environment is to link the remote repo on github to the local version of the site on my computer. I did this in the <code>Documents/</code> folder, and made a new folder called <code>staticsite</code>. Everthing inside the <code>staticsite</code> folder will be all the files used to build the site and the output files created by pelican that are the site.</p>
+<div class="highlight"><pre><span></span>cd ~
+cd Documents
+mkdir staticsite
+cd staticsite
+</pre></div>
+<p>When inside the <code>staticsite</code> folder, we can set up git to keep the contents of the staticsite folder the same as the contents of the staticsite repo on github.com. The command <code>git init</code> will initiate or create the repository. The <code>git add origin</code> followed by the url of our github repo links the folder to the repo on github. Make sure to change <code>username</code> to your github username and <code>staticsite</code> to your github repo name.</p>
+<div class="highlight"><pre><span></span>git init
+git remote add origin https://github.com/username/staticsite.git
+</pre></div>
+<p>Now for the git magic. On github.com we have a README.md file and a licence. But the staticsite folder on computer is empty. So the two folders don't line up. To set them so that the contents of each are the same we <strong><em>pull</em></strong> the files from github. A <strong><em>pull</em></strong> "pulls" or gets the files from github and copies them to the staticsite folder.</p>
+<div class="highlight"><pre><span></span>git pull origin master
+</pre></div>
+<p>If you look in the static site folder you should now see the following two files:</p>
+<div class="highlight"><pre><span></span>staticsite
+├── LICENSE
+├── README.md
+</pre></div>
+<p>The development environment is set! On to building the site!</p>
+<p>Now each time I work on the site, I navigate to the <strong>staticsite</strong> folder on whatever computer I am using. Before any editing, key in the command:</p>
+<div class="highlight"><pre><span></span>git pull origin master
+</pre></div>
+<p>Then I go about editing files, writing posts, changing settings, etc. After the edits, the last thing I type before I shut down whatever computer I am using is:</p>
+<div class="highlight"><pre><span></span>git push origin master
+</pre></div>
+<p>TThis keeps all of the computers and the github repo with the same version of the site and saves all the changes online.</p>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">
-    <h4>This article is the <built-in method index of str object at 0x106461810> of the  series</h4>
+    <h4>This article is the <built-in method index of str object at 0x106660bb8> of the  series</h4>
 </section>
         </article>
     </section>

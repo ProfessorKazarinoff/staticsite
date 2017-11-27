@@ -23,10 +23,10 @@ angle_minus_last = np.arange(0,rot_num*2*pi,increment)
 angles = np.append(angle_minus_last, rot_num*2*pi)
 
 
-X1=np.zeros(len(angles)) # array of crank x-positions: Point 1
-Y1=np.zeros(len(angles)) # array of crank y-positions: Point 1
-X2=np.zeros(len(angles)) # array of rod x-positions: Point 2
-Y2=np.zeros(len(angles)) # array of rod y-positions: Point 2
+X1=np.zeros(len(angle)) # array of crank x-positions: Point 1
+Y1=np.zeros(len(angle)) # array of crank y-positions: Point 1
+X2=np.zeros(len(angle)) # array of rod x-positions: Point 2
+Y2=np.zeros(len(angle)) # array of rod y-positions: Point 2
 
 #find the crank and connecting rod positions for each angle
 for index,theta in enumerate(angles, start=0):

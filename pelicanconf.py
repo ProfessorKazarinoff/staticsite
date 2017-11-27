@@ -41,6 +41,7 @@ PYGMENTS_STYLE = 'native'
 
 #to ignore any injected css for ipynb pages
 IPYNB_IGNORE_CSS = True
+#EXTRA_HEADER = open('_nb_header.html').read().decode('utf-8')
 
 #For voidy-bootstrap that allows first article full page
 #THEME = 'pelican-themes/voidy-bootstrap'
@@ -56,8 +57,8 @@ PLUGINS = [
     'liquid_tags.img', 'liquid_tags.video', 'liquid_tags.youtube',
     'liquid_tags.vimeo',
     'liquid_tags.include_code','liquid_tags.notebook',
-    'render_math','tipue_search', 'pelican_javascript', 'pelican-bootstrapify',
-    'pelican-ipynb.markup', 'pelican-ipynb.liquid']
+    'render_math','tipue_search'] #'pelican_javascript','pelican-ipynb.markup'
+
 
 NOTEBOOK_DIR = 'posts'
 

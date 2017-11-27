@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Python Programming for Undergraduate Engineers - Orientation</title><link href="https://pythonforundergradengineers.nyc3.digitaloceanspaces.com/index.html/" rel="alternate"></link><link href="https://pythonforundergradengineers.nyc3.digitaloceanspaces.com/index.html/feeds/orientation.atom.xml" rel="self"></link><id>https://pythonforundergradengineers.nyc3.digitaloceanspaces.com/index.html/</id><updated>2017-11-17T20:20:00-08:00</updated><entry><title>Create a new virtual environment with Conda</title><link href="https://pythonforundergradengineers.nyc3.digitaloceanspaces.com/index.html/new-virtual-environment-with-conda.html" rel="alternate"></link><published>2017-11-17T20:20:00-08:00</published><updated>2017-11-17T20:20:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:pythonforundergradengineers.nyc3.digitaloceanspaces.com,2017-11-17:/index.html/new-virtual-environment-with-conda.html</id><summary type="html">&lt;p&gt;To start a new project, it is best practice to create a new virtual environment. I have the Anaconda distribution of Python installed on my machine at work and it comes with the very useful &lt;strong&gt;conda prompt&lt;/strong&gt;. Using the conda prompt is a bit like using the terminal on a …&lt;/p&gt;</summary><content type="html">&lt;p&gt;To start a new project, it is best practice to create a new virtual environment. I have the Anaconda distribution of Python installed on my machine at work and it comes with the very useful &lt;strong&gt;conda prompt&lt;/strong&gt;. Using the conda prompt is a bit like using the terminal on a Mac or Linux. To start the conda prompt on Windows, go to the Windows start button on the lower left and select Anaconda Prompt. &lt;/p&gt;
+&lt;p&gt;&lt;img alt="anaconda in start menu" src="images/anaconda_from_start_menu.png"&gt;&lt;/p&gt;
+&lt;p&gt;To make the new environment we need to issue the following command at the prompt:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;conda create --name webscrape python=3.6
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The &lt;code&gt;conda create&lt;/code&gt; command builds the new virtual environment. The &lt;code&gt;--name webscrape&lt;/code&gt; flag gives our new virtual environment the name &lt;code&gt;webscrape&lt;/code&gt;.  I like to name my virtual environments the same name as the project that I will use that environment for, or after the name of the package that will be used the most.  Including &lt;code&gt;python=3.6&lt;/code&gt; ensures that your virtual environment has an up to date version of python. &lt;/p&gt;
+&lt;p&gt;Conda will tell us:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;The following NEW packages will be INSTALLED:
+
+    certifi:        2016.2.28-py36_0
+    pip:            9.0.1-py36_1
+    python:         3.6.2-0
+    setuptools:     36.4.0-py36_0
+    vs2015_runtime: 14.0.25420-0
+    wheel:          0.29.0-py36_0
+    wincertstore:   0.2-py36_0
+
+Proceed ([y]/n)? y
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Type &lt;code&gt;y&lt;/code&gt; to confirm that you want to create the new virtual environment. To use the new virtual environment &lt;code&gt;webscrape&lt;/code&gt; you need to &lt;em&gt;activate&lt;/em&gt; it by typing:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;activate webscrape
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You know you are in your virtual environment &lt;code&gt;webscrape&lt;/code&gt; when &lt;code&gt;(webscrape)&lt;/code&gt; is in parenthesis at the start of the conda prompt&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(webscrape) tribilium@Den-PC:~$
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;To deactivate an active environment, use:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;deactivate
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;For power-users using bash on Mac or Linux, you must &lt;code&gt;source&lt;/code&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;source activate webscrape
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;and&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;source deactivate webscrape
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;If you see the &lt;code&gt;(webscrape)&lt;/code&gt; in parenthesis before the command prompt, that means you set up the new virtual environment and are now using it. You can view a list of your virtual environments using the &lt;code&gt;conda info --envs&lt;/code&gt; or &lt;code&gt;conda env list&lt;/code&gt; command.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;conda info --envs
+
+# conda environments:
+#
+matplotlib               /home/tribilium/anaconda3/envs/matplotlib
+webscrape              * /home/tribilium/anaconda3/envs/pelican
+root                     /home/tribilium/anaconda3
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Notice the &lt;code&gt;*&lt;/code&gt; asterisk on the line with &lt;code&gt;webscrape&lt;/code&gt;. The virtual environment with the &lt;code&gt;*&lt;/code&gt; is currently active. &lt;/p&gt;
+&lt;p&gt;To exit the virtual environment, use the command &lt;code&gt;deactivate&lt;/code&gt;. If run &lt;code&gt;conda env list&lt;/code&gt; again, you will see that there is no &lt;code&gt;*&lt;/code&gt; in front of &lt;code&gt;webscrape&lt;/code&gt; because you currently not in that virtual environment.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# conda environments:
+#
+matplotlib               /home/tribilium/anaconda3/envs/matplotlib
+webscrape                /home/tribilium/anaconda3/envs/pelican
+root                  *  /home/tribilium/anaconda3
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We can spin up the virtual environment again with the &lt;code&gt;activate&lt;/code&gt; command.&lt;/p&gt;</content><category term="python"></category><category term="conda"></category><category term="virtualenv"></category><category term="anaconda"></category></entry><entry><title>Installing Anaconda on Windows</title><link href="https://pythonforundergradengineers.nyc3.digitaloceanspaces.com/index.html/installing-anaconda-on-windows.html" rel="alternate"></link><published>2017-11-14T09:20:00-08:00</published><updated>2017-11-14T09:21:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:pythonforundergradengineers.nyc3.digitaloceanspaces.com,2017-11-14:/index.html/installing-anaconda-on-windows.html</id><summary type="html">&lt;p&gt;In this post, we will run through installing the &lt;a href="https://www.anaconda.com/what-is-anaconda/"&gt;Anaconda distribution&lt;/a&gt; of Python on Windows 10. I think the Anaconda distribution of Python is the the best option for undergraduate engineers who want to use Python. Anaconda is free (although the download is large which can take time) and can be installed on school or work computers where you don't have administrator access or the ability to install new programs.&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this post, we will run through installing the Anaconda distribution of Python on Windows 10. I think the Anaconda distribution of Python is the the best option for undergraduate engineers who want to use Python. Anaconda is free (although the download is large which can take time) and can be installed on school or work computers where you don't have administrator access or the ability to install new programs.&lt;/p&gt;
+&lt;h4&gt;Steps:&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Visit &lt;a href="https://www.anaconda.com/download/"&gt;Anaconda.com/downloads&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Select Windows&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Download the .exe installer&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Open and run the .exe installer&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Open the Anaconda prompt and run some Python code&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h4&gt;1. Visit the Anaconda downloads page&lt;/h4&gt;
+&lt;p&gt;Go to the following link: &lt;a href="https://www.anaconda.com/download/"&gt;Anaconda.com/downloads&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The Anaconda Downloads Page will look something like this:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="anaconda download page" src="images/anaconda_download_page.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h4&gt;2. Select the Windows&lt;/h4&gt;
+&lt;p&gt;Select Windows where the three opperating systems are listed.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="anaconda select Windows" src="images/anaconda_select_windows.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h4&gt;3. Download&lt;/h4&gt;
+&lt;p&gt;Download the Python 3.6 distribution. Python 2.7 is legacy Python. For undergraduate engineers, select the Python 3.6 version.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="anaconda select python 3.6" src="images/anaconda_python3_or_python2.png"&gt;&lt;/p&gt;
+&lt;p&gt;You may be prompted to enter your email. You can still download Anaconda if you click &lt;strong&gt;No Thanks&lt;/strong&gt; and don't enter your Work Email address.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="anaconda" src="images/anaconda_enter_email.png"&gt;&lt;/p&gt;
+&lt;p&gt;The download is quite large (over 500 MB) so it may take a while for the download to complete.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="anaconda downloading" src="images/anaconda_downloading.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h4&gt;4. Open and run the installer&lt;/h4&gt;
+&lt;p&gt;Once the download completes, open and run the .exe installer&lt;/p&gt;
+&lt;p&gt;&lt;img alt="anaconda installer" src="images/anaconda_run_installer.png"&gt;&lt;/p&gt;
+&lt;p&gt;At the beginning of the install you will need to click &lt;strong&gt;Next&lt;/strong&gt; to confirm the installation&lt;/p&gt;
+&lt;p&gt;&lt;img alt="anaconda installer click next" src="images/anaconda_installer_click_next.png"&gt;&lt;/p&gt;
+&lt;p&gt;and agree to the license&lt;/p&gt;
+&lt;p&gt;&lt;img alt="anaconda license" src="images/anaconda_agree_to_license.png"&gt;&lt;/p&gt;
+&lt;p&gt;At the Advanced Installation Options screen, I recommend that you &lt;strong&gt;do not check&lt;/strong&gt; "Add Anaconda to my PATH environment variable"&lt;/p&gt;
+&lt;p&gt;&lt;img alt="anaconda path variable" src="images/anaconda_installer_advanced_options.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h4&gt;5. Open the Conda prompt from the Windows start menu&lt;/h4&gt;
+&lt;p&gt;After the Anaconda install is complete, you can go to the Windows start menu and select the Anaconda Prompt&lt;/p&gt;
+&lt;p&gt;&lt;img alt="anaconda in start menu" src="images/anaconda_from_start_menu.png"&gt;&lt;/p&gt;
+&lt;p&gt;This will open up the Anaconda prompt, which is often called the &lt;strong&gt;Conda prompt&lt;/strong&gt;. Anaconda is the Python distribution and the Conda prompt is a command line tool (a program where you type in your commands instead of using a mouse). It doesn't look like much, but it is really helpful for an undergraduate engineer using Python.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="anaconda prompt" src="images/anaconda_window.png"&gt;&lt;/p&gt;
+&lt;p&gt;At the Anaconda prompt, type &lt;code&gt;python&lt;/code&gt;. This will start the Python interperater. &lt;/p&gt;
+&lt;p&gt;&lt;img alt="conda prompt type python" src="images/conda_prompt_type_python.png"&gt;&lt;/p&gt;
+&lt;p&gt;Note the Python version. You should see something like &lt;code&gt;Python 3.6.1&lt;/code&gt;.  With the interperter running, you will see a set of greater-than symbols &lt;code&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/code&gt; before the cursor. &lt;/p&gt;
+&lt;p&gt;&lt;img alt="anaconda prompt" src="images/conda_type_python.png"&gt;&lt;/p&gt;
+&lt;p&gt;Now you can type Python commands. Try typing &lt;code&gt;import this&lt;/code&gt;. You should see the &lt;strong&gt;&lt;em&gt;Zen of Python&lt;/em&gt;&lt;/strong&gt; by Tim Peters&lt;/p&gt;
+&lt;p&gt;&lt;img alt="anaconda_import_this" src="images/conda_import_this_output.png"&gt;&lt;/p&gt;
+&lt;p&gt;To close the Python interperater, type &lt;code&gt;exit()&lt;/code&gt; at the interperator prompt &lt;code&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/code&gt;.  Note the double parenthesis at the end of the command. The &lt;code&gt;()&lt;/code&gt; is needed to stop the Python interperator and get back out to the Conda Prompt.&lt;/p&gt;
+&lt;p&gt;To close the Conda prompt, you can either close the window with the mouse, or type &lt;code&gt;exit&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h4&gt;Congratulations! You installed the Anaconda distribution on your Windows computer!&lt;/h4&gt;
+&lt;p&gt;When you want to use the Python interperater again, just click the Windows Start button and select the &lt;strong&gt;Anaconda Prompt&lt;/strong&gt; and type &lt;code&gt;python&lt;/code&gt;.&lt;/p&gt;</content><category term="python"></category><category term="anaconda"></category><category term="miniconda"></category><category term="conda"></category><category term="windows"></category></entry></feed>

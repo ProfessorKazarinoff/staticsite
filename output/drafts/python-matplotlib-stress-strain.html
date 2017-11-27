@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Plotting Stress Strain Curves with Python and matplotlib - Python Programming for Undergraduate Engineers</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
+<style type="text/css">
+
+/*some stuff for output/input prompts*/
+div.cell{border:1px solid transparent;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}div.cell.selected{border-radius:4px;border:thin #ababab solid}
+div.cell.edit_mode{border-radius:4px;border:thin #008000 solid}
+div.cell{width:100%;padding:5px 5px 5px 0;margin:0;outline:none}
+div.prompt{min-width:11ex;padding:.4em;margin:0;font-family:monospace;text-align:right;line-height:1.21429em}
+@media (max-width:480px){div.prompt{text-align:left}}div.inner_cell{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
+div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;line-height:1.21429em}
+div.prompt:empty{padding-top:0;padding-bottom:0}
+div.input{page-break-inside:avoid;display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;}
+div.inner_cell{width:90%;}
+div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;}
+div.input_prompt{color:navy;border-top:1px solid transparent;}
+div.output_wrapper{margin-top:5px;position:relative;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+div.output_scroll{height:24em;width:100%;overflow:auto;border-radius:4px;-webkit-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);-moz-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);}
+div.output_collapsed{margin:0px;padding:0px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+div.out_prompt_overlay{height:100%;padding:0px 0.4em;position:absolute;border-radius:4px;}
+div.out_prompt_overlay:hover{-webkit-box-shadow:inset 0 0 1px #000000;-moz-box-shadow:inset 0 0 1px #000000;box-shadow:inset 0 0 1px #000000;background:rgba(240, 240, 240, 0.5);}
+div.output_prompt{color:darkred;}
+
+a.anchor-link:link{text-decoration:none;padding:0px 20px;visibility:hidden;}
+h1:hover .anchor-link,h2:hover .anchor-link,h3:hover .anchor-link,h4:hover .anchor-link,h5:hover .anchor-link,h6:hover .anchor-link{visibility:visible;}
+/* end stuff for output/input prompts*/
+
+
+.highlight-ipynb .hll { background-color: #ffffcc }
+.highlight-ipynb  { background: #f8f8f8; }
+.highlight-ipynb .c { color: #408080; font-style: italic } /* Comment */
+.highlight-ipynb .err { border: 1px solid #FF0000 } /* Error */
+.highlight-ipynb .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight-ipynb .o { color: #666666 } /* Operator */
+.highlight-ipynb .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.highlight-ipynb .cp { color: #BC7A00 } /* Comment.Preproc */
+.highlight-ipynb .c1 { color: #408080; font-style: italic } /* Comment.Single */
+.highlight-ipynb .cs { color: #408080; font-style: italic } /* Comment.Special */
+.highlight-ipynb .gd { color: #A00000 } /* Generic.Deleted */
+.highlight-ipynb .ge { font-style: italic } /* Generic.Emph */
+.highlight-ipynb .gr { color: #FF0000 } /* Generic.Error */
+.highlight-ipynb .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight-ipynb .gi { color: #00A000 } /* Generic.Inserted */
+.highlight-ipynb .go { color: #888888 } /* Generic.Output */
+.highlight-ipynb .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight-ipynb .gs { font-weight: bold } /* Generic.Strong */
+.highlight-ipynb .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight-ipynb .gt { color: #0044DD } /* Generic.Traceback */
+.highlight-ipynb .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight-ipynb .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight-ipynb .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight-ipynb .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight-ipynb .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight-ipynb .kt { color: #B00040 } /* Keyword.Type */
+.highlight-ipynb .m { color: #666666 } /* Literal.Number */
+.highlight-ipynb .s { color: #BA2121 } /* Literal.String */
+.highlight-ipynb .na { color: #7D9029 } /* Name.Attribute */
+.highlight-ipynb .nb { color: #008000 } /* Name.Builtin */
+.highlight-ipynb .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.highlight-ipynb .no { color: #880000 } /* Name.Constant */
+.highlight-ipynb .nd { color: #AA22FF } /* Name.Decorator */
+.highlight-ipynb .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.highlight-ipynb .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.highlight-ipynb .nf { color: #0000FF } /* Name.Function */
+.highlight-ipynb .nl { color: #A0A000 } /* Name.Label */
+.highlight-ipynb .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight-ipynb .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight-ipynb .nv { color: #19177C } /* Name.Variable */
+.highlight-ipynb .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight-ipynb .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight-ipynb .mf { color: #666666 } /* Literal.Number.Float */
+.highlight-ipynb .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight-ipynb .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight-ipynb .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight-ipynb .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight-ipynb .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight-ipynb .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight-ipynb .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight-ipynb .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.highlight-ipynb .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight-ipynb .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.highlight-ipynb .sx { color: #008000 } /* Literal.String.Other */
+.highlight-ipynb .sr { color: #BB6688 } /* Literal.String.Regex */
+.highlight-ipynb .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight-ipynb .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight-ipynb .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight-ipynb .vc { color: #19177C } /* Name.Variable.Class */
+.highlight-ipynb .vg { color: #19177C } /* Name.Variable.Global */
+.highlight-ipynb .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight-ipynb .il { color: #666666 } /* Literal.Number.Integer.Long */
+</style>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+div.entry-content {
+  overflow: visible;
+  padding: 8px;
+}
+.input_area {
+  padding: 0.2em;
+}
+
+a.heading-anchor {
+ white-space: normal;
+}
+
+.rendered_html
+code {
+ font-size: .8em;
+}
+
+pre.ipynb {
+  color: black;
+  background: #f7f7f7;
+  border: none;
+  box-shadow: none;
+  margin-bottom: 0;
+  padding: 0;
+  margin: 0px;
+  font-size: 13px;
+}
+
+/* remove the prompt div from text cells */
+div.text_cell .prompt {
+    display: none;
+}
+
+/* remove horizontal padding from text cells, */
+/* so it aligns with outer body text */
+div.text_cell_render {
+    padding: 0.5em 0em;
+}
+
+img.anim_icon{padding:0; border:0; vertical-align:middle; -webkit-box-shadow:none; -box-shadow:none}
+
+div.collapseheader {
+    width=100%;
+    padding: 2px;
+    cursor: pointer;
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+</style>
+
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+<script type="text/javascript">
+init_mathjax = function() {
+    if (window.MathJax) {
+        // MathJax loaded
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+            },
+            displayAlign: 'left', // Change this to 'center' to center equations.
+            "HTML-CSS": {
+                styles: {'.MathJax_Display': {"margin": 0}}
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    }
+}
+init_mathjax();
+</script>
+    <link href="/extra/favicon.ico" rel="icon">
+
+<link rel="canonical" href="/drafts/python-matplotlib-stress-strain.html">
+
+        <meta name="author" content="Peter Kazarinoff" />
+        <meta name="keywords" content="python,matplotlib,engineering,materials science" />
+
+        <meta property="og:site_name" content="Python Programming for Undergraduate Engineers" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Plotting Stress Strain Curves with Python and matplotlib"/>
+        <meta property="og:url" content="/drafts/python-matplotlib-stress-strain.html"/>
+        <meta property="og:description" content=""/>
+        <meta property="article:published_time" content="2017-10-03" />
+            <meta property="article:section" content="matplotlib" />
+            <meta property="article:tag" content="python" />
+            <meta property="article:tag" content="matplotlib" />
+            <meta property="article:tag" content="engineering" />
+            <meta property="article:tag" content="materials science" />
+            <meta property="article:author" content="Peter Kazarinoff" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="/theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="/theme/css/pygments/native.css" rel="stylesheet">
+    <link href="/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+        <link href="/static/css/custom.css" rel="stylesheet">
+
+
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand">
+Python Programming for Undergraduate Engineers            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="/pages/about.html">
+                             About
+                          </a></li>
+                         <li><a href="/pages/book.html">
+                             Book
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><span>
+                <form class="navbar-search" action="/search.html">
+                  <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
+                </form></span>
+              </li>
+              <li><a href="/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+            <ol class="breadcrumb">
+                <li><a href="" title="Python Programming for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="/category/matplotlib.html" title="matplotlib">matplotlib</a></li>
+                <li class="active">Plotting Stress Strain Curves with Python and matplotlib</li>
+            </ol>
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="/drafts/python-matplotlib-stress-strain.html"
+                       rel="bookmark"
+                       title="Permalink to Plotting Stress Strain Curves with Python and matplotlib">
+                        Plotting Stress Strain Curves with Python and matplotlib
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2017-10-03T09:01:00-07:00"> Tue 03 October 2017</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="/tag/python.html">python</a>
+        /
+	<a href="/tag/matplotlib.html">matplotlib</a>
+        /
+	<a href="/tag/engineering.html">engineering</a>
+        /
+	<a href="/tag/materials-science.html">materials science</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>Plotting stress strain curves is a useful skill in mechanical engineering because it allows us to derive mechanical properties of materials such as tensile strength, elastic modulus, yield strength and ductility. Plotting stress strain curves can be accomplished with Excel and MATLAB, but what about plotting stress strain curves with Python? Follow along to find out.</p>
+<p>What we are going to do in the following series of blog posts is plot the stress strain curve of Aluminum 6061 - T6. We will then derive mechanical properties from the plot, tensile strength (TS), yield strength (YS), elastic modulus (E), and ductility (%EL). In order to do this, we need to have a couple things in place:</p>
+<ol>
+<li>python (to run the program) </li>
+<li>conda and a conda prompt (to create a virtual environment and install pip)</li>
+<li>pip (to download and install matplotlib and pandas)</li>
+<li>matplotlib and pandas (to plot the stress strain curve and read the .csv data file)</li>
+<li>data.csv (the data collected from a mechanical test frame that we will plot)</li>
+</ol>
+<p>To get going, first we should create a up a new virtual environment, let's call it tensiletest. I'm using <strong>conda</strong> to create the virtual environment. Select <strong>Anaconda Prompt</strong> from the windows start menu.</p>
+<p><img alt="conda prompt on windows start menu" src="/images/conda_in_windows_start_menu.png"></p>
+<p>Once you have the conda prompt open, type the following command:</p>
+<div class="highlight"><pre><span></span>(C:\Users\peter.kazarinoff\AppData\Local\Continuum\Anaconda3) C:\Users\peter.kazarinoff&gt;conda create -m tensiletest
+Fetching package metadata ...........
+Solving package specifications:
+Package plan for installation in environment C:\Users\peter.kazarinoff\AppData\Local\Continuum\Anaconda3\envs\tensiletest:
+
+Proceed ([y]/n)? y
+
+#
+# To activate this environment, use:
+# &gt; activate tensiletest
+#
+# To deactivate an active environment, use:
+# &gt; deactivate
+#
+# * for power-users using bash, you must source
+#
+
+
+(C:\Users\peter.kazarinoff\AppData\Local\Continuum\Anaconda3) C:\Users\peter.kazarinoff&gt;activate tensiletest
+
+(tensiletest) C:\Users\peter.kazarinoff&gt;
+</pre></div>
+
+
+<p>Next we use our new conda virtual environment to install <code>pip</code>. pip is the python package manager that we will to install a couple packages that are needed to plot the stress strain curve. Make sure you are working in your new <code>(tensiletest)</code> virtual environment and type:</p>
+<div class="highlight"><pre><span></span>(tensiletest) C:\Users\peter.kazarinoff&gt;conda install pip
+Fetching package metadata ...........
+Solving package specifications: .
+
+Package plan for installation in environment C:\Users\peter.kazarinoff\AppData\Local\Continuum\Anaconda3\envs\tensiletest:
+
+The following NEW packages will be INSTALLED:
+
+    certifi:        2016.2.28-py36_0
+    pip:            9.0.1-py36_1
+    python:         3.6.2-0
+    setuptools:     36.4.0-py36_1
+    vs2015_runtime: 14.0.25420-0
+    wheel:          0.29.0-py36_0
+    wincertstore:   0.2-py36_0
+
+Proceed ([y]/n)? y
+
+
+(tensiletest) C:\Users\peter.kazarinoff&gt;
+</pre></div>
+
+
+<p>Now we need to install two packages. The first is <code>numpy</code>. We will use <code>numpy</code> to run some calculations on our data. The second package we need to install is <code>matplotlib</code>. We will use <code>matplotlib</code> to plot the data. Both are installed with <code>pip</code> at the conda prompt. Again, make sure you are in your <code>(tensiletest)</code> virtual environment:</p>
+<div class="highlight"><pre><span></span>(tensiletest) C:\Users\peter.kazarinoff&gt;pip install numpy
+Collecting numpy
+  Downloading numpy-1.13.3-cp36-none-win_amd64.whl (13.1MB)
+    100% |████████████████████████████████| 13.1MB 117kB/s
+Installing collected packages: numpy
+Successfully installed numpy-1.13.3
+
+(tensiletest) C:\Users\peter.kazarinoff&gt;pip install matplotlib
+Collecting matplotlib
+  Downloading matplotlib-2.0.2-cp36-cp36m-win_amd64.whl (8.9MB)
+    100% |████████████████████████████████| 8.9MB 176kB/s
+Collecting pytz (from matplotlib)
+  Using cached pytz-2017.2-py2.py3-none-any.whl
+Requirement already satisfied: numpy&gt;=1.7.1 in c:\users\peter.kazarinoff\appdata\local\continuum\anaconda3\envs\tensiletest\lib\site-packages (from matplotlib)
+Collecting cycler&gt;=0.10 (from matplotlib)
+  Using cached cycler-0.10.0-py2.py3-none-any.whl
+Collecting six&gt;=1.10 (from matplotlib)
+  Using cached six-1.11.0-py2.py3-none-any.whl
+Collecting python-dateutil (from matplotlib)
+  Using cached python_dateutil-2.6.1-py2.py3-none-any.whl
+Collecting pyparsing!=2.0.4,!=2.1.2,!=2.1.6,&gt;=1.5.6 (from matplotlib)
+  Downloading pyparsing-2.2.0-py2.py3-none-any.whl (56kB)
+    100% |████████████████████████████████| 61kB 4.4MB/s
+Installing collected packages: pytz, six, cycler, python-dateutil, pyparsing, matplotlib
+Successfully installed cycler-0.10.0 matplotlib-2.0.2 pyparsing-2.2.0 python-dateutil-2.6.1 pytz-2017.2 six-1.11.0
+</pre></div>
+
+
+<p>The last python package we will install is <code>pandas</code>. We will use <code>pandas</code> to import our <strong><em>data.csv</em></strong> file and pull out the columns we need to make the stress strain curve</p>
+<div class="highlight"><pre><span></span>(tensiletest) C:\Users\peter.kazarinoff\Documents\staticsite\content\code\tensiletest&gt;pip install pandas
+Collecting pandas
+  Downloading pandas-0.20.3-cp36-cp36m-win_amd64.whl (8.3MB)
+    100% |████████████████████████████████| 8.3MB 179kB/s
+Requirement already satisfied: numpy&gt;=1.7.0 in c:\users\peter.kazarinoff\appdata\local\continuum\anaconda3\envs\tensiletest\lib\site-packages (from pandas)
+Requirement already satisfied: pytz&gt;=2011k in c:\users\peter.kazarinoff\appdata\local\continuum\anaconda3\envs\tensiletest\lib\site-packages (from pandas)
+Requirement already satisfied: python-dateutil&gt;=2 in c:\users\peter.kazarinoff\appdata\local\continuum\anaconda3\envs\tensiletest\lib\site-packages (from pandas)
+Requirement already satisfied: six&gt;=1.5 in c:\users\peter.kazarinoff\appdata\local\continuum\anaconda3\envs\tensiletest\lib\site-packages (from python-dateutil&gt;=2-&gt;pandas)
+Installing collected packages: pandas
+Successfully installed pandas-0.20.3
+</pre></div>
+
+
+<p>To make sure that <code>numpy</code> and <code>matplotlib</code> and <code>pandas</code> are installed in our <code>tensiletest</code> virtual environemnt, type:</p>
+<div class="highlight"><pre><span></span>(tensiletest) C:\Users\peter.kazarinoff\Documents\staticsite\content\code\tensiletest&gt;pip freeze
+certifi==2017.7.27.1
+chardet==3.0.4
+cycler==0.10.0
+idna==2.6
+matplotlib==2.0.2
+numpy==1.13.3
+pandas==0.20.3
+pyparsing==2.2.0
+python-dateutil==2.6.1
+pytz==2017.2
+requests==2.18.4
+six==1.11.0
+urllib3==1.22
+wincertstore==0.2
+</pre></div>
+
+
+<p>Great! Now it is time to start coding. Make a new python file using your favorite editor called <strong><em>tensiletest.py</em></strong>. Make sure that the data set <strong><em>data.csv</em></strong> is in the same directory as your <strong><em>tensiletest.py</em></strong> file. At the start of the script, we need to import our three packages:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+</pre></div>
+
+
+<p>Now we need to read in our data from the <strong><em>data.csv</em></strong> data file. To do this we will use <code>pd.read_csv()</code> method from <code>pandas</code> to do this. We set <code>sep=','</code> because our <strong><em>data.csv</em></strong> file uses commas <code>,</code> to seperate columns. We use <code>header=0</code> to use the headers from our <strong><em>data.csv</em></strong> file as the headers in our pandas dataframe. We can also print out the data using the <code>print()</code> function</p>
+<div class="highlight"><pre><span></span><span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Now let's see if we can run our <strong><em>tensiletest.py</em></strong> script from the conda command line. Make sure that you are still in your <code>tensiletest</code> virtual environment. </p>
+<div class="highlight"><pre><span></span>(tensiletest) C:\Users\peter.kazarinoff\Documents\staticsite\content\code\tensiletest&gt;python tensiletest.py
+hello world
+     Time (s)  Position (m)  Force (N)  Speed (mm/min)
+0         0.0      0.000000          0             NaN
+1         0.2      0.000000          0            0.00
+2         0.4      0.000000          0            0.00
+3         0.6      0.000000          0            0.00
+4         0.8      0.000000          0            0.00
+5         1.0      0.000000          0            0.00
+6         1.2      0.000000          0            0.00
+7         1.4      0.000000          0            0.00
+8         1.6      0.000000          0            0.00
+9         1.8      0.000000          0            0.00
+10        2.0      0.000000          0            0.00
+11        2.2      0.000000          0            1.71
+12        2.4      0.000011          0            8.57
+13        2.6      0.000057          0           16.95
+14        2.8      0.000124          6           24.10
+15        3.0      0.000218         19           31.62
+16        3.2      0.000335         35           34.58
+17        3.4      0.000448         52           30.67
+18        3.6      0.000540         65           28.67
+19        3.8      0.000639         66           28.29
+20        4.0      0.000728         69           27.53
+21        4.2      0.000823         72           28.29
+22        4.4      0.000917         77           27.81
+23        4.6      0.001010         82           28.38
+24        4.8      0.001110         88           30.58
+25        5.0      0.001210         95           29.91
+26        5.2      0.001310        100           30.96
+27        5.4      0.001420        102           30.96
+28        5.6      0.001510        101           26.96
+29        5.8      0.001600         99           28.58
+..        ...           ...        ...             ...
+154      30.8      0.021900        126           48.58
+155      31.0      0.022100        128           60.29
+156      31.2      0.022310        130           60.01
+157      31.4      0.022500        130           55.53
+158      31.6      0.022680        130           61.34
+159      31.8      0.022910        133           64.39
+160      32.0      0.023100        132           55.91
+161      32.2      0.023280        132           51.15
+162      32.4      0.023450         79           56.96
+163      32.6      0.023660          0           52.20
+164      32.8      0.023790          0           22.38
+165      33.0      0.023810          0            4.95
+166      33.2      0.023830          0            5.62
+167      33.4      0.023850          0            5.62
+168      33.6      0.023860          0            5.43
+169      33.8      0.023880          0            5.33
+170      34.0      0.023900          0            6.19
+171      34.2      0.023920          0            7.81
+172      34.4      0.023950          0            9.53
+173      34.6      0.023990          0            6.57
+174      34.8      0.024000          0            1.24
+175      35.0      0.024000          1            0.00
+176      35.2      0.024000          0            0.00
+177      35.4      0.024000          0            0.00
+178      35.6      0.024000          0            0.00
+179      35.8      0.024000          0            0.00
+180      36.0      0.024000          0            0.00
+181      36.2      0.024000          0            0.00
+182      36.4      0.024000          0            0.00
+183      36.6      0.024000          0             NaN
+
+[184 rows x 4 columns]
+
+(tensiletest) C:\Users\peter.kazarinoff\Documents\staticsite\content\code\tensiletest&gt;
+</pre></div>
+
+
+<p>Great! Python and pandas are able to read in our <strong><em>data.csv</em></strong> file and save it to a pandas dataframe Let's try a simple plot just using matplotlib, but just to make sure it works. In <strong><em>tensiletest.py</em></strong> file add:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">skiprows</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p>If everything works correctly, you should see a plot that looks something like the follwoing:
+<img alt="simple line plot" src="/images/simple_plot.png"></p>
+<p>OK, now we need to do some manipulation. The <code>df[1]</code> column in our data set is the <strong>extension</strong> or <strong>change in length</strong>. The <code>df[2]</code> column in our data set is <strong>force</strong>. We need to convert the <strong>change in length</strong> to strain and the <strong>force</strong> to stress. To do this we need to define some sample parameters:</p>
+<div class="highlight"><pre><span></span><span class="c1"># sample parameters</span>
+<span class="n">d</span> <span class="o">=</span> <span class="mf">1.778</span>     <span class="c1"># diameter of sample in mm</span>
+<span class="n">A0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="p">(</span><span class="n">d</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="c1"># original cross-sectional area of sample in mm^2</span>
+<span class="n">L0</span> <span class="o">=</span> <span class="mf">18.002</span>   <span class="c1"># original gauge length of sample (lenth of narrowest section)</span>
+</pre></div>
+
+
+<p>Stress strain curves have <strong>strain</strong> on the x-axis, not <strong>change in length</strong>, so we need to convert our <strong>change in length</strong> to <strong>strain</strong>. The equation to use is </p>
+<div class="math">$$\epsilon = \frac{\Delta L}{L_0}$$</div>
+<p>Where <span class="math">\(\epsilon\)</span> is strain, <span class="math">\(\Delta L\)</span> is the change in length or extension, and <span class="math">\(L_0\)</span> is the original length. </p>
+<p>Stress strain curves have <strong>stress</strong> on the y-axis, not <strong>force</strong>, so we also need to convert our <strong>force</strong> to <strong>stress</strong>. The equation to use is </p>
+<div class="math">$$\sigma = \frac{F}{A_0}$$</div>
+<p>Where <span class="math">\(\sigma\)</span> is stress, <span class="math">\(F\)</span> is force and <span class="math">\(A_0\)</span> is the original cross-sectional area of the sample. We need to code these opperations into our <strong><em>tensiletest.py</em></strong> file. </p>
+<div class="highlight"><pre><span></span><span class="c1"># calculate stress and strain</span>
+<span class="n">stress</span> <span class="o">=</span> <span class="p">(</span><span class="n">force</span><span class="o">/</span><span class="n">A0</span><span class="p">)</span>
+<span class="n">strain</span> <span class="o">=</span> <span class="n">delta_L</span><span class="o">/</span><span class="n">L0</span>
+</pre></div>
+
+
+<p>Now let's plot the stress-stain curve with matplotlib. We'll put strain on the x-axis and stress on the y-axis.</p>
+<div class="highlight"><pre><span></span><span class="c1"># Plot the stress-strain curve</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">strain</span><span class="p">,</span><span class="n">stress</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p>If we run our <strong><em>tensiletest.py</em></strong> script, you should see the stress strain curve below:
+<img alt="simple line plot" src="/images/stress_strain_curve1.png"></p>
+<p>That looks pretty good. But we need to add some axis labels with units using matplotlibs <code>plt.ylabel()</code> and <code>plt.xlabel()</code> methods. Let's also add a title with the <code>plt.title()</code> method. Ensure these are in btween the <code>plt.plot()</code> and the <code>plt.show()</code>, otherwise your title and axis labels won't show up on the plot.</p>
+<div class="highlight"><pre><span></span><span class="c1"># plot the stress strain curve</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">strain</span><span class="p">,</span><span class="n">stress</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Strain (mm/mm)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Stress (MPa)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Stress-Strain Curve of Al6061 - T6&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p>You should see a plot that looks like the one below with axis labels and a title
+<img alt="simple line plot" src="/images/stress_strain_curve2.png"></p>
+<p>Lastly, we are going to make some changes to our axis limits. Notice how the plot doesn't start at <strong>strain=0</strong> or <strong>stress=0</strong>. We can change the axis limits using <code>plt.axis([Xmin, Xmax, Ymin, Ymax])</code> where <code>Xmin</code> and <code>Xmax</code> are our x-axis limits and <code>Ymin</code> and <code>Ymax</code> are our y-axis limits. We are also going to add a grid by setting <code>plt.axis()</code> to <code>True</code>.</p>
+<div class="highlight"><pre><span></span><span class="c1"># plot the stress strain curve</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">strain</span><span class="p">,</span><span class="n">stress</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Strain (mm/mm)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Stress (MPa)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Stress-Strain Curve of Al6061 - T6&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">60</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p>The final plot is shown below. The next post will detail how to calculate tensile strength, yield strength, elastic modulus and ductility from the stress strain curve. The complete <strong><em>tensiletest.py</em></strong> script is below the plot.</p>
+<p><img alt="simple line plot" src="/images/stress_strain_curve3.png"></p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+
+
+<span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">skiprows</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+<span class="c1">#plt.plot(df[1], df[2])</span>
+<span class="c1">#plt.show()</span>
+
+<span class="n">delta_L</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">*</span><span class="mi">1000</span>  
+<span class="k">print</span><span class="p">(</span><span class="n">delta_L</span><span class="p">)</span>
+<span class="n">force</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">force</span><span class="p">)</span>
+
+<span class="c1"># sample parameters</span>
+<span class="n">d</span> <span class="o">=</span> <span class="mf">1.778</span>     <span class="c1"># diameter of sample in mm</span>
+<span class="n">A0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="p">(</span><span class="n">d</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="c1"># original cross-sectional area of sample in mm^2</span>
+<span class="n">L0</span> <span class="o">=</span> <span class="mf">18.002</span>   <span class="c1"># original gauge length of sample (lenth of narrowest section)</span>
+
+<span class="c1"># calcuate stress and strain</span>
+<span class="n">stress</span> <span class="o">=</span> <span class="p">(</span><span class="n">force</span><span class="o">/</span><span class="n">A0</span><span class="p">)</span>
+<span class="n">strain</span> <span class="o">=</span> <span class="n">delta_L</span><span class="o">/</span><span class="n">L0</span>
+
+<span class="c1"># plot the stress strain curve</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">strain</span><span class="p">,</span><span class="n">stress</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Strain (mm/mm)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Stress (MPa)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Stress-Strain Curve of Al6061 - T6&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">60</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<div id="aboutme">
+        <p>
+            <img width="100%" class="img-thumbnail" src="/extra/gear-wrench-icon-512-278694.png"/>
+        </p>
+    <p>
+      <strong>About Peter Kazarinoff</strong><br/>
+        I teach engineering at a communtiy college in the Pacific Northwest. I am interested in programming and how to help students. Here I mostly blog about Python, MATLAB and how programing can be incorporated into engineering education.
+    </p>
+</div><!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Recent Posts -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+  <ul class="list-group" id="recentposts">
+    <li class="list-group-item"><a href="/how-built-site-1.html">How I build this site - Part 1</a></li>
+    <li class="list-group-item"><a href="/new-virtual-environment-with-conda.html">Create a new virtual environment with Conda</a></li>
+    <li class="list-group-item"><a href="/installing-anaconda-on-windows.html">Installing Anaconda on Windows</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Recent Posts -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-2">
+      <a href="/tag/anaconda.html">anaconda</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="/tag/conda.html">conda</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/miniconda.html">miniconda</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/pelican.html">pelican</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="/tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/staticsite.html">staticsite</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/virtualenv.html">virtualenv</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/windows.html">windows</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Github -->
+<li class="list-group-item">
+  <h4><i class="fa fa-github fa-lg"></i><span class="icon-label">GitHub Repos</span></h4>
+  <div id="gh_repos">
+    <p class="list-group-item">Status updating...</p>
+  </div>
+  <a href="https://github.com/professorkazarinoff">@professorkazarinoff</a> on GitHub
+</li>
+<!-- End Sidebar/Github -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2017 Peter Kazarinoff
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="/theme/js/respond.min.js"></script>
+
+    <script src="/static/js/custom.js"></script>
+
+
+<!-- GitHub JS Code -->
+<script type="text/javascript">
+$(document).ready(function () {
+  if (!window.jXHR) {
+    var jxhr = document.createElement('script');
+    jxhr.type = 'text/javascript';
+    jxhr.src = '/theme/js/jXHR.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(jxhr, s);
+  }
+
+  github.showRepos({
+    user: 'professorkazarinoff',
+    count: 5,
+    skip_forks: true,
+    target: '#gh_repos'
+  });
+});
+</script>
+<script src="/theme/js/github.js" type="text/javascript"></script>
+<!-- End GitHub JS Code -->
+
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+    $("div.collapseheader").click(function () {
+    $header = $(this).children("span").first();
+    $codearea = $(this).children(".input_area");
+    console.log($(this).children());
+    $codearea.slideToggle(500, function () {
+        $header.text(function () {
+            return $codearea.is(":visible") ? "Collapse Code" : "Expand Code";
+        });
+    });
+});
+});
+</script>
+</body>
+</html>

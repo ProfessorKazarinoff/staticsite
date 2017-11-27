@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Python Programming for Undergraduate Engineers</title><link href="https://pythonforundergradengineers.nyc3.digitaloceanspaces.com/index.html/" rel="alternate"></link><link href="https://pythonforundergradengineers.nyc3.digitaloceanspaces.com/index.html/feeds/all.atom.xml" rel="self"></link><id>https://pythonforundergradengineers.nyc3.digitaloceanspaces.com/index.html/</id><updated>2017-11-22T12:40:00-08:00</updated><entry><title>How I build this site - Part 1</title><link href="https://pythonforundergradengineers.nyc3.digitaloceanspaces.com/index.html/how-built-site-1.html" rel="alternate"></link><published>2017-11-22T12:40:00-08:00</published><updated>2017-11-22T12:40:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:pythonforundergradengineers.nyc3.digitaloceanspaces.com,2017-11-22:/index.html/how-built-site-1.html</id><summary type="html">&lt;p&gt;This is the first part of a multi-part series on how I built this site. In this first post, I'll review the development environment, Python, virtual environments, installing the necessary packages and setting up git.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the first part of a multi-part series on how I built this site. In this first post, we'll review the development environment, installing Python, virtual environments, installing the necessary packages and setting up git.&lt;/p&gt;
+&lt;h3&gt;Setting up the development environment&lt;/h3&gt;
+&lt;p&gt;What does that even mean? Before I started building this site I needed to make sure the necessary software, packages and settings were in place. This starts with setting up a &lt;em&gt;development environment&lt;/em&gt;. To me, a development environment is simply the software on a computer that allows me to get work done. In this case the development environment means the tools necessary to build this site. A list of the tools and technologies are below:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;An operating system: This website was built on machines running Windows 10, Mac OSX and Linux (Ubuntu 16.04 LTS).&lt;/li&gt;
+&lt;li&gt;Python: Python 3.6 (legacy Python is version 2.7)&lt;/li&gt;
+&lt;li&gt;Anaconda: The Anaconda Prompt and the Anaconda Python distribution&lt;/li&gt;
+&lt;li&gt;Github.com and git: Four different computers were used build the site. Github is the central place where the most up to date version of the site is kept. &lt;/li&gt;
+&lt;li&gt;Pelican: A static site generator written in Python. Pelican will build the site from a settings file (pelicanconf.py) and posts written in markdown (.md files)&lt;/li&gt;
+&lt;li&gt;Markdown: the posts on this website are written in markdown, or .md format&lt;/li&gt;
+&lt;li&gt;fabric and make: fabric is a python package to automate builds and tasks. Fabric works on Windows. Make is used on MacOSX and Linux to build the site and serve up a demo version of the site.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Installing Python (the Anaconda distribution)&lt;/h3&gt;
+&lt;p&gt;I highly recommend installing the Anaconda distribution of Python. I have the Anaconda distribution installed on all the computers I used to build the site:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Windows 10 Desktop at work&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Mac OSX laptop at work&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Mac OSX laptop at home&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Linux (Ubuntu 16.04 LTS) Desktop at home. &lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;An advantage of using the Anaconda distribution of Python is that each of these four computers will have the same stable version of Python. &lt;/p&gt;
+&lt;p&gt;Download the lastest release at:&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://www.anaconda.com/download/"&gt;https://www.anaconda.com/download&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The Anaconda distribution of Python comes with an up to date and stable version of Python (Python 3.6) and the &lt;strong&gt;Anaconda Prompt&lt;/strong&gt;. The &lt;strong&gt;Anaconda Prompt&lt;/strong&gt; is useful because it allows me to run shell commands on my Windows 10 machine at work. These are the same commands I would run in the terminal on my Mac OSX or Linux boxes. The &lt;strong&gt;Anaconda Prompt&lt;/strong&gt; makes creating and logging into virtual environments easy and allows me to use git on Windows 10. Follow this post to &lt;a href="https://pythonforundergradengineers.nyc3.digitaloceanspaces.com/index.html/installing-anaconda-on-windows.html"&gt;install the Anaconda on Windows 10.&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;Create a new virtual environment&lt;/h3&gt;
+&lt;p&gt;Before downloading Pelican, we should create a new virtual environment. The same virtual environment on each of the computers I use means the same packages are installed on each computer. To create a new virtual environment, open up the Anaconda Prompt (on Windows) or a terminal (on Linux or Mac OSX). Let's call our new virtual environment &lt;strong&gt;&lt;em&gt;staticsite&lt;/em&gt;&lt;/strong&gt;. The &lt;code&gt;create&lt;/code&gt; command creates the environment and the &lt;code&gt;-n staticsite&lt;/code&gt; flag adds the name.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ conda create -n staticsite
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This creates a new virtual environment called &lt;strong&gt;&lt;em&gt;staticsite&lt;/em&gt;&lt;/strong&gt;. Becuase I use four different computers to work on the site, I need to make sure the same Python packages are installed on each computer. Using a virtual environment ensures this consistency. Once the virtual environment &lt;strong&gt;&lt;em&gt;staticsite&lt;/em&gt;&lt;/strong&gt; is created, we need to activate it and start using it with the command:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;source&lt;/span&gt; activate staticsite
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We should now see &lt;code&gt;(staticsite)&lt;/code&gt; before the terminal prompt. This means we are using the &lt;code&gt;(staticsite)&lt;/code&gt; virtual environment.&lt;/p&gt;
+&lt;h3&gt;Install Pelican&lt;/h3&gt;
+&lt;p&gt;Time for some fun! Installing Pelican. Pelican is a Python package that creates static websites. Static sites are websites that only have html, css and javascript. A static site is not connected to a database and there is no code run on the server side. The server just serves static files (html, css, javascript) to the client when the client requests them. In order to install Pelican, we need to install &lt;code&gt;pip&lt;/code&gt; first.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(staticsite)$ conda install pip
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Once &lt;code&gt;pip&lt;/code&gt; is installed, we can install &lt;code&gt;pelican&lt;/code&gt; and &lt;code&gt;markdown&lt;/code&gt;. These are two of the core pieces we need to build the website. &lt;code&gt;fabric&lt;/code&gt; is also installed because we'll use it to build and demo the site on Windows.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(staticsite)$ pip install pelican
+(staticsite)$ pip install markdown
+(staticsite)$ pip install fabric
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Create a github account and create a new repository&lt;/h3&gt;
+&lt;p&gt;While I was making the site, it became clear that I had to keep track of &lt;strong&gt;&lt;em&gt;version control&lt;/em&gt;&lt;/strong&gt;. I would make some changes to the site on my computer at work, then come home and make more changes to the site. Bringing a USB thumb drive back and forth was hard. I would forget the thumb drive at work or home and then could not edit the site. Or worse, I'd edit the site in both places and try to remember which changes were made where and which was the best version. Ah!&lt;/p&gt;
+&lt;p&gt;The solution is to use &lt;strong&gt;git&lt;/strong&gt; and &lt;strong&gt;github&lt;/strong&gt;. Git is a command line utility that assists with version control. Using git means changes made to files on one computer can be synced with the same files on another computer. Github.com is the where the site content and settings are remotely stored and integrates easily with git. &lt;/p&gt;
+&lt;p&gt;To sign up for a github.com account go here:&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/join"&gt;https://github.com/join&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The account activation screen looks something like:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Github.com Join" src="../images/join_github.png"&gt;&lt;/p&gt;
+&lt;p&gt;Once the account is set up, log in and create a new repository. Use the + button on the upper right-hand menu:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="new github repo" src="../images/new_github_repo.png"&gt;&lt;/p&gt;
+&lt;p&gt;I named the new repository: &lt;strong&gt;staticsite&lt;/strong&gt; and included both a &lt;strong&gt;README.md&lt;/strong&gt; and a &lt;strong&gt;GNU General Public License v3.0&lt;/strong&gt;. &lt;/p&gt;
+&lt;p&gt;&lt;img alt="new github repo details" src="../images/create_a_new_repo_details.png"&gt;&lt;/p&gt;
+&lt;h3&gt;Make a directory for the site and link it to github&lt;/h3&gt;
+&lt;p&gt;Once the github repo (short for repository, basically a folder with files on github.com) is set up, the last step to complete the development environment is to link the remote repo on github to the local version of the site on my computer. &lt;/p&gt;
+&lt;p&gt;The local version is in a folder call &lt;code&gt;staticsite&lt;/code&gt; in the &lt;code&gt;Documents&lt;/code&gt; folder. The &lt;code&gt;staticsite&lt;/code&gt; folder will contain all the files used to build the site and the output files created by Pelican that &lt;em&gt;are&lt;/em&gt; the site.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(staticsite)$ cd ~
+(staticsite)$ cd Documents
+(staticsite)$ mkdir staticsite
+(staticsite)$ cd staticsite
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We can set up git to keep the contents of the local staticsite folder in sync with the contents of the staticsite repo on github.com. The command &lt;code&gt;git init&lt;/code&gt; will initiate or create the local repository. The command &lt;code&gt;git add origin&lt;/code&gt; followed by the url of our github repo links the folder to the repo on github. Note the web address ends in &lt;code&gt;.git&lt;/code&gt;. If you are following along and want to build your own static site, make sure to change &lt;code&gt;username&lt;/code&gt; to your github username and &lt;code&gt;reponame&lt;/code&gt; to your github repo name.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git init
+git remote add origin https://github.com/username/reponame.git
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now for the git magic. On github.com we have a README.md file and a licence. But the local staticsite folder on the computer is empty. So the two folders aren't in sync. To make the contents of each folder identical, we &lt;strong&gt;&lt;em&gt;pull&lt;/em&gt;&lt;/strong&gt; the files from github onto the local computer. A &lt;strong&gt;&lt;em&gt;pull&lt;/em&gt;&lt;/strong&gt; "pulls" or gets the files from github and copies them to the local staticsite folder.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(staticsite)$ git pull origin master
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;If you look in the local staticsite folder you should now see the following two files:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;staticsite
+├── LICENSE
+├── README.md
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The development environment is set! On to building the site!&lt;/p&gt;
+&lt;p&gt;Now each time I work on the site, I navigate to the &lt;strong&gt;staticsite&lt;/strong&gt; folder on whatever computer I am using. Before any editing, I key in the command:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git pull origin master
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The after the &lt;em&gt;pull&lt;/em&gt; the staticsite folder is up to date with the newest version of all the files on github. Then I go about editing files, writing posts, changing settings, etc. After the edits, the last thing I type before shutting down the computer for the day is:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git push origin master
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This ensures all of my computers and the github repo contain the same version of the site.&lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="staticsite"></category></entry><entry><title>Create a new virtual environment with Conda</title><link href="https://pythonforundergradengineers.nyc3.digitaloceanspaces.com/index.html/new-virtual-environment-with-conda.html" rel="alternate"></link><published>2017-11-17T20:20:00-08:00</published><updated>2017-11-17T20:20:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:pythonforundergradengineers.nyc3.digitaloceanspaces.com,2017-11-17:/index.html/new-virtual-environment-with-conda.html</id><summary type="html">&lt;p&gt;To start a new project, it is best practice to create a new virtual environment. I have the Anaconda distribution of Python installed on my machine at work and it comes with the very useful &lt;strong&gt;conda prompt&lt;/strong&gt;. Using the conda prompt is a bit like using the terminal on a …&lt;/p&gt;</summary><content type="html">&lt;p&gt;To start a new project, it is best practice to create a new virtual environment. I have the Anaconda distribution of Python installed on my machine at work and it comes with the very useful &lt;strong&gt;conda prompt&lt;/strong&gt;. Using the conda prompt is a bit like using the terminal on a Mac or Linux. To start the conda prompt on Windows, go to the Windows start button on the lower left and select Anaconda Prompt. &lt;/p&gt;
+&lt;p&gt;&lt;img alt="anaconda in start menu" src="images/anaconda_from_start_menu.png"&gt;&lt;/p&gt;
+&lt;p&gt;To make the new environment we need to issue the following command at the prompt:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;conda create --name webscrape python=3.6
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The &lt;code&gt;conda create&lt;/code&gt; command builds the new virtual environment. The &lt;code&gt;--name webscrape&lt;/code&gt; flag gives our new virtual environment the name &lt;code&gt;webscrape&lt;/code&gt;.  I like to name my virtual environments the same name as the project that I will use that environment for, or after the name of the package that will be used the most.  Including &lt;code&gt;python=3.6&lt;/code&gt; ensures that your virtual environment has an up to date version of python. &lt;/p&gt;
+&lt;p&gt;Conda will tell us:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;The following NEW packages will be INSTALLED:
+
+    certifi:        2016.2.28-py36_0
+    pip:            9.0.1-py36_1
+    python:         3.6.2-0
+    setuptools:     36.4.0-py36_0
+    vs2015_runtime: 14.0.25420-0
+    wheel:          0.29.0-py36_0
+    wincertstore:   0.2-py36_0
+
+Proceed ([y]/n)? y
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Type &lt;code&gt;y&lt;/code&gt; to confirm that you want to create the new virtual environment. To use the new virtual environment &lt;code&gt;webscrape&lt;/code&gt; you need to &lt;em&gt;activate&lt;/em&gt; it by typing:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;activate webscrape
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You know you are in your virtual environment &lt;code&gt;webscrape&lt;/code&gt; when &lt;code&gt;(webscrape)&lt;/code&gt; is in parenthesis at the start of the conda prompt&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(webscrape) tribilium@Den-PC:~$
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;To deactivate an active environment, use:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;deactivate
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;For power-users using bash on Mac or Linux, you must &lt;code&gt;source&lt;/code&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;source activate webscrape
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;and&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;source deactivate webscrape
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;If you see the &lt;code&gt;(webscrape)&lt;/code&gt; in parenthesis before the command prompt, that means you set up the new virtual environment and are now using it. You can view a list of your virtual environments using the &lt;code&gt;conda info --envs&lt;/code&gt; or &lt;code&gt;conda env list&lt;/code&gt; command.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;conda info --envs
+
+# conda environments:
+#
+matplotlib               /home/tribilium/anaconda3/envs/matplotlib
+webscrape              * /home/tribilium/anaconda3/envs/pelican
+root                     /home/tribilium/anaconda3
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Notice the &lt;code&gt;*&lt;/code&gt; asterisk on the line with &lt;code&gt;webscrape&lt;/code&gt;. The virtual environment with the &lt;code&gt;*&lt;/code&gt; is currently active. &lt;/p&gt;
+&lt;p&gt;To exit the virtual environment, use the command &lt;code&gt;deactivate&lt;/code&gt;. If run &lt;code&gt;conda env list&lt;/code&gt; again, you will see that there is no &lt;code&gt;*&lt;/code&gt; in front of &lt;code&gt;webscrape&lt;/code&gt; because you currently not in that virtual environment.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# conda environments:
+#
+matplotlib               /home/tribilium/anaconda3/envs/matplotlib
+webscrape                /home/tribilium/anaconda3/envs/pelican
+root                  *  /home/tribilium/anaconda3
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We can spin up the virtual environment again with the &lt;code&gt;activate&lt;/code&gt; command.&lt;/p&gt;</content><category term="python"></category><category term="conda"></category><category term="virtualenv"></category><category term="anaconda"></category></entry><entry><title>Installing Anaconda on Windows</title><link href="https://pythonforundergradengineers.nyc3.digitaloceanspaces.com/index.html/installing-anaconda-on-windows.html" rel="alternate"></link><published>2017-11-14T09:20:00-08:00</published><updated>2017-11-14T09:21:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:pythonforundergradengineers.nyc3.digitaloceanspaces.com,2017-11-14:/index.html/installing-anaconda-on-windows.html</id><summary type="html">&lt;p&gt;In this post, we will run through installing the &lt;a href="https://www.anaconda.com/what-is-anaconda/"&gt;Anaconda distribution&lt;/a&gt; of Python on Windows 10. I think the Anaconda distribution of Python is the the best option for undergraduate engineers who want to use Python. Anaconda is free (although the download is large which can take time) and can be installed on school or work computers where you don't have administrator access or the ability to install new programs.&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this post, we will run through installing the Anaconda distribution of Python on Windows 10. I think the Anaconda distribution of Python is the the best option for undergraduate engineers who want to use Python. Anaconda is free (although the download is large which can take time) and can be installed on school or work computers where you don't have administrator access or the ability to install new programs.&lt;/p&gt;
+&lt;h4&gt;Steps:&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Visit &lt;a href="https://www.anaconda.com/download/"&gt;Anaconda.com/downloads&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Select Windows&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Download the .exe installer&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Open and run the .exe installer&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Open the Anaconda prompt and run some Python code&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h4&gt;1. Visit the Anaconda downloads page&lt;/h4&gt;
+&lt;p&gt;Go to the following link: &lt;a href="https://www.anaconda.com/download/"&gt;Anaconda.com/downloads&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The Anaconda Downloads Page will look something like this:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="anaconda download page" src="images/anaconda_download_page.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h4&gt;2. Select the Windows&lt;/h4&gt;
+&lt;p&gt;Select Windows where the three opperating systems are listed.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="anaconda select Windows" src="images/anaconda_select_windows.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h4&gt;3. Download&lt;/h4&gt;
+&lt;p&gt;Download the Python 3.6 distribution. Python 2.7 is legacy Python. For undergraduate engineers, select the Python 3.6 version.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="anaconda select python 3.6" src="images/anaconda_python3_or_python2.png"&gt;&lt;/p&gt;
+&lt;p&gt;You may be prompted to enter your email. You can still download Anaconda if you click &lt;strong&gt;No Thanks&lt;/strong&gt; and don't enter your Work Email address.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="anaconda" src="images/anaconda_enter_email.png"&gt;&lt;/p&gt;
+&lt;p&gt;The download is quite large (over 500 MB) so it may take a while for the download to complete.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="anaconda downloading" src="images/anaconda_downloading.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h4&gt;4. Open and run the installer&lt;/h4&gt;
+&lt;p&gt;Once the download completes, open and run the .exe installer&lt;/p&gt;
+&lt;p&gt;&lt;img alt="anaconda installer" src="images/anaconda_run_installer.png"&gt;&lt;/p&gt;
+&lt;p&gt;At the beginning of the install you will need to click &lt;strong&gt;Next&lt;/strong&gt; to confirm the installation&lt;/p&gt;
+&lt;p&gt;&lt;img alt="anaconda installer click next" src="images/anaconda_installer_click_next.png"&gt;&lt;/p&gt;
+&lt;p&gt;and agree to the license&lt;/p&gt;
+&lt;p&gt;&lt;img alt="anaconda license" src="images/anaconda_agree_to_license.png"&gt;&lt;/p&gt;
+&lt;p&gt;At the Advanced Installation Options screen, I recommend that you &lt;strong&gt;do not check&lt;/strong&gt; "Add Anaconda to my PATH environment variable"&lt;/p&gt;
+&lt;p&gt;&lt;img alt="anaconda path variable" src="images/anaconda_installer_advanced_options.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h4&gt;5. Open the Conda prompt from the Windows start menu&lt;/h4&gt;
+&lt;p&gt;After the Anaconda install is complete, you can go to the Windows start menu and select the Anaconda Prompt&lt;/p&gt;
+&lt;p&gt;&lt;img alt="anaconda in start menu" src="images/anaconda_from_start_menu.png"&gt;&lt;/p&gt;
+&lt;p&gt;This will open up the Anaconda prompt, which is often called the &lt;strong&gt;Conda prompt&lt;/strong&gt;. Anaconda is the Python distribution and the Conda prompt is a command line tool (a program where you type in your commands instead of using a mouse). It doesn't look like much, but it is really helpful for an undergraduate engineer using Python.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="anaconda prompt" src="images/anaconda_window.png"&gt;&lt;/p&gt;
+&lt;p&gt;At the Anaconda prompt, type &lt;code&gt;python&lt;/code&gt;. This will start the Python interperater. &lt;/p&gt;
+&lt;p&gt;&lt;img alt="conda prompt type python" src="images/conda_prompt_type_python.png"&gt;&lt;/p&gt;
+&lt;p&gt;Note the Python version. You should see something like &lt;code&gt;Python 3.6.1&lt;/code&gt;.  With the interperter running, you will see a set of greater-than symbols &lt;code&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/code&gt; before the cursor. &lt;/p&gt;
+&lt;p&gt;&lt;img alt="anaconda prompt" src="images/conda_type_python.png"&gt;&lt;/p&gt;
+&lt;p&gt;Now you can type Python commands. Try typing &lt;code&gt;import this&lt;/code&gt;. You should see the &lt;strong&gt;&lt;em&gt;Zen of Python&lt;/em&gt;&lt;/strong&gt; by Tim Peters&lt;/p&gt;
+&lt;p&gt;&lt;img alt="anaconda_import_this" src="images/conda_import_this_output.png"&gt;&lt;/p&gt;
+&lt;p&gt;To close the Python interperater, type &lt;code&gt;exit()&lt;/code&gt; at the interperator prompt &lt;code&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/code&gt;.  Note the double parenthesis at the end of the command. The &lt;code&gt;()&lt;/code&gt; is needed to stop the Python interperator and get back out to the Conda Prompt.&lt;/p&gt;
+&lt;p&gt;To close the Conda prompt, you can either close the window with the mouse, or type &lt;code&gt;exit&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h4&gt;Congratulations! You installed the Anaconda distribution on your Windows computer!&lt;/h4&gt;
+&lt;p&gt;When you want to use the Python interperater again, just click the Windows Start button and select the &lt;strong&gt;Anaconda Prompt&lt;/strong&gt; and type &lt;code&gt;python&lt;/code&gt;.&lt;/p&gt;</content><category term="python"></category><category term="anaconda"></category><category term="miniconda"></category><category term="conda"></category><category term="windows"></category></entry></feed>

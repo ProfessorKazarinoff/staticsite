@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Python Programming for Undergraduate Engineers - this site</title><link href="https://pythonforundergradengineers.nyc3.digitaloceanspaces.com/index.html/" rel="alternate"></link><link href="https://pythonforundergradengineers.nyc3.digitaloceanspaces.com/index.html/feeds/this-site.atom.xml" rel="self"></link><id>https://pythonforundergradengineers.nyc3.digitaloceanspaces.com/index.html/</id><updated>2017-11-22T12:40:00-08:00</updated><entry><title>How I build this site - Part 1</title><link href="https://pythonforundergradengineers.nyc3.digitaloceanspaces.com/index.html/how-built-site-1.html" rel="alternate"></link><published>2017-11-22T12:40:00-08:00</published><updated>2017-11-22T12:40:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:pythonforundergradengineers.nyc3.digitaloceanspaces.com,2017-11-22:/index.html/how-built-site-1.html</id><summary type="html">&lt;p&gt;This is the first part of a multi-part series on how I built this site. In this first post, I'll review the development environment, Python, virtual environments, installing the necessary packages and setting up git.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the first part of a multi-part series on how I built this site. In this first post, we'll review the development environment, installing Python, virtual environments, installing the necessary packages and setting up git.&lt;/p&gt;
+&lt;h3&gt;Setting up the development environment&lt;/h3&gt;
+&lt;p&gt;What does that even mean? Before I started building this site I needed to make sure the necessary software, packages and settings were in place. This starts with setting up a &lt;em&gt;development environment&lt;/em&gt;. To me, a development environment is simply the software on a computer that allows me to get work done. In this case the development environment means the tools necessary to build this site. A list of the tools and technologies are below:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;An operating system: This website was built on machines running Windows 10, Mac OSX and Linux (Ubuntu 16.04 LTS).&lt;/li&gt;
+&lt;li&gt;Python: Python 3.6 (legacy Python is version 2.7)&lt;/li&gt;
+&lt;li&gt;Anaconda: The Anaconda Prompt and the Anaconda Python distribution&lt;/li&gt;
+&lt;li&gt;Github.com and git: Four different computers were used build the site. Github is the central place where the most up to date version of the site is kept. &lt;/li&gt;
+&lt;li&gt;Pelican: A static site generator written in Python. Pelican will build the site from a settings file (pelicanconf.py) and posts written in markdown (.md files)&lt;/li&gt;
+&lt;li&gt;Markdown: the posts on this website are written in markdown, or .md format&lt;/li&gt;
+&lt;li&gt;fabric and make: fabric is a python package to automate builds and tasks. Fabric works on Windows. Make is used on MacOSX and Linux to build the site and serve up a demo version of the site.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Installing Python (the Anaconda distribution)&lt;/h3&gt;
+&lt;p&gt;I highly recommend installing the Anaconda distribution of Python. I have the Anaconda distribution installed on all the computers I used to build the site:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Windows 10 Desktop at work&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Mac OSX laptop at work&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Mac OSX laptop at home&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Linux (Ubuntu 16.04 LTS) Desktop at home. &lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;An advantage of using the Anaconda distribution of Python is that each of these four computers will have the same stable version of Python. &lt;/p&gt;
+&lt;p&gt;Download the lastest release at:&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://www.anaconda.com/download/"&gt;https://www.anaconda.com/download&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The Anaconda distribution of Python comes with an up to date and stable version of Python (Python 3.6) and the &lt;strong&gt;Anaconda Prompt&lt;/strong&gt;. The &lt;strong&gt;Anaconda Prompt&lt;/strong&gt; is useful because it allows me to run shell commands on my Windows 10 machine at work. These are the same commands I would run in the terminal on my Mac OSX or Linux boxes. The &lt;strong&gt;Anaconda Prompt&lt;/strong&gt; makes creating and logging into virtual environments easy and allows me to use git on Windows 10. Follow this post to &lt;a href="https://pythonforundergradengineers.nyc3.digitaloceanspaces.com/index.html/installing-anaconda-on-windows.html"&gt;install the Anaconda on Windows 10.&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;Create a new virtual environment&lt;/h3&gt;
+&lt;p&gt;Before downloading Pelican, we should create a new virtual environment. The same virtual environment on each of the computers I use means the same packages are installed on each computer. To create a new virtual environment, open up the Anaconda Prompt (on Windows) or a terminal (on Linux or Mac OSX). Let's call our new virtual environment &lt;strong&gt;&lt;em&gt;staticsite&lt;/em&gt;&lt;/strong&gt;. The &lt;code&gt;create&lt;/code&gt; command creates the environment and the &lt;code&gt;-n staticsite&lt;/code&gt; flag adds the name.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ conda create -n staticsite
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This creates a new virtual environment called &lt;strong&gt;&lt;em&gt;staticsite&lt;/em&gt;&lt;/strong&gt;. Becuase I use four different computers to work on the site, I need to make sure the same Python packages are installed on each computer. Using a virtual environment ensures this consistency. Once the virtual environment &lt;strong&gt;&lt;em&gt;staticsite&lt;/em&gt;&lt;/strong&gt; is created, we need to activate it and start using it with the command:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;source&lt;/span&gt; activate staticsite
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We should now see &lt;code&gt;(staticsite)&lt;/code&gt; before the terminal prompt. This means we are using the &lt;code&gt;(staticsite)&lt;/code&gt; virtual environment.&lt;/p&gt;
+&lt;h3&gt;Install Pelican&lt;/h3&gt;
+&lt;p&gt;Time for some fun! Installing Pelican. Pelican is a Python package that creates static websites. Static sites are websites that only have html, css and javascript. A static site is not connected to a database and there is no code run on the server side. The server just serves static files (html, css, javascript) to the client when the client requests them. In order to install Pelican, we need to install &lt;code&gt;pip&lt;/code&gt; first.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(staticsite)$ conda install pip
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Once &lt;code&gt;pip&lt;/code&gt; is installed, we can install &lt;code&gt;pelican&lt;/code&gt; and &lt;code&gt;markdown&lt;/code&gt;. These are two of the core pieces we need to build the website. &lt;code&gt;fabric&lt;/code&gt; is also installed because we'll use it to build and demo the site on Windows.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(staticsite)$ pip install pelican
+(staticsite)$ pip install markdown
+(staticsite)$ pip install fabric
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Create a github account and create a new repository&lt;/h3&gt;
+&lt;p&gt;While I was making the site, it became clear that I had to keep track of &lt;strong&gt;&lt;em&gt;version control&lt;/em&gt;&lt;/strong&gt;. I would make some changes to the site on my computer at work, then come home and make more changes to the site. Bringing a USB thumb drive back and forth was hard. I would forget the thumb drive at work or home and then could not edit the site. Or worse, I'd edit the site in both places and try to remember which changes were made where and which was the best version. Ah!&lt;/p&gt;
+&lt;p&gt;The solution is to use &lt;strong&gt;git&lt;/strong&gt; and &lt;strong&gt;github&lt;/strong&gt;. Git is a command line utility that assists with version control. Using git means changes made to files on one computer can be synced with the same files on another computer. Github.com is the where the site content and settings are remotely stored and integrates easily with git. &lt;/p&gt;
+&lt;p&gt;To sign up for a github.com account go here:&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/join"&gt;https://github.com/join&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The account activation screen looks something like:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Github.com Join" src="../images/join_github.png"&gt;&lt;/p&gt;
+&lt;p&gt;Once the account is set up, log in and create a new repository. Use the + button on the upper right-hand menu:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="new github repo" src="../images/new_github_repo.png"&gt;&lt;/p&gt;
+&lt;p&gt;I named the new repository: &lt;strong&gt;staticsite&lt;/strong&gt; and included both a &lt;strong&gt;README.md&lt;/strong&gt; and a &lt;strong&gt;GNU General Public License v3.0&lt;/strong&gt;. &lt;/p&gt;
+&lt;p&gt;&lt;img alt="new github repo details" src="../images/create_a_new_repo_details.png"&gt;&lt;/p&gt;
+&lt;h3&gt;Make a directory for the site and link it to github&lt;/h3&gt;
+&lt;p&gt;Once the github repo (short for repository, basically a folder with files on github.com) is set up, the last step to complete the development environment is to link the remote repo on github to the local version of the site on my computer. &lt;/p&gt;
+&lt;p&gt;The local version is in a folder call &lt;code&gt;staticsite&lt;/code&gt; in the &lt;code&gt;Documents&lt;/code&gt; folder. The &lt;code&gt;staticsite&lt;/code&gt; folder will contain all the files used to build the site and the output files created by Pelican that &lt;em&gt;are&lt;/em&gt; the site.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(staticsite)$ cd ~
+(staticsite)$ cd Documents
+(staticsite)$ mkdir staticsite
+(staticsite)$ cd staticsite
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We can set up git to keep the contents of the local staticsite folder in sync with the contents of the staticsite repo on github.com. The command &lt;code&gt;git init&lt;/code&gt; will initiate or create the local repository. The command &lt;code&gt;git add origin&lt;/code&gt; followed by the url of our github repo links the folder to the repo on github. Note the web address ends in &lt;code&gt;.git&lt;/code&gt;. If you are following along and want to build your own static site, make sure to change &lt;code&gt;username&lt;/code&gt; to your github username and &lt;code&gt;reponame&lt;/code&gt; to your github repo name.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git init
+git remote add origin https://github.com/username/reponame.git
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now for the git magic. On github.com we have a README.md file and a licence. But the local staticsite folder on the computer is empty. So the two folders aren't in sync. To make the contents of each folder identical, we &lt;strong&gt;&lt;em&gt;pull&lt;/em&gt;&lt;/strong&gt; the files from github onto the local computer. A &lt;strong&gt;&lt;em&gt;pull&lt;/em&gt;&lt;/strong&gt; "pulls" or gets the files from github and copies them to the local staticsite folder.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(staticsite)$ git pull origin master
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;If you look in the local staticsite folder you should now see the following two files:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;staticsite
+├── LICENSE
+├── README.md
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The development environment is set! On to building the site!&lt;/p&gt;
+&lt;p&gt;Now each time I work on the site, I navigate to the &lt;strong&gt;staticsite&lt;/strong&gt; folder on whatever computer I am using. Before any editing, I key in the command:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git pull origin master
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The after the &lt;em&gt;pull&lt;/em&gt; the staticsite folder is up to date with the newest version of all the files on github. Then I go about editing files, writing posts, changing settings, etc. After the edits, the last thing I type before shutting down the computer for the day is:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git push origin master
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This ensures all of my computers and the github repo contain the same version of the site.&lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="staticsite"></category></entry></feed>

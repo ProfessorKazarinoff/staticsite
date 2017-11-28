@@ -89,7 +89,7 @@ Now we can spin up the settings and structure of our pelican build. Start the pr
 (staticsite)$ pelican-quickstart
 ```
 
-Pelican will ask us a bunch of questions at the start. These are the initial settings I used are below. Make sure to change the title, author, URL prefix, and timezone:
+Pelican will ask us a bunch of questions at the start. The initial settings I used are below. Make sure to change the title, author, URL prefix, and timezone:
 
 ```
 > Where do you want to create your new web site? [.]
@@ -143,11 +143,6 @@ staticsite/
 │
 ├───content
 ├───output
-│   └───theme
-│       ├───css
-│       └───images
-│           └───icons
-│
 └───__pycache__
 ```
 
@@ -181,11 +176,6 @@ staticsite/
 │       first_post.md
 │
 ├───output
-│   └───theme
-│       ├───css
-│       └───images
-│           └───icons
-│
 └───__pycache__
 ```
 

@@ -1,66 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b04184e7-bac5-4b26-83fb-481bbc5fb95f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/archives.html" afterPath="$PROJECT_DIR$/output/archives.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/author/peter-d-kazarinoff.html" afterPath="$PROJECT_DIR$/output/author/peter-d-kazarinoff.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/authors.html" afterPath="$PROJECT_DIR$/output/authors.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/categories.html" afterPath="$PROJECT_DIR$/output/categories.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/category/orientation.html" afterPath="$PROJECT_DIR$/output/category/orientation.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/category/this-site.html" afterPath="$PROJECT_DIR$/output/category/this-site.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/bar-plot-with-error-bars-using-seaborn-matplotlib-python.html" afterPath="$PROJECT_DIR$/output/drafts/bar-plot-with-error-bars-using-seaborn-matplotlib-python.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/circuit-diagrams-with-schemdraw.html" afterPath="$PROJECT_DIR$/output/drafts/circuit-diagrams-with-schemdraw.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/converting-units-with-pint-and-python.html" afterPath="$PROJECT_DIR$/output/drafts/converting-units-with-pint-and-python.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/crank-and-rocker-motion.html" afterPath="$PROJECT_DIR$/output/drafts/crank-and-rocker-motion.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/executing-interpreted-computer-language.html" afterPath="$PROJECT_DIR$/output/drafts/executing-interpreted-computer-language.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/four-stats-charts.html" afterPath="$PROJECT_DIR$/output/drafts/four-stats-charts.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/how-built-site-2.html" afterPath="$PROJECT_DIR$/output/drafts/how-built-site-2.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/how-built-site-3.html" afterPath="$PROJECT_DIR$/output/drafts/how-built-site-3.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/how-built-site-5.html" afterPath="$PROJECT_DIR$/output/drafts/how-built-site-5.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/inset-on-stress-strain-curve-with-matplotlib.html" afterPath="$PROJECT_DIR$/output/drafts/inset-on-stress-strain-curve-with-matplotlib.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/jupyter-notebook-from-code-folder-using-liquid-tags.html" afterPath="$PROJECT_DIR$/output/drafts/jupyter-notebook-from-code-folder-using-liquid-tags.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/jupyter-notebook-in-pelican-liquid-tags.html" afterPath="$PROJECT_DIR$/output/drafts/jupyter-notebook-in-pelican-liquid-tags.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/juypter-notebook-post-1.html" afterPath="$PROJECT_DIR$/output/drafts/juypter-notebook-post-1.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/m-notebookpost.html" afterPath="$PROJECT_DIR$/output/drafts/m-notebookpost.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/matplotlib-animation-in-jupyter-notebook.html" afterPath="$PROJECT_DIR$/output/drafts/matplotlib-animation-in-jupyter-notebook.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/offset-piston-motion.html" afterPath="$PROJECT_DIR$/output/drafts/offset-piston-motion.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/piston-motion.html" afterPath="$PROJECT_DIR$/output/drafts/piston-motion.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/plotting-normal-curve-with-python.html" afterPath="$PROJECT_DIR$/output/drafts/plotting-normal-curve-with-python.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/probability-under-normal-curve-with-python.html" afterPath="$PROJECT_DIR$/output/drafts/probability-under-normal-curve-with-python.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/python-and-beautifulsoup-read-multiple-course-pages.html" afterPath="$PROJECT_DIR$/output/drafts/python-and-beautifulsoup-read-multiple-course-pages.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/python-and-beautifulsoup-webscrape-objects-with-attributes.html" afterPath="$PROJECT_DIR$/output/drafts/python-and-beautifulsoup-webscrape-objects-with-attributes.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/python-and-pint-unit-conversion.html" afterPath="$PROJECT_DIR$/output/drafts/python-and-pint-unit-conversion.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/python-beautifulsoup-course-info.html" afterPath="$PROJECT_DIR$/output/drafts/python-beautifulsoup-course-info.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/python-matplotlib-error-bars.html" afterPath="$PROJECT_DIR$/output/drafts/python-matplotlib-error-bars.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/python-matplotlib-stress-strain-properties.html" afterPath="$PROJECT_DIR$/output/drafts/python-matplotlib-stress-strain-properties.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/python-matplotlib-stress-strain.html" afterPath="$PROJECT_DIR$/output/drafts/python-matplotlib-stress-strain.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/seaborn-bar-chart.html" afterPath="$PROJECT_DIR$/output/drafts/seaborn-bar-chart.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/stress-strain-curve-with-inset.html" afterPath="$PROJECT_DIR$/output/drafts/stress-strain-curve-with-inset.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/unicode-characters-in-python.html" afterPath="$PROJECT_DIR$/output/drafts/unicode-characters-in-python.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/violin-plot-using-python-matplotlib-and-seaborn.html" afterPath="$PROJECT_DIR$/output/drafts/violin-plot-using-python-matplotlib-and-seaborn.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/virtualenv-in-osx-linux-windows.html" afterPath="$PROJECT_DIR$/output/drafts/virtualenv-in-osx-linux-windows.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/why-i-love-conda.html" afterPath="$PROJECT_DIR$/output/drafts/why-i-love-conda.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/why-python-for-engineers.html" afterPath="$PROJECT_DIR$/output/drafts/why-python-for-engineers.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/how-built-site-1.html" afterPath="$PROJECT_DIR$/output/how-built-site-1.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/index.html" afterPath="$PROJECT_DIR$/output/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/installing-anaconda-on-windows.html" afterPath="$PROJECT_DIR$/output/installing-anaconda-on-windows.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/new-virtual-environment-with-conda.html" afterPath="$PROJECT_DIR$/output/new-virtual-environment-with-conda.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/pages/about.html" afterPath="$PROJECT_DIR$/output/pages/about.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/pages/book.html" afterPath="$PROJECT_DIR$/output/pages/book.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/posts/2017/Nov/index.html" afterPath="$PROJECT_DIR$/output/posts/2017/Nov/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/posts/2017/index.html" afterPath="$PROJECT_DIR$/output/posts/2017/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/search.html" afterPath="$PROJECT_DIR$/output/search.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/tag/anaconda.html" afterPath="$PROJECT_DIR$/output/tag/anaconda.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/tag/conda.html" afterPath="$PROJECT_DIR$/output/tag/conda.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/tag/miniconda.html" afterPath="$PROJECT_DIR$/output/tag/miniconda.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/tag/pelican.html" afterPath="$PROJECT_DIR$/output/tag/pelican.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/tag/python.html" afterPath="$PROJECT_DIR$/output/tag/python.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/tag/staticsite.html" afterPath="$PROJECT_DIR$/output/tag/staticsite.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/tag/virtualenv.html" afterPath="$PROJECT_DIR$/output/tag/virtualenv.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/tag/windows.html" afterPath="$PROJECT_DIR$/output/tag/windows.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/tags.html" afterPath="$PROJECT_DIR$/output/tags.html" />
-    </list>
+    <list default="true" id="b04184e7-bac5-4b26-83fb-481bbc5fb95f" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -532,7 +473,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="812" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24964234" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -542,7 +483,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32916668" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32916668" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />

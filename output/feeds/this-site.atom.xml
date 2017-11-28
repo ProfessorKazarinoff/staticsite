@@ -1,5 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Python Programming for Undergraduate Engineers - this site</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="https://professorkazarinoff.github.io/staticsite/feeds/this-site.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2017-11-22T12:40:00-08:00</updated><entry><title>How I build this site - Part 1</title><link href="https://professorkazarinoff.github.io/staticsite/how-built-site-1.html" rel="alternate"></link><published>2017-11-22T12:40:00-08:00</published><updated>2017-11-22T12:40:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-11-22:/staticsite/how-built-site-1.html</id><summary type="html">&lt;p&gt;This is the first part of a multi-part series on how I built this site. In this first post, I'll review the development environment, Python, virtual environments, installing the necessary packages and setting up git.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the first part of a multi-part series on how I built this site. In this first post, we'll review the development environment, installing Python, virtual environments, installing the necessary packages and setting up git.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Python Programming for Undergraduate Engineers - This site</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="https://professorkazarinoff.github.io/staticsite/feeds/this-site.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2017-11-27T12:40:00-08:00</updated><entry><title>How I Build This Site - Part 6</title><link href="https://professorkazarinoff.github.io/staticsite/how-built-site-6.html" rel="alternate"></link><published>2017-11-27T12:40:00-08:00</published><updated>2017-11-27T12:40:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-11-27:/staticsite/how-built-site-6.html</id><summary type="html">&lt;p&gt;This is the sixth part of a multi-part series on how I built this site. In last post, we customized the site and added the ability to use jupyter notebooks in posts.  In this post we are going to deploy the site to github pages. Github pages is a place on github were documentation and static sites can be hosted. It was tricky for me to set this up, but after a lot of different trial and error, I was able to get it to work.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the sixth part of a multi-part series on how I built this site. In last post, we customized the site and added the ability to use jupyter notebooks in posts.  In this post we are going to deploy the site to github pages. Github pages is a place on github were documentation and static sites can be hosted. It was tricky for me to set this up, but after a lot of different trial and error, I was able to get it to work.&lt;/p&gt;
+&lt;h3&gt;Steps in this post&lt;/h3&gt;
+&lt;p&gt;By the end of the post we are going to have a working website on github pages. To accomplish we will go through the following steps.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Pull the most recient version of the site from gitub&lt;/li&gt;
+&lt;li&gt;Run pelican's &lt;code&gt;make html&lt;/code&gt; command to build the site and preview it with &lt;code&gt;make serve&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Modify the publishconf.py file with our github pages url&lt;/li&gt;
+&lt;li&gt;Use &lt;code&gt;pelican content -s publishconf.py&lt;/code&gt; to make a published version of the site in the output directory&lt;/li&gt;
+&lt;li&gt;Add, commit, push the published contents to github&lt;/li&gt;
+&lt;li&gt;make a gh-pages branch in our staticsite repo on github&lt;/li&gt;
+&lt;li&gt;Use &lt;code&gt;git subtree push --prefix output origin gh-pages&lt;/code&gt; to push the output directory to the gh-pages branch&lt;/li&gt;
+&lt;li&gt;View the freshly published site! &lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;OK, let's get started. Can't wait to see the published site live up on github pages.&lt;/p&gt;
+&lt;h3&gt;Pull to the most recent version of the site from github&lt;/h3&gt;
+&lt;p&gt;Open a terminal and &lt;code&gt;cd&lt;/code&gt; to the &lt;code&gt;staticsite&lt;/code&gt; folder. Then we need to activate our &lt;code&gt;(staticsite)&lt;/code&gt; virtual environment with &lt;code&gt;source activate staticsite&lt;/code&gt;. Once in the &lt;code&gt;(staticsite)&lt;/code&gt; environment, we can call &lt;code&gt;git pull origin master&lt;/code&gt; to pull the most recent version of the site down from github.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;cd ~/Documents/staticsite
+source activate staticsite
+(staticsite) $ git pull origin master
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This will place the contents of our site in the &lt;code&gt;output&lt;/code&gt; folder.  We can preview the site with &lt;code&gt;make serve&lt;/code&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(staticsite) $ make html
+(staticsite) $ make serve
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We can now look at our staticsite by pointing a browser to:&lt;/p&gt;
+&lt;p&gt;&lt;a href="localhost:8000"&gt;localhost:8000&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;we can press &lt;code&gt;ctr-c&lt;/code&gt; to stop the server.&lt;/p&gt;
+&lt;h3&gt;Modify the &lt;em&gt;publishconf.py&lt;/em&gt; file to use the github pages url&lt;/h3&gt;
+&lt;p&gt;The static site folder should look something like this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;staticsite
+├── LICENSE
+├── Makefile
+├── README.md
+├── __pycache__
+├── _nb_header.html
+├── content
+├── develop_server.sh
+├── fabfile.py
+├── output
+├── pelican-plugins
+├── pelican-themes
+├── pelican.pid
+├── pelicanconf.py
+├── publishconf.py
+└── srv.pid
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;we need to edit the &lt;strong&gt;&lt;em&gt;publishconf.py&lt;/em&gt;&lt;/strong&gt; file to use our github pages url and set relative url's to True. The lines to change are:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;#publishconf.py
+SITEURL = &amp;#39;https://username.github.io/staticsite&amp;#39;
+RELATIVE_URLS = True
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Make sure to set &lt;code&gt;username&lt;/code&gt; to your github user name. Setting &lt;code&gt;RELATIVE_URLS = True&lt;/code&gt; is necessary to get the links in the site to work and have the css and javascript files run on github pages.&lt;/p&gt;
+&lt;h3&gt;Make a published version of the site&lt;/h3&gt;
+&lt;p&gt;Up to this point, we have been using the &lt;code&gt;make html&lt;/code&gt; command to build a demo version of the site. Now we are ready to &lt;strong&gt;publish&lt;/strong&gt; the site. We do this by running the command:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;pelican content -s publishconf.py
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This creates a published version of the site with relative url's in the output directory. &lt;/p&gt;
+&lt;h3&gt;Add, commit, push to the master branch on github&lt;/h3&gt;
+&lt;p&gt;Before we can put the published version of the site up on github pages, we need to push the current version of the site up to the master branch.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git add .
+git commit -m &amp;quot;first published version&amp;quot;
+git push origin master
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Create a gh-pages branch in our staticsite repo on github&lt;/h3&gt;
+&lt;p&gt;On github, we have so far only been saving our work in the &lt;strong&gt;master&lt;/strong&gt; branch of the staticsite repository. To have the site hosted on githubpages we need to create a new branch in the staticsite repo called &lt;strong&gt;gh-pages&lt;/strong&gt;. Any html, css and javascript files in the &lt;strong&gt;gh-pages&lt;/strong&gt; branch will be served like a regular website. To create a new branch, go the repo on github and click the &lt;strong&gt;Branch: Master&lt;/strong&gt; drop down menu on the upper left hand site. Enter the name of the new branch: &lt;strong&gt;gh-pages&lt;/strong&gt;&lt;/p&gt;
+&lt;h3&gt;Use the git subtree command to push the contents of the output directory to the gh-pages branch&lt;/h3&gt;
+&lt;p&gt;I tried a bunch of different ways to get the contents of the output directory up to github pages. I tried multiple times to use the &lt;strong&gt;ghp-import&lt;/strong&gt; command shown in the Pelican documentation, but I never got it to work right. I also tried to use git submodules, but had trouble with that as well. The way that finally worked was to use the &lt;code&gt;git subtree&lt;/code&gt; command. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git subtree push --prefix output origin gh-pages
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Note the subtree we are pushing is the contents of the &lt;strong&gt;output&lt;/strong&gt; directory. We are pushing this subtree to the &lt;strong&gt;gh-pages&lt;/strong&gt; branch. &lt;/p&gt;
+&lt;h3&gt;View the site on github pages.&lt;/h3&gt;
+&lt;p&gt;Awesome! The site is now on github pages. Point a browser to the githubpages url:&lt;/p&gt;
+&lt;p&gt;https://username.github.io/staticsite&lt;/p&gt;
+&lt;p&gt;Change &lt;em&gt;username&lt;/em&gt; to your github user name. My site (the one that you are reading) is hosted here: &lt;/p&gt;
+&lt;p&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite"&gt;https://professorkazarinoff.github.io/staticsite&lt;/a&gt;&lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="blog"></category><category term="git"></category><category term="gitjub"></category></entry><entry><title>How I build this site - Part 1</title><link href="https://professorkazarinoff.github.io/staticsite/how-built-site-1.html" rel="alternate"></link><published>2017-11-22T12:40:00-08:00</published><updated>2017-11-22T12:40:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-11-22:/staticsite/how-built-site-1.html</id><summary type="html">&lt;p&gt;This is the first part of a multi-part series on how I built this site. In this first post, I'll review the development environment, Python, virtual environments, installing the necessary packages and setting up git.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the first part of a multi-part series on how I built this site. In this first post, we'll review the development environment, installing Python, virtual environments, installing the necessary packages and setting up git.&lt;/p&gt;
 &lt;h3&gt;Setting up the development environment&lt;/h3&gt;
 &lt;p&gt;What does that even mean? Before I started building this site I needed to make sure the necessary software, packages and settings were in place. This starts with setting up a &lt;em&gt;development environment&lt;/em&gt;. To me, a development environment is simply the software on a computer that allows me to get work done. In this case the development environment means the tools necessary to build this site. A list of the tools and technologies are below:&lt;/p&gt;
 &lt;ol&gt;

@@ -3,7 +3,7 @@ Date: 2017-11-27 12:40
 Modified: 2017-11-27 12:40
 Status: Published
 Category: This site
-Tags: python, pelican, blog, git, gitjub
+Tags: python, pelican, blog, git, github
 Slug: how-built-site-6
 Authors: Peter D. Kazarinoff
 Series: How I built this site
@@ -26,7 +26,7 @@ By the end of the post we are going to have a working static website hosted on g
 8. View the freshly published site! 
 
 
-OK, let's get started. Can't wait to see the published site live up on github pages.
+OK, let's get started. Can't wait to see the published site live on github pages.
 
 
 ### Pull to the most recent version of the site from github
@@ -39,7 +39,7 @@ source activate staticsite
 (staticsite) $ git pull origin master
 ```
 
-Now we use the ```make html``` command to build a demo version of the site. This will place the static files (html, css, javascript) that is the site in the output folder.  We can preview the site with ```make serve```
+Now we use the ```make html``` command to build a demo version of the site. This will place the static files (html, css, javascript) that forms the static site in the **output** folder.  We can preview the site with ```make serve```
 
 ```
 (staticsite) $ make html
@@ -52,7 +52,7 @@ The demo version of our static site can now be viewed by pointing a browser to:
 
 Press ```ctr-c``` to stop the server.
 
-### Modify the _publishconf.py_ file to use the github pages url
+### Modify the **_publishconf.py_** file to use the github pages url
 
 The staticsite directory should look something like this:
 ```
@@ -74,7 +74,7 @@ staticsite
 └── srv.pid
 ```
  
-we need to edit the **_publishconf.py_** file to add our github pages url and set relative url's to True. The lines to change are:
+we need to edit the **_publishconf.py_** file to add our github pages url to ```SITEURL``` and set ```RELATIVE_URLS``` to True. The lines to change are:
 
 ```
 #publishconf.py
@@ -82,17 +82,17 @@ SITEURL = 'https://username.github.io/staticsite'
 RELATIVE_URLS = True
 ```
 
-Make sure to set ```username``` to your github user name. Setting ```RELATIVE_URLS = True``` is necessary for the links on the site to work and for the css and javascript files run on github pages. When I initiall set ```RELATIVE_URLS = False```, the site looked terrible with no formatting or css and none of the links worked. Setting ```RELATIVE_URLS = True``` fixed the problem.
+Make sure to set ```username``` to your github user name. Setting ```RELATIVE_URLS = True``` is necessary for the links on the site to work and for the css and javascript files run on github pages. When I initiall set ```RELATIVE_URLS = False```, the site looked terrible, had no formatting or css and none of the links worked. Setting ```RELATIVE_URLS = True``` fixed the problem.
 
-### Make a published version of the site
+### Create a published version of the site
 
-Up to this point, we have been using the ```make html``` command to build a demo version of the site. Now we are ready to **publish** the site. We do this by running the command:
+Up to this point, we have been using the ```make html``` command to build a demo version of the site. Now we are ready to _publish_ the site. We do this by running the command:
 
 ```
 pelican content -s publishconf.py
 ```
 
-This creates a published version of the site with relative url's in the output directory. 
+This creates a published version of the site with relative url's in the **output** directory. 
 
 ### Add, commit, push to the master branch on github
 
@@ -106,17 +106,17 @@ git push origin master
 
 ### Create a gh-pages branch in our staticsite repo on github
 
-So far we have only been saving our work to the **master** branch of the staticsite repository on github. To host the site on githubpages we need to create a new branch in the staticsite repo called **gh-pages**. Any html, css and javascript files in the **gh-pages** branch of the staticsite repo on github will be served like a regular website. To create a new branch, go the main staticsite repository page on github and click the **Branch: Master** drop down menu on the upper left hand site. Enter the name of the new branch: **gh-pages**
+So far we have only been saving our work to the **master** branch of the staticsite repository on github. To host the site on github pages, we need to create a new branch in the staticsite repo called **gh-pages**. The **master** branch will still house the settings, code and markup files to build the site. Any html, css and javascript files in the **gh-pages** branch of the staticsite repo on github will be served like a regular website. To create the new branch, go the main staticsite repository page on github and click the **Branch: Master** drop down menu on the upper left hand side. Enter the name of the new branch: **gh-pages**
 
 ### Use the git subtree command to push the contents of the output directory to the **gh-pages** branch
 
-I tried a bunch of different ways to get the contents of the output directory up to github pages. First I tried multiple times to use the **ghp-import** command shown in the [Pelican documentation](http://docs.getpelican.com/en/stable/tips.html), but I never got it to work right. I also tried to use git submodules, but had trouble with that as well. The way that finally worked was to use the ```git subtree``` command. 
+I tried a bunch of different ways to send the contents of the output directory up to github pages. First I tried multiple times to use the ```ghp-import``` command shown in the [Pelican documentation](http://docs.getpelican.com/en/stable/tips.html), but I never got it to work right. I also tried to use git submodules, but had trouble with that as well. The way that finally worked was to use the ```git subtree``` command. 
 
 ```
 git subtree push --prefix output origin gh-pages
 ```
 
-Note the subtree we are pushing is the contents of the **output** directory. We are pushing this subtree to the **gh-pages** branch. 
+Note the subtree we are pushing is the **output** directory. We are pushing this subtree to the **gh-pages** branch. 
 
 ### View the site on github pages.
 

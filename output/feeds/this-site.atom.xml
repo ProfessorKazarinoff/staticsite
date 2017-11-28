@@ -12,7 +12,7 @@
 &lt;li&gt;Use &lt;code&gt;git subtree push --prefix output origin gh-pages&lt;/code&gt; to push the output directory to the gh-pages branch&lt;/li&gt;
 &lt;li&gt;View the freshly published site! &lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;OK, let's get started. Can't wait to see the published site live up on github pages.&lt;/p&gt;
+&lt;p&gt;OK, let's get started. Can't wait to see the published site live on github pages.&lt;/p&gt;
 &lt;h3&gt;Pull to the most recent version of the site from github&lt;/h3&gt;
 &lt;p&gt;Open a terminal and &lt;code&gt;cd&lt;/code&gt; to the &lt;code&gt;staticsite&lt;/code&gt; folder. Then we need to activate our &lt;code&gt;(staticsite)&lt;/code&gt; virtual environment with &lt;code&gt;source activate staticsite&lt;/code&gt;. Once in the &lt;code&gt;(staticsite)&lt;/code&gt; environment, we can call &lt;code&gt;git pull origin master&lt;/code&gt; to pull the most recent version of the site down from github.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;cd ~/Documents/staticsite
@@ -21,7 +21,7 @@ source activate staticsite
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Now we use the &lt;code&gt;make html&lt;/code&gt; command to build a demo version of the site. This will place the static files (html, css, javascript) that is the site in the output folder.  We can preview the site with &lt;code&gt;make serve&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Now we use the &lt;code&gt;make html&lt;/code&gt; command to build a demo version of the site. This will place the static files (html, css, javascript) that forms the static site in the &lt;strong&gt;output&lt;/strong&gt; folder.  We can preview the site with &lt;code&gt;make serve&lt;/code&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(staticsite) $ make html
 (staticsite) $ make serve
 &lt;/pre&gt;&lt;/div&gt;
@@ -30,7 +30,7 @@ source activate staticsite
 &lt;p&gt;The demo version of our static site can now be viewed by pointing a browser to:&lt;/p&gt;
 &lt;p&gt;&lt;a href="localhost:8000"&gt;localhost:8000&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Press &lt;code&gt;ctr-c&lt;/code&gt; to stop the server.&lt;/p&gt;
-&lt;h3&gt;Modify the &lt;em&gt;publishconf.py&lt;/em&gt; file to use the github pages url&lt;/h3&gt;
+&lt;h3&gt;Modify the &lt;strong&gt;&lt;em&gt;publishconf.py&lt;/em&gt;&lt;/strong&gt; file to use the github pages url&lt;/h3&gt;
 &lt;p&gt;The staticsite directory should look something like this:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;staticsite
 ├── LICENSE
@@ -51,21 +51,21 @@ source activate staticsite
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;we need to edit the &lt;strong&gt;&lt;em&gt;publishconf.py&lt;/em&gt;&lt;/strong&gt; file to add our github pages url and set relative url's to True. The lines to change are:&lt;/p&gt;
+&lt;p&gt;we need to edit the &lt;strong&gt;&lt;em&gt;publishconf.py&lt;/em&gt;&lt;/strong&gt; file to add our github pages url to &lt;code&gt;SITEURL&lt;/code&gt; and set &lt;code&gt;RELATIVE_URLS&lt;/code&gt; to True. The lines to change are:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;#publishconf.py
 SITEURL = &amp;#39;https://username.github.io/staticsite&amp;#39;
 RELATIVE_URLS = True
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Make sure to set &lt;code&gt;username&lt;/code&gt; to your github user name. Setting &lt;code&gt;RELATIVE_URLS = True&lt;/code&gt; is necessary for the links on the site to work and for the css and javascript files run on github pages. When I initiall set &lt;code&gt;RELATIVE_URLS = False&lt;/code&gt;, the site looked terrible with no formatting or css and none of the links worked. Setting &lt;code&gt;RELATIVE_URLS = True&lt;/code&gt; fixed the problem.&lt;/p&gt;
-&lt;h3&gt;Make a published version of the site&lt;/h3&gt;
-&lt;p&gt;Up to this point, we have been using the &lt;code&gt;make html&lt;/code&gt; command to build a demo version of the site. Now we are ready to &lt;strong&gt;publish&lt;/strong&gt; the site. We do this by running the command:&lt;/p&gt;
+&lt;p&gt;Make sure to set &lt;code&gt;username&lt;/code&gt; to your github user name. Setting &lt;code&gt;RELATIVE_URLS = True&lt;/code&gt; is necessary for the links on the site to work and for the css and javascript files run on github pages. When I initiall set &lt;code&gt;RELATIVE_URLS = False&lt;/code&gt;, the site looked terrible, had no formatting or css and none of the links worked. Setting &lt;code&gt;RELATIVE_URLS = True&lt;/code&gt; fixed the problem.&lt;/p&gt;
+&lt;h3&gt;Create a published version of the site&lt;/h3&gt;
+&lt;p&gt;Up to this point, we have been using the &lt;code&gt;make html&lt;/code&gt; command to build a demo version of the site. Now we are ready to &lt;em&gt;publish&lt;/em&gt; the site. We do this by running the command:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;pelican content -s publishconf.py
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;This creates a published version of the site with relative url's in the output directory. &lt;/p&gt;
+&lt;p&gt;This creates a published version of the site with relative url's in the &lt;strong&gt;output&lt;/strong&gt; directory. &lt;/p&gt;
 &lt;h3&gt;Add, commit, push to the master branch on github&lt;/h3&gt;
 &lt;p&gt;Before we can put the published version of the site up on github pages, we need to push the current version of the site up to the master branch.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git add .
@@ -75,19 +75,19 @@ git push origin master
 
 
 &lt;h3&gt;Create a gh-pages branch in our staticsite repo on github&lt;/h3&gt;
-&lt;p&gt;So far we have only been saving our work to the &lt;strong&gt;master&lt;/strong&gt; branch of the staticsite repository on github. To host the site on githubpages we need to create a new branch in the staticsite repo called &lt;strong&gt;gh-pages&lt;/strong&gt;. Any html, css and javascript files in the &lt;strong&gt;gh-pages&lt;/strong&gt; branch of the staticsite repo on github will be served like a regular website. To create a new branch, go the main staticsite repository page on github and click the &lt;strong&gt;Branch: Master&lt;/strong&gt; drop down menu on the upper left hand site. Enter the name of the new branch: &lt;strong&gt;gh-pages&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;So far we have only been saving our work to the &lt;strong&gt;master&lt;/strong&gt; branch of the staticsite repository on github. To host the site on github pages, we need to create a new branch in the staticsite repo called &lt;strong&gt;gh-pages&lt;/strong&gt;. The &lt;strong&gt;master&lt;/strong&gt; branch will still house the settings, code and markup files to build the site. Any html, css and javascript files in the &lt;strong&gt;gh-pages&lt;/strong&gt; branch of the staticsite repo on github will be served like a regular website. To create the new branch, go the main staticsite repository page on github and click the &lt;strong&gt;Branch: Master&lt;/strong&gt; drop down menu on the upper left hand side. Enter the name of the new branch: &lt;strong&gt;gh-pages&lt;/strong&gt;&lt;/p&gt;
 &lt;h3&gt;Use the git subtree command to push the contents of the output directory to the &lt;strong&gt;gh-pages&lt;/strong&gt; branch&lt;/h3&gt;
-&lt;p&gt;I tried a bunch of different ways to get the contents of the output directory up to github pages. First I tried multiple times to use the &lt;strong&gt;ghp-import&lt;/strong&gt; command shown in the &lt;a href="http://docs.getpelican.com/en/stable/tips.html"&gt;Pelican documentation&lt;/a&gt;, but I never got it to work right. I also tried to use git submodules, but had trouble with that as well. The way that finally worked was to use the &lt;code&gt;git subtree&lt;/code&gt; command. &lt;/p&gt;
+&lt;p&gt;I tried a bunch of different ways to send the contents of the output directory up to github pages. First I tried multiple times to use the &lt;code&gt;ghp-import&lt;/code&gt; command shown in the &lt;a href="http://docs.getpelican.com/en/stable/tips.html"&gt;Pelican documentation&lt;/a&gt;, but I never got it to work right. I also tried to use git submodules, but had trouble with that as well. The way that finally worked was to use the &lt;code&gt;git subtree&lt;/code&gt; command. &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git subtree push --prefix output origin gh-pages
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Note the subtree we are pushing is the contents of the &lt;strong&gt;output&lt;/strong&gt; directory. We are pushing this subtree to the &lt;strong&gt;gh-pages&lt;/strong&gt; branch. &lt;/p&gt;
+&lt;p&gt;Note the subtree we are pushing is the &lt;strong&gt;output&lt;/strong&gt; directory. We are pushing this subtree to the &lt;strong&gt;gh-pages&lt;/strong&gt; branch. &lt;/p&gt;
 &lt;h3&gt;View the site on github pages.&lt;/h3&gt;
 &lt;p&gt;Awesome! The site is now on github pages! Pretty cool right? Point a browser to the githubpages url:&lt;/p&gt;
 &lt;p&gt;https://username.github.io/staticsite&lt;/p&gt;
 &lt;p&gt;Change &lt;em&gt;username&lt;/em&gt; to your github user name. My site (the one that you are reading) is hosted here: &lt;/p&gt;
-&lt;p&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite"&gt;https://professorkazarinoff.github.io/staticsite&lt;/a&gt;&lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="blog"></category><category term="git"></category><category term="gitjub"></category></entry><entry><title>How I build this site - Part 1</title><link href="https://professorkazarinoff.github.io/staticsite/how-built-site-1.html" rel="alternate"></link><published>2017-11-22T12:40:00-08:00</published><updated>2017-11-22T12:40:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-11-22:/staticsite/how-built-site-1.html</id><summary type="html">&lt;p&gt;This is the first part of a multi-part series on how I built this site. In this first post, I'll review the development environment, Python, virtual environments, installing the necessary packages and setting up git.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the first part of a multi-part series on how I built this site. In this first post, we'll review the development environment, installing Python, virtual environments, installing the necessary packages and setting up git.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite"&gt;https://professorkazarinoff.github.io/staticsite&lt;/a&gt;&lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="blog"></category><category term="git"></category><category term="github"></category></entry><entry><title>How I build this site - Part 1</title><link href="https://professorkazarinoff.github.io/staticsite/how-built-site-1.html" rel="alternate"></link><published>2017-11-22T12:40:00-08:00</published><updated>2017-11-22T12:40:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-11-22:/staticsite/how-built-site-1.html</id><summary type="html">&lt;p&gt;This is the first part of a multi-part series on how I built this site. In this first post, I'll review the development environment, Python, virtual environments, installing the necessary packages and setting up git.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the first part of a multi-part series on how I built this site. In this first post, we'll review the development environment, installing Python, virtual environments, installing the necessary packages and setting up git.&lt;/p&gt;
 &lt;h3&gt;Setting up the development environment&lt;/h3&gt;
 &lt;p&gt;What does that even mean? Before I started building this site I needed to make sure the necessary software, packages and settings were in place. This starts with setting up a &lt;em&gt;development environment&lt;/em&gt;. To me, a development environment is simply the software on a computer that allows me to get work done. In this case the development environment means the tools necessary to build this site. A list of the tools and technologies are below:&lt;/p&gt;
 &lt;ol&gt;

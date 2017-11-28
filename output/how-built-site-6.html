@@ -177,7 +177,7 @@ init_mathjax();
 <link rel="canonical" href="./how-built-site-6.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
-        <meta name="keywords" content="python,pelican,blog,git,gitjub" />
+        <meta name="keywords" content="python,pelican,blog,git,github" />
         <meta name="description" content="This is the sixth part of a multi-part series on how I built this site. In last post, we customized the site and added the ability to use jupyter notebooks in posts. In this post we are going to deploy the site to github pages. Github pages is a place on github were documentation and static sites can be hosted. It was tricky for me to set this up, but after a lot of different trial and error, I was able to get it to work." />
 
         <meta property="og:site_name" content="Python Programming for Undergraduate Engineers" />
@@ -191,7 +191,7 @@ init_mathjax();
             <meta property="article:tag" content="pelican" />
             <meta property="article:tag" content="blog" />
             <meta property="article:tag" content="git" />
-            <meta property="article:tag" content="gitjub" />
+            <meta property="article:tag" content="github" />
             <meta property="article:author" content="Peter D. Kazarinoff" />
 
 
@@ -294,7 +294,7 @@ Python Programming for Undergraduate Engineers            </a>
         /
 	<a href="./tag/git.html">git</a>
         /
-	<a href="./tag/gitjub.html">gitjub</a>
+	<a href="./tag/github.html">github</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
@@ -311,7 +311,7 @@ Python Programming for Undergraduate Engineers            </a>
 <li>Use <code>git subtree push --prefix output origin gh-pages</code> to push the output directory to the gh-pages branch</li>
 <li>View the freshly published site! </li>
 </ol>
-<p>OK, let's get started. Can't wait to see the published site live up on github pages.</p>
+<p>OK, let's get started. Can't wait to see the published site live on github pages.</p>
 <h3>Pull to the most recent version of the site from github</h3>
 <p>Open a terminal and <code>cd</code> to the <code>staticsite</code> folder. Then we need to activate our <code>(staticsite)</code> virtual environment with <code>source activate staticsite</code>. Once in the <code>(staticsite)</code> environment, we can call <code>git pull origin master</code> to pull the most recent version of the site down from github.</p>
 <div class="highlight"><pre><span></span>cd ~/Documents/staticsite
@@ -320,7 +320,7 @@ source activate staticsite
 </pre></div>
 
 
-<p>Now we use the <code>make html</code> command to build a demo version of the site. This will place the static files (html, css, javascript) that is the site in the output folder.  We can preview the site with <code>make serve</code></p>
+<p>Now we use the <code>make html</code> command to build a demo version of the site. This will place the static files (html, css, javascript) that forms the static site in the <strong>output</strong> folder.  We can preview the site with <code>make serve</code></p>
 <div class="highlight"><pre><span></span>(staticsite) $ make html
 (staticsite) $ make serve
 </pre></div>
@@ -329,7 +329,7 @@ source activate staticsite
 <p>The demo version of our static site can now be viewed by pointing a browser to:</p>
 <p><a href="localhost:8000">localhost:8000</a></p>
 <p>Press <code>ctr-c</code> to stop the server.</p>
-<h3>Modify the <em>publishconf.py</em> file to use the github pages url</h3>
+<h3>Modify the <strong><em>publishconf.py</em></strong> file to use the github pages url</h3>
 <p>The staticsite directory should look something like this:</p>
 <div class="highlight"><pre><span></span>staticsite
 ├── LICENSE
@@ -350,21 +350,21 @@ source activate staticsite
 </pre></div>
 
 
-<p>we need to edit the <strong><em>publishconf.py</em></strong> file to add our github pages url and set relative url's to True. The lines to change are:</p>
+<p>we need to edit the <strong><em>publishconf.py</em></strong> file to add our github pages url to <code>SITEURL</code> and set <code>RELATIVE_URLS</code> to True. The lines to change are:</p>
 <div class="highlight"><pre><span></span>#publishconf.py
 SITEURL = &#39;https://username.github.io/staticsite&#39;
 RELATIVE_URLS = True
 </pre></div>
 
 
-<p>Make sure to set <code>username</code> to your github user name. Setting <code>RELATIVE_URLS = True</code> is necessary for the links on the site to work and for the css and javascript files run on github pages. When I initiall set <code>RELATIVE_URLS = False</code>, the site looked terrible with no formatting or css and none of the links worked. Setting <code>RELATIVE_URLS = True</code> fixed the problem.</p>
-<h3>Make a published version of the site</h3>
-<p>Up to this point, we have been using the <code>make html</code> command to build a demo version of the site. Now we are ready to <strong>publish</strong> the site. We do this by running the command:</p>
+<p>Make sure to set <code>username</code> to your github user name. Setting <code>RELATIVE_URLS = True</code> is necessary for the links on the site to work and for the css and javascript files run on github pages. When I initiall set <code>RELATIVE_URLS = False</code>, the site looked terrible, had no formatting or css and none of the links worked. Setting <code>RELATIVE_URLS = True</code> fixed the problem.</p>
+<h3>Create a published version of the site</h3>
+<p>Up to this point, we have been using the <code>make html</code> command to build a demo version of the site. Now we are ready to <em>publish</em> the site. We do this by running the command:</p>
 <div class="highlight"><pre><span></span>pelican content -s publishconf.py
 </pre></div>
 
 
-<p>This creates a published version of the site with relative url's in the output directory. </p>
+<p>This creates a published version of the site with relative url's in the <strong>output</strong> directory. </p>
 <h3>Add, commit, push to the master branch on github</h3>
 <p>Before we can put the published version of the site up on github pages, we need to push the current version of the site up to the master branch.</p>
 <div class="highlight"><pre><span></span>git add .
@@ -374,14 +374,14 @@ git push origin master
 
 
 <h3>Create a gh-pages branch in our staticsite repo on github</h3>
-<p>So far we have only been saving our work to the <strong>master</strong> branch of the staticsite repository on github. To host the site on githubpages we need to create a new branch in the staticsite repo called <strong>gh-pages</strong>. Any html, css and javascript files in the <strong>gh-pages</strong> branch of the staticsite repo on github will be served like a regular website. To create a new branch, go the main staticsite repository page on github and click the <strong>Branch: Master</strong> drop down menu on the upper left hand site. Enter the name of the new branch: <strong>gh-pages</strong></p>
+<p>So far we have only been saving our work to the <strong>master</strong> branch of the staticsite repository on github. To host the site on github pages, we need to create a new branch in the staticsite repo called <strong>gh-pages</strong>. The <strong>master</strong> branch will still house the settings, code and markup files to build the site. Any html, css and javascript files in the <strong>gh-pages</strong> branch of the staticsite repo on github will be served like a regular website. To create the new branch, go the main staticsite repository page on github and click the <strong>Branch: Master</strong> drop down menu on the upper left hand side. Enter the name of the new branch: <strong>gh-pages</strong></p>
 <h3>Use the git subtree command to push the contents of the output directory to the <strong>gh-pages</strong> branch</h3>
-<p>I tried a bunch of different ways to get the contents of the output directory up to github pages. First I tried multiple times to use the <strong>ghp-import</strong> command shown in the <a href="http://docs.getpelican.com/en/stable/tips.html">Pelican documentation</a>, but I never got it to work right. I also tried to use git submodules, but had trouble with that as well. The way that finally worked was to use the <code>git subtree</code> command. </p>
+<p>I tried a bunch of different ways to send the contents of the output directory up to github pages. First I tried multiple times to use the <code>ghp-import</code> command shown in the <a href="http://docs.getpelican.com/en/stable/tips.html">Pelican documentation</a>, but I never got it to work right. I also tried to use git submodules, but had trouble with that as well. The way that finally worked was to use the <code>git subtree</code> command. </p>
 <div class="highlight"><pre><span></span>git subtree push --prefix output origin gh-pages
 </pre></div>
 
 
-<p>Note the subtree we are pushing is the contents of the <strong>output</strong> directory. We are pushing this subtree to the <strong>gh-pages</strong> branch. </p>
+<p>Note the subtree we are pushing is the <strong>output</strong> directory. We are pushing this subtree to the <strong>gh-pages</strong> branch. </p>
 <h3>View the site on github pages.</h3>
 <p>Awesome! The site is now on github pages! Pretty cool right? Point a browser to the githubpages url:</p>
 <p>https://username.github.io/staticsite</p>
@@ -442,7 +442,7 @@ git push origin master
       <a href="./tag/git.html">git</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="./tag/gitjub.html">gitjub</a>
+      <a href="./tag/github.html">github</a>
     </li>
     <li class="list-group-item tag-4">
       <a href="./tag/miniconda.html">miniconda</a>

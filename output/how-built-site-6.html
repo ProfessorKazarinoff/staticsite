@@ -357,9 +357,9 @@ RELATIVE_URLS = True
 </pre></div>
 
 
-<p>Make sure to set <code>username</code> to your github user name. Setting <code>RELATIVE_URLS = True</code> is necessary for the links on the site to work and for the css and javascript files run on github pages. When I initiall set <code>RELATIVE_URLS = False</code>, the site looked terrible, had no formatting or css and none of the links worked. Setting <code>RELATIVE_URLS = True</code> fixed the problem.</p>
+<p>Make sure to set <code>username</code> to your github user name. Setting <code>RELATIVE_URLS = True</code> is necessary for the links on the site to work and for the css and javascript files run on github pages. When I initially set <code>RELATIVE_URLS = False</code>, the site looked terrible, had no formatting or css and none of the links worked. Setting <code>RELATIVE_URLS = True</code> fixed the problem.</p>
 <h3>Create a published version of the site</h3>
-<p>Up to this point, we have been using the <code>make html</code> command to build a demo version of the site. Now we are ready to <em>publish</em> the site. We do this by running the command:</p>
+<p>Up to this point, we used the <code>make html</code> command to build a demo version of the site. Now we are ready to <em>publish</em> the site. We publish the site by running the command:</p>
 <div class="highlight"><pre><span></span>pelican content -s publishconf.py
 </pre></div>
 
@@ -373,17 +373,17 @@ git push origin master
 </pre></div>
 
 
-<h3>Create a gh-pages branch in our staticsite repo on github</h3>
-<p>So far we have only been saving our work to the <strong>master</strong> branch of the staticsite repository on github. To host the site on github pages, we need to create a new branch in the staticsite repo called <strong>gh-pages</strong>. The <strong>master</strong> branch will still house the settings, code and markup files to build the site. Any html, css and javascript files in the <strong>gh-pages</strong> branch of the staticsite repo on github will be served like a regular website. To create the new branch, go the main staticsite repository page on github and click the <strong>Branch: Master</strong> drop down menu on the upper left hand side. Enter the name of the new branch: <strong>gh-pages</strong></p>
-<h3>Use the git subtree command to push the contents of the output directory to the <strong>gh-pages</strong> branch</h3>
-<p>I tried a bunch of different ways to send the contents of the output directory up to github pages. First I tried multiple times to use the <code>ghp-import</code> command shown in the <a href="http://docs.getpelican.com/en/stable/tips.html">Pelican documentation</a>, but I never got it to work right. I also tried to use git submodules, but had trouble with that as well. The way that finally worked was to use the <code>git subtree</code> command. </p>
+<h3>Create a <strong>gh-pages</strong> branch in our staticsite repo on github</h3>
+<p>Up to this point, we saved our work to the <strong>master</strong> branch of the staticsite repository on github. To host the site on github pages, we need to create a new branch in the staticsite repo called <strong>gh-pages</strong>. The <strong>master</strong> branch still houses the code,settings, markup files, notebooks, images, etc. to build the site. Any html, css and javascript files in the <strong>gh-pages</strong> branch of the staticsite repo on github will be served like a regular website. To create the new branch, go the main staticsite repository page on github and click the <strong>Branch: Master</strong> drop down menu on the upper left hand side. Enter the name of the new branch: <strong>gh-pages</strong></p>
+<h3>Use the git subtree command to push the contents of the <strong>output</strong> directory to the <strong>gh-pages</strong> branch</h3>
+<p>I tried a bunch of different ways to send the contents of the <strong>output</strong> directory up to github pages. First I tried multiple times to use <code>ghp-import</code> shown in the <a href="http://docs.getpelican.com/en/stable/tips.html">Pelican documentation</a>, but I never got it to work right. I also tried using git submodules, but had trouble with that as well. I kept getting commit error messages. The way that finally worked was the <code>git subtree</code> command. </p>
 <div class="highlight"><pre><span></span>git subtree push --prefix output origin gh-pages
 </pre></div>
 
 
 <p>Note the subtree we are pushing is the <strong>output</strong> directory. We are pushing this subtree to the <strong>gh-pages</strong> branch. </p>
 <h3>View the site on github pages.</h3>
-<p>Awesome! The site is now on github pages! Pretty cool right? Point a browser to the githubpages url:</p>
+<p>Awesome! The site is now hosted for everyone to see on github pages! Pretty cool right? Point a browser to the github pages url and take a look:</p>
 <p>https://username.github.io/staticsite</p>
 <p>Change <em>username</em> to your github user name. My site (the one that you are reading) is hosted here: </p>
 <p><a href="https://professorkazarinoff.github.io/staticsite">https://professorkazarinoff.github.io/staticsite</a></p>

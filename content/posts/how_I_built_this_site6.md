@@ -82,11 +82,11 @@ SITEURL = 'https://username.github.io/staticsite'
 RELATIVE_URLS = True
 ```
 
-Make sure to set ```username``` to your github user name. Setting ```RELATIVE_URLS = True``` is necessary for the links on the site to work and for the css and javascript files run on github pages. When I initiall set ```RELATIVE_URLS = False```, the site looked terrible, had no formatting or css and none of the links worked. Setting ```RELATIVE_URLS = True``` fixed the problem.
+Make sure to set ```username``` to your github user name. Setting ```RELATIVE_URLS = True``` is necessary for the links on the site to work and for the css and javascript files run on github pages. When I initially set ```RELATIVE_URLS = False```, the site looked terrible, had no formatting or css and none of the links worked. Setting ```RELATIVE_URLS = True``` fixed the problem.
 
 ### Create a published version of the site
 
-Up to this point, we have been using the ```make html``` command to build a demo version of the site. Now we are ready to _publish_ the site. We do this by running the command:
+Up to this point, we used the ```make html``` command to build a demo version of the site. Now we are ready to _publish_ the site. We publish the site by running the command:
 
 ```
 pelican content -s publishconf.py
@@ -104,13 +104,13 @@ git commit -m "first published version"
 git push origin master
 ```
 
-### Create a gh-pages branch in our staticsite repo on github
+### Create a **gh-pages** branch in our staticsite repo on github
 
-So far we have only been saving our work to the **master** branch of the staticsite repository on github. To host the site on github pages, we need to create a new branch in the staticsite repo called **gh-pages**. The **master** branch will still house the settings, code and markup files to build the site. Any html, css and javascript files in the **gh-pages** branch of the staticsite repo on github will be served like a regular website. To create the new branch, go the main staticsite repository page on github and click the **Branch: Master** drop down menu on the upper left hand side. Enter the name of the new branch: **gh-pages**
+Up to this point, we saved our work to the **master** branch of the staticsite repository on github. To host the site on github pages, we need to create a new branch in the staticsite repo called **gh-pages**. The **master** branch still houses the code,settings, markup files, notebooks, images, etc. to build the site. Any html, css and javascript files in the **gh-pages** branch of the staticsite repo on github will be served like a regular website. To create the new branch, go the main staticsite repository page on github and click the **Branch: Master** drop down menu on the upper left hand side. Enter the name of the new branch: **gh-pages**
 
-### Use the git subtree command to push the contents of the output directory to the **gh-pages** branch
+### Use the git subtree command to push the contents of the **output** directory to the **gh-pages** branch
 
-I tried a bunch of different ways to send the contents of the output directory up to github pages. First I tried multiple times to use the ```ghp-import``` command shown in the [Pelican documentation](http://docs.getpelican.com/en/stable/tips.html), but I never got it to work right. I also tried to use git submodules, but had trouble with that as well. The way that finally worked was to use the ```git subtree``` command. 
+I tried a bunch of different ways to send the contents of the **output** directory up to github pages. First I tried multiple times to use ```ghp-import``` shown in the [Pelican documentation](http://docs.getpelican.com/en/stable/tips.html), but I never got it to work right. I also tried using git submodules, but had trouble with that as well. I kept getting commit error messages. The way that finally worked was the ```git subtree``` command. 
 
 ```
 git subtree push --prefix output origin gh-pages
@@ -120,7 +120,7 @@ Note the subtree we are pushing is the **output** directory. We are pushing this
 
 ### View the site on github pages.
 
-Awesome! The site is now on github pages! Pretty cool right? Point a browser to the githubpages url:
+Awesome! The site is now hosted for everyone to see on github pages! Pretty cool right? Point a browser to the github pages url and take a look:
 
 https://username.github.io/staticsite
 

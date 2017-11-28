@@ -40,7 +40,7 @@ CUSTOM_JS = 'static/js/custom.js'
 PYGMENTS_STYLE = 'native'
 
 #to ignore any injected css for ipynb pages
-IPYNB_IGNORE_CSS = True
+IPYNB_IGNORE_CSS = True  ###change back!!!!!!!!!!!!!
 #EXTRA_HEADER = open('_nb_header.html').read().decode('utf-8')
 
 #For voidy-bootstrap that allows first article full page
@@ -54,11 +54,12 @@ IPYNB_IGNORE_CSS = True
 JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n']}
 PLUGINS = [
     'i18n_subsites','series','tag_cloud',
-    'liquid_tags.img', 'liquid_tags.video', 'liquid_tags.youtube',
+    'liquid_tags.img', 'liquid_tags.video', 'liquid_tags.youtube', 'liquid_tags.notebook',
     'liquid_tags.vimeo',
-    'liquid_tags.include_code','liquid_tags.notebook',
-    'render_math','tipue_search'] #'pelican_javascript','pelican-ipynb.markup'
+    'liquid_tags.include_code',
+    'render_math','tipue_search','pelican-ipynb.markup'] #'pelican_javascript','pelican-ipynb.markup'
 
+#
 
 NOTEBOOK_DIR = 'posts'
 

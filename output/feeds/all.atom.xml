@@ -1,5 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Python Programming for Undergraduate Engineers</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="https://professorkazarinoff.github.io/staticsite/feeds/all.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2017-11-27T12:40:00-08:00</updated><entry><title>How I build this site - Part 6</title><link href="https://professorkazarinoff.github.io/staticsite/how-built-site-6.html" rel="alternate"></link><published>2017-11-27T12:40:00-08:00</published><updated>2017-11-27T12:40:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-11-27:/staticsite/how-built-site-6.html</id><summary type="html">&lt;p&gt;This is the sixth part of a multi-part series on how I built this site. In last post, we customized the site and added the ability to use jupyter notebooks in posts.  In this post we are going to deploy the site to &lt;a href="https://pages.github.com/"&gt;github pages&lt;/a&gt;. Github pages is a place on github were documentation and static sites can be hosted. It was tricky for me to set this up, but after a lot of different trial and error, I was able to get it to work.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the sixth part of a multi-part series on how I built this site. In last post, we customized the site and added the ability to use jupyter notebooks in posts.  In this post we are going to deploy the site to &lt;a href="https://pages.github.com/"&gt;github pages&lt;/a&gt;. Github pages is a place on github were documentation and static sites can be hosted. It was tricky for me to set this up, but after a lot of different trial and error, I was able to get it to work.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Python Programming for Undergraduate Engineers</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="https://professorkazarinoff.github.io/staticsite/feeds/all.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2017-11-28T14:15:00-08:00</updated><entry><title>How I build this site - Part 2</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-2.html" rel="alternate"></link><published>2017-11-28T14:15:00-08:00</published><updated>2017-11-28T14:15:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-11-28:/staticsite/how-i-built-this-site-2.html</id><summary type="html">&lt;p&gt;This is the second part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-site-1.html"&gt;last post&lt;/a&gt;, we set up our development environment including Python, a new virtual environment, installed the pelican and markdown packages and set up git. In this post, we will use the &lt;code&gt;pelican-quickstart&lt;/code&gt; command to get the blog off the ground. We are also going to create a &lt;strong&gt;first_post.md&lt;/strong&gt; file and serve up the website locally so we can take a look at it.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the second part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-site-1.html"&gt;last post&lt;/a&gt;, we set up our development environment including Python, a new virtual environment, installed the pelican and markdown packages and set up git. In this post, we will use the &lt;code&gt;pelican-quickstart&lt;/code&gt; command to get the blog off the ground. We are also going to create a &lt;strong&gt;first_post.md&lt;/strong&gt; file and serve up the website locally so we can take a look at it.&lt;/p&gt;
+&lt;h3&gt;Steps in this post&lt;/h3&gt;
+&lt;p&gt;We are going to accomplish the following in this post. By the end of the post, we will have a working website with one blog post served up locally and an updated github repo with all the changes saved.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Activate our &lt;code&gt;staticsite&lt;/code&gt; virtual environment&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Pull&lt;/em&gt; the most recent version of our site from github&lt;/li&gt;
+&lt;li&gt;Use the &lt;code&gt;pelican-quickstart&lt;/code&gt; command to make a first version of the site&lt;/li&gt;
+&lt;li&gt;Write a first post in markup language (.md)&lt;/li&gt;
+&lt;li&gt;Build the site using the &lt;code&gt;make html&lt;/code&gt; command&lt;/li&gt;
+&lt;li&gt;Serve the site locally using &lt;code&gt;make serve&lt;/code&gt; and view with a web browser&lt;/li&gt;
+&lt;li&gt;Add and commit the changes then push those changes to github&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;That's a lot to do, so let's get started.&lt;/p&gt;
+&lt;h3&gt;Activate our &lt;strong&gt;staticsite&lt;/strong&gt; virtual environment&lt;/h3&gt;
+&lt;p&gt;I highly recommend installing the Anaconda distribution of python. If you followed along with the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-site-1.html"&gt;previous post&lt;/a&gt;, you already installed Anaconda and can pull up the Anaconda prompt. Open the Anaconda Prompt and see which virtual environments are available.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ conda info --envs
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You should see a list of all the virtual environments conda has created on your machine. It should look something like:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;staticsite                  C:\Users\user.name\AppData\Local\Continuum\Anaconda3\envs\staticsite
+root                     *  C:\Users\user.name\AppData\Local\Continuum\Anaconda3
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The &lt;code&gt;staticsite&lt;/code&gt; virtual environment is the one we set up to create our site. Activate it with:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;source&lt;/span&gt; activate staticsite
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You should now see &lt;code&gt;(staticsite)&lt;/code&gt; before the command prompt. This means we are operating in the &lt;code&gt;staticsite&lt;/code&gt; virtual environment. &lt;/p&gt;
+&lt;h3&gt;View installed packages&lt;/h3&gt;
+&lt;p&gt;We installed pelican, markdown and fabric in the last post. Let's make sure they are installed in our &lt;code&gt;(staticsite)&lt;/code&gt; virtual environment.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(staticsite)$ pip freeze
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Make sure you see the following modules are installed: &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;beautifulsoup4==4.6.0
+Jinja2==2.9.6
+Fabric==1.14.0
+Markdown==2.6.9
+pelican==3.7.1
+Pygments==2.2.0
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Pelican Quickstart - make the site!&lt;/h3&gt;
+&lt;p&gt;We are now going to build the site! Exciting stuff. With the virtual environment and packages in place, we just need to make sure we are in a directory where we want our site to live.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(staticsite)$ cd ~
+(staticsite)$ cd Documents
+(staticsite)$ cd staticsite
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You can confirm you are working in the staticsite directory by typing &lt;code&gt;pwd&lt;/code&gt; which stands for &lt;em&gt;print working directory&lt;/em&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;(staticsite)$ pwd&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Now we can spin up the settings and structure of our pelican build. Start the process with the command:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(staticsite)$ pelican-quickstart
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Pelican will ask us a bunch of questions at the start. These are the initial settings I used are below. Make sure to change the title, author, URL prefix, and timezone:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;gt; Where do you want to create your new web site? [.]
+&amp;gt; What will be the title of this web site? Python Programming for Undergraduate Engineers
+&amp;gt; Who will be the author of this web site? Peter D. Kazarinoff
+&amp;gt; What will be the default language of this web site? [English]
+&amp;gt; Do you want to specify a URL prefix? e.g., http://example.com   (Y/n) Y
+&amp;gt; What is your URL prefix? (see above example; no trailing slash) https://username.github.io/staticsite
+&amp;gt; Do you want to enable article pagination? (Y/n) Y
+&amp;gt; How many articles per page do you want? [10] 5
+&amp;gt; What is your time zone? [Europe/Paris] America/Los_Angeles
+&amp;gt; Do you want to generate a Fabfile/Makefile to automate generation and publishing? (Y/n) Y
+&amp;gt; Do you want an auto-reload &amp;amp; simpleHTTP script to assist with theme and site development? (Y/n) Y
+&amp;gt; Do you want to upload your website using FTP? (y/N) N
+&amp;gt; Do you want to upload your website using SSH? (y/N) N
+&amp;gt; Do you want to upload your website using Dropbox? (y/N) N
+&amp;gt; Do you want to upload your website using S3? (y/N) N
+&amp;gt; Do you want to upload your website using Rackspace Cloud Files? (y/N) N
+&amp;gt; Do you want to upload your website using GitHub Pages? (y/N) y
+&amp;gt; Is this your personal page (username.github.io)? (y/N) N
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now we can create and view the site. The command &lt;code&gt;make html&lt;/code&gt; will create the site and the command &lt;code&gt;make serve&lt;/code&gt; will spin up a local webserver that allows us to view the site.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(staticsite)$ make html
+(staticsite)$ make serve
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Point a web browser to: &lt;a href="localhost:8000"&gt;localhost:8000&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="local host in browser" src="https://professorkazarinoff.github.io/staticsite/images/browser_to_localhost8000.png"&gt;&lt;/p&gt;
+&lt;p&gt;The site will look something like:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="default pelican site" src="https://professorkazarinoff.github.io/staticsite/images/default_site_no_posts.png"&gt;&lt;/p&gt;
+&lt;p&gt;We can shut down the server by typing &lt;code&gt;ctrl-c&lt;/code&gt;&lt;/p&gt;
+&lt;h3&gt;Write a first post in markup language (.md)&lt;/h3&gt;
+&lt;p&gt;Time to write our first post. The contents of the &lt;strong&gt;staticsite&lt;/strong&gt; directory should look something like:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;staticsite/
+│   develop_server.sh
+│   fabfile.py
+│   Makefile
+│   pelicanconf.py
+│   publishconf.py
+│
+├───content
+├───output
+│   └───theme
+│       ├───css
+│       └───images
+│           └───icons
+│
+└───__pycache__
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;To make a new post, we need to add a markup file (.md file) to the &lt;strong&gt;content&lt;/strong&gt; folder. Let's call our first post &lt;strong&gt;&lt;em&gt;first_post.md&lt;/em&gt;&lt;/strong&gt;. Depending on the computer I'm using, I create .md files with different programs. One Windows 10, I have been using Code Writer. On Mac OSX and Linux, I use &lt;a href="https://www.jetbrains.com/pycharm/"&gt;PyCharm&lt;/a&gt;. The &lt;strong&gt;&lt;em&gt;first_post.md&lt;/em&gt;&lt;/strong&gt; file saved in the content folder needs to have the form:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;Title&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;First&lt;/span&gt; &lt;span class="n"&gt;Post&lt;/span&gt;
+&lt;span class="n"&gt;Date&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;2017&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;13&lt;/span&gt; &lt;span class="mi"&gt;12&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;40&lt;/span&gt;
+&lt;span class="n"&gt;Modified&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;2017&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;13&lt;/span&gt; &lt;span class="mi"&gt;12&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;40&lt;/span&gt;
+&lt;span class="n"&gt;Status&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;published&lt;/span&gt;
+&lt;span class="n"&gt;Category&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;This&lt;/span&gt; &lt;span class="n"&gt;site&lt;/span&gt;
+&lt;span class="n"&gt;Tags&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;python&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;markdown&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;blog&lt;/span&gt;
+&lt;span class="n"&gt;Slug&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;first&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;post&lt;/span&gt;
+&lt;span class="n"&gt;Authors&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Peter&lt;/span&gt; &lt;span class="n"&gt;D&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="n"&gt;Kazarinoff&lt;/span&gt;
+&lt;span class="n"&gt;Summary&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;This&lt;/span&gt; &lt;span class="k"&gt;is&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;summary&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;first&lt;/span&gt; &lt;span class="n"&gt;post&lt;/span&gt;
+
+&lt;span class="n"&gt;This&lt;/span&gt; &lt;span class="k"&gt;is&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;very&lt;/span&gt; &lt;span class="n"&gt;first&lt;/span&gt; &lt;span class="n"&gt;post&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;After saving the file &lt;strong&gt;&lt;em&gt;first_post.md&lt;/em&gt;&lt;/strong&gt; in the &lt;strong&gt;content&lt;/strong&gt; folder, the static site folder should look something like:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;staticsite/
+│   develop_server.sh
+│   fabfile.py
+│   Makefile
+│   pelicanconf.py
+│   publishconf.py
+│
+├───content
+│       first_post.md
+│
+├───output
+│   └───theme
+│       ├───css
+│       └───images
+│           └───icons
+│
+└───__pycache__
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Let's build the site again and take a look at our new post&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(staticsite)$ make html
+(staticsite)$ make serve
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Again, point a web browser to: &lt;a href="localhost:8000"&gt;localhost:8000&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="local host in browser" src="https://professorkazarinoff.github.io/staticsite/images/browser_to_localhost8000.png"&gt;&lt;/p&gt;
+&lt;p&gt;The site will look something like:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="default pelican site" src="https://professorkazarinoff.github.io/staticsite/images/default_site_1_post.png"&gt;&lt;/p&gt;
+&lt;p&gt;It works! I can see the first post!&lt;/p&gt;
+&lt;p&gt;We can shut down the server by typing &lt;code&gt;ctrl-c&lt;/code&gt;&lt;/p&gt;
+&lt;h3&gt;Add and commit the changes then push the changes to github&lt;/h3&gt;
+&lt;p&gt;When we are done editing the posts and the site, we &lt;strong&gt;add all&lt;/strong&gt; of the changes to our local git repo using &lt;code&gt;git add .&lt;/code&gt; Then we commit these changes with &lt;code&gt;git commit&lt;/code&gt; and use the &lt;code&gt;-m "created pelcian static site"&lt;/code&gt; flag to supply a commit message (make sure to use double quotes "commit message"). Push those changes up to github with &lt;code&gt;git push origin master&lt;/code&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git add .
+git commit -m &amp;quot;created pelican static site&amp;quot;
+git push origin master
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;In the next post, we will customize the site with a &lt;em&gt;pelican-theme&lt;/em&gt; and add a couple of &lt;em&gt;pelican-plugins&lt;/em&gt; to add additional functionality to the site.&lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="blog"></category><category term="markdown"></category></entry><entry><title>How I build this site - Part 6</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-6.html" rel="alternate"></link><published>2017-11-27T12:40:00-08:00</published><updated>2017-11-27T12:40:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-11-27:/staticsite/how-i-built-this-site-6.html</id><summary type="html">&lt;p&gt;This is the sixth part of a multi-part series on how I built this site. In last post, we customized the site and added the ability to use jupyter notebooks in posts.  In this post we are going to deploy the site to &lt;a href="https://pages.github.com/"&gt;github pages&lt;/a&gt;. Github pages is a place on github were documentation and static sites can be hosted. It was tricky for me to set this up, but after a lot of different trial and error, I was able to get it to work.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the sixth part of a multi-part series on how I built this site. In last post, we customized the site and added the ability to use jupyter notebooks in posts.  In this post we are going to deploy the site to &lt;a href="https://pages.github.com/"&gt;github pages&lt;/a&gt;. Github pages is a place on github were documentation and static sites can be hosted. It was tricky for me to set this up, but after a lot of different trial and error, I was able to get it to work.&lt;/p&gt;
 &lt;h3&gt;Steps in this post&lt;/h3&gt;
 &lt;p&gt;By the end of the post we are going to have a working static website hosted on github pages. To accomplish we will complete the following steps:&lt;/p&gt;
 &lt;ol&gt;
@@ -87,7 +258,7 @@ git push origin master
 &lt;p&gt;Awesome! The site is now hosted for everyone to see on github pages! Pretty cool right? Point a browser to the github pages url and take a look:&lt;/p&gt;
 &lt;p&gt;https://username.github.io/staticsite&lt;/p&gt;
 &lt;p&gt;Change &lt;em&gt;username&lt;/em&gt; to your github user name. My site (the one that you are reading) is hosted here: &lt;/p&gt;
-&lt;p&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite"&gt;https://professorkazarinoff.github.io/staticsite&lt;/a&gt;&lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="blog"></category><category term="git"></category><category term="github"></category></entry><entry><title>How I build this site - Part 1</title><link href="https://professorkazarinoff.github.io/staticsite/how-built-site-1.html" rel="alternate"></link><published>2017-11-22T12:40:00-08:00</published><updated>2017-11-22T12:40:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-11-22:/staticsite/how-built-site-1.html</id><summary type="html">&lt;p&gt;This is the first part of a multi-part series on how I built this site. In this first post, I'll review the development environment, Python, virtual environments, installing the necessary packages and setting up git.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the first part of a multi-part series on how I built this site. In this first post, we'll review the development environment, installing Python, virtual environments, installing the necessary packages and setting up git.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite"&gt;https://professorkazarinoff.github.io/staticsite&lt;/a&gt;&lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="blog"></category><category term="git"></category><category term="github"></category></entry><entry><title>How I build this site - Part 1</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-site-1.html" rel="alternate"></link><published>2017-11-22T12:40:00-08:00</published><updated>2017-11-22T12:40:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-11-22:/staticsite/how-i-built-site-1.html</id><summary type="html">&lt;p&gt;This is the first part of a multi-part series on how I built this site. In this first post, I'll review the development environment, Python, virtual environments, installing the necessary packages and setting up git.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the first part of a multi-part series on how I built this site. In this first post, we'll review the development environment, installing Python, virtual environments, installing the necessary packages and setting up git.&lt;/p&gt;
 &lt;h3&gt;Setting up the development environment&lt;/h3&gt;
 &lt;p&gt;What does that even mean? Before I started building this site I needed to make sure the necessary software, packages and settings were in place. This starts with setting up a &lt;em&gt;development environment&lt;/em&gt;. To me, a development environment is simply the software on a computer that allows me to get work done. In this case the development environment means the tools necessary to build this site. A list of the tools and technologies are below:&lt;/p&gt;
 &lt;ol&gt;

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>How I build this site - Part 2 - Python Programming for Undergraduate Engineers</title>
+    <title>markdown - Python Programming for Undergraduate Engineers</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -174,23 +174,16 @@ init_mathjax();
 </script>
     <link href="../extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="../drafts/how-built-site-2.html">
 
-        <meta name="author" content="Peter D. Kazarinoff" />
-        <meta name="keywords" content="python,pelican,blog" />
-        <meta name="description" content="This is the second part in a multi-part series on how I built this site. In the last post, we set up our development environment including Python, a new virtual environment, installed the pelican and markdown packages and set up git. In this post, we will use the pelican-quickstart command to get the blog off the ground. We are also going to create a first_post.md file and serve up the website locally so we can take a look at it." />
+    <meta name="author" content="Peter Kazarinoff" />
+    <meta name="keywords" content="markdown" />
 
+    <!-- Open Graph tags -->
         <meta property="og:site_name" content="Python Programming for Undergraduate Engineers" />
-        <meta property="og:type" content="article"/>
-        <meta property="og:title" content="How I build this site - Part 2"/>
-        <meta property="og:url" content="../drafts/how-built-site-2.html"/>
-        <meta property="og:description" content="This is the second part in a multi-part series on how I built this site. In the last post, we set up our development environment including Python, a new virtual environment, installed the pelican and markdown packages and set up git. In this post, we will use the pelican-quickstart command to get the blog off the ground. We are also going to create a first_post.md file and serve up the website locally so we can take a look at it."/>
-        <meta property="article:published_time" content="2017-10-13" />
-            <meta property="article:section" content="This site" />
-            <meta property="article:tag" content="python" />
-            <meta property="article:tag" content="pelican" />
-            <meta property="article:tag" content="blog" />
-            <meta property="article:author" content="Peter D. Kazarinoff" />
+        <meta property="og:type" content="website"/>
+        <meta property="og:title" content="Python Programming for Undergraduate Engineers"/>
+        <meta property="og:url" content=".."/>
+        <meta property="og:description" content="Python Programming for Undergraduate Engineers"/>
 
 
 
@@ -208,8 +201,6 @@ init_mathjax();
 
 
 
-        <link href="../feeds/this-site.atom.xml" type="application/atom+xml" rel="alternate"
-              title="Python Programming for Undergraduate Engineers This site ATOM Feed"/>
 
 </head>
 <body>
@@ -252,33 +243,22 @@ Python Programming for Undergraduate Engineers            </a>
 <div class="container">
     <div class="row">
         <div class="col-sm-9">
-            <ol class="breadcrumb">
-                <li><a href=".." title="Python Programming for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="../category/this-site.html" title="This site">This site</a></li>
-                <li class="active">How I build this site - Part 2</li>
-            </ol>
-    <section id="content">
-        <article>
-            <header class="page-header">
-                <h1>
-                    <a href="../drafts/how-built-site-2.html"
-                       rel="bookmark"
-                       title="Permalink to How I build this site - Part 2">
-                        How I build this site - Part 2
-                    </a>
-                </h1>
-            </header>
-            <div class="entry-content">
-                <div class="panel">
-                    <div class="panel-body">
+    <ol class="breadcrumb">
+        <li><a href=".." title="Python Programming for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+        <li><a href="../" title="Tags">Tags</a></li>
+        <li class="active">markdown</li>
+    </ol>
+            <article>
+                <h2><a href="../how-i-built-this-site-2.html">How I build this site - Part 2</a></h2>
+                    <div class="well well-sm">
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2017-10-13T12:40:00-07:00"> Fri 13 October 2017</time>
+        <i class="fa fa-calendar"></i><time datetime="2017-11-28T14:15:00-08:00"> Tue 28 November 2017</time>
     </span>
 
             <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x000001FA2F5D5C90> of 
+            Part 2 of How I built this site
 
 
 
@@ -289,188 +269,15 @@ Python Programming for Undergraduate Engineers            </a>
 	<a href="../tag/pelican.html">pelican</a>
         /
 	<a href="../tag/blog.html">blog</a>
+        /
+	<a href="../tag/markdown.html">markdown</a>
     
 </footer><!-- /.post-info -->                    </div>
+                <div class="summary"><p>This is the second part in a multi-part series on how I built this site. In the <a href="../how-i-built-site-1.html">last post</a>, we set up our development environment including Python, a new virtual environment, installed the pelican and markdown packages and set up git. In this post, we will use the <code>pelican-quickstart</code> command to get the blog off the ground. We are also going to create a <strong>first_post.md</strong> file and serve up the website locally so we can take a look at it.</p>
+                    <a class="btn btn-default btn-xs" href="../how-i-built-this-site-2.html">more ...</a>
                 </div>
-                <p>This is the second part in a multi-part series on how I built this site. In the <a href="../how-built-site-1.html">last post</a>, we set up our development environment including Python, a new virtual environment, installed the pelican and markdown packages and set up git. In this post, we will use the <code>pelican-quickstart</code> command to get the blog off the ground. We are also going to create a <strong>first_post.md</strong> file and serve up the website locally so we can take a look at it.</p>
-<h3>Steps in this post</h3>
-<p>We are going to accomplish the following in this post. By the end of the post, we will have a working website with one blog post served up locally and an updated github repo with all the changes saved.</p>
-<ol>
-<li>Activate our <code>staticsite</code> virtual environment</li>
-<li><em>Pull</em> the most recent version of our site from github</li>
-<li>Use the <code>pelican-quickstart</code> command to make a first version of the site</li>
-<li>Write a first post in markup language (.md)</li>
-<li>Build the site using the <code>make html</code> command</li>
-<li>Serve the site locally using <code>make serve</code> and view with a web browser</li>
-<li>Add and commit the changes then push those changes to github</li>
-</ol>
-<p>That's a lot to do, so let's get started.</p>
-<h3>Activate our <strong>staticsite</strong> virtual environment</h3>
-<p>I highly recommend installing the Anaconda distribution of python. If you followed along with the <a href="../how-built-site-1.html">previous post</a>, you already installed Anaconda and can pull up the Anaconda prompt. Open the Anaconda Prompt and see which virtual environments are available.</p>
-<div class="highlight"><pre><span></span>$ conda info --envs
-</pre></div>
-
-
-<p>You should see a list of all the virtual environments conda has created on your machine. It should look something like:</p>
-<div class="highlight"><pre><span></span>staticsite                  C:\Users\user.name\AppData\Local\Continuum\Anaconda3\envs\staticsite
-root                     *  C:\Users\user.name\AppData\Local\Continuum\Anaconda3
-</pre></div>
-
-
-<p>The <code>staticsite</code> virtual environment is the one we set up to create our site. Activate it with:</p>
-<div class="highlight"><pre><span></span>$ <span class="nb">source</span> activate staticsite
-</pre></div>
-
-
-<p>You should now see <code>(staticsite)</code> before the command prompt. This means we are operating in the <code>staticsite</code> virtual environment. </p>
-<h3>View installed packages</h3>
-<p>We installed pelican, markdown and fabric in the last post. Let's make sure they are installed in our <code>(staticsite)</code> virtual environment.</p>
-<div class="highlight"><pre><span></span>(staticsite)$ pip freeze
-</pre></div>
-
-
-<p>Make sure you see the following modules are installed: </p>
-<div class="highlight"><pre><span></span>beautifulsoup4==4.6.0
-Jinja2==2.9.6
-Fabric==1.14.0
-Markdown==2.6.9
-pelican==3.7.1
-Pygments==2.2.0
-</pre></div>
-
-
-<h3>Pelican Quickstart - make the site!</h3>
-<p>We are now going to build the site! Exciting stuff. With the virtual environment and packages in place, we just need to make sure we are in a directory where we want our site to live.</p>
-<div class="highlight"><pre><span></span>(staticsite)$ cd ~
-(staticsite)$ cd Documents
-(staticsite)$ cd staticsite
-</pre></div>
-
-
-<p>You can confirm you are working in the staticsite directory by typing <code>pwd</code> which stands for <em>print working directory</em>:</p>
-<p><code>(staticsite)$ pwd</code></p>
-<p>Now we can spin up the settings and structure of our pelican build. Start the process with the command:</p>
-<div class="highlight"><pre><span></span>(staticsite)$ pelican-quickstart
-</pre></div>
-
-
-<p>Pelican will ask us a bunch of questions at the start. These are the initial settings I used are below. Make sure to change the title, author, URL prefix, and timezone:</p>
-<div class="highlight"><pre><span></span>&gt; Where do you want to create your new web site? [.]
-&gt; What will be the title of this web site? Python Programming for Undergraduate Engineers
-&gt; Who will be the author of this web site? Peter D. Kazarinoff
-&gt; What will be the default language of this web site? [English]
-&gt; Do you want to specify a URL prefix? e.g., http://example.com   (Y/n) Y
-&gt; What is your URL prefix? (see above example; no trailing slash) https://username.github.io/staticsite
-&gt; Do you want to enable article pagination? (Y/n) Y
-&gt; How many articles per page do you want? [10] 5
-&gt; What is your time zone? [Europe/Paris] America/Los_Angeles
-&gt; Do you want to generate a Fabfile/Makefile to automate generation and publishing? (Y/n) Y
-&gt; Do you want an auto-reload &amp; simpleHTTP script to assist with theme and site development? (Y/n) Y
-&gt; Do you want to upload your website using FTP? (y/N) N
-&gt; Do you want to upload your website using SSH? (y/N) N
-&gt; Do you want to upload your website using Dropbox? (y/N) N
-&gt; Do you want to upload your website using S3? (y/N) N
-&gt; Do you want to upload your website using Rackspace Cloud Files? (y/N) N
-&gt; Do you want to upload your website using GitHub Pages? (y/N) y
-&gt; Is this your personal page (username.github.io)? (y/N) N
-</pre></div>
-
-
-<p>Now we can create and view the site. The command <code>make html</code> will create the site and the command <code>make serve</code> will spin up a local webserver that allows us to view the site.</p>
-<div class="highlight"><pre><span></span>(staticsite)$ make html
-(staticsite)$ make serve
-</pre></div>
-
-
-<p>Point a web browser to: <a href="localhost:8000">localhost:8000</a></p>
-<p><img alt="local host in browser" src="../images/browser_to_localhost8000.png"></p>
-<p>The site will look something like:</p>
-<p><img alt="default pelican site" src="../images/default_site_no_posts.png"></p>
-<p>We can shut down the server by typing <code>ctrl-c</code></p>
-<h3>Write a first post in markup language (.md)</h3>
-<p>Time to write our first post. The contents of the <strong>staticsite</strong> directory should look something like:</p>
-<div class="highlight"><pre><span></span>staticsite/
-│   develop_server.sh
-│   fabfile.py
-│   Makefile
-│   pelicanconf.py
-│   publishconf.py
-│
-├───content
-├───output
-│   └───theme
-│       ├───css
-│       └───images
-│           └───icons
-│
-└───__pycache__
-</pre></div>
-
-
-<p>To make a new post, we need to add a markup file (.md file) to the <strong>content</strong> folder. Let's call our first post <strong><em>first_post.md</em></strong>. Depending on the computer I'm using, I create .md files with different programs. One Windows 10, I have been using Code Writer. On Mac OSX and Linux, I use <a href="https://www.jetbrains.com/pycharm/">PyCharm</a>. The <strong><em>first_post.md</em></strong> file saved in the content folder needs to have the form:</p>
-<div class="highlight"><pre><span></span><span class="n">Title</span><span class="o">:</span> <span class="n">First</span> <span class="n">Post</span>
-<span class="n">Date</span><span class="o">:</span> <span class="mi">2017</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">13</span> <span class="mi">12</span><span class="o">:</span><span class="mi">40</span>
-<span class="n">Modified</span><span class="o">:</span> <span class="mi">2017</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">13</span> <span class="mi">12</span><span class="o">:</span><span class="mi">40</span>
-<span class="n">Status</span><span class="o">:</span> <span class="n">published</span>
-<span class="n">Category</span><span class="o">:</span> <span class="n">This</span> <span class="n">site</span>
-<span class="n">Tags</span><span class="o">:</span> <span class="n">python</span><span class="o">,</span> <span class="n">markdown</span><span class="o">,</span> <span class="n">blog</span>
-<span class="n">Slug</span><span class="o">:</span> <span class="n">first</span><span class="o">-</span><span class="n">post</span>
-<span class="n">Authors</span><span class="o">:</span> <span class="n">Peter</span> <span class="n">D</span><span class="o">.</span> <span class="n">Kazarinoff</span>
-<span class="n">Summary</span><span class="o">:</span> <span class="n">This</span> <span class="k">is</span> <span class="n">the</span> <span class="n">summary</span> <span class="n">of</span> <span class="n">the</span> <span class="n">first</span> <span class="n">post</span>
-
-<span class="n">This</span> <span class="k">is</span> <span class="n">the</span> <span class="n">very</span> <span class="n">first</span> <span class="n">post</span><span class="o">!</span>
-</pre></div>
-
-
-<p>After saving the file <strong><em>first_post.md</em></strong> in the <strong>content</strong> folder, the static site folder should look something like:</p>
-<div class="highlight"><pre><span></span>staticsite/
-│   develop_server.sh
-│   fabfile.py
-│   Makefile
-│   pelicanconf.py
-│   publishconf.py
-│
-├───content
-│       first_post.md
-│
-├───output
-│   └───theme
-│       ├───css
-│       └───images
-│           └───icons
-│
-└───__pycache__
-</pre></div>
-
-
-<p>Let's build the site again and take a look at our new post</p>
-<div class="highlight"><pre><span></span>(staticsite)$ make html
-(staticsite)$ make serve
-</pre></div>
-
-
-<p>Again, point a web browser to: <a href="localhost:8000">localhost:8000</a></p>
-<p><img alt="local host in browser" src="../images/browser_to_localhost8000.png"></p>
-<p>The site will look something like:</p>
-<p><img alt="default pelican site" src="../images/default_site_1_post.png"></p>
-<p>It works! I can see the first post!</p>
-<p>We can shut down the server by typing <code>ctrl-c</code></p>
-<h3>Add and commit the changes then push the changes to github</h3>
-<p>When we are done editing the posts and the site, we <strong>add all</strong> of the changes to our local git repo using <code>git add .</code> Then we commit these changes with <code>git commit</code> and use the <code>-m "created pelcian static site"</code> flag to supply a commit message (make sure to use double quotes "commit message"). Push those changes up to github with <code>git push origin master</code></p>
-<div class="highlight"><pre><span></span>git add .
-git commit -m &quot;created pelican static site&quot;
-git push origin master
-</pre></div>
-
-
-<p>In the next post, we will customize the site with a <em>pelican-theme</em> and add a couple of <em>pelican-plugins</em> to add additional functionality to the site.</p>
-            </div>
-            <!-- /.entry-content -->
-<section class="well" id="related-posts">
-    <h4>This article is the <built-in method index of str object at 0x000001FA2F5D5C90> of the  series</h4>
-</section>
-        </article>
-    </section>
+            </article>
+            <hr/>
 
         </div>
         <div class="col-sm-3" id="sidebar">
@@ -491,9 +298,7 @@ git push origin master
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
-    <li class="list-group-item"><a href="../how-built-site-6.html">How I build this site - Part 6</a></li>
-    <li class="list-group-item"><a href="../how-built-site-1.html">How I build this site - Part 1</a></li>
-    <li class="list-group-item"><a href="../new-virtual-environment-with-conda.html">Create a new virtual environment with Conda</a></li>
+    <li class="list-group-item"><a href="../how-i-built-this-site-2.html">How I build this site - Part 2</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
@@ -505,7 +310,7 @@ git push origin master
     <li class="list-group-item tag-2">
       <a href="../tag/anaconda.html">anaconda</a>
     </li>
-    <li class="list-group-item tag-4">
+    <li class="list-group-item tag-2">
       <a href="../tag/blog.html">blog</a>
     </li>
     <li class="list-group-item tag-2">
@@ -518,9 +323,9 @@ git push origin master
       <a href="../tag/github.html">github</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="../tag/miniconda.html">miniconda</a>
+      <a href="../tag/markdown.html">markdown</a>
     </li>
-    <li class="list-group-item tag-2">
+    <li class="list-group-item tag-1">
       <a href="../tag/pelican.html">pelican</a>
     </li>
     <li class="list-group-item tag-1">
@@ -535,15 +340,6 @@ git push origin master
   </ul>
 </li>
 <!-- End Sidebar/Tag Cloud -->
-
-<!-- Sidebar/Series -->
-<li class="list-group-item">
-  <h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Series</span></h4>
-  <ul class="list-group">
-  </ul>
-</li>
-<!-- End Sidebar/Series -->
-
 
 <!-- Sidebar/Github -->
 <li class="list-group-item">

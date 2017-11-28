@@ -1,10 +1,10 @@
 Title: How I build this site - Part 2
-Date: 2017-10-13 12:40
-Modified: 2017-10-13 12:40
-Status: Draft
+Date: 2017-11-28 14:15
+Modified: 2017-11-28 14:15
+Status: published
 Category: This site
-Tags: python, pelican, blog
-Slug: how-built-site-2
+Tags: python, pelican, blog, markdown
+Slug: how-i-built-this-site-2
 Authors: Peter D. Kazarinoff
 Series: How I built this site
 Series_index: 2

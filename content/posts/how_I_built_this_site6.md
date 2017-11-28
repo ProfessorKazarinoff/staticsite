@@ -4,7 +4,7 @@ Modified: 2017-11-27 12:40
 Status: Published
 Category: This site
 Tags: python, pelican, blog, git, github
-Slug: how-built-site-6
+Slug: how-i-built-this-site-6
 Authors: Peter D. Kazarinoff
 Series: How I built this site
 Series_index: 6

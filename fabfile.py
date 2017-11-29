@@ -97,3 +97,4 @@ def publishsite():
 	local('git add .')
 	local('git commit -m "published changes"')
 	local('git push origin master')
+	local('git subtree push --prefix output origin gh-pages')

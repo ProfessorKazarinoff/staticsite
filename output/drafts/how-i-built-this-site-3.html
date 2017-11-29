@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>How I Build This Site - Part 3 - Python Programming for Undergraduate Engineers</title>
+    <title>How I build this site - Part 3 - Python Programming for Undergraduate Engineers</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -174,22 +174,23 @@ init_mathjax();
 </script>
     <link href="../extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="../drafts/how-built-site-3.html">
+<link rel="canonical" href="../drafts/how-i-built-this-site-3.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
-        <meta name="keywords" content="python,pelican,blog" />
-        <meta name="description" content="This is the third part in a multi-part series on how I built this site. In last post, we used pelican-quickstart to build the framework of the site and wrote a short first post, then viewed a demo version of the site. In this post we are to add a custom theme to the site called pelican_bootstrap3, then add some custom css." />
+        <meta name="keywords" content="python,pelican,blog,markdown" />
+        <meta name="description" content="This is the third part in a multi-part series on how I built this site. In the last post, we used pelican-quickstart to build the framework of the site and wrote a short first post, then viewed a demo version of the site on localhost:8000. In this post we will add a custom theme to the site called pelican_bootstrap3. The pelican_bootstrap3 theme looks great and is mobile reponsive so it will make the site look good on phones and tablets. Then we&#39;ll add some custom css to personalize the look of the theme." />
 
         <meta property="og:site_name" content="Python Programming for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
-        <meta property="og:title" content="How I Build This Site - Part 3"/>
-        <meta property="og:url" content="../drafts/how-built-site-3.html"/>
-        <meta property="og:description" content="This is the third part in a multi-part series on how I built this site. In last post, we used pelican-quickstart to build the framework of the site and wrote a short first post, then viewed a demo version of the site. In this post we are to add a custom theme to the site called pelican_bootstrap3, then add some custom css."/>
-        <meta property="article:published_time" content="2017-11-24" />
+        <meta property="og:title" content="How I build this site - Part 3"/>
+        <meta property="og:url" content="../drafts/how-i-built-this-site-3.html"/>
+        <meta property="og:description" content="This is the third part in a multi-part series on how I built this site. In the last post, we used pelican-quickstart to build the framework of the site and wrote a short first post, then viewed a demo version of the site on localhost:8000. In this post we will add a custom theme to the site called pelican_bootstrap3. The pelican_bootstrap3 theme looks great and is mobile reponsive so it will make the site look good on phones and tablets. Then we&#39;ll add some custom css to personalize the look of the theme."/>
+        <meta property="article:published_time" content="2017-12-07" />
             <meta property="article:section" content="This site" />
             <meta property="article:tag" content="python" />
             <meta property="article:tag" content="pelican" />
             <meta property="article:tag" content="blog" />
+            <meta property="article:tag" content="markdown" />
             <meta property="article:author" content="Peter D. Kazarinoff" />
 
 
@@ -255,16 +256,16 @@ Python Programming for Undergraduate Engineers            </a>
             <ol class="breadcrumb">
                 <li><a href=".." title="Python Programming for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
                 <li><a href="../category/this-site.html" title="This site">This site</a></li>
-                <li class="active">How I Build This Site - Part 3</li>
+                <li class="active">How I build this site - Part 3</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="../drafts/how-built-site-3.html"
+                    <a href="../drafts/how-i-built-this-site-3.html"
                        rel="bookmark"
-                       title="Permalink to How I Build This Site - Part 3">
-                        How I Build This Site - Part 3
+                       title="Permalink to How I build this site - Part 3">
+                        How I build this site - Part 3
                     </a>
                 </h1>
             </header>
@@ -274,11 +275,11 @@ Python Programming for Undergraduate Engineers            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2017-11-24T12:40:00-08:00"> Fri 24 November 2017</time>
+        <i class="fa fa-calendar"></i><time datetime="2017-12-07T14:15:00-08:00"> Thu 07 December 2017</time>
     </span>
 
             <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x0000023056C4DDB0> of 
+            Part <built-in method index of str object at 0x0000016EFA1B3150> of 
 
 
 
@@ -289,20 +290,22 @@ Python Programming for Undergraduate Engineers            </a>
 	<a href="../tag/pelican.html">pelican</a>
         /
 	<a href="../tag/blog.html">blog</a>
+        /
+	<a href="../tag/markdown.html">markdown</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>This is the third part in a multi-part series on how I built this site. In last post, we used <code>pelican-quickstart</code> to build the framework of the site and wrote a short first post, then viewed a demo version of the site. In this post we are to add a custom theme to the site called pelican_bootstrap3, then add some custom css.</p>
+                <p>This is the third part in a multi-part series on how I built this site. In the <a href="../how-i-built-this-site-2.html">last post</a>, we used <code>pelican-quickstart</code> to build the framework of the site and wrote a short first post, then viewed a demo version of the site on localhost:8000. In this post we will add a custom theme to the site called pelican_bootstrap3. The pelican_bootstrap3 theme looks great and is mobile reponsive so it will make the site look good on phones and tablets. Then we'll add some custom css to personalize the look of the theme.</p>
 <h3>Steps in this post</h3>
 <p>We are going to accomplish the following in this post. By the end of the post we are going to have a a static site with a great looking bootstrap3 theme which is mobile responsive and looks great on desktops, tablets and phones.</p>
 <ol>
 <li>Activate our <code>staticsite</code> virtual environment</li>
 <li>Pull the most recent version of our site from github</li>
-<li>Add a git submodule to our staticsite folder and bring in pelican-themes from github</li>
-<li>Modify the pelicanconf.py file to utilize the new theme</li>
+<li>Add a git submodule to our staticsite folder and bring in the pelican-themes repo from github</li>
+<li>Modify the pelicanconf.py file to point to our new theme</li>
 <li>Build and preview the site with Pelican</li>
 <li>Add custom css to modify the look of the site</li>
-<li>Add and commit the changes we made and push those changes to github</li>
+<li>Add and commit the changes then push those changes to github</li>
 </ol>
 <p>Big steps, it's really going to look like a website when we are done.</p>
 <h3>Activate our virtual environment and pull from github</h3>
@@ -318,6 +321,7 @@ Python Programming for Undergraduate Engineers            </a>
 </pre></div>
 
 
+<h3>Use git submodule add to pull all of the themes into our local <strong>staticsite/pelican-themes</strong> directory</h3>
 <p>There are a bunch of different themes available for static site built with pelican. The three I was most interested in were:</p>
 <ul>
 <li>
@@ -330,21 +334,28 @@ Python Programming for Undergraduate Engineers            </a>
 <p>pelican-bootstrap3</p>
 </li>
 </ul>
-<p>We can bring in all of the Pelican themes stored on github by making a git submodule. A git submodule is a sub repository within a git repository that is linked to another repository. It is a way to bring in something else from github within a local repository and not have to keep a local copy up to date. Each time we "pull" from the submodule, we get the newest version of the pelican-themes repo on github. We don't have to manually track any changes to these themes and incorporate them to our local version. </p>
+<p>We can bring in all of the Pelican themes stored on github by creating a <em>git submodule</em>. A git submodule is a sub-repository within a git repository that is linked to another repository. It is a way to bring in something else from github within a local repository and not have to keep a local copy up to date. Each time we "pull" from the submodule, we get the newest version of the pelican-themes repo on github. We don't have to manually track any changes to these themes and incorporate them to our local version. When the changes are made to the themes on github, we just pull those changes down to our local version. The lines <code>git submodule init</code> and <code>git submodule update --init --recursive</code> are important to call. If those two commands are not moved we'll end up with empty folders within the <strong>staticsite/pelican-themes</strong> directory. A lot of the themes are submodules themselves so the <code>--recursive</code> option has to be used to pull all of these submodules down. Without <code>--recursive</code> you can end up with empty folders.</p>
 <p>To create the folder for our pelican-themes git submodule, ensure you are in the staticsite folder, then call:</p>
-<div class="highlight"><pre><span></span>$ git add submodule.....
+<div class="highlight"><pre><span></span>$ <span class="nb">pwd</span>
+
+$ git submodule add https://github.com/getpelican/pelican-themes.git
+$ git submodule init
+$ git submodule update --init --recursive
 </pre></div>
 
 
-<p>When we are done editing the the site. We add <strong>all of the changes</strong> to our local git repo using <code>git add .</code>. Then we commit theose changes with <code>git commit</code> and add the <code>-m "created pelcian static site</code> flag to give supply a commit message. (make sure to use double quotes "commit message") To  push those changes up to github use <code>git push origin master</code></p>
+<p>When we are done editing the the site. We add <strong>all of the changes</strong> to our local git repo using <code>git add .</code>. Then we commit theose changes with <code>git commit</code> and add the <code>-m "added pelican_bootstrap3 theme</code> flag to give supply a commit message (make sure to use double quotes "commit message"). To push those changes up to github use <code>git push origin master</code></p>
 <div class="highlight"><pre><span></span>git add .
-git commit -m &quot;created pelican static site&quot;
+git commit -m &quot;added pelican_bootstrap3 theme&quot;
 git push origin master
 </pre></div>
+
+
+<p>In the next post we will add some pelican-plugins to bring additional functionality to the site.</p>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">
-    <h4>This article is the <built-in method index of str object at 0x0000023056C4DDB0> of the  series</h4>
+    <h4>This article is the <built-in method index of str object at 0x0000016EFA1B3150> of the  series</h4>
 </section>
         </article>
     </section>

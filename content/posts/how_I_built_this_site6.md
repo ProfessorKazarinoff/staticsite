@@ -8,9 +8,9 @@ Slug: how-i-built-this-site-6
 Authors: Peter D. Kazarinoff
 Series: How I built this site
 Series_index: 6
-Summary: This is the sixth part of a multi-part series on how I built this site. In last post, we customized the site and added the ability to use jupyter notebooks in posts.  In this post we are going to deploy the site to [github pages](https://pages.github.com/). Github pages is a place on github were documentation and static sites can be hosted. It was tricky for me to set this up, but after a lot of different trial and error, I was able to get it to work.
+Summary: This is the sixth part of a multi-part series on how I built this site. In last post, we customized the site and added the ability to use jupyter notebooks in posts.  In this post we are going to deploy the site to [github pages](https://pages.github.com/). Github pages is a place on github were documentation and static sites can be hosted. It was tricky for me to set this up, but after a lot trial and error, I was able to get it to work.
 
-This is the sixth part of a multi-part series on how I built this site. In last post, we customized the site and added the ability to use jupyter notebooks in posts.  In this post we are going to deploy the site to [github pages](https://pages.github.com/). Github pages is a place on github were documentation and static sites can be hosted. It was tricky for me to set this up, but after a lot of different trial and error, I was able to get it to work.
+This is the sixth part of a multi-part series on how I built this site. In last post, we customized the site and added the ability to use jupyter notebooks in posts.  In this post we are going to deploy the site to [github pages](https://pages.github.com/). Github pages is a place on github were documentation and static sites can be hosted. It was tricky for me to set this up, but after a lot of trial and error, I was able to get it to work.
 
 ### Steps in this post
 
@@ -108,7 +108,7 @@ git push origin master
 
 Up to this point, we saved our work to the **master** branch of the staticsite repository on github. To host the site on github pages, we need to create a new branch in the staticsite repo called **gh-pages**. The **master** branch still houses the code,settings, markup files, notebooks, images, etc. to build the site. Any html, css and javascript files in the **gh-pages** branch of the staticsite repo on github will be served like a regular website. To create the new branch, go the main staticsite repository page on github and click the **Branch: Master** drop down menu on the upper left hand side. Enter the name of the new branch: **gh-pages**
 
-### Use the git subtree command to push the contents of the **output** directory to the **gh-pages** branch
+### Use **git subtree** to push the contents of the **output** directory to the **gh-pages** branch
 
 I tried a bunch of different ways to send the contents of the **output** directory up to github pages. First I tried multiple times to use ```ghp-import``` shown in the [Pelican documentation](http://docs.getpelican.com/en/stable/tips.html), but I never got it to work right. I also tried using git submodules, but had trouble with that as well. I kept getting commit error messages. The way that finally worked was the ```git subtree``` command. 
 

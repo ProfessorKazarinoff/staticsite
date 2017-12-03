@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>Plotting the gaussian normal curve with Python and matplotlib - Python Programming for Undergraduate Engineers</title>
+    <title>How I build this Site - Part 4 - Python Programming for Undergraduate Engineers</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -174,23 +174,23 @@ init_mathjax();
 </script>
     <link href="/extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="/drafts/plotting-normal-curve-with-python.html">
+<link rel="canonical" href="/drafts/how-i-built-site-4.html">
 
-        <meta name="author" content="Peter Kazarinoff" />
-        <meta name="keywords" content="python,engineering,statistics" />
-        <meta name="description" content="In the prevous post, we calculated the area under the standard normal curve using python and the math module&#39;s erf() function. In this post we are going to construct a plot that illustrates the standard normal curve and the area we calculated. To do this we are going to use …" />
+        <meta name="author" content="Peter D. Kazarinoff" />
+        <meta name="keywords" content="python,pelican,blog" />
+        <meta name="description" content="This is the fourth part in a multi-part series on how I built this site. In the last post, we installed the pelican-bootstrap3 theme and made our site mobile responsive and look good on all devices. In this post we are going to install a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of post that are linked together, create a working search bar, add youtube videos to posts, view LaTeX math in posts and add embedded jupyter notebooks in posts." />
 
         <meta property="og:site_name" content="Python Programming for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
-        <meta property="og:title" content="Plotting the gaussian normal curve with Python and matplotlib"/>
-        <meta property="og:url" content="/drafts/plotting-normal-curve-with-python.html"/>
-        <meta property="og:description" content="In the prevous post, we calculated the area under the standard normal curve using python and the math module&#39;s erf() function. In this post we are going to construct a plot that illustrates the standard normal curve and the area we calculated. To do this we are going to use …"/>
-        <meta property="article:published_time" content="2017-10-10" />
-            <meta property="article:section" content="python" />
+        <meta property="og:title" content="How I build this Site - Part 4"/>
+        <meta property="og:url" content="/drafts/how-i-built-site-4.html"/>
+        <meta property="og:description" content="This is the fourth part in a multi-part series on how I built this site. In the last post, we installed the pelican-bootstrap3 theme and made our site mobile responsive and look good on all devices. In this post we are going to install a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of post that are linked together, create a working search bar, add youtube videos to posts, view LaTeX math in posts and add embedded jupyter notebooks in posts."/>
+        <meta property="article:published_time" content="2017-11-30" />
+            <meta property="article:section" content="This site" />
             <meta property="article:tag" content="python" />
-            <meta property="article:tag" content="engineering" />
-            <meta property="article:tag" content="statistics" />
-            <meta property="article:author" content="Peter Kazarinoff" />
+            <meta property="article:tag" content="pelican" />
+            <meta property="article:tag" content="blog" />
+            <meta property="article:author" content="Peter D. Kazarinoff" />
 
 
 
@@ -250,17 +250,17 @@ Python Programming for Undergraduate Engineers            </a>
         <div class="col-sm-9">
             <ol class="breadcrumb">
                 <li><a href="" title="Python Programming for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="/category/python.html" title="python">python</a></li>
-                <li class="active">Plotting the gaussian normal curve with Python and matplotlib</li>
+                <li><a href="/category/this-site.html" title="This site">This site</a></li>
+                <li class="active">How I build this Site - Part 4</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="/drafts/plotting-normal-curve-with-python.html"
+                    <a href="/drafts/how-i-built-site-4.html"
                        rel="bookmark"
-                       title="Permalink to Plotting the gaussian normal curve with Python and matplotlib">
-                        Plotting the gaussian normal curve with Python and matplotlib
+                       title="Permalink to How I build this Site - Part 4">
+                        How I build this Site - Part 4
                     </a>
                 </h1>
             </header>
@@ -270,11 +270,11 @@ Python Programming for Undergraduate Engineers            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2017-10-10T09:01:00-07:00"> Tue 10 October 2017</time>
+        <i class="fa fa-calendar"></i><time datetime="2017-11-30T12:40:00-08:00"> Thu 30 November 2017</time>
     </span>
 
             <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x106752e00> of 
+            Part <built-in method index of str object at 0x106853c48> of 
 
 
 
@@ -282,54 +282,271 @@ Python Programming for Undergraduate Engineers            </a>
 <span class="label label-default">Tags</span>
 	<a href="/tag/python.html">python</a>
         /
-	<a href="/tag/engineering.html">engineering</a>
+	<a href="/tag/pelican.html">pelican</a>
         /
-	<a href="/tag/statistics.html">statistics</a>
+	<a href="/tag/blog.html">blog</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>In the prevous post, we calculated the area under the standard normal curve using python and the <code>math</code> module's <code>erf()</code> function. In this post we are going to construct a plot that illustrates the standard normal curve and the area we calculated. To do this we are going to use Python, matplotlib, and a module called seaborn. </p>
-<p>Calculating the probability under a normal curve is useful for engineers. This type of calculation can be useful to predict the likly hood of a part comming of an assembly line being within a given specification when the statistical properties of all the parts that have come of the assembly line previously are known. </p>
-<p>In this post we will calculate the probabiliy under the normal curve to answer a question like the one below:</p>
-<p>Given: In a facility that manufactures electrical resistors, a sample of 35 1-kΩ resistors are randomly pulled from the production line, and their resistances are measured and recorded. A mean resitance of 990 kΩ standard deviation of 10 kΩ represents the sample of resistors. The desired resistance tolerance for the resistor is ± 10%, meaning that the acceptable range of resistance is 900Ω to 1100Ω.</p>
-<p>Find: Assuming a standard distribution determine the probability that a resistor coming off the production line will be within spec.</p>
-<p>To build our script we need to accomplish a couple of things</p>
-<p>Let's take a look at a gaussin curve</p>
-<p><img alt="gaussian_curve" src="/images/normal_gaussian_curve.png"></p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+                <p>This is the fourth part in a multi-part series on how I built this site. In the <a href="/drafts/how-i-built-this-site-3.html">last post</a>, we installed the pelican-bootstrap3 theme and made our site mobile responsive and look good on all devices.  In this post we are going to install a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of post that are linked together, create a working search bar, add youtube videos to posts, view LaTeX math in posts and add embedded jupyter notebooks in posts.</p>
+<h3>Steps in this post</h3>
+<p>We are going to accomplish the following in this post. By the end of the post we are going to have a great looking  website that contains a two-part series, a search bar, a post with an embedded youtube video and a post that contains an embedded jupyter notebook.</p>
+<ol>
+<li>Activate our <code>staticsite</code> virtual environment</li>
+<li>Pull the most recent version of our site from github</li>
+<li>Install <code>jupyter</code> in our <code>staticsite</code> environment.</li>
+<li>Modify the <strong><em>pelicanconf.py</em></strong> file to use new plugins</li>
+<li>Build some posts that will allow us to view the new plugins</li>
+<li>Build and preview the site with Pelican</li>
+<li>Add and commit the changes then push those changes to github</li>
+</ol>
+<p>Seems like a lot to do, so let's get started.</p>
+<h3>Activate our virtual environment and pull the most recent version of the site down from github</h3>
+<div class="highlight"><pre><span></span>$ <span class="nb">source</span> activate staticsite
+<span class="o">(</span>staticsite<span class="o">)</span> $ <span class="nb">cd</span> ~/Documents/staticsite
+<span class="o">(</span>staticsite<span class="o">)</span> $ <span class="nb">pwd</span>
+<span class="o">(</span>staticsite<span class="o">)</span> $ git pull origin master
 </pre></div>
 
 
-<p>Now we need to define our constants</p>
-<div class="highlight"><pre><span></span><span class="c1"># define constants</span>
+<h3>Install the <code>jupyter</code> package in our <code>staticsite</code> virtual environment.</h3>
+<p>I like using <strong>jupyter notebooks</strong> to build code and solve engineering problems with Python. A <strong>jupyter notebook</strong> can contain Python code, the output produced when this code is run and markup text (used for documentation).  <strong>Jupyter notebooks</strong> can also easily display <code>matplotlib</code> plots and <code>pandas</code> data frames. These two Python packages are very useful to engineers.</p>
+<div class="highlight"><pre><span></span>(staticsite) $ conda install jupyter
 </pre></div>
 
 
-<p>Next we calculate the probability build the curve with scipy's <code>scipy.stats.norm.pdf()</code> function</p>
-<div class="highlight"><pre><span></span># sample parameters
-d = 1.778     # diameter of sample in mm
-A0 = np.pi*(d/2)**2 # original cross-sectional area of sample in mm^2
-L0 = 18.002   # original gauge length of sample (lenth of narrowest section)
-
-# calcuate stress and strain
-stress = (force/A0)
-strain = delta_L/L0
-
-# plot the stress strain curve
-plt.plot(strain,stress)
-plt.xlabel(&#39;Strain (mm/mm)&#39;)
-plt.ylabel(&#39;Stress (MPa)&#39;)
-plt.title(&#39;Stress-Strain Curve of Al6061 - T6&#39;)
-plt.axis([0, 1.4, 0, 60])
-plt.grid(True)
-plt.show()
+<p>We can see all of the modules installed in our <code>(staticsite)</code> environment with:</p>
+<div class="highlight"><pre><span></span>(staticsite) $ pip freeze
 </pre></div>
+
+
+<p>The output should look something like:</p>
+<div class="highlight"><pre><span></span>appnope==0.1.0
+bleach==2.1.1
+blinker==1.4
+certifi==2017.11.5
+decorator==4.1.2
+docutils==0.14
+entrypoints==0.2.3
+feedgenerator==1.9
+html5lib==0.999999999
+ipykernel==4.6.1
+ipython==6.2.1
+ipython-genutils==0.2.0
+ipywidgets==7.0.5
+jedi==0.11.0
+Jinja2==2.10
+jsonschema==2.6.0
+jupyter-client==5.1.0
+jupyter-console==5.2.0
+jupyter-core==4.4.0
+Markdown==2.6.9
+MarkupSafe==1.0
+mistune==0.8.1
+nbconvert==5.3.1
+nbformat==4.4.0
+notebook==5.2.2
+pandocfilters==1.4.2
+parso==0.1.0
+pelican==3.7.1
+pexpect==4.3.0
+pickleshare==0.7.4
+prompt-toolkit==1.0.15
+ptyprocess==0.5.2
+Pygments==2.2.0
+python-dateutil==2.6.1
+pytz==2017.3
+pyzmq==16.0.3
+qtconsole==4.3.1
+simplegeneric==0.8.1
+six==1.11.0
+terminado==0.6
+testpath==0.3.1
+tornado==4.5.2
+traitlets==4.3.2
+Unidecode==0.4.21
+wcwidth==0.1.7
+webencodings==0.5.1
+widgetsnbextension==3.0.8
+</pre></div>
+
+
+<h3>Modify the <strong><em>pelicanconf.py</em></strong> file, so that we can use a new theme.</h3>
+<p>Now we need to modify the <strong><em>pelicanconf.py</em></strong> file to use a couple new plugins. The plugins will add are: </p>
+<ul>
+<li>'series'</li>
+<li>'tag_cloud',</li>
+<li>'liquid_tags.youtube'</li>
+<li>'liquid_tags.notebook',</li>
+<li>'liquid_tags.include_code',</li>
+<li>'render_math'</li>
+<li>'tipue_search'</li>
+<li>'pelican-ipynb.markup'</li>
+</ul>
+<p>We add these to the <code>PLUGINS = [ ]</code> list in the <strong><em>pelicanconf.py</em></strong> file and separate them with commas.</p>
+<div class="highlight"><pre><span></span>#pelicanconf.py
+
+PLUGINS = [
+    &#39;i18n_subsites&#39;,
+    &#39;series&#39;,
+    &#39;tag_cloud&#39;,
+    &#39;liquid_tags.youtube&#39;,
+    &#39;liquid_tags.notebook&#39;,
+    &#39;liquid_tags.include_code&#39;,
+    &#39;render_math&#39;,&#39;tipue_search&#39;,
+    &#39;pelican-ipynb.markup&#39; ] 
+</pre></div>
+
+
+<h3>Build some posts that will allow us to view the new plugins</h3>
+<p>Now we will build a couple of posts which use our newly installed plugins. First we modify our content directory with a new folder called <strong>posts</strong> that we'll keep all the posts in. Then we'll make a couple of new .md files. I'll copy our first post to this new directory with the <code>cp</code> (copy) shell command and then remove the old .md file with the <code>rm</code> command.</p>
+<div class="highlight"><pre><span></span>pwd
+cd content
+mkdir posts
+cp first_post.md posts/first_post.md
+rm first_post.md
+</pre></div>
+
+
+<p>Now let's modify the <strong><em>first_post.md</em></strong> file with a couple new lines in the header, and a new line of text below the header:</p>
+<p><strong><em>first_post.md</em></strong></p>
+<div class="highlight"><pre><span></span><span class="n">Title</span><span class="o">:</span> <span class="n">First</span> <span class="n">Post</span> <span class="o">-</span> <span class="n">Part</span> <span class="mi">1</span>
+<span class="n">Date</span><span class="o">:</span> <span class="mi">2017</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">30</span> <span class="mi">12</span><span class="o">:</span><span class="mi">40</span>
+<span class="n">Modified</span><span class="o">:</span> <span class="mi">2017</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">30</span> <span class="mi">12</span><span class="o">:</span><span class="mi">40</span>
+<span class="n">Status</span><span class="o">:</span> <span class="n">published</span>
+<span class="n">Category</span><span class="o">:</span> <span class="n">example</span> <span class="n">posts</span>
+<span class="n">Tags</span><span class="o">:</span> <span class="n">python</span><span class="o">,</span> <span class="n">pelican</span><span class="o">,</span> <span class="n">blog</span>
+<span class="n">Slug</span><span class="o">:</span> <span class="n">first</span><span class="o">-</span><span class="n">post</span>
+<span class="n">Authors</span><span class="o">:</span> <span class="n">Peter</span> <span class="n">D</span><span class="o">.</span> <span class="n">Kazarinoff</span>
+<span class="n">Series</span><span class="o">:</span> <span class="n">example</span><span class="o">-</span><span class="n">post</span><span class="o">-</span><span class="n">series</span>
+<span class="n">Series_index</span><span class="o">:</span> <span class="mi">1</span>
+<span class="n">Summary</span><span class="o">:</span> <span class="n">This</span> <span class="k">is</span> <span class="n">the</span> <span class="n">first</span> <span class="n">post</span> <span class="n">of</span> <span class="n">a</span> <span class="n">series</span> <span class="n">of</span> <span class="n">posts</span>
+
+<span class="n">This</span> <span class="k">is</span> <span class="n">the</span> <span class="n">first</span> <span class="n">post</span> <span class="n">of</span> <span class="n">a</span> <span class="n">series</span> <span class="n">of</span> <span class="n">posts</span>
+</pre></div>
+
+
+<p>After this post is saved, we can go back to the terminal and copy it to make a second post. The contents of our staticsite directory should look something like this:</p>
+<div class="highlight"><pre><span></span>staticsite/
+├── LICENSE
+├── Makefile
+├── README.md
+├── __pycache__
+├── _nb_header.html
+├── content
+│   ├── posts
+│       ├── first_post.md
+├── develop_server.sh
+├── fabfile.py
+├── output
+├── pelican-plugins
+│   ├── i18n_subsites
+│   ├── liquid_tags
+│   ├── pelican-ipynb
+│   ├── tipue_search
+├── pelican-themes
+│   ├── pelican-bootstrap3
+├── pelican.pid
+├── pelicanconf.py
+├── publishconf.py
+└── srv.pid
+</pre></div>
+
+
+<p>Let's make two new posts in the <strong>content/posts</strong> directory.</p>
+<div class="highlight"><pre><span></span>cd ~/Documents/staticsite/content/posts
+cp first_post.md second_post.md
+cp third_post.md
+</pre></div>
+
+
+<p>Now we'll edit the <strong>second_post.md</strong> so that it is part of a series and contains a youtube video file</p>
+<p><strong><em>second_post.md</em></strong></p>
+<div class="highlight"><pre><span></span><span class="n">Title</span><span class="o">:</span> <span class="n">Second</span> <span class="n">Post</span> <span class="o">-</span> <span class="n">Part</span> <span class="mi">2</span>
+<span class="n">Date</span><span class="o">:</span> <span class="mi">2017</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">30</span> <span class="mi">12</span><span class="o">:</span><span class="mi">40</span>
+<span class="n">Modified</span><span class="o">:</span> <span class="mi">2017</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">30</span> <span class="mi">12</span><span class="o">:</span><span class="mi">40</span>
+<span class="n">Status</span><span class="o">:</span> <span class="n">published</span>
+<span class="n">Category</span><span class="o">:</span> <span class="n">example</span> <span class="n">posts</span>
+<span class="n">Tags</span><span class="o">:</span> <span class="n">python</span><span class="o">,</span> <span class="n">pelican</span><span class="o">,</span> <span class="n">blog</span>
+<span class="n">Slug</span><span class="o">:</span> <span class="n">second</span><span class="o">-</span><span class="n">post</span>
+<span class="n">Authors</span><span class="o">:</span> <span class="n">Peter</span> <span class="n">D</span><span class="o">.</span> <span class="n">Kazarinoff</span>
+<span class="n">Series</span><span class="o">:</span> <span class="n">example</span><span class="o">-</span><span class="n">post</span><span class="o">-</span><span class="n">series</span>
+<span class="n">Series_index</span><span class="o">:</span> <span class="mi">2</span>
+<span class="n">Summary</span><span class="o">:</span> <span class="n">This</span> <span class="k">is</span> <span class="n">the</span> <span class="n">second</span> <span class="n">post</span> <span class="n">of</span> <span class="n">a</span> <span class="n">series</span> <span class="n">of</span> <span class="n">posts</span><span class="o">.</span> <span class="n">It</span> <span class="n">will</span> <span class="n">show</span> <span class="n">series</span> <span class="n">and</span> <span class="n">an</span> <span class="n">embeded</span> <span class="n">youtube</span> <span class="n">video</span><span class="o">.</span>
+
+<span class="n">This</span> <span class="k">is</span> <span class="n">the</span> <span class="n">second</span> <span class="n">post</span> <span class="n">of</span> <span class="n">a</span> <span class="n">series</span> <span class="n">of</span> <span class="n">posts</span><span class="o">.</span> <span class="n">It</span> <span class="n">will</span> <span class="n">show</span> <span class="n">series</span> <span class="n">and</span> <span class="n">an</span> <span class="n">embedded</span> <span class="n">youtube</span> <span class="n">video</span><span class="o">.</span>
+
+<span class="o">{%</span> <span class="n">youtube</span> <span class="n">https</span><span class="o">://</span><span class="n">www</span><span class="o">.</span><span class="na">youtube</span><span class="o">.</span><span class="na">com</span><span class="o">/</span><span class="n">watch</span><span class="o">?</span><span class="n">v</span><span class="o">=</span><span class="n">Qq</span><span class="o">-</span><span class="mi">5</span><span class="n">frjUfK0</span> <span class="o">[</span><span class="mi">560</span><span class="o">]</span> <span class="o">[</span><span class="mi">315</span><span class="o">]</span> <span class="o">%}</span>
+</pre></div>
+
+
+<p>We'll create a sample <strong>jupyter notebook</strong> in a new folder called <strong>code</strong> in our <strong>content</strong> folder to put in the third post. To bring up a jupyter notebook in our web browser use:</p>
+<div class="highlight"><pre><span></span>(staticsite) $ pwd
+(staticsite) $ mkdir content/code
+(staticsite) $ cd content/code
+(staticsite) $ jupyter notebook
+</pre></div>
+
+
+<p>Let's put one markdown cell, one code cell and produce one output cell in our jupyter notebook. We'll save it as <strong><em>example_notebook</em></strong></p>
+<p>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Sample jupyter notebook</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># sample code</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Engineers solve problems in teams&quot;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Engineers solve problems in teams
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+ 
+
+</p>
+<h3>Add and commit the changes then push those changes to github</h3>
+<p>When we are done editing the the site, we add <strong>all of the changes</strong> to our local git repo using <code>git add .</code>. Then we commit those changes with <code>git commit</code> and add the <code>-m "added pelican_bootstrap3 theme</code> flag to give supply a commit message (make sure to use double quotes "commit message"). To push those changes up to github use <code>git push origin master</code></p>
+<div class="highlight"><pre><span></span>git add .
+git commit -m &quot;added pelican_bootstrap3 theme&quot;
+git push origin master
+</pre></div>
+
+
+<p>In the next post we will add some css to make the tables on the site took a whole lot better and add the ability to include jupyter notebooks in posts.</p>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">
-    <h4>This article is the <built-in method index of str object at 0x106752e00> of the  series</h4>
+    <h4>This article is the <built-in method index of str object at 0x106853c48> of the  series</h4>
 </section>
         </article>
     </section>

@@ -4,7 +4,7 @@ Modified: 2017-10-30 12:40
 Status: draft
 Category: This site
 Tags: python, pelican, blog
-Slug: how-built-site-2
+Slug: how-i-built-site-4
 Authors: Peter D. Kazarinoff
 Series: How I built this site
 Series_index: 4
@@ -234,7 +234,7 @@ We'll create a sample **jupyter notebook** in a new folder called **code** in ou
 
 Let's put one markdown cell, one code cell and produce one output cell in our jupyter notebook. We'll save it as **_example_notebook_**
 
-{% notebook ../code/statics/example_notebook.ipynb %}
+{% notebook ../code/statics/sample_notebook.ipynb %}
 
 
 

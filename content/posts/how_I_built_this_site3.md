@@ -22,8 +22,7 @@ We are going to accomplish the following in this post. By the end of the post we
 4. Add a git submodule to our staticsite folder and bring in the pelican-plugins repo from github
 5. Modify the pelicanconf.py file to point to our new theme, and add a new plugin
 6. Build and preview the site with Pelican
-7. Add custom css to modify the look of the site
-8. Add and commit the changes then push those changes to github
+7. Add and commit the changes then push those changes to github
 
 Big steps, it's really going to look like a website when we are done.
 
@@ -94,9 +93,52 @@ staticsite/
 
 ### Modify the **_pelicanconf.py_** file, so that we can use a new theme.
 
+So far our **_pelicanconf.py_** file contains only default lines of code that Pelican built for us. In order to use a new theme, we will edit edit this file. After we edit the configuration file, the ```make html``` command will produce new .html pages in the **output** directory. The relevant lines to change in the **_pelicanconf.py_** are:
 
+```angular2html
+#pelicanconf.py
 
-When we are done editing the the site. We add **all of the changes** to our local git repo using ```git add .```. Then we commit theose changes with ```git commit``` and add the ```-m "added pelican_bootstrap3 theme``` flag to give supply a commit message (make sure to use double quotes "commit message"). To push those changes up to github use ```git push origin master```
+PLUGIN_PATHS = ['pelican-plugins']
+
+THEME = 'pelican-themes/pelican-bootstrap3'
+BOOTSTRAP_THEME = 'flatly'
+
+PLUGIN_PATHS = ['/path/to/git/pelican-plugins']
+JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n']}
+PLUGINS = [
+    'i18n_subsites']
+    
+I18N_TEMPLATES_LANG = 'en'
+```
+
+Taken directly from the [pelicin-bootstrap3 README.md](https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3)
+
+> as this template can be translated (see Translations below). You also need to activate a plugin that initializes the i18n jinja extension. One possibility is an up to date version of the i18n_subsites plugin
+
+So we need to make sure to include the **i18n** plugin in our **_pelicanonf.py_** file. Again from the from the [pelicin-bootstrap3 README.md](https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3)
+
+> If you are using i18n_subsites and you are not using English as your default language, make sure to also correctly specify the default language of the theme. Otherwise the translations will not be used on your default site.
+
+### Build and preview the site with Pelican
+
+With the **pelican-plugins** and **pelican-themes** repos downloaded and the **_pelicanconf.py_** file editied, we can build the site and take a look at it with a web browser:
+
+```
+make html
+make serve
+```
+
+To view the site, point a brower to _localhost:8000_
+
+[localhost:8000](localhost:8000)
+
+Now, the site should look something like this:
+
+![pelican-boostrap3-basic-site.png]({filename}/images/pelican-bootstrap3-basic-site.png)
+
+### Add and commit the changes then push those changes to github
+
+When we are done editing the the site, we add **all of the changes** to our local git repo using ```git add .```. Then we commit those changes with ```git commit``` and add the ```-m "added pelican_bootstrap3 theme``` flag to give supply a commit message (make sure to use double quotes "commit message"). To push those changes up to github use ```git push origin master```
 
 ```
 git add .
@@ -104,4 +146,4 @@ git commit -m "added pelican_bootstrap3 theme"
 git push origin master
 ```
 
-In the next post we will add some pelican-plugins to bring additional functionality to the site.
+In the next post we will add some css to make the tables on the site took a whole lot better and add the ability to include jupyter notebooks in posts.

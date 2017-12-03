@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b04184e7-bac5-4b26-83fb-481bbc5fb95f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/content/posts/how_I_built_this_site4.md" afterPath="$PROJECT_DIR$/content/posts/how_I_built_this_site4.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/how-built-site-5.html" afterPath="$PROJECT_DIR$/output/drafts/how-built-site-5.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/how-i-built-this-site-3.html" afterPath="$PROJECT_DIR$/output/drafts/how-i-built-this-site-3.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/plotting-normal-curve-with-python.html" afterPath="$PROJECT_DIR$/output/drafts/plotting-normal-curve-with-python.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/probability-under-normal-curve-with-python.html" afterPath="$PROJECT_DIR$/output/drafts/probability-under-normal-curve-with-python.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/python-and-beautifulsoup-read-multiple-course-pages.html" afterPath="$PROJECT_DIR$/output/drafts/python-and-beautifulsoup-read-multiple-course-pages.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/python-and-beautifulsoup-webscrape-objects-with-attributes.html" afterPath="$PROJECT_DIR$/output/drafts/python-and-beautifulsoup-webscrape-objects-with-attributes.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/python-and-pint-unit-conversion.html" afterPath="$PROJECT_DIR$/output/drafts/python-and-pint-unit-conversion.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/python-beautifulsoup-course-info.html" afterPath="$PROJECT_DIR$/output/drafts/python-beautifulsoup-course-info.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/python-matplotlib-error-bars.html" afterPath="$PROJECT_DIR$/output/drafts/python-matplotlib-error-bars.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/drafts/python-matplotlib-stress-strain-properties.html" afterPath="$PROJECT_DIR$/output/drafts/python-matplotlib-stress-strain-properties.html" />
-    </list>
+    <list default="true" id="b04184e7-bac5-4b26-83fb-481bbc5fb95f" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,17 +15,7 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="mechanics_in_jupyter_notebook.ipynb-meta" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/content/posts/mechanics_in_jupyter_notebook.ipynb-meta">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="154">
-              <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="how_I_built_this_site4.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="how_I_built_this_site4.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/content/posts/how_I_built_this_site4.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
@@ -51,48 +28,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="circuit_diagrams_with_schemdraw.md" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/content/posts/circuit_diagrams_with_schemdraw.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="286">
-                <caret line="13" column="72" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="72" />
-                <folding />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="how_I_built_this_site2.md" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/content/posts/how_I_built_this_site2.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="198">
-                <caret line="10" column="137" lean-forward="false" selection-start-line="10" selection-start-column="89" selection-end-line="10" selection-end-column="137" />
-                <folding />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="pelicanconf.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pelicanconf.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="319">
-              <caret line="61" column="1" lean-forward="false" selection-start-line="54" selection-start-column="0" selection-end-line="61" selection-end-column="1" />
+            <state relative-caret-position="55">
+              <caret line="49" column="25" lean-forward="true" selection-start-line="49" selection-start-column="25" selection-end-line="49" selection-end-column="25" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="how_I_built_this_site3.md" pinned="false" current-in-tab="false">
+      <file leaf-file-name="how_I_built_this_site3.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/content/posts/how_I_built_this_site3.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="386">
-                <caret line="148" column="151" lean-forward="false" selection-start-line="138" selection-start-column="0" selection-end-line="148" selection-end-column="151" />
+              <first_editor relative-caret-position="34">
+                <caret line="129" column="0" lean-forward="true" selection-start-line="129" selection-start-column="0" selection-end-line="129" selection-end-column="0" />
                 <folding />
               </first_editor>
               <second_editor />
@@ -481,7 +432,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="813" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26037195" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -490,7 +441,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32871014" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32871014" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -743,44 +694,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/content/posts/mechanics_in_jupyter_notebook.ipynb-meta">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/content/posts/how_I_built_this_site2.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="198">
-            <caret line="10" column="137" lean-forward="false" selection-start-line="10" selection-start-column="89" selection-end-line="10" selection-end-column="137" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/content/posts/how_I_built_this_site3.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="386">
-            <caret line="148" column="151" lean-forward="false" selection-start-line="138" selection-start-column="0" selection-end-line="148" selection-end-column="151" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pelicanconf.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
-          <caret line="61" column="1" lean-forward="false" selection-start-line="54" selection-start-column="0" selection-end-line="61" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/content/posts/bar_chart_with_error_bars_using_python_and_matplotlib.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -789,6 +702,14 @@
             <folding />
           </first_editor>
           <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/content/posts/mechanics_in_jupyter_notebook.ipynb-meta">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -803,11 +724,41 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/pelicanconf.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="55">
+          <caret line="49" column="25" lean-forward="true" selection-start-line="49" selection-start-column="25" selection-end-line="49" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/content/posts/how_I_built_this_site2.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="132">
+            <caret line="9" column="15" lean-forward="true" selection-start-line="9" selection-start-column="15" selection-end-line="9" selection-end-column="15" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/content/posts/how_I_built_this_site4.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="132">
             <caret line="6" column="11" lean-forward="false" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/content/posts/how_I_built_this_site3.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="34">
+            <caret line="129" column="0" lean-forward="true" selection-start-line="129" selection-start-column="0" selection-end-line="129" selection-end-column="0" />
             <folding />
           </first_editor>
           <second_editor />

@@ -1,29 +1,30 @@
 Title: How I build this Site - Part 4
 Date: 2017-11-30 12:40
 Modified: 2017-10-30 12:40
-Status: Draft
+Status: draft
 Category: This site
 Tags: python, pelican, blog
 Slug: how-built-site-2
 Authors: Peter D. Kazarinoff
 Series: How I built this site
 Series_index: 4
-Summary: This is the fourth part in a multi-part series on how I built this site. In the last post, we installed the pelican_bootstrap3 theme and made our site mobile responsive and look good on all devices.  In this post we are going to install a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of post that are linked together, create a working search bar, add youtube videos to posts, and view LaTeX math output in posts.
+Summary: This is the fourth part in a multi-part series on how I built this site. In the [last post]({filename}how_I_built_this_site3.md), we installed the pelican-bootstrap3 theme and made our site mobile responsive and look good on all devices.  In this post we are going to install a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of post that are linked together, create a working search bar, add youtube videos to posts, view LaTeX math in posts and add embedded jupyter notebooks in posts.
 
-This is the fourth part in a multi-part series on how I built this site. In the last post, we installed the pelican_bootstrap3 theme and made our site mobile responsive and look good on all devices.  In this post we are going to install a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of post that are linked together, create a working search bar, add youtube videos to posts, and view LaTeX math output in posts.
+This is the fourth part in a multi-part series on how I built this site. In the [last post]({filename}how_I_built_this_site3.md), we installed the pelican-bootstrap3 theme and made our site mobile responsive and look good on all devices.  In this post we are going to install a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of post that are linked together, create a working search bar, add youtube videos to posts, view LaTeX math in posts and add embedded jupyter notebooks in posts.
 
 
 ### Steps in this post
 
-We are going to accomplish the following in this post. By the end of the post we are going to have a great looking  website that contains a two-part series, a search bar, a post with an embedded youtube video and these changes pushed up to github
+We are going to accomplish the following in this post. By the end of the post we are going to have a great looking  website that contains a two-part series, a search bar, a post with an embedded youtube video and a post that contains an embedded jupyter notebook.
 
-1. Activate our ```pelicanenv``` virtual environment
-2. Pull the most recient version of our site from github
-3. Use the ```git submodule``` to pull down the pelican-plugins repo
-4. Modify **_pelicanconf.py_** to include our new plugins
-5. Build a couple new posts that use the plugin functionality
-6. Serve the site locally and view with a web browser
-7. Add and commit the changes we made then push those changes to github
+1. Activate our ```staticsite``` virtual environment
+2. Pull the most recent version of our site from github
+3. Install ```jupyter``` in our ```staticsite``` environment.
+4. Modify the **_pelicanconf.py_** file to use new plugins
+5. Build some posts that will allow us to view the new plugins
+6. Build and preview the site with Pelican
+7. Add and commit the changes then push those changes to github
+
 
 Seems like a lot to do, so let's get started.
 
@@ -38,51 +39,216 @@ $ source activate staticsite
 (staticsite) $ git pull origin master
 ```
 
-Now we are going to download the pelican-themes repo from github. Just like we did with the pelican-themes in the previous post, we are going to use git submodules. We need to make sure to specify the ```--recursive``` flag to ensure that all of the submodules with the pelican-themes repo are pulled down to our local machine.
-```
-(staticsite) $ git add submodule https://github.com/pelican-themes.git
-(staticsite) $ git submodule init
-(staticsite) $ git suumodule pull --recursive
-```
+### Install the ```jupyter``` package in our ```staticsite``` virtual environment.
 
-After the submodule pull the contents of the **static_site** folder should look something like this:
-
-
-
-
-You should see a list of all the virtual environments conda has created on your machine. It should look something like:
+I like using **jupyter notebooks** to build code and solve engineering problems with Python. A **jupyter notebook** can contain Python code, the output produced when this code is run and markup text (used for documentation).  **Jupyter notebooks** can also easily display ```matplotlib``` plots and ```pandas``` data frames. These two Python packages are very useful to engineers.
 
 ```
-pelican                  C:\Users\user.name\AppData\Local\Continuum\Anaconda3\envs\pelican
-root                  *  C:\Users\user.name\AppData\Local\Continuum\Anaconda3
+(staticsite) $ conda install jupyter
 ```
 
-The ```pelican``` virtual environment is the one we set up to run our site. To activate it:
+We can see all of the modules installed in our ```(staticsite)``` environment with:
 
 ```
-$ activate pelican
+(staticsite) $ pip freeze
 ```
 
-You should now see ```(pelican)``` before the command prompt. This means we are opperating in the ```pelican``` virtual environment. 
-
-### View install packages
-
-We installed pelican and markdown in the last post. Let's make sure they are install in our ```(pelican)``` virtual environment.
+The output should look something like:
 
 ```
-(pelican)$ pip freeze
+appnope==0.1.0
+bleach==2.1.1
+blinker==1.4
+certifi==2017.11.5
+decorator==4.1.2
+docutils==0.14
+entrypoints==0.2.3
+feedgenerator==1.9
+html5lib==0.999999999
+ipykernel==4.6.1
+ipython==6.2.1
+ipython-genutils==0.2.0
+ipywidgets==7.0.5
+jedi==0.11.0
+Jinja2==2.10
+jsonschema==2.6.0
+jupyter-client==5.1.0
+jupyter-console==5.2.0
+jupyter-core==4.4.0
+Markdown==2.6.9
+MarkupSafe==1.0
+mistune==0.8.1
+nbconvert==5.3.1
+nbformat==4.4.0
+notebook==5.2.2
+pandocfilters==1.4.2
+parso==0.1.0
+pelican==3.7.1
+pexpect==4.3.0
+pickleshare==0.7.4
+prompt-toolkit==1.0.15
+ptyprocess==0.5.2
+Pygments==2.2.0
+python-dateutil==2.6.1
+pytz==2017.3
+pyzmq==16.0.3
+qtconsole==4.3.1
+simplegeneric==0.8.1
+six==1.11.0
+terminado==0.6
+testpath==0.3.1
+tornado==4.5.2
+traitlets==4.3.2
+Unidecode==0.4.21
+wcwidth==0.1.7
+webencodings==0.5.1
+widgetsnbextension==3.0.8
 ```
 
-Make sure that you see the following modules: ```beautifulsoup4==4.6.0```, ```Jinja2==2.9.6```, ```Markdown==2.6.9```,```pelican==3.7.1``` and ```Pygments==2.2.0```.
+### Modify the **_pelicanconf.py_** file, so that we can use a new theme.
 
-### Pelican Quickstart - make the site!
+Now we need to modify the **_pelicanconf.py_** file to use a couple new plugins. The plugins will add are: 
 
-We are now going to build the site! Exciting stuff. With the virtual environement and packages in place we just need to make sure we are in a directory where we want our site to live.
+* 'series'
+* 'tag_cloud',
+* 'liquid_tags.youtube'
+* 'liquid_tags.notebook',
+* 'liquid_tags.include_code',
+* 'render_math'
+* 'tipue_search'
+* 'pelican-ipynb.markup'
+
+We add these to the ```PLUGINS = [ ]``` list in the **_pelicanconf.py_** file and separate them with commas.
 
 ```
-(pelican)$ mkdir staticsite
-(pelican)$ cd staticsite
+#pelicanconf.py
+
+PLUGINS = [
+    'i18n_subsites',
+    'series',
+    'tag_cloud',
+    'liquid_tags.youtube',
+    'liquid_tags.notebook',
+    'liquid_tags.include_code',
+    'render_math','tipue_search',
+    'pelican-ipynb.markup' ] 
 ```
+
+### Build some posts that will allow us to view the new plugins
+
+Now we will build a couple of posts which use our newly installed plugins. First we modify our content directory with a new folder called **posts** that we'll keep all the posts in. Then we'll make a couple of new .md files. I'll copy our first post to this new directory with the ```cp``` (copy) shell command and then remove the old .md file with the ```rm``` command.
+ 
+```
+pwd
+cd content
+mkdir posts
+cp first_post.md posts/first_post.md
+rm first_post.md
+```
+
+Now let's modify the **_first_post.md_** file with a couple new lines in the header, and a new line of text below the header:
+
+**_first_post.md_**
+```
+Title: First Post - Part 1
+Date: 2017-11-30 12:40
+Modified: 2017-10-30 12:40
+Status: published
+Category: example posts
+Tags: python, pelican, blog
+Slug: first-post
+Authors: Peter D. Kazarinoff
+Series: example-post-series
+Series_index: 1
+Summary: This is the first post of a series of posts
+
+This is the first post of a series of posts
+```
+
+After this post is saved, we can go back to the terminal and copy it to make a second post. The contents of our staticsite directory should look something like this:
+
+```
+staticsite/
+├── LICENSE
+├── Makefile
+├── README.md
+├── __pycache__
+├── _nb_header.html
+├── content
+│   ├── posts
+│       ├── first_post.md
+├── develop_server.sh
+├── fabfile.py
+├── output
+├── pelican-plugins
+│   ├── i18n_subsites
+│   ├── liquid_tags
+│   ├── pelican-ipynb
+│   ├── tipue_search
+├── pelican-themes
+│   ├── pelican-bootstrap3
+├── pelican.pid
+├── pelicanconf.py
+├── publishconf.py
+└── srv.pid
+```
+
+Let's make two new posts in the **content/posts** directory.
+
+
+```
+cd ~/Documents/staticsite/content/posts
+cp first_post.md second_post.md
+cp third_post.md
+```
+
+Now we'll edit the **second_post.md** so that it is part of a series and contains a youtube video file
+
+**_second_post.md_**
+```
+Title: Second Post - Part 2
+Date: 2017-11-30 12:40
+Modified: 2017-10-30 12:40
+Status: published
+Category: example posts
+Tags: python, pelican, blog
+Slug: second-post
+Authors: Peter D. Kazarinoff
+Series: example-post-series
+Series_index: 2
+Summary: This is the second post of a series of posts. It will show series and an embeded youtube video.
+
+This is the second post of a series of posts. It will show series and an embedded youtube video.
+
+{% youtube https://www.youtube.com/watch?v=Qq-5frjUfK0 [560] [315] %}
+```
+
+We'll create a sample **jupyter notebook** in a new folder called **code** in our **content** folder to put in the third post. To bring up a jupyter notebook in our web browser use:
+
+```
+(staticsite) $ pwd
+(staticsite) $ mkdir content/code
+(staticsite) $ cd content/code
+(staticsite) $ jupyter notebook
+```
+
+Let's put one markdown cell, one code cell and produce one output cell in our jupyter notebook. We'll save it as **_example_notebook_**
+
+{% notebook ../code/statics/example_notebook.ipynb %}
+
+
+
+### Add and commit the changes then push those changes to github
+
+When we are done editing the the site, we add **all of the changes** to our local git repo using ```git add .```. Then we commit those changes with ```git commit``` and add the ```-m "added pelican_bootstrap3 theme``` flag to give supply a commit message (make sure to use double quotes "commit message"). To push those changes up to github use ```git push origin master```
+
+```
+git add .
+git commit -m "added pelican_bootstrap3 theme"
+git push origin master
+```
+
+In the next post we will add some css to make the tables on the site took a whole lot better and add the ability to include jupyter notebooks in posts.
 
 
 

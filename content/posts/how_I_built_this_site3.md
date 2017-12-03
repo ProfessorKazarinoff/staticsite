@@ -8,7 +8,7 @@ Slug: how-i-built-this-site-3
 Authors: Peter D. Kazarinoff
 Series: How I built this site
 Series_index: 3
-Summary: This is the third part in a multi-part series on how I built this site. In the [last post]({filename}how_I_built_this_site2.md), we used ```pelican-quickstart``` to build the framework of the site and wrote a short first post, then viewed a demo version of the site on localhost:8000. In this post we will add a custom theme to the site called pelican_bootstrap3. The pelican_bootstrap3 theme looks great and is mobile reponsive so it will make the site look good on phones and tablets. Then we'll add some custom css to personalize the look of the theme.
+Summary: This is the third part in a multi-part series on how I built this site. In the [last post]({filename}how_I_built_this_site2.md), we used ```pelican-quickstart``` to build the framework of the site and wrote a short first post, then viewed a demo version of the site on localhost:8000. In this post we will add a custom theme to the site called pelican_bootstrap3. The pelican_bootstrap3 theme looks great and is mobile responsive so it will make the site look good on phones and tablets. Then we'll add some custom css to personalize the look of the theme.
 
 This is the third part in a multi-part series on how I built this site. In the [last post]({filename}how_I_built_this_site2.md), we used ```pelican-quickstart``` to build the framework of the site and wrote a short first post, then viewed a demo version of the site on localhost:8000. In this post we will add a custom theme to the site called pelican_bootstrap3. The pelican_bootstrap3 theme looks great and is mobile reponsive so it will make the site look good on phones and tablets. Then we'll add some custom css to personalize the look of the theme.
 
@@ -19,10 +19,11 @@ We are going to accomplish the following in this post. By the end of the post we
 1. Activate our ```staticsite``` virtual environment
 2. Pull the most recent version of our site from github
 3. Add a git submodule to our staticsite folder and bring in the pelican-themes repo from github
-4. Modify the pelicanconf.py file to point to our new theme
-5. Build and preview the site with Pelican
-6. Add custom css to modify the look of the site
-7. Add and commit the changes then push those changes to github
+4. Add a git submodule to our staticsite folder and bring in the pelican-plugins repo from github
+5. Modify the pelicanconf.py file to point to our new theme, and add a new plugin
+6. Build and preview the site with Pelican
+7. Add custom css to modify the look of the site
+8. Add and commit the changes then push those changes to github
 
 Big steps, it's really going to look like a website when we are done.
 
@@ -35,7 +36,7 @@ Open the Anaconda Prompt and activate the ```(staticsite)``` virtual environment
 $ source activate staticsite
 ```
 
-Then cd into the staticsite directory and bring in the most up to date version of the site stored on github
+Then cd into the staticsite directory and bring in the most up to date version of the site stored on github.
 
 ```
 (staticsite) $ cd ~
@@ -63,6 +64,36 @@ $ git submodule add https://github.com/getpelican/pelican-themes.git
 $ git submodule init
 $ git submodule update --init --recursive
 ```
+
+Ensure that we are still in the **staticsite** directory and pull down the pelican-plugins repo form github.
+
+```
+$ pwd
+
+$ git submodule add https://github.com/getpelican/pelican-plugins.git
+$ git submodule init
+$ git submodule update --init --recursive
+```
+Now the contents of the static site folder should look something like:
+
+staticsite/
+├── LICENSE
+├── Makefile
+├── README.md
+├── __pycache__
+├── content
+├── develop_server.sh
+├── fabfile.py
+├── output
+├── pelican-plugins
+├── pelican-themes
+├── pelican.pid
+├── pelicanconf.py
+├── publishconf.py
+└── srv.pid
+
+### Modify the **_pelicanconf.py_** file, so that we can use a new theme.
+
 
 
 When we are done editing the the site. We add **all of the changes** to our local git repo using ```git add .```. Then we commit theose changes with ```git commit``` and add the ```-m "added pelican_bootstrap3 theme``` flag to give supply a commit message (make sure to use double quotes "commit message"). To push those changes up to github use ```git push origin master```

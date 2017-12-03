@@ -165,7 +165,7 @@ Summary: This is the first post of a series of posts
 This is the first post of a series of posts
 ```
 
-After this post is saved, we can go back to the terminal and copy it to make a second post. The contents of our staticsite directory should look something like this:
+After this post is saved, we can go back to the terminal and copy it to make a second post. The contents of our **staticsite directory** should look something like this:
 
 ```
 staticsite/
@@ -232,9 +232,9 @@ We'll create a sample **jupyter notebook** in a new folder called **code** in ou
 (staticsite) $ jupyter notebook
 ```
 
-Let's put one markdown cell, one code cell and produce one output cell in our jupyter notebook. We'll save it as **_example_notebook_**
+Let's put one markdown cell, one code cell and produce one output cell in our jupyter notebook. We'll save it as **_example_notebook.ipynb_**. My **_sample_notebook.ipynb_** looks like:
 
-{% notebook ../code/statics/sample_notebook.ipynb %}
+![example jupyter notebook]({filename}/images/jupyter_notebook_sample_example.png)
 
 
 

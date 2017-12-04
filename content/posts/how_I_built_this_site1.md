@@ -28,7 +28,7 @@ What does that even mean? Before I started building this site I needed to make s
 
 ### Installing Python (the Anaconda distribution)
 
-I highly recommend installing the Anaconda distribution of Python. I have the Anaconda distribution installed on all the computers I used to build the site:
+I highly recommend installing the Anaconda distribution of Python. I have the Anaconda distribution installed on all the computers I used to build this site:
 
 * Windows 10 Desktop at work
 
@@ -40,7 +40,7 @@ I highly recommend installing the Anaconda distribution of Python. I have the An
 
 An advantage of using the Anaconda distribution of Python is that each of these four computers will have the same stable version of Python. 
 
-Download the lastest release at:
+Download the latest release at:
 
 [https://www.anaconda.com/download](https://www.anaconda.com/download/)
 
@@ -49,7 +49,7 @@ The Anaconda distribution of Python comes with an up to date and stable version 
  
 ### Create a new virtual environment
 
-Before downloading Pelican, we should create a new virtual environment. The same virtual environment on each of the computers I use means the same packages are installed on each computer. To create a new virtual environment, open up the Anaconda Prompt (on Windows) or a terminal (on Linux or Mac OSX). Let's call our new virtual environment **_staticsite_**. The ```create``` command creates the environment and the ```-n staticsite``` flag adds the name.
+Before downloading Pelican, we should create a new virtual environment. The same virtual environment on each of the computers I use means the same packages are installed on each computer. To create a new virtual environment, open up the Anaconda Prompt (on Windows) or a terminal (on Linux or Mac OSX). Let's call our new virtual environment **_staticsite_**. The ```conda create``` command creates the environment and the ```-n staticsite``` flag adds the name.
 
 ```
 $ conda create -n staticsite

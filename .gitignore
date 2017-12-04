@@ -1,8 +1,11 @@
 #########################
 # directories to ignore #
-
+.idea/
+__pycache__/
+*.idea/
 
 #########################
 # file types to ignore #
 
-
+# Jupyter Notebook
+.ipynb_checkpoints

@@ -138,7 +138,7 @@ Now, the site should look something like this:
 
 ### Add and commit the changes then push those changes to github
 
-When we are done editing the the site, we add **all of the changes** to our local git repo using ```git add .```. Then we commit those changes with ```git commit``` and add the ```-m "added pelican_bootstrap3 theme``` flag to give supply a commit message (make sure to use double quotes "commit message"). To push those changes up to github use ```git push origin master```
+When we are done editing the the site, we add **all of the changes** to our local git repo using ```git add .```. Then we commit those changes with ```git commit``` and add the ```-m "added pelican_bootstrap3 theme"``` flag to give supply a commit message (make sure to use double quotes "commit message"). To push those changes up to github use ```git push origin master```
 
 ```
 git add .
@@ -146,4 +146,4 @@ git commit -m "added pelican_bootstrap3 theme"
 git push origin master
 ```
 
-In the next post we will add some css to make the tables on the site took a whole lot better and add the ability to include jupyter notebooks in posts.
+In the [next post]({filename}how_I_built_this_site4.md) we will add some _pelican-plugins_ to bring extra functionality to the site and add the ability to include **jupyter notebooks** in posts.

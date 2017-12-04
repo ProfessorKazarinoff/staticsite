@@ -72,12 +72,12 @@ Time for some fun! Installing Pelican. Pelican is a Python package that creates 
 (staticsite)$ conda install pip
 ```
 
-Once ```pip``` is installed, we can install ```pelican``` and ```markdown```. These are two of the core pieces we need to build the website. ```fabric``` is also installed because we'll use it to build and demo the site on Windows.
+Once ```pip``` is installed, we can install ```pelican``` and ```markdown```. These are two of the core pieces we need to build the website. ```fabric3``` is also installed because we'll use it to build and demo the site on Windows.
 
 ```
 (staticsite)$ pip install pelican
 (staticsite)$ pip install markdown
-(staticsite)$ pip install fabric
+(staticsite)$ pip install fabric3
 ```
 
 ### Create a github account and create a new repository
@@ -151,3 +151,6 @@ git push origin master
 ```
 
 This ensures all of my computers and the github repo contain the same version of the site.
+
+
+In the [next post]({filename}how_I_built_this_site2.md) we will In this post, we will use the ```pelican-quickstart``` command to get the blog off the ground, write our first post and view a demo version of the site.

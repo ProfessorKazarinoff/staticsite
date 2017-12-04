@@ -208,4 +208,4 @@ git add .
 git commit -m "created pelican static site"
 git push origin master
 ```
-In the next post, we will customize the site with a _pelican-theme_ and add a couple of _pelican-plugins_ to add additional functionality to the site.
+In the [next post]({filename}how_I_built_this_site3.md), we will customize the site with a _pelican-theme_ called **pelican-bootstrap3**.

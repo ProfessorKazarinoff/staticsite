@@ -67,3 +67,5 @@ s3cmd put * s3://pythonforundergradengineers/ --acl-public --recursive
 Point a web browser to the site at:
 
 https://pythonforundergradengineers.nyc3.digitaloceanspaces.com/index.html
+
+In the [next post]({filename}how_I_built_this_site5.md) we will upload the contest of the site to github pages. Then view the site with a web browser or phone.

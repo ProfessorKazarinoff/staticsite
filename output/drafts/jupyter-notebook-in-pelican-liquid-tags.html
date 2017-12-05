@@ -546,7 +546,10 @@ The rows are the sum of the x-terms (xero) and sum of the y-terms (22)</p>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We can also solve this problem without using numpy`s <code>linalg.solve()</code> function.</p>
-$$ A x = B $$$$ x = \frac{B}{A} $$$$ x = A^{-1}B $$<p>To produce $A^{-1}$, the inverse of A, we need to use numpy's <code>np.linalg.inv()</code> function. To matrix multiply the terms $A^{-1}$ and B, we need to usen umpy's matrix multiplication function <code>np.dot()</code>.</p>
+<p>$$ A x = B $$</p>
+<p>$$ x = \frac{B}{A} $$</p>
+<p>$$ x = A^{-1}B $$</p>
+<p>To produce $A^{-1}$, the inverse of A, we need to use numpy's <code>np.linalg.inv()</code> function. To matrix multiply the terms $A^{-1}$ and B, we need to usen umpy's matrix multiplication function <code>np.dot()</code>.</p>
 
 </div>
 </div>

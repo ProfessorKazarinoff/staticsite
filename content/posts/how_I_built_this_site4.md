@@ -134,9 +134,9 @@ PLUGINS = [
     'pelican-ipynb.markup' ] 
 ```
 
-### Build some posts that will allow us to view the new plugins
+### Build some posts that use the newly installed plugins
 
-Now we will build a couple of posts which use our newly installed plugins. First we modify our content directory with a new folder called **posts** that we'll keep all the posts in. Then we'll make a couple of new .md files. I'll copy our first post to this new directory with the ```cp``` (copy) shell command and then remove the old .md file with the ```rm``` command.
+Now we will build a couple of posts which use our newly installed plugins. First we'll modify our content directory with a new folder called **posts**.  We'll keep all the posts in this directory. Then we'll make a couple of new _.md_ files. I'll copy our first post to this new directory with the ```cp``` (copy) shell command and then remove the old _.md_ file with the ```rm``` command.
  
 ```
 pwd
@@ -146,13 +146,13 @@ cp first_post.md posts/first_post.md
 rm first_post.md
 ```
 
-Now let's modify the **_first_post.md_** file with a couple new lines in the header, and a new line of text below the header:
+Now let's modify the **_first_post.md_** file with a couple new lines in the header.  The ```Series: ``` and ```Series_index: ``` lines will put this first post in series of posts using the **series** plugin. 
 
 **_first_post.md_**
 ```
 Title: First Post - Part 1
 Date: 2017-11-30 12:40
-Modified: 2017-10-30 12:40
+Modified: 2017-11-30 12:40
 Status: published
 Category: example posts
 Tags: python, pelican, blog
@@ -165,7 +165,7 @@ Summary: This is the first post of a series of posts
 This is the first post of a series of posts
 ```
 
-After this post is saved, we can go back to the terminal and copy it to make a second post. The contents of our **staticsite directory** should look something like this:
+After the post is saved, we can go back to the terminal and copy of it to create our second post. The contents of our **staticsite directory** should look something like this:
 
 ```
 staticsite/
@@ -173,7 +173,6 @@ staticsite/
 ├── Makefile
 ├── README.md
 ├── __pycache__
-├── _nb_header.html
 ├── content
 │   ├── posts
 │       ├── first_post.md
@@ -199,16 +198,16 @@ Let's make two new posts in the **content/posts** directory.
 ```
 cd ~/Documents/staticsite/content/posts
 cp first_post.md second_post.md
-cp third_post.md
+cp first_post.md third_post.md
 ```
 
-Now we'll edit the **second_post.md** so that it is part of a series and contains a youtube video file
+Now we'll edit the **_second_post.md_** so that it is part of a series and contains an embedded YouTube video.
 
 **_second_post.md_**
 ```
 Title: Second Post - Part 2
 Date: 2017-11-30 12:40
-Modified: 2017-10-30 12:40
+Modified: 2017-11-30 12:40
 Status: published
 Category: example posts
 Tags: python, pelican, blog
@@ -223,7 +222,7 @@ This is the second post of a series of posts. It will show series and an embedde
 {% youtube https://www.youtube.com/watch?v=Qq-5frjUfK0 [560] [315] %}
 ```
 
-We'll create a sample **jupyter notebook** in a new folder called **code** in our **content** folder to put in the third post. To bring up a jupyter notebook in our web browser use:
+We'll create a sample **jupyter notebook** in a new folder called **code** in our **content** folder to put in the third post. To creat the **code** folder and bring up a new **jupyter notebook** in our web browser use:
 
 ```
 (staticsite) $ pwd
@@ -232,11 +231,47 @@ We'll create a sample **jupyter notebook** in a new folder called **code** in ou
 (staticsite) $ jupyter notebook
 ```
 
-Let's put one markdown cell, one code cell and produce one output cell in our jupyter notebook. We'll save it as **_example_notebook.ipynb_**. My **_sample_notebook.ipynb_** looks like:
+Let's put one markdown cell, one code cell and produce one output cell in our **jupyter notebook**. We'll save it as **_example_notebook.ipynb_**. My **_sample_notebook.ipynb_** looks like:
 
 ![example jupyter notebook]({filename}/images/jupyter_notebook_sample_example.png)
 
+Now we will put our **_example_notebook.ipynb_** into our third post. Including a **juypter notebook** requires the use of the line ``` {% notebook path/to/notebook.ipynb %} ```.  
 
+**_third_post.md_**
+```
+Title: Third Post - Part 3
+Date: 2017-11-30 12:40
+Modified: 2017-11-30 12:40
+Status: published
+Category: example posts
+Tags: python, pelican, blog
+Slug: third-post
+Authors: Peter D. Kazarinoff
+Series: example-post-series
+Series_index: 2
+Summary: This is the third post of a series of posts. It will show series an jupyter notebook.
+
+
+This post contains a jupyter notebook.
+
+{% notebook ../code/circuit_diagrams/SchemDraw_circuit_diagrams.ipynb %}
+
+```
+
+### Build and preview the site with Pelican
+
+With a couple new **pelican-plugins** configured and three new posts written, it is time to preview our site again.  We can build the site and can view it with a web browser using:
+
+```
+make html
+make serve
+```
+
+To view the site, point a brower to _localhost:8000_
+
+[localhost:8000](localhost:8000)
+
+use ```ctrl-c``` to stop the server.
 
 ### Add and commit the changes then push those changes to github
 

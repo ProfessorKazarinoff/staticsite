@@ -1,7 +1,7 @@
 Title: How I build this site - Part 3
 Date: 2017-12-07 14:15
 Modified: 2017-12-07 14:15
-Status: draft
+Status: published
 Category: This site
 Tags: python, pelican, blog, markdown
 Slug: how-i-built-this-site-3

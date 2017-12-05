@@ -1,5 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Python Programming for Undergraduate Engineers - This site</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="https://professorkazarinoff.github.io/staticsite/feeds/this-site.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2017-11-28T14:15:00-08:00</updated><entry><title>How I build this site - Part 2</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-2.html" rel="alternate"></link><published>2017-11-28T14:15:00-08:00</published><updated>2017-11-28T14:15:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-11-28:/staticsite/how-i-built-this-site-2.html</id><summary type="html">&lt;p&gt;This is the second part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-site-1.html"&gt;last post&lt;/a&gt;, we set up our development environment including Python, a new virtual environment, installed the pelican and markdown packages and set up git. In this post, we will use the &lt;code&gt;pelican-quickstart&lt;/code&gt; command to get the blog off the ground. We are also going to create a &lt;strong&gt;first_post.md&lt;/strong&gt; file and serve up the website locally so we can take a look at it.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the second part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-site-1.html"&gt;last post&lt;/a&gt;, we set up our development environment including Python, a new virtual environment, installed the pelican and markdown packages and set up git. In this post, we will use the &lt;code&gt;pelican-quickstart&lt;/code&gt; command to get the blog off the ground. We are also going to create a &lt;strong&gt;first_post.md&lt;/strong&gt; file and serve up the website locally so we can take a look at it.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Python Programming for Undergraduate Engineers - This site</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="https://professorkazarinoff.github.io/staticsite/feeds/this-site.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2017-12-07T14:15:00-08:00</updated><entry><title>How I build this site - Part 3</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-3.html" rel="alternate"></link><published>2017-12-07T14:15:00-08:00</published><updated>2017-12-07T14:15:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-12-07:/staticsite/how-i-built-this-site-3.html</id><summary type="html">&lt;p&gt;This is the third part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-2.html"&gt;last post&lt;/a&gt;, we used &lt;code&gt;pelican-quickstart&lt;/code&gt; to build the framework of the site and wrote a short first post, then viewed a demo version of the site on localhost:8000. In this post we will add a custom theme to the site called pelican_bootstrap3. The pelican_bootstrap3 theme looks great and is mobile responsive so it will make the site look good on phones and tablets. Then we'll add some custom css to personalize the look of the theme.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the third part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-2.html"&gt;last post&lt;/a&gt;, we used &lt;code&gt;pelican-quickstart&lt;/code&gt; to build the framework of the site and wrote a short first post, then viewed a demo version of the site on localhost:8000. In this post we will add a custom theme to the site called pelican_bootstrap3. The pelican_bootstrap3 theme looks great and is mobile reponsive so it will make the site look good on phones and tablets. Then we'll add some custom css to personalize the look of the theme.&lt;/p&gt;
+&lt;h3&gt;Steps in this post&lt;/h3&gt;
+&lt;p&gt;We are going to accomplish the following in this post. By the end of the post we are going to have a a static site with a great looking bootstrap3 theme which is mobile responsive and looks great on desktops, tablets and phones.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Activate our &lt;code&gt;staticsite&lt;/code&gt; virtual environment&lt;/li&gt;
+&lt;li&gt;Pull the most recent version of our site from github&lt;/li&gt;
+&lt;li&gt;Add a git submodule to our staticsite folder and bring in the pelican-themes repo from github&lt;/li&gt;
+&lt;li&gt;Add a git submodule to our staticsite folder and bring in the pelican-plugins repo from github&lt;/li&gt;
+&lt;li&gt;Modify the pelicanconf.py file to point to our new theme, and add a new plugin&lt;/li&gt;
+&lt;li&gt;Build and preview the site with Pelican&lt;/li&gt;
+&lt;li&gt;Add and commit the changes then push those changes to github&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Big steps, it's really going to look like a website when we are done.&lt;/p&gt;
+&lt;h3&gt;Activate our virtual environment and pull from github&lt;/h3&gt;
+&lt;p&gt;Open the Anaconda Prompt and activate the &lt;code&gt;(staticsite)&lt;/code&gt; virtual environment&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;source&lt;/span&gt; activate staticsite
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Then cd into the staticsite directory and bring in the most up to date version of the site stored on github.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(staticsite) $ cd ~
+(staticsite) $ cd Documents/staticsite
+(staticsite) $ git pull origin master
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Use git submodule add to pull all of the themes into our local &lt;strong&gt;staticsite/pelican-themes&lt;/strong&gt; directory&lt;/h3&gt;
+&lt;p&gt;There are a bunch of different themes available for static site built with pelican. The three I was most interested in were:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;material&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;voidy_bootstrap&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;pelican-bootstrap3&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We can bring in all of the Pelican themes stored on github by creating a &lt;em&gt;git submodule&lt;/em&gt;. A git submodule is a sub-repository within a git repository that is linked to another repository. It is a way to bring in something else from github within a local repository and not have to keep a local copy up to date. Each time we "pull" from the submodule, we get the newest version of the pelican-themes repo on github. We don't have to manually track any changes to these themes and incorporate them to our local version. When the changes are made to the themes on github, we just pull those changes down to our local version. The lines &lt;code&gt;git submodule init&lt;/code&gt; and &lt;code&gt;git submodule update --init --recursive&lt;/code&gt; are important to call. If those two commands are not moved we'll end up with empty folders within the &lt;strong&gt;staticsite/pelican-themes&lt;/strong&gt; directory. A lot of the themes are submodules themselves so the &lt;code&gt;--recursive&lt;/code&gt; option has to be used to pull all of these submodules down. Without &lt;code&gt;--recursive&lt;/code&gt; you can end up with empty folders.&lt;/p&gt;
+&lt;p&gt;To create the folder for our pelican-themes git submodule, ensure you are in the staticsite folder, then call:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;pwd&lt;/span&gt;
+
+$ git submodule add https://github.com/getpelican/pelican-themes.git
+$ git submodule init
+$ git submodule update --init --recursive
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Ensure that we are still in the &lt;strong&gt;staticsite&lt;/strong&gt; directory and pull down the pelican-plugins repo form github.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;pwd&lt;/span&gt;
+
+$ git submodule add https://github.com/getpelican/pelican-plugins.git
+$ git submodule init
+$ git submodule update --init --recursive
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now the contents of the static site folder should look something like:&lt;/p&gt;
+&lt;p&gt;staticsite/
+├── LICENSE
+├── Makefile
+├── README.md
+├── &lt;strong&gt;pycache&lt;/strong&gt;
+├── content
+├── develop_server.sh
+├── fabfile.py
+├── output
+├── pelican-plugins
+├── pelican-themes
+├── pelican.pid
+├── pelicanconf.py
+├── publishconf.py
+└── srv.pid&lt;/p&gt;
+&lt;h3&gt;Modify the &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; file, so that we can use a new theme.&lt;/h3&gt;
+&lt;p&gt;So far our &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; file contains only default lines of code that Pelican built for us. In order to use a new theme, we will edit edit this file. After we edit the configuration file, the &lt;code&gt;make html&lt;/code&gt; command will produce new .html pages in the &lt;strong&gt;output&lt;/strong&gt; directory. The relevant lines to change in the &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; are:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;#pelicanconf.py
+
+PLUGIN_PATHS = [&amp;#39;pelican-plugins&amp;#39;]
+
+THEME = &amp;#39;pelican-themes/pelican-bootstrap3&amp;#39;
+BOOTSTRAP_THEME = &amp;#39;flatly&amp;#39;
+
+PLUGIN_PATHS = [&amp;#39;/path/to/git/pelican-plugins&amp;#39;]
+JINJA_ENVIRONMENT = {&amp;#39;extensions&amp;#39;: [&amp;#39;jinja2.ext.i18n&amp;#39;]}
+PLUGINS = [
+    &amp;#39;i18n_subsites&amp;#39;]
+
+I18N_TEMPLATES_LANG = &amp;#39;en&amp;#39;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Taken directly from the &lt;a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3"&gt;pelicin-bootstrap3 README.md&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;as this template can be translated (see Translations below). You also need to activate a plugin that initializes the i18n jinja extension. One possibility is an up to date version of the i18n_subsites plugin&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;So we need to make sure to include the &lt;strong&gt;i18n&lt;/strong&gt; plugin in our &lt;strong&gt;&lt;em&gt;pelicanonf.py&lt;/em&gt;&lt;/strong&gt; file. Again from the from the &lt;a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3"&gt;pelicin-bootstrap3 README.md&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;If you are using i18n_subsites and you are not using English as your default language, make sure to also correctly specify the default language of the theme. Otherwise the translations will not be used on your default site.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3&gt;Build and preview the site with Pelican&lt;/h3&gt;
+&lt;p&gt;With the &lt;strong&gt;pelican-plugins&lt;/strong&gt; and &lt;strong&gt;pelican-themes&lt;/strong&gt; repos downloaded and the &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; file editied, we can build the site and take a look at it with a web browser:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;make html
+make serve
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;To view the site, point a brower to &lt;em&gt;localhost:8000&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="localhost:8000"&gt;localhost:8000&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Now, the site should look something like this:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="pelican-boostrap3-basic-site.png" src="{filename}/images/pelican-bootstrap3-basic-site.png"&gt;&lt;/p&gt;
+&lt;h3&gt;Add and commit the changes then push those changes to github&lt;/h3&gt;
+&lt;p&gt;When we are done editing the the site, we add &lt;strong&gt;all of the changes&lt;/strong&gt; to our local git repo using &lt;code&gt;git add .&lt;/code&gt;. Then we commit those changes with &lt;code&gt;git commit&lt;/code&gt; and add the &lt;code&gt;-m "added pelican_bootstrap3 theme"&lt;/code&gt; flag to give supply a commit message (make sure to use double quotes "commit message"). To push those changes up to github use &lt;code&gt;git push origin master&lt;/code&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git add .
+git commit -m &amp;quot;added pelican_bootstrap3 theme&amp;quot;
+git push origin master
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;In the &lt;a href="https://professorkazarinoff.github.io/staticsite/drafts/how-i-built-site-4.html"&gt;next post&lt;/a&gt; we will add some &lt;em&gt;pelican-plugins&lt;/em&gt; to bring extra functionality to the site and add the ability to include &lt;strong&gt;jupyter notebooks&lt;/strong&gt; in posts.&lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="blog"></category><category term="markdown"></category></entry><entry><title>How I build this site - Part 2</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-2.html" rel="alternate"></link><published>2017-11-28T14:15:00-08:00</published><updated>2017-11-28T14:15:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-11-28:/staticsite/how-i-built-this-site-2.html</id><summary type="html">&lt;p&gt;This is the second part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-site-1.html"&gt;last post&lt;/a&gt;, we set up our development environment including Python, a new virtual environment, installed the pelican and markdown packages and set up git. In this post, we will use the &lt;code&gt;pelican-quickstart&lt;/code&gt; command to get the blog off the ground. We are also going to create a &lt;strong&gt;first_post.md&lt;/strong&gt; file and serve up the website locally so we can take a look at it.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the second part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-site-1.html"&gt;last post&lt;/a&gt;, we set up our development environment including Python, a new virtual environment, installed the pelican and markdown packages and set up git. In this post, we will use the &lt;code&gt;pelican-quickstart&lt;/code&gt; command to get the blog off the ground. We are also going to create a &lt;strong&gt;first_post.md&lt;/strong&gt; file and serve up the website locally so we can take a look at it.&lt;/p&gt;
 &lt;h3&gt;Steps in this post&lt;/h3&gt;
 &lt;p&gt;We are going to accomplish the following in this post. By the end of the post, we will have a working website with one blog post served up locally and an updated github repo with all the changes saved.&lt;/p&gt;
 &lt;ol&gt;
@@ -160,7 +279,7 @@ git push origin master
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;In the &lt;a href="https://professorkazarinoff.github.io/staticsite/drafts/how-i-built-this-site-3.html"&gt;next post&lt;/a&gt;, we will customize the site with a &lt;em&gt;pelican-theme&lt;/em&gt; called &lt;strong&gt;pelican-bootstrap3&lt;/strong&gt;.&lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="blog"></category><category term="markdown"></category></entry><entry><title>How I build this site - Part 6</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-6.html" rel="alternate"></link><published>2017-11-27T12:40:00-08:00</published><updated>2017-11-27T12:40:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-11-27:/staticsite/how-i-built-this-site-6.html</id><summary type="html">&lt;p&gt;This is the sixth part of a multi-part series on how I built this site. In last post, we customized the site and added the ability to use jupyter notebooks in posts.  In this post we are going to deploy the site to &lt;a href="https://pages.github.com/"&gt;github pages&lt;/a&gt;. Github pages is a place on github were documentation and static sites can be hosted. It was tricky for me to set this up, but after a lot trial and error, I was able to get it to work.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the sixth part of a multi-part series on how I built this site. In last post, we customized the site and added the ability to use jupyter notebooks in posts.  In this post we are going to deploy the site to &lt;a href="https://pages.github.com/"&gt;github pages&lt;/a&gt;. Github pages is a place on github were documentation and static sites can be hosted. It was tricky for me to set this up, but after a lot of trial and error, I was able to get it to work.&lt;/p&gt;
+&lt;p&gt;In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-3.html"&gt;next post&lt;/a&gt;, we will customize the site with a &lt;em&gt;pelican-theme&lt;/em&gt; called &lt;strong&gt;pelican-bootstrap3&lt;/strong&gt;.&lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="blog"></category><category term="markdown"></category></entry><entry><title>How I build this site - Part 6</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-6.html" rel="alternate"></link><published>2017-11-27T12:40:00-08:00</published><updated>2017-11-27T12:40:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-11-27:/staticsite/how-i-built-this-site-6.html</id><summary type="html">&lt;p&gt;This is the sixth part of a multi-part series on how I built this site. In last post, we customized the site and added the ability to use jupyter notebooks in posts.  In this post we are going to deploy the site to &lt;a href="https://pages.github.com/"&gt;github pages&lt;/a&gt;. Github pages is a place on github were documentation and static sites can be hosted. It was tricky for me to set this up, but after a lot trial and error, I was able to get it to work.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the sixth part of a multi-part series on how I built this site. In last post, we customized the site and added the ability to use jupyter notebooks in posts.  In this post we are going to deploy the site to &lt;a href="https://pages.github.com/"&gt;github pages&lt;/a&gt;. Github pages is a place on github were documentation and static sites can be hosted. It was tricky for me to set this up, but after a lot of trial and error, I was able to get it to work.&lt;/p&gt;
 &lt;h3&gt;Steps in this post&lt;/h3&gt;
 &lt;p&gt;By the end of the post we are going to have a working static website hosted on github pages. To accomplish we will complete the following steps:&lt;/p&gt;
 &lt;ol&gt;

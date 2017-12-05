@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>Violin Plot using Python, matplotlib and seaborn - Python Programming for Undergraduate Engineers</title>
+    <title>Articles by Peter D. Kazarinoff - Python Programming for Undergraduate Engineers</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -174,19 +174,15 @@ init_mathjax();
 </script>
     <link href="../extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="../drafts/violin-plot-using-python-matplotlib-and-seaborn.html">
 
-        <meta name="author" content="Peter D Kazarinoff" />
-        <meta name="description" content="Import the necessary packages Pandas is used to read in the .csv data. Seaborn to build the plot and Matplotlib for displaying the plot. # seaborn violin plot import pandas as pd import seaborn as sns import matplotlib.pyplot as plt %matplotlib inline Read in the .csv data file Use pandas …" />
+        <meta name="author" content="Peter Kazarinoff" />
 
+    <!-- Open Graph tags -->
         <meta property="og:site_name" content="Python Programming for Undergraduate Engineers" />
-        <meta property="og:type" content="article"/>
-        <meta property="og:title" content="Violin Plot using Python, matplotlib and seaborn"/>
-        <meta property="og:url" content="../drafts/violin-plot-using-python-matplotlib-and-seaborn.html"/>
-        <meta property="og:description" content="Import the necessary packages Pandas is used to read in the .csv data. Seaborn to build the plot and Matplotlib for displaying the plot. # seaborn violin plot import pandas as pd import seaborn as sns import matplotlib.pyplot as plt %matplotlib inline Read in the .csv data file Use pandas …"/>
-        <meta property="article:published_time" content="2017-10-21" />
-            <meta property="article:section" content="posts" />
-            <meta property="article:author" content="Peter D Kazarinoff" />
+        <meta property="og:type" content="website"/>
+        <meta property="og:title" content="Python Programming for Undergraduate Engineers"/>
+        <meta property="og:url" content=".."/>
+        <meta property="og:description" content="Python Programming for Undergraduate Engineers"/>
 
 
 
@@ -204,8 +200,6 @@ init_mathjax();
 
 
 
-        <link href="../feeds/posts.atom.xml" type="application/atom+xml" rel="alternate"
-              title="Python Programming for Undergraduate Engineers posts ATOM Feed"/>
 
 </head>
 <body>
@@ -248,94 +242,51 @@ Python Programming for Undergraduate Engineers            </a>
 <div class="container">
     <div class="row">
         <div class="col-sm-9">
-            <ol class="breadcrumb">
-                <li><a href=".." title="Python Programming for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="../category/posts.html" title="posts">posts</a></li>
-                <li class="active">Violin Plot using Python, matplotlib and seaborn</li>
-            </ol>
-    <section id="content">
-        <article>
-            <header class="page-header">
-                <h1>
-                    <a href="../drafts/violin-plot-using-python-matplotlib-and-seaborn.html"
-                       rel="bookmark"
-                       title="Permalink to Violin Plot using Python, matplotlib and seaborn">
-                        Violin Plot using Python, matplotlib and seaborn
-                    </a>
-                </h1>
-            </header>
-            <div class="entry-content">
-                <div class="panel">
-                    <div class="panel-body">
+        <ol class="breadcrumb">
+            <li><a href=".." title="Python Programming for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+            <li><a href="../authors.html" title="Authors">Authors</a></li>
+            <li class="active">Peter Kazarinoff</li>
+        </ol>
+            <article>
+                <h2><a href="../installing-anaconda-on-windows.html">Installing Anaconda on Windows</a></h2>
+                    <div class="well well-sm">
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2017-10-21T16:00:00-07:00"> Sat 21 October 2017</time>
+        <i class="fa fa-calendar"></i><time datetime="2017-11-14T09:20:00-08:00"> Tue 14 November 2017</time>
     </span>
 
 
 
 
 
+<span class="label label-default">Tags</span>
+	<a href="../tag/python.html">python</a>
+        /
+	<a href="../tag/anaconda.html">anaconda</a>
+        /
+	<a href="../tag/miniconda.html">miniconda</a>
+        /
+	<a href="../tag/conda.html">conda</a>
+        /
+	<a href="../tag/windows.html">windows</a>
     
 </footer><!-- /.post-info -->                    </div>
+                <div class="summary"><p>In this post, we will run through installing the <a href="https://www.anaconda.com/what-is-anaconda/">Anaconda distribution</a> of Python on Windows 10. I think the Anaconda distribution of Python is the the best option for undergraduate engineers who want to use Python. Anaconda is free (although the download is large which can take time) and can be installed on school or work computers where you don't have administrator access or the ability to install new programs.</p>
+                    <a class="btn btn-default btn-xs" href="../installing-anaconda-on-windows.html">more ...</a>
                 </div>
-                <h3>Import the necessary packages</h3>
-<p>Pandas is used to read in the .csv data. Seaborn to build the plot and Matplotlib for displaying the plot.</p>
-<div class="highlight"><pre><span></span><span class="c1"># seaborn violin plot</span>
+            </article>
+            <hr/>
 
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
-</pre></div>
-
-
-<div class="highlight"><pre><span></span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
-</pre></div>
-
-
-<h3>Read in the .csv data file</h3>
-<p>Use pandas <code>pd.read_csv()</code> function to read in the .csv file</p>
-<div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data.csv&#39;</span><span class="p">)</span>
-</pre></div>
-
-
-<h3>Build the violin plot</h3>
-<p>Use seaborns built-in violin plot function to make the plot. The two fuction arguments are <code>data=df</code> and <code>pallette="pastel"</code>.</p>
-<div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;pastel&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
-
-<p><img alt="png" src="../images/output_7_0.png"></p>
-<h3>Save the figure</h3>
-<p>Save the figure using matplotlib's ax.get_figure() method and <code>fig.savefig()</code> method. Since seaborn produces a matplotlib axis object, we can use matplotlib methods on our <code>ax</code> object. </p>
-<div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_figure</span><span class="p">()</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;sns_violin_plot.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
-</pre></div>
-
-
-<div class="highlight"><pre><span></span><span class="c1">#seaborn violin plot</span>
-
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
-
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data.csv&#39;</span><span class="p">)</span>
-
-<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;pastel&quot;</span><span class="p">)</span>
-
-<span class="n">fig</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_figure</span><span class="p">()</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;sns_violin_plot.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
-</pre></div>
-
-
-<p><img alt="png" src="../images/output_10_0.png"></p>
-            </div>
-            <!-- /.entry-content -->
-        </article>
-    </section>
-
+        <ul class="pagination">
+                <li class="prev"><a href="../author/peter-d-kazarinoff.html">&laquo;</a>
+                </li>
+                    <li class=""><a
+                            href="../author/peter-d-kazarinoff.html">1</a></li>
+                    <li class="active"><a
+                            href="../author/peter-d-kazarinoff2.html">2</a></li>
+                <li class="next disabled"><a href="#">&raquo;</a></li>
+        </ul>
         </div>
         <div class="col-sm-3" id="sidebar">
             <aside>

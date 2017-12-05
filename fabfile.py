@@ -92,9 +92,9 @@ def gh_pages():
     local("ghp-import -b {github_pages_branch} {deploy_path} -p".format(**env))
 	
 def publishsite():
-	"""Runs the $pelican content -s publishconf.py command to publish the site, then runs $git add . to add the local changes to the local git repository, then runs $ git commit -m "published changes" to commit the changes and add a generic commit message, then $git push origin master to push the changes up to github. Finally it runs the $git subtree push --prefix output origin gh-pages to push the changes to the gh-pages branch of the repo on github"""
-	local('pelican content -s publishconf.py')
-	local('git add .')
-	local('git commit -m "published changes"')
-	local('git push origin master')
-	local('git subtree push --prefix output origin gh-pages')
+    local('pelican content -s publishconf.py')
+    local('git add .')
+    local('git commit -m "published changes"')
+    local('git push origin master')
+    local('ghp-import output')
+    local('git push origin gh-pages')

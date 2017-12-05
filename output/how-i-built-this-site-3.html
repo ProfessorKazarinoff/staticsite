@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>Violin Plot using Python, matplotlib and seaborn - Python Programming for Undergraduate Engineers</title>
+    <title>How I build this site - Part 3 - Python Programming for Undergraduate Engineers</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -172,40 +172,45 @@ init_mathjax = function() {
 }
 init_mathjax();
 </script>
-    <link href="../extra/favicon.ico" rel="icon">
+    <link href="./extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="../drafts/violin-plot-using-python-matplotlib-and-seaborn.html">
+<link rel="canonical" href="./how-i-built-this-site-3.html">
 
-        <meta name="author" content="Peter D Kazarinoff" />
-        <meta name="description" content="Import the necessary packages Pandas is used to read in the .csv data. Seaborn to build the plot and Matplotlib for displaying the plot. # seaborn violin plot import pandas as pd import seaborn as sns import matplotlib.pyplot as plt %matplotlib inline Read in the .csv data file Use pandas …" />
+        <meta name="author" content="Peter D. Kazarinoff" />
+        <meta name="keywords" content="python,pelican,blog,markdown" />
+        <meta name="description" content="This is the third part in a multi-part series on how I built this site. In the last post, we used pelican-quickstart to build the framework of the site and wrote a short first post, then viewed a demo version of the site on localhost:8000. In this post we will add a custom theme to the site called pelican_bootstrap3. The pelican_bootstrap3 theme looks great and is mobile responsive so it will make the site look good on phones and tablets. Then we&#39;ll add some custom css to personalize the look of the theme." />
 
         <meta property="og:site_name" content="Python Programming for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
-        <meta property="og:title" content="Violin Plot using Python, matplotlib and seaborn"/>
-        <meta property="og:url" content="../drafts/violin-plot-using-python-matplotlib-and-seaborn.html"/>
-        <meta property="og:description" content="Import the necessary packages Pandas is used to read in the .csv data. Seaborn to build the plot and Matplotlib for displaying the plot. # seaborn violin plot import pandas as pd import seaborn as sns import matplotlib.pyplot as plt %matplotlib inline Read in the .csv data file Use pandas …"/>
-        <meta property="article:published_time" content="2017-10-21" />
-            <meta property="article:section" content="posts" />
-            <meta property="article:author" content="Peter D Kazarinoff" />
+        <meta property="og:title" content="How I build this site - Part 3"/>
+        <meta property="og:url" content="./how-i-built-this-site-3.html"/>
+        <meta property="og:description" content="This is the third part in a multi-part series on how I built this site. In the last post, we used pelican-quickstart to build the framework of the site and wrote a short first post, then viewed a demo version of the site on localhost:8000. In this post we will add a custom theme to the site called pelican_bootstrap3. The pelican_bootstrap3 theme looks great and is mobile responsive so it will make the site look good on phones and tablets. Then we&#39;ll add some custom css to personalize the look of the theme."/>
+        <meta property="article:published_time" content="2017-12-07" />
+            <meta property="article:section" content="This site" />
+            <meta property="article:tag" content="python" />
+            <meta property="article:tag" content="pelican" />
+            <meta property="article:tag" content="blog" />
+            <meta property="article:tag" content="markdown" />
+            <meta property="article:author" content="Peter D. Kazarinoff" />
 
 
 
     <!-- Bootstrap -->
-        <link rel="stylesheet" href="../theme/css/bootstrap.flatly.min.css" type="text/css"/>
-    <link href="../theme/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="./theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="./theme/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="../theme/css/pygments/native.css" rel="stylesheet">
-    <link href="../theme/tipuesearch/tipuesearch.css" rel="stylesheet">
-    <link rel="stylesheet" href="../theme/css/style.css" type="text/css"/>
-        <link href="../static/css/custom.css" rel="stylesheet">
+    <link href="./theme/css/pygments/native.css" rel="stylesheet">
+    <link href="./theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="./theme/css/style.css" type="text/css"/>
+        <link href="./static/css/custom.css" rel="stylesheet">
 
-        <link href="../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+        <link href="./feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
               title="Python Programming for Undergraduate Engineers ATOM Feed"/>
 
 
 
-        <link href="../feeds/posts.atom.xml" type="application/atom+xml" rel="alternate"
-              title="Python Programming for Undergraduate Engineers posts ATOM Feed"/>
+        <link href="./feeds/this-site.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Python Programming for Undergraduate Engineers This site ATOM Feed"/>
 
 </head>
 <body>
@@ -219,15 +224,15 @@ init_mathjax();
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="../" class="navbar-brand">
+            <a href="./" class="navbar-brand">
 Python Programming for Undergraduate Engineers            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                         <li><a href="../pages/about.html">
+                         <li><a href="./pages/about.html">
                              About
                           </a></li>
-                         <li><a href="../pages/book.html">
+                         <li><a href="./pages/book.html">
                              Book
                           </a></li>
             </ul>
@@ -237,7 +242,7 @@ Python Programming for Undergraduate Engineers            </a>
                   <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
                 </form></span>
               </li>
-              <li><a href="../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+              <li><a href="./archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -249,18 +254,18 @@ Python Programming for Undergraduate Engineers            </a>
     <div class="row">
         <div class="col-sm-9">
             <ol class="breadcrumb">
-                <li><a href=".." title="Python Programming for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="../category/posts.html" title="posts">posts</a></li>
-                <li class="active">Violin Plot using Python, matplotlib and seaborn</li>
+                <li><a href="." title="Python Programming for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="./category/this-site.html" title="This site">This site</a></li>
+                <li class="active">How I build this site - Part 3</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="../drafts/violin-plot-using-python-matplotlib-and-seaborn.html"
+                    <a href="./how-i-built-this-site-3.html"
                        rel="bookmark"
-                       title="Permalink to Violin Plot using Python, matplotlib and seaborn">
-                        Violin Plot using Python, matplotlib and seaborn
+                       title="Permalink to How I build this site - Part 3">
+                        How I build this site - Part 3
                     </a>
                 </h1>
             </header>
@@ -270,69 +275,160 @@ Python Programming for Undergraduate Engineers            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2017-10-21T16:00:00-07:00"> Sat 21 October 2017</time>
+        <i class="fa fa-calendar"></i><time datetime="2017-12-07T14:15:00-08:00"> Thu 07 December 2017</time>
     </span>
 
+            <span class="label label-default">Series</span>
+            Part 3 of How I built this site
 
 
 
 
+<span class="label label-default">Tags</span>
+	<a href="./tag/python.html">python</a>
+        /
+	<a href="./tag/pelican.html">pelican</a>
+        /
+	<a href="./tag/blog.html">blog</a>
+        /
+	<a href="./tag/markdown.html">markdown</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <h3>Import the necessary packages</h3>
-<p>Pandas is used to read in the .csv data. Seaborn to build the plot and Matplotlib for displaying the plot.</p>
-<div class="highlight"><pre><span></span><span class="c1"># seaborn violin plot</span>
-
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+                <p>This is the third part in a multi-part series on how I built this site. In the <a href="./how-i-built-this-site-2.html">last post</a>, we used <code>pelican-quickstart</code> to build the framework of the site and wrote a short first post, then viewed a demo version of the site on localhost:8000. In this post we will add a custom theme to the site called pelican_bootstrap3. The pelican_bootstrap3 theme looks great and is mobile reponsive so it will make the site look good on phones and tablets. Then we'll add some custom css to personalize the look of the theme.</p>
+<h3>Steps in this post</h3>
+<p>We are going to accomplish the following in this post. By the end of the post we are going to have a a static site with a great looking bootstrap3 theme which is mobile responsive and looks great on desktops, tablets and phones.</p>
+<ol>
+<li>Activate our <code>staticsite</code> virtual environment</li>
+<li>Pull the most recent version of our site from github</li>
+<li>Add a git submodule to our staticsite folder and bring in the pelican-themes repo from github</li>
+<li>Add a git submodule to our staticsite folder and bring in the pelican-plugins repo from github</li>
+<li>Modify the pelicanconf.py file to point to our new theme, and add a new plugin</li>
+<li>Build and preview the site with Pelican</li>
+<li>Add and commit the changes then push those changes to github</li>
+</ol>
+<p>Big steps, it's really going to look like a website when we are done.</p>
+<h3>Activate our virtual environment and pull from github</h3>
+<p>Open the Anaconda Prompt and activate the <code>(staticsite)</code> virtual environment</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">source</span> activate staticsite
 </pre></div>
 
 
-<div class="highlight"><pre><span></span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<p>Then cd into the staticsite directory and bring in the most up to date version of the site stored on github.</p>
+<div class="highlight"><pre><span></span>(staticsite) $ cd ~
+(staticsite) $ cd Documents/staticsite
+(staticsite) $ git pull origin master
 </pre></div>
 
 
-<h3>Read in the .csv data file</h3>
-<p>Use pandas <code>pd.read_csv()</code> function to read in the .csv file</p>
-<div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data.csv&#39;</span><span class="p">)</span>
+<h3>Use git submodule add to pull all of the themes into our local <strong>staticsite/pelican-themes</strong> directory</h3>
+<p>There are a bunch of different themes available for static site built with pelican. The three I was most interested in were:</p>
+<ul>
+<li>
+<p>material</p>
+</li>
+<li>
+<p>voidy_bootstrap</p>
+</li>
+<li>
+<p>pelican-bootstrap3</p>
+</li>
+</ul>
+<p>We can bring in all of the Pelican themes stored on github by creating a <em>git submodule</em>. A git submodule is a sub-repository within a git repository that is linked to another repository. It is a way to bring in something else from github within a local repository and not have to keep a local copy up to date. Each time we "pull" from the submodule, we get the newest version of the pelican-themes repo on github. We don't have to manually track any changes to these themes and incorporate them to our local version. When the changes are made to the themes on github, we just pull those changes down to our local version. The lines <code>git submodule init</code> and <code>git submodule update --init --recursive</code> are important to call. If those two commands are not moved we'll end up with empty folders within the <strong>staticsite/pelican-themes</strong> directory. A lot of the themes are submodules themselves so the <code>--recursive</code> option has to be used to pull all of these submodules down. Without <code>--recursive</code> you can end up with empty folders.</p>
+<p>To create the folder for our pelican-themes git submodule, ensure you are in the staticsite folder, then call:</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">pwd</span>
+
+$ git submodule add https://github.com/getpelican/pelican-themes.git
+$ git submodule init
+$ git submodule update --init --recursive
 </pre></div>
 
 
-<h3>Build the violin plot</h3>
-<p>Use seaborns built-in violin plot function to make the plot. The two fuction arguments are <code>data=df</code> and <code>pallette="pastel"</code>.</p>
-<div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;pastel&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<p>Ensure that we are still in the <strong>staticsite</strong> directory and pull down the pelican-plugins repo form github.</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">pwd</span>
+
+$ git submodule add https://github.com/getpelican/pelican-plugins.git
+$ git submodule init
+$ git submodule update --init --recursive
 </pre></div>
 
 
-<p><img alt="png" src="../images/output_7_0.png"></p>
-<h3>Save the figure</h3>
-<p>Save the figure using matplotlib's ax.get_figure() method and <code>fig.savefig()</code> method. Since seaborn produces a matplotlib axis object, we can use matplotlib methods on our <code>ax</code> object. </p>
-<div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_figure</span><span class="p">()</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;sns_violin_plot.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<p>Now the contents of the static site folder should look something like:</p>
+<p>staticsite/
+├── LICENSE
+├── Makefile
+├── README.md
+├── <strong>pycache</strong>
+├── content
+├── develop_server.sh
+├── fabfile.py
+├── output
+├── pelican-plugins
+├── pelican-themes
+├── pelican.pid
+├── pelicanconf.py
+├── publishconf.py
+└── srv.pid</p>
+<h3>Modify the <strong><em>pelicanconf.py</em></strong> file, so that we can use a new theme.</h3>
+<p>So far our <strong><em>pelicanconf.py</em></strong> file contains only default lines of code that Pelican built for us. In order to use a new theme, we will edit edit this file. After we edit the configuration file, the <code>make html</code> command will produce new .html pages in the <strong>output</strong> directory. The relevant lines to change in the <strong><em>pelicanconf.py</em></strong> are:</p>
+<div class="highlight"><pre><span></span>#pelicanconf.py
+
+PLUGIN_PATHS = [&#39;pelican-plugins&#39;]
+
+THEME = &#39;pelican-themes/pelican-bootstrap3&#39;
+BOOTSTRAP_THEME = &#39;flatly&#39;
+
+PLUGIN_PATHS = [&#39;/path/to/git/pelican-plugins&#39;]
+JINJA_ENVIRONMENT = {&#39;extensions&#39;: [&#39;jinja2.ext.i18n&#39;]}
+PLUGINS = [
+    &#39;i18n_subsites&#39;]
+
+I18N_TEMPLATES_LANG = &#39;en&#39;
 </pre></div>
 
 
-<div class="highlight"><pre><span></span><span class="c1">#seaborn violin plot</span>
-
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
-
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data.csv&#39;</span><span class="p">)</span>
-
-<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;pastel&quot;</span><span class="p">)</span>
-
-<span class="n">fig</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_figure</span><span class="p">()</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;sns_violin_plot.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<p>Taken directly from the <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3">pelicin-bootstrap3 README.md</a></p>
+<blockquote>
+<p>as this template can be translated (see Translations below). You also need to activate a plugin that initializes the i18n jinja extension. One possibility is an up to date version of the i18n_subsites plugin</p>
+</blockquote>
+<p>So we need to make sure to include the <strong>i18n</strong> plugin in our <strong><em>pelicanonf.py</em></strong> file. Again from the from the <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3">pelicin-bootstrap3 README.md</a></p>
+<blockquote>
+<p>If you are using i18n_subsites and you are not using English as your default language, make sure to also correctly specify the default language of the theme. Otherwise the translations will not be used on your default site.</p>
+</blockquote>
+<h3>Build and preview the site with Pelican</h3>
+<p>With the <strong>pelican-plugins</strong> and <strong>pelican-themes</strong> repos downloaded and the <strong><em>pelicanconf.py</em></strong> file editied, we can build the site and take a look at it with a web browser:</p>
+<div class="highlight"><pre><span></span>make html
+make serve
 </pre></div>
 
 
-<p><img alt="png" src="../images/output_10_0.png"></p>
+<p>To view the site, point a brower to <em>localhost:8000</em></p>
+<p><a href="localhost:8000">localhost:8000</a></p>
+<p>Now, the site should look something like this:</p>
+<p><img alt="pelican-boostrap3-basic-site.png" src="{filename}/images/pelican-bootstrap3-basic-site.png"></p>
+<h3>Add and commit the changes then push those changes to github</h3>
+<p>When we are done editing the the site, we add <strong>all of the changes</strong> to our local git repo using <code>git add .</code>. Then we commit those changes with <code>git commit</code> and add the <code>-m "added pelican_bootstrap3 theme"</code> flag to give supply a commit message (make sure to use double quotes "commit message"). To push those changes up to github use <code>git push origin master</code></p>
+<div class="highlight"><pre><span></span>git add .
+git commit -m &quot;added pelican_bootstrap3 theme&quot;
+git push origin master
+</pre></div>
+
+
+<p>In the <a href="./drafts/how-i-built-site-4.html">next post</a> we will add some <em>pelican-plugins</em> to bring extra functionality to the site and add the ability to include <strong>jupyter notebooks</strong> in posts.</p>
             </div>
             <!-- /.entry-content -->
+<section class="well" id="related-posts">
+    <h4>This article is the 3 of the How I built this site series</h4>
+       <h5>Previous articles</h5>
+       <ul>
+           <li><a href="./how-i-built-site-1.html">How I build this site - Part 1</a></li>
+           <li><a href="./how-i-built-this-site-2.html">How I build this site - Part 2</a></li>
+       </ul>
+       <h5>Next articles</h5>
+       <ul>
+           <li><a href="./how-i-built-this-site-6.html">How I build this site - Part 6</a></li>
+       </ul>
+</section>
         </article>
     </section>
 
@@ -341,7 +437,7 @@ Python Programming for Undergraduate Engineers            </a>
             <aside>
 <div id="aboutme">
         <p>
-            <img width="100%" class="img-thumbnail" src="../extra/gear-wrench-icon-512-278694.png"/>
+            <img width="100%" class="img-thumbnail" src="./extra/gear-wrench-icon-512-278694.png"/>
         </p>
     <p>
       <strong>About Peter Kazarinoff</strong><br/>
@@ -355,50 +451,67 @@ Python Programming for Undergraduate Engineers            </a>
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
-    <li class="list-group-item"><a href="../how-i-built-this-site-3.html">How I build this site - Part 3</a></li>
-    <li class="list-group-item"><a href="../how-i-built-this-site-2.html">How I build this site - Part 2</a></li>
-    <li class="list-group-item"><a href="../how-i-built-this-site-6.html">How I build this site - Part 6</a></li>
+    <li class="list-group-item"><a href="./how-i-built-this-site-3.html">How I build this site - Part 3</a></li>
+    <li class="list-group-item"><a href="./how-i-built-this-site-2.html">How I build this site - Part 2</a></li>
+    <li class="list-group-item"><a href="./how-i-built-this-site-6.html">How I build this site - Part 6</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
 
 <!-- Sidebar/Tag Cloud -->
 <li class="list-group-item">
-  <a href="../"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <a href="./"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
   <ul class="list-group list-inline tagcloud" id="tags">
     <li class="list-group-item tag-2">
-      <a href="../tag/anaconda.html">anaconda</a>
+      <a href="./tag/anaconda.html">anaconda</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="../tag/blog.html">blog</a>
+      <a href="./tag/blog.html">blog</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="../tag/conda.html">conda</a>
+      <a href="./tag/conda.html">conda</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="../tag/git.html">git</a>
+      <a href="./tag/git.html">git</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="../tag/github.html">github</a>
+      <a href="./tag/github.html">github</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="../tag/markdown.html">markdown</a>
+      <a href="./tag/markdown.html">markdown</a>
     </li>
     <li class="list-group-item tag-1">
-      <a href="../tag/pelican.html">pelican</a>
+      <a href="./tag/pelican.html">pelican</a>
     </li>
     <li class="list-group-item tag-0">
-      <a href="../tag/python.html">python</a>
+      <a href="./tag/python.html">python</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="../tag/staticsite.html">staticsite</a>
+      <a href="./tag/staticsite.html">staticsite</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="../tag/virtualenv.html">virtualenv</a>
+      <a href="./tag/virtualenv.html">virtualenv</a>
     </li>
   </ul>
 </li>
 <!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Series -->
+<li class="list-group-item">
+  <h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Series</span></h4>
+  <ul class="list-group">
+    <li class="list-group-item">
+      <h5></i>Previous article</h5>
+      <a href="./how-i-built-this-site-2.html">How I build this site - Part 2</a>
+    </li>
+    <li class="list-group-item">
+      <h5>Next article</h5>
+      <a href="./how-i-built-this-site-6.html">How I build this site - Part 6</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Series -->
+
 
 <!-- Sidebar/Github -->
 <li class="list-group-item">
@@ -427,15 +540,15 @@ Python Programming for Undergraduate Engineers            </a>
       </div>
    </div>
 </footer>
-<script src="../theme/js/jquery.min.js"></script>
+<script src="./theme/js/jquery.min.js"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="../theme/js/bootstrap.min.js"></script>
+<script src="./theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="../theme/js/respond.min.js"></script>
+<script src="./theme/js/respond.min.js"></script>
 
-    <script src="../static/js/custom.js"></script>
+    <script src="./static/js/custom.js"></script>
 
 
 <!-- GitHub JS Code -->
@@ -444,7 +557,7 @@ $(document).ready(function () {
   if (!window.jXHR) {
     var jxhr = document.createElement('script');
     jxhr.type = 'text/javascript';
-    jxhr.src = '../theme/js/jXHR.js';
+    jxhr.src = './theme/js/jXHR.js';
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(jxhr, s);
   }
@@ -457,7 +570,7 @@ $(document).ready(function () {
   });
 });
 </script>
-<script src="../theme/js/github.js" type="text/javascript"></script>
+<script src="./theme/js/github.js" type="text/javascript"></script>
 <!-- End GitHub JS Code -->
 
 <script type="text/javascript">

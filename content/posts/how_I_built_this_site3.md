@@ -73,7 +73,7 @@ $ git submodule add https://github.com/getpelican/pelican-plugins.git
 $ git submodule init
 $ git submodule update --init --recursive
 ```
-Now the contents of the static site folder should look something like:
+Now the contents of the **staticsite** folder should look something like:
 
 ```
 staticsite/
@@ -95,7 +95,7 @@ staticsite/
 
 ### Modify the **_pelicanconf.py_** file, so that we can use a new theme.
 
-So far our **_pelicanconf.py_** file contains only default lines of code that Pelican built for us. In order to use a new theme, we will edit edit this file. After we edit the configuration file, the ```make html``` command will produce new .html pages in the **output** directory. The relevant lines to change in the **_pelicanconf.py_** are:
+So far our **_pelicanconf.py_** file contains only default lines of code that Pelican built for us. In order to use a new theme, we need to edit this configuration file. After we edit the configuration file, the ```make html``` command will produce new .html pages in the **output** directory. The relevant lines to add and modify in the **_pelicanconf.py_** are:
 
 ```
 #pelicanconf.py
@@ -115,7 +115,7 @@ I18N_TEMPLATES_LANG = 'en'
 
 Taken directly from the [pelicin-bootstrap3 README.md](https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3)
 
-> as this template can be translated (see Translations below). You also need to activate a plugin that initializes the i18n jinja extension. One possibility is an up to date version of the i18n_subsites plugin
+> ... this template can be translated (see Translations below). You also need to activate a plugin that initializes the i18n jinja extension. One possibility is an up to date version of the i18n_subsites plugin
 
 So we need to make sure to include the **i18n** plugin in our **_pelicanonf.py_** file. Again from the from the [pelicin-bootstrap3 README.md](https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3)
 
@@ -148,4 +148,4 @@ git commit -m "added pelican_bootstrap3 theme"
 git push origin master
 ```
 
-In the [next post]({filename}how_I_built_this_site4.md) we will add some _pelican-plugins_ to bring extra functionality to the site and add the ability to include **jupyter notebooks** in posts.
+In the [next post]({filename}how_I_built_this_site4.md) we will add some additional _pelican-plugins_ to bring extra functionality to the site and add the ability to include **jupyter notebooks** in posts.

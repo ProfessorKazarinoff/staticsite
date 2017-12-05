@@ -353,7 +353,7 @@ $ git submodule update --init --recursive
 </pre></div>
 
 
-<p>Now the contents of the static site folder should look something like:</p>
+<p>Now the contents of the <strong>staticsite</strong> folder should look something like:</p>
 <div class="highlight"><pre><span></span>staticsite/
 ├── LICENSE
 ├── Makefile
@@ -373,7 +373,7 @@ $ git submodule update --init --recursive
 
 
 <h3>Modify the <strong><em>pelicanconf.py</em></strong> file, so that we can use a new theme.</h3>
-<p>So far our <strong><em>pelicanconf.py</em></strong> file contains only default lines of code that Pelican built for us. In order to use a new theme, we will edit edit this file. After we edit the configuration file, the <code>make html</code> command will produce new .html pages in the <strong>output</strong> directory. The relevant lines to change in the <strong><em>pelicanconf.py</em></strong> are:</p>
+<p>So far our <strong><em>pelicanconf.py</em></strong> file contains only default lines of code that Pelican built for us. In order to use a new theme, we need to edit this configuration file. After we edit the configuration file, the <code>make html</code> command will produce new .html pages in the <strong>output</strong> directory. The relevant lines to add and modify in the <strong><em>pelicanconf.py</em></strong> are:</p>
 <div class="highlight"><pre><span></span>#pelicanconf.py
 
 PLUGIN_PATHS = [&#39;pelican-plugins&#39;]
@@ -392,7 +392,7 @@ I18N_TEMPLATES_LANG = &#39;en&#39;
 
 <p>Taken directly from the <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3">pelicin-bootstrap3 README.md</a></p>
 <blockquote>
-<p>as this template can be translated (see Translations below). You also need to activate a plugin that initializes the i18n jinja extension. One possibility is an up to date version of the i18n_subsites plugin</p>
+<p>... this template can be translated (see Translations below). You also need to activate a plugin that initializes the i18n jinja extension. One possibility is an up to date version of the i18n_subsites plugin</p>
 </blockquote>
 <p>So we need to make sure to include the <strong>i18n</strong> plugin in our <strong><em>pelicanonf.py</em></strong> file. Again from the from the <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3">pelicin-bootstrap3 README.md</a></p>
 <blockquote>
@@ -417,7 +417,7 @@ git push origin master
 </pre></div>
 
 
-<p>In the <a href="./drafts/how-i-built-site-4.html">next post</a> we will add some <em>pelican-plugins</em> to bring extra functionality to the site and add the ability to include <strong>jupyter notebooks</strong> in posts.</p>
+<p>In the <a href="./drafts/how-i-built-site-4.html">next post</a> we will add some additional <em>pelican-plugins</em> to bring extra functionality to the site and add the ability to include <strong>jupyter notebooks</strong> in posts.</p>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">

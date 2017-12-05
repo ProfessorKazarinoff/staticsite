@@ -1,6 +1,6 @@
 Title: How I build this site - Part 3
-Date: 2017-12-07 14:15
-Modified: 2017-12-07 14:15
+Date: 2017-12-04 14:15
+Modified: 2017-12-04 14:15
 Status: published
 Category: This site
 Tags: python, pelican, blog, markdown
@@ -95,7 +95,7 @@ staticsite/
 
 So far our **_pelicanconf.py_** file contains only default lines of code that Pelican built for us. In order to use a new theme, we will edit edit this file. After we edit the configuration file, the ```make html``` command will produce new .html pages in the **output** directory. The relevant lines to change in the **_pelicanconf.py_** are:
 
-```angular2html
+```
 #pelicanconf.py
 
 PLUGIN_PATHS = ['pelican-plugins']

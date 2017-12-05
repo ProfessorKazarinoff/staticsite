@@ -75,6 +75,7 @@ $ git submodule update --init --recursive
 ```
 Now the contents of the static site folder should look something like:
 
+```
 staticsite/
 ├── LICENSE
 ├── Makefile
@@ -90,6 +91,7 @@ staticsite/
 ├── pelicanconf.py
 ├── publishconf.py
 └── srv.pid
+```
 
 ### Modify the **_pelicanconf.py_** file, so that we can use a new theme.
 

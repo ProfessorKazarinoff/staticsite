@@ -354,11 +354,11 @@ $ git submodule update --init --recursive
 
 
 <p>Now the contents of the static site folder should look something like:</p>
-<p>staticsite/
+<div class="highlight"><pre><span></span>staticsite/
 ├── LICENSE
 ├── Makefile
 ├── README.md
-├── <strong>pycache</strong>
+├── __pycache__
 ├── content
 ├── develop_server.sh
 ├── fabfile.py
@@ -368,7 +368,10 @@ $ git submodule update --init --recursive
 ├── pelican.pid
 ├── pelicanconf.py
 ├── publishconf.py
-└── srv.pid</p>
+└── srv.pid
+</pre></div>
+
+
 <h3>Modify the <strong><em>pelicanconf.py</em></strong> file, so that we can use a new theme.</h3>
 <p>So far our <strong><em>pelicanconf.py</em></strong> file contains only default lines of code that Pelican built for us. In order to use a new theme, we will edit edit this file. After we edit the configuration file, the <code>make html</code> command will produce new .html pages in the <strong>output</strong> directory. The relevant lines to change in the <strong><em>pelicanconf.py</em></strong> are:</p>
 <div class="highlight"><pre><span></span>#pelicanconf.py

@@ -1,6 +1,6 @@
 Title: How I build this Site - Part 4
-Date: 2017-11-30 12:40
-Modified: 2017-10-30 12:40
+Date: 2017-12-05 09:40
+Modified: 2017-12-05 09:40
 Status: draft
 Category: This site
 Tags: python, pelican, blog
@@ -8,9 +8,9 @@ Slug: how-i-built-site-4
 Authors: Peter D. Kazarinoff
 Series: How I built this site
 Series_index: 4
-Summary: This is the fourth part in a multi-part series on how I built this site. In the [last post]({filename}how_I_built_this_site3.md), we installed the pelican-bootstrap3 theme and made our site mobile responsive and look good on all devices.  In this post we are going to install a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of post that are linked together, create a working search bar, add youtube videos to posts, view LaTeX math in posts and add embedded jupyter notebooks in posts.
+Summary: This is the fourth part in a multi-part series on how I built this site. In the [last post]({filename}how_I_built_this_site3.md), we installed the pelican-bootstrap3 theme and made our site mobile responsive and look good on all devices.  In this post we are going to install a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of post that are linked together, create a working search bar, add youtube videos to posts, view LaTeX math and add embedded jupyter notebooks in posts.
 
-This is the fourth part in a multi-part series on how I built this site. In the [last post]({filename}how_I_built_this_site3.md), we installed the pelican-bootstrap3 theme and made our site mobile responsive and look good on all devices.  In this post we are going to install a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of post that are linked together, create a working search bar, add youtube videos to posts, view LaTeX math in posts and add embedded jupyter notebooks in posts.
+This is the fourth part in a multi-part series on how I built this site. In the [last post]({filename}how_I_built_this_site3.md), we installed the pelican-bootstrap3 theme and made our site mobile responsive and look good on all devices.  In this post we are going to install a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of post that are linked together, create a working search bar, add youtube videos to posts, view LaTeX math and add embedded jupyter notebooks in posts.
 
 
 ### Steps in this post
@@ -41,7 +41,7 @@ $ source activate staticsite
 
 ### Install the ```jupyter``` package in our ```staticsite``` virtual environment.
 
-I like using **jupyter notebooks** to build code and solve engineering problems with Python. A **jupyter notebook** can contain Python code, the output produced when this code is run and markup text (used for documentation).  **Jupyter notebooks** can also easily display ```matplotlib``` plots and ```pandas``` data frames. These two Python packages are very useful to engineers.
+I like using **jupyter notebooks** to build code and solve engineering problems with Python. A **jupyter notebook** can contain Python code, the output produced when this code is run and markup text (used for documentation).  **Jupyter notebooks** can also easily display ```matplotlib``` plots and ```pandas``` data frames. These two Python packages are very useful to engineers. As the ```jupyter``` package is in the main conda channel, we can install it into our virtual environment using the ```conda install``` command.
 
 ```
 (staticsite) $ conda install jupyter

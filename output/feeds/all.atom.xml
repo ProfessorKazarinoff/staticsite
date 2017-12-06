@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Python Programming for Undergraduate Engineers</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="https://professorkazarinoff.github.io/staticsite/feeds/all.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2017-12-04T14:15:00-08:00</updated><entry><title>How I build this site - Part 3</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-3.html" rel="alternate"></link><published>2017-12-04T14:15:00-08:00</published><updated>2017-12-04T14:15:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-12-04:/staticsite/how-i-built-this-site-3.html</id><summary type="html">&lt;p&gt;This is the third part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-2.html"&gt;last post&lt;/a&gt;, we used &lt;code&gt;pelican-quickstart&lt;/code&gt; to build the framework of the site and wrote a short first post, then viewed a demo version of the site on localhost:8000. In this post we will add a custom theme to the site called pelican_bootstrap3. The pelican_bootstrap3 theme looks great and is mobile responsive so it will make the site look good on phones and tablets. Then we'll add some custom css to personalize the look of the theme.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the third part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-2.html"&gt;last post&lt;/a&gt;, we used &lt;code&gt;pelican-quickstart&lt;/code&gt; to build the framework of the site and wrote a short first post, then viewed a demo version of the site on localhost:8000. In this post we will add a custom theme to the site called pelican_bootstrap3. The pelican_bootstrap3 theme looks great and is mobile reponsive so it will make the site look good on phones and tablets. Then we'll add some custom css to personalize the look of the theme.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Python Programming for Undergraduate Engineers</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="https://professorkazarinoff.github.io/staticsite/feeds/all.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2017-12-04T14:15:00-08:00</updated><entry><title>How I build this site - Part 3</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-3.html" rel="alternate"></link><published>2017-12-04T14:15:00-08:00</published><updated>2017-12-04T14:15:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-12-04:/staticsite/how-i-built-this-site-3.html</id><summary type="html">&lt;p&gt;This is the third part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-2.html"&gt;last post&lt;/a&gt;, we used &lt;code&gt;pelican-quickstart&lt;/code&gt; to build the framework of the site and wrote a short first post, then viewed a demo version of the site on localhost:8000. In this post we will add a custom theme to the site called pelican-bootstrap3. The pelican-bootstrap3 theme looks great and is mobile responsive so it will make the site look good on phones and tablets. Then we'll add some custom css to personalize the look of the theme.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the third part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-2.html"&gt;last post&lt;/a&gt;, we used &lt;code&gt;pelican-quickstart&lt;/code&gt; to build the framework of the site and wrote a short first post, then viewed a demo version of the site on localhost:8000. In this post we will add a custom theme to the site called pelican-bootstrap3. The pelican-bootstrap3 theme looks great and is mobile reponsive so it will make the site look good on phones and tablets. Then we'll add some custom css to personalize the look of the theme.&lt;/p&gt;
 &lt;h3&gt;Steps in this post&lt;/h3&gt;
 &lt;p&gt;We are going to accomplish the following in this post. By the end of the post we are going to have a a static site with a great looking bootstrap3 theme which is mobile responsive and looks great on desktops, tablets and phones.&lt;/p&gt;
 &lt;ol&gt;
@@ -13,12 +13,12 @@
 &lt;/ol&gt;
 &lt;p&gt;Big steps, it's really going to look like a website when we are done.&lt;/p&gt;
 &lt;h3&gt;Activate our virtual environment and pull from github&lt;/h3&gt;
-&lt;p&gt;Open the Anaconda Prompt and activate the &lt;code&gt;(staticsite)&lt;/code&gt; virtual environment&lt;/p&gt;
+&lt;p&gt;Open the &lt;strong&gt;Anaconda Prompt&lt;/strong&gt; and activate the &lt;code&gt;(staticsite)&lt;/code&gt; virtual environment&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;source&lt;/span&gt; activate staticsite
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Then cd into the staticsite directory and bring in the most up to date version of the site stored on github.&lt;/p&gt;
+&lt;p&gt;Then cd into the &lt;strong&gt;staticsite&lt;/strong&gt; directory and bring in the most up to date version of the site stored on github.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(staticsite) $ cd ~
 (staticsite) $ cd Documents/staticsite
 (staticsite) $ git pull origin master
@@ -26,7 +26,7 @@
 
 
 &lt;h3&gt;Use git submodule add to pull all of the themes into our local &lt;strong&gt;staticsite/pelican-themes&lt;/strong&gt; directory&lt;/h3&gt;
-&lt;p&gt;There are a bunch of different themes available for static site built with pelican. The three I was most interested in were:&lt;/p&gt;
+&lt;p&gt;There are a bunch of different themes available for static site built with Pelican. The three I was most interested in were:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;material&lt;/p&gt;
@@ -96,14 +96,14 @@ I18N_TEMPLATES_LANG = &amp;#39;en&amp;#39;
 
 &lt;p&gt;Taken directly from the &lt;a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3"&gt;pelicin-bootstrap3 README.md&lt;/a&gt;&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;... this template can be translated (see Translations below). You also need to activate a plugin that initializes the i18n jinja extension. One possibility is an up to date version of the i18n_subsites plugin&lt;/p&gt;
+&lt;p&gt;... this template can be translated (see Translations below). You also need to activate a plugin that initializes the i18n jinja extension. One possibility is an up to date version of the i18n_subsites plugin.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;So we need to make sure to include the &lt;strong&gt;i18n&lt;/strong&gt; plugin in our &lt;strong&gt;&lt;em&gt;pelicanonf.py&lt;/em&gt;&lt;/strong&gt; file. Again from the from the &lt;a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3"&gt;pelicin-bootstrap3 README.md&lt;/a&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;If you are using i18n_subsites and you are not using English as your default language, make sure to also correctly specify the default language of the theme. Otherwise the translations will not be used on your default site.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h3&gt;Build and preview the site with Pelican&lt;/h3&gt;
-&lt;p&gt;With the &lt;strong&gt;pelican-plugins&lt;/strong&gt; and &lt;strong&gt;pelican-themes&lt;/strong&gt; repos downloaded and the &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; file editied, we can build the site and take a look at it with a web browser:&lt;/p&gt;
+&lt;p&gt;With the &lt;strong&gt;pelican-plugins&lt;/strong&gt; and &lt;strong&gt;pelican-themes&lt;/strong&gt; repos downloaded and the &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; file edited, we can build the site and take a look at it with a web browser:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;make html
 make serve
 &lt;/pre&gt;&lt;/div&gt;
@@ -113,6 +113,7 @@ make serve
 &lt;p&gt;&lt;a href="localhost:8000"&gt;localhost:8000&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Now, the site should look something like this:&lt;/p&gt;
 &lt;p&gt;&lt;img alt="pelican-boostrap3-basic-site.png" src="{filename}/images/pelican-bootstrap3-basic-site.png"&gt;&lt;/p&gt;
+&lt;p&gt;use &lt;code&gt;ctrl-c&lt;/code&gt; to shut down the server.&lt;/p&gt;
 &lt;h3&gt;Add and commit the changes then push those changes to github&lt;/h3&gt;
 &lt;p&gt;When we are done editing the the site, we add &lt;strong&gt;all of the changes&lt;/strong&gt; to our local git repo using &lt;code&gt;git add .&lt;/code&gt;. Then we commit those changes with &lt;code&gt;git commit&lt;/code&gt; and add the &lt;code&gt;-m "added pelican_bootstrap3 theme"&lt;/code&gt; flag to give supply a commit message (make sure to use double quotes "commit message"). To push those changes up to github use &lt;code&gt;git push origin master&lt;/code&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git add .

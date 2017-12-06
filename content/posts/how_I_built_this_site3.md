@@ -8,9 +8,9 @@ Slug: how-i-built-this-site-3
 Authors: Peter D. Kazarinoff
 Series: How I built this site
 Series_index: 3
-Summary: This is the third part in a multi-part series on how I built this site. In the [last post]({filename}how_I_built_this_site2.md), we used ```pelican-quickstart``` to build the framework of the site and wrote a short first post, then viewed a demo version of the site on localhost:8000. In this post we will add a custom theme to the site called pelican_bootstrap3. The pelican_bootstrap3 theme looks great and is mobile responsive so it will make the site look good on phones and tablets. Then we'll add some custom css to personalize the look of the theme.
+Summary: This is the third part in a multi-part series on how I built this site. In the [last post]({filename}how_I_built_this_site2.md), we used ```pelican-quickstart``` to build the framework of the site and wrote a short first post, then viewed a demo version of the site on localhost:8000. In this post we will add a custom theme to the site called pelican-bootstrap3. The pelican-bootstrap3 theme looks great and is mobile responsive so it will make the site look good on phones and tablets. Then we'll add some custom css to personalize the look of the theme.
 
-This is the third part in a multi-part series on how I built this site. In the [last post]({filename}how_I_built_this_site2.md), we used ```pelican-quickstart``` to build the framework of the site and wrote a short first post, then viewed a demo version of the site on localhost:8000. In this post we will add a custom theme to the site called pelican_bootstrap3. The pelican_bootstrap3 theme looks great and is mobile reponsive so it will make the site look good on phones and tablets. Then we'll add some custom css to personalize the look of the theme.
+This is the third part in a multi-part series on how I built this site. In the [last post]({filename}how_I_built_this_site2.md), we used ```pelican-quickstart``` to build the framework of the site and wrote a short first post, then viewed a demo version of the site on localhost:8000. In this post we will add a custom theme to the site called pelican-bootstrap3. The pelican-bootstrap3 theme looks great and is mobile reponsive so it will make the site look good on phones and tablets. Then we'll add some custom css to personalize the look of the theme.
 
 ### Steps in this post
 
@@ -29,13 +29,13 @@ Big steps, it's really going to look like a website when we are done.
 
 ### Activate our virtual environment and pull from github
 
-Open the Anaconda Prompt and activate the ```(staticsite)``` virtual environment
+Open the **Anaconda Prompt** and activate the ```(staticsite)``` virtual environment
 
 ```
 $ source activate staticsite
 ```
 
-Then cd into the staticsite directory and bring in the most up to date version of the site stored on github.
+Then cd into the **staticsite** directory and bring in the most up to date version of the site stored on github.
 
 ```
 (staticsite) $ cd ~
@@ -44,7 +44,7 @@ Then cd into the staticsite directory and bring in the most up to date version o
 ```
 ### Use git submodule add to pull all of the themes into our local **staticsite/pelican-themes** directory
 
-There are a bunch of different themes available for static site built with pelican. The three I was most interested in were:
+There are a bunch of different themes available for static site built with Pelican. The three I was most interested in were:
 
 * material
 
@@ -115,7 +115,7 @@ I18N_TEMPLATES_LANG = 'en'
 
 Taken directly from the [pelicin-bootstrap3 README.md](https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3)
 
-> ... this template can be translated (see Translations below). You also need to activate a plugin that initializes the i18n jinja extension. One possibility is an up to date version of the i18n_subsites plugin
+> ... this template can be translated (see Translations below). You also need to activate a plugin that initializes the i18n jinja extension. One possibility is an up to date version of the i18n_subsites plugin.
 
 So we need to make sure to include the **i18n** plugin in our **_pelicanonf.py_** file. Again from the from the [pelicin-bootstrap3 README.md](https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3)
 
@@ -123,7 +123,7 @@ So we need to make sure to include the **i18n** plugin in our **_pelicanonf.py_*
 
 ### Build and preview the site with Pelican
 
-With the **pelican-plugins** and **pelican-themes** repos downloaded and the **_pelicanconf.py_** file editied, we can build the site and take a look at it with a web browser:
+With the **pelican-plugins** and **pelican-themes** repos downloaded and the **_pelicanconf.py_** file edited, we can build the site and take a look at it with a web browser:
 
 ```
 make html
@@ -137,6 +137,8 @@ To view the site, point a brower to _localhost:8000_
 Now, the site should look something like this:
 
 ![pelican-boostrap3-basic-site.png]({filename}/images/pelican-bootstrap3-basic-site.png)
+
+use ```ctrl-c``` to shut down the server.
 
 ### Add and commit the changes then push those changes to github
 

@@ -136,7 +136,7 @@ To view the site, point a brower to _localhost:8000_
 
 Now, the site should look something like this:
 
-![pelican-boostrap3-basic-site.png]({filename}/images/pelican-bootstrap3-basic-site.png)
+![pelican-boostrap3-basic-site.png]({filename}/images/simple_pelican-bootstrap3_theme.png)
 
 use ```ctrl-c``` to shut down the server.
 

@@ -3,15 +3,15 @@ Date: 2017-11-17 20:20
 Modified: 2017-11-17 20:20
 Status: published
 Category: Orientation
-Tags: python, conda, virtualenv, anaconda
+Tags: python, conda, virtualenv, anaconda, anaconda prompt
 Slug: new-virtual-environment-with-conda
 Authors: Peter D. Kazarinoff
 
-To start a new project, it is best practice to create a new virtual environment. I have the **Anaconda** distribution of Python installed on my machine at work and it comes with the very useful **Anaconda Prompt**. Using the **Anaconda Prompt** is a bit like using the terminal on a Mac or Linux. To start the Anaconda Prompt on Windows, go to the Windows start button on the lower left and select **Anaconda Prompt**. 
+To start a new Python project, it is best practice to create a new virtual environment. I have the **Anaconda** distribution of Python installed on my Windows 10 machine at work. When you [install **Anaconda**]({filename}installing_anaconda_on_windows.md), it comes with the very useful **Anaconda Prompt**. Using the **Anaconda Prompt** is a bit like using the terminal on a Mac OSX or Linux. To start the **Anaconda Prompt** on Windows 10, go to the Windows start button on the lower left and select **Anaconda Prompt**. 
 
 ![anaconda in start menu](images/anaconda_from_start_menu.png)
 
-To make the new environment we need to issue the following command at the prompt:
+To create the new environment, we need to issue the following command at the prompt:
 
 ```terminal
 conda create --name webscrape python=3.6
@@ -41,7 +41,7 @@ Type ```y``` to confirm that you want to create the new virtual environment. To 
 activate webscrape
 ```
 
-You know you are in your virtual environment ```webscrape``` when ```(webscrape)``` is in parenthesis at the start of the prompt
+You know you are in your virtual environment ```webscrape``` when ```(webscrape)``` is in parenthesis at the start of the prompt:
 
 ```terminal
 (webscrape) tribilium@Den-PC:~$
@@ -85,7 +85,7 @@ root                     /home/tribilium/anaconda3
 
 Notice the ``` * ``` asterisk on the line with ```webscrape```. The virtual environment with the ``` * ``` is currently active. 
 
-To exit the virtual environment, use the command ```deactivate```. If run ```conda env list``` again, you will see that there is no ```*``` in front of ```webscrape``` because you currently not in that virtual environment.
+To exit the virtual environment, use the command ```deactivate```. If you run ```conda env list``` again, you'll see there is no ```*``` in front of ```webscrape```. That's because you are not currently in that virtual environment.
 
 ```terminal
 # conda environments:

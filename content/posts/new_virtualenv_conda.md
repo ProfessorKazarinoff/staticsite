@@ -7,7 +7,7 @@ Tags: python, conda, virtualenv, anaconda
 Slug: new-virtual-environment-with-conda
 Authors: Peter D. Kazarinoff
 
-To start a new project, it is best practice to create a new virtual environment. I have the Anaconda distribution of Python installed on my machine at work and it comes with the very useful **conda prompt**. Using the conda prompt is a bit like using the terminal on a Mac or Linux. To start the conda prompt on Windows, go to the Windows start button on the lower left and select Anaconda Prompt. 
+To start a new project, it is best practice to create a new virtual environment. I have the **Anaconda** distribution of Python installed on my machine at work and it comes with the very useful **Anaconda Prompt**. Using the **Anaconda Prompt** is a bit like using the terminal on a Mac or Linux. To start the Anaconda Prompt on Windows, go to the Windows start button on the lower left and select **Anaconda Prompt**. 
 
 ![anaconda in start menu](images/anaconda_from_start_menu.png)
 
@@ -16,11 +16,12 @@ To make the new environment we need to issue the following command at the prompt
 ```terminal
 conda create --name webscrape python=3.6
 ```
+
 The ```conda create``` command builds the new virtual environment. The ```--name webscrape``` flag gives our new virtual environment the name ```webscrape```.  I like to name my virtual environments the same name as the project that I will use that environment for, or after the name of the package that will be used the most.  Including ```python=3.6``` ensures that your virtual environment has an up to date version of python. 
 
 Conda will tell us:
 
-```
+```terminal
 The following NEW packages will be INSTALLED:
 
     certifi:        2016.2.28-py36_0
@@ -36,32 +37,34 @@ Proceed ([y]/n)? y
 
 Type ```y``` to confirm that you want to create the new virtual environment. To use the new virtual environment ```webscrape``` you need to _activate_ it by typing:
 
-```
+```terminal
 activate webscrape
 ```
-You know you are in your virtual environment ```webscrape``` when ```(webscrape)``` is in parenthesis at the start of the conda prompt
 
-```
+You know you are in your virtual environment ```webscrape``` when ```(webscrape)``` is in parenthesis at the start of the prompt
+
+```terminal
 (webscrape) tribilium@Den-PC:~$
 ```
 
 To deactivate an active environment, use:
 
-```
+```terminal
 deactivate
 ```
+
 <br />
 
-For power-users using bash on Mac or Linux, you must ```source```.
+For power-users using the terminal on Mac or Linux, you must use ```source activate``` to enter into the virtual environment.
 
 
-```
+```terminal
 source activate webscrape
 ```
 
 and
 
-```
+```terminal
 source deactivate webscrape
 ```
 
@@ -91,4 +94,5 @@ matplotlib               /home/tribilium/anaconda3/envs/matplotlib
 webscrape                /home/tribilium/anaconda3/envs/pelican
 root                  *  /home/tribilium/anaconda3
 ```
+
 We can spin up the virtual environment again with the ```activate``` command.

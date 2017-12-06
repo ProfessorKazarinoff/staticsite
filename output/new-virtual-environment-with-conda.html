@@ -178,13 +178,13 @@ init_mathjax();
 
         <meta name="author" content="Peter D. Kazarinoff" />
         <meta name="keywords" content="python,conda,virtualenv,anaconda" />
-        <meta name="description" content="To start a new project, it is best practice to create a new virtual environment. I have the Anaconda distribution of Python installed on my machine at work and it comes with the very useful conda prompt. Using the conda prompt is a bit like using the terminal on a …" />
+        <meta name="description" content="To start a new project, it is best practice to create a new virtual environment. I have the Anaconda distribution of Python installed on my machine at work and it comes with the very useful Anaconda Prompt. Using the Anaconda Prompt is a bit like using the terminal on a …" />
 
         <meta property="og:site_name" content="Python Programming for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="Create a new virtual environment with Conda"/>
         <meta property="og:url" content="./new-virtual-environment-with-conda.html"/>
-        <meta property="og:description" content="To start a new project, it is best practice to create a new virtual environment. I have the Anaconda distribution of Python installed on my machine at work and it comes with the very useful conda prompt. Using the conda prompt is a bit like using the terminal on a …"/>
+        <meta property="og:description" content="To start a new project, it is best practice to create a new virtual environment. I have the Anaconda distribution of Python installed on my machine at work and it comes with the very useful Anaconda Prompt. Using the Anaconda Prompt is a bit like using the terminal on a …"/>
         <meta property="article:published_time" content="2017-11-17" />
             <meta property="article:section" content="Orientation" />
             <meta property="article:tag" content="python" />
@@ -293,7 +293,7 @@ Python Programming for Undergraduate Engineers            </a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>To start a new project, it is best practice to create a new virtual environment. I have the Anaconda distribution of Python installed on my machine at work and it comes with the very useful <strong>conda prompt</strong>. Using the conda prompt is a bit like using the terminal on a Mac or Linux. To start the conda prompt on Windows, go to the Windows start button on the lower left and select Anaconda Prompt. </p>
+                <p>To start a new project, it is best practice to create a new virtual environment. I have the <strong>Anaconda</strong> distribution of Python installed on my machine at work and it comes with the very useful <strong>Anaconda Prompt</strong>. Using the <strong>Anaconda Prompt</strong> is a bit like using the terminal on a Mac or Linux. To start the Anaconda Prompt on Windows, go to the Windows start button on the lower left and select <strong>Anaconda Prompt</strong>. </p>
 <p><img alt="anaconda in start menu" src="images/anaconda_from_start_menu.png"></p>
 <p>To make the new environment we need to issue the following command at the prompt:</p>
 <div class="highlight"><pre><span></span>conda create --name webscrape python=3.6
@@ -321,7 +321,7 @@ Proceed ([y]/n)? y
 </pre></div>
 
 
-<p>You know you are in your virtual environment <code>webscrape</code> when <code>(webscrape)</code> is in parenthesis at the start of the conda prompt</p>
+<p>You know you are in your virtual environment <code>webscrape</code> when <code>(webscrape)</code> is in parenthesis at the start of the prompt</p>
 <div class="highlight"><pre><span></span>(webscrape) tribilium@Den-PC:~$
 </pre></div>
 
@@ -332,7 +332,7 @@ Proceed ([y]/n)? y
 
 
 <p><br /></p>
-<p>For power-users using bash on Mac or Linux, you must <code>source</code>.</p>
+<p>For power-users using the terminal on Mac or Linux, you must use <code>source activate</code> to enter into the virtual environment.</p>
 <div class="highlight"><pre><span></span>source activate webscrape
 </pre></div>
 

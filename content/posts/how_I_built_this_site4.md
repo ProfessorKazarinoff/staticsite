@@ -107,7 +107,7 @@ widgetsnbextension==3.0.8
 
 ### Modify the **_pelicanconf.py_** file, so that we can use a new theme.
 
-Now we need to modify the **_pelicanconf.py_** file to use a couple new plugins. The plugins will add are: 
+Now we need to modify the **_pelicanconf.py_** file to use a couple new plugins. The plugins we will add are: 
 
 * 'series'
 * 'tag_cloud',
@@ -165,7 +165,7 @@ Summary: This is the first post of a series of posts
 This is the first post of a series of posts
 ```
 
-After the post is saved, we can go back to the terminal and copy of it to create our second post. The contents of our **staticsite directory** should look something like this:
+After the post is saved, we can go back to the terminal and copy it to create our second post. The contents of our **staticsite directory** should look something like this:
 
 ```
 staticsite/
@@ -201,7 +201,7 @@ cp first_post.md second_post.md
 cp first_post.md third_post.md
 ```
 
-Now we'll edit the **_second_post.md_** so that it is part of a series and contains an embedded YouTube video.
+Now we'll edit **_second_post.md_** so that it is part of a series and contains an embedded YouTube video.
 
 **_second_post.md_**
 ```
@@ -222,7 +222,7 @@ This is the second post of a series of posts. It will show series and an embedde
 {% youtube https://www.youtube.com/watch?v=Qq-5frjUfK0 [560] [315] %}
 ```
 
-We'll create a sample **jupyter notebook** in a new folder called **code** in our **content** folder to put in the third post. To creat the **code** folder and bring up a new **jupyter notebook** in our web browser use:
+We'll create a sample **jupyter notebook** in a new folder called **code** in our **content** folder to put in the third post. To create the **code** folder and bring up a new **jupyter notebook** in our web browser use:
 
 ```
 (staticsite) $ pwd
@@ -254,7 +254,7 @@ Summary: This is the third post of a series of posts. It will show series an jup
 
 This post contains a jupyter notebook.
 
-{% notebook ../code/circuit_diagrams/SchemDraw_circuit_diagrams.ipynb %}
+{% notebook ../code/sample_notebook.ipynb %}
 
 ```
 

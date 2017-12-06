@@ -235,7 +235,7 @@ Let's put one markdown cell, one code cell and produce one output cell in our **
 
 ![example jupyter notebook]({filename}/images/jupyter_notebook_sample_example.png)
 
-Now we will put our **_example_notebook.ipynb_** into our third post. Including a **juypter notebook** requires the use of the line ``` {% notebook path/to/notebook.ipynb %} ```.  
+Now we will put our **_example_notebook.ipynb_** into our third post. Including a **juypter notebook** requires the use of the line ```notebook path/to/notebook.ipynb``` surrounded with ```{%   %}```.  
 
 **_third_post.md_**
 ```

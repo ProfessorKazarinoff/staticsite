@@ -12,12 +12,13 @@ DEFAULT_LANG = 'en'
 PATH = 'content'
 PAGE_PATHS = ['pages']
 ARTICLE_PATHS = ['posts']
-STATIC_PATHS = ['images','extra','code','posts/seaborn_bar_plot_files']
+STATIC_PATHS = ['images','extra','code','posts/seaborn_bar_plot_files','extra/CNAME']
 PLUGIN_PATHS = ['pelican-plugins']
 EXTRA_PATH_METADATA = {
     'extra/custom.css': {'path': 'static/css/custom.css'},
 	'extra/jupyter.css': {'path': 'static/css/jupyter.css'},
-    'extra/custom.js': {'path': 'static/js/custom.js'}
+    'extra/custom.js': {'path': 'static/js/custom.js'},
+    'extra/CNAME': {'path': 'CNAME'},
 }
 #consider above to have extra/custom.js bath go to static/theme/js and see if that works
 

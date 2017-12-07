@@ -88,6 +88,8 @@ Notice the ``` * ``` asterisk on the line with ```webscrape```. The virtual envi
 To exit the virtual environment, use the command ```deactivate```. If you run ```conda env list``` again, you'll see there is no ```*``` in front of ```webscrape```. That's because you are not currently in that virtual environment.
 
 ```terminal
+conda env list
+
 # conda environments:
 #
 matplotlib               /home/tribilium/anaconda3/envs/matplotlib

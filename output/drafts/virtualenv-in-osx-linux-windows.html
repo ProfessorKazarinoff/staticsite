@@ -314,7 +314,7 @@ $ <span class="m">2</span>.7.1
 </pre></div>
 
 
-<p>So the defaut installation is going to legacy Python!? I don't want no 2.7, I want at least 3.2 and would like 3.6. Let's delete that legacy python environment. Make sure the virtual environment is <code>deactivate</code>d first.</p>
+<p>So the defaut installation is going to legacy Python!? I don't want no 2.7, I want at least Python 3.2 and would prefer Python 3.6. Let's delete that legacy python environment. Make sure the virtual environment is <code>deactivate</code>d first.</p>
 <div class="highlight"><pre><span></span>(webscrape) deactivate
 rmvirtualenv webscrape
 </pre></div>
@@ -326,7 +326,7 @@ $ error
 </pre></div>
 
 
-<p>Now what? Path is too long? How is that possible? What happens when we see which python version is the defaut python3?</p>
+<p>Now what? Path is too long? How is that possible? What happens when we see which python version is the default python3?</p>
 <div class="highlight"><pre><span></span>which python3
 bin/usr/anaconda/python3
 </pre></div>
@@ -339,16 +339,16 @@ Python <span class="m">3</span>.6.2
 </pre></div>
 
 
-<p>Nice. Now we can <code>pip install</code> away. So what about on a macbook air with OS X?</p>
-<h3>Mac OS X</h3>
-<p>Mac OS X has a terminal too. I get to it by going to the finder and clicking the search in the upper right. Type in termial. Setting up a virtualenv should be pretty easy right?</p>
+<p>Nice. Now we can <code>pip install</code> away. So what about on a MacBook Air with OSX?</p>
+<h3>Mac OSX</h3>
+<p>Mac OS X has a terminal too. I get to it by going to the finder and clicking the search in the upper right. Type in terminal. Setting up a virtualenv should be pretty easy right?</p>
 <div class="highlight"><pre><span></span>$ mkvirtualenv webscrape
 <span class="o">(</span>webscrape<span class="o">)</span>$ which python
 python <span class="m">2</span>.7
 </pre></div>
 
 
-<p>Again? More legacy python?! Stop it already with the legacy python, we want python. Preferably 3.6. Gotta make sure that python 3 is installed some where. <code>rmvirtualenv</code> that thing.</p>
+<p>Again!? More legacy python?! Stop it already with the legacy python. We want Python! Preferably 3.6. Gotta make sure that Python 3 is installed some where. <code>rmvirtualenv</code> that thing.</p>
 <div class="highlight"><pre><span></span>(webscrape)$ deactivate
 $ rmvirtualenv webscrape
 $ which python3
@@ -365,11 +365,11 @@ python 3.6.2
 <div class="highlight"><pre><span></span>$ conda create -n webscrape <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.6
 $ proceed <span class="o">([</span>y<span class="o">]</span>/n<span class="o">)</span>?
 <span class="o">(</span>webscrape<span class="o">)</span>$ which python
-pyton <span class="m">3</span>.6
+python <span class="m">3</span>.6
 </pre></div>
 
 
-<p>Rockin right? Turns out that the Windows 10 virtual env was one of the easiest. Who would have guessed that? Thats's one piece of magic from the Anaconda distribution. If you are using Windows, I think it is the way to go. </p>
+<p>Rockin' right? Turns out that the Windows 10 virtual env was one of the easiest. Who would have guessed that? That's one piece of magic from the <strong>Anaconda</strong> distribution. If you are using Windows, I think <strong>Anaconda</strong> is the way to go. </p>
             </div>
             <!-- /.entry-content -->
         </article>

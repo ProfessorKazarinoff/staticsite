@@ -542,7 +542,9 @@ root                     /home/tribilium/anaconda3
 
 &lt;p&gt;Notice the &lt;code&gt;*&lt;/code&gt; asterisk on the line with &lt;code&gt;webscrape&lt;/code&gt;. The virtual environment with the &lt;code&gt;*&lt;/code&gt; is currently active. &lt;/p&gt;
 &lt;p&gt;To exit the virtual environment, use the command &lt;code&gt;deactivate&lt;/code&gt;. If you run &lt;code&gt;conda env list&lt;/code&gt; again, you'll see there is no &lt;code&gt;*&lt;/code&gt; in front of &lt;code&gt;webscrape&lt;/code&gt;. That's because you are not currently in that virtual environment.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# conda environments:
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;conda env list
+
+# conda environments:
 #
 matplotlib               /home/tribilium/anaconda3/envs/matplotlib
 webscrape                /home/tribilium/anaconda3/envs/pelican

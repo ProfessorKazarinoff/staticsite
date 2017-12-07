@@ -26,7 +26,7 @@ $ (webscrape) which pyton
 $ 2.7.1 
 ```
 
-So the defaut installation is going to legacy Python!? I don't want no 2.7, I want at least 3.2 and would like 3.6. Let's delete that legacy python environment. Make sure the virtual environment is ```deactivate```d first.
+So the defaut installation is going to legacy Python!? I don't want no 2.7, I want at least Python 3.2 and would prefer Python 3.6. Let's delete that legacy python environment. Make sure the virtual environment is ```deactivate```d first.
 
 ```
 (webscrape) deactivate
@@ -40,7 +40,7 @@ $ mkvirtualenv -p python3 webscrape
 $ error
 ```
 
-Now what? Path is too long? How is that possible? What happens when we see which python version is the defaut python3?
+Now what? Path is too long? How is that possible? What happens when we see which python version is the default python3?
 
 ```
 which python3
@@ -55,10 +55,10 @@ $ virtualenv --python='which python3' ~/.virtualenvs/webscrape
 Python 3.6.2
 ```
 
-Nice. Now we can ```pip install``` away. So what about on a macbook air with OS X?
+Nice. Now we can ```pip install``` away. So what about on a MacBook Air with OSX?
 
-### Mac OS X
-Mac OS X has a terminal too. I get to it by going to the finder and clicking the search in the upper right. Type in termial. Setting up a virtualenv should be pretty easy right?
+### Mac OSX
+Mac OS X has a terminal too. I get to it by going to the finder and clicking the search in the upper right. Type in terminal. Setting up a virtualenv should be pretty easy right?
 
 ```
 $ mkvirtualenv webscrape
@@ -66,7 +66,7 @@ $ mkvirtualenv webscrape
 python 2.7
 ```
 
-Again? More legacy python?! Stop it already with the legacy python, we want python. Preferably 3.6. Gotta make sure that python 3 is installed some where. ```rmvirtualenv``` that thing.
+Again!? More legacy python?! Stop it already with the legacy python. We want Python! Preferably 3.6. Gotta make sure that Python 3 is installed some where. ```rmvirtualenv``` that thing.
 
 ```
 (webscrape)$ deactivate
@@ -88,7 +88,7 @@ At work, I have a windows 10 machine with no admin access. I'm not able to instr
 $ conda create -n webscrape python=3.6
 $ proceed ([y]/n)?
 (webscrape)$ which python
-pyton 3.6
+python 3.6
 ```
 
-Rockin right? Turns out that the Windows 10 virtual env was one of the easiest. Who would have guessed that? Thats's one piece of magic from the Anaconda distribution. If you are using Windows, I think it is the way to go. 
+Rockin' right? Turns out that the Windows 10 virtual env was one of the easiest. Who would have guessed that? That's one piece of magic from the **Anaconda** distribution. If you are using Windows, I think **Anaconda** is the way to go. 

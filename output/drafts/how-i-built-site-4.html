@@ -177,19 +177,20 @@ init_mathjax();
 <link rel="canonical" href="../drafts/how-i-built-site-4.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
-        <meta name="keywords" content="python,pelican,blog" />
-        <meta name="description" content="This is the fourth part in a multi-part series on how I built this site. In the last post, we installed the pelican-bootstrap3 theme and made our site mobile responsive and look good on all devices. In this post we are going to install a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of post that are linked together, create a working search bar, add youtube videos to posts, view LaTeX math and add embedded jupyter notebooks in posts." />
+        <meta name="keywords" content="python,pelican,blog,jupyter" />
+        <meta name="description" content="This is the fourth part in a multi-part series on how I built this site. In the last post, we installed the pelican-bootstrap3 theme and made our site mobile responsive. Now the site looks good on all devices. In this post we are going to install a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of post that are linked together, create a working search bar, add youtube videos to posts, view LaTeX math and add embedded jupyter notebooks in posts." />
 
         <meta property="og:site_name" content="Python Programming for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="How I build this Site - Part 4"/>
         <meta property="og:url" content="../drafts/how-i-built-site-4.html"/>
-        <meta property="og:description" content="This is the fourth part in a multi-part series on how I built this site. In the last post, we installed the pelican-bootstrap3 theme and made our site mobile responsive and look good on all devices. In this post we are going to install a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of post that are linked together, create a working search bar, add youtube videos to posts, view LaTeX math and add embedded jupyter notebooks in posts."/>
+        <meta property="og:description" content="This is the fourth part in a multi-part series on how I built this site. In the last post, we installed the pelican-bootstrap3 theme and made our site mobile responsive. Now the site looks good on all devices. In this post we are going to install a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of post that are linked together, create a working search bar, add youtube videos to posts, view LaTeX math and add embedded jupyter notebooks in posts."/>
         <meta property="article:published_time" content="2017-12-05" />
             <meta property="article:section" content="This site" />
             <meta property="article:tag" content="python" />
             <meta property="article:tag" content="pelican" />
             <meta property="article:tag" content="blog" />
+            <meta property="article:tag" content="jupyter" />
             <meta property="article:author" content="Peter D. Kazarinoff" />
 
 
@@ -278,7 +279,7 @@ Python Programming for Undergraduate Engineers            </a>
     </span>
 
             <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x10687f150> of 
+            Part <built-in method index of str object at 0x106553d68> of 
 
 
 
@@ -289,16 +290,18 @@ Python Programming for Undergraduate Engineers            </a>
 	<a href="../tag/pelican.html">pelican</a>
         /
 	<a href="../tag/blog.html">blog</a>
+        /
+	<a href="../tag/jupyter.html">jupyter</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>This is the fourth part in a multi-part series on how I built this site. In the <a href="../how-i-built-this-site-3.html">last post</a>, we installed the pelican-bootstrap3 theme and made our site mobile responsive and look good on all devices.  In this post we are going to install a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of post that are linked together, create a working search bar, add youtube videos to posts, view LaTeX math and add embedded jupyter notebooks in posts.</p>
+                <p>This is the fourth part in a multi-part series on how I built this site. In the <a href="../how-i-built-this-site-3.html">last post</a>, we installed the pelican-bootstrap3 theme and made our site mobile responsive. Now the site looks good on all devices.  In this post we are going to install a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of post that are linked together, create a working search bar, add youtube videos to posts, view LaTeX math and add embedded jupyter notebooks in posts.</p>
 <h3>Steps in this post</h3>
-<p>We are going to accomplish the following in this post. By the end of the post we are going to have a great looking  website that contains a two-part series, a search bar, a post with an embedded youtube video and a post that contains an embedded jupyter notebook.</p>
+<p>We are going to accomplish the following in this post. By the end of the post we are going to have a great looking website that contains a two-part series, a search bar, a post with an embedded youtube video and a post that contains an embedded jupyter notebook.</p>
 <ol>
 <li>Activate our <code>staticsite</code> virtual environment</li>
 <li>Pull the most recent version of our site from github</li>
-<li>Install <code>jupyter</code> in our <code>staticsite</code> environment.</li>
+<li>Install <code>jupyter</code> in our <code>staticsite</code> environment</li>
 <li>Modify the <strong><em>pelicanconf.py</em></strong> file to use new plugins</li>
 <li>Build some posts that will allow us to view the new plugins</li>
 <li>Build and preview the site with Pelican</li>
@@ -314,7 +317,7 @@ Python Programming for Undergraduate Engineers            </a>
 
 
 <h3>Install the <code>jupyter</code> package in our <code>staticsite</code> virtual environment.</h3>
-<p>I like using <strong>jupyter notebooks</strong> to build code and solve engineering problems with Python. A <strong>jupyter notebook</strong> can contain Python code, the output produced when this code is run and markup text (used for documentation).  <strong>Jupyter notebooks</strong> can also easily display <code>matplotlib</code> plots and <code>pandas</code> data frames. These two Python packages are very useful to engineers. As the <code>jupyter</code> package is in the main conda channel, we can install it into our virtual environment using the <code>conda install</code> command.</p>
+<p>I like using <strong>jupyter notebooks</strong> to build code and solve engineering problems with Python. A <strong>jupyter notebook</strong> can contain Python code, the output produced when this code is run and markup text (used for documentation).  <strong>Jupyter notebooks</strong> can also easily display <code>matplotlib</code> plots and <code>pandas</code> data frames. These two Python packages are very useful for engineers solving problems in teams. As the <code>jupyter</code> package is in the main conda channel, we can install it into our virtual environment using the <code>conda install</code> command.</p>
 <div class="highlight"><pre><span></span>(staticsite) $ conda install jupyter
 </pre></div>
 
@@ -375,7 +378,7 @@ widgetsnbextension==3.0.8
 </pre></div>
 
 
-<h3>Modify the <strong><em>pelicanconf.py</em></strong> file, so that we can use a new theme.</h3>
+<h3>Add new plugins to the <strong><em>pelicanconf.py</em></strong> file</h3>
 <p>Now we need to modify the <strong><em>pelicanconf.py</em></strong> file to use a couple new plugins. The plugins we will add are: </p>
 <ul>
 <li>'series'</li>
@@ -403,7 +406,7 @@ PLUGINS = [
 
 
 <h3>Build some posts that use the newly installed plugins</h3>
-<p>Now we will build a couple of posts which use our newly installed plugins. First we'll modify our content directory with a new folder called <strong>posts</strong>.  We'll keep all the posts in this directory. Then we'll make a couple of new <em>.md</em> files. I'll copy our first post to this new directory with the <code>cp</code> (copy) shell command and then remove the old <em>.md</em> file with the <code>rm</code> command.</p>
+<p>Now we will build a couple of posts which use our newly installed plugins. First we'll modify our content directory with a new folder called <strong>posts</strong>.  We'll keep all the posts in this directory. Then we'll make a couple of new <strong><em>.md</em></strong> files. I'll copy our first post to this new directory with the <code>cp</code> (copy) shell command and then remove the old <strong><em>.md</em></strong> file with the <code>rm</code> command.</p>
 <div class="highlight"><pre><span></span>pwd
 cd content
 mkdir posts
@@ -463,7 +466,7 @@ cp first_post.md third_post.md
 </pre></div>
 
 
-<p>Now we'll edit <strong><em>second_post.md</em></strong> so that it is part of a series and contains an embedded YouTube video.</p>
+<p>Now we'll edit <strong><em>second_post.md</em></strong> so it's part of a series and contains an embedded YouTube video.</p>
 <p><strong><em>second_post.md</em></strong></p>
 <div class="highlight"><pre><span></span><span class="n">Title</span><span class="o">:</span> <span class="n">Second</span> <span class="n">Post</span> <span class="o">-</span> <span class="n">Part</span> <span class="mi">2</span>
 <span class="n">Date</span><span class="o">:</span> <span class="mi">2017</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">30</span> <span class="mi">12</span><span class="o">:</span><span class="mi">40</span>
@@ -483,7 +486,7 @@ cp first_post.md third_post.md
 </pre></div>
 
 
-<p>We'll create a sample <strong>jupyter notebook</strong> in a new folder called <strong>code</strong> in our <strong>content</strong> folder to put in the third post. To create the <strong>code</strong> folder and bring up a new <strong>jupyter notebook</strong> in our web browser use:</p>
+<p>We'll create a sample <strong>jupyter notebook</strong> in a new folder called <strong>code</strong> in our <strong>content</strong> folder. The <strong>jupyter notebook</strong> will go in our third post. To create the <strong>code</strong> folder and bring up a new <strong>jupyter notebook</strong> in our web browser use:</p>
 <div class="highlight"><pre><span></span>(staticsite) $ pwd
 (staticsite) $ mkdir content/code
 (staticsite) $ cd content/code
@@ -536,7 +539,7 @@ git push origin master
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">
-    <h4>This article is the <built-in method index of str object at 0x10687f150> of the  series</h4>
+    <h4>This article is the <built-in method index of str object at 0x106553d68> of the  series</h4>
 </section>
         </article>
     </section>

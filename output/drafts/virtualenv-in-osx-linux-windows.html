@@ -176,16 +176,16 @@ init_mathjax();
 
 <link rel="canonical" href="../drafts/virtualenv-in-osx-linux-windows.html">
 
-        <meta name="author" content="Peter Kazarinoff" />
-        <meta name="keywords" content="python,Windows 10,virtualenv,OS X,Linux,Ubuntu,pip" />
+        <meta name="author" content="Peter D. Kazarinoff" />
+        <meta name="keywords" content="python,Windows 10,virtualenv,OS X,Linux,Ubuntu,pip,conda,anaconda,anaconda prompt" />
 
         <meta property="og:site_name" content="Python Programming for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="Python Virtual Environments (virtualenv&#39;s) in OS X, Linux and Windows 10)"/>
         <meta property="og:url" content="../drafts/virtualenv-in-osx-linux-windows.html"/>
         <meta property="og:description" content=""/>
-        <meta property="article:published_time" content="2017-09-21" />
-            <meta property="article:section" content="Python" />
+        <meta property="article:published_time" content="2017-12-06" />
+            <meta property="article:section" content="Orientation" />
             <meta property="article:tag" content="python" />
             <meta property="article:tag" content="Windows 10" />
             <meta property="article:tag" content="virtualenv" />
@@ -193,7 +193,10 @@ init_mathjax();
             <meta property="article:tag" content="Linux" />
             <meta property="article:tag" content="Ubuntu" />
             <meta property="article:tag" content="pip" />
-            <meta property="article:author" content="Peter Kazarinoff" />
+            <meta property="article:tag" content="conda" />
+            <meta property="article:tag" content="anaconda" />
+            <meta property="article:tag" content="anaconda prompt" />
+            <meta property="article:author" content="Peter D. Kazarinoff" />
 
 
 
@@ -211,8 +214,8 @@ init_mathjax();
 
 
 
-        <link href="../feeds/python.atom.xml" type="application/atom+xml" rel="alternate"
-              title="Python Programming for Undergraduate Engineers Python ATOM Feed"/>
+        <link href="../feeds/orientation.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Python Programming for Undergraduate Engineers Orientation ATOM Feed"/>
 
 </head>
 <body>
@@ -257,7 +260,7 @@ Python Programming for Undergraduate Engineers            </a>
         <div class="col-sm-9">
             <ol class="breadcrumb">
                 <li><a href=".." title="Python Programming for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="../category/python.html" title="Python">Python</a></li>
+                <li><a href="../category/orientation.html" title="Orientation">Orientation</a></li>
                 <li class="active">Python Virtual Environments (virtualenv's) in OS X, Linux and Windows 10)</li>
             </ol>
     <section id="content">
@@ -277,7 +280,7 @@ Python Programming for Undergraduate Engineers            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2017-09-21T19:36:00-07:00"> Thu 21 September 2017</time>
+        <i class="fa fa-calendar"></i><time datetime="2017-12-06T19:36:00-08:00"> Wed 06 December 2017</time>
     </span>
 
 
@@ -298,6 +301,12 @@ Python Programming for Undergraduate Engineers            </a>
 	<a href="../tag/ubuntu.html">Ubuntu</a>
         /
 	<a href="../tag/pip.html">pip</a>
+        /
+	<a href="../tag/conda.html">conda</a>
+        /
+	<a href="../tag/anaconda.html">anaconda</a>
+        /
+	<a href="../tag/anaconda-prompt.html">anaconda prompt</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
@@ -305,7 +314,7 @@ Python Programming for Undergraduate Engineers            </a>
 <p>Work: Windows 10 (no admin access)
 Home Office: Ubuntu 16.04 LTS
 Laptop: Mac OS X</p>
-<p>Setting up a Python virtual environment is different on each one of these opperating systems. Let's see at what happens on when we create a new virtual environment on each.</p>
+<p>Setting up a Python virtual environment is different on each one of these operating systems. Let's see at what happens when we try and create a new virtual environment in each.</p>
 <h3>Ubuntu 16.04</h3>
 <p>Linux should be the easiest to get a new virtualenv up and running. In Ubuntu 16.04, we have a terminal, admin access (can use sudo). But look what happens when I try to set up a new virtualenv without any flags or customization:</p>
 <div class="highlight"><pre><span></span>$ mkvirtualenv webscrape
@@ -314,7 +323,7 @@ $ <span class="m">2</span>.7.1
 </pre></div>
 
 
-<p>So the defaut installation is going to legacy Python!? I don't want no 2.7, I want at least Python 3.2 and would prefer Python 3.6. Let's delete that legacy python environment. Make sure the virtual environment is <code>deactivate</code>d first.</p>
+<p>So the default installation is going to legacy Python!? I don't want the legacy 2.7 version, I want at least Python 3.2 and would prefer Python 3.6. Let's delete that legacy Python environment. Make sure the virtual environment is <code>deactivate</code>d first.</p>
 <div class="highlight"><pre><span></span>(webscrape) deactivate
 rmvirtualenv webscrape
 </pre></div>
@@ -326,14 +335,14 @@ $ error
 </pre></div>
 
 
-<p>Now what? Path is too long? How is that possible? What happens when we see which python version is the default python3?</p>
+<p>Now what? Path is too long? How is that possible? What happens when we see which Python version is the default python3?</p>
 <div class="highlight"><pre><span></span>which python3
 bin/usr/anaconda/python3
 </pre></div>
 
 
 <p>So that's what we need to use when the <code>viruatlenv</code> is created. The <code>--python='which python3'</code> flag will point virtualenvwrapper to the correct python version. The new virtualenv is initiated with the full file path to our new environment <code>~/.virtualenvs/webscrape</code></p>
-<div class="highlight"><pre><span></span>$ virtualenv --python<span class="o">=</span><span class="s1">&#39;which python3&#39;</span> ~/.virtualenvs/webscrape
+<div class="highlight"><pre><span></span>$ mkvirtualenv --python<span class="o">=</span><span class="s1">&#39;which python3&#39;</span> ~/.virtualenvs/webscrape
 <span class="o">(</span>webscrape<span class="o">)</span>$ python
 Python <span class="m">3</span>.6.2
 </pre></div>
@@ -341,14 +350,14 @@ Python <span class="m">3</span>.6.2
 
 <p>Nice. Now we can <code>pip install</code> away. So what about on a MacBook Air with OSX?</p>
 <h3>Mac OSX</h3>
-<p>Mac OS X has a terminal too. I get to it by going to the finder and clicking the search in the upper right. Type in terminal. Setting up a virtualenv should be pretty easy right?</p>
+<p>Mac OSX has a terminal too. I get to it by going to the finder and clicking the search in the upper right or using . Type in terminal. Setting up a virtualenv should be pretty easy right?</p>
 <div class="highlight"><pre><span></span>$ mkvirtualenv webscrape
 <span class="o">(</span>webscrape<span class="o">)</span>$ which python
 python <span class="m">2</span>.7
 </pre></div>
 
 
-<p>Again!? More legacy python?! Stop it already with the legacy python. We want Python! Preferably 3.6. Gotta make sure that Python 3 is installed some where. <code>rmvirtualenv</code> that thing.</p>
+<p>Again!? More legacy Python?! Stop it already with the legacy Python. We want Python! Preferably 3.6. Gotta make sure that Python 3 is installed some where. <code>rmvirtualenv</code> that thing.</p>
 <div class="highlight"><pre><span></span>(webscrape)$ deactivate
 $ rmvirtualenv webscrape
 $ which python3
@@ -359,9 +368,9 @@ python 3.6.2
 </pre></div>
 
 
-<p>OK. Two down and I to go. Is this any easier on Windows 10? Especially with no admin access? Let's see.</p>
+<p>OK. Two down and one to go. Is this any easier on Windows 10? Especially with no admin access? Can't be right? Let's see.</p>
 <h3>Windows 10 (no admin access)</h3>
-<p>At work, I have a windows 10 machine with no admin access. I'm not able to instral any programs on this computer. The Python distrobution that has worked out the best has been Anaconda. Besides comming with Python 3, having a bunch of packages already installed, it also comes with a command line client call the Conda Prompt. The Conda Prompt opperates a little like the terminal on Linux and OS X, but some of the commands are a little different. To make a new virtual environment from the Conda Prompt type:</p>
+<p>At work, I have a windows 10 machine with no admin access. I can't install any programs my work computer. The Python distribution that has worked out the best has been <strong>Anaconda</strong>. Besides coming with Python 3, having a bunch of packages already installed, it also comes with a command line client call the <strong>Anaconda Prompt<strong><em>. The </em>*Anaconda Prompt</strong> operates a little like the terminal on Linux and OSX, but some of the commands are a little different. To make a new virtual environment from the </strong>Anaconda Prompt** type:</p>
 <div class="highlight"><pre><span></span>$ conda create -n webscrape <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.6
 $ proceed <span class="o">([</span>y<span class="o">]</span>/n<span class="o">)</span>?
 <span class="o">(</span>webscrape<span class="o">)</span>$ which python
@@ -369,7 +378,9 @@ python <span class="m">3</span>.6
 </pre></div>
 
 
-<p>Rockin' right? Turns out that the Windows 10 virtual env was one of the easiest. Who would have guessed that? That's one piece of magic from the <strong>Anaconda</strong> distribution. If you are using Windows, I think <strong>Anaconda</strong> is the way to go. </p>
+<p>Rockin' right? Turns out that the Windows 10 virtual env was one of the easiest. Who would have guessed that? That's one piece of magic from the <strong>Anaconda</strong> distribution. If you are using Windows, I think <strong>Anaconda</strong> is the way to go.</p>
+<p>End Note:</p>
+<p>Maybe it's best to use <strong>conda</strong> on both OSX and Linux too...  You don't have to mess around with <strong><em>~/.bash_profile</em></strong> or pointing virtualenv wrapper to the proper directory.  </p>
             </div>
             <!-- /.entry-content -->
         </article>

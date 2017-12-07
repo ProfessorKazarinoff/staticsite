@@ -3,23 +3,23 @@ Date: 2017-12-05 09:40
 Modified: 2017-12-05 09:40
 Status: draft
 Category: This site
-Tags: python, pelican, blog
+Tags: python, pelican, blog, jupyter
 Slug: how-i-built-site-4
 Authors: Peter D. Kazarinoff
 Series: How I built this site
 Series_index: 4
-Summary: This is the fourth part in a multi-part series on how I built this site. In the [last post]({filename}how_I_built_this_site3.md), we installed the pelican-bootstrap3 theme and made our site mobile responsive and look good on all devices.  In this post we are going to install a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of post that are linked together, create a working search bar, add youtube videos to posts, view LaTeX math and add embedded jupyter notebooks in posts.
+Summary: This is the fourth part in a multi-part series on how I built this site. In the [last post]({filename}how_I_built_this_site3.md), we installed the pelican-bootstrap3 theme and made our site mobile responsive. Now the site looks good on all devices.  In this post we are going to install a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of post that are linked together, create a working search bar, add youtube videos to posts, view LaTeX math and add embedded jupyter notebooks in posts.
 
-This is the fourth part in a multi-part series on how I built this site. In the [last post]({filename}how_I_built_this_site3.md), we installed the pelican-bootstrap3 theme and made our site mobile responsive and look good on all devices.  In this post we are going to install a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of post that are linked together, create a working search bar, add youtube videos to posts, view LaTeX math and add embedded jupyter notebooks in posts.
+This is the fourth part in a multi-part series on how I built this site. In the [last post]({filename}how_I_built_this_site3.md), we installed the pelican-bootstrap3 theme and made our site mobile responsive. Now the site looks good on all devices.  In this post we are going to install a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of post that are linked together, create a working search bar, add youtube videos to posts, view LaTeX math and add embedded jupyter notebooks in posts.
 
 
 ### Steps in this post
 
-We are going to accomplish the following in this post. By the end of the post we are going to have a great looking  website that contains a two-part series, a search bar, a post with an embedded youtube video and a post that contains an embedded jupyter notebook.
+We are going to accomplish the following in this post. By the end of the post we are going to have a great looking website that contains a two-part series, a search bar, a post with an embedded youtube video and a post that contains an embedded jupyter notebook.
 
 1. Activate our ```staticsite``` virtual environment
 2. Pull the most recent version of our site from github
-3. Install ```jupyter``` in our ```staticsite``` environment.
+3. Install ```jupyter``` in our ```staticsite``` environment
 4. Modify the **_pelicanconf.py_** file to use new plugins
 5. Build some posts that will allow us to view the new plugins
 6. Build and preview the site with Pelican
@@ -41,7 +41,7 @@ $ source activate staticsite
 
 ### Install the ```jupyter``` package in our ```staticsite``` virtual environment.
 
-I like using **jupyter notebooks** to build code and solve engineering problems with Python. A **jupyter notebook** can contain Python code, the output produced when this code is run and markup text (used for documentation).  **Jupyter notebooks** can also easily display ```matplotlib``` plots and ```pandas``` data frames. These two Python packages are very useful to engineers. As the ```jupyter``` package is in the main conda channel, we can install it into our virtual environment using the ```conda install``` command.
+I like using **jupyter notebooks** to build code and solve engineering problems with Python. A **jupyter notebook** can contain Python code, the output produced when this code is run and markup text (used for documentation).  **Jupyter notebooks** can also easily display ```matplotlib``` plots and ```pandas``` data frames. These two Python packages are very useful for engineers solving problems in teams. As the ```jupyter``` package is in the main conda channel, we can install it into our virtual environment using the ```conda install``` command.
 
 ```
 (staticsite) $ conda install jupyter
@@ -105,7 +105,7 @@ webencodings==0.5.1
 widgetsnbextension==3.0.8
 ```
 
-### Modify the **_pelicanconf.py_** file, so that we can use a new theme.
+### Add new plugins to the **_pelicanconf.py_** file
 
 Now we need to modify the **_pelicanconf.py_** file to use a couple new plugins. The plugins we will add are: 
 
@@ -136,7 +136,7 @@ PLUGINS = [
 
 ### Build some posts that use the newly installed plugins
 
-Now we will build a couple of posts which use our newly installed plugins. First we'll modify our content directory with a new folder called **posts**.  We'll keep all the posts in this directory. Then we'll make a couple of new _.md_ files. I'll copy our first post to this new directory with the ```cp``` (copy) shell command and then remove the old _.md_ file with the ```rm``` command.
+Now we will build a couple of posts which use our newly installed plugins. First we'll modify our content directory with a new folder called **posts**.  We'll keep all the posts in this directory. Then we'll make a couple of new **_.md_** files. I'll copy our first post to this new directory with the ```cp``` (copy) shell command and then remove the old **_.md_** file with the ```rm``` command.
  
 ```
 pwd
@@ -201,7 +201,7 @@ cp first_post.md second_post.md
 cp first_post.md third_post.md
 ```
 
-Now we'll edit **_second_post.md_** so that it is part of a series and contains an embedded YouTube video.
+Now we'll edit **_second_post.md_** so it's part of a series and contains an embedded YouTube video.
 
 **_second_post.md_**
 ```
@@ -222,7 +222,7 @@ This is the second post of a series of posts. It will show series and an embedde
 {% youtube https://www.youtube.com/watch?v=Qq-5frjUfK0 [560] [315] %}
 ```
 
-We'll create a sample **jupyter notebook** in a new folder called **code** in our **content** folder to put in the third post. To create the **code** folder and bring up a new **jupyter notebook** in our web browser use:
+We'll create a sample **jupyter notebook** in a new folder called **code** in our **content** folder. The **jupyter notebook** will go in our third post. To create the **code** folder and bring up a new **jupyter notebook** in our web browser use:
 
 ```
 (staticsite) $ pwd

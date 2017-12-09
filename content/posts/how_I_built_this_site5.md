@@ -1,71 +1,192 @@
-Title: How I Build This Site - Part 5
-Date: 2017-11-20 12:40
-Modified: 2017-11-20 12:40
-Status: Draft
+Title: How I build this Site - Part 5
+Date: 2017-12-09 18:50
+Modified: 2017-12-09 18:50
+Status: draft
 Category: This site
-Tags: python, pelican, blog
-Slug: how-built-site-5
+Tags: python, pelican, blog, jupyter
+Slug: how-i-built-site-5
 Authors: Peter D. Kazarinoff
 Series: How I built this site
 Series_index: 5
-Summary: This is the fifth part of a multi-part series on how I built this site. In last post, we customized the site and added the ability to use jupyter notebooks in posts.  In this post we are going to deploy the site to Digital Ocean Spaces. Digital Ocean Spaces is a cloud service provider like Amazon S3. We will use the command line tool **s3cmd** to upload the site.
+Summary: This is the fifth part in a multi-part series on how I built this site. In the [last post]({filename}how_I_built_this_site4.md), we installed a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of posts and add embedded jupyter notebooks in posts. In this post we will customize the site. We'll add some css in order to make tables on the site look better and put a search bar at the top right of each page.
 
-This is the fifth part in a multi-part series on how I built this site. In last post, we customized the site and added the ability to use jupyter notebooks in posts.  In this post we are going to deploy the site to Digital Ocean Spaces. Digital Ocean Spaces is a cloud service provider like Amazon S3. We will use the command line tool **s3cmd** to upload the site.
+This is the fifth part in a multi-part series on how I built this site. In the [last post]({filename}how_I_built_this_site4.md), we installed a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of posts and add embedded jupyter notebooks in posts. In this post we will customize the site. We'll add some css in order to make tables on the site look better and put a search bar at the top right of each page.
+
 
 ### Steps in this post
 
-By the end of the post we are going to have a working website on Digital Ocean Spaces. To accomplish we will go through the following steps.
+We are going to accomplish the following in this post. By the end of the post we are going to have a site with a working search bar and nice looking tables.
 
-1. Run pelican's ```make html``` command to build the site and preview it with ```make serve```
-2. Sign up for a Digital Ocean account
-3. Create a new Digital Ocean Space called pythonforundergradengineers
-4. Install the ```s3cmd``` command line tool
-5. Use ```s3cmd``` to push the contents of pelican's ```output``` folder to Digital Ocean Spaces
-6. View the freshly published site! 
-
-
-OK, let's start small.
+1. Activate our ```staticsite``` virtual environment
+2. Pull the most recent version of our site from github
+3. Modify the **_pelicanconf.py_** file to use the **'tipue_search'** pulugin
+4. Add some custom css to make tables look better
+5. Build and preview the site with Pelican
+6. Add and commit the changes then push those changes to github
 
 
-### Run pelican's ```make html``` command to build the site and preview it with ```make serve```
+Let's get started.
 
-Open a terminal and ```cd``` to the ```staticsite``` folder. Then we need to activate our ```(staticsite)``` virtual environment with ```source activate staticsite```. Once in the ```(staticsite)``` environment, we can call the ```make html``` command and build our static site. 
+
+### Activate our virtual environment and pull the most recent version of the site down from github
+
 
 ```
-(staticsite) $ make html
+$ source activate staticsite
+(staticsite) $ cd ~/Documents/staticsite
+(staticsite) $ git pull origin master
 ```
 
-This will place the contents of our site in the ```output``` folder.  We can preview the site with ```make serve```
+The **staticsite** directory should look something like this:
 
 ```
-(staticsite) $ make serve
+staticsite/
+├── LICENSE
+├── Makefile
+├── README.md
+├── __pycache__
+├── content
+│   ├── posts
+│       ├── first_post.md
+│       ├── second_post.md
+│       ├── third_post.md
+├── develop_server.sh
+├── fabfile.py
+├── output
+├── pelican-plugins
+│   ├── i18n_subsites
+│   ├── liquid_tags
+│   ├── pelican-ipynb
+├── pelican-themes
+│   ├── pelican-bootstrap3
+├── pelican.pid
+├── pelicanconf.py
+├── publishconf.py
+└── srv.pid
 ```
 
-We can now look at our staticsite by pointing a browser to:
+### Add the **'tipue_search'** plugin to the **_pelicanconf.py_** file
 
-**_localhost:8000_**
-
-we can press ```ctr-c``` to stop the server.
-
-### Sign up for a Digital Ocean account
-
-I am hosting this site with **Digital Ocean Spaces**. Digital Ocean Spaces is sort of like Amazon S3. It is a cloud service provider for static assests like html files, images, video files etc.  There is no server and no data base to run on Digital Ocean Spaces. It is just a place to park static files that other people can view.
- 
-### Install the ```s3cmd``` command line tool
+Now we need to modify the **_pelicanconf.py_** file to use the **'tipue_search'** plugin. This plugin will give us the ability to add a search bar to our site menu at the top right of each page. 
 
 
-### Use ```s3cmd``` to push the contents of pelican's ```output``` folder to Digital Ocean Spaces
-
-To use the ```s3cmd``` command line utility, ensure that you are in the ```output``` folder. We want to copy all of the output folder, so we use the ```--recursive``` flag. To change the permissions of all the files to public, so that they can be viewed on the internet, the ```--acl-public``` flag is added. The combined relevant command is:
+Add ```'tipue_search'``` to the ```PLUGINS = [ ]``` list in the **_pelicanconf.py_** file. Make sure each plugin is separated them with commas and surrounded by quotes .
 
 ```
-s3cmd put * s3://pythonforundergradengineers/ --acl-public --recursive
+#pelicanconf.py
+
+PLUGINS = [
+    'i18n_subsites',
+    'series',
+    'tag_cloud',
+    'liquid_tags.youtube',
+    'liquid_tags.notebook',
+    'liquid_tags.include_code',
+    'render_math',
+    'pelican-ipynb.markup',
+    'tipue_search' ] 
 ```
 
-### 6. View the freshly published site! 
+To use the **'tipue_search'** plugin, we also add the following line to the **_pelicanconf.py_** file:
 
-Point a web browser to the site at:
+```
+#pelicanconf.py
 
-https://pythonforundergradengineers.nyc3.digitaloceanspaces.com/index.html
+# for Tique Search Plugin
+DIRECT_TEMPLATES = ('index','tags', 'categories', 'authors', 'archives', 'search')
+```
 
-In the [next post]({filename}how_I_built_this_site5.md) we will upload the contest of the site to github pages. Then view the site with a web browser or phone.
+
+### Add some custom css to make tables look good.
+
+Now we'll add some custom css to make tables in posts look better. 
+
+
+Let's make a new post in the **content/posts** directory. This post will contain a markdown table using the ``` | ``` (pipe) character and a header row.
+
+**_fourth_post.md_**
+```
+Title: Fourth Post - Part 4
+Date: 2017-11-30 12:40
+Modified: 2017-11-30 12:40
+Status: published
+Category: example posts
+Tags: python, pelican, blog, tables
+Slug: fourth-post
+Authors: Peter D. Kazarinoff
+Series: example-post-series
+Series_index: 4
+Summary: This is the fourth post of a series of posts. It will demonstrate tables.
+
+This is the fourth post of a series of posts. It will demonstrate tables.
+
+| Column Header | Column Header |
+| --- | ---| 
+| Row 1 | Data 1 |
+| Row 2 | Data 2 |
+```
+
+After the post is saved, our **staticsite directory** should look something like this:
+
+```
+staticsite/
+├── LICENSE
+├── Makefile
+├── README.md
+├── __pycache__
+├── content
+│   ├── posts
+│       ├── first_post.md
+│       ├── second_post.md
+│       ├── third_post.md
+│       ├── fourth_post.md
+├── develop_server.sh
+├── fabfile.py
+├── output
+├── pelican-plugins
+│   ├── i18n_subsites
+│   ├── liquid_tags
+│   ├── pelican-ipynb
+│   ├── tipue_search
+├── pelican-themes
+│   ├── pelican-bootstrap3
+├── pelican.pid
+├── pelicanconf.py
+├── publishconf.py
+└── srv.pid
+```
+
+
+
+### Build and preview the site with Pelican
+
+With a new plugin configured and a new posts written containing a table, let's preview our site again.  We build the site and view it with a web browser with the commands:
+
+```
+make html
+make serve
+```
+
+To view the site, point a browser to _localhost:8000_
+
+[localhost:8000](localhost:8000)
+
+use ```ctrl-c``` to stop the server.
+
+### Add and commit the changes then push them to github
+
+When we are done editing the the site, we add **all of the changes** to our local git repo using ```git add .```. Then we commit those changes with ```git commit``` and add the ``` -m "added plugins" ``` flag to give supply a commit message (make sure to use double quotes "commit message"). To push those changes up to github use ```git push origin master```
+
+```
+git add .
+git commit -m "added search and tables"
+git push origin master
+```
+
+In the next post we will publish the site live to github pages. Actually publish the real live static site!
+
+
+
+
+
+

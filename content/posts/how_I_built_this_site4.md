@@ -15,7 +15,7 @@ This is the fourth part in a multi-part series on how I built this site. In the 
 
 ### Steps in this post
 
-We are going to accomplish the following in this post. By the end of the post we are going to have a great looking website that contains a two-part series, a search bar, a post with an embedded youtube video and a post that contains an embedded jupyter notebook.
+We are going to accomplish the following in this post. By the end of the post we are going to have a great looking website that contains a two-part series, a post with an embedded youtube video and a post that contains an embedded jupyter notebook.
 
 1. Activate our ```staticsite``` virtual environment
 2. Pull the most recent version of our site from github
@@ -283,7 +283,7 @@ git commit -m "added plugins"
 git push origin master
 ```
 
-In the [next post]({filename}how_I_built_this_site5.md) we will customize the site. We'll add some css in order to make tables on the site look better and as put a search bar at the top of the page.
+In the next post we will customize the site. We'll add some css in order to make tables on the site look better and put a search bar at the top of the page.
 
 
 

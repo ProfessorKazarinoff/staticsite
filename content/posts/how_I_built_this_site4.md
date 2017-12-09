@@ -160,9 +160,9 @@ Slug: first-post
 Authors: Peter D. Kazarinoff
 Series: example-post-series
 Series_index: 1
-Summary: This is the first post of a series of posts
+Summary: This is the first post of a series of demonstration posts.
 
-This is the first post of a series of posts
+This is the first post of a series of demonstration posts.
 ```
 
 After the post is saved, we can go back to the terminal and copy it to create our second post. The contents of our **staticsite directory** should look something like this:
@@ -248,7 +248,7 @@ Tags: python, pelican, blog
 Slug: third-post
 Authors: Peter D. Kazarinoff
 Series: example-post-series
-Series_index: 2
+Series_index: 3
 Summary: This is the third post of a series of posts. It will show series an jupyter notebook.
 
 

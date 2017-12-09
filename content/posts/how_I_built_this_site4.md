@@ -1,7 +1,7 @@
 Title: How I build this Site - Part 4
-Date: 2017-12-05 09:40
-Modified: 2017-12-05 09:40
-Status: draft
+Date: 2017-12-08 18:50
+Modified: 2017-12-08 18:50
+Status: published
 Category: This site
 Tags: python, pelican, blog, jupyter
 Slug: how-i-built-site-4
@@ -267,13 +267,13 @@ make html
 make serve
 ```
 
-To view the site, point a brower to _localhost:8000_
+To view the site, point a browser to _localhost:8000_
 
 [localhost:8000](localhost:8000)
 
 use ```ctrl-c``` to stop the server.
 
-### Add and commit the changes then push those changes to github
+### Add and commit the changes then push them to github
 
 When we are done editing the the site, we add **all of the changes** to our local git repo using ```git add .```. Then we commit those changes with ```git commit``` and add the ``` -m "added plugins" ``` flag to give supply a commit message (make sure to use double quotes "commit message"). To push those changes up to github use ```git push origin master```
 

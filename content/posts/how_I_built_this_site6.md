@@ -1,7 +1,7 @@
 Title: How I build this site - Part 6
 Date: 2017-11-27 12:40
 Modified: 2017-11-27 12:40
-Status: Published
+Status: draft
 Category: This site
 Tags: python, pelican, blog, git, github
 Slug: how-i-built-this-site-6

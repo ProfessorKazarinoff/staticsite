@@ -1,5 +1,245 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Python Programming for Undergraduate Engineers</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="https://professorkazarinoff.github.io/staticsite/feeds/all.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2017-12-04T14:15:00-08:00</updated><entry><title>How I build this site - Part 3</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-3.html" rel="alternate"></link><published>2017-12-04T14:15:00-08:00</published><updated>2017-12-04T14:15:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-12-04:/staticsite/how-i-built-this-site-3.html</id><summary type="html">&lt;p&gt;This is the third part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-2.html"&gt;last post&lt;/a&gt;, we used &lt;code&gt;pelican-quickstart&lt;/code&gt; to build the framework of the site and wrote a short first post, then viewed a demo version of the site on localhost:8000. In this post we will add a custom theme to the site called pelican-bootstrap3. The pelican-bootstrap3 theme looks great and is mobile responsive so it will make the site look good on phones and tablets. Then we'll add some custom css to personalize the look of the theme.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the third part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-2.html"&gt;last post&lt;/a&gt;, we used &lt;code&gt;pelican-quickstart&lt;/code&gt; to build the framework of the site and wrote a short first post, then viewed a demo version of the site on localhost:8000. In this post we will add a custom theme to the site called pelican-bootstrap3. The pelican-bootstrap3 theme looks great and is mobile reponsive so it will make the site look good on phones and tablets. Then we'll add some custom css to personalize the look of the theme.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Python Programming for Undergraduate Engineers</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="https://professorkazarinoff.github.io/staticsite/feeds/all.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2017-12-08T18:50:00-08:00</updated><entry><title>How I build this Site - Part 4</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-site-4.html" rel="alternate"></link><published>2017-12-08T18:50:00-08:00</published><updated>2017-12-08T18:50:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-12-08:/staticsite/how-i-built-site-4.html</id><summary type="html">&lt;p&gt;This is the fourth part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-3.html"&gt;last post&lt;/a&gt;, we installed the pelican-bootstrap3 theme and made our site mobile responsive. Now the site looks good on all devices.  In this post we are going to install a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of post that are linked together, create a working search bar, add youtube videos to posts, view LaTeX math and add embedded jupyter notebooks in posts.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the fourth part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-3.html"&gt;last post&lt;/a&gt;, we installed the pelican-bootstrap3 theme and made our site mobile responsive. Now the site looks good on all devices.  In this post we are going to install a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of post that are linked together, create a working search bar, add youtube videos to posts, view LaTeX math and add embedded jupyter notebooks in posts.&lt;/p&gt;
+&lt;h3&gt;Steps in this post&lt;/h3&gt;
+&lt;p&gt;We are going to accomplish the following in this post. By the end of the post we are going to have a great looking website that contains a two-part series, a search bar, a post with an embedded youtube video and a post that contains an embedded jupyter notebook.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Activate our &lt;code&gt;staticsite&lt;/code&gt; virtual environment&lt;/li&gt;
+&lt;li&gt;Pull the most recent version of our site from github&lt;/li&gt;
+&lt;li&gt;Install &lt;code&gt;jupyter&lt;/code&gt; in our &lt;code&gt;staticsite&lt;/code&gt; environment&lt;/li&gt;
+&lt;li&gt;Modify the &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; file to use new plugins&lt;/li&gt;
+&lt;li&gt;Build some posts that will allow us to view the new plugins&lt;/li&gt;
+&lt;li&gt;Build and preview the site with Pelican&lt;/li&gt;
+&lt;li&gt;Add and commit the changes then push those changes to github&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Seems like a lot to do, so let's get started.&lt;/p&gt;
+&lt;h3&gt;Activate our virtual environment and pull the most recent version of the site down from github&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;source&lt;/span&gt; activate staticsite
+&lt;span class="o"&gt;(&lt;/span&gt;staticsite&lt;span class="o"&gt;)&lt;/span&gt; $ &lt;span class="nb"&gt;cd&lt;/span&gt; ~/Documents/staticsite
+&lt;span class="o"&gt;(&lt;/span&gt;staticsite&lt;span class="o"&gt;)&lt;/span&gt; $ &lt;span class="nb"&gt;pwd&lt;/span&gt;
+&lt;span class="o"&gt;(&lt;/span&gt;staticsite&lt;span class="o"&gt;)&lt;/span&gt; $ git pull origin master
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Install the &lt;code&gt;jupyter&lt;/code&gt; package in our &lt;code&gt;staticsite&lt;/code&gt; virtual environment.&lt;/h3&gt;
+&lt;p&gt;I like using &lt;strong&gt;jupyter notebooks&lt;/strong&gt; to build code and solve engineering problems with Python. A &lt;strong&gt;jupyter notebook&lt;/strong&gt; can contain Python code, the output produced when this code is run and markup text (used for documentation).  &lt;strong&gt;Jupyter notebooks&lt;/strong&gt; can also easily display &lt;code&gt;matplotlib&lt;/code&gt; plots and &lt;code&gt;pandas&lt;/code&gt; data frames. These two Python packages are very useful for engineers solving problems in teams. As the &lt;code&gt;jupyter&lt;/code&gt; package is in the main conda channel, we can install it into our virtual environment using the &lt;code&gt;conda install&lt;/code&gt; command.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(staticsite) $ conda install jupyter
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We can see all of the modules installed in our &lt;code&gt;(staticsite)&lt;/code&gt; environment with:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(staticsite) $ pip freeze
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The output should look something like:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;appnope==0.1.0
+bleach==2.1.1
+blinker==1.4
+certifi==2017.11.5
+decorator==4.1.2
+docutils==0.14
+entrypoints==0.2.3
+feedgenerator==1.9
+html5lib==0.999999999
+ipykernel==4.6.1
+ipython==6.2.1
+ipython-genutils==0.2.0
+ipywidgets==7.0.5
+jedi==0.11.0
+Jinja2==2.10
+jsonschema==2.6.0
+jupyter-client==5.1.0
+jupyter-console==5.2.0
+jupyter-core==4.4.0
+Markdown==2.6.9
+MarkupSafe==1.0
+mistune==0.8.1
+nbconvert==5.3.1
+nbformat==4.4.0
+notebook==5.2.2
+pandocfilters==1.4.2
+parso==0.1.0
+pelican==3.7.1
+pexpect==4.3.0
+pickleshare==0.7.4
+prompt-toolkit==1.0.15
+ptyprocess==0.5.2
+Pygments==2.2.0
+python-dateutil==2.6.1
+pytz==2017.3
+pyzmq==16.0.3
+qtconsole==4.3.1
+simplegeneric==0.8.1
+six==1.11.0
+terminado==0.6
+testpath==0.3.1
+tornado==4.5.2
+traitlets==4.3.2
+Unidecode==0.4.21
+wcwidth==0.1.7
+webencodings==0.5.1
+widgetsnbextension==3.0.8
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Add new plugins to the &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; file&lt;/h3&gt;
+&lt;p&gt;Now we need to modify the &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; file to use a couple new plugins. The plugins we will add are: &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;'series'&lt;/li&gt;
+&lt;li&gt;'tag_cloud',&lt;/li&gt;
+&lt;li&gt;'liquid_tags.youtube'&lt;/li&gt;
+&lt;li&gt;'liquid_tags.notebook',&lt;/li&gt;
+&lt;li&gt;'liquid_tags.include_code',&lt;/li&gt;
+&lt;li&gt;'render_math'&lt;/li&gt;
+&lt;li&gt;'tipue_search'&lt;/li&gt;
+&lt;li&gt;'pelican-ipynb.markup'&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We add these to the &lt;code&gt;PLUGINS = [ ]&lt;/code&gt; list in the &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; file and separate them with commas.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;#pelicanconf.py
+
+PLUGINS = [
+    &amp;#39;i18n_subsites&amp;#39;,
+    &amp;#39;series&amp;#39;,
+    &amp;#39;tag_cloud&amp;#39;,
+    &amp;#39;liquid_tags.youtube&amp;#39;,
+    &amp;#39;liquid_tags.notebook&amp;#39;,
+    &amp;#39;liquid_tags.include_code&amp;#39;,
+    &amp;#39;render_math&amp;#39;,&amp;#39;tipue_search&amp;#39;,
+    &amp;#39;pelican-ipynb.markup&amp;#39; ] 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Build some posts that use the newly installed plugins&lt;/h3&gt;
+&lt;p&gt;Now we will build a couple of posts which use our newly installed plugins. First we'll modify our content directory with a new folder called &lt;strong&gt;posts&lt;/strong&gt;.  We'll keep all the posts in this directory. Then we'll make a couple of new &lt;strong&gt;&lt;em&gt;.md&lt;/em&gt;&lt;/strong&gt; files. I'll copy our first post to this new directory with the &lt;code&gt;cp&lt;/code&gt; (copy) shell command and then remove the old &lt;strong&gt;&lt;em&gt;.md&lt;/em&gt;&lt;/strong&gt; file with the &lt;code&gt;rm&lt;/code&gt; command.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;pwd
+cd content
+mkdir posts
+cp first_post.md posts/first_post.md
+rm first_post.md
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now let's modify the &lt;strong&gt;&lt;em&gt;first_post.md&lt;/em&gt;&lt;/strong&gt; file with a couple new lines in the header.  The &lt;code&gt;Series:&lt;/code&gt; and &lt;code&gt;Series_index:&lt;/code&gt; lines will put this first post in series of posts using the &lt;strong&gt;series&lt;/strong&gt; plugin. &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;first_post.md&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;Title&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;First&lt;/span&gt; &lt;span class="n"&gt;Post&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;Part&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+&lt;span class="n"&gt;Date&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;2017&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;11&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;30&lt;/span&gt; &lt;span class="mi"&gt;12&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;40&lt;/span&gt;
+&lt;span class="n"&gt;Modified&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;2017&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;11&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;30&lt;/span&gt; &lt;span class="mi"&gt;12&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;40&lt;/span&gt;
+&lt;span class="n"&gt;Status&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;published&lt;/span&gt;
+&lt;span class="n"&gt;Category&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;example&lt;/span&gt; &lt;span class="n"&gt;posts&lt;/span&gt;
+&lt;span class="n"&gt;Tags&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;python&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;pelican&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;blog&lt;/span&gt;
+&lt;span class="n"&gt;Slug&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;first&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;post&lt;/span&gt;
+&lt;span class="n"&gt;Authors&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Peter&lt;/span&gt; &lt;span class="n"&gt;D&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="n"&gt;Kazarinoff&lt;/span&gt;
+&lt;span class="n"&gt;Series&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;example&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;post&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;series&lt;/span&gt;
+&lt;span class="n"&gt;Series_index&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+&lt;span class="n"&gt;Summary&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;This&lt;/span&gt; &lt;span class="k"&gt;is&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;first&lt;/span&gt; &lt;span class="n"&gt;post&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;series&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;posts&lt;/span&gt;
+
+&lt;span class="n"&gt;This&lt;/span&gt; &lt;span class="k"&gt;is&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;first&lt;/span&gt; &lt;span class="n"&gt;post&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;series&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;posts&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;After the post is saved, we can go back to the terminal and copy it to create our second post. The contents of our &lt;strong&gt;staticsite directory&lt;/strong&gt; should look something like this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;staticsite/
+├── LICENSE
+├── Makefile
+├── README.md
+├── __pycache__
+├── content
+│   ├── posts
+│       ├── first_post.md
+├── develop_server.sh
+├── fabfile.py
+├── output
+├── pelican-plugins
+│   ├── i18n_subsites
+│   ├── liquid_tags
+│   ├── pelican-ipynb
+│   ├── tipue_search
+├── pelican-themes
+│   ├── pelican-bootstrap3
+├── pelican.pid
+├── pelicanconf.py
+├── publishconf.py
+└── srv.pid
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Let's make two new posts in the &lt;strong&gt;content/posts&lt;/strong&gt; directory.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;cd ~/Documents/staticsite/content/posts
+cp first_post.md second_post.md
+cp first_post.md third_post.md
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now we'll edit &lt;strong&gt;&lt;em&gt;second_post.md&lt;/em&gt;&lt;/strong&gt; so it's part of a series and contains an embedded YouTube video.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;second_post.md&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;Title&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Second&lt;/span&gt; &lt;span class="n"&gt;Post&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;Part&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
+&lt;span class="n"&gt;Date&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;2017&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;11&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;30&lt;/span&gt; &lt;span class="mi"&gt;12&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;40&lt;/span&gt;
+&lt;span class="n"&gt;Modified&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;2017&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;11&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;30&lt;/span&gt; &lt;span class="mi"&gt;12&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;40&lt;/span&gt;
+&lt;span class="n"&gt;Status&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;published&lt;/span&gt;
+&lt;span class="n"&gt;Category&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;example&lt;/span&gt; &lt;span class="n"&gt;posts&lt;/span&gt;
+&lt;span class="n"&gt;Tags&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;python&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;pelican&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;blog&lt;/span&gt;
+&lt;span class="n"&gt;Slug&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;second&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;post&lt;/span&gt;
+&lt;span class="n"&gt;Authors&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Peter&lt;/span&gt; &lt;span class="n"&gt;D&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="n"&gt;Kazarinoff&lt;/span&gt;
+&lt;span class="n"&gt;Series&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;example&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;post&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;series&lt;/span&gt;
+&lt;span class="n"&gt;Series_index&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
+&lt;span class="n"&gt;Summary&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;This&lt;/span&gt; &lt;span class="k"&gt;is&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;second&lt;/span&gt; &lt;span class="n"&gt;post&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;series&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;posts&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="n"&gt;It&lt;/span&gt; &lt;span class="n"&gt;will&lt;/span&gt; &lt;span class="n"&gt;show&lt;/span&gt; &lt;span class="n"&gt;series&lt;/span&gt; &lt;span class="n"&gt;and&lt;/span&gt; &lt;span class="n"&gt;an&lt;/span&gt; &lt;span class="n"&gt;embeded&lt;/span&gt; &lt;span class="n"&gt;youtube&lt;/span&gt; &lt;span class="n"&gt;video&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
+
+&lt;span class="n"&gt;This&lt;/span&gt; &lt;span class="k"&gt;is&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;second&lt;/span&gt; &lt;span class="n"&gt;post&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;series&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;posts&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="n"&gt;It&lt;/span&gt; &lt;span class="n"&gt;will&lt;/span&gt; &lt;span class="n"&gt;show&lt;/span&gt; &lt;span class="n"&gt;series&lt;/span&gt; &lt;span class="n"&gt;and&lt;/span&gt; &lt;span class="n"&gt;an&lt;/span&gt; &lt;span class="n"&gt;embedded&lt;/span&gt; &lt;span class="n"&gt;youtube&lt;/span&gt; &lt;span class="n"&gt;video&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
+
+&lt;span class="o"&gt;{%&lt;/span&gt; &lt;span class="n"&gt;youtube&lt;/span&gt; &lt;span class="n"&gt;https&lt;/span&gt;&lt;span class="o"&gt;://&lt;/span&gt;&lt;span class="n"&gt;www&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;youtube&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;watch&lt;/span&gt;&lt;span class="o"&gt;?&lt;/span&gt;&lt;span class="n"&gt;v&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;Qq&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="n"&gt;frjUfK0&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;560&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;315&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;%}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We'll create a sample &lt;strong&gt;jupyter notebook&lt;/strong&gt; in a new folder called &lt;strong&gt;code&lt;/strong&gt; in our &lt;strong&gt;content&lt;/strong&gt; folder. The &lt;strong&gt;jupyter notebook&lt;/strong&gt; will go in our third post. To create the &lt;strong&gt;code&lt;/strong&gt; folder and bring up a new &lt;strong&gt;jupyter notebook&lt;/strong&gt; in our web browser use:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(staticsite) $ pwd
+(staticsite) $ mkdir content/code
+(staticsite) $ cd content/code
+(staticsite) $ jupyter notebook
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Let's put one markdown cell, one code cell and produce one output cell in our &lt;strong&gt;jupyter notebook&lt;/strong&gt;. We'll save it as &lt;strong&gt;&lt;em&gt;example_notebook.ipynb&lt;/em&gt;&lt;/strong&gt;. My &lt;strong&gt;&lt;em&gt;sample_notebook.ipynb&lt;/em&gt;&lt;/strong&gt; looks like:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="example jupyter notebook" src="https://professorkazarinoff.github.io/staticsite/images/jupyter_notebook_sample_example.png"&gt;&lt;/p&gt;
+&lt;p&gt;Now we will put our &lt;strong&gt;&lt;em&gt;example_notebook.ipynb&lt;/em&gt;&lt;/strong&gt; into our third post. Including a &lt;strong&gt;juypter notebook&lt;/strong&gt; requires the use of the line &lt;code&gt;notebook path/to/notebook.ipynb&lt;/code&gt; surrounded with a &lt;code&gt;{&lt;/code&gt; &lt;code&gt;%&lt;/code&gt;   &lt;code&gt;%&lt;/code&gt; &lt;code&gt;}&lt;/code&gt;.  &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;third_post.md&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;Title&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Third&lt;/span&gt; &lt;span class="n"&gt;Post&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;Part&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;
+&lt;span class="n"&gt;Date&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;2017&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;11&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;30&lt;/span&gt; &lt;span class="mi"&gt;12&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;40&lt;/span&gt;
+&lt;span class="n"&gt;Modified&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;2017&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;11&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;30&lt;/span&gt; &lt;span class="mi"&gt;12&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;40&lt;/span&gt;
+&lt;span class="n"&gt;Status&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;published&lt;/span&gt;
+&lt;span class="n"&gt;Category&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;example&lt;/span&gt; &lt;span class="n"&gt;posts&lt;/span&gt;
+&lt;span class="n"&gt;Tags&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;python&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;pelican&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;blog&lt;/span&gt;
+&lt;span class="n"&gt;Slug&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;third&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;post&lt;/span&gt;
+&lt;span class="n"&gt;Authors&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Peter&lt;/span&gt; &lt;span class="n"&gt;D&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="n"&gt;Kazarinoff&lt;/span&gt;
+&lt;span class="n"&gt;Series&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;example&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;post&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;series&lt;/span&gt;
+&lt;span class="n"&gt;Series_index&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
+&lt;span class="n"&gt;Summary&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;This&lt;/span&gt; &lt;span class="k"&gt;is&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;third&lt;/span&gt; &lt;span class="n"&gt;post&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;series&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;posts&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="n"&gt;It&lt;/span&gt; &lt;span class="n"&gt;will&lt;/span&gt; &lt;span class="n"&gt;show&lt;/span&gt; &lt;span class="n"&gt;series&lt;/span&gt; &lt;span class="n"&gt;an&lt;/span&gt; &lt;span class="n"&gt;jupyter&lt;/span&gt; &lt;span class="n"&gt;notebook&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
+
+
+&lt;span class="n"&gt;This&lt;/span&gt; &lt;span class="n"&gt;post&lt;/span&gt; &lt;span class="n"&gt;contains&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;jupyter&lt;/span&gt; &lt;span class="n"&gt;notebook&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
+
+&lt;span class="o"&gt;{%&lt;/span&gt; &lt;span class="n"&gt;notebook&lt;/span&gt; &lt;span class="o"&gt;../&lt;/span&gt;&lt;span class="n"&gt;code&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sample_notebook&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;ipynb&lt;/span&gt; &lt;span class="o"&gt;%}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Build and preview the site with Pelican&lt;/h3&gt;
+&lt;p&gt;With a couple new &lt;strong&gt;pelican-plugins&lt;/strong&gt; configured and three new posts written, it is time to preview our site again.  We can build the site and can view it with a web browser using:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;make html
+make serve
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;To view the site, point a browser to &lt;em&gt;localhost:8000&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="localhost:8000"&gt;localhost:8000&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;use &lt;code&gt;ctrl-c&lt;/code&gt; to stop the server.&lt;/p&gt;
+&lt;h3&gt;Add and commit the changes then push them to github&lt;/h3&gt;
+&lt;p&gt;When we are done editing the the site, we add &lt;strong&gt;all of the changes&lt;/strong&gt; to our local git repo using &lt;code&gt;git add .&lt;/code&gt;. Then we commit those changes with &lt;code&gt;git commit&lt;/code&gt; and add the &lt;code&gt;-m "added plugins"&lt;/code&gt; flag to give supply a commit message (make sure to use double quotes "commit message"). To push those changes up to github use &lt;code&gt;git push origin master&lt;/code&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git add .
+git commit -m &amp;quot;added plugins&amp;quot;
+git push origin master
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;In the &lt;a href="https://professorkazarinoff.github.io/staticsite/drafts/how-built-site-5.html"&gt;next post&lt;/a&gt; we will customize the site. We'll add some css in order to make tables on the site look better and as put a search bar at the top of the page.&lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="blog"></category><category term="jupyter"></category></entry><entry><title>How I build this site - Part 3</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-3.html" rel="alternate"></link><published>2017-12-04T14:15:00-08:00</published><updated>2017-12-04T14:15:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-12-04:/staticsite/how-i-built-this-site-3.html</id><summary type="html">&lt;p&gt;This is the third part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-2.html"&gt;last post&lt;/a&gt;, we used &lt;code&gt;pelican-quickstart&lt;/code&gt; to build the framework of the site and wrote a short first post, then viewed a demo version of the site on localhost:8000. In this post we will add a custom theme to the site called pelican-bootstrap3. The pelican-bootstrap3 theme looks great and is mobile responsive so it will make the site look good on phones and tablets. Then we'll add some custom css to personalize the look of the theme.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the third part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-2.html"&gt;last post&lt;/a&gt;, we used &lt;code&gt;pelican-quickstart&lt;/code&gt; to build the framework of the site and wrote a short first post, then viewed a demo version of the site on localhost:8000. In this post we will add a custom theme to the site called pelican-bootstrap3. The pelican-bootstrap3 theme looks great and is mobile reponsive so it will make the site look good on phones and tablets. Then we'll add some custom css to personalize the look of the theme.&lt;/p&gt;
 &lt;h3&gt;Steps in this post&lt;/h3&gt;
 &lt;p&gt;We are going to accomplish the following in this post. By the end of the post we are going to have a a static site with a great looking bootstrap3 theme which is mobile responsive and looks great on desktops, tablets and phones.&lt;/p&gt;
 &lt;ol&gt;
@@ -122,7 +362,7 @@ git push origin master
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;In the &lt;a href="https://professorkazarinoff.github.io/staticsite/drafts/how-i-built-site-4.html"&gt;next post&lt;/a&gt; we will add some additional &lt;em&gt;pelican-plugins&lt;/em&gt; to bring extra functionality to the site and add the ability to include &lt;strong&gt;jupyter notebooks&lt;/strong&gt; in posts.&lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="blog"></category><category term="markdown"></category></entry><entry><title>How I build this site - Part 2</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-2.html" rel="alternate"></link><published>2017-11-28T14:15:00-08:00</published><updated>2017-11-28T14:15:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-11-28:/staticsite/how-i-built-this-site-2.html</id><summary type="html">&lt;p&gt;This is the second part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-site-1.html"&gt;last post&lt;/a&gt;, we set up our development environment including Python, a new virtual environment, installed the pelican and markdown packages and set up git. In this post, we will use the &lt;code&gt;pelican-quickstart&lt;/code&gt; command to get the blog off the ground. We are also going to create a &lt;strong&gt;first_post.md&lt;/strong&gt; file and serve up the website locally so we can take a look at it.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the second part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-site-1.html"&gt;last post&lt;/a&gt;, we set up our development environment including Python, a new virtual environment, installed the pelican and markdown packages and set up git. In this post, we will use the &lt;code&gt;pelican-quickstart&lt;/code&gt; command to get the blog off the ground. We are also going to create a &lt;strong&gt;first_post.md&lt;/strong&gt; file and serve up the website locally so we can take a look at it.&lt;/p&gt;
+&lt;p&gt;In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-site-4.html"&gt;next post&lt;/a&gt; we will add some additional &lt;em&gt;pelican-plugins&lt;/em&gt; to bring extra functionality to the site and add the ability to include &lt;strong&gt;jupyter notebooks&lt;/strong&gt; in posts.&lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="blog"></category><category term="markdown"></category></entry><entry><title>How I build this site - Part 2</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-2.html" rel="alternate"></link><published>2017-11-28T14:15:00-08:00</published><updated>2017-11-28T14:15:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-11-28:/staticsite/how-i-built-this-site-2.html</id><summary type="html">&lt;p&gt;This is the second part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-site-1.html"&gt;last post&lt;/a&gt;, we set up our development environment including Python, a new virtual environment, installed the pelican and markdown packages and set up git. In this post, we will use the &lt;code&gt;pelican-quickstart&lt;/code&gt; command to get the blog off the ground. We are also going to create a &lt;strong&gt;first_post.md&lt;/strong&gt; file and serve up the website locally so we can take a look at it.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the second part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-site-1.html"&gt;last post&lt;/a&gt;, we set up our development environment including Python, a new virtual environment, installed the pelican and markdown packages and set up git. In this post, we will use the &lt;code&gt;pelican-quickstart&lt;/code&gt; command to get the blog off the ground. We are also going to create a &lt;strong&gt;first_post.md&lt;/strong&gt; file and serve up the website locally so we can take a look at it.&lt;/p&gt;
 &lt;h3&gt;Steps in this post&lt;/h3&gt;
 &lt;p&gt;We are going to accomplish the following in this post. By the end of the post, we will have a working website with one blog post served up locally and an updated github repo with all the changes saved.&lt;/p&gt;
 &lt;ol&gt;
@@ -283,95 +523,7 @@ git push origin master
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-3.html"&gt;next post&lt;/a&gt;, we will customize the site with a &lt;em&gt;pelican-theme&lt;/em&gt; called &lt;strong&gt;pelican-bootstrap3&lt;/strong&gt;.&lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="blog"></category><category term="markdown"></category></entry><entry><title>How I build this site - Part 6</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-6.html" rel="alternate"></link><published>2017-11-27T12:40:00-08:00</published><updated>2017-11-27T12:40:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-11-27:/staticsite/how-i-built-this-site-6.html</id><summary type="html">&lt;p&gt;This is the sixth part of a multi-part series on how I built this site. In last post, we customized the site and added the ability to use jupyter notebooks in posts.  In this post we are going to deploy the site to &lt;a href="https://pages.github.com/"&gt;github pages&lt;/a&gt;. Github pages is a place on github were documentation and static sites can be hosted. It was tricky for me to set this up, but after a lot trial and error, I was able to get it to work.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the sixth part of a multi-part series on how I built this site. In last post, we customized the site and added the ability to use jupyter notebooks in posts.  In this post we are going to deploy the site to &lt;a href="https://pages.github.com/"&gt;github pages&lt;/a&gt;. Github pages is a place on github were documentation and static sites can be hosted. It was tricky for me to set this up, but after a lot of trial and error, I was able to get it to work.&lt;/p&gt;
-&lt;h3&gt;Steps in this post&lt;/h3&gt;
-&lt;p&gt;By the end of the post we are going to have a working static website hosted on github pages. To accomplish we will complete the following steps:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Pull the most recient version of the site from gitub&lt;/li&gt;
-&lt;li&gt;Run pelican's &lt;code&gt;make html&lt;/code&gt; command to build the site and preview it with &lt;code&gt;make serve&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Modify the &lt;strong&gt;&lt;em&gt;publishconf.py&lt;/em&gt;&lt;/strong&gt; file to include our github pages url&lt;/li&gt;
-&lt;li&gt;Use &lt;code&gt;pelican content -s publishconf.py&lt;/code&gt; to create a published version of the site in the output directory&lt;/li&gt;
-&lt;li&gt;Add, commit and push the published contents to github&lt;/li&gt;
-&lt;li&gt;Make a gh-pages branch in our staticsite repo on github&lt;/li&gt;
-&lt;li&gt;Use &lt;code&gt;git subtree push --prefix output origin gh-pages&lt;/code&gt; to push the output directory to the gh-pages branch&lt;/li&gt;
-&lt;li&gt;View the freshly published site! &lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;OK, let's get started. Can't wait to see the published site live on github pages.&lt;/p&gt;
-&lt;h3&gt;Pull to the most recent version of the site from github&lt;/h3&gt;
-&lt;p&gt;Open a terminal and &lt;code&gt;cd&lt;/code&gt; to the &lt;code&gt;staticsite&lt;/code&gt; folder. Then we need to activate our &lt;code&gt;(staticsite)&lt;/code&gt; virtual environment with &lt;code&gt;source activate staticsite&lt;/code&gt;. Once in the &lt;code&gt;(staticsite)&lt;/code&gt; environment, we can call &lt;code&gt;git pull origin master&lt;/code&gt; to pull the most recent version of the site down from github.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;cd ~/Documents/staticsite
-source activate staticsite
-(staticsite) $ git pull origin master
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Now we use the &lt;code&gt;make html&lt;/code&gt; command to build a demo version of the site. This will place the static files (html, css, javascript) that forms the static site in the &lt;strong&gt;output&lt;/strong&gt; folder.  We can preview the site with &lt;code&gt;make serve&lt;/code&gt;&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(staticsite) $ make html
-(staticsite) $ make serve
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;The demo version of our static site can now be viewed by pointing a browser to:&lt;/p&gt;
-&lt;p&gt;&lt;a href="localhost:8000"&gt;localhost:8000&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Press &lt;code&gt;ctr-c&lt;/code&gt; to stop the server.&lt;/p&gt;
-&lt;h3&gt;Modify the &lt;strong&gt;&lt;em&gt;publishconf.py&lt;/em&gt;&lt;/strong&gt; file to use the github pages url&lt;/h3&gt;
-&lt;p&gt;The staticsite directory should look something like this:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;staticsite
-├── LICENSE
-├── Makefile
-├── README.md
-├── __pycache__
-├── _nb_header.html
-├── content
-├── develop_server.sh
-├── fabfile.py
-├── output
-├── pelican-plugins
-├── pelican-themes
-├── pelican.pid
-├── pelicanconf.py
-├── publishconf.py
-└── srv.pid
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;we need to edit the &lt;strong&gt;&lt;em&gt;publishconf.py&lt;/em&gt;&lt;/strong&gt; file to add our github pages url to &lt;code&gt;SITEURL&lt;/code&gt; and set &lt;code&gt;RELATIVE_URLS&lt;/code&gt; to True. The lines to change are:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;#publishconf.py
-SITEURL = &amp;#39;https://username.github.io/staticsite&amp;#39;
-RELATIVE_URLS = True
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Make sure to set &lt;code&gt;username&lt;/code&gt; to your github user name. Setting &lt;code&gt;RELATIVE_URLS = True&lt;/code&gt; is necessary for the links on the site to work and for the css and javascript files run on github pages. When I initially set &lt;code&gt;RELATIVE_URLS = False&lt;/code&gt;, the site looked terrible, had no formatting or css and none of the links worked. Setting &lt;code&gt;RELATIVE_URLS = True&lt;/code&gt; fixed the problem.&lt;/p&gt;
-&lt;h3&gt;Create a published version of the site&lt;/h3&gt;
-&lt;p&gt;Up to this point, we used the &lt;code&gt;make html&lt;/code&gt; command to build a demo version of the site. Now we are ready to &lt;em&gt;publish&lt;/em&gt; the site. We publish the site by running the command:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;pelican content -s publishconf.py
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;This creates a published version of the site with relative url's in the &lt;strong&gt;output&lt;/strong&gt; directory. &lt;/p&gt;
-&lt;h3&gt;Add, commit, push to the master branch on github&lt;/h3&gt;
-&lt;p&gt;Before we can put the published version of the site up on github pages, we need to push the current version of the site up to the master branch.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git add .
-git commit -m &amp;quot;first published version&amp;quot;
-git push origin master
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h3&gt;Create a &lt;strong&gt;gh-pages&lt;/strong&gt; branch in our staticsite repo on github&lt;/h3&gt;
-&lt;p&gt;Up to this point, we saved our work to the &lt;strong&gt;master&lt;/strong&gt; branch of the staticsite repository on github. To host the site on github pages, we need to create a new branch in the staticsite repo called &lt;strong&gt;gh-pages&lt;/strong&gt;. The &lt;strong&gt;master&lt;/strong&gt; branch still houses the code,settings, markup files, notebooks, images, etc. to build the site. Any html, css and javascript files in the &lt;strong&gt;gh-pages&lt;/strong&gt; branch of the staticsite repo on github will be served like a regular website. To create the new branch, go the main staticsite repository page on github and click the &lt;strong&gt;Branch: Master&lt;/strong&gt; drop down menu on the upper left hand side. Enter the name of the new branch: &lt;strong&gt;gh-pages&lt;/strong&gt;&lt;/p&gt;
-&lt;h3&gt;Use &lt;strong&gt;git subtree&lt;/strong&gt; to push the contents of the &lt;strong&gt;output&lt;/strong&gt; directory to the &lt;strong&gt;gh-pages&lt;/strong&gt; branch&lt;/h3&gt;
-&lt;p&gt;I tried a bunch of different ways to send the contents of the &lt;strong&gt;output&lt;/strong&gt; directory up to github pages. First I tried multiple times to use &lt;code&gt;ghp-import&lt;/code&gt; shown in the &lt;a href="http://docs.getpelican.com/en/stable/tips.html"&gt;Pelican documentation&lt;/a&gt;, but I never got it to work right. I also tried using git submodules, but had trouble with that as well. I kept getting commit error messages. The way that finally worked was the &lt;code&gt;git subtree&lt;/code&gt; command. &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git subtree push --prefix output origin gh-pages
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Note the subtree we are pushing is the &lt;strong&gt;output&lt;/strong&gt; directory. We are pushing this subtree to the &lt;strong&gt;gh-pages&lt;/strong&gt; branch. &lt;/p&gt;
-&lt;h3&gt;View the site on github pages.&lt;/h3&gt;
-&lt;p&gt;Awesome! The site is now hosted for everyone to see on github pages! Pretty cool right? Point a browser to the github pages url and take a look:&lt;/p&gt;
-&lt;p&gt;https://username.github.io/staticsite&lt;/p&gt;
-&lt;p&gt;Change &lt;em&gt;username&lt;/em&gt; to your github user name. My site (the one that you are reading) is hosted here: &lt;/p&gt;
-&lt;p&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite"&gt;https://professorkazarinoff.github.io/staticsite&lt;/a&gt;&lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="blog"></category><category term="git"></category><category term="github"></category></entry><entry><title>How I build this site - Part 1</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-site-1.html" rel="alternate"></link><published>2017-11-22T12:40:00-08:00</published><updated>2017-11-22T12:40:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-11-22:/staticsite/how-i-built-site-1.html</id><summary type="html">&lt;p&gt;This is the first part of a multi-part series on how I built this site. In this first post, I'll review the development environment, Python, virtual environments, installing the necessary packages and setting up git.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the first part of a multi-part series on how I built this site. In this first post, we'll review the development environment, installing Python, virtual environments, installing the necessary packages and setting up git.&lt;/p&gt;
+&lt;p&gt;In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-3.html"&gt;next post&lt;/a&gt;, we will customize the site with a &lt;em&gt;pelican-theme&lt;/em&gt; called &lt;strong&gt;pelican-bootstrap3&lt;/strong&gt;.&lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="blog"></category><category term="markdown"></category></entry><entry><title>How I build this site - Part 1</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-site-1.html" rel="alternate"></link><published>2017-11-22T12:40:00-08:00</published><updated>2017-11-22T12:40:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-11-22:/staticsite/how-i-built-site-1.html</id><summary type="html">&lt;p&gt;This is the first part of a multi-part series on how I built this site. In this first post, I'll review the development environment, Python, virtual environments, installing the necessary packages and setting up git.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the first part of a multi-part series on how I built this site. In this first post, we'll review the development environment, installing Python, virtual environments, installing the necessary packages and setting up git.&lt;/p&gt;
 &lt;h3&gt;Setting up the development environment&lt;/h3&gt;
 &lt;p&gt;What does that even mean? Before I started building this site I needed to make sure the necessary software, packages and settings were in place. This starts with setting up a &lt;em&gt;development environment&lt;/em&gt;. To me, a development environment is simply the software on a computer that allows me to get work done. In this case the development environment means the tools necessary to build this site. A list of the tools and technologies are below:&lt;/p&gt;
 &lt;ol&gt;

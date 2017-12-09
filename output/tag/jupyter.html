@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>How I build this site - Part 6 - Python Programming for Undergraduate Engineers</title>
+    <title>jupyter - Python Programming for Undergraduate Engineers</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -172,46 +172,35 @@ init_mathjax = function() {
 }
 init_mathjax();
 </script>
-    <link href="./extra/favicon.ico" rel="icon">
+    <link href="../extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="./how-i-built-this-site-6.html">
 
-        <meta name="author" content="Peter D. Kazarinoff" />
-        <meta name="keywords" content="python,pelican,blog,git,github" />
-        <meta name="description" content="This is the sixth part of a multi-part series on how I built this site. In last post, we customized the site and added the ability to use jupyter notebooks in posts. In this post we are going to deploy the site to github pages. Github pages is a place on github were documentation and static sites can be hosted. It was tricky for me to set this up, but after a lot trial and error, I was able to get it to work." />
+    <meta name="author" content="Peter Kazarinoff" />
+    <meta name="keywords" content="jupyter" />
 
+    <!-- Open Graph tags -->
         <meta property="og:site_name" content="Python Programming for Undergraduate Engineers" />
-        <meta property="og:type" content="article"/>
-        <meta property="og:title" content="How I build this site - Part 6"/>
-        <meta property="og:url" content="./how-i-built-this-site-6.html"/>
-        <meta property="og:description" content="This is the sixth part of a multi-part series on how I built this site. In last post, we customized the site and added the ability to use jupyter notebooks in posts. In this post we are going to deploy the site to github pages. Github pages is a place on github were documentation and static sites can be hosted. It was tricky for me to set this up, but after a lot trial and error, I was able to get it to work."/>
-        <meta property="article:published_time" content="2017-11-27" />
-            <meta property="article:section" content="This site" />
-            <meta property="article:tag" content="python" />
-            <meta property="article:tag" content="pelican" />
-            <meta property="article:tag" content="blog" />
-            <meta property="article:tag" content="git" />
-            <meta property="article:tag" content="github" />
-            <meta property="article:author" content="Peter D. Kazarinoff" />
+        <meta property="og:type" content="website"/>
+        <meta property="og:title" content="Python Programming for Undergraduate Engineers"/>
+        <meta property="og:url" content=".."/>
+        <meta property="og:description" content="Python Programming for Undergraduate Engineers"/>
 
 
 
     <!-- Bootstrap -->
-        <link rel="stylesheet" href="./theme/css/bootstrap.flatly.min.css" type="text/css"/>
-    <link href="./theme/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="../theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="../theme/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="./theme/css/pygments/native.css" rel="stylesheet">
-    <link href="./theme/tipuesearch/tipuesearch.css" rel="stylesheet">
-    <link rel="stylesheet" href="./theme/css/style.css" type="text/css"/>
-        <link href="./static/css/custom.css" rel="stylesheet">
+    <link href="../theme/css/pygments/native.css" rel="stylesheet">
+    <link href="../theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="../theme/css/style.css" type="text/css"/>
+        <link href="../static/css/custom.css" rel="stylesheet">
 
-        <link href="./feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+        <link href="../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
               title="Python Programming for Undergraduate Engineers ATOM Feed"/>
 
 
 
-        <link href="./feeds/this-site.atom.xml" type="application/atom+xml" rel="alternate"
-              title="Python Programming for Undergraduate Engineers This site ATOM Feed"/>
 
 </head>
 <body>
@@ -225,15 +214,15 @@ init_mathjax();
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="./" class="navbar-brand">
+            <a href="../" class="navbar-brand">
 Python Programming for Undergraduate Engineers            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                         <li><a href="./pages/about.html">
+                         <li><a href="../pages/about.html">
                              About
                           </a></li>
-                         <li><a href="./pages/book.html">
+                         <li><a href="../pages/book.html">
                              Book
                           </a></li>
             </ul>
@@ -243,7 +232,7 @@ Python Programming for Undergraduate Engineers            </a>
                   <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
                 </form></span>
               </li>
-              <li><a href="./archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+              <li><a href="../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -254,29 +243,18 @@ Python Programming for Undergraduate Engineers            </a>
 <div class="container">
     <div class="row">
         <div class="col-sm-9">
-            <ol class="breadcrumb">
-                <li><a href="." title="Python Programming for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="./category/this-site.html" title="This site">This site</a></li>
-                <li class="active">How I build this site - Part 6</li>
-            </ol>
-    <section id="content">
-        <article>
-            <header class="page-header">
-                <h1>
-                    <a href="./how-i-built-this-site-6.html"
-                       rel="bookmark"
-                       title="Permalink to How I build this site - Part 6">
-                        How I build this site - Part 6
-                    </a>
-                </h1>
-            </header>
-            <div class="entry-content">
-                <div class="panel">
-                    <div class="panel-body">
+    <ol class="breadcrumb">
+        <li><a href=".." title="Python Programming for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+        <li><a href="../" title="Tags">Tags</a></li>
+        <li class="active">jupyter</li>
+    </ol>
+            <article>
+                <h2><a href="../how-i-built-site-4.html">How I build this Site - Part 4</a></h2>
+                    <div class="well well-sm">
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2017-11-27T12:40:00-08:00"> Mon 27 November 2017</time>
+        <i class="fa fa-calendar"></i><time datetime="2017-12-08T18:50:00-08:00"> Fri 08 December 2017</time>
     </span>
 
             <span class="label label-default">Series</span>
@@ -286,127 +264,27 @@ Python Programming for Undergraduate Engineers            </a>
 
 
 <span class="label label-default">Tags</span>
-	<a href="./tag/python.html">python</a>
+	<a href="../tag/python.html">python</a>
         /
-	<a href="./tag/pelican.html">pelican</a>
+	<a href="../tag/pelican.html">pelican</a>
         /
-	<a href="./tag/blog.html">blog</a>
+	<a href="../tag/blog.html">blog</a>
         /
-	<a href="./tag/git.html">git</a>
-        /
-	<a href="./tag/github.html">github</a>
+	<a href="../tag/jupyter.html">jupyter</a>
     
 </footer><!-- /.post-info -->                    </div>
+                <div class="summary"><p>This is the fourth part in a multi-part series on how I built this site. In the <a href="../how-i-built-this-site-3.html">last post</a>, we installed the pelican-bootstrap3 theme and made our site mobile responsive. Now the site looks good on all devices.  In this post we are going to install a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of post that are linked together, create a working search bar, add youtube videos to posts, view LaTeX math and add embedded jupyter notebooks in posts.</p>
+                    <a class="btn btn-default btn-xs" href="../how-i-built-site-4.html">more ...</a>
                 </div>
-                <p>This is the sixth part of a multi-part series on how I built this site. In last post, we customized the site and added the ability to use jupyter notebooks in posts.  In this post we are going to deploy the site to <a href="https://pages.github.com/">github pages</a>. Github pages is a place on github were documentation and static sites can be hosted. It was tricky for me to set this up, but after a lot of trial and error, I was able to get it to work.</p>
-<h3>Steps in this post</h3>
-<p>By the end of the post we are going to have a working static website hosted on github pages. To accomplish we will complete the following steps:</p>
-<ol>
-<li>Pull the most recient version of the site from gitub</li>
-<li>Run pelican's <code>make html</code> command to build the site and preview it with <code>make serve</code></li>
-<li>Modify the <strong><em>publishconf.py</em></strong> file to include our github pages url</li>
-<li>Use <code>pelican content -s publishconf.py</code> to create a published version of the site in the output directory</li>
-<li>Add, commit and push the published contents to github</li>
-<li>Make a gh-pages branch in our staticsite repo on github</li>
-<li>Use <code>git subtree push --prefix output origin gh-pages</code> to push the output directory to the gh-pages branch</li>
-<li>View the freshly published site! </li>
-</ol>
-<p>OK, let's get started. Can't wait to see the published site live on github pages.</p>
-<h3>Pull to the most recent version of the site from github</h3>
-<p>Open a terminal and <code>cd</code> to the <code>staticsite</code> folder. Then we need to activate our <code>(staticsite)</code> virtual environment with <code>source activate staticsite</code>. Once in the <code>(staticsite)</code> environment, we can call <code>git pull origin master</code> to pull the most recent version of the site down from github.</p>
-<div class="highlight"><pre><span></span>cd ~/Documents/staticsite
-source activate staticsite
-(staticsite) $ git pull origin master
-</pre></div>
-
-
-<p>Now we use the <code>make html</code> command to build a demo version of the site. This will place the static files (html, css, javascript) that forms the static site in the <strong>output</strong> folder.  We can preview the site with <code>make serve</code></p>
-<div class="highlight"><pre><span></span>(staticsite) $ make html
-(staticsite) $ make serve
-</pre></div>
-
-
-<p>The demo version of our static site can now be viewed by pointing a browser to:</p>
-<p><a href="localhost:8000">localhost:8000</a></p>
-<p>Press <code>ctr-c</code> to stop the server.</p>
-<h3>Modify the <strong><em>publishconf.py</em></strong> file to use the github pages url</h3>
-<p>The staticsite directory should look something like this:</p>
-<div class="highlight"><pre><span></span>staticsite
-├── LICENSE
-├── Makefile
-├── README.md
-├── __pycache__
-├── _nb_header.html
-├── content
-├── develop_server.sh
-├── fabfile.py
-├── output
-├── pelican-plugins
-├── pelican-themes
-├── pelican.pid
-├── pelicanconf.py
-├── publishconf.py
-└── srv.pid
-</pre></div>
-
-
-<p>we need to edit the <strong><em>publishconf.py</em></strong> file to add our github pages url to <code>SITEURL</code> and set <code>RELATIVE_URLS</code> to True. The lines to change are:</p>
-<div class="highlight"><pre><span></span>#publishconf.py
-SITEURL = &#39;https://username.github.io/staticsite&#39;
-RELATIVE_URLS = True
-</pre></div>
-
-
-<p>Make sure to set <code>username</code> to your github user name. Setting <code>RELATIVE_URLS = True</code> is necessary for the links on the site to work and for the css and javascript files run on github pages. When I initially set <code>RELATIVE_URLS = False</code>, the site looked terrible, had no formatting or css and none of the links worked. Setting <code>RELATIVE_URLS = True</code> fixed the problem.</p>
-<h3>Create a published version of the site</h3>
-<p>Up to this point, we used the <code>make html</code> command to build a demo version of the site. Now we are ready to <em>publish</em> the site. We publish the site by running the command:</p>
-<div class="highlight"><pre><span></span>pelican content -s publishconf.py
-</pre></div>
-
-
-<p>This creates a published version of the site with relative url's in the <strong>output</strong> directory. </p>
-<h3>Add, commit, push to the master branch on github</h3>
-<p>Before we can put the published version of the site up on github pages, we need to push the current version of the site up to the master branch.</p>
-<div class="highlight"><pre><span></span>git add .
-git commit -m &quot;first published version&quot;
-git push origin master
-</pre></div>
-
-
-<h3>Create a <strong>gh-pages</strong> branch in our staticsite repo on github</h3>
-<p>Up to this point, we saved our work to the <strong>master</strong> branch of the staticsite repository on github. To host the site on github pages, we need to create a new branch in the staticsite repo called <strong>gh-pages</strong>. The <strong>master</strong> branch still houses the code,settings, markup files, notebooks, images, etc. to build the site. Any html, css and javascript files in the <strong>gh-pages</strong> branch of the staticsite repo on github will be served like a regular website. To create the new branch, go the main staticsite repository page on github and click the <strong>Branch: Master</strong> drop down menu on the upper left hand side. Enter the name of the new branch: <strong>gh-pages</strong></p>
-<h3>Use <strong>git subtree</strong> to push the contents of the <strong>output</strong> directory to the <strong>gh-pages</strong> branch</h3>
-<p>I tried a bunch of different ways to send the contents of the <strong>output</strong> directory up to github pages. First I tried multiple times to use <code>ghp-import</code> shown in the <a href="http://docs.getpelican.com/en/stable/tips.html">Pelican documentation</a>, but I never got it to work right. I also tried using git submodules, but had trouble with that as well. I kept getting commit error messages. The way that finally worked was the <code>git subtree</code> command. </p>
-<div class="highlight"><pre><span></span>git subtree push --prefix output origin gh-pages
-</pre></div>
-
-
-<p>Note the subtree we are pushing is the <strong>output</strong> directory. We are pushing this subtree to the <strong>gh-pages</strong> branch. </p>
-<h3>View the site on github pages.</h3>
-<p>Awesome! The site is now hosted for everyone to see on github pages! Pretty cool right? Point a browser to the github pages url and take a look:</p>
-<p>https://username.github.io/staticsite</p>
-<p>Change <em>username</em> to your github user name. My site (the one that you are reading) is hosted here: </p>
-<p><a href="https://professorkazarinoff.github.io/staticsite">https://professorkazarinoff.github.io/staticsite</a></p>
-            </div>
-            <!-- /.entry-content -->
-<section class="well" id="related-posts">
-    <h4>This article is the 4 of the How I built this site series</h4>
-       <h5>Previous articles</h5>
-       <ul>
-           <li><a href="./how-i-built-site-1.html">How I build this site - Part 1</a></li>
-           <li><a href="./how-i-built-this-site-2.html">How I build this site - Part 2</a></li>
-           <li><a href="./how-i-built-this-site-3.html">How I build this site - Part 3</a></li>
-       </ul>
-</section>
-        </article>
-    </section>
+            </article>
+            <hr/>
 
         </div>
         <div class="col-sm-3" id="sidebar">
             <aside>
 <div id="aboutme">
         <p>
-            <img width="100%" class="img-thumbnail" src="./extra/gear-wrench-icon-512-278694.png"/>
+            <img width="100%" class="img-thumbnail" src="../extra/gear-wrench-icon-512-278694.png"/>
         </p>
     <p>
       <strong>About Peter Kazarinoff</strong><br/>
@@ -420,63 +298,48 @@ git push origin master
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
-    <li class="list-group-item"><a href="./how-i-built-this-site-3.html">How I build this site - Part 3</a></li>
-    <li class="list-group-item"><a href="./how-i-built-this-site-2.html">How I build this site - Part 2</a></li>
-    <li class="list-group-item"><a href="./how-i-built-this-site-6.html">How I build this site - Part 6</a></li>
+    <li class="list-group-item"><a href="../how-i-built-site-4.html">How I build this Site - Part 4</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
 
 <!-- Sidebar/Tag Cloud -->
 <li class="list-group-item">
-  <a href="./"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <a href="../"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
   <ul class="list-group list-inline tagcloud" id="tags">
     <li class="list-group-item tag-2">
-      <a href="./tag/anaconda.html">anaconda</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="./tag/blog.html">blog</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="./tag/conda.html">conda</a>
+      <a href="../tag/anaconda.html">anaconda</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="./tag/git.html">git</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="./tag/github.html">github</a>
+      <a href="../tag/anaconda-prompt.html">anaconda prompt</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="./tag/markdown.html">markdown</a>
+      <a href="../tag/blog.html">blog</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="../tag/conda.html">conda</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="../tag/jupyter.html">jupyter</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="../tag/markdown.html">markdown</a>
     </li>
     <li class="list-group-item tag-1">
-      <a href="./tag/pelican.html">pelican</a>
+      <a href="../tag/pelican.html">pelican</a>
     </li>
     <li class="list-group-item tag-0">
-      <a href="./tag/python.html">python</a>
+      <a href="../tag/python.html">python</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="./tag/staticsite.html">staticsite</a>
+      <a href="../tag/staticsite.html">staticsite</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="./tag/virtualenv.html">virtualenv</a>
+      <a href="../tag/virtualenv.html">virtualenv</a>
     </li>
   </ul>
 </li>
 <!-- End Sidebar/Tag Cloud -->
-
-<!-- Sidebar/Series -->
-<li class="list-group-item">
-  <h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Series</span></h4>
-  <ul class="list-group">
-    <li class="list-group-item">
-      <h5></i>Previous article</h5>
-      <a href="./how-i-built-this-site-3.html">How I build this site - Part 3</a>
-    </li>
-  </ul>
-</li>
-<!-- End Sidebar/Series -->
-
 
 <!-- Sidebar/Github -->
 <li class="list-group-item">
@@ -505,15 +368,15 @@ git push origin master
       </div>
    </div>
 </footer>
-<script src="./theme/js/jquery.min.js"></script>
+<script src="../theme/js/jquery.min.js"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="./theme/js/bootstrap.min.js"></script>
+<script src="../theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="./theme/js/respond.min.js"></script>
+<script src="../theme/js/respond.min.js"></script>
 
-    <script src="./static/js/custom.js"></script>
+    <script src="../static/js/custom.js"></script>
 
 
 <!-- GitHub JS Code -->
@@ -522,7 +385,7 @@ $(document).ready(function () {
   if (!window.jXHR) {
     var jxhr = document.createElement('script');
     jxhr.type = 'text/javascript';
-    jxhr.src = './theme/js/jXHR.js';
+    jxhr.src = '../theme/js/jXHR.js';
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(jxhr, s);
   }
@@ -535,7 +398,7 @@ $(document).ready(function () {
   });
 });
 </script>
-<script src="./theme/js/github.js" type="text/javascript"></script>
+<script src="../theme/js/github.js" type="text/javascript"></script>
 <!-- End GitHub JS Code -->
 
 <script type="text/javascript">

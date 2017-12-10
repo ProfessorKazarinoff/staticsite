@@ -1,16 +1,16 @@
 Title: How I build this Site - Part 5
 Date: 2017-12-09 18:50
 Modified: 2017-12-09 18:50
-Status: draft
+Status: published
 Category: This site
 Tags: python, pelican, blog, jupyter
 Slug: how-i-built-site-5
 Authors: Peter D. Kazarinoff
 Series: How I built this site
 Series_index: 5
-Summary: This is the fifth part in a multi-part series on how I built this site. In the [last post]({filename}how_I_built_this_site4.md), we installed a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of posts and add embedded jupyter notebooks in posts. In this post we will customize the site. We'll add some css in order to make tables on the site look better and put a search bar at the top right of each page.
+Summary: This is the fifth part in a multi-part series on how I built this site. In the [last post]({filename}how_I_built_this_site4.md), we installed a couple of plugins to add extra functionality to the site. These plugins enabled embedded jupyter notebooks and posts in a series. In this post we'll put a search bar at the top right of each page and add some css and javascript in order to make tables on the site look better.
 
-This is the fifth part in a multi-part series on how I built this site. In the [last post]({filename}how_I_built_this_site4.md), we installed a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of posts and add embedded jupyter notebooks in posts. In this post we will customize the site. We'll add some css in order to make tables on the site look better and put a search bar at the top right of each page.
+This is the fifth part in a multi-part series on how I built this site. In the [last post]({filename}how_I_built_this_site4.md), we installed a couple of plugins to add extra functionality to the site. These plugins enabled embedded jupyter notebooks and posts in a series. In this post we'll put a search bar at the top right of each page and add some css and javascript in order to make tables on the site look better.
 
 
 ### Steps in this post
@@ -19,10 +19,10 @@ We are going to accomplish the following in this post. By the end of the post we
 
 1. Activate our ```staticsite``` virtual environment
 2. Pull the most recent version of our site from github
-3. Modify the **_pelicanconf.py_** file to use the **'tipue_search'** pulugin
-4. Add some custom css to make tables look better
+3. Modify the **_pelicanconf.py_** file to use the **'tipue_search'** plugin
+4. Add custom css and javascript to make tables look better
 5. Build and preview the site with Pelican
-6. Add and commit the changes then push those changes to github
+6. Add, commit and push the changes to github
 
 
 Let's get started.
@@ -32,8 +32,8 @@ Let's get started.
 
 
 ```
+$ cd ~/Documents/staticsite
 $ source activate staticsite
-(staticsite) $ cd ~/Documents/staticsite
 (staticsite) $ git pull origin master
 ```
 
@@ -50,6 +50,8 @@ staticsite/
 │       ├── first_post.md
 │       ├── second_post.md
 │       ├── third_post.md
+│   ├── code
+│       ├── sample_notebook.ipynb
 ├── develop_server.sh
 ├── fabfile.py
 ├── output
@@ -70,7 +72,7 @@ staticsite/
 Now we need to modify the **_pelicanconf.py_** file to use the **'tipue_search'** plugin. This plugin will give us the ability to add a search bar to our site menu at the top right of each page. 
 
 
-Add ```'tipue_search'``` to the ```PLUGINS = [ ]``` list in the **_pelicanconf.py_** file. Make sure each plugin is separated them with commas and surrounded by quotes .
+Add ```'tipue_search'``` to the ```PLUGINS = [ ]``` list in the **_pelicanconf.py_** file. Make sure each plugin is separated with commas and surrounded by quotes .
 
 ```
 #pelicanconf.py
@@ -87,7 +89,7 @@ PLUGINS = [
     'tipue_search' ] 
 ```
 
-To use the **'tipue_search'** plugin, we also add the following line to the **_pelicanconf.py_** file:
+To use the **'tipue_search'** plugin, we also need to add the following line to the **_pelicanconf.py_** file:
 
 ```
 #pelicanconf.py
@@ -97,12 +99,12 @@ DIRECT_TEMPLATES = ('index','tags', 'categories', 'authors', 'archives', 'search
 ```
 
 
-### Add some custom css to make tables look good.
+### Add some custom css and javascript to make tables look good.
 
-Now we'll add some custom css to make tables in posts look better. 
+Even with a great theme like pelican-bootstrap3, there are some changes to make to the look of the site. One of these changes is to make tables look better, like the tables on github readme pages look. 
 
 
-Let's make a new post in the **content/posts** directory. This post will contain a markdown table using the ``` | ``` (pipe) character and a header row.
+Let's make a new post in the **content/posts** directory. This post will contain a markdown table using the ``` | ``` (pipe) character and a header row with pipes separated by three dashes ``` --- ```.
 
 **_fourth_post.md_**
 ```
@@ -140,6 +142,73 @@ staticsite/
 │       ├── second_post.md
 │       ├── third_post.md
 │       ├── fourth_post.md
+│   ├── code
+│       ├── sample_notebook.ipynb
+├── develop_server.sh
+├── fabfile.py
+├── output
+├── pelican-plugins
+│   ├── i18n_subsites
+│   ├── liquid_tags
+│   ├── pelican-ipynb
+│   ├── tipue_search
+├── pelican-themes
+│   ├── pelican-bootstrap3
+├── pelican.pid
+├── pelicanconf.py
+├── publishconf.py
+└── srv.pid
+```
+
+To change the way that tables are rendered, we will add some custom css and javascript that is not included with the pelican-bootstrap3 theme. First create a new folder in the **staticsite/content** directory called **extra**.
+
+```
+cd ~/Dcouments/staticsite/content
+mkdir extra && cd extra
+```
+
+Inside the **extra** folder, create a new **_.css_** file called **_custom.css_**. Insert the following style changes in **_custom.css_**:
+
+```
+.table {
+
+    width: inherit;
+    max-width: 100%;
+    margin-bottom: 21px;
+    padding: 6px 13px;    
+
+}
+```
+
+Now create a new javascript file in the **content/extra** directory called **_custom.js_**. This file contains extra javascript that will be injected into pages when the _.html_ is generated by Pelican.
+
+```
+var tables, i;
+tables = document.getElementsByTagName('table');
+for (i=0;i<tables.length;i++) {
+  tables[i].className = 'table table-bordered table-hover table-striped table-responsive';
+}
+```
+
+With the addition of these two new files, the contents of the **staticsite** directory will look something like:
+
+```
+staticsite/
+├── LICENSE
+├── Makefile
+├── README.md
+├── __pycache__
+├── content
+│   ├── posts
+│       ├── first_post.md
+│       ├── second_post.md
+│       ├── third_post.md
+│       ├── fourth_post.md
+│   ├── code
+│       ├── sample_notebook.ipynb
+│   ├── extra
+│       ├── custom.css
+│       ├── custom.js
 ├── develop_server.sh
 ├── fabfile.py
 ├── output
@@ -157,10 +226,27 @@ staticsite/
 ```
 
 
+Pelican needs to know about the two new "custom" files. Modify the **_pelicanconf.py_** file to include the lines:
+
+```
+#pelicanconf.py
+
+CUSTOM_CSS = 'static/css/custom.css'
+CUSTOM_JS = 'static/js/custom.js'
+
+STATIC_PATHS = [ 'extra' ]
+
+EXTRA_PATH_METADATA = {
+    'extra/custom.css': {'path': 'static/css/custom.css'},
+    'extra/custom.js': {'path': 'static/js/custom.js'}
+}
+```
+
+When the site is built, Pelican will read in **_custom.css_** and **_custom.js_** siting in the **extra** folder. Pelican will then copy these two files in the appropriate places in the **output** directory (static/css/custom.css and static/css/custom.js) for the theme to use. Then the code from the css and javascript files will be used by the _.html_ pages in the output directory along with the other css and javascript from the bootstrap3 theme. This will make tables look more like tables in github readme pages. 
 
 ### Build and preview the site with Pelican
 
-With a new plugin configured and a new posts written containing a table, let's preview our site again.  We build the site and view it with a web browser with the commands:
+With the search plugin configured, a new posts containing a table written, plus our **_custom.js_** and **_custom.css_** in place, let's preview the site again.  We build the site and serve up the contents in the **output** folder with:
 
 ```
 make html
@@ -175,7 +261,7 @@ use ```ctrl-c``` to stop the server.
 
 ### Add and commit the changes then push them to github
 
-When we are done editing the the site, we add **all of the changes** to our local git repo using ```git add .```. Then we commit those changes with ```git commit``` and add the ``` -m "added plugins" ``` flag to give supply a commit message (make sure to use double quotes "commit message"). To push those changes up to github use ```git push origin master```
+When we are done editing the the site, we add **all of the changes** to our local git repo using ```git add .```. Commit those changes with ```git commit``` and add the ``` -m "added search and tables" ``` flag to supply a commit message (make sure to use double quotes "commit message"). Push the changes up to github with ```git push origin master```
 
 ```
 git add .
@@ -183,7 +269,7 @@ git commit -m "added search and tables"
 git push origin master
 ```
 
-In the next post we will publish the site live to github pages. Actually publish the real live static site!
+In the next post we will publish the site to github pages. Once the site is published, it will be live and public to anythone with an internet connection. An actual, real, published, live static site!
 
 
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>How I build this site - Part 2 - Python Programming for Undergraduate Engineers</title>
+    <title>How I build this Site - Part 5 - Python Programming for Undergraduate Engineers</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -174,23 +174,23 @@ init_mathjax();
 </script>
     <link href="./extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="./how-i-built-this-site-2.html">
+<link rel="canonical" href="./how-i-built-site-5.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
-        <meta name="keywords" content="python,pelican,blog,markdown" />
-        <meta name="description" content="This is the second part in a multi-part series on how I built this site. In the last post, we set up our development environment including Python, a new virtual environment, installed the pelican and markdown packages and set up git. In this post, we will use the pelican-quickstart command to get the blog off the ground. We are also going to create a first_post.md file and serve up the website locally so we can take a look at it." />
+        <meta name="keywords" content="python,pelican,blog,jupyter" />
+        <meta name="description" content="This is the fifth part in a multi-part series on how I built this site. In the last post, we installed a couple of plugins to add extra functionality to the site. These plugins enabled embedded jupyter notebooks and posts in a series. In this post we&#39;ll put a search bar at the top right of each page and add some css and javascript in order to make tables on the site look better." />
 
         <meta property="og:site_name" content="Python Programming for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
-        <meta property="og:title" content="How I build this site - Part 2"/>
-        <meta property="og:url" content="./how-i-built-this-site-2.html"/>
-        <meta property="og:description" content="This is the second part in a multi-part series on how I built this site. In the last post, we set up our development environment including Python, a new virtual environment, installed the pelican and markdown packages and set up git. In this post, we will use the pelican-quickstart command to get the blog off the ground. We are also going to create a first_post.md file and serve up the website locally so we can take a look at it."/>
-        <meta property="article:published_time" content="2017-11-28" />
+        <meta property="og:title" content="How I build this Site - Part 5"/>
+        <meta property="og:url" content="./how-i-built-site-5.html"/>
+        <meta property="og:description" content="This is the fifth part in a multi-part series on how I built this site. In the last post, we installed a couple of plugins to add extra functionality to the site. These plugins enabled embedded jupyter notebooks and posts in a series. In this post we&#39;ll put a search bar at the top right of each page and add some css and javascript in order to make tables on the site look better."/>
+        <meta property="article:published_time" content="2017-12-09" />
             <meta property="article:section" content="This site" />
             <meta property="article:tag" content="python" />
             <meta property="article:tag" content="pelican" />
             <meta property="article:tag" content="blog" />
-            <meta property="article:tag" content="markdown" />
+            <meta property="article:tag" content="jupyter" />
             <meta property="article:author" content="Peter D. Kazarinoff" />
 
 
@@ -256,16 +256,16 @@ Python Programming for Undergraduate Engineers            </a>
             <ol class="breadcrumb">
                 <li><a href="." title="Python Programming for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
                 <li><a href="./category/this-site.html" title="This site">This site</a></li>
-                <li class="active">How I build this site - Part 2</li>
+                <li class="active">How I build this Site - Part 5</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="./how-i-built-this-site-2.html"
+                    <a href="./how-i-built-site-5.html"
                        rel="bookmark"
-                       title="Permalink to How I build this site - Part 2">
-                        How I build this site - Part 2
+                       title="Permalink to How I build this Site - Part 5">
+                        How I build this Site - Part 5
                     </a>
                 </h1>
             </header>
@@ -275,11 +275,11 @@ Python Programming for Undergraduate Engineers            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2017-11-28T14:15:00-08:00"> Tue 28 November 2017</time>
+        <i class="fa fa-calendar"></i><time datetime="2017-12-09T18:50:00-08:00"> Sat 09 December 2017</time>
     </span>
 
             <span class="label label-default">Series</span>
-            Part 2 of How I built this site
+            Part 5 of How I built this site
 
 
 
@@ -291,185 +291,246 @@ Python Programming for Undergraduate Engineers            </a>
         /
 	<a href="./tag/blog.html">blog</a>
         /
-	<a href="./tag/markdown.html">markdown</a>
+	<a href="./tag/jupyter.html">jupyter</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>This is the second part in a multi-part series on how I built this site. In the <a href="./how-i-built-site-1.html">last post</a>, we set up our development environment including Python, a new virtual environment, installed the pelican and markdown packages and set up git. In this post, we will use the <code>pelican-quickstart</code> command to get the blog off the ground. We are also going to create a <strong>first_post.md</strong> file and serve up the website locally so we can take a look at it.</p>
+                <p>This is the fifth part in a multi-part series on how I built this site. In the <a href="./how-i-built-site-4.html">last post</a>, we installed a couple of plugins to add extra functionality to the site. These plugins enabled embedded jupyter notebooks and posts in a series. In this post we'll put a search bar at the top right of each page and add some css and javascript in order to make tables on the site look better.</p>
 <h3>Steps in this post</h3>
-<p>We are going to accomplish the following in this post. By the end of the post, we will have a working website with one blog post served up locally and an updated github repo with all the changes saved.</p>
+<p>We are going to accomplish the following in this post. By the end of the post we are going to have a site with a working search bar and nice looking tables.</p>
 <ol>
 <li>Activate our <code>staticsite</code> virtual environment</li>
-<li><em>Pull</em> the most recent version of our site from github</li>
-<li>Use the <code>pelican-quickstart</code> command to make a first version of the site</li>
-<li>Write a first post in markup language (.md)</li>
-<li>Build the site using the <code>make html</code> command</li>
-<li>Serve the site locally using <code>make serve</code> and view with a web browser</li>
-<li>Add and commit the changes then push those changes to github</li>
+<li>Pull the most recent version of our site from github</li>
+<li>Modify the <strong><em>pelicanconf.py</em></strong> file to use the <strong>'tipue_search'</strong> plugin</li>
+<li>Add custom css and javascript to make tables look better</li>
+<li>Build and preview the site with Pelican</li>
+<li>Add, commit and push the changes to github</li>
 </ol>
-<p>That's a lot to do, so let's get started.</p>
-<h3>Activate our <strong>staticsite</strong> virtual environment</h3>
-<p>I highly recommend installing the Anaconda distribution of python. If you followed along with the <a href="./how-i-built-site-1.html">previous post</a>, you already installed Anaconda and can pull up the Anaconda prompt. Open the Anaconda Prompt and see which virtual environments are available.</p>
-<div class="highlight"><pre><span></span>$ conda info --envs
+<p>Let's get started.</p>
+<h3>Activate our virtual environment and pull the most recent version of the site down from github</h3>
+<div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/Documents/staticsite
+$ <span class="nb">source</span> activate staticsite
+<span class="o">(</span>staticsite<span class="o">)</span> $ git pull origin master
 </pre></div>
 
 
-<p>You should see a list of all the virtual environments conda has created on your machine. It should look something like:</p>
-<div class="highlight"><pre><span></span>staticsite                  C:\Users\user.name\AppData\Local\Continuum\Anaconda3\envs\staticsite
-root                     *  C:\Users\user.name\AppData\Local\Continuum\Anaconda3
-</pre></div>
-
-
-<p>The <code>staticsite</code> virtual environment is the one we set up to create our site. Activate it with:</p>
-<div class="highlight"><pre><span></span>$ <span class="nb">source</span> activate staticsite
-</pre></div>
-
-
-<p>You should now see <code>(staticsite)</code> before the command prompt. This means we are operating in the <code>staticsite</code> virtual environment. </p>
-<h3>View installed packages</h3>
-<p>We installed pelican, markdown and fabric in the last post. Let's make sure they are installed in our <code>(staticsite)</code> virtual environment.</p>
-<div class="highlight"><pre><span></span>(staticsite)$ pip freeze
-</pre></div>
-
-
-<p>Make sure you see the following modules are installed: </p>
-<div class="highlight"><pre><span></span>beautifulsoup4==4.6.0
-Jinja2==2.9.6
-Fabric==1.14.0
-Markdown==2.6.9
-pelican==3.7.1
-Pygments==2.2.0
-</pre></div>
-
-
-<h3>Pelican Quickstart - make the site!</h3>
-<p>We are now going to build the site! Exciting stuff. With the virtual environment and packages in place, we just need to make sure we are in a directory where we want our site to live.</p>
-<div class="highlight"><pre><span></span>(staticsite)$ cd ~
-(staticsite)$ cd Documents
-(staticsite)$ cd staticsite
-</pre></div>
-
-
-<p>You can confirm you are working in the staticsite directory by typing <code>pwd</code> which stands for <em>print working directory</em>:</p>
-<p><code>(staticsite)$ pwd</code></p>
-<p>Now we can spin up the settings and structure of our pelican build. Start the process with the command:</p>
-<div class="highlight"><pre><span></span>(staticsite)$ pelican-quickstart
-</pre></div>
-
-
-<p>Pelican will ask us a bunch of questions at the start. The initial settings I used are below. Make sure to change the title, author, URL prefix, and timezone:</p>
-<div class="highlight"><pre><span></span>&gt; Where do you want to create your new web site? [.]
-&gt; What will be the title of this web site? Python Programming for Undergraduate Engineers
-&gt; Who will be the author of this web site? Peter D. Kazarinoff
-&gt; What will be the default language of this web site? [English]
-&gt; Do you want to specify a URL prefix? e.g., http://example.com   (Y/n) Y
-&gt; What is your URL prefix? (see above example; no trailing slash) https://username.github.io/staticsite
-&gt; Do you want to enable article pagination? (Y/n) Y
-&gt; How many articles per page do you want? [10] 5
-&gt; What is your time zone? [Europe/Paris] America/Los_Angeles
-&gt; Do you want to generate a Fabfile/Makefile to automate generation and publishing? (Y/n) Y
-&gt; Do you want an auto-reload &amp; simpleHTTP script to assist with theme and site development? (Y/n) Y
-&gt; Do you want to upload your website using FTP? (y/N) N
-&gt; Do you want to upload your website using SSH? (y/N) N
-&gt; Do you want to upload your website using Dropbox? (y/N) N
-&gt; Do you want to upload your website using S3? (y/N) N
-&gt; Do you want to upload your website using Rackspace Cloud Files? (y/N) N
-&gt; Do you want to upload your website using GitHub Pages? (y/N) y
-&gt; Is this your personal page (username.github.io)? (y/N) N
-</pre></div>
-
-
-<p>Now we can create and view the site. The command <code>make html</code> will create the site and the command <code>make serve</code> will spin up a local webserver that allows us to view the site.</p>
-<div class="highlight"><pre><span></span>(staticsite)$ make html
-(staticsite)$ make serve
-</pre></div>
-
-
-<p>Point a web browser to: <a href="localhost:8000">localhost:8000</a></p>
-<p><img alt="local host in browser" src="./images/browser_to_localhost8000.png"></p>
-<p>The site will look something like:</p>
-<p><img alt="default pelican site" src="./images/default_site_no_posts.png"></p>
-<p>We can shut down the server by typing <code>ctrl-c</code></p>
-<h3>Write a first post in markup language (.md)</h3>
-<p>Time to write our first post. The contents of the <strong>staticsite</strong> directory should look something like:</p>
+<p>The <strong>staticsite</strong> directory should look something like this:</p>
 <div class="highlight"><pre><span></span>staticsite/
-│   develop_server.sh
-│   fabfile.py
-│   Makefile
-│   pelicanconf.py
-│   publishconf.py
-│
-├───content
-├───output
-└───__pycache__
+├── LICENSE
+├── Makefile
+├── README.md
+├── __pycache__
+├── content
+│   ├── posts
+│       ├── first_post.md
+│       ├── second_post.md
+│       ├── third_post.md
+│   ├── code
+│       ├── sample_notebook.ipynb
+├── develop_server.sh
+├── fabfile.py
+├── output
+├── pelican-plugins
+│   ├── i18n_subsites
+│   ├── liquid_tags
+│   ├── pelican-ipynb
+├── pelican-themes
+│   ├── pelican-bootstrap3
+├── pelican.pid
+├── pelicanconf.py
+├── publishconf.py
+└── srv.pid
 </pre></div>
 
 
-<p>To make a new post, we need to add a markup file (.md file) to the <strong>content</strong> folder. Let's call our first post <strong><em>first_post.md</em></strong>. Depending on the computer I'm using, I create .md files with different programs. One Windows 10, I have been using Code Writer. On Mac OSX and Linux, I use <a href="https://www.jetbrains.com/pycharm/">PyCharm</a>. The <strong><em>first_post.md</em></strong> file saved in the content folder needs to have the form:</p>
-<div class="highlight"><pre><span></span><span class="n">Title</span><span class="o">:</span> <span class="n">First</span> <span class="n">Post</span>
-<span class="n">Date</span><span class="o">:</span> <span class="mi">2017</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">13</span> <span class="mi">12</span><span class="o">:</span><span class="mi">40</span>
-<span class="n">Modified</span><span class="o">:</span> <span class="mi">2017</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">13</span> <span class="mi">12</span><span class="o">:</span><span class="mi">40</span>
+<h3>Add the <strong>'tipue_search'</strong> plugin to the <strong><em>pelicanconf.py</em></strong> file</h3>
+<p>Now we need to modify the <strong><em>pelicanconf.py</em></strong> file to use the <strong>'tipue_search'</strong> plugin. This plugin will give us the ability to add a search bar to our site menu at the top right of each page. </p>
+<p>Add <code>'tipue_search'</code> to the <code>PLUGINS = [ ]</code> list in the <strong><em>pelicanconf.py</em></strong> file. Make sure each plugin is separated with commas and surrounded by quotes .</p>
+<div class="highlight"><pre><span></span>#pelicanconf.py
+
+PLUGINS = [
+    &#39;i18n_subsites&#39;,
+    &#39;series&#39;,
+    &#39;tag_cloud&#39;,
+    &#39;liquid_tags.youtube&#39;,
+    &#39;liquid_tags.notebook&#39;,
+    &#39;liquid_tags.include_code&#39;,
+    &#39;render_math&#39;,
+    &#39;pelican-ipynb.markup&#39;,
+    &#39;tipue_search&#39; ] 
+</pre></div>
+
+
+<p>To use the <strong>'tipue_search'</strong> plugin, we also need to add the following line to the <strong><em>pelicanconf.py</em></strong> file:</p>
+<div class="highlight"><pre><span></span>#pelicanconf.py
+
+# for Tique Search Plugin
+DIRECT_TEMPLATES = (&#39;index&#39;,&#39;tags&#39;, &#39;categories&#39;, &#39;authors&#39;, &#39;archives&#39;, &#39;search&#39;)
+</pre></div>
+
+
+<h3>Add some custom css and javascript to make tables look good.</h3>
+<p>Even with a great theme like pelican-bootstrap3, there are some changes to make to the look of the site. One of these changes is to make tables look better, like the tables on github readme pages look. </p>
+<p>Let's make a new post in the <strong>content/posts</strong> directory. This post will contain a markdown table using the <code>|</code> (pipe) character and a header row with pipes separated by three dashes <code>---</code>.</p>
+<p><strong><em>fourth_post.md</em></strong></p>
+<div class="highlight"><pre><span></span><span class="n">Title</span><span class="o">:</span> <span class="n">Fourth</span> <span class="n">Post</span> <span class="o">-</span> <span class="n">Part</span> <span class="mi">4</span>
+<span class="n">Date</span><span class="o">:</span> <span class="mi">2017</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">30</span> <span class="mi">12</span><span class="o">:</span><span class="mi">40</span>
+<span class="n">Modified</span><span class="o">:</span> <span class="mi">2017</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">30</span> <span class="mi">12</span><span class="o">:</span><span class="mi">40</span>
 <span class="n">Status</span><span class="o">:</span> <span class="n">published</span>
-<span class="n">Category</span><span class="o">:</span> <span class="n">This</span> <span class="n">site</span>
-<span class="n">Tags</span><span class="o">:</span> <span class="n">python</span><span class="o">,</span> <span class="n">markdown</span><span class="o">,</span> <span class="n">blog</span>
-<span class="n">Slug</span><span class="o">:</span> <span class="n">first</span><span class="o">-</span><span class="n">post</span>
+<span class="n">Category</span><span class="o">:</span> <span class="n">example</span> <span class="n">posts</span>
+<span class="n">Tags</span><span class="o">:</span> <span class="n">python</span><span class="o">,</span> <span class="n">pelican</span><span class="o">,</span> <span class="n">blog</span><span class="o">,</span> <span class="n">tables</span>
+<span class="n">Slug</span><span class="o">:</span> <span class="n">fourth</span><span class="o">-</span><span class="n">post</span>
 <span class="n">Authors</span><span class="o">:</span> <span class="n">Peter</span> <span class="n">D</span><span class="o">.</span> <span class="n">Kazarinoff</span>
-<span class="n">Summary</span><span class="o">:</span> <span class="n">This</span> <span class="k">is</span> <span class="n">the</span> <span class="n">summary</span> <span class="n">of</span> <span class="n">the</span> <span class="n">first</span> <span class="n">post</span>
+<span class="n">Series</span><span class="o">:</span> <span class="n">example</span><span class="o">-</span><span class="n">post</span><span class="o">-</span><span class="n">series</span>
+<span class="n">Series_index</span><span class="o">:</span> <span class="mi">4</span>
+<span class="n">Summary</span><span class="o">:</span> <span class="n">This</span> <span class="k">is</span> <span class="n">the</span> <span class="n">fourth</span> <span class="n">post</span> <span class="n">of</span> <span class="n">a</span> <span class="n">series</span> <span class="n">of</span> <span class="n">posts</span><span class="o">.</span> <span class="n">It</span> <span class="n">will</span> <span class="n">demonstrate</span> <span class="n">tables</span><span class="o">.</span>
 
-<span class="n">This</span> <span class="k">is</span> <span class="n">the</span> <span class="n">very</span> <span class="n">first</span> <span class="n">post</span><span class="o">!</span>
+<span class="n">This</span> <span class="k">is</span> <span class="n">the</span> <span class="n">fourth</span> <span class="n">post</span> <span class="n">of</span> <span class="n">a</span> <span class="n">series</span> <span class="n">of</span> <span class="n">posts</span><span class="o">.</span> <span class="n">It</span> <span class="n">will</span> <span class="n">demonstrate</span> <span class="n">tables</span><span class="o">.</span>
+
+<span class="o">|</span> <span class="n">Column</span> <span class="n">Header</span> <span class="o">|</span> <span class="n">Column</span> <span class="n">Header</span> <span class="o">|</span>
+<span class="o">|</span> <span class="o">---</span> <span class="o">|</span> <span class="o">---|</span> 
+<span class="o">|</span> <span class="n">Row</span> <span class="mi">1</span> <span class="o">|</span> <span class="n">Data</span> <span class="mi">1</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">Row</span> <span class="mi">2</span> <span class="o">|</span> <span class="n">Data</span> <span class="mi">2</span> <span class="o">|</span>
 </pre></div>
 
 
-<p>After saving the file <strong><em>first_post.md</em></strong> in the <strong>content</strong> folder, the static site folder should look something like:</p>
+<p>After the post is saved, our <strong>staticsite directory</strong> should look something like this:</p>
 <div class="highlight"><pre><span></span>staticsite/
-│   develop_server.sh
-│   fabfile.py
-│   Makefile
-│   pelicanconf.py
-│   publishconf.py
-│
-├───content
-│       first_post.md
-│
-├───output
-└───__pycache__
+├── LICENSE
+├── Makefile
+├── README.md
+├── __pycache__
+├── content
+│   ├── posts
+│       ├── first_post.md
+│       ├── second_post.md
+│       ├── third_post.md
+│       ├── fourth_post.md
+│   ├── code
+│       ├── sample_notebook.ipynb
+├── develop_server.sh
+├── fabfile.py
+├── output
+├── pelican-plugins
+│   ├── i18n_subsites
+│   ├── liquid_tags
+│   ├── pelican-ipynb
+│   ├── tipue_search
+├── pelican-themes
+│   ├── pelican-bootstrap3
+├── pelican.pid
+├── pelicanconf.py
+├── publishconf.py
+└── srv.pid
 </pre></div>
 
 
-<p>Let's build the site again and take a look at our new post</p>
-<div class="highlight"><pre><span></span>(staticsite)$ make html
-(staticsite)$ make serve
+<p>To change the way that tables are rendered, we will add some custom css and javascript that is not included with the pelican-bootstrap3 theme. First create a new folder in the <strong>staticsite/content</strong> directory called <strong>extra</strong>.</p>
+<div class="highlight"><pre><span></span>cd ~/Dcouments/staticsite/content
+mkdir extra &amp;&amp; cd extra
 </pre></div>
 
 
-<p>Again, point a web browser to: <a href="localhost:8000">localhost:8000</a></p>
-<p><img alt="local host in browser" src="./images/browser_to_localhost8000.png"></p>
-<p>The site will look something like:</p>
-<p><img alt="default pelican site" src="./images/default_site_1_post.png"></p>
-<p>It works! I can see the first post!</p>
-<p>We can shut down the server by typing <code>ctrl-c</code></p>
-<h3>Add and commit the changes then push the changes to github</h3>
-<p>When we are done editing the posts and the site, we <strong>add all</strong> of the changes to our local git repo using <code>git add .</code> Then we commit these changes with <code>git commit</code> and use the <code>-m "created pelcian static site"</code> flag to supply a commit message (make sure to use double quotes "commit message"). Push those changes up to github with <code>git push origin master</code></p>
+<p>Inside the <strong>extra</strong> folder, create a new <strong><em>.css</em></strong> file called <strong><em>custom.css</em></strong>. Insert the following style changes in <strong><em>custom.css</em></strong>:</p>
+<div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">table</span> <span class="p">{</span>
+
+    <span class="k">width</span><span class="p">:</span> <span class="kc">inherit</span><span class="p">;</span>
+    <span class="k">max-width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+    <span class="k">margin-bottom</span><span class="p">:</span> <span class="mi">21</span><span class="kt">px</span><span class="p">;</span>
+    <span class="k">padding</span><span class="p">:</span> <span class="mi">6</span><span class="kt">px</span> <span class="mi">13</span><span class="kt">px</span><span class="p">;</span>    
+
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Now create a new javascript file in the <strong>content/extra</strong> directory called <strong><em>custom.js</em></strong>. This file contains extra javascript that will be injected into pages when the <em>.html</em> is generated by Pelican.</p>
+<div class="highlight"><pre><span></span>var tables, i;
+tables = document.getElementsByTagName(&#39;table&#39;);
+for (i=0;i&lt;tables.length;i++) {
+  tables[i].className = &#39;table table-bordered table-hover table-striped table-responsive&#39;;
+}
+</pre></div>
+
+
+<p>With the addition of these two new files, the contents of the <strong>staticsite</strong> directory will look something like:</p>
+<div class="highlight"><pre><span></span>staticsite/
+├── LICENSE
+├── Makefile
+├── README.md
+├── __pycache__
+├── content
+│   ├── posts
+│       ├── first_post.md
+│       ├── second_post.md
+│       ├── third_post.md
+│       ├── fourth_post.md
+│   ├── code
+│       ├── sample_notebook.ipynb
+│   ├── extra
+│       ├── custom.css
+│       ├── custom.js
+├── develop_server.sh
+├── fabfile.py
+├── output
+├── pelican-plugins
+│   ├── i18n_subsites
+│   ├── liquid_tags
+│   ├── pelican-ipynb
+│   ├── tipue_search
+├── pelican-themes
+│   ├── pelican-bootstrap3
+├── pelican.pid
+├── pelicanconf.py
+├── publishconf.py
+└── srv.pid
+</pre></div>
+
+
+<p>Pelican needs to know about the two new "custom" files. Modify the <strong><em>pelicanconf.py</em></strong> file to include the lines:</p>
+<div class="highlight"><pre><span></span>#pelicanconf.py
+
+CUSTOM_CSS = &#39;static/css/custom.css&#39;
+CUSTOM_JS = &#39;static/js/custom.js&#39;
+
+STATIC_PATHS = [ &#39;extra&#39; ]
+
+EXTRA_PATH_METADATA = {
+    &#39;extra/custom.css&#39;: {&#39;path&#39;: &#39;static/css/custom.css&#39;},
+    &#39;extra/custom.js&#39;: {&#39;path&#39;: &#39;static/js/custom.js&#39;}
+}
+</pre></div>
+
+
+<p>When the site is built, Pelican will read in <strong><em>custom.css</em></strong> and <strong><em>custom.js</em></strong> siting in the <strong>extra</strong> folder. Pelican will then copy these two files in the appropriate places in the <strong>output</strong> directory (static/css/custom.css and static/css/custom.js) for the theme to use. Then the code from the css and javascript files will be used by the <em>.html</em> pages in the output directory along with the other css and javascript from the bootstrap3 theme. This will make tables look more like tables in github readme pages. </p>
+<h3>Build and preview the site with Pelican</h3>
+<p>With the search plugin configured, a new posts containing a table written, plus our <strong><em>custom.js</em></strong> and <strong><em>custom.css</em></strong> in place, let's preview the site again.  We build the site and serve up the contents in the <strong>output</strong> folder with:</p>
+<div class="highlight"><pre><span></span>make html
+make serve
+</pre></div>
+
+
+<p>To view the site, point a browser to <em>localhost:8000</em></p>
+<p><a href="localhost:8000">localhost:8000</a></p>
+<p>use <code>ctrl-c</code> to stop the server.</p>
+<h3>Add and commit the changes then push them to github</h3>
+<p>When we are done editing the the site, we add <strong>all of the changes</strong> to our local git repo using <code>git add .</code>. Commit those changes with <code>git commit</code> and add the <code>-m "added search and tables"</code> flag to supply a commit message (make sure to use double quotes "commit message"). Push the changes up to github with <code>git push origin master</code></p>
 <div class="highlight"><pre><span></span>git add .
-git commit -m &quot;created pelican static site&quot;
+git commit -m &quot;added search and tables&quot;
 git push origin master
 </pre></div>
 
 
-<p>In the <a href="./how-i-built-this-site-3.html">next post</a>, we will customize the site with a <em>pelican-theme</em> called <strong>pelican-bootstrap3</strong>.</p>
+<p>In the next post we will publish the site to github pages. Once the site is published, it will be live and public to anythone with an internet connection. An actual, real, published, live static site!</p>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">
-    <h4>This article is the 2 of the How I built this site series</h4>
+    <h4>This article is the 5 of the How I built this site series</h4>
        <h5>Previous articles</h5>
        <ul>
            <li><a href="./how-i-built-site-1.html">How I build this site - Part 1</a></li>
-       </ul>
-       <h5>Next articles</h5>
-       <ul>
+           <li><a href="./how-i-built-this-site-2.html">How I build this site - Part 2</a></li>
            <li><a href="./how-i-built-this-site-3.html">How I build this site - Part 3</a></li>
            <li><a href="./how-i-built-site-4.html">How I build this Site - Part 4</a></li>
-           <li><a href="./how-i-built-site-5.html">How I build this Site - Part 5</a></li>
        </ul>
 </section>
         </article>
@@ -545,11 +606,7 @@ git push origin master
   <ul class="list-group">
     <li class="list-group-item">
       <h5></i>Previous article</h5>
-      <a href="./how-i-built-site-1.html">How I build this site - Part 1</a>
-    </li>
-    <li class="list-group-item">
-      <h5>Next article</h5>
-      <a href="./how-i-built-this-site-3.html">How I build this site - Part 3</a>
+      <a href="./how-i-built-site-4.html">How I build this Site - Part 4</a>
     </li>
   </ul>
 </li>

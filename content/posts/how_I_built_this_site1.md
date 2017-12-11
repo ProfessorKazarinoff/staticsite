@@ -65,11 +65,12 @@ We should now see ```(staticsite)``` before the terminal prompt. This means we a
 
 ### Install Pelican
 
-Time for some fun! Installing Pelican. Pelican is a Python package that creates static websites. Static sites are websites that only have html, css and javascript. A static site is not connected to a database and there is no code run on the server side. The server just serves static files (html, css, javascript) to the client when the client requests them. In order to install Pelican, we need to install ```pip``` first.
+Time for some fun! Installing Pelican. Pelican is a Python package that creates static websites. Static sites are websites that only have html, css and javascript. A static site is not connected to a database and there is no code run on the server side. The server just serves static files (html, css, javascript) to the client when the client requests them. In order to install Pelican, we need to install ```pip``` first. On my Linux and Mac OSX machines, the command line tool **git** is already installed. If using Windows 10, **git** may not be available. So that the development environments are close to the same on all my computers, I also used ```conda``` to ```install git```.
 
 
 ```
 (staticsite)$ conda install pip
+(staticsite)$ conda install git
 ```
 
 Once ```pip``` is installed, we can install ```pelican``` and ```markdown```. These are two of the core pieces we need to build the website. ```fabric3``` is also installed because we'll use it to build and demo the site on Windows.

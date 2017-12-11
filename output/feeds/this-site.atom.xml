@@ -793,8 +793,9 @@ git push origin master
 
 &lt;p&gt;We should now see &lt;code&gt;(staticsite)&lt;/code&gt; before the terminal prompt. This means we are using the &lt;code&gt;(staticsite)&lt;/code&gt; virtual environment.&lt;/p&gt;
 &lt;h3&gt;Install Pelican&lt;/h3&gt;
-&lt;p&gt;Time for some fun! Installing Pelican. Pelican is a Python package that creates static websites. Static sites are websites that only have html, css and javascript. A static site is not connected to a database and there is no code run on the server side. The server just serves static files (html, css, javascript) to the client when the client requests them. In order to install Pelican, we need to install &lt;code&gt;pip&lt;/code&gt; first.&lt;/p&gt;
+&lt;p&gt;Time for some fun! Installing Pelican. Pelican is a Python package that creates static websites. Static sites are websites that only have html, css and javascript. A static site is not connected to a database and there is no code run on the server side. The server just serves static files (html, css, javascript) to the client when the client requests them. In order to install Pelican, we need to install &lt;code&gt;pip&lt;/code&gt; first. On my Linux and Mac OSX machines, the command line tool &lt;strong&gt;git&lt;/strong&gt; is already installed. If using Windows 10, &lt;strong&gt;git&lt;/strong&gt; may not be available. So that the development environments are close to the same on all my computers, I also used &lt;code&gt;conda&lt;/code&gt; to &lt;code&gt;install git&lt;/code&gt;.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(staticsite)$ conda install pip
+(staticsite)$ conda install git
 &lt;/pre&gt;&lt;/div&gt;
 
 

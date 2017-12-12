@@ -224,7 +224,7 @@ git push origin master
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;In the next post we will publish the site to github pages. Once the site is published, it will be live and public to anythone with an internet connection. An actual, real, published, live static site!&lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="blog"></category><category term="jupyter"></category></entry><entry><title>How I build this Site - Part 4</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-site-4.html" rel="alternate"></link><published>2017-12-08T18:50:00-08:00</published><updated>2017-12-08T18:50:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-12-08:/staticsite/how-i-built-site-4.html</id><summary type="html">&lt;p&gt;This is the fourth part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-3.html"&gt;last post&lt;/a&gt;, we installed the pelican-bootstrap3 theme and made our site mobile responsive. Now the site looks good on all devices.  In this post we are going to install a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of post that are linked together, create a working search bar, add youtube videos to posts, view LaTeX math and add embedded jupyter notebooks in posts.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the fourth part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-3.html"&gt;last post&lt;/a&gt;, we installed the pelican-bootstrap3 theme and made our site mobile responsive. Now the site looks good on all devices.  In this post we are going to install a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of post that are linked together, create a working search bar, add youtube videos to posts, view LaTeX math and add embedded jupyter notebooks in posts.&lt;/p&gt;
+&lt;p&gt;In the next post we will add two new menu items across the top of our site. These new menu items will link to an [About] page and a [Book] page.&lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="blog"></category><category term="css"></category><category term="javascript"></category></entry><entry><title>How I build this Site - Part 4</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-site-4.html" rel="alternate"></link><published>2017-12-08T18:50:00-08:00</published><updated>2017-12-08T18:50:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-12-08:/staticsite/how-i-built-site-4.html</id><summary type="html">&lt;p&gt;This is the fourth part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-3.html"&gt;last post&lt;/a&gt;, we installed the pelican-bootstrap3 theme and made our site mobile responsive. Now the site looks good on all devices.  In this post we are going to install a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of post that are linked together, create a working search bar, add youtube videos to posts, view LaTeX math and add embedded jupyter notebooks in posts.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the fourth part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-3.html"&gt;last post&lt;/a&gt;, we installed the pelican-bootstrap3 theme and made our site mobile responsive. Now the site looks good on all devices.  In this post we are going to install a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of post that are linked together, create a working search bar, add youtube videos to posts, view LaTeX math and add embedded jupyter notebooks in posts.&lt;/p&gt;
 &lt;h3&gt;Steps in this post&lt;/h3&gt;
 &lt;p&gt;We are going to accomplish the following in this post. By the end of the post we are going to have a great looking website that contains a two-part series, a post with an embedded youtube video and a post that contains an embedded jupyter notebook.&lt;/p&gt;
 &lt;ol&gt;
@@ -316,7 +316,6 @@ widgetsnbextension==3.0.8
 &lt;li&gt;'liquid_tags.notebook',&lt;/li&gt;
 &lt;li&gt;'liquid_tags.include_code',&lt;/li&gt;
 &lt;li&gt;'render_math'&lt;/li&gt;
-&lt;li&gt;'tipue_search'&lt;/li&gt;
 &lt;li&gt;'pelican-ipynb.markup'&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;We add these to the &lt;code&gt;PLUGINS = [ ]&lt;/code&gt; list in the &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; file and separate them with commas.&lt;/p&gt;
@@ -329,7 +328,7 @@ PLUGINS = [
     &amp;#39;liquid_tags.youtube&amp;#39;,
     &amp;#39;liquid_tags.notebook&amp;#39;,
     &amp;#39;liquid_tags.include_code&amp;#39;,
-    &amp;#39;render_math&amp;#39;,&amp;#39;tipue_search&amp;#39;,
+    &amp;#39;render_math&amp;#39;,
     &amp;#39;pelican-ipynb.markup&amp;#39; ] 
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -470,9 +469,9 @@ git push origin master
 &lt;ol&gt;
 &lt;li&gt;Activate our &lt;code&gt;staticsite&lt;/code&gt; virtual environment&lt;/li&gt;
 &lt;li&gt;Pull the most recent version of our site from github&lt;/li&gt;
-&lt;li&gt;Add a git submodule to our staticsite folder and bring in the pelican-themes repo from github&lt;/li&gt;
-&lt;li&gt;Add a git submodule to our staticsite folder and bring in the pelican-plugins repo from github&lt;/li&gt;
-&lt;li&gt;Modify the pelicanconf.py file to point to our new theme, and add a new plugin&lt;/li&gt;
+&lt;li&gt;Add a git submodule to our &lt;strong&gt;staticsite&lt;/strong&gt; folder and bring in the pelican-themes repo from github&lt;/li&gt;
+&lt;li&gt;Add a git submodule to our &lt;strong&gt;staticsite&lt;/strong&gt; folder and bring in the pelican-plugins repo from github&lt;/li&gt;
+&lt;li&gt;Modify the &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; file to point to our new theme, and add a new plugin&lt;/li&gt;
 &lt;li&gt;Build and preview the site with Pelican&lt;/li&gt;
 &lt;li&gt;Add and commit the changes then push those changes to github&lt;/li&gt;
 &lt;/ol&gt;
@@ -787,22 +786,29 @@ git push origin master
 
 
 &lt;p&gt;This creates a new virtual environment called &lt;strong&gt;&lt;em&gt;staticsite&lt;/em&gt;&lt;/strong&gt;. Becuase I use four different computers to work on the site, I need to make sure the same Python packages are installed on each computer. Using a virtual environment ensures this consistency. Once the virtual environment &lt;strong&gt;&lt;em&gt;staticsite&lt;/em&gt;&lt;/strong&gt; is created, we need to activate it and start using it with the command:&lt;/p&gt;
+&lt;p&gt;On Mac OSX or Linux&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;source&lt;/span&gt; activate staticsite
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;or on Windows 10&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;activate staticsite
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;We should now see &lt;code&gt;(staticsite)&lt;/code&gt; before the terminal prompt. This means we are using the &lt;code&gt;(staticsite)&lt;/code&gt; virtual environment.&lt;/p&gt;
 &lt;h3&gt;Install Pelican&lt;/h3&gt;
-&lt;p&gt;Time for some fun! Installing Pelican. Pelican is a Python package that creates static websites. Static sites are websites that only have html, css and javascript. A static site is not connected to a database and there is no code run on the server side. The server just serves static files (html, css, javascript) to the client when the client requests them. In order to install Pelican, we need to install &lt;code&gt;pip&lt;/code&gt; first. On my Linux and Mac OSX machines, the command line tool &lt;strong&gt;git&lt;/strong&gt; is already installed. If using Windows 10, &lt;strong&gt;git&lt;/strong&gt; may not be available. So that the development environments are close to the same on all my computers, I also used &lt;code&gt;conda&lt;/code&gt; to &lt;code&gt;install git&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Time for some fun! Installing Pelican. Pelican is a Python package that creates static websites. Static sites are websites that only have html, css and javascript. A static site is not connected to a database and there is no code run on the server side. The server just serves static files (html, css, javascript) to the client when the client requests them. In order to install Pelican, we need to install &lt;code&gt;pip&lt;/code&gt; first. On my Linux and Mac OSX machines, the command line tool &lt;strong&gt;git&lt;/strong&gt; is already installed. If using Windows 10, &lt;strong&gt;git&lt;/strong&gt; may not be available. To keep the development environments the same when using Windows 10, you will also need &lt;code&gt;conda&lt;/code&gt; to &lt;code&gt;install git&lt;/code&gt;.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(staticsite)$ conda install pip
 (staticsite)$ conda install git
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Once &lt;code&gt;pip&lt;/code&gt; is installed, we can install &lt;code&gt;pelican&lt;/code&gt; and &lt;code&gt;markdown&lt;/code&gt;. These are two of the core pieces we need to build the website. &lt;code&gt;fabric3&lt;/code&gt; is also installed because we'll use it to build and demo the site on Windows.&lt;/p&gt;
+&lt;p&gt;Once &lt;code&gt;pip&lt;/code&gt; is installed, we can install &lt;code&gt;pelican&lt;/code&gt; and &lt;code&gt;markdown&lt;/code&gt;. These are two of the core pieces we need to build the website. &lt;code&gt;fabric3&lt;/code&gt; is also installed because we'll use it to build and demo the site on Windows. &lt;code&gt;bs4&lt;/code&gt; is the beautiful soup package. Some of the pelican plugins to be installed later will depend on &lt;code&gt;bs4&lt;/code&gt; to function properly.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(staticsite)$ pip install pelican
 (staticsite)$ pip install markdown
 (staticsite)$ pip install fabric3
+(staticsite)$ pip install bs4
 &lt;/pre&gt;&lt;/div&gt;
 
 

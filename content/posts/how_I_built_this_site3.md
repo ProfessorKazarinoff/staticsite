@@ -18,9 +18,9 @@ We are going to accomplish the following in this post. By the end of the post we
 
 1. Activate our ```staticsite``` virtual environment
 2. Pull the most recent version of our site from github
-3. Add a git submodule to our staticsite folder and bring in the pelican-themes repo from github
-4. Add a git submodule to our staticsite folder and bring in the pelican-plugins repo from github
-5. Modify the pelicanconf.py file to point to our new theme, and add a new plugin
+3. Add a git submodule to our **staticsite** folder and bring in the pelican-themes repo from github
+4. Add a git submodule to our **staticsite** folder and bring in the pelican-plugins repo from github
+5. Modify the **_pelicanconf.py_** file to point to our new theme, and add a new plugin
 6. Build and preview the site with Pelican
 7. Add and commit the changes then push those changes to github
 

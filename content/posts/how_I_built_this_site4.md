@@ -115,7 +115,6 @@ Now we need to modify the **_pelicanconf.py_** file to use a couple new plugins.
 * 'liquid_tags.notebook',
 * 'liquid_tags.include_code',
 * 'render_math'
-* 'tipue_search'
 * 'pelican-ipynb.markup'
 
 We add these to the ```PLUGINS = [ ]``` list in the **_pelicanconf.py_** file and separate them with commas.
@@ -130,7 +129,7 @@ PLUGINS = [
     'liquid_tags.youtube',
     'liquid_tags.notebook',
     'liquid_tags.include_code',
-    'render_math','tipue_search',
+    'render_math',
     'pelican-ipynb.markup' ] 
 ```
 

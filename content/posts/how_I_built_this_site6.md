@@ -1,129 +1,184 @@
-Title: How I build this site - Part 6
-Date: 2017-11-27 12:40
-Modified: 2017-11-27 12:40
+Title: How I build this Site - Part 6
+Date: 2017-12-09 18:50
+Modified: 2017-12-09 18:50
 Status: draft
 Category: This site
-Tags: python, pelican, blog, git, github
-Slug: how-i-built-this-site-6
+Tags: python, pelican, blog, css, javascript
+Slug: how-i-built-site-5
 Authors: Peter D. Kazarinoff
 Series: How I built this site
 Series_index: 6
-Summary: This is the sixth part of a multi-part series on how I built this site. In last post, we customized the site and added the ability to use jupyter notebooks in posts.  In this post we are going to deploy the site to [github pages](https://pages.github.com/). Github pages is a place on github were documentation and static sites can be hosted. It was tricky for me to set this up, but after a lot trial and error, I was able to get it to work.
+Summary: This is the sixth part in a multi-part series on how I built this site. In the [last post]({filename}how_I_built_this_site5.md), we put a search bar at the top right of each page and added some css and javascript in order to make tables on the site look better. In this post we are going to add two new _pages_ to our static site. The new pages will have menu entries at the top of our site.
 
-This is the sixth part of a multi-part series on how I built this site. In last post, we customized the site and added the ability to use jupyter notebooks in posts.  In this post we are going to deploy the site to [github pages](https://pages.github.com/). Github pages is a place on github were documentation and static sites can be hosted. It was tricky for me to set this up, but after a lot of trial and error, I was able to get it to work.
+This is the sixth part in a multi-part series on how I built this site. In the [last post]({filename}how_I_built_this_site5.md), we put a search bar at the top right of each page and added some css and javascript in order to make tables on the site look better. In this post we are going to add two new _pages_ to our static site. The new pages will have menu entries at the top of our site.
+
 
 ### Steps in this post
 
-By the end of the post we are going to have a working static website hosted on github pages. To accomplish we will complete the following steps:
+We are going to accomplish the following in this post. By the end of the post we are going to have a site with a working search bar and nice looking tables.
 
-1. Pull the most recient version of the site from gitub
-2. Run pelican's ```make html``` command to build the site and preview it with ```make serve```
-3. Modify the **_publishconf.py_** file to include our github pages url
-4. Use ```pelican content -s publishconf.py``` to create a published version of the site in the output directory
-5. Add, commit and push the published contents to github
-6. Make a gh-pages branch in our staticsite repo on github
-7. Use ```git subtree push --prefix output origin gh-pages``` to push the output directory to the gh-pages branch
-8. View the freshly published site! 
+1. Activate our ```staticsite``` virtual environment
+2. Pull the most recent version of our site from github
+3. Add two new _pages_  (**_.md_** files) to our **content** folder
+4. Modify the **_pelicanconf.py_** file to use the new pages
+5. Build and preview the site with Pelican
+6. Add, commit and push the changes to github
 
 
-OK, let's get started. Can't wait to see the published site live on github pages.
+Let's get started.
 
 
-### Pull to the most recent version of the site from github
+### Activate our virtual environment and pull the most recent version of the site down from github
 
-Open a terminal and ```cd``` to the ```staticsite``` folder. Then we need to activate our ```(staticsite)``` virtual environment with ```source activate staticsite```. Once in the ```(staticsite)``` environment, we can call ```git pull origin master``` to pull the most recent version of the site down from github.
 
 ```
-cd ~/Documents/staticsite
-source activate staticsite
+$ cd ~/Documents/staticsite
+$ source activate staticsite
 (staticsite) $ git pull origin master
 ```
 
-Now we use the ```make html``` command to build a demo version of the site. This will place the static files (html, css, javascript) that forms the static site in the **output** folder.  We can preview the site with ```make serve```
+The **staticsite** directory should look something like this:
 
 ```
-(staticsite) $ make html
-(staticsite) $ make serve
-```
-
-The demo version of our static site can now be viewed by pointing a browser to:
-
-[localhost:8000](localhost:8000)
-
-Press ```ctr-c``` to stop the server.
-
-### Modify the **_publishconf.py_** file to use the github pages url
-
-The staticsite directory should look something like this:
-```
-staticsite
+staticsite/
 ├── LICENSE
 ├── Makefile
 ├── README.md
 ├── __pycache__
-├── _nb_header.html
 ├── content
+│   ├── posts
+│       ├── first_post.md
+│       ├── second_post.md
+│       ├── third_post.md
+│   ├── code
+│       ├── sample_notebook.ipynb
 ├── develop_server.sh
 ├── fabfile.py
 ├── output
 ├── pelican-plugins
+│   ├── i18n_subsites
+│   ├── liquid_tags
+│   ├── pelican-ipynb
+│   ├── tipue_search
 ├── pelican-themes
+│   ├── pelican-bootstrap3
 ├── pelican.pid
 ├── pelicanconf.py
 ├── publishconf.py
 └── srv.pid
 ```
- 
-we need to edit the **_publishconf.py_** file to add our github pages url to ```SITEURL``` and set ```RELATIVE_URLS``` to True. The lines to change are:
+
+### Create two new _pages_ (**_.md_** files)
+
+Right now, the top of our site has a menu item for [This site], which isn't very useful.  We are going to add two new menu items that link to two new _pages_. These are [About] and [Book]. First we will create the pages with a little content.
+
+**_about.md_**
+```
+Title: Fourth Post - Part 4
+Date: 2017-11-30 12:40
+Modified: 2017-11-30 12:40
+Status: published
+Category: example posts
+Tags: python, pelican, blog, tables
+Slug: fourth-post
+Authors: Peter D. Kazarinoff
+Series: example-post-series
+Series_index: 4
+Summary: This is the fourth post of a series of posts. It will demonstrate tables.
+
+This is the fourth post of a series of posts. It will demonstrate tables.
+
+| Column Header | Column Header |
+| --- | ---| 
+| Row 1 | Data 1 |
+| Row 2 | Data 2 |
+```
+
+After the pages are is saved, our **staticsite directory** should look something like this:
 
 ```
-#publishconf.py
-SITEURL = 'https://username.github.io/staticsite'
-RELATIVE_URLS = True
+staticsite/
+├── LICENSE
+├── Makefile
+├── README.md
+├── __pycache__
+├── content
+│   ├── posts
+│       ├── about.md
+│       ├── book.md
+│   ├── posts
+│       ├── first_post.md
+│       ├── second_post.md
+│       ├── third_post.md
+│       ├── fourth_post.md
+│   ├── code
+│       ├── sample_notebook.ipynb
+├── develop_server.sh
+├── fabfile.py
+├── output
+├── pelican-plugins
+│   ├── i18n_subsites
+│   ├── liquid_tags
+│   ├── pelican-ipynb
+│   ├── tipue_search
+├── pelican-themes
+│   ├── pelican-bootstrap3
+├── pelican.pid
+├── pelicanconf.py
+├── publishconf.py
+└── srv.pid
 ```
 
-Make sure to set ```username``` to your github user name. Setting ```RELATIVE_URLS = True``` is necessary for the links on the site to work and for the css and javascript files run on github pages. When I initially set ```RELATIVE_URLS = False```, the site looked terrible, had no formatting or css and none of the links worked. Setting ```RELATIVE_URLS = True``` fixed the problem.
 
-### Create a published version of the site
+### Modify **_pelicanconf.py_** to include the two new pages.
 
-Up to this point, we used the ```make html``` command to build a demo version of the site. Now we are ready to _publish_ the site. We publish the site by running the command:
+Pelican needs to know about the two "pages" files. Modify the **_pelicanconf.py_** file to include the lines:
 
 ```
-pelican content -s publishconf.py
+#pelicanconf.py
+
+CUSTOM_CSS = 'static/css/custom.css'
+CUSTOM_JS = 'static/js/custom.js'
+
+STATIC_PATHS = [ 'extra' ]
+
+EXTRA_PATH_METADATA = {
+    'extra/custom.css': {'path': 'static/css/custom.css'},
+    'extra/custom.js': {'path': 'static/js/custom.js'}
+}
 ```
 
-This creates a published version of the site with relative url's in the **output** directory. 
 
-### Add, commit, push to the master branch on github
 
-Before we can put the published version of the site up on github pages, we need to push the current version of the site up to the master branch.
+### Build and preview the site with Pelican
+
+With the search plugin configured, a new posts containing a table written, plus our **_custom.js_** and **_custom.css_** in place, let's preview the site again.  We build the site and serve up the contents in the **output** folder with:
+
+```
+make html
+make serve
+```
+
+To view the site, point a browser to _localhost:8000_
+
+[localhost:8000](localhost:8000)
+
+use ```ctrl-c``` to stop the server.
+
+### Add and commit the changes then push them to github
+
+When we are done editing the the site, we add **all of the changes** to our local git repo using ```git add .```. Commit those changes with ```git commit``` and add the ``` -m "added about and book pages" ``` flag to supply a commit message (make sure to use double quotes "commit message"). Push the changes up to github with ```git push origin master```
 
 ```
 git add .
-git commit -m "first published version"
+git commit -m "added about and book pages"
 git push origin master
 ```
 
-### Create a **gh-pages** branch in our staticsite repo on github
+In the next post we will publish the site to github pages. Once the site is published, it will be live and public. Available to any one with an internet connection. An actual, real, published, live static site!
 
-Up to this point, we saved our work to the **master** branch of the staticsite repository on github. To host the site on github pages, we need to create a new branch in the staticsite repo called **gh-pages**. The **master** branch still houses the code,settings, markup files, notebooks, images, etc. to build the site. Any html, css and javascript files in the **gh-pages** branch of the staticsite repo on github will be served like a regular website. To create the new branch, go the main staticsite repository page on github and click the **Branch: Master** drop down menu on the upper left hand side. Enter the name of the new branch: **gh-pages**
 
-### Use **git subtree** to push the contents of the **output** directory to the **gh-pages** branch
 
-I tried a bunch of different ways to send the contents of the **output** directory up to github pages. First I tried multiple times to use ```ghp-import``` shown in the [Pelican documentation](http://docs.getpelican.com/en/stable/tips.html), but I never got it to work right. I also tried using git submodules, but had trouble with that as well. I kept getting commit error messages. The way that finally worked was the ```git subtree``` command. 
 
-```
-git subtree push --prefix output origin gh-pages
-```
 
-Note the subtree we are pushing is the **output** directory. We are pushing this subtree to the **gh-pages** branch. 
 
-### View the site on github pages.
-
-Awesome! The site is now hosted for everyone to see on github pages! Pretty cool right? Point a browser to the github pages url and take a look:
-
-https://username.github.io/staticsite
-
-Change _username_ to your github user name. My site (the one that you are reading) is hosted here: 
-
-[https://professorkazarinoff.github.io/staticsite](https://professorkazarinoff.github.io/staticsite)

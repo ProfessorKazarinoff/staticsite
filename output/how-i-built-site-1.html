@@ -331,22 +331,29 @@ Python Programming for Undergraduate Engineers            </a>
 
 
 <p>This creates a new virtual environment called <strong><em>staticsite</em></strong>. Becuase I use four different computers to work on the site, I need to make sure the same Python packages are installed on each computer. Using a virtual environment ensures this consistency. Once the virtual environment <strong><em>staticsite</em></strong> is created, we need to activate it and start using it with the command:</p>
+<p>On Mac OSX or Linux</p>
 <div class="highlight"><pre><span></span>$ <span class="nb">source</span> activate staticsite
+</pre></div>
+
+
+<p>or on Windows 10</p>
+<div class="highlight"><pre><span></span>activate staticsite
 </pre></div>
 
 
 <p>We should now see <code>(staticsite)</code> before the terminal prompt. This means we are using the <code>(staticsite)</code> virtual environment.</p>
 <h3>Install Pelican</h3>
-<p>Time for some fun! Installing Pelican. Pelican is a Python package that creates static websites. Static sites are websites that only have html, css and javascript. A static site is not connected to a database and there is no code run on the server side. The server just serves static files (html, css, javascript) to the client when the client requests them. In order to install Pelican, we need to install <code>pip</code> first. On my Linux and Mac OSX machines, the command line tool <strong>git</strong> is already installed. If using Windows 10, <strong>git</strong> may not be available. So that the development environments are close to the same on all my computers, I also used <code>conda</code> to <code>install git</code>.</p>
+<p>Time for some fun! Installing Pelican. Pelican is a Python package that creates static websites. Static sites are websites that only have html, css and javascript. A static site is not connected to a database and there is no code run on the server side. The server just serves static files (html, css, javascript) to the client when the client requests them. In order to install Pelican, we need to install <code>pip</code> first. On my Linux and Mac OSX machines, the command line tool <strong>git</strong> is already installed. If using Windows 10, <strong>git</strong> may not be available. To keep the development environments the same when using Windows 10, you will also need <code>conda</code> to <code>install git</code>.</p>
 <div class="highlight"><pre><span></span>(staticsite)$ conda install pip
 (staticsite)$ conda install git
 </pre></div>
 
 
-<p>Once <code>pip</code> is installed, we can install <code>pelican</code> and <code>markdown</code>. These are two of the core pieces we need to build the website. <code>fabric3</code> is also installed because we'll use it to build and demo the site on Windows.</p>
+<p>Once <code>pip</code> is installed, we can install <code>pelican</code> and <code>markdown</code>. These are two of the core pieces we need to build the website. <code>fabric3</code> is also installed because we'll use it to build and demo the site on Windows. <code>bs4</code> is the beautiful soup package. Some of the pelican plugins to be installed later will depend on <code>bs4</code> to function properly.</p>
 <div class="highlight"><pre><span></span>(staticsite)$ pip install pelican
 (staticsite)$ pip install markdown
 (staticsite)$ pip install fabric3
+(staticsite)$ pip install bs4
 </pre></div>
 
 
@@ -450,16 +457,19 @@ git remote add origin https://github.com/username/reponame.git
     <li class="list-group-item tag-2">
       <a href="./tag/anaconda.html">anaconda</a>
     </li>
-    <li class="list-group-item tag-4">
-      <a href="./tag/anaconda-prompt.html">anaconda prompt</a>
-    </li>
     <li class="list-group-item tag-1">
       <a href="./tag/blog.html">blog</a>
     </li>
     <li class="list-group-item tag-2">
       <a href="./tag/conda.html">conda</a>
     </li>
-    <li class="list-group-item tag-2">
+    <li class="list-group-item tag-4">
+      <a href="./tag/css.html">css</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/javascript.html">javascript</a>
+    </li>
+    <li class="list-group-item tag-4">
       <a href="./tag/jupyter.html">jupyter</a>
     </li>
     <li class="list-group-item tag-2">
@@ -473,9 +483,6 @@ git remote add origin https://github.com/username/reponame.git
     </li>
     <li class="list-group-item tag-4">
       <a href="./tag/staticsite.html">staticsite</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="./tag/virtualenv.html">virtualenv</a>
     </li>
   </ul>
 </li>

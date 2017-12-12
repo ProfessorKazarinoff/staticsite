@@ -57,15 +57,21 @@ $ conda create -n staticsite
 
 This creates a new virtual environment called **_staticsite_**. Becuase I use four different computers to work on the site, I need to make sure the same Python packages are installed on each computer. Using a virtual environment ensures this consistency. Once the virtual environment **_staticsite_** is created, we need to activate it and start using it with the command:
 
+On Mac OSX or Linux
 ```
 $ source activate staticsite
+```
+
+or on Windows 10
+```
+activate staticsite
 ```
 
 We should now see ```(staticsite)``` before the terminal prompt. This means we are using the ```(staticsite)``` virtual environment.
 
 ### Install Pelican
 
-Time for some fun! Installing Pelican. Pelican is a Python package that creates static websites. Static sites are websites that only have html, css and javascript. A static site is not connected to a database and there is no code run on the server side. The server just serves static files (html, css, javascript) to the client when the client requests them. In order to install Pelican, we need to install ```pip``` first. On my Linux and Mac OSX machines, the command line tool **git** is already installed. If using Windows 10, **git** may not be available. So that the development environments are close to the same on all my computers, I also used ```conda``` to ```install git```.
+Time for some fun! Installing Pelican. Pelican is a Python package that creates static websites. Static sites are websites that only have html, css and javascript. A static site is not connected to a database and there is no code run on the server side. The server just serves static files (html, css, javascript) to the client when the client requests them. In order to install Pelican, we need to install ```pip``` first. On my Linux and Mac OSX machines, the command line tool **git** is already installed. If using Windows 10, **git** may not be available. To keep the development environments the same when using Windows 10, you will also need ```conda``` to ```install git```.
 
 
 ```
@@ -73,12 +79,13 @@ Time for some fun! Installing Pelican. Pelican is a Python package that creates 
 (staticsite)$ conda install git
 ```
 
-Once ```pip``` is installed, we can install ```pelican``` and ```markdown```. These are two of the core pieces we need to build the website. ```fabric3``` is also installed because we'll use it to build and demo the site on Windows.
+Once ```pip``` is installed, we can install ```pelican``` and ```markdown```. These are two of the core pieces we need to build the website. ```fabric3``` is also installed because we'll use it to build and demo the site on Windows. ```bs4``` is the beautiful soup package. Some of the pelican plugins to be installed later will depend on ```bs4``` to function properly.
 
 ```
 (staticsite)$ pip install pelican
 (staticsite)$ pip install markdown
 (staticsite)$ pip install fabric3
+(staticsite)$ pip install bs4
 ```
 
 ### Create a github account and create a new repository

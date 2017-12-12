@@ -3,7 +3,7 @@ Date: 2017-12-09 18:50
 Modified: 2017-12-09 18:50
 Status: published
 Category: This site
-Tags: python, pelican, blog, jupyter
+Tags: python, pelican, blog, css, javascript
 Slug: how-i-built-site-5
 Authors: Peter D. Kazarinoff
 Series: How I built this site
@@ -269,7 +269,7 @@ git commit -m "added search and tables"
 git push origin master
 ```
 
-In the next post we will publish the site to github pages. Once the site is published, it will be live and public to anythone with an internet connection. An actual, real, published, live static site!
+In the next post we will add two new menu items across the top of our site. These new menu items will link to an [About] page and a [Book] page.
 
 
 

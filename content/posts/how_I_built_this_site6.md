@@ -8,14 +8,14 @@ Slug: how-i-built-site-6
 Authors: Peter D. Kazarinoff
 Series: How I built this site
 Series_index: 6
-Summary: This is the sixth part in a multi-part series on how I built this site. In the [last post]({filename}how_I_built_this_site5.md), we put a search bar at the top right of each page and some css and javascript in order to make tables on the site look better. In this post we are going to add two new _pages_ to our static site. An **About** page and a **Book* page. These new pages will have menu entries at the top of our site.
+Summary: This is the sixth part in a multi-part series on how I built this site. In the [last post]({filename}how_I_built_this_site5.md), we put a search bar at the top right of each page and some css and javascript in order to make tables on the site look better. In this post we are going to add two new _pages_ to our static site. An **About** page and a **Book** page. These new pages will have menu entries at the top of our site.
 
-This is the sixth part in a multi-part series on how I built this site. In the [last post]({filename}how_I_built_this_site5.md), we put a search bar at the top right of each page and some css and javascript in order to make tables on the site look better. In this post we are going to add two new _pages_ to our static site. An **About** page and a **Book* page. These new pages will have menu entries at the top of our site.
+This is the sixth part in a multi-part series on how I built this site. In the [last post]({filename}how_I_built_this_site5.md), we put a search bar at the top right of each page and some css and javascript in order to make tables on the site look better. In this post we are going to add two new _pages_ to our static site: an **About** page and a **Book** page. These new pages will have menu entries at the top of our site.
 
 
 ### Steps in this post
 
-We are going to accomplish the following in this post. By the end of the post we are going to have a site with two new pages and two menu entries.
+We are going to accomplish the following in this post. By the end of the post we are going to have a site with two new pages and two new menu items.
 
 1. Activate our ```staticsite``` virtual environment
 2. Pull the most recent version of our site from github
@@ -74,7 +74,7 @@ Up to this point, the top of our site has a menu item for [This site], which isn
 
 ![simple_pelican-bootstrap3_theme.png]({filename}/images/simple_pelican-bootstrap3_theme.png)
 
-We are going to add two new menu items that link to two new _pages_. These are [About] and [Book]. First we will create a new **pages** folder in the **staticsite/content** directory
+We are going to add two new menu items that link to two new _pages_. These new menu items will be [About] and [Book]. First create a **pages** folder in the **staticsite/content** directory
 
 ```
 (staticsite) $ cd ~/Documents/staticsite/content
@@ -82,7 +82,7 @@ We are going to add two new menu items that link to two new _pages_. These are [
 (staticsite) $ cd pages
 (staticsite) $ pwd
 ```
-Now we create two new **_.md_** files. Note that this file is different from the posts we've been writing. It has a very simple header, with just one line: Title. We don't need to put in a date or a slug in the header. The first file is for the **about** page
+Now we create two new **_.md_** files. Note that the header in this file is different from the other posts we've written. It has a very simple header; just one line: Title. We don't need to put in a date or a slug in the header. The first file is for the **about** page
 
 **_about.md_**
 ```
@@ -128,7 +128,7 @@ This books is for undergraduate engineers learning programming. It is focused on
 
 ### Pre-order will be available soon
 ```
-After the pages are is saved, our **staticsite directory** should look something like this:
+After the pages are saved, our **staticsite directory** should look something like this:
 
 ```
 staticsite/
@@ -207,9 +207,3 @@ git push origin master
 ```
 
 In the next post we will publish the site to github pages. Once the site is published, it will be live and public. Available to any one with an internet connection. An actual, real, published, live static site!
-
-
-
-
-
-

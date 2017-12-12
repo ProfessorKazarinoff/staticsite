@@ -1,6 +1,6 @@
-Title: How I build this Site - Part 6
-Date: 2017-12-09 18:50
-Modified: 2017-12-09 18:50
+Title: How I Build This Site - Part 6
+Date: 2017-12-18 18:50
+Modified: 2017-12-18 18:50
 Status: draft
 Category: This site
 Tags: python, pelican, blog, css, javascript
@@ -8,14 +8,14 @@ Slug: how-i-built-site-5
 Authors: Peter D. Kazarinoff
 Series: How I built this site
 Series_index: 6
-Summary: This is the sixth part in a multi-part series on how I built this site. In the [last post]({filename}how_I_built_this_site5.md), we put a search bar at the top right of each page and added some css and javascript in order to make tables on the site look better. In this post we are going to add two new _pages_ to our static site. The new pages will have menu entries at the top of our site.
+Summary: This is the sixth part in a multi-part series on how I built this site. In the [last post]({filename}how_I_built_this_site5.md), we put a search bar at the top right of each page and some css and javascript in order to make tables on the site look better. In this post we are going to add two new _pages_ to our static site. An **About** page and a **Book* page. These new pages will have menu entries at the top of our site.
 
-This is the sixth part in a multi-part series on how I built this site. In the [last post]({filename}how_I_built_this_site5.md), we put a search bar at the top right of each page and added some css and javascript in order to make tables on the site look better. In this post we are going to add two new _pages_ to our static site. The new pages will have menu entries at the top of our site.
+This is the sixth part in a multi-part series on how I built this site. In the [last post]({filename}how_I_built_this_site5.md), we put a search bar at the top right of each page and some css and javascript in order to make tables on the site look better. In this post we are going to add two new _pages_ to our static site. An **About** page and a **Book* page. These new pages will have menu entries at the top of our site.
 
 
 ### Steps in this post
 
-We are going to accomplish the following in this post. By the end of the post we are going to have a site with a working search bar and nice looking tables.
+We are going to accomplish the following in this post. By the end of the post we are going to have a site with two new pages and two menu entries.
 
 1. Activate our ```staticsite``` virtual environment
 2. Pull the most recent version of our site from github
@@ -70,30 +70,64 @@ staticsite/
 
 ### Create two new _pages_ (**_.md_** files)
 
-Right now, the top of our site has a menu item for [This site], which isn't very useful.  We are going to add two new menu items that link to two new _pages_. These are [About] and [Book]. First we will create the pages with a little content.
+Up to this point, the top of our site has a menu item for [This site], which isn't very useful.  
+
+![simple_pelican-bootstrap3_theme.png]({filename}/images/simple_pelican-bootstrap3_theme.png)
+
+We are going to add two new menu items that link to two new _pages_. These are [About] and [Book]. First we will create a new **pages** folder in the **staticsite/content** directory
+
+```
+(staticsite) $ cd ~/Documents/staticsite/content
+(staticsite) $ mkdir pages
+(staticsite) $ cd pages
+(staticsite) $ pwd
+```
+Now we create two new **_.md_** files. Note that this file is different from the posts we've been writing. It has a very simple header, with just one line: Title. We don't need to put in a date or a slug in the header. The first file is for the **about** page
 
 **_about.md_**
 ```
-Title: Fourth Post - Part 4
-Date: 2017-11-30 12:40
-Modified: 2017-11-30 12:40
-Status: published
-Category: example posts
-Tags: python, pelican, blog, tables
-Slug: fourth-post
-Authors: Peter D. Kazarinoff
-Series: example-post-series
-Series_index: 4
-Summary: This is the fourth post of a series of posts. It will demonstrate tables.
+Title: About
 
-This is the fourth post of a series of posts. It will demonstrate tables.
+Why I started this blog
 
-| Column Header | Column Header |
-| --- | ---| 
-| Row 1 | Data 1 |
-| Row 2 | Data 2 |
+
+My background
+
+
+My family
+
+
+My hobbies
 ```
 
+The second page is for the book I am writing, Python Programming for Undergraduate Engineers. The text for the page is going to look something like:
+
+book.md
+```
+Title: Book
+
+### Coming in Fall 2018
+
+Book: **Python Programming for Undergraduate Engineers**
+
+This books is for undergraduate engineers learning programming. It is focused on using Python and programming to solve engineering problems. 
+
+### Chapter List
+
+* Preface
+* Chapter 1: Orientation
+* Chapter 2: Engineering 101
+* Chapter 3: Statics
+* Chapter 4: Circuits I
+* Chapter 5: Strengths
+* Chapter 6: Circuits II
+* Chapter 7: Dynamics
+* Chapter 8: Circuits III
+* Chapter 9: Capstone
+* Appendix
+
+### Pre-order will be available soon
+```
 After the pages are is saved, our **staticsite directory** should look something like this:
 
 ```
@@ -137,22 +171,19 @@ Pelican needs to know about the two "pages" files. Modify the **_pelicanconf.py_
 ```
 #pelicanconf.py
 
-CUSTOM_CSS = 'static/css/custom.css'
-CUSTOM_JS = 'static/js/custom.js'
+# Paths
+PATH = 'content'
+PAGE_PATHS = ['pages']
+ARTICLE_PATHS = ['posts']
 
-STATIC_PATHS = [ 'extra' ]
-
-EXTRA_PATH_METADATA = {
-    'extra/custom.css': {'path': 'static/css/custom.css'},
-    'extra/custom.js': {'path': 'static/js/custom.js'}
-}
+# Top menus
+DISPLAY_CATEGORIES_ON_MENU = False
+DISPLAY_PAGES_ON_MENU = True
 ```
-
-
 
 ### Build and preview the site with Pelican
 
-With the search plugin configured, a new posts containing a table written, plus our **_custom.js_** and **_custom.css_** in place, let's preview the site again.  We build the site and serve up the contents in the **output** folder with:
+With the two new page .md files created and the changes to **_pelicanconf.py_** in place, let's preview the site again.  We build the site and serve up the contents in the **output** folder with:
 
 ```
 make html

@@ -1,4 +1,4 @@
-Title: How I build this site - Part 1
+Title: How I Build This Site - Part 1
 Date: 2017-11-22 12:40
 Modified: 2017-11-22 12:40
 Status: published

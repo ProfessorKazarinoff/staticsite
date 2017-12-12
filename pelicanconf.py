@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 AUTHOR = 'Peter Kazarinoff'
-SITENAME = 'Python Programming for Undergraduate Engineers'
+SITENAME = 'Python for Undergraduate Engineers'
 SITEURL = ''
 TIMEZONE = 'America/Los_Angeles'
 DEFAULT_LANG = 'en'
@@ -124,7 +124,7 @@ ARCHIVES_SAVE_AS = 'archives.html'
 DISPLAY_ARCHIVE_ON_MENU = True
 YEAR_ARCHIVE_SAVE_AS = 'posts/{date:%Y}/index.html'
 MONTH_ARCHIVE_SAVE_AS = 'posts/{date:%Y}/{date:%b}/index.html'
-ABOUT_ME = 'I teach engineering at a communtiy college in the Pacific Northwest. ' \
+ABOUT_ME = 'I teach engineering at a community college in the Pacific Northwest. ' \
            'I am interested in programming and how to help students. ' \
            'Here I mostly blog about Python, MATLAB and how programing can be incorporated into engineering education.'
 #AVATAR = 'images/about_me_image.png'

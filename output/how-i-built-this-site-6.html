@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>How I Build This Site - Part 1 - Python for Undergraduate Engineers</title>
+    <title>How I Build This Site - Part 6 - Python for Undergraduate Engineers</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -174,22 +174,24 @@ init_mathjax();
 </script>
     <link href="./extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="./how-i-built-site-1.html">
+<link rel="canonical" href="./how-i-built-this-site-6.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
-        <meta name="keywords" content="python,pelican,staticsite" />
-        <meta name="description" content="This is the first part of a multi-part series on how I built this site. In this first post, I&#39;ll review the development environment, Python, virtual environments, installing the necessary packages and setting up git." />
+        <meta name="keywords" content="python,pelican,blog,git,github" />
+        <meta name="description" content="This is the sixth part in a multi-part series on how I built this site. In the last post, we put a search bar at the top right of each page and some css and javascript in order to make tables on the site look better. In this post we are going to add two new pages to our static site. An About page and a Book page. These new pages will have menu entries at the top of our site." />
 
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
-        <meta property="og:title" content="How I Build This Site - Part 1"/>
-        <meta property="og:url" content="./how-i-built-site-1.html"/>
-        <meta property="og:description" content="This is the first part of a multi-part series on how I built this site. In this first post, I&#39;ll review the development environment, Python, virtual environments, installing the necessary packages and setting up git."/>
-        <meta property="article:published_time" content="2017-11-22" />
-            <meta property="article:section" content="this site" />
+        <meta property="og:title" content="How I Build This Site - Part 6"/>
+        <meta property="og:url" content="./how-i-built-this-site-6.html"/>
+        <meta property="og:description" content="This is the sixth part in a multi-part series on how I built this site. In the last post, we put a search bar at the top right of each page and some css and javascript in order to make tables on the site look better. In this post we are going to add two new pages to our static site. An About page and a Book page. These new pages will have menu entries at the top of our site."/>
+        <meta property="article:published_time" content="2017-12-12" />
+            <meta property="article:section" content="This site" />
             <meta property="article:tag" content="python" />
             <meta property="article:tag" content="pelican" />
-            <meta property="article:tag" content="staticsite" />
+            <meta property="article:tag" content="blog" />
+            <meta property="article:tag" content="git" />
+            <meta property="article:tag" content="github" />
             <meta property="article:author" content="Peter D. Kazarinoff" />
 
 
@@ -209,7 +211,7 @@ init_mathjax();
 
 
         <link href="./feeds/this-site.atom.xml" type="application/atom+xml" rel="alternate"
-              title="Python for Undergraduate Engineers this site ATOM Feed"/>
+              title="Python for Undergraduate Engineers This site ATOM Feed"/>
 
 </head>
 <body>
@@ -254,17 +256,17 @@ Python for Undergraduate Engineers            </a>
         <div class="col-sm-9">
             <ol class="breadcrumb">
                 <li><a href="." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="./category/this-site.html" title="this site">this site</a></li>
-                <li class="active">How I Build This Site - Part 1</li>
+                <li><a href="./category/this-site.html" title="This site">This site</a></li>
+                <li class="active">How I Build This Site - Part 6</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="./how-i-built-site-1.html"
+                    <a href="./how-i-built-this-site-6.html"
                        rel="bookmark"
-                       title="Permalink to How I Build This Site - Part 1">
-                        How I Build This Site - Part 1
+                       title="Permalink to How I Build This Site - Part 6">
+                        How I Build This Site - Part 6
                     </a>
                 </h1>
             </header>
@@ -274,11 +276,11 @@ Python for Undergraduate Engineers            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2017-11-22T12:40:00-08:00"> Wed 22 November 2017</time>
+        <i class="fa fa-calendar"></i><time datetime="2017-12-12T18:50:00-08:00"> Tue 12 December 2017</time>
     </span>
 
             <span class="label label-default">Series</span>
-            Part 1 of How I built this site
+            Part 6 of How I built this site
 
 
 
@@ -288,137 +290,205 @@ Python for Undergraduate Engineers            </a>
         /
 	<a href="./tag/pelican.html">pelican</a>
         /
-	<a href="./tag/staticsite.html">staticsite</a>
+	<a href="./tag/blog.html">blog</a>
+        /
+	<a href="./tag/git.html">git</a>
+        /
+	<a href="./tag/github.html">github</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>This is the first part of a multi-part series on how I built this site. In this first post, we'll review the development environment, installing Python, virtual environments, installing the necessary packages and setting up git.</p>
-<h3>Setting up the development environment</h3>
-<p>What does that even mean? Before I started building this site I needed to make sure the necessary software, packages and settings were in place. This starts with setting up a <em>development environment</em>. To me, a development environment is simply the software on a computer that allows me to get work done. In this case the development environment means the tools necessary to build this site. A list of the tools and technologies are below:</p>
+                <p>This is the sixth part in a multi-part series on how I built this site. In the <a href="./how-i-built-this-site-5.html">last post</a>, we put a search bar at the top right of each page and some css and javascript in order to make tables on the site look better. In this post we are going to add two new <em>pages</em> to our static site: an <strong>About</strong> page and a <strong>Book</strong> page. These new pages will have menu entries at the top of our site.</p>
+<h3>Steps in this post</h3>
+<p>We are going to accomplish the following in this post. By the end of the post we are going to have a site with two new pages and two new menu items.</p>
 <ol>
-<li>An operating system: This website was built on machines running Windows 10, Mac OSX and Linux (Ubuntu 16.04 LTS).</li>
-<li>Python: Python 3.6 (legacy Python is version 2.7)</li>
-<li>Anaconda: The Anaconda Prompt and the Anaconda Python distribution</li>
-<li>Github.com and git: Four different computers were used build the site. Github is the central place where the most up to date version of the site is kept. </li>
-<li>Pelican: A static site generator written in Python. Pelican will build the site from a settings file (pelicanconf.py) and posts written in markdown (.md files)</li>
-<li>Markdown: the posts on this website are written in markdown, or .md format</li>
-<li>fabric and make: fabric is a python package to automate builds and tasks. Fabric works on Windows. Make is used on MacOSX and Linux to build the site and serve up a demo version of the site.</li>
+<li>Activate our <code>staticsite</code> virtual environment</li>
+<li>Pull the most recent version of our site from github</li>
+<li>Add two new <em>pages</em>  (<strong><em>.md</em></strong> files) to our <strong>content</strong> folder</li>
+<li>Modify the <strong><em>pelicanconf.py</em></strong> file to use the new pages</li>
+<li>Build and preview the site with Pelican</li>
+<li>Add, commit and push the changes to github</li>
 </ol>
-<h3>Installing Python (the Anaconda distribution)</h3>
-<p>I highly recommend installing the Anaconda distribution of Python. I have the Anaconda distribution installed on all the computers I used to build this site:</p>
-<ul>
-<li>
-<p>Windows 10 Desktop at work</p>
-</li>
-<li>
-<p>Mac OSX laptop at work</p>
-</li>
-<li>
-<p>Mac OSX laptop at home</p>
-</li>
-<li>
-<p>Linux (Ubuntu 16.04 LTS) Desktop at home. </p>
-</li>
-</ul>
-<p>An advantage of using the Anaconda distribution of Python is that each of these four computers will have the same stable version of Python. </p>
-<p>Download the latest release at:</p>
-<p><a href="https://www.anaconda.com/download/">https://www.anaconda.com/download</a></p>
-<p>The Anaconda distribution of Python comes with an up to date and stable version of Python (Python 3.6) and the <strong>Anaconda Prompt</strong>. The <strong>Anaconda Prompt</strong> is useful because it allows me to run shell commands on my Windows 10 machine at work. These are the same commands I would run in the terminal on my Mac OSX or Linux boxes. The <strong>Anaconda Prompt</strong> makes creating and logging into virtual environments easy and allows me to use git on Windows 10. Follow this post to <a href="./installing-anaconda-on-windows.html">install the Anaconda on Windows 10.</a></p>
-<h3>Create a new virtual environment</h3>
-<p>Before downloading Pelican, we should create a new virtual environment. The same virtual environment on each of the computers I use means the same packages are installed on each computer. To create a new virtual environment, open up the Anaconda Prompt (on Windows) or a terminal (on Linux or Mac OSX). Let's call our new virtual environment <strong><em>staticsite</em></strong>. The <code>conda create</code> command creates the environment and the <code>-n staticsite</code> flag adds the name.</p>
-<div class="highlight"><pre><span></span>$ conda create -n staticsite
+<p>Let's get started.</p>
+<h3>Activate our virtual environment and pull the most recent version of the site down from github</h3>
+<div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/Documents/staticsite
+$ <span class="nb">source</span> activate staticsite
+<span class="o">(</span>staticsite<span class="o">)</span> $ git pull origin master
 </pre></div>
 
 
-<p>This creates a new virtual environment called <strong><em>staticsite</em></strong>. Becuase I use four different computers to work on the site, I need to make sure the same Python packages are installed on each computer. Using a virtual environment ensures this consistency. Once the virtual environment <strong><em>staticsite</em></strong> is created, we need to activate it and start using it with the command:</p>
-<p>On Mac OSX or Linux</p>
-<div class="highlight"><pre><span></span>$ <span class="nb">source</span> activate staticsite
-</pre></div>
-
-
-<p>or on Windows 10</p>
-<div class="highlight"><pre><span></span>activate staticsite
-</pre></div>
-
-
-<p>We should now see <code>(staticsite)</code> before the terminal prompt. This means we are using the <code>(staticsite)</code> virtual environment.</p>
-<h3>Install Pelican</h3>
-<p>Time for some fun! Installing Pelican. Pelican is a Python package that creates static websites. Static sites are websites that only have html, css and javascript. A static site is not connected to a database and there is no code run on the server side. The server just serves static files (html, css, javascript) to the client when the client requests them. In order to install Pelican, we need to install <code>pip</code> first. On my Linux and Mac OSX machines, the command line tool <strong>git</strong> is already installed. If using Windows 10, <strong>git</strong> may not be available. To keep the development environments the same when using Windows 10, you will also need <code>conda</code> to <code>install git</code>.</p>
-<div class="highlight"><pre><span></span>(staticsite)$ conda install pip
-(staticsite)$ conda install git
-</pre></div>
-
-
-<p>Once <code>pip</code> is installed, we can install <code>pelican</code> and <code>markdown</code>. These are two of the core pieces we need to build the website. <code>fabric3</code> is also installed because we'll use it to build and demo the site on Windows. <code>bs4</code> is the beautiful soup package. Some of the pelican plugins to be installed later will depend on <code>bs4</code> to function properly.</p>
-<div class="highlight"><pre><span></span>(staticsite)$ pip install pelican
-(staticsite)$ pip install markdown
-(staticsite)$ pip install fabric3
-(staticsite)$ pip install bs4
-</pre></div>
-
-
-<h3>Create a github account and create a new repository</h3>
-<p>While I was making the site, it became clear that I had to keep track of <strong><em>version control</em></strong>. I would make some changes to the site on my computer at work, then come home and make more changes to the site. Bringing a USB thumb drive back and forth was hard. I would forget the thumb drive at work or home and then could not edit the site. Or worse, I'd edit the site in both places and try to remember which changes were made where and which was the best version. Ah!</p>
-<p>The solution is to use <strong>git</strong> and <strong>github</strong>. Git is a command line utility that assists with version control. Using git means changes made to files on one computer can be synced with the same files on another computer. Github.com is the where the site content and settings are remotely stored and integrates easily with git. </p>
-<p>To sign up for a github.com account go here:</p>
-<p><a href="https://github.com/join">https://github.com/join</a></p>
-<p>The account activation screen looks something like:</p>
-<p><img alt="Github.com Join" src="../images/join_github.png"></p>
-<p>Once the account is set up, log in and create a new repository. Use the + button on the upper right-hand menu:</p>
-<p><img alt="new github repo" src="../images/new_github_repo.png"></p>
-<p>I named the new repository: <strong>staticsite</strong> and included both a <strong>README.md</strong> and a <strong>GNU General Public License v3.0</strong>. </p>
-<p><img alt="new github repo details" src="../images/create_a_new_repo_details.png"></p>
-<h3>Make a directory for the site and link it to github</h3>
-<p>Once the github repo (short for repository, basically a folder with files on github.com) is set up, the last step to complete the development environment is to link the remote repo on github to the local version of the site on my computer. </p>
-<p>The local version is in a folder call <code>staticsite</code> in the <code>Documents</code> folder. The <code>staticsite</code> folder will contain all the files used to build the site and the output files created by Pelican that <em>are</em> the site.</p>
-<div class="highlight"><pre><span></span>(staticsite)$ cd ~
-(staticsite)$ cd Documents
-(staticsite)$ mkdir staticsite
-(staticsite)$ cd staticsite
-</pre></div>
-
-
-<p>We can set up git to keep the contents of the local staticsite folder in sync with the contents of the staticsite repo on github.com. The command <code>git init</code> will initiate or create the local repository. The command <code>git add origin</code> followed by the url of our github repo links the folder to the repo on github. Note the web address ends in <code>.git</code>. If you are following along and want to build your own static site, make sure to change <code>username</code> to your github username and <code>reponame</code> to your github repo name.</p>
-<div class="highlight"><pre><span></span>git init
-git remote add origin https://github.com/username/reponame.git
-</pre></div>
-
-
-<p>Now for the git magic. On github.com we have a README.md file and a licence. But the local staticsite folder on the computer is empty. So the two folders aren't in sync. To make the contents of each folder identical, we <strong><em>pull</em></strong> the files from github onto the local computer. A <strong><em>pull</em></strong> "pulls" or gets the files from github and copies them to the local staticsite folder.</p>
-<div class="highlight"><pre><span></span>(staticsite)$ git pull origin master
-</pre></div>
-
-
-<p>If you look in the local staticsite folder you should now see the following two files:</p>
-<div class="highlight"><pre><span></span>staticsite
+<p>The <strong>staticsite</strong> directory should look something like this:</p>
+<div class="highlight"><pre><span></span>staticsite/
 ├── LICENSE
+├── Makefile
 ├── README.md
+├── __pycache__
+├── content
+│   ├── posts
+│       ├── first_post.md
+│       ├── second_post.md
+│       ├── third_post.md
+│       ├── fourth_post.md
+│   ├── code
+│       ├── sample_notebook.ipynb
+│   ├── extra
+│       ├── custom.css
+│       ├── custom.js
+├── develop_server.sh
+├── fabfile.py
+├── output
+├── pelican-plugins
+│   ├── i18n_subsites
+│   ├── liquid_tags
+│   ├── pelican-ipynb
+│   ├── tipue_search
+├── pelican-themes
+│   ├── pelican-bootstrap3
+├── pelican.pid
+├── pelicanconf.py
+├── publishconf.py
+└── srv.pid
 </pre></div>
 
 
-<p>The development environment is set! On to building the site!</p>
-<p>Now each time I work on the site, I navigate to the <strong>staticsite</strong> folder on whatever computer I am using. Before any editing, I key in the command:</p>
-<div class="highlight"><pre><span></span>git pull origin master
+<h3>Create two new <em>pages</em> (<strong><em>.md</em></strong> files)</h3>
+<p>Up to this point, the top of our site has a menu item for [This site], which isn't very useful.  </p>
+<p><img alt="pelican-bootstrap3_this_site_menu.png" src="./images/pelican-bootstrap3_this_site_menu.png"></p>
+<p>We are going to add two new menu items that link to two new <em>pages</em>. These new menu items will be [About] and [Book]. First we'll create a <strong>pages</strong> folder in the <strong>staticsite/content</strong> directory</p>
+<div class="highlight"><pre><span></span>(staticsite) $ cd ~/Documents/staticsite/content
+(staticsite) $ mkdir pages
+(staticsite) $ cd pages
+(staticsite) $ pwd
 </pre></div>
 
 
-<p>The after the <em>pull</em> the staticsite folder is up to date with the newest version of all the files on github. Then I go about editing files, writing posts, changing settings, etc. After the edits, the last thing I type before shutting down the computer for the day is:</p>
-<div class="highlight"><pre><span></span>git push origin master
+<p>Now we create two new <strong><em>.md</em></strong> files. Note that the header in this file is different from the other posts we've written. It has a very simple header; just one line: Title. We don't need to put in a date or a slug in the header of <em>pages</em>, just in the header of <em>posts</em>. The first markdown file is the <strong>about</strong> page</p>
+<p><strong><em>about.md</em></strong></p>
+<div class="highlight"><pre><span></span><span class="n">Title</span><span class="o">:</span> <span class="n">About</span>
+
+<span class="n">Why</span> <span class="n">I</span> <span class="n">started</span> <span class="k">this</span> <span class="n">blog</span>
+
+
+<span class="n">My</span> <span class="n">background</span>
+
+
+<span class="n">My</span> <span class="n">family</span>
+
+
+<span class="n">My</span> <span class="n">hobbies</span>
 </pre></div>
 
 
-<p>This ensures all of my computers and the github repo contain the same version of the site.</p>
-<p>In the <a href="./how-i-built-this-site-2.html">next post</a> we will In this post, we will use the <code>pelican-quickstart</code> command to get the blog off the ground, write our first post and view a demo version of the site.</p>
+<p>The second page is for the book I am writing, <strong>Python Programming for Undergraduate Engineers</strong>. The text for the page is going to look something like:</p>
+<p>book.md</p>
+<div class="highlight"><pre><span></span><span class="n">Title</span><span class="o">:</span> <span class="n">Book</span>
+
+<span class="err">###</span> <span class="n">Coming</span> <span class="k">in</span> <span class="n">Fall</span> <span class="mi">2018</span>
+
+<span class="n">Book</span><span class="o">:</span> <span class="o">**</span><span class="n">Python</span> <span class="n">Programming</span> <span class="k">for</span> <span class="n">Undergraduate</span> <span class="n">Engineers</span><span class="o">**</span>
+
+<span class="n">This</span> <span class="n">books</span> <span class="k">is</span> <span class="k">for</span> <span class="n">undergraduate</span> <span class="n">engineers</span> <span class="n">learning</span> <span class="n">programming</span><span class="o">.</span> <span class="n">It</span> <span class="k">is</span> <span class="n">focused</span> <span class="n">on</span> <span class="n">using</span> <span class="n">Python</span> <span class="n">and</span> <span class="n">programming</span> <span class="n">to</span> <span class="n">solve</span> <span class="n">engineering</span> <span class="n">problems</span><span class="o">.</span> 
+
+<span class="err">###</span> <span class="n">Chapter</span> <span class="n">List</span>
+
+<span class="o">*</span> <span class="n">Preface</span>
+<span class="o">*</span> <span class="n">Chapter</span> <span class="mi">1</span><span class="o">:</span> <span class="n">Orientation</span>
+<span class="o">*</span> <span class="n">Chapter</span> <span class="mi">2</span><span class="o">:</span> <span class="n">Engineering</span> <span class="mi">101</span>
+<span class="o">*</span> <span class="n">Chapter</span> <span class="mi">3</span><span class="o">:</span> <span class="n">Statics</span>
+<span class="o">*</span> <span class="n">Chapter</span> <span class="mi">4</span><span class="o">:</span> <span class="n">Circuits</span> <span class="n">I</span>
+<span class="o">*</span> <span class="n">Chapter</span> <span class="mi">5</span><span class="o">:</span> <span class="n">Strengths</span>
+<span class="o">*</span> <span class="n">Chapter</span> <span class="mi">6</span><span class="o">:</span> <span class="n">Circuits</span> <span class="n">II</span>
+<span class="o">*</span> <span class="n">Chapter</span> <span class="mi">7</span><span class="o">:</span> <span class="n">Dynamics</span>
+<span class="o">*</span> <span class="n">Chapter</span> <span class="mi">8</span><span class="o">:</span> <span class="n">Circuits</span> <span class="n">III</span>
+<span class="o">*</span> <span class="n">Chapter</span> <span class="mi">9</span><span class="o">:</span> <span class="n">Capstone</span>
+<span class="o">*</span> <span class="n">Appendix</span>
+
+<span class="err">###</span> <span class="n">Pre</span><span class="o">-</span><span class="n">order</span> <span class="n">will</span> <span class="n">be</span> <span class="n">available</span> <span class="n">soon</span>
+</pre></div>
+
+
+<p>After the pages are saved, our <strong>staticsite directory</strong> should look something like this:</p>
+<div class="highlight"><pre><span></span>staticsite/
+├── LICENSE
+├── Makefile
+├── README.md
+├── __pycache__
+├── content
+│   ├── pages
+│       ├── about.md
+│       ├── book.md
+│   ├── posts
+│       ├── first_post.md
+│       ├── second_post.md
+│       ├── third_post.md
+│       ├── fourth_post.md
+│   ├── code
+│       ├── sample_notebook.ipynb
+│   ├── extra
+│       ├── custom.css
+│       ├── custom.js
+├── develop_server.sh
+├── fabfile.py
+├── output
+├── pelican-plugins
+│   ├── i18n_subsites
+│   ├── liquid_tags
+│   ├── pelican-ipynb
+│   ├── tipue_search
+├── pelican-themes
+│   ├── pelican-bootstrap3
+├── pelican.pid
+├── pelicanconf.py
+├── publishconf.py
+└── srv.pid
+</pre></div>
+
+
+<h3>Modify <strong><em>pelicanconf.py</em></strong> to include the two new pages.</h3>
+<p>Pelican needs to know about the two "pages" files. Modify the <strong><em>pelicanconf.py</em></strong> file to include the lines:</p>
+<div class="highlight"><pre><span></span>#pelicanconf.py
+
+# Paths
+PATH = &#39;content&#39;
+PAGE_PATHS = [&#39;pages&#39;]
+ARTICLE_PATHS = [&#39;posts&#39;]
+
+# Top menus
+DISPLAY_CATEGORIES_ON_MENU = False
+DISPLAY_PAGES_ON_MENU = True
+</pre></div>
+
+
+<h3>Build and preview the site with Pelican</h3>
+<p>With the two new page <strong><em>.md</em></strong> files created and the changes to <strong><em>pelicanconf.py</em></strong> in place, let's preview the site again.  We build the site and serve up the contents in the <strong>output</strong> folder with:</p>
+<div class="highlight"><pre><span></span>make html
+make serve
+</pre></div>
+
+
+<p>To view the site, point a browser to <em>localhost:8000</em></p>
+<p><a href="localhost:8000">localhost:8000</a></p>
+<p>Use <code>ctrl-c</code> to stop the server.</p>
+<h3>Add and commit the changes then push them to github</h3>
+<p>When we are done editing the the site, we add <strong>all of the changes</strong> to our local git repo using <code>git add .</code>. Commit those changes with <code>git commit</code> and add the <code>-m "added about and book pages"</code> flag to supply a commit message (make sure to use double quotes "commit message"). Push the changes up to github with <code>git push origin master</code></p>
+<div class="highlight"><pre><span></span>git add .
+git commit -m &quot;added about and book pages&quot;
+git push origin master
+</pre></div>
+
+
+<p>In the next post we will publish the site to github pages. Once the site is published, it will be live and public. Available to any one with an internet connection. An actual, real, published, live static site!</p>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">
-    <h4>This article is the 1 of the How I built this site series</h4>
-       <h5>Next articles</h5>
+    <h4>This article is the 6 of the How I built this site series</h4>
+       <h5>Previous articles</h5>
        <ul>
+           <li><a href="./how-i-built-this-site-1.html">How I Build This Site - Part 1</a></li>
            <li><a href="./how-i-built-this-site-2.html">How I Build This Site - Part 2</a></li>
            <li><a href="./how-i-built-this-site-3.html">How I Build This Site - Part 3</a></li>
-           <li><a href="./how-i-built-site-4.html">How I Build This Site - Part 4</a></li>
-           <li><a href="./how-i-built-site-5.html">How I Build This Site - Part 5</a></li>
+           <li><a href="./how-i-built-this-site-4.html">How I Build This Site - Part 4</a></li>
+           <li><a href="./how-i-built-this-site-5.html">How I Build This Site - Part 5</a></li>
        </ul>
 </section>
         </article>
@@ -443,9 +513,9 @@ git remote add origin https://github.com/username/reponame.git
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
-    <li class="list-group-item"><a href="./how-i-built-site-5.html">How I Build This Site - Part 5</a></li>
-    <li class="list-group-item"><a href="./how-i-built-site-4.html">How I Build This Site - Part 4</a></li>
-    <li class="list-group-item"><a href="./how-i-built-this-site-3.html">How I Build This Site - Part 3</a></li>
+    <li class="list-group-item"><a href="./how-i-built-this-site-6.html">How I Build This Site - Part 6</a></li>
+    <li class="list-group-item"><a href="./how-i-built-this-site-5.html">How I Build This Site - Part 5</a></li>
+    <li class="list-group-item"><a href="./how-i-built-this-site-4.html">How I Build This Site - Part 4</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
@@ -454,25 +524,28 @@ git remote add origin https://github.com/username/reponame.git
 <li class="list-group-item">
   <a href="./"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
   <ul class="list-group list-inline tagcloud" id="tags">
-    <li class="list-group-item tag-2">
+    <li class="list-group-item tag-3">
       <a href="./tag/anaconda.html">anaconda</a>
     </li>
     <li class="list-group-item tag-1">
       <a href="./tag/blog.html">blog</a>
     </li>
-    <li class="list-group-item tag-2">
+    <li class="list-group-item tag-3">
       <a href="./tag/conda.html">conda</a>
     </li>
     <li class="list-group-item tag-4">
       <a href="./tag/css.html">css</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="./tag/javascript.html">javascript</a>
+      <a href="./tag/git.html">git</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="./tag/jupyter.html">jupyter</a>
+      <a href="./tag/github.html">github</a>
     </li>
-    <li class="list-group-item tag-2">
+    <li class="list-group-item tag-4">
+      <a href="./tag/javascript.html">javascript</a>
+    </li>
+    <li class="list-group-item tag-3">
       <a href="./tag/markdown.html">markdown</a>
     </li>
     <li class="list-group-item tag-1">
@@ -480,9 +553,6 @@ git remote add origin https://github.com/username/reponame.git
     </li>
     <li class="list-group-item tag-1">
       <a href="./tag/python.html">python</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="./tag/staticsite.html">staticsite</a>
     </li>
   </ul>
 </li>
@@ -493,8 +563,8 @@ git remote add origin https://github.com/username/reponame.git
   <h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Series</span></h4>
   <ul class="list-group">
     <li class="list-group-item">
-      <h5>Next article</h5>
-      <a href="./how-i-built-this-site-2.html">How I Build This Site - Part 2</a>
+      <h5></i>Previous article</h5>
+      <a href="./how-i-built-this-site-5.html">How I Build This Site - Part 5</a>
     </li>
   </ul>
 </li>

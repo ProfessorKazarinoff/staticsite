@@ -1,5 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Python for Undergraduate Engineers</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="https://professorkazarinoff.github.io/staticsite/feeds/all.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2017-12-09T18:50:00-08:00</updated><entry><title>How I Build This Site - Part 5</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-site-5.html" rel="alternate"></link><published>2017-12-09T18:50:00-08:00</published><updated>2017-12-09T18:50:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-12-09:/staticsite/how-i-built-site-5.html</id><summary type="html">&lt;p&gt;This is the fifth part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-site-4.html"&gt;last post&lt;/a&gt;, we installed a couple of plugins to add extra functionality to the site. These plugins enabled embedded jupyter notebooks and posts in a series. In this post we'll put a search bar at the top right of each page and add some css and javascript in order to make tables on the site look better.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the fifth part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-site-4.html"&gt;last post&lt;/a&gt;, we installed a couple of plugins to add extra functionality to the site. These plugins enabled embedded jupyter notebooks and posts in a series. In this post we'll put a search bar at the top right of each page and add some css and javascript in order to make tables on the site look better.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Python for Undergraduate Engineers</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="https://professorkazarinoff.github.io/staticsite/feeds/all.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2017-12-12T18:50:00-08:00</updated><entry><title>How I Build This Site - Part 6</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-6.html" rel="alternate"></link><published>2017-12-12T18:50:00-08:00</published><updated>2017-12-12T18:50:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-12-12:/staticsite/how-i-built-this-site-6.html</id><summary type="html">&lt;p&gt;This is the sixth part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-5.html"&gt;last post&lt;/a&gt;, we put a search bar at the top right of each page and some css and javascript in order to make tables on the site look better. In this post we are going to add two new &lt;em&gt;pages&lt;/em&gt; to our static site. An &lt;strong&gt;About&lt;/strong&gt; page and a &lt;strong&gt;Book&lt;/strong&gt; page. These new pages will have menu entries at the top of our site.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the sixth part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-5.html"&gt;last post&lt;/a&gt;, we put a search bar at the top right of each page and some css and javascript in order to make tables on the site look better. In this post we are going to add two new &lt;em&gt;pages&lt;/em&gt; to our static site: an &lt;strong&gt;About&lt;/strong&gt; page and a &lt;strong&gt;Book&lt;/strong&gt; page. These new pages will have menu entries at the top of our site.&lt;/p&gt;
+&lt;h3&gt;Steps in this post&lt;/h3&gt;
+&lt;p&gt;We are going to accomplish the following in this post. By the end of the post we are going to have a site with two new pages and two new menu items.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Activate our &lt;code&gt;staticsite&lt;/code&gt; virtual environment&lt;/li&gt;
+&lt;li&gt;Pull the most recent version of our site from github&lt;/li&gt;
+&lt;li&gt;Add two new &lt;em&gt;pages&lt;/em&gt;  (&lt;strong&gt;&lt;em&gt;.md&lt;/em&gt;&lt;/strong&gt; files) to our &lt;strong&gt;content&lt;/strong&gt; folder&lt;/li&gt;
+&lt;li&gt;Modify the &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; file to use the new pages&lt;/li&gt;
+&lt;li&gt;Build and preview the site with Pelican&lt;/li&gt;
+&lt;li&gt;Add, commit and push the changes to github&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Let's get started.&lt;/p&gt;
+&lt;h3&gt;Activate our virtual environment and pull the most recent version of the site down from github&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;cd&lt;/span&gt; ~/Documents/staticsite
+$ &lt;span class="nb"&gt;source&lt;/span&gt; activate staticsite
+&lt;span class="o"&gt;(&lt;/span&gt;staticsite&lt;span class="o"&gt;)&lt;/span&gt; $ git pull origin master
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The &lt;strong&gt;staticsite&lt;/strong&gt; directory should look something like this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;staticsite/
+├── LICENSE
+├── Makefile
+├── README.md
+├── __pycache__
+├── content
+│   ├── posts
+│       ├── first_post.md
+│       ├── second_post.md
+│       ├── third_post.md
+│       ├── fourth_post.md
+│   ├── code
+│       ├── sample_notebook.ipynb
+│   ├── extra
+│       ├── custom.css
+│       ├── custom.js
+├── develop_server.sh
+├── fabfile.py
+├── output
+├── pelican-plugins
+│   ├── i18n_subsites
+│   ├── liquid_tags
+│   ├── pelican-ipynb
+│   ├── tipue_search
+├── pelican-themes
+│   ├── pelican-bootstrap3
+├── pelican.pid
+├── pelicanconf.py
+├── publishconf.py
+└── srv.pid
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Create two new &lt;em&gt;pages&lt;/em&gt; (&lt;strong&gt;&lt;em&gt;.md&lt;/em&gt;&lt;/strong&gt; files)&lt;/h3&gt;
+&lt;p&gt;Up to this point, the top of our site has a menu item for [This site], which isn't very useful.  &lt;/p&gt;
+&lt;p&gt;&lt;img alt="pelican-bootstrap3_this_site_menu.png" src="https://professorkazarinoff.github.io/staticsite/images/pelican-bootstrap3_this_site_menu.png"&gt;&lt;/p&gt;
+&lt;p&gt;We are going to add two new menu items that link to two new &lt;em&gt;pages&lt;/em&gt;. These new menu items will be [About] and [Book]. First we'll create a &lt;strong&gt;pages&lt;/strong&gt; folder in the &lt;strong&gt;staticsite/content&lt;/strong&gt; directory&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(staticsite) $ cd ~/Documents/staticsite/content
+(staticsite) $ mkdir pages
+(staticsite) $ cd pages
+(staticsite) $ pwd
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now we create two new &lt;strong&gt;&lt;em&gt;.md&lt;/em&gt;&lt;/strong&gt; files. Note that the header in this file is different from the other posts we've written. It has a very simple header; just one line: Title. We don't need to put in a date or a slug in the header of &lt;em&gt;pages&lt;/em&gt;, just in the header of &lt;em&gt;posts&lt;/em&gt;. The first markdown file is the &lt;strong&gt;about&lt;/strong&gt; page&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;about.md&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;Title&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;About&lt;/span&gt;
+
+&lt;span class="n"&gt;Why&lt;/span&gt; &lt;span class="n"&gt;I&lt;/span&gt; &lt;span class="n"&gt;started&lt;/span&gt; &lt;span class="k"&gt;this&lt;/span&gt; &lt;span class="n"&gt;blog&lt;/span&gt;
+
+
+&lt;span class="n"&gt;My&lt;/span&gt; &lt;span class="n"&gt;background&lt;/span&gt;
+
+
+&lt;span class="n"&gt;My&lt;/span&gt; &lt;span class="n"&gt;family&lt;/span&gt;
+
+
+&lt;span class="n"&gt;My&lt;/span&gt; &lt;span class="n"&gt;hobbies&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The second page is for the book I am writing, &lt;strong&gt;Python Programming for Undergraduate Engineers&lt;/strong&gt;. The text for the page is going to look something like:&lt;/p&gt;
+&lt;p&gt;book.md&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;Title&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Book&lt;/span&gt;
+
+&lt;span class="err"&gt;###&lt;/span&gt; &lt;span class="n"&gt;Coming&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="n"&gt;Fall&lt;/span&gt; &lt;span class="mi"&gt;2018&lt;/span&gt;
+
+&lt;span class="n"&gt;Book&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;Python&lt;/span&gt; &lt;span class="n"&gt;Programming&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;Undergraduate&lt;/span&gt; &lt;span class="n"&gt;Engineers&lt;/span&gt;&lt;span class="o"&gt;**&lt;/span&gt;
+
+&lt;span class="n"&gt;This&lt;/span&gt; &lt;span class="n"&gt;books&lt;/span&gt; &lt;span class="k"&gt;is&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;undergraduate&lt;/span&gt; &lt;span class="n"&gt;engineers&lt;/span&gt; &lt;span class="n"&gt;learning&lt;/span&gt; &lt;span class="n"&gt;programming&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="n"&gt;It&lt;/span&gt; &lt;span class="k"&gt;is&lt;/span&gt; &lt;span class="n"&gt;focused&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt; &lt;span class="n"&gt;using&lt;/span&gt; &lt;span class="n"&gt;Python&lt;/span&gt; &lt;span class="n"&gt;and&lt;/span&gt; &lt;span class="n"&gt;programming&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;solve&lt;/span&gt; &lt;span class="n"&gt;engineering&lt;/span&gt; &lt;span class="n"&gt;problems&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt; 
+
+&lt;span class="err"&gt;###&lt;/span&gt; &lt;span class="n"&gt;Chapter&lt;/span&gt; &lt;span class="n"&gt;List&lt;/span&gt;
+
+&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;Preface&lt;/span&gt;
+&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;Chapter&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Orientation&lt;/span&gt;
+&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;Chapter&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Engineering&lt;/span&gt; &lt;span class="mi"&gt;101&lt;/span&gt;
+&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;Chapter&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Statics&lt;/span&gt;
+&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;Chapter&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Circuits&lt;/span&gt; &lt;span class="n"&gt;I&lt;/span&gt;
+&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;Chapter&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Strengths&lt;/span&gt;
+&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;Chapter&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Circuits&lt;/span&gt; &lt;span class="n"&gt;II&lt;/span&gt;
+&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;Chapter&lt;/span&gt; &lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Dynamics&lt;/span&gt;
+&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;Chapter&lt;/span&gt; &lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Circuits&lt;/span&gt; &lt;span class="n"&gt;III&lt;/span&gt;
+&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;Chapter&lt;/span&gt; &lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Capstone&lt;/span&gt;
+&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;Appendix&lt;/span&gt;
+
+&lt;span class="err"&gt;###&lt;/span&gt; &lt;span class="n"&gt;Pre&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;order&lt;/span&gt; &lt;span class="n"&gt;will&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;available&lt;/span&gt; &lt;span class="n"&gt;soon&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;After the pages are saved, our &lt;strong&gt;staticsite directory&lt;/strong&gt; should look something like this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;staticsite/
+├── LICENSE
+├── Makefile
+├── README.md
+├── __pycache__
+├── content
+│   ├── pages
+│       ├── about.md
+│       ├── book.md
+│   ├── posts
+│       ├── first_post.md
+│       ├── second_post.md
+│       ├── third_post.md
+│       ├── fourth_post.md
+│   ├── code
+│       ├── sample_notebook.ipynb
+│   ├── extra
+│       ├── custom.css
+│       ├── custom.js
+├── develop_server.sh
+├── fabfile.py
+├── output
+├── pelican-plugins
+│   ├── i18n_subsites
+│   ├── liquid_tags
+│   ├── pelican-ipynb
+│   ├── tipue_search
+├── pelican-themes
+│   ├── pelican-bootstrap3
+├── pelican.pid
+├── pelicanconf.py
+├── publishconf.py
+└── srv.pid
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Modify &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; to include the two new pages.&lt;/h3&gt;
+&lt;p&gt;Pelican needs to know about the two "pages" files. Modify the &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; file to include the lines:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;#pelicanconf.py
+
+# Paths
+PATH = &amp;#39;content&amp;#39;
+PAGE_PATHS = [&amp;#39;pages&amp;#39;]
+ARTICLE_PATHS = [&amp;#39;posts&amp;#39;]
+
+# Top menus
+DISPLAY_CATEGORIES_ON_MENU = False
+DISPLAY_PAGES_ON_MENU = True
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Build and preview the site with Pelican&lt;/h3&gt;
+&lt;p&gt;With the two new page &lt;strong&gt;&lt;em&gt;.md&lt;/em&gt;&lt;/strong&gt; files created and the changes to &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; in place, let's preview the site again.  We build the site and serve up the contents in the &lt;strong&gt;output&lt;/strong&gt; folder with:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;make html
+make serve
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;To view the site, point a browser to &lt;em&gt;localhost:8000&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="localhost:8000"&gt;localhost:8000&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Use &lt;code&gt;ctrl-c&lt;/code&gt; to stop the server.&lt;/p&gt;
+&lt;h3&gt;Add and commit the changes then push them to github&lt;/h3&gt;
+&lt;p&gt;When we are done editing the the site, we add &lt;strong&gt;all of the changes&lt;/strong&gt; to our local git repo using &lt;code&gt;git add .&lt;/code&gt;. Commit those changes with &lt;code&gt;git commit&lt;/code&gt; and add the &lt;code&gt;-m "added about and book pages"&lt;/code&gt; flag to supply a commit message (make sure to use double quotes "commit message"). Push the changes up to github with &lt;code&gt;git push origin master&lt;/code&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git add .
+git commit -m &amp;quot;added about and book pages&amp;quot;
+git push origin master
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;In the next post we will publish the site to github pages. Once the site is published, it will be live and public. Available to any one with an internet connection. An actual, real, published, live static site!&lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="blog"></category><category term="git"></category><category term="github"></category></entry><entry><title>How I Build This Site - Part 5</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-5.html" rel="alternate"></link><published>2017-12-09T18:50:00-08:00</published><updated>2017-12-09T18:50:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-12-09:/staticsite/how-i-built-this-site-5.html</id><summary type="html">&lt;p&gt;This is the fifth part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-4.html"&gt;last post&lt;/a&gt;, we installed a couple of plugins to add extra functionality to the site. These plugins enabled embedded jupyter notebooks and posts in a series. In this post we'll put a search bar at the top right of each page and add some css and javascript in order to make tables on the site look better.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the fifth part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-4.html"&gt;last post&lt;/a&gt;, we installed a couple of plugins to add extra functionality to the site. These plugins enabled embedded jupyter notebooks and posts in a series. In this post we'll put a search bar at the top right of each page and add some css and javascript in order to make tables on the site look better.&lt;/p&gt;
 &lt;h3&gt;Steps in this post&lt;/h3&gt;
 &lt;p&gt;We are going to accomplish the following in this post. By the end of the post we are going to have a site with a working search bar and nice looking tables.&lt;/p&gt;
 &lt;ol&gt;
@@ -224,7 +403,7 @@ git push origin master
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;In the next post we will add two new menu items across the top of our site. These new menu items will link to an [About] page and a [Book] page.&lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="blog"></category><category term="css"></category><category term="javascript"></category></entry><entry><title>How I Build This Site - Part 4</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-site-4.html" rel="alternate"></link><published>2017-12-08T18:50:00-08:00</published><updated>2017-12-08T18:50:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-12-08:/staticsite/how-i-built-site-4.html</id><summary type="html">&lt;p&gt;This is the fourth part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-3.html"&gt;last post&lt;/a&gt;, we installed the pelican-bootstrap3 theme and made our site mobile responsive. Now the site looks good on all devices.  In this post we are going to install a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of post that are linked together, create a working search bar, add youtube videos to posts, view LaTeX math and add embedded jupyter notebooks in posts.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the fourth part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-3.html"&gt;last post&lt;/a&gt;, we installed the pelican-bootstrap3 theme and made our site mobile responsive. Now the site looks good on all devices.  In this post we are going to install a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of post that are linked together, create a working search bar, add youtube videos to posts, view LaTeX math and add embedded jupyter notebooks in posts.&lt;/p&gt;
+&lt;p&gt;In the next post we will add two new menu items across the top of our site. These new menu items will link to an [About] page and a [Book] page.&lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="blog"></category><category term="css"></category><category term="javascript"></category></entry><entry><title>How I Build This Site - Part 4</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-4.html" rel="alternate"></link><published>2017-12-08T18:50:00-08:00</published><updated>2017-12-08T18:50:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-12-08:/staticsite/how-i-built-this-site-4.html</id><summary type="html">&lt;p&gt;This is the fourth part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-3.html"&gt;last post&lt;/a&gt;, we installed the pelican-bootstrap3 theme and made our site mobile responsive. Now the site looks good on all devices.  In this post we are going to install a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of post that are linked together, create a working search bar, add youtube videos to posts, view LaTeX math and add embedded jupyter notebooks in posts.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the fourth part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-3.html"&gt;last post&lt;/a&gt;, we installed the pelican-bootstrap3 theme and made our site mobile responsive. Now the site looks good on all devices.  In this post we are going to install a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of post that are linked together, create a working search bar, add youtube videos to posts, view LaTeX math and add embedded jupyter notebooks in posts.&lt;/p&gt;
 &lt;h3&gt;Steps in this post&lt;/h3&gt;
 &lt;p&gt;We are going to accomplish the following in this post. By the end of the post we are going to have a great looking website that contains a two-part series, a post with an embedded youtube video and a post that contains an embedded jupyter notebook.&lt;/p&gt;
 &lt;ol&gt;
@@ -586,7 +765,7 @@ git push origin master
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-site-4.html"&gt;next post&lt;/a&gt; we will add some additional &lt;em&gt;pelican-plugins&lt;/em&gt; to bring extra functionality to the site and add the ability to include &lt;strong&gt;jupyter notebooks&lt;/strong&gt; in posts.&lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="blog"></category><category term="markdown"></category></entry><entry><title>How I Build This Site - Part 2</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-2.html" rel="alternate"></link><published>2017-11-28T14:15:00-08:00</published><updated>2017-11-28T14:15:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-11-28:/staticsite/how-i-built-this-site-2.html</id><summary type="html">&lt;p&gt;This is the second part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-site-1.html"&gt;last post&lt;/a&gt;, we set up our development environment including Python, a new virtual environment, installed the pelican and markdown packages and set up git. In this post, we will use the &lt;code&gt;pelican-quickstart&lt;/code&gt; command to get the blog off the ground. We are also going to create a &lt;strong&gt;first_post.md&lt;/strong&gt; file and serve up the website locally so we can take a look at it.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the second part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-site-1.html"&gt;last post&lt;/a&gt;, we set up our development environment including Python, a new virtual environment, installed the pelican and markdown packages and set up git. In this post, we will use the &lt;code&gt;pelican-quickstart&lt;/code&gt; command to get the blog off the ground. We are also going to create a &lt;strong&gt;first_post.md&lt;/strong&gt; file and serve up the website locally so we can take a look at it.&lt;/p&gt;
+&lt;p&gt;In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-4.html"&gt;next post&lt;/a&gt; we will add some additional &lt;em&gt;pelican-plugins&lt;/em&gt; to bring extra functionality to the site and add the ability to include &lt;strong&gt;jupyter notebooks&lt;/strong&gt; in posts.&lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="blog"></category><category term="markdown"></category></entry><entry><title>How I Build This Site - Part 2</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-2.html" rel="alternate"></link><published>2017-11-28T14:15:00-08:00</published><updated>2017-11-28T14:15:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-11-28:/staticsite/how-i-built-this-site-2.html</id><summary type="html">&lt;p&gt;This is the second part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-1.html"&gt;last post&lt;/a&gt;, we set up our development environment including Python, a new virtual environment, installed the pelican and markdown packages and set up git. In this post, we will use the &lt;code&gt;pelican-quickstart&lt;/code&gt; command to get the blog off the ground. We are also going to create a &lt;strong&gt;first_post.md&lt;/strong&gt; file and serve up the website locally so we can take a look at it.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the second part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-1.html"&gt;last post&lt;/a&gt;, we set up our development environment including Python, a new virtual environment, installed the pelican and markdown packages and set up git. In this post, we will use the &lt;code&gt;pelican-quickstart&lt;/code&gt; command to get the blog off the ground. We are also going to create a &lt;strong&gt;first_post.md&lt;/strong&gt; file and serve up the website locally so we can take a look at it.&lt;/p&gt;
 &lt;h3&gt;Steps in this post&lt;/h3&gt;
 &lt;p&gt;We are going to accomplish the following in this post. By the end of the post, we will have a working website with one blog post served up locally and an updated github repo with all the changes saved.&lt;/p&gt;
 &lt;ol&gt;
@@ -600,7 +779,7 @@ git push origin master
 &lt;/ol&gt;
 &lt;p&gt;That's a lot to do, so let's get started.&lt;/p&gt;
 &lt;h3&gt;Activate our &lt;strong&gt;staticsite&lt;/strong&gt; virtual environment&lt;/h3&gt;
-&lt;p&gt;I highly recommend installing the Anaconda distribution of python. If you followed along with the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-site-1.html"&gt;previous post&lt;/a&gt;, you already installed Anaconda and can pull up the Anaconda prompt. Open the Anaconda Prompt and see which virtual environments are available.&lt;/p&gt;
+&lt;p&gt;I highly recommend installing the Anaconda distribution of python. If you followed along with the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-1.html"&gt;previous post&lt;/a&gt;, you already installed Anaconda and can pull up the Anaconda prompt. Open the Anaconda Prompt and see which virtual environments are available.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ conda info --envs
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -747,7 +926,7 @@ git push origin master
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-3.html"&gt;next post&lt;/a&gt;, we will customize the site with a &lt;em&gt;pelican-theme&lt;/em&gt; called &lt;strong&gt;pelican-bootstrap3&lt;/strong&gt;.&lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="blog"></category><category term="markdown"></category></entry><entry><title>How I Build This Site - Part 1</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-site-1.html" rel="alternate"></link><published>2017-11-22T12:40:00-08:00</published><updated>2017-11-22T12:40:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-11-22:/staticsite/how-i-built-site-1.html</id><summary type="html">&lt;p&gt;This is the first part of a multi-part series on how I built this site. In this first post, I'll review the development environment, Python, virtual environments, installing the necessary packages and setting up git.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the first part of a multi-part series on how I built this site. In this first post, we'll review the development environment, installing Python, virtual environments, installing the necessary packages and setting up git.&lt;/p&gt;
+&lt;p&gt;In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-3.html"&gt;next post&lt;/a&gt;, we will customize the site with a &lt;em&gt;pelican-theme&lt;/em&gt; called &lt;strong&gt;pelican-bootstrap3&lt;/strong&gt;.&lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="blog"></category><category term="markdown"></category></entry><entry><title>How I Build This Site - Part 1</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-1.html" rel="alternate"></link><published>2017-11-22T12:40:00-08:00</published><updated>2017-11-22T12:40:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-11-22:/staticsite/how-i-built-this-site-1.html</id><summary type="html">&lt;p&gt;This is the first part of a multi-part series on how I built this site. In this first post, I'll review the development environment, Python, virtual environments, installing the necessary packages and setting up git.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the first part of a multi-part series on how I built this site. In this first post, we'll review the development environment, installing Python, virtual environments, installing the necessary packages and setting up git.&lt;/p&gt;
 &lt;h3&gt;Setting up the development environment&lt;/h3&gt;
 &lt;p&gt;What does that even mean? Before I started building this site I needed to make sure the necessary software, packages and settings were in place. This starts with setting up a &lt;em&gt;development environment&lt;/em&gt;. To me, a development environment is simply the software on a computer that allows me to get work done. In this case the development environment means the tools necessary to build this site. A list of the tools and technologies are below:&lt;/p&gt;
 &lt;ol&gt;

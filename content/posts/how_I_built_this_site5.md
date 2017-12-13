@@ -4,7 +4,7 @@ Modified: 2017-12-09 18:50
 Status: published
 Category: This site
 Tags: python, pelican, blog, css, javascript
-Slug: how-i-built-site-5
+Slug: how-i-built-this-site-5
 Authors: Peter D. Kazarinoff
 Series: How I built this site
 Series_index: 5

@@ -1,10 +1,10 @@
 Title: How I Build This Site - Part 6
-Date: 2017-12-18 18:50
-Modified: 2017-12-18 18:50
-Status: draft
+Date: 2017-12-12 18:50
+Modified: 2017-12-12 18:50
+Status: published
 Category: This site
-Tags: python, pelican, blog, css, javascript
-Slug: how-i-built-site-6
+Tags: python, pelican, blog, git, github
+Slug: how-i-built-this-site-6
 Authors: Peter D. Kazarinoff
 Series: How I built this site
 Series_index: 6
@@ -50,8 +50,12 @@ staticsite/
 │       ├── first_post.md
 │       ├── second_post.md
 │       ├── third_post.md
+│       ├── fourth_post.md
 │   ├── code
 │       ├── sample_notebook.ipynb
+│   ├── extra
+│       ├── custom.css
+│       ├── custom.js
 ├── develop_server.sh
 ├── fabfile.py
 ├── output
@@ -72,9 +76,9 @@ staticsite/
 
 Up to this point, the top of our site has a menu item for [This site], which isn't very useful.  
 
-![simple_pelican-bootstrap3_theme.png]({filename}/images/simple_pelican-bootstrap3_theme.png)
+![pelican-bootstrap3_this_site_menu.png]({filename}/images/pelican-bootstrap3_this_site_menu.png)
 
-We are going to add two new menu items that link to two new _pages_. These new menu items will be [About] and [Book]. First create a **pages** folder in the **staticsite/content** directory
+We are going to add two new menu items that link to two new _pages_. These new menu items will be [About] and [Book]. First we'll create a **pages** folder in the **staticsite/content** directory
 
 ```
 (staticsite) $ cd ~/Documents/staticsite/content
@@ -82,7 +86,7 @@ We are going to add two new menu items that link to two new _pages_. These new m
 (staticsite) $ cd pages
 (staticsite) $ pwd
 ```
-Now we create two new **_.md_** files. Note that the header in this file is different from the other posts we've written. It has a very simple header; just one line: Title. We don't need to put in a date or a slug in the header. The first file is for the **about** page
+Now we create two new **_.md_** files. Note that the header in this file is different from the other posts we've written. It has a very simple header; just one line: Title. We don't need to put in a date or a slug in the header of _pages_, just in the header of _posts_. The first markdown file is the **about** page
 
 **_about.md_**
 ```
@@ -100,7 +104,7 @@ My family
 My hobbies
 ```
 
-The second page is for the book I am writing, Python Programming for Undergraduate Engineers. The text for the page is going to look something like:
+The second page is for the book I am writing, **Python Programming for Undergraduate Engineers**. The text for the page is going to look something like:
 
 book.md
 ```
@@ -137,7 +141,7 @@ staticsite/
 ├── README.md
 ├── __pycache__
 ├── content
-│   ├── posts
+│   ├── pages
 │       ├── about.md
 │       ├── book.md
 │   ├── posts
@@ -147,6 +151,9 @@ staticsite/
 │       ├── fourth_post.md
 │   ├── code
 │       ├── sample_notebook.ipynb
+│   ├── extra
+│       ├── custom.css
+│       ├── custom.js
 ├── develop_server.sh
 ├── fabfile.py
 ├── output
@@ -183,7 +190,7 @@ DISPLAY_PAGES_ON_MENU = True
 
 ### Build and preview the site with Pelican
 
-With the two new page .md files created and the changes to **_pelicanconf.py_** in place, let's preview the site again.  We build the site and serve up the contents in the **output** folder with:
+With the two new page **_.md_** files created and the changes to **_pelicanconf.py_** in place, let's preview the site again.  We build the site and serve up the contents in the **output** folder with:
 
 ```
 make html
@@ -194,7 +201,7 @@ To view the site, point a browser to _localhost:8000_
 
 [localhost:8000](localhost:8000)
 
-use ```ctrl-c``` to stop the server.
+Use ```ctrl-c``` to stop the server.
 
 ### Add and commit the changes then push them to github
 

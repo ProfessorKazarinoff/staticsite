@@ -4,7 +4,7 @@ Modified: 2017-12-08 18:50
 Status: published
 Category: This site
 Tags: python, pelican, blog, jupyter
-Slug: how-i-built-site-4
+Slug: how-i-built-this-site-4
 Authors: Peter D. Kazarinoff
 Series: How I built this site
 Series_index: 4

@@ -4,7 +4,7 @@ Modified: 2017-11-22 12:40
 Status: published
 Category: this site
 Tags: python, pelican, staticsite
-Slug: how-i-built-site-1
+Slug: how-i-built-this-site-1
 Authors: Peter D. Kazarinoff
 Series: How I built this site
 Series_index: 1

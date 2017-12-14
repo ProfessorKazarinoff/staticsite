@@ -988,6 +988,7 @@ git push origin master
 (staticsite)$ pip install markdown
 (staticsite)$ pip install fabric3
 (staticsite)$ pip install bs4
+(staticsite)$ pip install ghp-import
 &lt;/pre&gt;&lt;/div&gt;
 
 

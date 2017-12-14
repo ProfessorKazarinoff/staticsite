@@ -123,9 +123,32 @@ Now we'll use the ghp-import package to help us post the site
 (staticsite) $ ghp-import output
 (staticsite) $ git push origin gh-pages
 ```
+
 I had trouble with this set of commands, and got the output:
 
+```
+ ! [rejected]        gh-pages -> gh-pages (fetch first)
+error: failed to push some refs to 'https://github.com/professorkazarinoff/staticsite.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+```
 
+I tried ```git stash``` and that didn't work.  I also tried ```git pull origin gh-pages``` but this ended up putting everything from the **output** directory into my root **staticsite** directory which made a big old mess. The way I got around it was to use the ```-f``` (force) flag. I don't think this is the most elegant or preferred way to get the contents of the output directory up to the **gh-pages** branch. I just don't really understand how ```git``` works well enough to know how to get around the problem without a _forced_ commit. If you get the error above try:
+
+```
+pelican content -s publishconf.py
+
+git add .
+git commit -m "published"
+git push origin master
+
+ghp-import output
+git push -f origin gh-pages
+```
+That seemed to do the trick.
 
 ### View the site on github pages.
 
@@ -136,3 +159,5 @@ https://username.github.io/staticsite
 Change _username_ to your github user name. My site (the one that you are reading) is hosted here: 
 
 [https://professorkazarinoff.github.io/staticsite](https://professorkazarinoff.github.io/staticsite)
+
+Thanks for reading to the end! It was quite a bit of work to get the site up and running, but I am pleased with the results. Now I need to read up on git . . . 

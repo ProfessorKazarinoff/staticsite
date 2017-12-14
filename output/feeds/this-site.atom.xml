@@ -1,5 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Python for Undergraduate Engineers - This site</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="https://professorkazarinoff.github.io/staticsite/feeds/this-site.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2017-12-12T18:50:00-08:00</updated><entry><title>How I Build This Site - Part 6</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-6.html" rel="alternate"></link><published>2017-12-12T18:50:00-08:00</published><updated>2017-12-12T18:50:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-12-12:/staticsite/how-i-built-this-site-6.html</id><summary type="html">&lt;p&gt;This is the sixth part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-5.html"&gt;last post&lt;/a&gt;, we put a search bar at the top right of each page and some css and javascript in order to make tables on the site look better. In this post we are going to add two new &lt;em&gt;pages&lt;/em&gt; to our static site. An &lt;strong&gt;About&lt;/strong&gt; page and a &lt;strong&gt;Book&lt;/strong&gt; page. These new pages will have menu entries at the top of our site.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the sixth part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-5.html"&gt;last post&lt;/a&gt;, we put a search bar at the top right of each page and some css and javascript in order to make tables on the site look better. In this post we are going to add two new &lt;em&gt;pages&lt;/em&gt; to our static site: an &lt;strong&gt;About&lt;/strong&gt; page and a &lt;strong&gt;Book&lt;/strong&gt; page. These new pages will have menu entries at the top of our site.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Python for Undergraduate Engineers - This site</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="https://professorkazarinoff.github.io/staticsite/feeds/this-site.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2017-12-14T12:40:00-08:00</updated><entry><title>How I Build This Site - Part 7</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-7.html" rel="alternate"></link><published>2017-12-14T12:40:00-08:00</published><updated>2017-12-14T12:40:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-12-14:/staticsite/how-i-built-this-site-7.html</id><summary type="html">&lt;p&gt;This is the seventh part of a multi-part series on how I built this site. In &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-6.html"&gt;last post&lt;/a&gt;, we added two new &lt;em&gt;pages&lt;/em&gt; to our site. An &lt;strong&gt;About&lt;/strong&gt; page and a &lt;strong&gt;Book&lt;/strong&gt; page.  In this post, we are going to deploy the site to &lt;a href="https://pages.github.com/"&gt;github pages&lt;/a&gt;. Github pages is a place on github were documentation and static sites can be hosted.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the seventh part of a multi-part series on how I built this site. In &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-6.html"&gt;last post&lt;/a&gt;, we added two new &lt;em&gt;pages&lt;/em&gt; to our site. An &lt;strong&gt;About&lt;/strong&gt; page and a &lt;strong&gt;Book&lt;/strong&gt; page.  In this post, we are going to deploy the site to &lt;a href="https://pages.github.com/"&gt;github pages&lt;/a&gt;. Github pages is a place on github were documentation and static sites can be hosted.&lt;/p&gt;
+&lt;h3&gt;Steps in this post&lt;/h3&gt;
+&lt;p&gt;By the end of the post we are going to have a working static website hosted on github pages. To accomplish this, we will complete the following steps:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Pull the most recent version of the site from gitub&lt;/li&gt;
+&lt;li&gt;Run pelican's &lt;code&gt;make html&lt;/code&gt; command to build the site and preview it with &lt;code&gt;make serve&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Modify the &lt;strong&gt;&lt;em&gt;publishconf.py&lt;/em&gt;&lt;/strong&gt; file to include our github pages url and relative links&lt;/li&gt;
+&lt;li&gt;Use &lt;code&gt;pelican content -s publishconf.py&lt;/code&gt; to build a published version of the site in the &lt;strong&gt;output&lt;/strong&gt; directory&lt;/li&gt;
+&lt;li&gt;Add, commit and push the published contents to our &lt;strong&gt;master&lt;/strong&gt; branch on github&lt;/li&gt;
+&lt;li&gt;Make a &lt;strong&gt;gh-pages&lt;/strong&gt; branch in our &lt;strong&gt;staticsite&lt;/strong&gt; repo on github&lt;/li&gt;
+&lt;li&gt;Use &lt;code&gt;ghp-import output&lt;/code&gt; and &lt;code&gt;git push origin gh-pages&lt;/code&gt; to push the &lt;strong&gt;output&lt;/strong&gt; directory to the &lt;strong&gt;gh-pages&lt;/strong&gt; branch&lt;/li&gt;
+&lt;li&gt;View the freshly published site! &lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;OK, let's get started. Can't wait to see the published site live on github pages.&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3&gt;Pull to the most recent version of the site from github&lt;/h3&gt;
+&lt;p&gt;Open a terminal and &lt;code&gt;cd&lt;/code&gt; to the &lt;code&gt;staticsite&lt;/code&gt; directory. Then activate the &lt;code&gt;(staticsite)&lt;/code&gt; virtual environment with &lt;code&gt;source activate staticsite&lt;/code&gt;. Once in the &lt;code&gt;(staticsite)&lt;/code&gt; environment, pull the most recent version of the site down from github with &lt;code&gt;git pull origin master&lt;/code&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; ~/Documents/staticsite
+&lt;span class="nb"&gt;source&lt;/span&gt; activate staticsite
+&lt;span class="o"&gt;(&lt;/span&gt;staticsite&lt;span class="o"&gt;)&lt;/span&gt; $ git pull origin master
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The &lt;strong&gt;staticsite directory&lt;/strong&gt; should look something like this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;staticsite
+├── LICENSE
+├── Makefile
+├── README.md
+├── __pycache__
+├── _nb_header.html
+├── content
+├── develop_server.sh
+├── fabfile.py
+├── output
+├── pelican-plugins
+├── pelican-themes
+├── pelican.pid
+├── pelicanconf.py
+├── publishconf.py
+└── srv.pid
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now we use the &lt;code&gt;make html&lt;/code&gt; command to build a demo version of the site. This will place the static files (&lt;em&gt;html&lt;/em&gt;, &lt;em&gt;css&lt;/em&gt;, &lt;em&gt;javascript&lt;/em&gt;) that forms the site in the &lt;strong&gt;output&lt;/strong&gt; folder.  We preview the site with &lt;code&gt;make serve&lt;/code&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;staticsite&lt;span class="o"&gt;)&lt;/span&gt; $ make html
+&lt;span class="o"&gt;(&lt;/span&gt;staticsite&lt;span class="o"&gt;)&lt;/span&gt; $ make serve
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The demo version of our site can now be viewed by pointing a browser to:&lt;/p&gt;
+&lt;p&gt;&lt;a href="localhost:8000"&gt;localhost:8000&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Press &lt;code&gt;ctr-c&lt;/code&gt; to stop the server.&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3&gt;Modify the &lt;strong&gt;&lt;em&gt;publishconf.py&lt;/em&gt;&lt;/strong&gt; file to use the github pages url&lt;/h3&gt;
+&lt;p&gt;We need to edit the &lt;strong&gt;&lt;em&gt;publishconf.py&lt;/em&gt;&lt;/strong&gt; file to add our github pages url to &lt;code&gt;SITEURL&lt;/code&gt; and set &lt;code&gt;RELATIVE_URLS&lt;/code&gt; to True. The lines to change are:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;#publishconf.py&lt;/span&gt;
+&lt;span class="n"&gt;SITEURL&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;https://username.github.io/staticsite&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;RELATIVE_URLS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;True&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Make sure to set &lt;code&gt;username&lt;/code&gt; to your github user name. Setting &lt;code&gt;RELATIVE_URLS = True&lt;/code&gt; is necessary for the links on the site to work and for the &lt;em&gt;css&lt;/em&gt; and &lt;em&gt;javascript&lt;/em&gt; files run on github pages. When I initially set &lt;code&gt;RELATIVE_URLS = False&lt;/code&gt;, the site looked terrible, had no formatting or css and none of the links worked. Setting &lt;code&gt;RELATIVE_URLS = True&lt;/code&gt; fixed the problem.&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3&gt;Create a published version of the site&lt;/h3&gt;
+&lt;p&gt;Up to this point, we used the &lt;code&gt;make html&lt;/code&gt; command to build a demo version of the site. Now we are ready to &lt;em&gt;publish&lt;/em&gt; the site. We publish the site by running the command:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;pelican content -s publishconf.py
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This creates a published version of the site with relative url's in the &lt;strong&gt;output&lt;/strong&gt; directory. &lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3&gt;Add, commit, push to the master branch on github&lt;/h3&gt;
+&lt;p&gt;Before we can put the published version of the site up on github pages, we need to push the current version of the site up to the master branch.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;staticsite&lt;span class="o"&gt;)&lt;/span&gt; $ git add .
+&lt;span class="o"&gt;(&lt;/span&gt;staticsite&lt;span class="o"&gt;)&lt;/span&gt; $ git commit -m &lt;span class="s2"&gt;&amp;quot;first published version&amp;quot;&lt;/span&gt;
+&lt;span class="o"&gt;(&lt;/span&gt;staticsite&lt;span class="o"&gt;)&lt;/span&gt; $ git push origin master
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3&gt;Create a &lt;strong&gt;gh-pages&lt;/strong&gt; branch in our staticsite repo on github&lt;/h3&gt;
+&lt;p&gt;Up to this point, we saved our work to the &lt;strong&gt;master&lt;/strong&gt; branch of the staticsite repository on github. To host the site on github pages, we need to create a new branch in the &lt;strong&gt;staticsite&lt;/strong&gt; repo called &lt;strong&gt;gh-pages&lt;/strong&gt;. The &lt;strong&gt;master&lt;/strong&gt; branch still houses the code,settings, markup files, notebooks, images, etc. to build the site. However, in the &lt;strong&gt;gh-pages&lt;/strong&gt; branch of the &lt;strong&gt;staticsite&lt;/strong&gt; repo any html, css and javascript files  will be served like a regular website. To create the new branch, go the main &lt;strong&gt;staticsite&lt;/strong&gt; repository page on github and click the [Branch: Master] drop down menu on the upper left hand side. Enter the name of the new branch: &lt;strong&gt;gh-pages&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3&gt;Use &lt;code&gt;ghp-import&lt;/code&gt; to post the contents of the &lt;strong&gt;output&lt;/strong&gt; directory to the &lt;strong&gt;gh-pages&lt;/strong&gt; branch&lt;/h3&gt;
+&lt;p&gt;As shown in the &lt;a href="http://docs.getpelican.com/en/stable/tips.html"&gt;Pelican documentation&lt;/a&gt;, you can use a Python package called &lt;code&gt;ghp-import&lt;/code&gt; to help posting the contents of the output directory to the gh-pages branch of our repo on github. If &lt;code&gt;ghp-import&lt;/code&gt; isn't installed yet, use &lt;code&gt;pip&lt;/code&gt;. Make sure you are in the &lt;code&gt;(staticsite)&lt;/code&gt; virtual environment when you run &lt;code&gt;pip&lt;/code&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;staticsite&lt;span class="o"&gt;)&lt;/span&gt; $ pip install ghp-import
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now we'll use the ghp-import package to help us post the site. The command &lt;code&gt;ghp-import output&lt;/code&gt; will assign the contents of the &lt;strong&gt;output&lt;/strong&gt; directory to the &lt;strong&gt;gh-pages&lt;/strong&gt; branch of our local git repository. The we &lt;code&gt;push&lt;/code&gt; the contents of the local &lt;strong&gt;gh-pages&lt;/strong&gt; branch up to the remote &lt;strong&gt;gh-pages&lt;/strong&gt; branch on github.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;staticsite&lt;span class="o"&gt;)&lt;/span&gt; $ ghp-import output
+&lt;span class="o"&gt;(&lt;/span&gt;staticsite&lt;span class="o"&gt;)&lt;/span&gt; $ git push origin gh-pages
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;I had trouble with this set of commands. Depending on which computer I was using, I would get the following error:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt; ! &lt;span class="o"&gt;[&lt;/span&gt;rejected&lt;span class="o"&gt;]&lt;/span&gt;        gh-pages -&amp;gt; gh-pages &lt;span class="o"&gt;(&lt;/span&gt;fetch first&lt;span class="o"&gt;)&lt;/span&gt;
+error: failed to push some refs to &lt;span class="s1"&gt;&amp;#39;https://github.com/professorkazarinoff/staticsite.git&amp;#39;&lt;/span&gt;
+hint: Updates were rejected because the remote contains work that you &lt;span class="k"&gt;do&lt;/span&gt;
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: &lt;span class="o"&gt;(&lt;/span&gt;e.g., &lt;span class="s1"&gt;&amp;#39;git pull ...&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; before pushing again.
+hint: See the &lt;span class="s1"&gt;&amp;#39;Note about fast-forwards&amp;#39;&lt;/span&gt; in &lt;span class="s1"&gt;&amp;#39;git push --help&amp;#39;&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; details.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;I tried &lt;code&gt;git stash&lt;/code&gt; and that didn't work.  I also tried &lt;code&gt;git pull origin gh-pages&lt;/code&gt; but this ended up putting everything from the &lt;strong&gt;output&lt;/strong&gt; directory into my root &lt;strong&gt;staticsite&lt;/strong&gt; directory which made a big old mess. &lt;/p&gt;
+&lt;p&gt;The way I got around it was to use the &lt;code&gt;-f&lt;/code&gt; (force) flag. I don't think this is the most elegant or preferred way to get the contents of the &lt;strong&gt;output&lt;/strong&gt; directory up to the &lt;strong&gt;gh-pages&lt;/strong&gt; branch. I just don't really understand how &lt;code&gt;git&lt;/code&gt; works well enough to know how to get around the problem without a &lt;em&gt;forced&lt;/em&gt; commit. If you get the error above try:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;pelican&lt;/span&gt; &lt;span class="n"&gt;content&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;publishconf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt;
+
+&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;add&lt;/span&gt; &lt;span class="o"&gt;.&lt;/span&gt;
+&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;published&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;push&lt;/span&gt; &lt;span class="n"&gt;origin&lt;/span&gt; &lt;span class="n"&gt;master&lt;/span&gt;
+
+&lt;span class="n"&gt;ghp&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;output&lt;/span&gt;
+&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;push&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="n"&gt;origin&lt;/span&gt; &lt;span class="n"&gt;gh&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;pages&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;That has worked so far for me.&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3&gt;View the site on github pages.&lt;/h3&gt;
+&lt;p&gt;Awesome! The site is now hosted for everyone to see on github pages! Pretty cool right? Point a browser to the github pages url and take a look:&lt;/p&gt;
+&lt;p&gt;https://username.github.io/staticsite&lt;/p&gt;
+&lt;p&gt;Change &lt;em&gt;username&lt;/em&gt; to your github user name. My site (the one that you are reading) is hosted here: &lt;/p&gt;
+&lt;p&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite"&gt;https://professorkazarinoff.github.io/staticsite&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Thanks for reading to the end! It was quite a bit of work to get the site up and running, but I am pleased with the results. Now I need to read up on git . . . &lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="blog"></category><category term="git"></category><category term="github"></category><category term="github pages"></category></entry><entry><title>How I Build This Site - Part 6</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-6.html" rel="alternate"></link><published>2017-12-12T18:50:00-08:00</published><updated>2017-12-12T18:50:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-12-12:/staticsite/how-i-built-this-site-6.html</id><summary type="html">&lt;p&gt;This is the sixth part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-5.html"&gt;last post&lt;/a&gt;, we put a search bar at the top right of each page and some css and javascript in order to make tables on the site look better. In this post we are going to add two new &lt;em&gt;pages&lt;/em&gt; to our static site. An &lt;strong&gt;About&lt;/strong&gt; page and a &lt;strong&gt;Book&lt;/strong&gt; page. These new pages will have menu entries at the top of our site.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the sixth part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-5.html"&gt;last post&lt;/a&gt;, we put a search bar at the top right of each page and some css and javascript in order to make tables on the site look better. In this post we are going to add two new &lt;em&gt;pages&lt;/em&gt; to our static site: an &lt;strong&gt;About&lt;/strong&gt; page and a &lt;strong&gt;Book&lt;/strong&gt; page. These new pages will have menu entries at the top of our site.&lt;/p&gt;
 &lt;h3&gt;Steps in this post&lt;/h3&gt;
 &lt;p&gt;We are going to accomplish the following in this post. By the end of the post we are going to have a site with two new pages and two new menu items.&lt;/p&gt;
 &lt;ol&gt;

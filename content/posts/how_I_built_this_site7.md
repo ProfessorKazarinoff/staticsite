@@ -8,32 +8,22 @@ Slug: how-i-built-this-site-7
 Authors: Peter D. Kazarinoff
 Series: How I built this site
 Series_index: 7
-Summary: This is the seventh part of a multi-part series on how I built this site. In last post, we customized the site and added the ability to use jupyter notebooks in posts.  In this post we are going to deploy the site to [github pages](https://pages.github.com/). Github pages is a place on github were documentation and static sites can be hosted. It was tricky for me to set this up, but after a lot trial and error, I was able to get it to work.
+Summary: This is the seventh part of a multi-part series on how I built this site. In [last post]({filename}how_I_builts_this_site6), we added two new _pages_ to our site. An **About** page and a **Book** page.  In this post we are going to deploy the site to [github pages](https://pages.github.com/). Github pages is a place on github were documentation and static sites can be hosted.
 
-This is the seventh part of a multi-part series on how I built this site. In last post, we customized the site and added the ability to use jupyter notebooks in posts.  In this post we are going to deploy the site to [github pages](https://pages.github.com/). Github pages is a place on github were documentation and static sites can be hosted. It was tricky for me to set this up, but after a lot of trial and error, I was able to get it to work.
-=======
-Tags: python, pelican, blog, git, github, gh-pages, github pages
-Slug: how-i-built-this-site-6
-Authors: Peter D. Kazarinoff
-Series: How I built this site
-Series_index: 6
-Summary: This is the sixth part of a multi-part series on how I built this site. In last post, we customized the site and added the ability to use jupyter notebooks in posts.  In this post we are going to deploy the site to [github pages](https://pages.github.com/). Github pages is a place on github were documentation and static sites can be hosted. At the end of the post, we will have a real live static site that you can view on any computer, tablet or phone.
+This is the seventh part of a multi-part series on how I built this site. In [last post]({filename}how_I_builts_this_site6), we added two new _pages_ to our site. An **About** page and a **Book** page.  In this post we are going to deploy the site to [github pages](https://pages.github.com/). Github pages is a place on github were documentation and static sites can be hosted.
 
-This is the sixth part of a multi-part series on how I built this site. In last post, we customized the site and added the ability to use jupyter notebooks in posts.  In this post we are going to deploy the site to [github pages](https://pages.github.com/). Github pages is a place on github were documentation and static sites can be hosted. At the end of the post, we will have a real live static site that you can view on any computer, tablet or phone.
->>>>>>> 0514da669628c29f7ce650bc613911c345d98a2f
 
 ### Steps in this post
 
-By the end of the post we are going to have a working static website hosted on github pages. To accomplish we will complete the following steps:
+By the end of the post we are going to have a working static website hosted on github pages. To accomplish this, we will complete the following steps:
 
 1. Pull the most recent version of the site from gitub
 2. Run pelican's ```make html``` command to build the site and preview it with ```make serve```
-3. Modify the **_publishconf.py_** file to include our github pages url
-4. Use ```pelican content -s publishconf.py``` to create a published version of the site in the output directory
-5. Add, commit and push the published contents to github
+3. Modify the **_publishconf.py_** file to include our github pages url and relative links
+4. Use ```pelican content -s publishconf.py``` to build a published version of the site in the **output** directory
+5. Add, commit and push the published contents to our **master** branch on github
 6. Make a gh-pages branch in our staticsite repo on github
-7. Use ```ghp-import output``` and
-$ ```git push origin gh-pages``` to push the output directory to the gh-pages branch
+7. Use ```ghp-import output``` and ```git push origin gh-pages``` to push the output directory to the gh-pages branch
 8. View the freshly published site! 
 
 
@@ -42,7 +32,7 @@ OK, let's get started. Can't wait to see the published site live on github pages
 
 ### Pull to the most recent version of the site from github
 
-Open a terminal and ```cd``` to the ```staticsite``` folder. Then we need to activate our ```(staticsite)``` virtual environment with ```source activate staticsite```. Once in the ```(staticsite)``` environment, we can call ```git pull origin master``` to pull the most recent version of the site down from github.
+Open a terminal and ```cd``` to the ```staticsite``` directory. Then activate the ```(staticsite)``` virtual environment with ```source activate staticsite```. Once in the ```(staticsite)``` environment, pull the most recent version of the site down from github with ```git pull origin master```.
 
 ```
 cd ~/Documents/staticsite

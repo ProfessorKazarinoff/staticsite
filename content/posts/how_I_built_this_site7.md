@@ -1,16 +1,16 @@
-Title: How I build this site - Part 6
+Title: How I build this site - Part 7
 Date: 2017-11-27 12:40
 Modified: 2017-11-27 12:40
 Status: draft
 Category: This site
 Tags: python, pelican, blog, git, github
-Slug: how-i-built-this-site-6
+Slug: how-i-built-this-site-7
 Authors: Peter D. Kazarinoff
 Series: How I built this site
-Series_index: 6
-Summary: This is the sixth part of a multi-part series on how I built this site. In last post, we customized the site and added the ability to use jupyter notebooks in posts.  In this post we are going to deploy the site to [github pages](https://pages.github.com/). Github pages is a place on github were documentation and static sites can be hosted. It was tricky for me to set this up, but after a lot trial and error, I was able to get it to work.
+Series_index: 7
+Summary: This is the seventh part of a multi-part series on how I built this site. In last post, we customized the site and added the ability to use jupyter notebooks in posts.  In this post we are going to deploy the site to [github pages](https://pages.github.com/). Github pages is a place on github were documentation and static sites can be hosted. It was tricky for me to set this up, but after a lot trial and error, I was able to get it to work.
 
-This is the sixth part of a multi-part series on how I built this site. In last post, we customized the site and added the ability to use jupyter notebooks in posts.  In this post we are going to deploy the site to [github pages](https://pages.github.com/). Github pages is a place on github were documentation and static sites can be hosted. It was tricky for me to set this up, but after a lot of trial and error, I was able to get it to work.
+This is the seventh part of a multi-part series on how I built this site. In last post, we customized the site and added the ability to use jupyter notebooks in posts.  In this post we are going to deploy the site to [github pages](https://pages.github.com/). Github pages is a place on github were documentation and static sites can be hosted. It was tricky for me to set this up, but after a lot of trial and error, I was able to get it to work.
 
 ### Steps in this post
 

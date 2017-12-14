@@ -97,4 +97,4 @@ def publishsite():
     local('git commit -m "published changes"')
     local('git push origin master')
     local('ghp-import output')
-    local('git push origin gh-pages')
+    local('git push -f origin gh-pages')

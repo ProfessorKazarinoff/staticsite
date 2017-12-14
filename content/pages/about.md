@@ -13,3 +13,5 @@ In my garage is sitting a '76 Scout II. It barely runs, is rusty all over and sm
 
 
 I play soccer and follow the Seattle Sounders and Portland Timbers. 
+
+See what I'm doing [NOW]({filename}.about)

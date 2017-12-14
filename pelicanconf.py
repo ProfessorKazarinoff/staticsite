@@ -28,7 +28,7 @@ WITH_FUTURE_DATES = False
 #DEFAULT_METADATA = {
 #    'JavaScripts': 'table.js',
 #    'Stylesheets': 'table.css'
-#    'status': 'draft',
+#    'Status': 'draft',
 #}
 
 #Theme, environements and plugins

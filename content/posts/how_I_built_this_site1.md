@@ -86,6 +86,7 @@ Once ```pip``` is installed, we can install ```pelican``` and ```markdown```. Th
 (staticsite)$ pip install markdown
 (staticsite)$ pip install fabric3
 (staticsite)$ pip install bs4
+(staticsite)$ pip install ghp-import
 ```
 
 ### Create a github account and create a new repository

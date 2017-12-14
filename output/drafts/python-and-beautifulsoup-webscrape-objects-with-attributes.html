@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Using Python and Beautiful Soup - webscrape into objects with attributes - Python for Undergraduate Engineers</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
+<style type="text/css">
+
+/*some stuff for output/input prompts*/
+div.cell{border:1px solid transparent;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}div.cell.selected{border-radius:4px;border:thin #ababab solid}
+div.cell.edit_mode{border-radius:4px;border:thin #008000 solid}
+div.cell{width:100%;padding:5px 5px 5px 0;margin:0;outline:none}
+div.prompt{min-width:11ex;padding:.4em;margin:0;font-family:monospace;text-align:right;line-height:1.21429em}
+@media (max-width:480px){div.prompt{text-align:left}}div.inner_cell{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
+div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;line-height:1.21429em}
+div.prompt:empty{padding-top:0;padding-bottom:0}
+div.input{page-break-inside:avoid;display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;}
+div.inner_cell{width:90%;}
+div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;}
+div.input_prompt{color:navy;border-top:1px solid transparent;}
+div.output_wrapper{margin-top:5px;position:relative;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+div.output_scroll{height:24em;width:100%;overflow:auto;border-radius:4px;-webkit-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);-moz-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);}
+div.output_collapsed{margin:0px;padding:0px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+div.out_prompt_overlay{height:100%;padding:0px 0.4em;position:absolute;border-radius:4px;}
+div.out_prompt_overlay:hover{-webkit-box-shadow:inset 0 0 1px #000000;-moz-box-shadow:inset 0 0 1px #000000;box-shadow:inset 0 0 1px #000000;background:rgba(240, 240, 240, 0.5);}
+div.output_prompt{color:darkred;}
+
+a.anchor-link:link{text-decoration:none;padding:0px 20px;visibility:hidden;}
+h1:hover .anchor-link,h2:hover .anchor-link,h3:hover .anchor-link,h4:hover .anchor-link,h5:hover .anchor-link,h6:hover .anchor-link{visibility:visible;}
+/* end stuff for output/input prompts*/
+
+
+.highlight-ipynb .hll { background-color: #ffffcc }
+.highlight-ipynb  { background: #f8f8f8; }
+.highlight-ipynb .c { color: #408080; font-style: italic } /* Comment */
+.highlight-ipynb .err { border: 1px solid #FF0000 } /* Error */
+.highlight-ipynb .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight-ipynb .o { color: #666666 } /* Operator */
+.highlight-ipynb .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.highlight-ipynb .cp { color: #BC7A00 } /* Comment.Preproc */
+.highlight-ipynb .c1 { color: #408080; font-style: italic } /* Comment.Single */
+.highlight-ipynb .cs { color: #408080; font-style: italic } /* Comment.Special */
+.highlight-ipynb .gd { color: #A00000 } /* Generic.Deleted */
+.highlight-ipynb .ge { font-style: italic } /* Generic.Emph */
+.highlight-ipynb .gr { color: #FF0000 } /* Generic.Error */
+.highlight-ipynb .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight-ipynb .gi { color: #00A000 } /* Generic.Inserted */
+.highlight-ipynb .go { color: #888888 } /* Generic.Output */
+.highlight-ipynb .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight-ipynb .gs { font-weight: bold } /* Generic.Strong */
+.highlight-ipynb .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight-ipynb .gt { color: #0044DD } /* Generic.Traceback */
+.highlight-ipynb .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight-ipynb .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight-ipynb .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight-ipynb .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight-ipynb .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight-ipynb .kt { color: #B00040 } /* Keyword.Type */
+.highlight-ipynb .m { color: #666666 } /* Literal.Number */
+.highlight-ipynb .s { color: #BA2121 } /* Literal.String */
+.highlight-ipynb .na { color: #7D9029 } /* Name.Attribute */
+.highlight-ipynb .nb { color: #008000 } /* Name.Builtin */
+.highlight-ipynb .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.highlight-ipynb .no { color: #880000 } /* Name.Constant */
+.highlight-ipynb .nd { color: #AA22FF } /* Name.Decorator */
+.highlight-ipynb .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.highlight-ipynb .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.highlight-ipynb .nf { color: #0000FF } /* Name.Function */
+.highlight-ipynb .nl { color: #A0A000 } /* Name.Label */
+.highlight-ipynb .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight-ipynb .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight-ipynb .nv { color: #19177C } /* Name.Variable */
+.highlight-ipynb .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight-ipynb .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight-ipynb .mf { color: #666666 } /* Literal.Number.Float */
+.highlight-ipynb .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight-ipynb .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight-ipynb .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight-ipynb .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight-ipynb .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight-ipynb .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight-ipynb .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight-ipynb .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.highlight-ipynb .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight-ipynb .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.highlight-ipynb .sx { color: #008000 } /* Literal.String.Other */
+.highlight-ipynb .sr { color: #BB6688 } /* Literal.String.Regex */
+.highlight-ipynb .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight-ipynb .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight-ipynb .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight-ipynb .vc { color: #19177C } /* Name.Variable.Class */
+.highlight-ipynb .vg { color: #19177C } /* Name.Variable.Global */
+.highlight-ipynb .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight-ipynb .il { color: #666666 } /* Literal.Number.Integer.Long */
+</style>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+div.entry-content {
+  overflow: visible;
+  padding: 8px;
+}
+.input_area {
+  padding: 0.2em;
+}
+
+a.heading-anchor {
+ white-space: normal;
+}
+
+.rendered_html
+code {
+ font-size: .8em;
+}
+
+pre.ipynb {
+  color: black;
+  background: #f7f7f7;
+  border: none;
+  box-shadow: none;
+  margin-bottom: 0;
+  padding: 0;
+  margin: 0px;
+  font-size: 13px;
+}
+
+/* remove the prompt div from text cells */
+div.text_cell .prompt {
+    display: none;
+}
+
+/* remove horizontal padding from text cells, */
+/* so it aligns with outer body text */
+div.text_cell_render {
+    padding: 0.5em 0em;
+}
+
+img.anim_icon{padding:0; border:0; vertical-align:middle; -webkit-box-shadow:none; -box-shadow:none}
+
+div.collapseheader {
+    width=100%;
+    padding: 2px;
+    cursor: pointer;
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+</style>
+
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+<script type="text/javascript">
+init_mathjax = function() {
+    if (window.MathJax) {
+        // MathJax loaded
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+            },
+            displayAlign: 'left', // Change this to 'center' to center equations.
+            "HTML-CSS": {
+                styles: {'.MathJax_Display': {"margin": 0}}
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    }
+}
+init_mathjax();
+</script>
+    <link href="../extra/favicon.ico" rel="icon">
+
+<link rel="canonical" href="../drafts/python-and-beautifulsoup-webscrape-objects-with-attributes.html">
+
+        <meta name="author" content="Peter Kazarinoff" />
+        <meta name="keywords" content="python,beautiful soup,web scraping,object-oriented programming" />
+
+        <meta property="og:site_name" content="Python for Undergraduate Engineers" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Using Python and Beautiful Soup - webscrape into objects with attributes"/>
+        <meta property="og:url" content="../drafts/python-and-beautifulsoup-webscrape-objects-with-attributes.html"/>
+        <meta property="og:description" content=""/>
+        <meta property="article:published_time" content="2017-09-20" />
+            <meta property="article:section" content="Python" />
+            <meta property="article:tag" content="python" />
+            <meta property="article:tag" content="beautiful soup" />
+            <meta property="article:tag" content="web scraping" />
+            <meta property="article:tag" content="object-oriented programming" />
+            <meta property="article:author" content="Peter Kazarinoff" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../theme/css/pygments/native.css" rel="stylesheet">
+    <link href="../theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="../theme/css/style.css" type="text/css"/>
+        <link href="../static/css/custom.css" rel="stylesheet">
+
+        <link href="../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Python for Undergraduate Engineers ATOM Feed"/>
+
+
+
+        <link href="../feeds/python.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Python for Undergraduate Engineers Python ATOM Feed"/>
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../" class="navbar-brand">
+Python for Undergraduate Engineers            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="../pages/about.html">
+                             About
+                          </a></li>
+                         <li><a href="../pages/book.html">
+                             Book
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><span>
+                <form class="navbar-search" action="/search.html">
+                  <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
+                </form></span>
+              </li>
+              <li><a href="../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+            <ol class="breadcrumb">
+                <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="../category/python.html" title="Python">Python</a></li>
+                <li class="active">Using Python and Beautiful Soup - webscrape into objects with attributes</li>
+            </ol>
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="../drafts/python-and-beautifulsoup-webscrape-objects-with-attributes.html"
+                       rel="bookmark"
+                       title="Permalink to Using Python and Beautiful Soup - webscrape into objects with attributes">
+                        Using Python and Beautiful Soup - webscrape into objects with attributes
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2017-09-20T10:12:00-07:00"> Wed 20 September 2017</time>
+    </span>
+
+            <span class="label label-default">Series</span>
+            Part <built-in method index of str object at 0x1069a8d40> of 
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="../tag/python.html">python</a>
+        /
+	<a href="../tag/beautiful-soup.html">beautiful soup</a>
+        /
+	<a href="../tag/web-scraping.html">web scraping</a>
+        /
+	<a href="../tag/object-oriented-programming.html">object-oriented programming</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>In the previous post we scraped a couple of college course web pages and pulled out the course number and name. As a refresher, pull up the conda prompt from the windows start menu and <code>activate</code> the <code>webscrape</code> virtual environment.</p>
+<div class="highlight"><pre><span></span>C:\Users\user.name&gt;activate webscrape
+
+(webscrape) C:\Users\user.name&gt;
+````
+
+Are the modules beautiful soup and requests installed in the virtual environment? We can check with ```pip freeze```
+
+```terminal
+</pre></div>
+
+
+<p>Then run our old script by <code>cd</code> ing into the directory with the webscrape_course_page.py file. .</p>
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">webscrape</span><span class="p">)</span> <span class="n">C</span><span class="p">:</span>\<span class="n">Users</span>\<span class="n">user</span><span class="o">.</span><span class="n">name</span>\<span class="n">Documents</span>\<span class="n">staticsite</span>\<span class="n">content</span>\<span class="n">code</span><span class="o">&gt;</span><span class="n">python</span> <span class="n">webscrape_multiple_course_pages</span><span class="o">.</span><span class="n">py</span>
+
+<span class="n">ENGR114</span> <span class="n">Engineering</span> <span class="n">Programming</span>
+<span class="n">This</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">course</span> <span class="n">number</span><span class="p">:</span> <span class="n">ENGR114</span>
+<span class="n">This</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">course</span> <span class="n">name</span><span class="p">:</span> <span class="n">Engineering</span> <span class="n">Programming</span>
+<span class="sb">````</span>
+
+<span class="n">Let</span><span class="s1">&#39;s modify this to find the course name and number of another engineering class. The url of ENGR221 Electrical Cirtuits I course is:</span>
+<span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">pcc</span><span class="o">.</span><span class="n">edu</span><span class="o">/</span><span class="n">schedule</span><span class="o">/</span><span class="n">default</span><span class="o">.</span><span class="n">cfm</span><span class="err">?</span><span class="n">fa</span><span class="o">=</span><span class="n">dspCourse2</span><span class="o">&amp;</span><span class="n">thisTerm</span><span class="o">=</span><span class="mi">201704</span><span class="o">&amp;</span><span class="n">crsCode</span><span class="o">=</span><span class="n">ENGR221</span><span class="o">&amp;</span><span class="n">subjCode</span><span class="o">=</span><span class="n">ENGR</span><span class="o">&amp;</span><span class="n">crsNum</span><span class="o">=</span><span class="mi">221</span><span class="o">&amp;</span><span class="n">topicCode</span><span class="o">=</span><span class="n">GE</span><span class="o">&amp;</span><span class="n">subtopicCode</span><span class="o">=</span><span class="n">ST1</span>
+<span class="n">We</span> <span class="n">can</span> <span class="n">add</span> <span class="n">that</span> <span class="n">to</span> <span class="n">a</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">url</span><span class="s1">&#39;s at the top of our code. First Save as to create the file webscrape_multiple_course_pages.py. Then add the following to the top of the code:</span>
+
+<span class="sb">``</span><span class="err">`</span><span class="n">terminal</span>
+<span class="c1">#Scrape multiple course information pages</span>
+
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">bs4</span>
+
+<span class="n">url1</span> <span class="o">=</span> <span class="s1">&#39;https://www.pcc.edu/schedule/default.cfm?fa=dspCourse2&amp;thisTerm=201704&amp;crsCode=ENGR114&amp;subjCode=ENGR&amp;crsNum=114&amp;topicCode=GE&amp;subtopicCode=ST1&amp;frmtype=ADV&amp;crnList=45437&#39;</span>
+<span class="n">url2</span> <span class="o">=</span> <span class="s1">&#39;https://www.pcc.edu/schedule/default.cfm?fa=dspCourse2&amp;thisTerm=201704&amp;crsCode=ENGR211&amp;subjCode=ENGR&amp;crsNum=211&amp;topicCode=GE&amp;subtopicCode=ST1&amp;crnList=40788,41369&#39;</span>
+<span class="n">url3</span> <span class="o">=</span> <span class="s1">&#39;https://www.pcc.edu/schedule/default.cfm?fa=dspCourse2&amp;thisTerm=201704&amp;crsCode=ENGR221&amp;subjCode=ENGR&amp;crsNum=221&amp;topicCode=GE&amp;subtopicCode=ST1&#39;</span>
+<span class="n">url_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">url1</span><span class="p">,</span> <span class="n">url2</span><span class="p">,</span> <span class="n">url3</span><span class="p">]</span>
+</pre></div>
+
+
+<p>Now we can integrate over the urls in <code>url_list</code> using a four loop to find the course name and number of the three courses. Note that you need the colon <code>:</code> as part of the code</p>
+<div class="highlight"><pre><span></span>for url in url_list:
+</pre></div>
+
+
+<p>Now we need to indent the lines within our for loop. Remember in python that simply means indenting them. You could also add 4 spaces to the begining of each line:</p>
+<div class="highlight"><pre><span></span>for url in url_list:
+    r = requests.get(url)
+    html = r.content
+    soup = bs4.BeautifulSoup(html, &#39;html.parser&#39;)
+    page_title = soup.h2.text
+    print(&#39;\n&#39; + page_title)
+    course_number = page_title.split(&#39; &#39;,1)[0]
+    course_name = page_title.split(&#39; &#39;,1)[1]
+
+    print(&#39;course number: {}&#39;.format(course_number))
+    print(&#39;course name: {}&#39;.format(course_name))
+</pre></div>
+
+
+<p>I added a new line with the <code>'\n'</code> character. Remember to use the reverse backslash, not the regualar backslash. Adding a new line will seperate out the courses into sections when it's printed to the command window. This just makes it easier for me to read. When I run the script, I get the following output:</p>
+<div class="highlight"><pre><span></span>(webscrape) C:\Users\user.name\Documents\staticsite\content\code&gt;python webscrape_multiple_course_pages.py
+
+ENGR114 Engineering Programming
+course number: ENGR114
+course name: Engineering Programming
+
+ENGR211 Statics
+course number: ENGR211
+course name: Statics
+
+ENGR221 Electrical Circuits I
+course number: ENGR221
+course name: Electrical Circuits I
+</pre></div>
+
+
+<p>So what's up next? Well, it is kind of a pain to cut and paste all of the individual course page url's from the web browser. Let's see if we can get these url's pragmatically instead...</p>
+            </div>
+            <!-- /.entry-content -->
+<section class="well" id="related-posts">
+    <h4>This article is the <built-in method index of str object at 0x1069a8d40> of the  series</h4>
+</section>
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<div id="aboutme">
+        <p>
+            <img width="100%" class="img-thumbnail" src="../extra/gear-wrench-icon-512-278694.png"/>
+        </p>
+    <p>
+      <strong>About Peter Kazarinoff</strong><br/>
+        I teach engineering at a community college in the Pacific Northwest. I am interested in programming and how to help students. Here I mostly blog about Python, MATLAB and how programing can be incorporated into engineering education.
+    </p>
+</div><!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Recent Posts -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+  <ul class="list-group" id="recentposts">
+    <li class="list-group-item"><a href="../how-i-built-this-site-6.html">How I Build This Site - Part 6</a></li>
+    <li class="list-group-item"><a href="../how-i-built-this-site-5.html">How I Build This Site - Part 5</a></li>
+    <li class="list-group-item"><a href="../how-i-built-this-site-4.html">How I Build This Site - Part 4</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Recent Posts -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="../"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-3">
+      <a href="../tag/anaconda.html">anaconda</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="../tag/blog.html">blog</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="../tag/conda.html">conda</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="../tag/css.html">css</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="../tag/git.html">git</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="../tag/github.html">github</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="../tag/javascript.html">javascript</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="../tag/markdown.html">markdown</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="../tag/pelican.html">pelican</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="../tag/python.html">python</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Series -->
+<li class="list-group-item">
+  <h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Series</span></h4>
+  <ul class="list-group">
+  </ul>
+</li>
+<!-- End Sidebar/Series -->
+
+
+<!-- Sidebar/Github -->
+<li class="list-group-item">
+  <h4><i class="fa fa-github fa-lg"></i><span class="icon-label">GitHub Repos</span></h4>
+  <div id="gh_repos">
+    <p class="list-group-item">Status updating...</p>
+  </div>
+  <a href="https://github.com/professorkazarinoff">@professorkazarinoff</a> on GitHub
+</li>
+<!-- End Sidebar/Github -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2017 Peter Kazarinoff
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="../theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../theme/js/respond.min.js"></script>
+
+    <script src="../static/js/custom.js"></script>
+
+
+<!-- GitHub JS Code -->
+<script type="text/javascript">
+$(document).ready(function () {
+  if (!window.jXHR) {
+    var jxhr = document.createElement('script');
+    jxhr.type = 'text/javascript';
+    jxhr.src = '../theme/js/jXHR.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(jxhr, s);
+  }
+
+  github.showRepos({
+    user: 'professorkazarinoff',
+    count: 5,
+    skip_forks: true,
+    target: '#gh_repos'
+  });
+});
+</script>
+<script src="../theme/js/github.js" type="text/javascript"></script>
+<!-- End GitHub JS Code -->
+
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+    $("div.collapseheader").click(function () {
+    $header = $(this).children("span").first();
+    $codearea = $(this).children(".input_area");
+    console.log($(this).children());
+    $codearea.slideToggle(500, function () {
+        $header.text(function () {
+            return $codearea.is(":visible") ? "Collapse Code" : "Expand Code";
+        });
+    });
+});
+});
+</script>
+</body>
+</html>

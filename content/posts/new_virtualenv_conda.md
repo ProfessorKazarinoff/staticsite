@@ -98,3 +98,5 @@ root                  *  /home/tribilium/anaconda3
 ```
 
 We can spin up the virtual environment again with the ```activate``` command.
+
+Want to use ```pip``` and ```virtualenv``` / ```virtuelenv wrapper``` instead? Great. Those will work too. For windows and computers with locked down active directories, I prefer ```conda```. It just seems to make things easier. For a great post about the differences between ```conda``` and ```pip``` see [this post](http://jakevdp.github.io/blog/2016/08/25/conda-myths-and-misconceptions/) by Jake VanderPlas.

@@ -10,4 +10,4 @@ Summary: After watching a great webinar about plotting with different python lib
 
 ## Code pulled from a jupyter notebook using liquid tags
 
-{% notebook ../code/tensiletest/stress_strain_curve_4_modules.ipynb %}
+{% notebook ../code/tensiletest/altair_and_holoviews.ipynb %}

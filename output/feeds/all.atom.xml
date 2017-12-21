@@ -1288,7 +1288,7 @@ root                  *  /home/tribilium/anaconda3
 &lt;p&gt;and agree to the license&lt;/p&gt;
 &lt;p&gt;&lt;img alt="anaconda license" src="images/anaconda_agree_to_license.png"&gt;&lt;/p&gt;
 &lt;p&gt;At the Advanced Installation Options screen, I recommend that you &lt;strong&gt;do not check&lt;/strong&gt; "Add Anaconda to my PATH environment variable"&lt;/p&gt;
-&lt;p&gt;&lt;img alt="anaconda path variable" src="images/anaconda_installer_advanced_options.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="anaconda path variable" src="images/anaconda_path2.png"&gt;&lt;/p&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;h4&gt;5. Open the Conda prompt from the Windows start menu&lt;/h4&gt;
 &lt;p&gt;After the Anaconda install is complete, you can go to the Windows start menu and select the Anaconda Prompt&lt;/p&gt;

@@ -6,6 +6,8 @@ Category: Python
 Tags: python, matplotlib, engineering, jupyter, notebook, bokeh, altair
 JavaScripts: ipynb_mathjax_inline.js
 Author: Peter D. Kazarinoff
+JavaScripts: bokeh.js
+Stylesheets: bokeh.css
 Summary: After watching a great webinar about plotting with different python libraries, I wanted to see what it was like to make a stress strain curve using four different modules: pandas, matplotlib, altair and bokeh (with holoviews)
 
 ## Code pulled from a jupyter notebook using liquid tags

@@ -12,7 +12,7 @@ DEFAULT_LANG = 'en'
 PATH = 'content'
 PAGE_PATHS = ['pages']
 ARTICLE_PATHS = ['posts']
-STATIC_PATHS = ['images','extra','posts/seaborn_bar_plot_files','extra/CNAME']  # removed this, see if any change 'code',
+STATIC_PATHS = ['images','extra','posts/seaborn_bar_plot_files','extra/CNAME', 'code']  # removed this, see if any change 'code',
 PLUGIN_PATHS = ['pelican-plugins']
 EXTRA_PATH_METADATA = {
     'extra/custom.css': {'path': 'static/css/custom.css'},
@@ -58,14 +58,16 @@ PLUGINS = [
     'liquid_tags.img', 'liquid_tags.video', 'liquid_tags.youtube', 'liquid_tags.notebook',
     'liquid_tags.vimeo',
     'liquid_tags.include_code',
-    'render_math','tipue_search','pelican-ipynb.markup'] #'pelican_javascript','pelican-ipynb.markup'
+    'pelican_javascript',
+    'related_posts',
+    'render_math','tipue_search','pelican-ipynb.markup',] #'pelican_javascript','pelican-ipynb.markup'
 
 #
 
 NOTEBOOK_DIR = 'posts'
 
 I18N_TEMPLATES_LANG = 'en'
-MARKUP = ('md', 'ipynb')
+MARKUP = ('md', 'ipynb','html')
 MARKDOWN = {
     'extension_configs': {
         'markdown.extensions.codehilite': {'css_class': 'highlight'},

@@ -1,4 +1,4 @@
-Title: Python Virtual Environments (virtualenv's) in OS X, Linux and Windows 10)
+Title: Python Virtual Environments in OS X, Linux and Windows 10
 Date: 2017-12-22 14:36
 Modified: 2017-12-22 14:36
 Status: published

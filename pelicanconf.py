@@ -99,7 +99,7 @@ DISPLAY_CATEGORY_IN_BREADCRUMBS = True
 #BANNER_SUBTITLE = 'This is my subtitle'
 #BANNER_ALL_PAGES =  True
 
-SERIES_TEXT = 'This article is the %(index)s of the %(name)s series'
+SERIES_TEXT = 'Article %(index)s of the %(name)s series'
 #sidebar options
    # Tag Cloud Options
 DISPLAY_SERIES_ON_SIDEBAR = True

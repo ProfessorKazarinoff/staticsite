@@ -1,7 +1,7 @@
 Title: Stress Strain Curve in Python using a simple holoviews plot call
 Slug: stress-strain-curve-with-simple-holoviews-plot
 Date: 2017-12-21 10:31
-Status: published
+Status: draft
 Category: Python
 Tags: python, matplotlib, engineering, jupyter, notebook, bokeh, altair
 Author: Peter D. Kazarinoff

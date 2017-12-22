@@ -1,5 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Python for Undergraduate Engineers - Orientation</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="https://professorkazarinoff.github.io/staticsite/feeds/orientation.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2017-11-17T20:20:00-08:00</updated><entry><title>Create a new virtual environment with Conda</title><link href="https://professorkazarinoff.github.io/staticsite/new-virtual-environment-with-conda.html" rel="alternate"></link><published>2017-11-17T20:20:00-08:00</published><updated>2017-11-17T20:20:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-11-17:/staticsite/new-virtual-environment-with-conda.html</id><summary type="html">&lt;p&gt;To start a new Python project, it is best practice to create a new virtual environment. I have the &lt;strong&gt;Anaconda&lt;/strong&gt; distribution of Python installed on my Windows 10 machine at work. When you &lt;a href="https://professorkazarinoff.github.io/staticsite/installing-anaconda-on-windows.html"&gt;install &lt;strong&gt;Anaconda&lt;/strong&gt;&lt;/a&gt;, it comes with the very useful &lt;strong&gt;Anaconda Prompt&lt;/strong&gt;. Using the &lt;strong&gt;Anaconda Prompt&lt;/strong&gt; is a bit …&lt;/p&gt;</summary><content type="html">&lt;p&gt;To start a new Python project, it is best practice to create a new virtual environment. I have the &lt;strong&gt;Anaconda&lt;/strong&gt; distribution of Python installed on my Windows 10 machine at work. When you &lt;a href="https://professorkazarinoff.github.io/staticsite/installing-anaconda-on-windows.html"&gt;install &lt;strong&gt;Anaconda&lt;/strong&gt;&lt;/a&gt;, it comes with the very useful &lt;strong&gt;Anaconda Prompt&lt;/strong&gt;. Using the &lt;strong&gt;Anaconda Prompt&lt;/strong&gt; is a bit like using the terminal on a Mac OSX or Linux. To start the &lt;strong&gt;Anaconda Prompt&lt;/strong&gt; on Windows 10, go to the Windows start button on the lower left and select &lt;strong&gt;Anaconda Prompt&lt;/strong&gt;. &lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Python for Undergraduate Engineers - Orientation</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="https://professorkazarinoff.github.io/staticsite/feeds/orientation.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2017-12-22T14:36:00-08:00</updated><entry><title>Python Virtual Environments (virtualenv's) in OS X, Linux and Windows 10)</title><link href="https://professorkazarinoff.github.io/staticsite/virtualenv-in-osx-linux-windows.html" rel="alternate"></link><published>2017-12-22T14:36:00-08:00</published><updated>2017-12-22T14:36:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-12-22:/staticsite/virtualenv-in-osx-linux-windows.html</id><summary type="html">&lt;p&gt;In this post, I'll review creating virtual environments on three different operating systems: Windows 10, Linux and Mac OSX. Using virtual environments is good programming practice when using Python. A virtual environment will separate the Python interpreter and installed modules from the main Python installation.&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this post, I'll review creating virtual environments on three different operating systems: Windows 10, Linux and Mac OSX. Using virtual environments is good programming practice when using Python. A virtual environment will separate the Python interpreter and installed modules from the main Python installation.&lt;/p&gt;
+&lt;p&gt;I use three different operating systems on three different computers:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Work: Windows 10 (no admin access)&lt;/li&gt;
+&lt;li&gt;Home Office: Ubuntu 16.04 LTS&lt;/li&gt;
+&lt;li&gt;Laptop: Mac OSX&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Setting up a Python virtual environment is different on each one of these operating systems. Let's see at what happens when we try and create a new virtual environment in each.&lt;/p&gt;
+&lt;h3&gt;Ubuntu 16.04&lt;/h3&gt;
+&lt;p&gt;Linux should be the easiest to get a new virtualenv up and running. In Ubuntu 16.04, I have a terminal and admin access (can use sudo). But look what happens when I try to set up a new virtualenv without any flags or customization:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ mkvirtualenv webscrape
+$ &lt;span class="nb"&gt;source&lt;/span&gt; activate webscrape
+$ &lt;span class="o"&gt;(&lt;/span&gt;webscrape&lt;span class="o"&gt;)&lt;/span&gt; which python
+$ &lt;span class="m"&gt;2&lt;/span&gt;.7.1 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The default installation is legacy Python!? I don't want the legacy 2.7 version, I want at least Python 3.2 and would prefer Python 3.6. Let's delete that legacy Python environment. Make sure the virtual environment is &lt;code&gt;deactivate&lt;/code&gt;d first.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;webscrape&lt;span class="k"&gt;)&lt;/span&gt; &lt;span class="nb"&gt;source&lt;/span&gt; deactivate
+&lt;span class="nv"&gt;$rmvirtualenv&lt;/span&gt; webscrape
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Let's try to specify Python 3 with the &lt;code&gt;-p python3&lt;/code&gt; flag&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ mkvirtualenv -p python3 webscrape
+$ error
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now what? Path is too long? How is that possible? What happens when we see which Python version is the default python3?&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ which python3
+$ bin/usr/anaconda/python3
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;So that's the flag we need to use when the &lt;code&gt;viruatlenv&lt;/code&gt; is created. The &lt;code&gt;--python='which python3'&lt;/code&gt; flag will point &lt;strong&gt;virtualenvwrapper&lt;/strong&gt; to the correct Python version. The new virtualenv is initiated with the full file path to our new environment &lt;code&gt;~/.virtualenvs/webscrape&lt;/code&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ mkvirtualenv --python&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;which python3&amp;#39;&lt;/span&gt; ~/.virtualenvs/webscrape
+&lt;span class="o"&gt;(&lt;/span&gt;webscrape&lt;span class="o"&gt;)&lt;/span&gt; $ python
+Python &lt;span class="m"&gt;3&lt;/span&gt;.6.2
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Nice. Now we can &lt;code&gt;pip install&lt;/code&gt; away. So what about creating a new virtual environment on a MacBook Air with OSX?&lt;/p&gt;
+&lt;h3&gt;Mac OSX&lt;/h3&gt;
+&lt;p&gt;Mac OSX has a terminal too. I get to it by going to the finder and clicking the search in the upper right or using [command] + [space] to bring up the spotlight search bar. Type &lt;code&gt;terminal&lt;/code&gt; into the search bar. Setting up a virtualenv should be pretty easy right?&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ mkvirtualenv webscrape
+$ &lt;span class="nb"&gt;source&lt;/span&gt; activate webscrape
+&lt;span class="o"&gt;(&lt;/span&gt;webscrape&lt;span class="o"&gt;)&lt;/span&gt;$ which python
+python &lt;span class="m"&gt;2&lt;/span&gt;.7
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Again!? More legacy Python?! Stop it already with the legacy Python. We want Python! Preferably 3.6. Gotta make sure that Python 3 is installed some where. &lt;code&gt;rmvirtualenv&lt;/code&gt; that thing.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(webscrape)$ source deactivate
+$ rmvirtualenv webscrape
+$ which python3
+$ usr/bin/python
+$ virtualenv -p python3 webscrape
+$ source activate webscrape
+(webscrape)$ python
+python 3.6.2
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;OK. Two down and one to go. Is this any easier on Windows 10? Especially with no admin access? Can't be right? Let's see.&lt;/p&gt;
+&lt;h3&gt;Windows 10 (no admin access)&lt;/h3&gt;
+&lt;p&gt;I have a Windows 10 machine at work with no admin access. I can't install any programs on my work computer that use the Windows active directory (which is most programs). The Python distribution that has worked out the best has been &lt;strong&gt;Anaconda&lt;/strong&gt;. Besides coming with Python 3, and having a bunch of packages already installed, it also comes with a command line client call the &lt;strong&gt;Anaconda Prompt&lt;/strong&gt;. The &lt;strong&gt;Anaconda Prompt&lt;/strong&gt; operates a little like the terminal on Linux and Mac OSX, but some of the commands are a little different. To make a new virtual environment from the &lt;strong&gt;Anaconda Prompt&lt;/strong&gt; type:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ conda create -n webscrape &lt;span class="nv"&gt;python&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;.6
+$ proceed &lt;span class="o"&gt;([&lt;/span&gt;y&lt;span class="o"&gt;]&lt;/span&gt;/n&lt;span class="o"&gt;)&lt;/span&gt;?
+&lt;span class="o"&gt;(&lt;/span&gt;webscrape&lt;span class="o"&gt;)&lt;/span&gt;$ which python
+python &lt;span class="m"&gt;3&lt;/span&gt;.6
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Rockin' right? Turns out that the Windows 10 virtual environment was one of the easiest to set up. Who would have guessed that? That's one piece of magic from the &lt;strong&gt;Anaconda&lt;/strong&gt; distribution. If you are using Windows, I think &lt;strong&gt;Anaconda&lt;/strong&gt; is the way to go.&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;
+&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;End Note:&lt;/p&gt;
+&lt;p&gt;Maybe it's best to use &lt;strong&gt;conda&lt;/strong&gt; on both OSX and Linux too...  You don't have to mess around with &lt;strong&gt;&lt;em&gt;~/.bash_profile&lt;/em&gt;&lt;/strong&gt; or pointing virtualenv wrapper to the proper directory.&lt;/p&gt;</content><category term="python"></category><category term="Windows 10"></category><category term="virtualenv"></category><category term="OSX"></category><category term="Linux"></category><category term="Ubuntu"></category><category term="pip"></category><category term="conda"></category><category term="anaconda"></category><category term="anaconda prompt"></category></entry><entry><title>Create a new virtual environment with Conda</title><link href="https://professorkazarinoff.github.io/staticsite/new-virtual-environment-with-conda.html" rel="alternate"></link><published>2017-11-17T20:20:00-08:00</published><updated>2017-11-17T20:20:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-11-17:/staticsite/new-virtual-environment-with-conda.html</id><summary type="html">&lt;p&gt;To start a new Python project, it is best practice to create a new virtual environment. I have the &lt;strong&gt;Anaconda&lt;/strong&gt; distribution of Python installed on my Windows 10 machine at work. When you &lt;a href="https://professorkazarinoff.github.io/staticsite/installing-anaconda-on-windows.html"&gt;install &lt;strong&gt;Anaconda&lt;/strong&gt;&lt;/a&gt;, it comes with the very useful &lt;strong&gt;Anaconda Prompt&lt;/strong&gt;. Using the &lt;strong&gt;Anaconda Prompt&lt;/strong&gt; is a bit …&lt;/p&gt;</summary><content type="html">&lt;p&gt;To start a new Python project, it is best practice to create a new virtual environment. I have the &lt;strong&gt;Anaconda&lt;/strong&gt; distribution of Python installed on my Windows 10 machine at work. When you &lt;a href="https://professorkazarinoff.github.io/staticsite/installing-anaconda-on-windows.html"&gt;install &lt;strong&gt;Anaconda&lt;/strong&gt;&lt;/a&gt;, it comes with the very useful &lt;strong&gt;Anaconda Prompt&lt;/strong&gt;. Using the &lt;strong&gt;Anaconda Prompt&lt;/strong&gt; is a bit like using the terminal on a Mac OSX or Linux. To start the &lt;strong&gt;Anaconda Prompt&lt;/strong&gt; on Windows 10, go to the Windows start button on the lower left and select &lt;strong&gt;Anaconda Prompt&lt;/strong&gt;. &lt;/p&gt;
 &lt;p&gt;&lt;img alt="anaconda in start menu" src="images/anaconda_from_start_menu.png"&gt;&lt;/p&gt;
 &lt;p&gt;To create the new environment, we need to issue the following command at the prompt:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;conda create --name webscrape python=3.6

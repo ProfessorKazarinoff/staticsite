@@ -284,351 +284,7 @@ Python for Undergraduate Engineers            </a>
 </footer><!-- /.post-info -->                    </div>
                 </div>
                 <h2>Hopefull notebook works. Should be below</h2>
-<p>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="A-statics-problem">A statics problem<a class="anchor-link" href="#A-statics-problem">&#182;</a></h3><h4 id="Given:">Given:<a class="anchor-link" href="#Given:">&#182;</a></h4><p>A weight of 22lbs is hung by a ring. The ring is held by two cords pulled apart.</p>
-<p>The cord a on the left is at an angle $\alpha$ = 45&deg; CW relative to the -x-axis (45&deg; above horazontal)</p>
-<p>The cord b on the right is at an angle $\beta$ = 60&deg; CCW relative to the +x-axis (60&deg; above horazontal)</p>
-<h4 id="Find:">Find:<a class="anchor-link" href="#Find:">&#182;</a></h4><p>The tension in cord A</p>
-<p>The tension in cord B</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Solution:">Solution:<a class="anchor-link" href="#Solution:">&#182;</a></h4><p>To solve this problem with python we are going to use numpy arrays, and the numpy`s linear algebra solver.</p>
-<p>To begin we need to <code>import numpy as np</code> and from numpy's linear algebra module <code>.linalg</code> import the matrix inverse function <code>inv</code>. To decrease the number of digits we see when we print out a numpy array we'll use numpys <code>np.set_printoptions(precision=3)</code> this will give use three digits past the decimal point.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[107]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="k">import</span> <span class="n">inv</span>
-<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Now we will define the angles $\alpha$ and $\beta$ in radians</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[108]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">alpha</span> <span class="o">=</span> <span class="mi">45</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">180</span>
-<span class="n">beta</span> <span class="o">=</span> <span class="mi">60</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">180</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">alpha</span><span class="p">)</span> 
-<span class="nb">print</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>0.7853981633974483
-1.0471975511965976
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Next we will create a numpy array which has two rows and two columns (2 x 2 array). The terms will be the rows will be the sum of the forces in x and the sum of the forces in y. The columns will correspond to coefficients multiplied by A and coefficients multiplied by B.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[109]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">alpha</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">)],[</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">alpha</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="p">)]])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[[-0.707  0.5  ]
- [ 0.707  0.866]]
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Next we create the answer matrix B. 
-This is a two row, one column matrix (2 x 1 array). 
-The rows are the sum of the x-terms (xero) and sum of the y-terms (22)</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[110]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">],[</span><span class="mi">22</span><span class="p">]])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[[ 0]
- [22]]
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Now use numpy`s <code>np.linalg.solve()</code> function and pass in our two arrays. We will assign the output of the <code>solve()</code> function to the variable <code>x</code>.</p>
-<p>When we <code>print(x)</code> we see the answer to our problem.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[111]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[[ 11.388]
- [ 16.105]]
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>We can also have the output of the <code>solve()</code> function be split into two variables, <code>a</code> and <code>b</code>.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[112]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[ 11.388] [ 16.105]
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>We can also solve this problem without using numpy`s <code>linalg.solve()</code> function.</p>
-<p>$$ A x = B $$</p>
-<p>$$ x = \frac{B}{A} $$</p>
-<p>$$ x = A^{-1}B $$</p>
-<p>To produce $A^{-1}$, the inverse of A, we need to use numpy's <code>np.linalg.inv()</code> function. To matrix multiply the terms $A^{-1}$ and B, we need to usen umpy's matrix multiplication function <code>np.dot()</code>.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[113]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="p">),</span><span class="n">B</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[ 11.388]
-[ 16.105]
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Rounding to three sig figs and printing out the answer in a pretty way</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[114]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;a = </span><span class="si">%3.1f</span><span class="s1"> lb&#39;</span><span class="o">%</span><span class="k">a</span>)
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;b = </span><span class="si">%3.1f</span><span class="s1"> lb&#39;</span><span class="o">%</span><span class="k">b</span>)
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>a = 11.4 lb
-b = 16.1 lb
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
- 
-
-</p>
+<p>{% notebook ../code/statics/simple_statics_problem.ipynb %}</p>
 <h2>does it work?</h2>
             </div>
             <!-- /.entry-content -->
@@ -637,9 +293,9 @@ b = 16.1 lb
     <ul>
         <li><a href="/stress-strain-curve-with-simple-holoviews-plot.html">Stress Strain Curve in Python using a simple holoviews plot call</a></li>
         <li><a href="/how-i-built-this-site-4.html">How I Build This Site - Part 4</a></li>
+        <li><a href="/virtualenv-in-osx-linux-windows.html">Python Virtual Environments (virtualenv's) in OS X, Linux and Windows 10)</a></li>
         <li><a href="/how-i-built-this-site-7.html">How I Build This Site - Part 7</a></li>
         <li><a href="/how-i-built-this-site-6.html">How I Build This Site - Part 6</a></li>
-        <li><a href="/how-i-built-this-site-5.html">How I Build This Site - Part 5</a></li>
     </ul>
 </section>
         </article>
@@ -664,9 +320,9 @@ b = 16.1 lb
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
+    <li class="list-group-item"><a href="/virtualenv-in-osx-linux-windows.html">Python Virtual Environments (virtualenv's) in OS X, Linux and Windows 10)</a></li>
     <li class="list-group-item"><a href="/stress-strain-curve-with-simple-holoviews-plot.html">Stress Strain Curve in Python using a simple holoviews plot call</a></li>
     <li class="list-group-item"><a href="/how-i-built-this-site-7.html">How I Build This Site - Part 7</a></li>
-    <li class="list-group-item"><a href="/how-i-built-this-site-6.html">How I Build This Site - Part 6</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
@@ -678,32 +334,32 @@ b = 16.1 lb
     <li class="list-group-item tag-3">
       <a href="/tag/anaconda.html">anaconda</a>
     </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/anaconda-prompt.html">anaconda prompt</a>
+    </li>
     <li class="list-group-item tag-1">
       <a href="/tag/blog.html">blog</a>
     </li>
     <li class="list-group-item tag-3">
       <a href="/tag/conda.html">conda</a>
     </li>
-    <li class="list-group-item tag-3">
+    <li class="list-group-item tag-4">
       <a href="/tag/git.html">git</a>
     </li>
-    <li class="list-group-item tag-3">
+    <li class="list-group-item tag-4">
       <a href="/tag/github.html">github</a>
     </li>
-    <li class="list-group-item tag-3">
-      <a href="/tag/jupyter.html">jupyter</a>
-    </li>
-    <li class="list-group-item tag-3">
-      <a href="/tag/markdown.html">markdown</a>
-    </li>
     <li class="list-group-item tag-4">
-      <a href="/tag/matplotlib.html">matplotlib</a>
+      <a href="/tag/jupyter.html">jupyter</a>
     </li>
     <li class="list-group-item tag-1">
       <a href="/tag/pelican.html">pelican</a>
     </li>
     <li class="list-group-item tag-1">
       <a href="/tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/virtualenv.html">virtualenv</a>
     </li>
   </ul>
 </li>

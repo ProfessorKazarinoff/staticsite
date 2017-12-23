@@ -323,14 +323,14 @@ Python for Undergraduate Engineers            </a>
 <p>Linux should be the easiest to get a new virtualenv up and running. In Ubuntu 16.04, I have a terminal and admin access (can use sudo). But look what happens when I try to set up a new virtualenv without any flags or customization:</p>
 <div class="highlight"><pre><span></span>$ mkvirtualenv webscrape
 $ <span class="nb">source</span> activate webscrape
-$ <span class="o">(</span>webscrape<span class="o">)</span> which python
+<span class="o">(</span>webscrape<span class="o">)</span>$ which python
 $ <span class="m">2</span>.7.1 
 </pre></div>
 
 
 <p>The default installation is legacy Python!? I don't want the legacy 2.7 version, I want at least Python 3.2 and would prefer Python 3.6. Let's delete that legacy Python environment. Make sure the virtual environment is <code>deactivate</code>d first.</p>
-<div class="highlight"><pre><span></span><span class="k">$(</span>webscrape<span class="k">)</span> <span class="nb">source</span> deactivate
-<span class="nv">$rmvirtualenv</span> webscrape
+<div class="highlight"><pre><span></span><span class="o">(</span>webscrape<span class="o">)</span>$ <span class="nb">source</span> deactivate
+$ rmvirtualenv webscrape
 </pre></div>
 
 
@@ -348,7 +348,7 @@ $ bin/usr/anaconda/python3
 
 <p>So that's the flag we need to use when the <code>viruatlenv</code> is created. The <code>--python='which python3'</code> flag will point <strong>virtualenvwrapper</strong> to the correct Python version. The new virtualenv is initiated with the full file path to our new environment <code>~/.virtualenvs/webscrape</code></p>
 <div class="highlight"><pre><span></span>$ mkvirtualenv --python<span class="o">=</span><span class="s1">&#39;which python3&#39;</span> ~/.virtualenvs/webscrape
-<span class="o">(</span>webscrape<span class="o">)</span> $ python
+<span class="o">(</span>webscrape<span class="o">)</span>$ python
 Python <span class="m">3</span>.6.2
 </pre></div>
 
@@ -364,14 +364,14 @@ python <span class="m">2</span>.7
 
 
 <p>Again!? More legacy Python?! Stop it already with the legacy Python. We want Python! Preferably 3.6. Gotta make sure that Python 3 is installed some where. <code>rmvirtualenv</code> that thing.</p>
-<div class="highlight"><pre><span></span>(webscrape)$ source deactivate
+<div class="highlight"><pre><span></span><span class="o">(</span>webscrape<span class="o">)</span>$ <span class="nb">source</span> deactivate
 $ rmvirtualenv webscrape
 $ which python3
 $ usr/bin/python
 $ virtualenv -p python3 webscrape
-$ source activate webscrape
-(webscrape)$ python
-python 3.6.2
+$ <span class="nb">source</span> activate webscrape
+<span class="o">(</span>webscrape<span class="o">)</span>$ python
+python <span class="m">3</span>.6.2
 </pre></div>
 
 

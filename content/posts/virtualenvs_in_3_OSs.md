@@ -24,20 +24,20 @@ Linux should be the easiest to get a new virtualenv up and running. In Ubuntu 16
 ```bash
 $ mkvirtualenv webscrape
 $ source activate webscrape
-$ (webscrape) which python
+(webscrape)$ which python
 $ 2.7.1 
 ```
 
 The default installation is legacy Python!? I don't want the legacy 2.7 version, I want at least Python 3.2 and would prefer Python 3.6. Let's delete that legacy Python environment. Make sure the virtual environment is ```deactivate```d first.
 
 ```bash
-$(webscrape) source deactivate
-$rmvirtualenv webscrape
+(webscrape)$ source deactivate
+$ rmvirtualenv webscrape
 ```
 
 Let's try to specify Python 3 with the ```-p python3``` flag
 
-```
+```bash
 $ mkvirtualenv -p python3 webscrape
 $ error
 ```
@@ -53,7 +53,7 @@ So that's the flag we need to use when the ```viruatlenv``` is created. The ```-
 
 ```bash
 $ mkvirtualenv --python='which python3' ~/.virtualenvs/webscrape
-(webscrape) $ python
+(webscrape)$ python
 Python 3.6.2
 ```
 
@@ -62,7 +62,7 @@ Nice. Now we can ```pip install``` away. So what about creating a new virtual en
 ### Mac OSX
 Mac OSX has a terminal too. I get to it by going to the finder and clicking the search in the upper right or using [command] + [space] to bring up the spotlight search bar. Type ```terminal``` into the search bar. Setting up a virtualenv should be pretty easy right?
 
-```
+```bash
 $ mkvirtualenv webscrape
 $ source activate webscrape
 (webscrape)$ which python
@@ -71,7 +71,7 @@ python 2.7
 
 Again!? More legacy Python?! Stop it already with the legacy Python. We want Python! Preferably 3.6. Gotta make sure that Python 3 is installed some where. ```rmvirtualenv``` that thing.
 
-```
+```bash
 (webscrape)$ source deactivate
 $ rmvirtualenv webscrape
 $ which python3

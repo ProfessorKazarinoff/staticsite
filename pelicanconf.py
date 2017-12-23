@@ -60,7 +60,8 @@ PLUGINS = [
     'liquid_tags.include_code',
     'pelican_javascript',
     'related_posts',
-    'render_math','tipue_search','pelican-ipynb.markup',] #'pelican_javascript','pelican-ipynb.markup'
+    'render_math','tipue_search','pelican-ipynb.markup',
+    'neighbors',] #'pelican_javascript','pelican-ipynb.markup'
 
 #
 

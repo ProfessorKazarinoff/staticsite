@@ -1,48 +1,48 @@
 Title: Using Python and Pint to do Unit Conversions
-Date: 2017-09-27 12:03
-Modified: 2017-09-27 12:03
+Date: 2017-12-23 12:03
+Modified: 2017-12-23 12:03
 Status: Draft
 Category: Python
 Tags: python, pint, unit conversion
 Slug: python-and-pint-unit-conversion
-Authors: Peter Kazarinoff
-Series: Python and Pint
-series_index:
+Authors: Peter D. Kazarinoff
 Summary:
 
-Units and unit conversions are **BIG** in engineering. Engineers solve the worlds problems in teams. Any problem that is solved has to have a context that it is solved in. How heavy can a rocket be and still make it off the ground, what thickness bodypannels should be used to keep occupants save during a crash. In engineering a number without a unit is like a fish without water. It just flops around hopelessly without context and is useless. 
+Units and unit conversions are **BIG** in engineering. Engineers solve the world's problems in teams. Any problem that is solved has to have a context that it is solved in. How heavy can a rocket be and still make it off the ground? What thickness bodypannels should be used to keep occupants save during a crash? In engineering, a number without a unit is like a fish without water. It just flops around hopelessly without context and is useless. 
 
-How can we get help using unit? Programming is one way. We are going to use Python and Pint, a python package used for unit conversions to do a couple of sample unit conversions and some simple density problems. These could be problems on engineering homework problems sets. Below are is the first problem:
+How can we get help using units? Programming is one way. We are going to use Python and Pint, a python package used for unit conversions, to do a couple of sample unit conversions and some simple density problems. These could be problems on engineering homework problems sets. Below is the first problem:
 
+</br>
 
-Convert the following measurements into the units provided
+Convert the following measurements into the units provided.
+
+</br>
 
 1. 13.2 in to cm
 2. 1100 W to Btu / hr
 3. 63.2 lb ft to N m
-4. 1150 J s/m2 to kcal min/in2
+4. 1150 J s/m<sup>2</sup> to kcal min/in<sup>2</sup>
 
-First we should fire up a new virtual environment, let's call it ```units```
-
-```
-$ mkvirtualenv units
-```
-
-Next we need to activate our new ```units``` environment and install the pint package using pip. Pint is a python package used to work with units(like meter, gram, pound, inch, foot) and convert between different units (like converting 12 inches = 30.48 cm).
+First we should fire up a new virtual environment, let's call it ```units```. I'm going to use the **Anaconda Prompt** to create the environment
 
 ```
-$ workon units
+$ conda create -n units python=3.6
+```
+
+Next we need to activate our new ```units``` environment and install the pint package using pip. Pint is a python package used to work with units (like meter, gram, pound, inch, foot) and convert between different units (like converting 12 inches to 30.48 cm).
+
+```
+$ conda activate units
 (units)$ pip install pint
 (units)$ pip freeze
 Pint==0.8.1
 ```
 
-OK. Now on to our first problem. We can do these first four problems directly in the python interpreter. To open up the interpreter, just type ```python``` on the command line.
+Now on to our first problem. We can do these exersizes directly in the python interpreter. To open up the interpreter, just type ```python``` on the command line.
 
 ```
 (units)$ python
-Python 3.5.1 (default, Apr 18 2016, 03:49:24) 
-[GCC 4.2.1 Compatible Apple LLVM 7.0.2 (clang-700.1.81)] on darwin
+Python 3.6.3 |Anaconda, Inc|
 Type "help", "copyright", "credits" or "license" for more information.
 >>>
 ```
@@ -69,12 +69,13 @@ Our ```measurement``` now has a couple defined attributes, ```magnitude``` , ```
 >>> >>> print(measurement.magnitude)
 13.2
 >>> print(measurement.units)
-inch
+'inch'
 >>> print(measurement.dimensionality)
 [length]
+>>>
 ```
 
-There are two ways we can convert our measurement 13.2 inches into centimeters. One is by creating a new object ```measurement_in_cm``` using the ```.to()``` method on our ```measurement``` object.
+There are two ways we can convert our measurement _13.2 inches_ into _centimeters_. One is by creating a new object ```measurement_in_cm``` using the ```.to()``` method on our ```measurement``` object.
 
 ```
 >>> measurement_in_cm = measurement.to(ureg.cm)
@@ -109,6 +110,7 @@ The units we are going to convert to are Btu / hr. Compound units in pint are do
 3753.355796440737 btu / hour
 >>> print(power_in_Btu_per_hour.units)
 btu / hour
+>>>
 ```
 
 Or run the method in place with:
@@ -120,7 +122,7 @@ Or run the method in place with:
 >>> 
 ```
 
-Our next problem is: 63.2 lb ft to N m. Note here that pounds(lb) is a unit of *force* that will be converted to Newtons (N) also a unit of *force*. We need to make sure that we tell pint that we want pounds as a unit of *force*, not a unit of *mass*.
+Our next problem is: 63.2 lb ft to N m. Note here that _pounds_ (lb) is a unit of **_force_** that will be converted to _Newtons_ (N) also a unit of **_force_**. We need to make sure that we tell pint that we want pounds as a unit of **_force_**, not a unit of **_mass_**.
 
 ```
 >>> torque = 63.2 * ureg.lb * ureg.ft

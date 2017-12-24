@@ -91,8 +91,9 @@ I have a Windows 10 machine at work with no admin access. I can't install any pr
 ```
 $ conda create -n webscrape python=3.6
 $ proceed ([y]/n)?
+$ conda activate webscrape
 (webscrape)$ python --version
-python 3.6.3
+python 3.6.3 :: Anaconda, Inc.
 ```
 
 Rockin' right? Turns out that the Windows 10 virtual environment was one of the easiest to set up. Who would have guessed that? That's one piece of magic from the **Anaconda** distribution. If you are using Windows, I think **Anaconda** is the way to go.

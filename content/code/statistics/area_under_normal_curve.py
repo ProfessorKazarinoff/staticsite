@@ -1,5 +1,5 @@
 ### Script calculates probability as area under a normal gaussian curve,
-### given inputs of x1, x2, mu (mean), sigma(std. dev.) and computes
+### given inputs of x1, x2, mu (mean), sigma(standard deviation) and computes
 ### the probabability using the integral function and the gaussian curve.
 from math import sqrt,erf
 ## If plotting as well

@@ -6,7 +6,6 @@ Category: Python
 Tags: python, pint, unit conversion
 Slug: python-and-pint-unit-conversion
 Authors: Peter D. Kazarinoff
-Summary:
 
 Units and unit conversions are **BIG** in engineering. Engineers solve the world's problems in teams. Any problem that is solved has to have a context that it is solved in. How heavy can a rocket be and still make it off the ground? What thickness bodypannels should be used to keep occupants save during a crash? In engineering, a number without a unit is like a fish without water. It just flops around hopelessly without context and is useless. 
 

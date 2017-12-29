@@ -380,8 +380,9 @@ python <span class="m">3</span>.6.2
 <p>I have a Windows 10 machine at work with no admin access. I can't install any programs on my work computer that use the Windows active directory (which is most programs). The Python distribution that has worked out the best has been <strong>Anaconda</strong>. Besides coming with Python 3, and having a bunch of packages already installed, it also comes with a command line client call the <strong>Anaconda Prompt</strong>. The <strong>Anaconda Prompt</strong> operates a little like the terminal on Linux and Mac OSX, but some of the commands are a little different. To make a new virtual environment from the <strong>Anaconda Prompt</strong> type:</p>
 <div class="highlight"><pre><span></span>$ conda create -n webscrape <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.6
 $ proceed <span class="o">([</span>y<span class="o">]</span>/n<span class="o">)</span>?
-<span class="o">(</span>webscrape<span class="o">)</span>$ which python
-python <span class="m">3</span>.6
+$ conda activate webscrape
+<span class="o">(</span>webscrape<span class="o">)</span>$ python --version
+python <span class="m">3</span>.6.3 :: Anaconda, Inc.
 </pre></div>
 
 

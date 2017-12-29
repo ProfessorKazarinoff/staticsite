@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>Calculating the probability under a normal curve with Python - Python for Undergraduate Engineers</title>
+    <title>units - Python for Undergraduate Engineers</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -174,23 +174,16 @@ init_mathjax();
 </script>
     <link href="../extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="../drafts/probability-under-normal-curve-with-python.html">
 
-        <meta name="author" content="Peter D. Kazarinoff" />
-        <meta name="keywords" content="python,engineering,statistics" />
-        <meta name="description" content="Calculating the probability under a normal curve is useful for engineers. This type of calculation can be useful to predict the likely hood of a part coming of an assembly line being within a given specification when the statistical properties of all the parts that have come of the assembly …" />
+    <meta name="author" content="Peter Kazarinoff" />
+    <meta name="keywords" content="units" />
 
+    <!-- Open Graph tags -->
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
-        <meta property="og:type" content="article"/>
-        <meta property="og:title" content="Calculating the probability under a normal curve with Python"/>
-        <meta property="og:url" content="../drafts/probability-under-normal-curve-with-python.html"/>
-        <meta property="og:description" content="Calculating the probability under a normal curve is useful for engineers. This type of calculation can be useful to predict the likely hood of a part coming of an assembly line being within a given specification when the statistical properties of all the parts that have come of the assembly …"/>
-        <meta property="article:published_time" content="2017-10-10" />
-            <meta property="article:section" content="statistics" />
-            <meta property="article:tag" content="python" />
-            <meta property="article:tag" content="engineering" />
-            <meta property="article:tag" content="statistics" />
-            <meta property="article:author" content="Peter D. Kazarinoff" />
+        <meta property="og:type" content="website"/>
+        <meta property="og:title" content="Python for Undergraduate Engineers"/>
+        <meta property="og:url" content=".."/>
+        <meta property="og:description" content="Python for Undergraduate Engineers"/>
 
 
 
@@ -208,8 +201,6 @@ init_mathjax();
 
 
 
-        <link href="../feeds/statistics.atom.xml" type="application/atom+xml" rel="alternate"
-              title="Python for Undergraduate Engineers statistics ATOM Feed"/>
 
 </head>
 <body>
@@ -252,148 +243,11 @@ Python for Undergraduate Engineers            </a>
 <div class="container">
     <div class="row">
         <div class="col-sm-9">
-            <ol class="breadcrumb">
-                <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="../category/statistics.html" title="statistics">statistics</a></li>
-                <li class="active">Calculating the probability under a normal curve with Python</li>
-            </ol>
-    <section id="content">
-        <article>
-            <header class="page-header">
-                <h1>
-                    <a href="../drafts/probability-under-normal-curve-with-python.html"
-                       rel="bookmark"
-                       title="Permalink to Calculating the probability under a normal curve with Python">
-                        Calculating the probability under a normal curve with Python
-                    </a>
-                </h1>
-            </header>
-            <div class="entry-content">
-                <div class="panel">
-                    <div class="panel-body">
-<footer class="post-info">
-    <span class="label label-default">Date</span>
-    <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2017-10-10T09:01:00-07:00"> Tue 10 October 2017</time>
-    </span>
-
-            <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x0000020849CA3D30> of 
-
-
-
-
-<span class="label label-default">Tags</span>
-	<a href="../tag/python.html">python</a>
-        /
-	<a href="../tag/engineering.html">engineering</a>
-        /
-	<a href="../tag/statistics.html">statistics</a>
-    
-</footer><!-- /.post-info -->                    </div>
-                </div>
-                <p>Calculating the probability under a normal curve is useful for engineers. This type of calculation can be useful to predict the likely hood of a part coming of an assembly line being within a given specification when the statistical properties of all the parts that have come of the assembly line previously are known. </p>
-<p>In this post we will calculate the probability under the normal curve to answer a question like the one below:</p>
-<p><br>
-<br></p>
-<p><strong>Given:</strong> In a facility that manufactures electrical resistors, a sample of 35 1-kΩ resistors are randomly pulled from the production line, and their resistances are measured and recorded. A mean resistance of 979.8 kΩ and a standard deviation of 73.10 kΩ represents the sample of resistors. The desired resistance tolerance for the resistors is ± 10%, meaning that the acceptable range of resistance is 900 Ω to 1100 Ω.</p>
-<p><br>
-<br></p>
-<p><strong>Find:</strong> Assuming a normal distribution, determine the probability that a resistor coming off the production line will be within spec.</p>
-<p><br></p>
-<p>To build our script we need to accomplish a couple of things:</p>
-<ol>
-<li>Import the necessary functions. We need to use the <code>erf()</code> and <code>sqrt()</code> functions in the <code>math</code> module.</li>
-<li>Define the constants for this problem. The mean, standard deviation, lower bound and upper bound will be defined.</li>
-<li>Calculate the probability using the <code>erf()</code> function</li>
-<li>Print the results to the Python interpreter</li>
-</ol>
-<p>Let's take a look at a gaussian curve</p>
-<p><img alt="gaussian_curve" src="../images/gaussian_curve.png"></p>
-<p>This shape of the curve describes the spread of resistors coming off the production line. We need to find the area under the curve within our upper and lower bounds.</p>
-<p>Open up a new Python script called <strong><em>stats.py</em></strong>. In the first line of code we import the <code>erf</code> and <code>sqrt()</code> functions from the <code>math</code> module. Because the <code>math</code> module is part of the standard library, it does not need to be installed using <code>conda</code> or <code>pip</code>.</p>
-<div class="highlight"><pre><span></span><span class="c1"># stats.py</span>
-
-<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">erf</span><span class="p">,</span> <span class="n">sqrt</span>
-</pre></div>
-
-
-<p>Now we need to define the constants</p>
-<div class="highlight"><pre><span></span><span class="c1"># define constants</span>
-
-<span class="n">mu</span> <span class="o">=</span> <span class="mf">979.8</span>    <span class="c1"># mean = 978.8 kΩ</span>
-<span class="n">sigma</span> <span class="o">=</span> <span class="mf">73.1</span>  <span class="c1"># standard deviation = 73.1 kΩ</span>
-<span class="n">x1</span> <span class="o">=</span> <span class="mi">900</span>      <span class="c1"># lower bound = 900 kΩ</span>
-<span class="n">x2</span> <span class="o">=</span> <span class="mi">1100</span>     <span class="c1"># upper bound = 1100 kΩ</span>
-</pre></div>
-
-
-<p>Next we calculate the probability using the <code>erf()</code> function</p>
-<div class="highlight"><pre><span></span><span class="c1"># calculate probability</span>
-
-<span class="c1"># Probability from 0 to lower bound</span>
-<span class="n">double_prob</span> <span class="o">=</span> <span class="n">erf</span><span class="p">(</span> <span class="p">(</span><span class="n">x1</span><span class="o">-</span><span class="n">mu</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">sigma</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="p">)</span>
-<span class="n">p_lower</span> <span class="o">=</span> <span class="n">double_prob</span><span class="o">/</span><span class="mi">2</span>
-<span class="k">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">p_lower</span><span class="p">))</span>
-
-<span class="c1"># Probability from 0 to upper bound</span>
-<span class="n">double_prob</span> <span class="o">=</span> <span class="n">erf</span><span class="p">(</span> <span class="p">(</span><span class="n">x2</span><span class="o">-</span><span class="n">mu</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">sigma</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="p">)</span>
-<span class="n">p_upper</span> <span class="o">=</span> <span class="n">double_prob</span><span class="o">/</span><span class="mi">2</span>
-<span class="k">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">p_upper</span><span class="p">))</span>
-</pre></div>
-
-
-<p>From the upper and lower limits, we calculated two probabilities: <code>p_lower</code> and <code>p_upper</code>. We can use these to calculate the probability a resistor randomly pulled off the line is within tolerance (inside the range) or out of tolerance (outside the range).</p>
-<div class="highlight"><pre><span></span><span class="n">Pin</span><span class="o">=</span> <span class="p">(</span><span class="n">p_upper</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">p_lower</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s1">&#39;mean = </span><span class="si">%.2f</span><span class="s1">    std dev = </span><span class="si">%.2f</span><span class="s1"> </span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">mu</span><span class="p">,</span><span class="n">sigma</span><span class="p">))</span>
-<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Calculating probability of occuring between </span><span class="si">%.4f</span><span class="s1"> &lt;--&gt; </span><span class="si">%.4f</span><span class="s1"> </span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">))</span>
-<span class="k">print</span><span class="p">(</span><span class="s1">&#39;inside interval Pin = </span><span class="si">%.2f%%</span><span class="s1"> </span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">Pin</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span>
-<span class="k">print</span><span class="p">(</span><span class="s1">&#39;outside interval Pout = </span><span class="si">%.2f%%</span><span class="s1"> </span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">Pin</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span>
-<span class="k">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-</pre></div>
-
-
-<p>The output of our <strong><em>stats.py</em></strong> script is:</p>
-<div class="highlight"><pre><span></span>mean = 979.80    std dev = 73.10 
-
-Calculating probability of occuring between 900.0000 &lt;--&gt; 1100.0000 
-
-inside interval Pin = 81.25% 
-
-outside interval Pout = 18.75% 
-</pre></div>
-
-
-<p><br>
-<br></p>
-<p>So back to our original question: </p>
-<p><br>
-<br></p>
-<p><em>determine the probability that a resistor coming off the production line will be within spec.</em>
-<br>
-<br>
-This is the probability of a resistor being inside the interval, <strong>81.25 %</strong></p>
-<p><br>
-<br></p>
-<p>In the next post, we will use Python and matplotlib to build a curve that describes this problem. </p>
-            </div>
-            <!-- /.entry-content -->
-<section class="well" id="related-posts">
-    <h4>Related Posts:</h4>
-    <ul>
-        <li><a href="../virtualenv-in-osx-linux-windows.html">Python Virtual Environments in OS X, Linux and Windows 10</a></li>
-        <li><a href="../how-i-built-this-site-7.html">How I Build This Site - Part 7</a></li>
-        <li><a href="../how-i-built-this-site-6.html">How I Build This Site - Part 6</a></li>
-        <li><a href="../how-i-built-this-site-5.html">How I Build This Site - Part 5</a></li>
-        <li><a href="../how-i-built-this-site-4.html">How I Build This Site - Part 4</a></li>
-    </ul>
-</section>
-<section class="well" id="related-posts">
-    <h4>Article <built-in method index of str object at 0x0000020849CA3D30> of the  series</h4>
-</section>
-        </article>
-    </section>
+    <ol class="breadcrumb">
+        <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+        <li><a href="../" title="Tags">Tags</a></li>
+        <li class="active">units</li>
+    </ol>
 
         </div>
         <div class="col-sm-3" id="sidebar">
@@ -414,9 +268,6 @@ This is the probability of a resistor being inside the interval, <strong>81.25 %
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
-    <li class="list-group-item"><a href="../virtualenv-in-osx-linux-windows.html">Python Virtual Environments in OS X, Linux and Windows 10</a></li>
-    <li class="list-group-item"><a href="../how-i-built-this-site-7.html">How I Build This Site - Part 7</a></li>
-    <li class="list-group-item"><a href="../how-i-built-this-site-6.html">How I Build This Site - Part 6</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
@@ -459,15 +310,6 @@ This is the probability of a resistor being inside the interval, <strong>81.25 %
 </li>
 <!-- End Sidebar/Tag Cloud -->
 
-<!-- Sidebar/Series -->
-<li class="list-group-item">
-  <h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Series</span></h4>
-  <ul class="list-group">
-  </ul>
-</li>
-<!-- End Sidebar/Series -->
-
-
 <!-- Sidebar/Github -->
 <li class="list-group-item">
   <h4><i class="fa fa-github fa-lg"></i><span class="icon-label">GitHub Repos</span></h4>
@@ -487,7 +329,7 @@ This is the probability of a resistor being inside the interval, <strong>81.25 %
    <div class="container">
       <hr>
       <div class="row">
-         <div class="col-xs-10">&copy; 2017 Peter Kazarinoff
+         <div class="col-xs-10">&copy;  Peter Kazarinoff
             &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
             <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
             <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>

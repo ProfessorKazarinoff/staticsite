@@ -76,7 +76,7 @@ p.add_tools(HoverTool(tooltips = [
     ("Atomic number", "@{atomic number}"),
     ("Atomic mass", "@{atomic mass}"),
     ("Type", "@metal"),
-    ("CPK color", "$color[hex, swatch]:CPK"),
+    #("CPK color", "$color[hex, swatch]:CPK"),
     ("Electronic configuration", "@{electronic configuration}"),
 ]))
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>Plotting the gaussian normal curve with Python and matplotlib - Python for Undergraduate Engineers</title>
+    <title>Plotting a gaussian normal curve with Python and matplotlib - Python for Undergraduate Engineers</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -176,21 +176,22 @@ init_mathjax();
 
 <link rel="canonical" href="../drafts/plotting-normal-curve-with-python.html">
 
-        <meta name="author" content="Peter Kazarinoff" />
-        <meta name="keywords" content="python,engineering,statistics" />
-        <meta name="description" content="In the prevous post, we calculated the area under the standard normal curve using python and the math module&#39;s erf() function. In this post we are going to construct a plot that illustrates the standard normal curve and the area we calculated. To do this we are going to use …" />
+        <meta name="author" content="Peter D. Kazarinoff" />
+        <meta name="keywords" content="python,engineering,statistics,matplotlib" />
+        <meta name="description" content="In the previous post, we calculated the area under the standard normal curve using Python and the erf() function from the math module in the standard library. In this post, we will construct a plot that illustrates the standard normal curve and the area we calculated. To do this we …" />
 
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
-        <meta property="og:title" content="Plotting the gaussian normal curve with Python and matplotlib"/>
+        <meta property="og:title" content="Plotting a gaussian normal curve with Python and matplotlib"/>
         <meta property="og:url" content="../drafts/plotting-normal-curve-with-python.html"/>
-        <meta property="og:description" content="In the prevous post, we calculated the area under the standard normal curve using python and the math module&#39;s erf() function. In this post we are going to construct a plot that illustrates the standard normal curve and the area we calculated. To do this we are going to use …"/>
-        <meta property="article:published_time" content="2017-10-10" />
-            <meta property="article:section" content="python" />
+        <meta property="og:description" content="In the previous post, we calculated the area under the standard normal curve using Python and the erf() function from the math module in the standard library. In this post, we will construct a plot that illustrates the standard normal curve and the area we calculated. To do this we …"/>
+        <meta property="article:published_time" content="2017-12-24" />
+            <meta property="article:section" content="plotting" />
             <meta property="article:tag" content="python" />
             <meta property="article:tag" content="engineering" />
             <meta property="article:tag" content="statistics" />
-            <meta property="article:author" content="Peter Kazarinoff" />
+            <meta property="article:tag" content="matplotlib" />
+            <meta property="article:author" content="Peter D. Kazarinoff" />
 
 
 
@@ -208,8 +209,8 @@ init_mathjax();
 
 
 
-        <link href="../feeds/python.atom.xml" type="application/atom+xml" rel="alternate"
-              title="Python for Undergraduate Engineers python ATOM Feed"/>
+        <link href="../feeds/plotting.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Python for Undergraduate Engineers plotting ATOM Feed"/>
 
 </head>
 <body>
@@ -254,8 +255,8 @@ Python for Undergraduate Engineers            </a>
         <div class="col-sm-9">
             <ol class="breadcrumb">
                 <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="../category/python.html" title="python">python</a></li>
-                <li class="active">Plotting the gaussian normal curve with Python and matplotlib</li>
+                <li><a href="../category/plotting.html" title="plotting">plotting</a></li>
+                <li class="active">Plotting a gaussian normal curve with Python and matplotlib</li>
             </ol>
     <section id="content">
         <article>
@@ -263,8 +264,8 @@ Python for Undergraduate Engineers            </a>
                 <h1>
                     <a href="../drafts/plotting-normal-curve-with-python.html"
                        rel="bookmark"
-                       title="Permalink to Plotting the gaussian normal curve with Python and matplotlib">
-                        Plotting the gaussian normal curve with Python and matplotlib
+                       title="Permalink to Plotting a gaussian normal curve with Python and matplotlib">
+                        Plotting a gaussian normal curve with Python and matplotlib
                     </a>
                 </h1>
             </header>
@@ -274,11 +275,11 @@ Python for Undergraduate Engineers            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2017-10-10T09:01:00-07:00"> Tue 10 October 2017</time>
+        <i class="fa fa-calendar"></i><time datetime="2017-12-24T09:01:00-08:00"> Sun 24 December 2017</time>
     </span>
 
             <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x000001E4DC6F19F0> of 
+            Part <built-in method index of str object at 0x0000020848355648> of 
 
 
 
@@ -289,45 +290,42 @@ Python for Undergraduate Engineers            </a>
 	<a href="../tag/engineering.html">engineering</a>
         /
 	<a href="../tag/statistics.html">statistics</a>
+        /
+	<a href="../tag/matplotlib.html">matplotlib</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>In the prevous post, we calculated the area under the standard normal curve using python and the <code>math</code> module's <code>erf()</code> function. In this post we are going to construct a plot that illustrates the standard normal curve and the area we calculated. To do this we are going to use Python, matplotlib, and a module called seaborn. </p>
-<p>Calculating the probability under a normal curve is useful for engineers. This type of calculation can be useful to predict the likly hood of a part comming of an assembly line being within a given specification when the statistical properties of all the parts that have come of the assembly line previously are known. </p>
-<p>In this post we will calculate the probabiliy under the normal curve to answer a question like the one below:</p>
-<p>Given: In a facility that manufactures electrical resistors, a sample of 35 1-kΩ resistors are randomly pulled from the production line, and their resistances are measured and recorded. A mean resitance of 990 kΩ standard deviation of 10 kΩ represents the sample of resistors. The desired resistance tolerance for the resistor is ± 10%, meaning that the acceptable range of resistance is 900Ω to 1100Ω.</p>
-<p>Find: Assuming a standard distribution determine the probability that a resistor coming off the production line will be within spec.</p>
+                <p>In the previous post, we calculated the area under the standard normal curve using Python and the <code>erf()</code> function from the <code>math</code> module in the standard library. In this post, we will construct a plot that illustrates the standard normal curve and the area we calculated. To do this we are going to use Python, matplotlib, and a module called seaborn. </p>
+<p>Calculating the probability under a normal curve is useful for engineers. This type of calculation can be useful to predict the likely hood of a part coming of an assembly line being within a given specification when the statistical properties of all the parts that have come of the assembly line previously are known. </p>
+<p>In this post we will calculate the probability under the normal curve to answer a question like the one below:</p>
+<p>Given: In a facility that manufactures electrical resistors, a sample of 35 1-kΩ resistors are randomly pulled from the production line, and their resistances are measured and recorded. A mean resistance of 990 kΩ and a standard deviation of 10 kΩ represents the sample of resistors. The desired resistance tolerance for the resistor is ± 10%, meaning that the acceptable range of resistance is 900Ω to 1100Ω.</p>
+<p>Find: Assuming a standard distribution, determine the probability that a resistor coming off the production line will be within spec.</p>
 <p>To build our script we need to accomplish a couple of things</p>
 <p>Let's take a look at a gaussin curve</p>
 <p><img alt="gaussian_curve" src="../images/normal_gaussian_curve.png"></p>
 <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>
 </pre></div>
 
 
 <p>Now we need to define our constants</p>
 <div class="highlight"><pre><span></span><span class="c1"># define constants</span>
+
+<span class="c1"># define constants</span>
+
+<span class="n">mu</span> <span class="o">=</span> <span class="mf">979.8</span>    <span class="c1"># mean = 978.8 kΩ</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="mf">73.1</span>  <span class="c1"># standard deviation = 73.1 kΩ</span>
+<span class="n">x1</span> <span class="o">=</span> <span class="mi">900</span>      <span class="c1"># lower bound = 900 kΩ</span>
+<span class="n">x2</span> <span class="o">=</span> <span class="mi">1100</span>     <span class="c1"># upper bound = 1100 kΩ</span>
 </pre></div>
 
 
 <p>Next we calculate the probability build the curve with scipy's <code>scipy.stats.norm.pdf()</code> function</p>
-<div class="highlight"><pre><span></span># sample parameters
-d = 1.778     # diameter of sample in mm
-A0 = np.pi*(d/2)**2 # original cross-sectional area of sample in mm^2
-L0 = 18.002   # original gauge length of sample (lenth of narrowest section)
+<div class="highlight"><pre><span></span># plot the data
 
-# calcuate stress and strain
-stress = (force/A0)
-strain = delta_L/L0
-
-# plot the stress strain curve
-plt.plot(strain,stress)
-plt.xlabel(&#39;Strain (mm/mm)&#39;)
-plt.ylabel(&#39;Stress (MPa)&#39;)
-plt.title(&#39;Stress-Strain Curve of Al6061 - T6&#39;)
-plt.axis([0, 1.4, 0, 60])
-plt.grid(True)
+plt.plot(data)
 plt.show()
 </pre></div>
             </div>
@@ -343,7 +341,7 @@ plt.show()
     </ul>
 </section>
 <section class="well" id="related-posts">
-    <h4>Article <built-in method index of str object at 0x000001E4DC6F19F0> of the  series</h4>
+    <h4>Article <built-in method index of str object at 0x0000020848355648> of the  series</h4>
 </section>
         </article>
     </section>

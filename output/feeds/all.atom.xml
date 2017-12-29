@@ -68,8 +68,9 @@ python &lt;span class="m"&gt;3&lt;/span&gt;.6.2
 &lt;p&gt;I have a Windows 10 machine at work with no admin access. I can't install any programs on my work computer that use the Windows active directory (which is most programs). The Python distribution that has worked out the best has been &lt;strong&gt;Anaconda&lt;/strong&gt;. Besides coming with Python 3, and having a bunch of packages already installed, it also comes with a command line client call the &lt;strong&gt;Anaconda Prompt&lt;/strong&gt;. The &lt;strong&gt;Anaconda Prompt&lt;/strong&gt; operates a little like the terminal on Linux and Mac OSX, but some of the commands are a little different. To make a new virtual environment from the &lt;strong&gt;Anaconda Prompt&lt;/strong&gt; type:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ conda create -n webscrape &lt;span class="nv"&gt;python&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;.6
 $ proceed &lt;span class="o"&gt;([&lt;/span&gt;y&lt;span class="o"&gt;]&lt;/span&gt;/n&lt;span class="o"&gt;)&lt;/span&gt;?
-&lt;span class="o"&gt;(&lt;/span&gt;webscrape&lt;span class="o"&gt;)&lt;/span&gt;$ which python
-python &lt;span class="m"&gt;3&lt;/span&gt;.6
+$ conda activate webscrape
+&lt;span class="o"&gt;(&lt;/span&gt;webscrape&lt;span class="o"&gt;)&lt;/span&gt;$ python --version
+python &lt;span class="m"&gt;3&lt;/span&gt;.6.3 :: Anaconda, Inc.
 &lt;/pre&gt;&lt;/div&gt;
 
 

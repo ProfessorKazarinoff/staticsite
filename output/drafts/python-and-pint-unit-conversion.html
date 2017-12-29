@@ -176,20 +176,21 @@ init_mathjax();
 
 <link rel="canonical" href="../drafts/python-and-pint-unit-conversion.html">
 
-        <meta name="author" content="Peter Kazarinoff" />
+        <meta name="author" content="Peter D. Kazarinoff" />
         <meta name="keywords" content="python,pint,unit conversion" />
+        <meta name="description" content="Units and unit conversions are BIG in engineering. Engineers solve the world&#39;s problems in teams. Any problem that is solved has to have a context that it is solved in. How heavy can a rocket be and still make it off the ground? What thickness bodypannels should be used to …" />
 
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="Using Python and Pint to do Unit Conversions"/>
         <meta property="og:url" content="../drafts/python-and-pint-unit-conversion.html"/>
-        <meta property="og:description" content=""/>
-        <meta property="article:published_time" content="2017-09-27" />
+        <meta property="og:description" content="Units and unit conversions are BIG in engineering. Engineers solve the world&#39;s problems in teams. Any problem that is solved has to have a context that it is solved in. How heavy can a rocket be and still make it off the ground? What thickness bodypannels should be used to …"/>
+        <meta property="article:published_time" content="2017-12-23" />
             <meta property="article:section" content="Python" />
             <meta property="article:tag" content="python" />
             <meta property="article:tag" content="pint" />
             <meta property="article:tag" content="unit conversion" />
-            <meta property="article:author" content="Peter Kazarinoff" />
+            <meta property="article:author" content="Peter D. Kazarinoff" />
 
 
 
@@ -273,11 +274,9 @@ Python for Undergraduate Engineers            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2017-09-27T12:03:00-07:00"> Wed 27 September 2017</time>
+        <i class="fa fa-calendar"></i><time datetime="2017-12-23T12:03:00-08:00"> Sat 23 December 2017</time>
     </span>
 
-            <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x000001E4DE1F7170> of 
 
 
 
@@ -291,32 +290,33 @@ Python for Undergraduate Engineers            </a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>Units and unit conversions are <strong>BIG</strong> in engineering. Engineers solve the worlds problems in teams. Any problem that is solved has to have a context that it is solved in. How heavy can a rocket be and still make it off the ground, what thickness bodypannels should be used to keep occupants save during a crash. In engineering a number without a unit is like a fish without water. It just flops around hopelessly without context and is useless. </p>
-<p>How can we get help using unit? Programming is one way. We are going to use Python and Pint, a python package used for unit conversions to do a couple of sample unit conversions and some simple density problems. These could be problems on engineering homework problems sets. Below are is the first problem:</p>
-<p>Convert the following measurements into the units provided</p>
+                <p>Units and unit conversions are <strong>BIG</strong> in engineering. Engineers solve the world's problems in teams. Any problem that is solved has to have a context that it is solved in. How heavy can a rocket be and still make it off the ground? What thickness bodypannels should be used to keep occupants save during a crash? In engineering, a number without a unit is like a fish without water. It just flops around hopelessly without context and is useless. </p>
+<p>How can we get help using units? Programming is one way. We are going to use Python and Pint, a python package used for unit conversions, to do a couple of sample unit conversions and some simple density problems. These could be problems on engineering homework problems sets. Below is the first problem:</p>
+<p></br></p>
+<p>Convert the following measurements into the units provided.</p>
+<p></br></p>
 <ol>
 <li>13.2 in to cm</li>
 <li>1100 W to Btu / hr</li>
 <li>63.2 lb ft to N m</li>
-<li>1150 J s/m2 to kcal min/in2</li>
+<li>1150 J s/m<sup>2</sup> to kcal min/in<sup>2</sup></li>
 </ol>
-<p>First we should fire up a new virtual environment, let's call it <code>units</code></p>
-<div class="highlight"><pre><span></span>$ mkvirtualenv units
+<p>First we should fire up a new virtual environment, let's call it <code>units</code>. I'm going to use the <strong>Anaconda Prompt</strong> to create the environment</p>
+<div class="highlight"><pre><span></span>$ conda create -n units <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.6
 </pre></div>
 
 
-<p>Next we need to activate our new <code>units</code> environment and install the pint package using pip. Pint is a python package used to work with units(like meter, gram, pound, inch, foot) and convert between different units (like converting 12 inches = 30.48 cm).</p>
-<div class="highlight"><pre><span></span>$ workon units
+<p>Next we need to activate our new <code>units</code> environment and install the pint package using pip. Pint is a python package used to work with units (like meter, gram, pound, inch, foot) and convert between different units (like converting 12 inches to 30.48 cm).</p>
+<div class="highlight"><pre><span></span>$ conda activate units
 <span class="o">(</span>units<span class="o">)</span>$ pip install pint
 <span class="o">(</span>units<span class="o">)</span>$ pip freeze
 <span class="nv">Pint</span><span class="o">==</span><span class="m">0</span>.8.1
 </pre></div>
 
 
-<p>OK. Now on to our first problem. We can do these first four problems directly in the python interpreter. To open up the interpreter, just type <code>python</code> on the command line.</p>
+<p>Now on to our first problem. We can do these exersizes directly in the python interpreter. To open up the interpreter, just type <code>python</code> on the command line.</p>
 <div class="highlight"><pre><span></span>(units)$ python
-Python 3.5.1 (default, Apr 18 2016, 03:49:24) 
-[GCC 4.2.1 Compatible Apple LLVM 7.0.2 (clang-700.1.81)] on darwin
+Python 3.6.3 |Anaconda, Inc|
 Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
 &gt;&gt;&gt;
 </pre></div>
@@ -340,13 +340,14 @@ Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;licen
 <div class="highlight"><pre><span></span>&gt;&gt;&gt; &gt;&gt;&gt; print(measurement.magnitude)
 13.2
 &gt;&gt;&gt; print(measurement.units)
-inch
+&#39;inch&#39;
 &gt;&gt;&gt; print(measurement.dimensionality)
 [length]
+&gt;&gt;&gt;
 </pre></div>
 
 
-<p>There are two ways we can convert our measurement 13.2 inches into centimeters. One is by creating a new object <code>measurement_in_cm</code> using the <code>.to()</code> method on our <code>measurement</code> object.</p>
+<p>There are two ways we can convert our measurement <em>13.2 inches</em> into <em>centimeters</em>. One is by creating a new object <code>measurement_in_cm</code> using the <code>.to()</code> method on our <code>measurement</code> object.</p>
 <div class="highlight"><pre><span></span>&gt;&gt;&gt; measurement_in_cm = measurement.to(ureg.cm)
 &gt;&gt;&gt; print(measurement_in_cm)
 33.528 centimeter
@@ -376,6 +377,7 @@ inch
 3753.355796440737 btu / hour
 &gt;&gt;&gt; print(power_in_Btu_per_hour.units)
 btu / hour
+&gt;&gt;&gt;
 </pre></div>
 
 
@@ -387,7 +389,7 @@ btu / hour
 </pre></div>
 
 
-<p>Our next problem is: 63.2 lb ft to N m. Note here that pounds(lb) is a unit of <em>force</em> that will be converted to Newtons (N) also a unit of <em>force</em>. We need to make sure that we tell pint that we want pounds as a unit of <em>force</em>, not a unit of <em>mass</em>.</p>
+<p>Our next problem is: 63.2 lb ft to N m. Note here that <em>pounds</em> (lb) is a unit of <strong><em>force</em></strong> that will be converted to <em>Newtons</em> (N) also a unit of <strong><em>force</em></strong>. We need to make sure that we tell pint that we want pounds as a unit of <strong><em>force</em></strong>, not a unit of <strong><em>mass</em></strong>.</p>
 <div class="highlight"><pre><span></span>&gt;&gt;&gt; torque = 63.2 * ureg.lb * ureg.ft
 &gt;&gt;&gt; print(torque)
 63.2 foot * pound
@@ -470,9 +472,6 @@ True
         <li><a href="../how-i-built-this-site-4.html">How I Build This Site - Part 4</a></li>
     </ul>
 </section>
-<section class="well" id="related-posts">
-    <h4>Article <built-in method index of str object at 0x000001E4DE1F7170> of the  series</h4>
-</section>
         </article>
     </section>
 
@@ -539,15 +538,6 @@ True
   </ul>
 </li>
 <!-- End Sidebar/Tag Cloud -->
-
-<!-- Sidebar/Series -->
-<li class="list-group-item">
-  <h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Series</span></h4>
-  <ul class="list-group">
-  </ul>
-</li>
-<!-- End Sidebar/Series -->
-
 
 <!-- Sidebar/Github -->
 <li class="list-group-item">

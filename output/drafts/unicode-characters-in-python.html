@@ -176,21 +176,21 @@ init_mathjax();
 
 <link rel="canonical" href="../drafts/unicode-characters-in-python.html">
 
-        <meta name="author" content="Peter Kazarinoff" />
-        <meta name="keywords" content="python,engineering,statistics" />
-        <meta name="description" content="Unicode characters are very useful for engineers. A couple commonly used symbols in engineers include Omega and Delta. We can print these in python using unicode characters. From the Python interperater we can type: &gt;&gt;&gt; print(&#39;Omega: \u03A9&#39;) Omega: Ω &gt;&gt;&gt; print(&#39;Delta: \u0394&#39;) Delta: Δ &gt;&gt;&gt; print(&#39;sigma: \u03C3&#39;) sigma: σ &gt;&gt;&gt; print …" />
+        <meta name="author" content="Peter D. Kazarinoff" />
+        <meta name="keywords" content="python,engineering,utf-8" />
+        <meta name="description" content="Unicode characters are very useful for engineers. A couple commonly used symbols in engineers include Omega and Delta. We can print these in python using unicode characters. From the Python interpreter we can type: &gt;&gt;&gt; print(&#39;Omega: \u03A9&#39;) Omega: Ω &gt;&gt;&gt; print(&#39;Delta: \u0394&#39;) Delta: Δ &gt;&gt;&gt; print(&#39;sigma: \u03C3&#39;) sigma: σ &gt;&gt;&gt; print …" />
 
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="Unicode characters for engineers in Python"/>
         <meta property="og:url" content="../drafts/unicode-characters-in-python.html"/>
-        <meta property="og:description" content="Unicode characters are very useful for engineers. A couple commonly used symbols in engineers include Omega and Delta. We can print these in python using unicode characters. From the Python interperater we can type: &gt;&gt;&gt; print(&#39;Omega: \u03A9&#39;) Omega: Ω &gt;&gt;&gt; print(&#39;Delta: \u0394&#39;) Delta: Δ &gt;&gt;&gt; print(&#39;sigma: \u03C3&#39;) sigma: σ &gt;&gt;&gt; print …"/>
-        <meta property="article:published_time" content="2017-10-10" />
+        <meta property="og:description" content="Unicode characters are very useful for engineers. A couple commonly used symbols in engineers include Omega and Delta. We can print these in python using unicode characters. From the Python interpreter we can type: &gt;&gt;&gt; print(&#39;Omega: \u03A9&#39;) Omega: Ω &gt;&gt;&gt; print(&#39;Delta: \u0394&#39;) Delta: Δ &gt;&gt;&gt; print(&#39;sigma: \u03C3&#39;) sigma: σ &gt;&gt;&gt; print …"/>
+        <meta property="article:published_time" content="2017-12-29" />
             <meta property="article:section" content="python" />
             <meta property="article:tag" content="python" />
             <meta property="article:tag" content="engineering" />
-            <meta property="article:tag" content="statistics" />
-            <meta property="article:author" content="Peter Kazarinoff" />
+            <meta property="article:tag" content="utf-8" />
+            <meta property="article:author" content="Peter D. Kazarinoff" />
 
 
 
@@ -274,7 +274,7 @@ Python for Undergraduate Engineers            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2017-10-10T10:01:00-07:00"> Tue 10 October 2017</time>
+        <i class="fa fa-calendar"></i><time datetime="2017-12-29T10:01:00-08:00"> Fri 29 December 2017</time>
     </span>
 
 
@@ -286,11 +286,11 @@ Python for Undergraduate Engineers            </a>
         /
 	<a href="../tag/engineering.html">engineering</a>
         /
-	<a href="../tag/statistics.html">statistics</a>
+	<a href="../tag/utf-8.html">utf-8</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>Unicode characters are very useful for engineers. A couple commonly used symbols in engineers include Omega and Delta. We can print these in python using unicode characters. From the Python interperater we can type:</p>
+                <p>Unicode characters are very useful for engineers. A couple commonly used symbols in engineers include Omega and Delta. We can print these in python using unicode characters. From the Python interpreter we can type:</p>
 <div class="highlight"><pre><span></span>&gt;&gt;&gt; print(&#39;Omega: \u03A9&#39;)
 Omega: Ω
 &gt;&gt;&gt; print(&#39;Delta: \u0394&#39;)
@@ -315,7 +315,10 @@ degree: °
 </pre></div>
 
 
-<p>If you see utf-8, then your system supports unicode characters. To print any chacacter in the Python interpereter, use a <code>\u</code> to denote a unicode character and then follow this with the character code.  For instance, the code for β is 03B2, so to print β the command is <code>print('\u03B2')</code>. There are a couple of special characters that will combine symbols. A usefull one in engineering is the <code>^</code> symbol. This is typically used with unit vectors. We can add a hat <code>^</code> (also called a circumflex) by putting the unicode excape after the letter you want to add a hat to. For example to add a hat to <code>i</code> the command is ```print('i\u0302'). </p>
+<p>If you see <code>utf-8</code>, then your system supports unicode characters. To print any character in the Python interpreter, use a <code>\u</code> to denote a unicode character and then follow with the character code.  For instance, the code for β is 03B2, so to print β the command is <code>print('\u03B2')</code>. </p>
+<p></br>
+</br></p>
+<p>There are a couple of special characters that will combine symbols. A useful one in engineering is the hat <code>^</code> symbol. This is typically used to denote unit vectors. We can add a hat <code>^</code> (also called a circumflex) by putting the unicode escape after the letter you want to add a hat to. For example to add a hat to <code>i</code> the command is ```print('i\u0302'). </p>
 <p>Below is a list of symbols and greek letters and the corresponding unicode escape to produce the character in python. </p>
 <h3>Useful unicode symbols in engineering</h3>
 <table>

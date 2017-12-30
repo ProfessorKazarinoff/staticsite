@@ -1,17 +1,15 @@
 Title: Unicode characters for engineers in Python
-Date: 2017-10-10 10:01
-Modified: 2017-10-11 10:01
+Date: 2017-12-29 10:01
+Modified: 2017-12-29 10:01
 Status: Draft
 Category: python
-Tags: python, engineering, statistics
+Tags: python, engineering, utf-8
 Slug: unicode-characters-in-python
-Authors: Peter Kazarinoff
+Authors: Peter D. Kazarinoff
 JavaScripts: table.js
 Stylesheets: table.css
 
-
-
-Unicode characters are very useful for engineers. A couple commonly used symbols in engineers include Omega and Delta. We can print these in python using unicode characters. From the Python interperater we can type:
+Unicode characters are very useful for engineers. A couple commonly used symbols in engineers include Omega and Delta. We can print these in python using unicode characters. From the Python interpreter we can type:
 
 ```
 >>> print('Omega: \u03A9')
@@ -38,7 +36,12 @@ All of these are unicode characters. Python has support for unicode characters b
 'utf-8'
 ```
 
-If you see utf-8, then your system supports unicode characters. To print any chacacter in the Python interpereter, use a ```\u``` to denote a unicode character and then follow this with the character code.  For instance, the code for β is 03B2, so to print β the command is ```print('\u03B2')```. There are a couple of special characters that will combine symbols. A usefull one in engineering is the ```^``` symbol. This is typically used with unit vectors. We can add a hat ```^``` (also called a circumflex) by putting the unicode excape after the letter you want to add a hat to. For example to add a hat to ```i``` the command is ```print('i\u0302'). 
+If you see ```utf-8```, then your system supports unicode characters. To print any character in the Python interpreter, use a ```\u``` to denote a unicode character and then follow with the character code.  For instance, the code for β is 03B2, so to print β the command is ```print('\u03B2')```. 
+
+</br>
+</br>
+
+There are a couple of special characters that will combine symbols. A useful one in engineering is the hat ```^``` symbol. This is typically used to denote unit vectors. We can add a hat ```^``` (also called a circumflex) by putting the unicode escape after the letter you want to add a hat to. For example to add a hat to ```i``` the command is ```print('i\u0302'). 
 
 Below is a list of symbols and greek letters and the corresponding unicode escape to produce the character in python. 
 
@@ -54,7 +57,7 @@ Below is a list of symbols and greek letters and the corresponding unicode escap
 \u03B1 | ° | DEGREE SYMBOL
 i\u0302	| î | i HAT
 j\u0302	| ĵ	| j HAT
-k\u0302	| k̂	| k HAT
+k\u0302	| k̂ | k HAT
 u\u0302	| û	| u HAT
 
 

@@ -1,7 +1,7 @@
 Title: Unicode characters for engineers in Python
 Date: 2017-12-29 10:01
 Modified: 2017-12-29 10:01
-Status: Draft
+Status: published
 Category: python
 Tags: python, engineering, utf-8
 Slug: unicode-characters-in-python
@@ -39,9 +39,8 @@ All of these are unicode characters. Python has support for unicode characters b
 If you see ```utf-8```, then your system supports unicode characters. To print any character in the Python interpreter, use a ```\u``` to denote a unicode character and then follow with the character code.  For instance, the code for β is 03B2, so to print β the command is ```print('\u03B2')```. 
 
 </br>
-</br>
 
-There are a couple of special characters that will combine symbols. A useful one in engineering is the hat ```^``` symbol. This is typically used to denote unit vectors. We can add a hat ```^``` (also called a circumflex) by putting the unicode escape after the letter you want to add a hat to. For example to add a hat to ```i``` the command is ```print('i\u0302'). 
+There are a couple of special characters that will combine symbols. A useful one in engineering is the hat ```^``` symbol. This is typically used to denote unit vectors. We can add a hat ```^``` (also called a circumflex) by putting the unicode escape after the letter you want to add a hat to. For example to add a hat to ```i``` the command is ```print('i\u0302')```. 
 
 Below is a list of symbols and greek letters and the corresponding unicode escape to produce the character in python. 
 

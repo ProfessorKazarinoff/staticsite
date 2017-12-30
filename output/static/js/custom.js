@@ -6,11 +6,11 @@
  */
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 
-/*!
+
   $(document).ready(function () {
     $("article table").addClass("table table-condensed table-bordered table-hover");
   });
- */
+
 
 /*!
 var tables, i;
@@ -25,3 +25,11 @@ tables = document.getElementsByTagName('table');
 for (i=0;i<tables.length;i++) {
   tables[i].className = 'table table-bordered table-hover table-striped';
 }
+
+/*!
+<script>
+  $(document).ready(function () {
+    $("table").attr("class","table table-condensed table-bordered");
+  });
+</script>
+ */

@@ -5,7 +5,7 @@ Status: Draft
 Category: matplotlib
 Tags: python, matplotlib, engineering, statistics, seaborn, pandas
 Slug: seaborn-bar-chart
-Authors: Peter Kazarinoff
+Authors: Peter D. Kazarinoff
 Summary: In this post we will create a bar chart using python, pandas, matplot lib and seaborn. Then style the chart with custom colors, error bars, axis label and title.  
 
 First we will import the three packages used to make the plot. Pandas is used to import the data and put it in a pandas dataframe. A pandas dataframe is an object type that works well for building plots. It stores data in rows and columns like an excel file. We'll use matplotlib to dipay the chart. The last import, seaborn will be used to construct the plot. Seaborn will output a matplotlib axis object. Therefore can use standard matplotlib methods to modify the seaborn plot

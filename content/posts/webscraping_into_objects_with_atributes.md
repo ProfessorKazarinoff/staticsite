@@ -5,7 +5,7 @@ Status: Draft
 Category: Python
 Tags: python, beautiful soup, web scraping, object-oriented programming 
 Slug: python-and-beautifulsoup-webscrape-objects-with-attributes
-Authors: Peter Kazarinoff
+Authors: Peter D. Kazarinoff
 Series: Webscrape with Python and BeautifulSoup
 series_index: 3
 Summary:

@@ -5,7 +5,7 @@ Status: Draft
 Category: matplotlib
 Tags: python, matplotlib, engineering, statistics, seaborn, pandas
 Slug: four-stats-charts
-Authors: Peter Kazarinoff
+Authors: Peter D. Kazarinoff
 Summary: Data can be visually represented in a number of ways. In this post we will construct four different plots using python: Bar Graph with error bars, histogram, violin plot and probabiliyt plot. Each of these types of plots shows the confidence or precision in a set of measurements or calculated values. Bar charts without error bars give the illusion that a measured or calculated value is known to a high precision. In this post we will build a bar chart for the coefficient of thermal expansion (CTE) for three different materials based on a small data set. We will then add error bar to this chart based on the standard deviation of the data.
 
 Error bars are useful in engineering to show the confidence or precision in a set of measurements or calculated values. Bar charts without error bars give the illusion that a measured or calculated value is known to a high precision. In this post we will build four different statistical plots with Python, matplotlib and seaborn. 

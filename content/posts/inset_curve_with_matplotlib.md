@@ -5,7 +5,7 @@ Status: Draft
 Category: matplotlib
 Tags: python, matplotlib, engineering, materials science
 Slug: inset-on-stress-strain-curve-with-matplotlib
-Authors: Peter Kazarinoff
+Authors: Peter D. Kazarinoff
 Series:
 series_index:2
 

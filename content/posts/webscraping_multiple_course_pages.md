@@ -5,7 +5,7 @@ Status: Draft
 Category: Python
 Tags: python, beautiful soup, web scraping, 
 Slug: python-and-beautifulsoup-read-multiple-course-pages
-Authors: Peter Kazarinoff
+Authors: Peter D. Kazarinoff
 Series: Webscrape with Python and BeautifulSoup
 series_index: 4
 Summary:

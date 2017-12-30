@@ -1,7 +1,7 @@
 Title: Violin Plot using Python, matplotlib and seaborn
 Date: 2017-10-21 16:00
 Status: Draft
-Author: Peter D Kazarinoff
+Author: Peter D. Kazarinoff
 
 ### Import the necessary packages
 Pandas is used to read in the .csv data. Seaborn to build the plot and Matplotlib for displaying the plot.

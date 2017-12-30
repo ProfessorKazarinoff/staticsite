@@ -5,7 +5,7 @@ Status: Draft
 Category: matplotlib
 Tags: python, matplotlib, engineering, materials science, statistics
 Slug: python-matplotlib-error-bars
-Authors: Peter Kazarinoff
+Authors: Peter D. Kazarinoff
 JavaScripts: table.js
 Stylesheets: table.css
 Series: Statistics

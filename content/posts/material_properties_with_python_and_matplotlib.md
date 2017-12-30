@@ -5,7 +5,7 @@ Status: Draft
 Category: matplotlib
 Tags: python, matplotlib, engineering, materials science
 Slug: python-matplotlib-stress-strain-properties
-Authors: Peter Kazarinoff
+Authors: Peter D. Kazarinoff
 Series: stress-strain curves in python 
 series_index: 2
 Summary:

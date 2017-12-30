@@ -5,7 +5,7 @@ Status: Draft
 Category: Python
 Tags: python, beautiful soup, web crawling, 
 Slug: python-beautifulsoup-course-info
-Authors: Peter Kazarinoff
+Authors: Peter D. Kazarinoff
 Series: Webscrape with Python and BeautifulSoup
 series_index: 2
 Summary:

@@ -10,9 +10,17 @@ body {
     line-height: 1.5;
 }
 
-
 /*
-to make the In [ ]: code boxes from pelican posts have a consistant border around them.
+To separate the written paragraphs from the code.
+*/
+
+p {
+    font-size: 16px;
+    margin-top: 16px;
+    margin-bottom: 20px;
+}
+/*
+to make the In [ ]: code boxes from pelican posts have a consistent border around them.
 */
 
 pre {

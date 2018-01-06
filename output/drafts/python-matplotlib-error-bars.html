@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>Creating a bar chart with error bars using Python and matplotlib - Python for Undergraduate Engineers</title>
+    <title>Bar charts with error bars using Python and matplotlib - Python for Undergraduate Engineers</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -177,21 +177,22 @@ init_mathjax();
 <link rel="canonical" href="../drafts/python-matplotlib-error-bars.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
-        <meta name="keywords" content="python,matplotlib,engineering,materials science,statistics" />
-        <meta name="description" content="Error bars are useful in engineering to show the confidence or precision in a set of measurements or calculated values. Bar charts without error bars give the illusion that a measured or calculated value is known to a high precision. In this post we will build a bar chart for the coefficient of thermal expansion (CTE) for three different materials based on a small data set. We will then add error bar to this chart based on the standard deviation of the data." />
+        <meta name="keywords" content="python,matplotlib,engineering,materials science,statistics,plotting" />
+        <meta name="description" content="Bar charts with error bars are useful in engineering to show the confidence or precision in a set of measurements or calculated values. Bar charts without error bars give the illusion that a measured or calculated value is known to a high precision or high confidence. In this post we will build a bar plot using Python and matplotlib. The plot will show the coefficient of thermal expansion (CTE) for three different materials based on a small data set. We will then add error bar to this chart based on the standard deviation of the data." />
 
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
-        <meta property="og:title" content="Creating a bar chart with error bars using Python and matplotlib"/>
+        <meta property="og:title" content="Bar charts with error bars using Python and matplotlib"/>
         <meta property="og:url" content="../drafts/python-matplotlib-error-bars.html"/>
-        <meta property="og:description" content="Error bars are useful in engineering to show the confidence or precision in a set of measurements or calculated values. Bar charts without error bars give the illusion that a measured or calculated value is known to a high precision. In this post we will build a bar chart for the coefficient of thermal expansion (CTE) for three different materials based on a small data set. We will then add error bar to this chart based on the standard deviation of the data."/>
-        <meta property="article:published_time" content="2017-10-11" />
+        <meta property="og:description" content="Bar charts with error bars are useful in engineering to show the confidence or precision in a set of measurements or calculated values. Bar charts without error bars give the illusion that a measured or calculated value is known to a high precision or high confidence. In this post we will build a bar plot using Python and matplotlib. The plot will show the coefficient of thermal expansion (CTE) for three different materials based on a small data set. We will then add error bar to this chart based on the standard deviation of the data."/>
+        <meta property="article:published_time" content="2018-01-04" />
             <meta property="article:section" content="matplotlib" />
             <meta property="article:tag" content="python" />
             <meta property="article:tag" content="matplotlib" />
             <meta property="article:tag" content="engineering" />
             <meta property="article:tag" content="materials science" />
             <meta property="article:tag" content="statistics" />
+            <meta property="article:tag" content="plotting" />
             <meta property="article:author" content="Peter D. Kazarinoff" />
 
 
@@ -257,7 +258,7 @@ Python for Undergraduate Engineers            </a>
             <ol class="breadcrumb">
                 <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
                 <li><a href="../category/matplotlib.html" title="matplotlib">matplotlib</a></li>
-                <li class="active">Creating a bar chart with error bars using Python and matplotlib</li>
+                <li class="active">Bar charts with error bars using Python and matplotlib</li>
             </ol>
     <section id="content">
         <article>
@@ -265,8 +266,8 @@ Python for Undergraduate Engineers            </a>
                 <h1>
                     <a href="../drafts/python-matplotlib-error-bars.html"
                        rel="bookmark"
-                       title="Permalink to Creating a bar chart with error bars using Python and matplotlib">
-                        Creating a bar chart with error bars using Python and matplotlib
+                       title="Permalink to Bar charts with error bars using Python and matplotlib">
+                        Bar charts with error bars using Python and matplotlib
                     </a>
                 </h1>
             </header>
@@ -276,11 +277,9 @@ Python for Undergraduate Engineers            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2017-10-11T20:32:00-07:00"> Wed 11 October 2017</time>
+        <i class="fa fa-calendar"></i><time datetime="2018-01-04T13:15:00-08:00"> Thu 04 January 2018</time>
     </span>
 
-            <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x1065a26f0> of 
 
 
 
@@ -295,10 +294,12 @@ Python for Undergraduate Engineers            </a>
 	<a href="../tag/materials-science.html">materials science</a>
         /
 	<a href="../tag/statistics.html">statistics</a>
+        /
+	<a href="../tag/plotting.html">plotting</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>Error bars are useful in engineering to show the confidence or precision in a set of measurements or calculated values. Bar charts without error bars give the illusion that a measured or calculated value is known to a high precision. In this post we will build a bar chart using python and matplotlib for the coefficient of thermal expansion (CTE) for three different materials based on a small data set. We will then add error bar to this chart based on the standard deviation of the data.</p>
+                <p>Bar charts with error bars are useful in engineering to show the confidence or precision in a set of measurements or calculated values. Bar charts without error bars give the illusion that a measured or calculated value is known to a high precision or high confidence. In this post we will build a bar plot using Python and matplotlib. The plot will show the coefficient of thermal expansion (CTE) for three different materials based on a small data set. We will then add error bar to this chart based on the standard deviation of the data.</p>
 <p>A bar chart with error bars is shown below. Note the labels on the x-axis and the error bars at the top of each bar.</p>
 <p><img alt="plot with error bars" src="../images/bar_plot_with_error_bars.png"></p>
 <p>In order to build this plot, we need a couple of things</p>
@@ -311,11 +312,11 @@ Python for Undergraduate Engineers            </a>
 </thead>
 <tbody>
 <tr>
-<td>Python</td>
+<td>Python (version 3.6)</td>
 <td>Run the program</td>
 </tr>
 <tr>
-<td>conda prompt</td>
+<td>Anaconda Prompt</td>
 <td>create the virtual environment and install packages</td>
 </tr>
 <tr>
@@ -326,22 +327,26 @@ Python for Undergraduate Engineers            </a>
 <td>matplotlib</td>
 <td>build the plot</td>
 </tr>
+<tr>
+<td>data set</td>
+<td>data to plot</td>
+</tr>
 </tbody>
 </table>
-<p>To get going, we'll use the <strong>conda prompt</strong> to create a new virtual environment. Select <strong>Anaconda Prompt</strong> from the windows start menu.</p>
+<p>To get going, we'll use the <strong>Anaconda Prompt</strong> to create a new virtual environment. Select <strong>Anaconda Prompt</strong> from the windows start menu. (If using OSX or Linux, the terminal could also be used)</p>
 <p><img alt="conda prompt on windows start menu" src="../images/conda_in_windows_start_menu.png"></p>
-<p>Once you have the conda prompt open, type the following command to create a new virtual environment:</p>
+<p>Once you have the <em>Anaconda Prompt</em> open, type the following command to create a new virtual environment:</p>
 <div class="highlight"><pre><span></span>conda create -n errorbars
 </pre></div>
 
 
-<p>Then to activate our new virtual environment, type the following into the <strong>conda prompt</strong></p>
+<p>Then to activate our new virtual environment, type the following into the <strong>Anaconda Prompt</strong></p>
 <div class="highlight"><pre><span></span>activate errorbars
 </pre></div>
 
 
-<p>Now that the errorbars virtual environment is active, you shoud see <code>(errorbars)</code> in parenthesis before the <strong>conda prompt</strong>.
-Next install <code>matplotlib</code> and <code>numpy</code> using conda. pip will work to install these packages as well. You can write both packages on the same line or use two different <code>conda install</code> lines.</p>
+<p>Now that the <strong>errorbars</strong> virtual environment is active, you should see <code>(errorbars)</code> in parenthesis before the <strong>Anaconda Prompt</strong>.
+Next install <code>matplotlib</code> and <code>numpy</code> using <code>conda</code>. (pip will work to install these packages as well) You can write both packages on the same line or use two different <code>conda install</code> lines.</p>
 <div class="highlight"><pre><span></span>conda install matplotlib numpy
 </pre></div>
 
@@ -359,7 +364,7 @@ Next install <code>matplotlib</code> and <code>numpy</code> using conda. pip wil
 </pre></div>
 
 
-<p>Next we need to read in our data. The chart below shows the different measurement data for the coefficient of thermal expansion (CTE) of the metals:</p>
+<p>Next we need to read in our data. The chart below shows the measured coefficient of thermal expansion (CTE) of three metals: Aluminum, Copper and Steel. The units for coefficient of thermal expansion is per degrees C ( / &#176;C)</p>
 <h3>Coefficient of thermal expansion of three metals (units: /  &#176;C)</h3>
 <table class="table table-striped table-bordered table-hover">
 <thead>
@@ -433,39 +438,39 @@ Next install <code>matplotlib</code> and <code>numpy</code> using conda. pip wil
 </tr>
 </tbody>
 </table>
-<p>We will add these to three different numpy arrays by adding the following to <strong><em>errorbars.py</em></strong></p>
-<div class="highlight"><pre><span></span># Enter in the raw data
-Aluminum = np.array([6.4e-5 , 3.01e-5 , 2.36e-5, 3.0e-5, 7.0e-5, 4.5e-5, 3.8e-5, 4.2e-5, 2.62e-5, 3.6e-5])
-Copper = np.array([4.5e-5 , 1.97e-5 , 1.6e-5, 1.97e-5, 4.0e-5, 2.4e-5, 1.9e-5, 2.41e-5 , 1.85e-5, 3.3e-5 ])
-Steel = np.array([3.3e-5 , 1.2e-5 , 0.9e-5, 1.2e-5, 1.3e-5, 1.6e-5, 1.4e-5, 1.58e-5, 1.32e-5 , 2.1e-5])
+<p>We'll put this data into three different <strong>numpy</strong> arrays, one array for each metal. Notice the syntax <code>np.array([ ... ])</code> has a parenthesis <code>(</code> followed by a square bracket <code>[</code>. We are passing a Python list, [ denoted with square brackets ] into a the numpy array function (argument enclosed in parenthesis).</p>
+<div class="highlight"><pre><span></span><span class="c1"># Enter in the raw data</span>
+<span class="n">aluminum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">6.4e-5</span> <span class="p">,</span> <span class="mf">3.01e-5</span> <span class="p">,</span> <span class="mf">2.36e-5</span><span class="p">,</span> <span class="mf">3.0e-5</span><span class="p">,</span> <span class="mf">7.0e-5</span><span class="p">,</span> <span class="mf">4.5e-5</span><span class="p">,</span> <span class="mf">3.8e-5</span><span class="p">,</span> <span class="mf">4.2e-5</span><span class="p">,</span> <span class="mf">2.62e-5</span><span class="p">,</span> <span class="mf">3.6e-5</span><span class="p">])</span>
+<span class="n">copper</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">4.5e-5</span> <span class="p">,</span> <span class="mf">1.97e-5</span> <span class="p">,</span> <span class="mf">1.6e-5</span><span class="p">,</span> <span class="mf">1.97e-5</span><span class="p">,</span> <span class="mf">4.0e-5</span><span class="p">,</span> <span class="mf">2.4e-5</span><span class="p">,</span> <span class="mf">1.9e-5</span><span class="p">,</span> <span class="mf">2.41e-5</span> <span class="p">,</span> <span class="mf">1.85e-5</span><span class="p">,</span> <span class="mf">3.3e-5</span> <span class="p">])</span>
+<span class="n">steel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">3.3e-5</span> <span class="p">,</span> <span class="mf">1.2e-5</span> <span class="p">,</span> <span class="mf">0.9e-5</span><span class="p">,</span> <span class="mf">1.2e-5</span><span class="p">,</span> <span class="mf">1.3e-5</span><span class="p">,</span> <span class="mf">1.6e-5</span><span class="p">,</span> <span class="mf">1.4e-5</span><span class="p">,</span> <span class="mf">1.58e-5</span><span class="p">,</span> <span class="mf">1.32e-5</span> <span class="p">,</span> <span class="mf">2.1e-5</span><span class="p">])</span>
 </pre></div>
 
 
 <p>Now we need to calculate the mean (or average) for each of the three materials using numpy's <code>np.mean()</code> function. The means will be the height of each bar in our chart.</p>
-<div class="highlight"><pre><span></span># Calculate the average
-Aluminum_mean = np.mean(Aluminum)
-Copper_mean = np.mean(Copper)
-Steel_mean = np.mean(Steel)
+<div class="highlight"><pre><span></span><span class="c1"># Calculate the average</span>
+<span class="n">Aluminum_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">aluminum</span><span class="p">)</span>
+<span class="n">Copper_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">copper</span><span class="p">)</span>
+<span class="n">Steel_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">steel</span><span class="p">)</span>
 </pre></div>
 
 
-<p>Next we'll calculate the standard deviation using numpy's <code>np.std()</code> function. On the plot, we will use the standard deviation as the hight of our error bars. The positive error will be +1 standard deviation and the negative error will be -1 standard deviation. </p>
-<div class="highlight"><pre><span></span>Aluminum_std = np.std(Aluminum)
-Copper_std = np.std(Copper)
-Steel_std = np.std(Steel)
+<p>Next we'll calculate the standard deviation for each metal using numpy's <code>np.std()</code> function. On the plot, we will use the standard deviation as the height of our error bars. The positive error will be show as +1 standard deviation above the mean and the negative error will be shown as -1 standard deviation below the mean. </p>
+<div class="highlight"><pre><span></span><span class="n">aluminum_std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">aluminum</span><span class="p">)</span>
+<span class="n">copper_std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">copper</span><span class="p">)</span>
+<span class="n">steel_std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">steel</span><span class="p">)</span>
 </pre></div>
 
 
-<p>There are a couple more things needed to build the plot. We need the names to go along for our x-axis. We'll assign these as list of strings in a variable called <code>materials</code>. We also need the means of the coefficients of thermal expansion, the data we are going to plot. We'll put these into a python list called <code>CTEs</code>. Our standard deviations will be used for the height of the error bars. Those will go together in a list called <code>error</code>. Let's code all of these list into our <strong><em>errorbars.py</em></strong> script.</p>
-<div class="highlight"><pre><span></span># Create Arrays for the plot
-materials = [&#39;Aluminum&#39;, &#39;Copper&#39;, &#39;Steel&#39;]
-x_pos = np.arange(len(materials))
-CTEs = [Aluminum_mean, Copper_mean, Steel_mean]
-error = [Aluminum_std, Copper_std, Steel_std]
+<p>There are a couple more things needed to build the plot. We need the names of the metals to go along our x-axis, one name below each bar. We'll assign names as list of strings in a variable called <code>materials</code>. We also need a variable that contains the means of the coefficients of thermal expansion, the data we are going to plot. We'll put these into a python list called <code>CTEs</code>. Our standard deviations will be used for the height of the error bars. Those will go together in a list called <code>error</code>. Let's code all of these list into our <strong><em>errorbars.py</em></strong> script.</p>
+<div class="highlight"><pre><span></span><span class="c1"># Create Arrays for the plot</span>
+<span class="n">materials</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Aluminum&#39;</span><span class="p">,</span> <span class="s1">&#39;Copper&#39;</span><span class="p">,</span> <span class="s1">&#39;Steel&#39;</span><span class="p">]</span>
+<span class="n">x_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">materials</span><span class="p">))</span>
+<span class="n">CTEs</span> <span class="o">=</span> <span class="p">[</span><span class="n">aluminum_mean</span><span class="p">,</span> <span class="n">copper_mean</span><span class="p">,</span> <span class="n">steel_mean</span><span class="p">]</span>
+<span class="n">error</span> <span class="o">=</span> <span class="p">[</span><span class="n">aluminum_std</span><span class="p">,</span> <span class="n">copper_std</span><span class="p">,</span> <span class="n">steel_std</span><span class="p">]</span>
 </pre></div>
 
 
-<p>Now it's time to build the plot. We are going to build a bar chart with three different bars, one bar for each material: Aluminum, Copper and Steel. We are going to put labels on the x-axis that shows each material name and a label on the y-axis with the title "Coefficient of thermal expansion (&#176;C<sup>-1</sup>)". We can save the figure to a file called <strong><em>bar_plot_with_error_bars.png</em></strong> using matplotlib's <code>plt.savefig()</code> function.</p>
+<p>Now it's time to build the plot. We are going to build a bar chart with three different bars, one bar for each material: Aluminum, Copper and Steel. We are going to put labels on the x-axis that shows each material name and a label on the y-axis with the title "Coefficient of thermal expansion (&#176;C<sup>-1</sup>)". Then we will then save the figure to a file called <strong><em>bar_plot_with_error_bars.png</em></strong> using matplotlib's <code>plt.savefig()</code> function.</p>
 <div class="highlight"><pre><span></span># Build the plot
 fig, ax = plt.subplots()
 ax.bar(x_pos, CTEs, yerr=error, align=&#39;center&#39;, alpha=0.5, ecolor=&#39;black&#39;, capsize=10)
@@ -475,6 +480,7 @@ ax.set_xticklabels(materials)
 ax.set_title(&#39;Coefficent of Thermal Expansion (CTE) of Three Metals&#39;)
 ax.yaxis.grid(True)
 
+# Save the figure and show
 plt.tight_layout()
 plt.savefig(&#39;bar_plot_with_error_bars.png&#39;)
 plt.show()
@@ -494,9 +500,6 @@ plt.show()
         <li><a href="../how-i-built-this-site-6.html">How I Build This Site - Part 6</a></li>
         <li><a href="../how-i-built-this-site-5.html">How I Build This Site - Part 5</a></li>
     </ul>
-</section>
-<section class="well" id="related-posts">
-    <h4>Article <built-in method index of str object at 0x1065a26f0> of the  series</h4>
 </section>
         </article>
     </section>
@@ -564,15 +567,6 @@ plt.show()
   </ul>
 </li>
 <!-- End Sidebar/Tag Cloud -->
-
-<!-- Sidebar/Series -->
-<li class="list-group-item">
-  <h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Series</span></h4>
-  <ul class="list-group">
-  </ul>
-</li>
-<!-- End Sidebar/Series -->
-
 
 <!-- Sidebar/Github -->
 <li class="list-group-item">

@@ -62,7 +62,7 @@ PLUGINS = [
     'related_posts',
     'render_math','tipue_search','pelican-ipynb.markup',
     'neighbors',
-    'pelican-bootstrapify',
+    'bootstrapify',
     'bootswatch_markdown_css',] #'pelican_javascript','pelican-ipynb.markup'
 
 #

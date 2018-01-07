@@ -14,119 +14,53 @@ Plotting stress strain curves is a useful skill in mechanical engineering becaus
 
 What we are going to do in the following series of blog posts is plot the stress strain curve of Aluminum 6061 - T6. We will then derive mechanical properties from the plot, tensile strength (TS), yield strength (YS), elastic modulus (E), and ductility (%EL). In order to do this, we need to have a couple things in place:
 
-1. python (to run the program) 
-2. conda and a conda prompt (to create a virtual environment and install pip)
-3. pip (to download and install matplotlib and pandas)
-4. matplotlib and pandas (to plot the stress strain curve and read the .csv data file)
-5. data.csv (the data collected from a mechanical test frame that we will plot)
+1. Python (to run the program) 
+2. Anaconda and the Anaconda Prompt (to create a virtual environment and install pip)
+3. conda (to download and install matplotlib, numpy and pandas)
+4. matplotlib, numpy and pandas (to plot the stress strain curve and read the .csv data file)
+5. data.csv (the data collected from a mechanical test frame)
 
 To get going, first we should create a up a new virtual environment, let's call it tensiletest. I'm using **conda** to create the virtual environment. Select **Anaconda Prompt** from the windows start menu.
 
 ![conda prompt on windows start menu]({filename}/images/conda_in_windows_start_menu.png)
 
 
-Once you have the conda prompt open, type the following command:
+Once you have the Anaconda Prompt open, type the following command:
 
 ```
-(C:\Users\peter.kazarinoff\AppData\Local\Continuum\Anaconda3) C:\Users\peter.kazarinoff>conda create -m tensiletest
-Fetching package metadata ...........
-Solving package specifications:
-Package plan for installation in environment C:\Users\peter.kazarinoff\AppData\Local\Continuum\Anaconda3\envs\tensiletest:
-
-Proceed ([y]/n)? y
-
-#
-# To activate this environment, use:
-# > activate tensiletest
-#
-# To deactivate an active environment, use:
-# > deactivate
-#
-# * for power-users using bash, you must source
-#
-
-
-(C:\Users\peter.kazarinoff\AppData\Local\Continuum\Anaconda3) C:\Users\peter.kazarinoff>activate tensiletest
-
-(tensiletest) C:\Users\peter.kazarinoff>
-
+conda create -m tensiletest
 ```
 
-Next we use our new conda virtual environment to install ```pip```. pip is the python package manager that we will to install a couple packages that are needed to plot the stress strain curve. Make sure you are working in your new ```(tensiletest)``` virtual environment and type:
+Now we need to activate our ```(tensiletest)``` virtual environment using ```conda activate```. Note that once the virtual environment is activated, we see ```(tesiletest)``` before the Anaconda prompt.
 
 ```
-(tensiletest) C:\Users\peter.kazarinoff>conda install pip
-Fetching package metadata ...........
-Solving package specifications: .
-
-Package plan for installation in environment C:\Users\peter.kazarinoff\AppData\Local\Continuum\Anaconda3\envs\tensiletest:
-
-The following NEW packages will be INSTALLED:
-
-    certifi:        2016.2.28-py36_0
-    pip:            9.0.1-py36_1
-    python:         3.6.2-0
-    setuptools:     36.4.0-py36_1
-    vs2015_runtime: 14.0.25420-0
-    wheel:          0.29.0-py36_0
-    wincertstore:   0.2-py36_0
-
-Proceed ([y]/n)? y
-
-
-(tensiletest) C:\Users\peter.kazarinoff>
+conda activate tensiletest
 ```
 
-Now we need to install two packages. The first is ```numpy```. We will use ```numpy``` to run some calculations on our data. The second package we need to install is ```matplotlib```. We will use ```matplotlib``` to plot the data. Both are installed with ```pip``` at the conda prompt. Again, make sure you are in your ```(tensiletest)``` virtual environment:
+Now we need to install three Python packages using the Anaconda Prompt. The first is ```numpy```. We will use ```numpy``` to run some calculations on our data. The second package we need to install is ```matplotlib```. We will use ```matplotlib``` to plot the data. Both are installed with ```conda``` at the Anaconda prompt. Again, make sure you are in your ```(tensiletest)``` virtual environment:
 
 ```
-(tensiletest) C:\Users\peter.kazarinoff>pip install numpy
-Collecting numpy
-  Downloading numpy-1.13.3-cp36-none-win_amd64.whl (13.1MB)
-    100% |████████████████████████████████| 13.1MB 117kB/s
-Installing collected packages: numpy
-Successfully installed numpy-1.13.3
-
-(tensiletest) C:\Users\peter.kazarinoff>pip install matplotlib
-Collecting matplotlib
-  Downloading matplotlib-2.0.2-cp36-cp36m-win_amd64.whl (8.9MB)
-    100% |████████████████████████████████| 8.9MB 176kB/s
-Collecting pytz (from matplotlib)
-  Using cached pytz-2017.2-py2.py3-none-any.whl
-Requirement already satisfied: numpy>=1.7.1 in c:\users\peter.kazarinoff\appdata\local\continuum\anaconda3\envs\tensiletest\lib\site-packages (from matplotlib)
-Collecting cycler>=0.10 (from matplotlib)
-  Using cached cycler-0.10.0-py2.py3-none-any.whl
-Collecting six>=1.10 (from matplotlib)
-  Using cached six-1.11.0-py2.py3-none-any.whl
-Collecting python-dateutil (from matplotlib)
-  Using cached python_dateutil-2.6.1-py2.py3-none-any.whl
-Collecting pyparsing!=2.0.4,!=2.1.2,!=2.1.6,>=1.5.6 (from matplotlib)
-  Downloading pyparsing-2.2.0-py2.py3-none-any.whl (56kB)
-    100% |████████████████████████████████| 61kB 4.4MB/s
-Installing collected packages: pytz, six, cycler, python-dateutil, pyparsing, matplotlib
-Successfully installed cycler-0.10.0 matplotlib-2.0.2 pyparsing-2.2.0 python-dateutil-2.6.1 pytz-2017.2 six-1.11.0
+(tensiletest)$ conda install numpy
+(tensiletest)$ conda install matplotlib
 ```
+
 
 The last python package we will install is ```pandas```. We will use ```pandas``` to import our ***data.csv*** file and pull out the columns we need to make the stress strain curve
 
 ```
-(tensiletest) C:\Users\peter.kazarinoff\Documents\staticsite\content\code\tensiletest>pip install pandas
-Collecting pandas
-  Downloading pandas-0.20.3-cp36-cp36m-win_amd64.whl (8.3MB)
-    100% |████████████████████████████████| 8.3MB 179kB/s
-Requirement already satisfied: numpy>=1.7.0 in c:\users\peter.kazarinoff\appdata\local\continuum\anaconda3\envs\tensiletest\lib\site-packages (from pandas)
-Requirement already satisfied: pytz>=2011k in c:\users\peter.kazarinoff\appdata\local\continuum\anaconda3\envs\tensiletest\lib\site-packages (from pandas)
-Requirement already satisfied: python-dateutil>=2 in c:\users\peter.kazarinoff\appdata\local\continuum\anaconda3\envs\tensiletest\lib\site-packages (from pandas)
-Requirement already satisfied: six>=1.5 in c:\users\peter.kazarinoff\appdata\local\continuum\anaconda3\envs\tensiletest\lib\site-packages (from python-dateutil>=2->pandas)
-Installing collected packages: pandas
-Successfully installed pandas-0.20.3
+(tensiletest)$ conda install pandas
 ```
 
 
 To make sure that ```numpy``` and ```matplotlib``` and ```pandas``` are installed in our ```tensiletest``` virtual environemnt, type:
 
 ```
-(tensiletest) C:\Users\peter.kazarinoff\Documents\staticsite\content\code\tensiletest>pip freeze
+(tensiletest) $ conda list
+```
+
+The output should look something like below. Note that ```matplotlib```, ```numpy``` and ```pandas``` are all installed.
+
+```
 certifi==2017.7.27.1
 chardet==3.0.4
 cycler==0.10.0
@@ -155,7 +89,7 @@ Now we need to read in our data from the ***data.csv*** data file. To do this we
 
 ```python
 df=pd.read_csv('data.csv', sep=',',header=0)
-print(df)
+print(df.head())
 ```
 
 Now let's see if we can run our ***tensiletest.py*** script from the conda command line. Make sure that you are still in your ```tensiletest``` virtual environment. 

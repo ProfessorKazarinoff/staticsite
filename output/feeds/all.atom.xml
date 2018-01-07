@@ -1,5 +1,197 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Python for Undergraduate Engineers</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="https://professorkazarinoff.github.io/staticsite/feeds/all.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2017-12-29T10:01:00-08:00</updated><entry><title>Unicode characters for engineers in Python</title><link href="https://professorkazarinoff.github.io/staticsite/unicode-characters-in-python.html" rel="alternate"></link><published>2017-12-29T10:01:00-08:00</published><updated>2017-12-29T10:01:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-12-29:/staticsite/unicode-characters-in-python.html</id><summary type="html">&lt;p&gt;Unicode characters are very useful for engineers. A couple commonly used symbols in engineers include Omega and Delta. We can print these in python using unicode characters. From the Python interpreter we can type:&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Python for Undergraduate Engineers</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="https://professorkazarinoff.github.io/staticsite/feeds/all.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2018-01-07T10:15:00-08:00</updated><entry><title>Bar charts with error bars using Python and matplotlib</title><link href="https://professorkazarinoff.github.io/staticsite/python-matplotlib-error-bars.html" rel="alternate"></link><published>2018-01-07T10:15:00-08:00</published><updated>2018-01-07T10:15:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-01-07:/staticsite/python-matplotlib-error-bars.html</id><summary type="html">&lt;p&gt;Bar charts with error bars are useful in engineering to show the confidence or precision in a set of measurements or calculated values. Bar charts without error bars give the illusion that a measured or calculated value is known to high precision or high confidence. In this post we will build a bar plot using Python and matplotlib. The plot will show the coefficient of thermal expansion (CTE) for three different materials based on a small data set. We will then add error bars to this chart based on the standard deviation of the data.&lt;/p&gt;</summary><content type="html">&lt;p&gt;Bar charts with error bars are useful in engineering to show the confidence or precision in a set of measurements or calculated values. Bar charts without error bars give the illusion that a measured or calculated value is known to high precision or high confidence. In this post we will build a bar plot using Python and matplotlib. The plot will show the coefficient of thermal expansion (CTE) for three different materials based on a small data set. We will then add error bars to this chart based on the standard deviation of the data.&lt;/p&gt;
+&lt;p&gt;A bar chart with error bars is shown below. Note the labels on the x-axis and the error bars at the top of each bar.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="plot with error bars" src="https://professorkazarinoff.github.io/staticsite/images/bar_plot_with_error_bars.png"&gt;&lt;/p&gt;
+&lt;p&gt;In order to build this plot, we need a couple of things&lt;/p&gt;
+&lt;table class="table table-striped table-bordered table-hover"&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Asset&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Python (version 3.6)&lt;/td&gt;
+&lt;td&gt;Run the program&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Anaconda Prompt&lt;/td&gt;
+&lt;td&gt;create the virtual environment and install packages&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;numpy&lt;/td&gt;
+&lt;td&gt;calculate the mean and standard deviation&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;matplotlib&lt;/td&gt;
+&lt;td&gt;build the plot&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;data set&lt;/td&gt;
+&lt;td&gt;data to plot&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;To get going, we'll use the &lt;strong&gt;Anaconda Prompt&lt;/strong&gt; to create a new virtual environment. Select &lt;strong&gt;Anaconda Prompt&lt;/strong&gt; from the windows start menu. (If using OSX or Linux, the terminal could also be used)&lt;/p&gt;
+&lt;p&gt;&lt;img alt="conda prompt on windows start menu" src="https://professorkazarinoff.github.io/staticsite/images/conda_in_windows_start_menu.png"&gt;&lt;/p&gt;
+&lt;p&gt;Once you have the &lt;em&gt;Anaconda Prompt&lt;/em&gt; open, type the following command to create a new virtual environment:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;conda create -n errorbars
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Then to activate our new virtual environment, type the following into the &lt;strong&gt;Anaconda Prompt&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;conda activate errorbars
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now that the &lt;strong&gt;errorbars&lt;/strong&gt; virtual environment is active, you should see &lt;code&gt;(errorbars)&lt;/code&gt; in parenthesis before the &lt;strong&gt;Anaconda Prompt&lt;/strong&gt;.
+Next install &lt;code&gt;matplotlib&lt;/code&gt; and &lt;code&gt;numpy&lt;/code&gt; using &lt;code&gt;conda&lt;/code&gt;. (pip will work to install these packages as well) You can write both packages on the same line or use two different &lt;code&gt;conda install&lt;/code&gt; lines.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;conda install matplotlib numpy
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Make sure that our &lt;code&gt;(errorbars)&lt;/code&gt; virtual environment has matplotlib and numpy installed:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;conda list
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now create a new Python script called &lt;strong&gt;&lt;em&gt;errorbars.py&lt;/em&gt;&lt;/strong&gt;. At the top of the script we need to import &lt;code&gt;numpy&lt;/code&gt; and &lt;code&gt;matplotlib&lt;/code&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;#errorbars.py&lt;/span&gt;
+
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;numpy&lt;/span&gt; &lt;span class="kn"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;np&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;matplotlib.pyplot&lt;/span&gt; &lt;span class="kn"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;plt&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Next we need to read in our data. The chart below shows the measured coefficient of thermal expansion (CTE) of three metals: Aluminum, Copper and Steel. The units for coefficient of thermal expansion is per degrees C ( / &amp;#176;C)&lt;/p&gt;
+&lt;h3&gt;Coefficient of thermal expansion of three metals (units: /  &amp;#176;C)&lt;/h3&gt;
+&lt;table class="table table-striped table-bordered table-hover"&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Sample&lt;/th&gt;
+&lt;th&gt;Aluminum&lt;/th&gt;
+&lt;th&gt;Copper&lt;/th&gt;
+&lt;th&gt;Steel&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;6.4e-5&lt;/td&gt;
+&lt;td&gt;4.5e-5&lt;/td&gt;
+&lt;td&gt;3.3e-5&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;3.01e-5&lt;/td&gt;
+&lt;td&gt;1.97e-5&lt;/td&gt;
+&lt;td&gt;1.21e-5&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;3&lt;/td&gt;
+&lt;td&gt;2.36e-5&lt;/td&gt;
+&lt;td&gt;1.6e-5&lt;/td&gt;
+&lt;td&gt;0.9e-5&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;td&gt;3.0e-5&lt;/td&gt;
+&lt;td&gt;1.97e-5&lt;/td&gt;
+&lt;td&gt;1.2e-5&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;td&gt;7.0e-5&lt;/td&gt;
+&lt;td&gt;4.0e-5&lt;/td&gt;
+&lt;td&gt;1.3e-5&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;6&lt;/td&gt;
+&lt;td&gt;4.5e-5&lt;/td&gt;
+&lt;td&gt;2.4e-5&lt;/td&gt;
+&lt;td&gt;1.6e-5&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;7&lt;/td&gt;
+&lt;td&gt;3.8e-5&lt;/td&gt;
+&lt;td&gt;1.9e-5&lt;/td&gt;
+&lt;td&gt;1.4e-5&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;8&lt;/td&gt;
+&lt;td&gt;4.2e-5&lt;/td&gt;
+&lt;td&gt;2.41e-5&lt;/td&gt;
+&lt;td&gt;1.58e-5&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;9&lt;/td&gt;
+&lt;td&gt;2.62e-5&lt;/td&gt;
+&lt;td&gt;1.85e-5&lt;/td&gt;
+&lt;td&gt;1.32e-5&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;10&lt;/td&gt;
+&lt;td&gt;3.6e-5&lt;/td&gt;
+&lt;td&gt;3.3e-5&lt;/td&gt;
+&lt;td&gt;2.1e-5&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;We'll put this data into three different &lt;strong&gt;numpy&lt;/strong&gt; arrays, one array for each metal. Notice the syntax &lt;code&gt;np.array([ ... ])&lt;/code&gt; has a parenthesis &lt;code&gt;(&lt;/code&gt; followed by a square bracket &lt;code&gt;[&lt;/code&gt;. We are passing a Python list, [ denoted with square brackets ] into a the numpy array function (argument enclosed in parenthesis).&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# Enter in the raw data&lt;/span&gt;
+&lt;span class="n"&gt;aluminum&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;array&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="mf"&gt;6.4e-5&lt;/span&gt; &lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;3.01e-5&lt;/span&gt; &lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;2.36e-5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;3.0e-5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;7.0e-5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;4.5e-5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;3.8e-5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;4.2e-5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;2.62e-5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;3.6e-5&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;span class="n"&gt;copper&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;array&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="mf"&gt;4.5e-5&lt;/span&gt; &lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;1.97e-5&lt;/span&gt; &lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;1.6e-5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;1.97e-5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;4.0e-5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;2.4e-5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;1.9e-5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;2.41e-5&lt;/span&gt; &lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;1.85e-5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;3.3e-5&lt;/span&gt; &lt;span class="p"&gt;])&lt;/span&gt;
+&lt;span class="n"&gt;steel&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;array&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="mf"&gt;3.3e-5&lt;/span&gt; &lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;1.2e-5&lt;/span&gt; &lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;0.9e-5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;1.2e-5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;1.3e-5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;1.6e-5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;1.4e-5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;1.58e-5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;1.32e-5&lt;/span&gt; &lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;2.1e-5&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now we need to calculate the mean (or average) for each of the three materials using numpy's &lt;code&gt;np.mean()&lt;/code&gt; function. The means will be the height of each bar in our chart.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# Calculate the average&lt;/span&gt;
+&lt;span class="n"&gt;Aluminum_mean&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;mean&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;aluminum&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;Copper_mean&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;mean&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;copper&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;Steel_mean&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;mean&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;steel&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Next we'll calculate the standard deviation for each metal using numpy's &lt;code&gt;np.std()&lt;/code&gt; function. On the plot, we will use the standard deviation as the height of our error bars. The positive error will be show as +1 standard deviation above the mean and the negative error will be shown as -1 standard deviation below the mean. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;aluminum_std&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;aluminum&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;copper_std&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;copper&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;steel_std&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;steel&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;There are a couple more things needed to build the plot. We need the names of the metals to go along our x-axis, one name below each bar. We'll assign names as list of strings in a variable called &lt;code&gt;materials&lt;/code&gt;. We also need a variable that contains the means of the coefficients of thermal expansion, the data we are going to plot. We'll put these into a python list called &lt;code&gt;CTEs&lt;/code&gt;. Our standard deviations will be used for the height of the error bars. Those will go together in a list called &lt;code&gt;error&lt;/code&gt;. Let's code all of these list into our &lt;strong&gt;&lt;em&gt;errorbars.py&lt;/em&gt;&lt;/strong&gt; script.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# Create Arrays for the plot&lt;/span&gt;
+&lt;span class="n"&gt;materials&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Aluminum&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Copper&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Steel&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="n"&gt;x_pos&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arange&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;materials&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;span class="n"&gt;CTEs&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;aluminum_mean&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;copper_mean&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;steel_mean&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="n"&gt;error&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;aluminum_std&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;copper_std&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;steel_std&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now it's time to build the plot. We are going to build a bar chart with three different bars, one bar for each material: Aluminum, Copper and Steel. &lt;/p&gt;
+&lt;p&gt;First we will create a figure object called &lt;code&gt;fig&lt;/code&gt; and an axis object in that figure called &lt;code&gt;ax&lt;/code&gt; using &lt;strong&gt;matplotlib's&lt;/strong&gt; &lt;code&gt;plt.subplots()&lt;/code&gt; function. Everything in our plot will be added to the &lt;code&gt;ax&lt;/code&gt; (axis) object.  Next we put a bar chart on our &lt;code&gt;ax&lt;/code&gt; (axis) with the &lt;code&gt;ax.bar()&lt;/code&gt; method.  Note the arguments that go into this method: &lt;code&gt;(x_pos, CTEs, yerr=error)&lt;/code&gt;.  &lt;code&gt;x_pos&lt;/code&gt; is the array with the count of the number of bars. &lt;code&gt;CTEs&lt;/code&gt; is our array which contains the means or heights of the bars. &lt;code&gt;yerr=error&lt;/code&gt; sets the heights of the error bars and the standard deviations. The subsequent arguments &lt;code&gt;(align='center', alpha=0.5, ecolor='black', capsize=10)&lt;/code&gt; styles the plot.&lt;/p&gt;
+&lt;p&gt;We'll put a label on the y-axis with the title "Coefficient of thermal expansion (&amp;#176;C&lt;sup&gt;-1&lt;/sup&gt;)" using &lt;code&gt;ax.set_ylabel&lt;/code&gt;. We use &lt;code&gt;ax.set_xticks()&lt;/code&gt; to feed in our number array to set the bars as numbers 1, 2, 3.  Then we add labels to these numbered bars with &lt;code&gt;ax.set_ticklabels()&lt;/code&gt;. &lt;code&gt;ax.set_title()&lt;/code&gt; and &lt;code&gt;ax.yaxis.grid(True)&lt;/code&gt; adds a title and horizontal grid lines.&lt;/p&gt;
+&lt;p&gt;Finally, we we'll save the figure to a file called &lt;strong&gt;&lt;em&gt;bar_plot_with_error_bars.png&lt;/em&gt;&lt;/strong&gt; using matplotlib's &lt;code&gt;plt.savefig()&lt;/code&gt; function. The &lt;code&gt;plt.thight_layout()&lt;/code&gt; line ensures that the labels for our bars and axis don't get cut off and are visible. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# Build the plot&lt;/span&gt;
+&lt;span class="n"&gt;fig&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ax&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;subplots&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="n"&gt;ax&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bar&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x_pos&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;CTEs&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;yerr&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;error&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;align&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;center&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;alpha&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mf"&gt;0.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ecolor&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;black&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;capsize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;ax&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;set_ylabel&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Coefficient of Thermal Expansion ($\degree C^{-1}$)&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;ax&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;set_xticks&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x_pos&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;ax&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;set_xticklabels&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;materials&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;ax&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;set_title&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Coefficent of Thermal Expansion (CTE) of Three Metals&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;ax&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;yaxis&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;grid&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;True&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Save the figure and show&lt;/span&gt;
+&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tight_layout&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;savefig&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;bar_plot_with_error_bars.png&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;show&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The final plot looks like this:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="plot with error bars" src="https://professorkazarinoff.github.io/staticsite/images/bar_plot_with_error_bars.png"&gt;&lt;/p&gt;</content><category term="python"></category><category term="matplotlib"></category><category term="engineering"></category><category term="materials science"></category><category term="statistics"></category><category term="plotting"></category></entry><entry><title>Unicode characters for engineers in Python</title><link href="https://professorkazarinoff.github.io/staticsite/unicode-characters-in-python.html" rel="alternate"></link><published>2017-12-29T10:01:00-08:00</published><updated>2017-12-29T10:01:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-12-29:/staticsite/unicode-characters-in-python.html</id><summary type="html">&lt;p&gt;Unicode characters are very useful for engineers. A couple commonly used symbols in engineers include Omega and Delta. We can print these in python using unicode characters. From the Python interpreter we can type:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;gt;&amp;gt;&amp;gt; print(&amp;#39;Omega: \u03A9&amp;#39;)
 Omega: Ω
 &amp;gt;&amp;gt;&amp;gt; print(&amp;#39;Delta: \u0394&amp;#39;)

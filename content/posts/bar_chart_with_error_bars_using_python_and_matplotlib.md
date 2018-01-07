@@ -1,16 +1,16 @@
 Title: Bar charts with error bars using Python and matplotlib
-Date: 2018-01-04 13:15
-Modified: 2018-01-04 13:15
-Status: Draft
+Date: 2018-01-07 10:15
+Modified: 2018-01-07 10:15
+Status: published
 Category: matplotlib
 Tags: python, matplotlib, engineering, materials science, statistics, plotting
 Slug: python-matplotlib-error-bars
 Authors: Peter D. Kazarinoff
 JavaScripts: table.js
 Stylesheets: table.css
-Summary: Bar charts with error bars are useful in engineering to show the confidence or precision in a set of measurements or calculated values. Bar charts without error bars give the illusion that a measured or calculated value is known to a high precision or high confidence. In this post we will build a bar plot using Python and matplotlib. The plot will show the coefficient of thermal expansion (CTE) for three different materials based on a small data set. We will then add error bar to this chart based on the standard deviation of the data.
+Summary: Bar charts with error bars are useful in engineering to show the confidence or precision in a set of measurements or calculated values. Bar charts without error bars give the illusion that a measured or calculated value is known to high precision or high confidence. In this post we will build a bar plot using Python and matplotlib. The plot will show the coefficient of thermal expansion (CTE) for three different materials based on a small data set. We will then add error bars to this chart based on the standard deviation of the data.
 
-Bar charts with error bars are useful in engineering to show the confidence or precision in a set of measurements or calculated values. Bar charts without error bars give the illusion that a measured or calculated value is known to a high precision or high confidence. In this post we will build a bar plot using Python and matplotlib. The plot will show the coefficient of thermal expansion (CTE) for three different materials based on a small data set. We will then add error bar to this chart based on the standard deviation of the data.
+Bar charts with error bars are useful in engineering to show the confidence or precision in a set of measurements or calculated values. Bar charts without error bars give the illusion that a measured or calculated value is known to high precision or high confidence. In this post we will build a bar plot using Python and matplotlib. The plot will show the coefficient of thermal expansion (CTE) for three different materials based on a small data set. We will then add error bars to this chart based on the standard deviation of the data.
 
 A bar chart with error bars is shown below. Note the labels on the x-axis and the error bars at the top of each bar.
 
@@ -41,7 +41,7 @@ conda create -n errorbars
 Then to activate our new virtual environment, type the following into the **Anaconda Prompt**
 
 ```
-activate errorbars
+conda activate errorbars
 ```
 
 Now that the **errorbars** virtual environment is active, you should see ```(errorbars)``` in parenthesis before the **Anaconda Prompt**.
@@ -64,7 +64,6 @@ Now create a new Python script called ***errorbars.py***. At the top of the scri
 
 import numpy as np
 import matplotlib.pyplot as plt
-
 ```
 
 Next we need to read in our data. The chart below shows the measured coefficient of thermal expansion (CTE) of three metals: Aluminum, Copper and Steel. The units for coefficient of thermal expansion is per degrees C ( / &#176;C)
@@ -119,9 +118,15 @@ CTEs = [aluminum_mean, copper_mean, steel_mean]
 error = [aluminum_std, copper_std, steel_std]
 ```
 
-Now it's time to build the plot. We are going to build a bar chart with three different bars, one bar for each material: Aluminum, Copper and Steel. We are going to put labels on the x-axis that shows each material name and a label on the y-axis with the title "Coefficient of thermal expansion (&#176;C<sup>-1</sup>)". Then we will then save the figure to a file called **_bar_plot_with_error_bars.png_** using matplotlib's ```plt.savefig()``` function.
+Now it's time to build the plot. We are going to build a bar chart with three different bars, one bar for each material: Aluminum, Copper and Steel. 
 
-```
+First we will create a figure object called ```fig``` and an axis object in that figure called ```ax``` using **matplotlib's** ```plt.subplots()``` function. Everything in our plot will be added to the ```ax``` (axis) object.  Next we put a bar chart on our ```ax``` (axis) with the ```ax.bar()``` method.  Note the arguments that go into this method: ```(x_pos, CTEs, yerr=error)```.  ```x_pos``` is the array with the count of the number of bars. ```CTEs``` is our array which contains the means or heights of the bars. ```yerr=error``` sets the heights of the error bars and the standard deviations. The subsequent arguments ```(align='center', alpha=0.5, ecolor='black', capsize=10)``` styles the plot.
+
+We'll put a label on the y-axis with the title "Coefficient of thermal expansion (&#176;C<sup>-1</sup>)" using ```ax.set_ylabel```. We use ```ax.set_xticks()``` to feed in our number array to set the bars as numbers 1, 2, 3.  Then we add labels to these numbered bars with ```ax.set_ticklabels()```. ```ax.set_title()``` and ```ax.yaxis.grid(True)``` adds a title and horizontal grid lines.
+
+Finally, we we'll save the figure to a file called **_bar_plot_with_error_bars.png_** using matplotlib's ```plt.savefig()``` function. The ```plt.thight_layout()``` line ensures that the labels for our bars and axis don't get cut off and are visible. 
+
+```python
 # Build the plot
 fig, ax = plt.subplots()
 ax.bar(x_pos, CTEs, yerr=error, align='center', alpha=0.5, ecolor='black', capsize=10)

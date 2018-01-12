@@ -172,9 +172,9 @@ init_mathjax = function() {
 }
 init_mathjax();
 </script>
-    <link href="../extra/favicon.ico" rel="icon">
+    <link href="/extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="../drafts/python-matplotlib-stress-strain.html">
+<link rel="canonical" href="/drafts/python-matplotlib-stress-strain.html">
 
         <meta name="author" content="Peter Kazarinoff" />
         <meta name="keywords" content="python,matplotlib,engineering,materials science" />
@@ -182,7 +182,7 @@ init_mathjax();
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="Plotting Stress Strain Curves with Python and matplotlib"/>
-        <meta property="og:url" content="../drafts/python-matplotlib-stress-strain.html"/>
+        <meta property="og:url" content="/drafts/python-matplotlib-stress-strain.html"/>
         <meta property="og:description" content=""/>
         <meta property="article:published_time" content="2017-10-03" />
             <meta property="article:section" content="matplotlib" />
@@ -195,21 +195,17 @@ init_mathjax();
 
 
     <!-- Bootstrap -->
-        <link rel="stylesheet" href="../theme/css/bootstrap.flatly.min.css" type="text/css"/>
-    <link href="../theme/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="/theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="../theme/css/pygments/native.css" rel="stylesheet">
-    <link href="../theme/tipuesearch/tipuesearch.css" rel="stylesheet">
-    <link rel="stylesheet" href="../theme/css/style.css" type="text/css"/>
-        <link href="../static/css/custom.css" rel="stylesheet">
-
-        <link href="../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
-              title="Python for Undergraduate Engineers ATOM Feed"/>
+    <link href="/theme/css/pygments/native.css" rel="stylesheet">
+    <link href="/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+        <link href="/static/css/custom.css" rel="stylesheet">
 
 
 
-        <link href="../feeds/matplotlib.atom.xml" type="application/atom+xml" rel="alternate"
-              title="Python for Undergraduate Engineers matplotlib ATOM Feed"/>
+
 
 </head>
 <body>
@@ -223,15 +219,15 @@ init_mathjax();
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="../" class="navbar-brand">
+            <a href="/" class="navbar-brand">
 Python for Undergraduate Engineers            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                         <li><a href="../pages/about.html">
+                         <li><a href="/pages/about.html">
                              About
                           </a></li>
-                         <li><a href="../pages/book.html">
+                         <li><a href="/pages/book.html">
                              Book
                           </a></li>
             </ul>
@@ -241,7 +237,7 @@ Python for Undergraduate Engineers            </a>
                   <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
                 </form></span>
               </li>
-              <li><a href="../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+              <li><a href="/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -253,15 +249,15 @@ Python for Undergraduate Engineers            </a>
     <div class="row">
         <div class="col-sm-9">
             <ol class="breadcrumb">
-                <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="../category/matplotlib.html" title="matplotlib">matplotlib</a></li>
+                <li><a href="" title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="/category/matplotlib.html" title="matplotlib">matplotlib</a></li>
                 <li class="active">Plotting Stress Strain Curves with Python and matplotlib</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="../drafts/python-matplotlib-stress-strain.html"
+                    <a href="/drafts/python-matplotlib-stress-strain.html"
                        rel="bookmark"
                        title="Permalink to Plotting Stress Strain Curves with Python and matplotlib">
                         Plotting Stress Strain Curves with Python and matplotlib
@@ -282,122 +278,55 @@ Python for Undergraduate Engineers            </a>
 
 
 <span class="label label-default">Tags</span>
-	<a href="../tag/python.html">python</a>
+	<a href="/tag/python.html">python</a>
         /
-	<a href="../tag/matplotlib.html">matplotlib</a>
+	<a href="/tag/matplotlib.html">matplotlib</a>
         /
-	<a href="../tag/engineering.html">engineering</a>
+	<a href="/tag/engineering.html">engineering</a>
         /
-	<a href="../tag/materials-science.html">materials science</a>
+	<a href="/tag/materials-science.html">materials science</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
                 <p>Plotting stress strain curves is a useful skill in mechanical engineering because it allows us to derive mechanical properties of materials such as tensile strength, elastic modulus, yield strength and ductility. Plotting stress strain curves can be accomplished with Excel and MATLAB, but what about plotting stress strain curves with Python? Follow along to find out.</p>
 <p>What we are going to do in the following series of blog posts is plot the stress strain curve of Aluminum 6061 - T6. We will then derive mechanical properties from the plot, tensile strength (TS), yield strength (YS), elastic modulus (E), and ductility (%EL). In order to do this, we need to have a couple things in place:</p>
 <ol>
-<li>python (to run the program) </li>
-<li>conda and a conda prompt (to create a virtual environment and install pip)</li>
-<li>pip (to download and install matplotlib and pandas)</li>
-<li>matplotlib and pandas (to plot the stress strain curve and read the .csv data file)</li>
-<li>data.csv (the data collected from a mechanical test frame that we will plot)</li>
+<li>Python (to run the program) </li>
+<li>Anaconda and the Anaconda Prompt (to create a virtual environment and install pip)</li>
+<li>conda (to download and install matplotlib, numpy and pandas)</li>
+<li>matplotlib, numpy and pandas (to plot the stress strain curve and read the .csv data file)</li>
+<li>data.csv (the data collected from a mechanical test frame)</li>
 </ol>
 <p>To get going, first we should create a up a new virtual environment, let's call it tensiletest. I'm using <strong>conda</strong> to create the virtual environment. Select <strong>Anaconda Prompt</strong> from the windows start menu.</p>
-<p><img alt="conda prompt on windows start menu" src="../images/conda_in_windows_start_menu.png"></p>
-<p>Once you have the conda prompt open, type the following command:</p>
-<div class="highlight"><pre><span></span>(C:\Users\peter.kazarinoff\AppData\Local\Continuum\Anaconda3) C:\Users\peter.kazarinoff&gt;conda create -m tensiletest
-Fetching package metadata ...........
-Solving package specifications:
-Package plan for installation in environment C:\Users\peter.kazarinoff\AppData\Local\Continuum\Anaconda3\envs\tensiletest:
-
-Proceed ([y]/n)? y
-
-#
-# To activate this environment, use:
-# &gt; activate tensiletest
-#
-# To deactivate an active environment, use:
-# &gt; deactivate
-#
-# * for power-users using bash, you must source
-#
-
-
-(C:\Users\peter.kazarinoff\AppData\Local\Continuum\Anaconda3) C:\Users\peter.kazarinoff&gt;activate tensiletest
-
-(tensiletest) C:\Users\peter.kazarinoff&gt;
+<p><img alt="conda prompt on windows start menu" src="/images/conda_in_windows_start_menu.png"></p>
+<p>Once you have the Anaconda Prompt open, type the following command:</p>
+<div class="highlight"><pre><span></span>conda create -m tensiletest
 </pre></div>
 
 
-<p>Next we use our new conda virtual environment to install <code>pip</code>. pip is the python package manager that we will to install a couple packages that are needed to plot the stress strain curve. Make sure you are working in your new <code>(tensiletest)</code> virtual environment and type:</p>
-<div class="highlight"><pre><span></span>(tensiletest) C:\Users\peter.kazarinoff&gt;conda install pip
-Fetching package metadata ...........
-Solving package specifications: .
-
-Package plan for installation in environment C:\Users\peter.kazarinoff\AppData\Local\Continuum\Anaconda3\envs\tensiletest:
-
-The following NEW packages will be INSTALLED:
-
-    certifi:        2016.2.28-py36_0
-    pip:            9.0.1-py36_1
-    python:         3.6.2-0
-    setuptools:     36.4.0-py36_1
-    vs2015_runtime: 14.0.25420-0
-    wheel:          0.29.0-py36_0
-    wincertstore:   0.2-py36_0
-
-Proceed ([y]/n)? y
-
-
-(tensiletest) C:\Users\peter.kazarinoff&gt;
+<p>Now we need to activate our <code>(tensiletest)</code> virtual environment using <code>conda activate</code>. Note that once the virtual environment is activated, we see <code>(tesiletest)</code> before the Anaconda prompt.</p>
+<div class="highlight"><pre><span></span>conda activate tensiletest
 </pre></div>
 
 
-<p>Now we need to install two packages. The first is <code>numpy</code>. We will use <code>numpy</code> to run some calculations on our data. The second package we need to install is <code>matplotlib</code>. We will use <code>matplotlib</code> to plot the data. Both are installed with <code>pip</code> at the conda prompt. Again, make sure you are in your <code>(tensiletest)</code> virtual environment:</p>
-<div class="highlight"><pre><span></span>(tensiletest) C:\Users\peter.kazarinoff&gt;pip install numpy
-Collecting numpy
-  Downloading numpy-1.13.3-cp36-none-win_amd64.whl (13.1MB)
-    100% |████████████████████████████████| 13.1MB 117kB/s
-Installing collected packages: numpy
-Successfully installed numpy-1.13.3
-
-(tensiletest) C:\Users\peter.kazarinoff&gt;pip install matplotlib
-Collecting matplotlib
-  Downloading matplotlib-2.0.2-cp36-cp36m-win_amd64.whl (8.9MB)
-    100% |████████████████████████████████| 8.9MB 176kB/s
-Collecting pytz (from matplotlib)
-  Using cached pytz-2017.2-py2.py3-none-any.whl
-Requirement already satisfied: numpy&gt;=1.7.1 in c:\users\peter.kazarinoff\appdata\local\continuum\anaconda3\envs\tensiletest\lib\site-packages (from matplotlib)
-Collecting cycler&gt;=0.10 (from matplotlib)
-  Using cached cycler-0.10.0-py2.py3-none-any.whl
-Collecting six&gt;=1.10 (from matplotlib)
-  Using cached six-1.11.0-py2.py3-none-any.whl
-Collecting python-dateutil (from matplotlib)
-  Using cached python_dateutil-2.6.1-py2.py3-none-any.whl
-Collecting pyparsing!=2.0.4,!=2.1.2,!=2.1.6,&gt;=1.5.6 (from matplotlib)
-  Downloading pyparsing-2.2.0-py2.py3-none-any.whl (56kB)
-    100% |████████████████████████████████| 61kB 4.4MB/s
-Installing collected packages: pytz, six, cycler, python-dateutil, pyparsing, matplotlib
-Successfully installed cycler-0.10.0 matplotlib-2.0.2 pyparsing-2.2.0 python-dateutil-2.6.1 pytz-2017.2 six-1.11.0
+<p>Now we need to install three Python packages using the Anaconda Prompt. The first is <code>numpy</code>. We will use <code>numpy</code> to run some calculations on our data. The second package we need to install is <code>matplotlib</code>. We will use <code>matplotlib</code> to plot the data. Both are installed with <code>conda</code> at the Anaconda prompt. Again, make sure you are in your <code>(tensiletest)</code> virtual environment:</p>
+<div class="highlight"><pre><span></span>(tensiletest)$ conda install numpy
+(tensiletest)$ conda install matplotlib
 </pre></div>
 
 
 <p>The last python package we will install is <code>pandas</code>. We will use <code>pandas</code> to import our <strong><em>data.csv</em></strong> file and pull out the columns we need to make the stress strain curve</p>
-<div class="highlight"><pre><span></span>(tensiletest) C:\Users\peter.kazarinoff\Documents\staticsite\content\code\tensiletest&gt;pip install pandas
-Collecting pandas
-  Downloading pandas-0.20.3-cp36-cp36m-win_amd64.whl (8.3MB)
-    100% |████████████████████████████████| 8.3MB 179kB/s
-Requirement already satisfied: numpy&gt;=1.7.0 in c:\users\peter.kazarinoff\appdata\local\continuum\anaconda3\envs\tensiletest\lib\site-packages (from pandas)
-Requirement already satisfied: pytz&gt;=2011k in c:\users\peter.kazarinoff\appdata\local\continuum\anaconda3\envs\tensiletest\lib\site-packages (from pandas)
-Requirement already satisfied: python-dateutil&gt;=2 in c:\users\peter.kazarinoff\appdata\local\continuum\anaconda3\envs\tensiletest\lib\site-packages (from pandas)
-Requirement already satisfied: six&gt;=1.5 in c:\users\peter.kazarinoff\appdata\local\continuum\anaconda3\envs\tensiletest\lib\site-packages (from python-dateutil&gt;=2-&gt;pandas)
-Installing collected packages: pandas
-Successfully installed pandas-0.20.3
+<div class="highlight"><pre><span></span>(tensiletest)$ conda install pandas
 </pre></div>
 
 
 <p>To make sure that <code>numpy</code> and <code>matplotlib</code> and <code>pandas</code> are installed in our <code>tensiletest</code> virtual environemnt, type:</p>
-<div class="highlight"><pre><span></span>(tensiletest) C:\Users\peter.kazarinoff\Documents\staticsite\content\code\tensiletest&gt;pip freeze
-certifi==2017.7.27.1
+<div class="highlight"><pre><span></span>(tensiletest) $ conda list
+</pre></div>
+
+
+<p>The output should look something like below. Note that <code>matplotlib</code>, <code>numpy</code> and <code>pandas</code> are all installed.</p>
+<div class="highlight"><pre><span></span>certifi==2017.7.27.1
 chardet==3.0.4
 cycler==0.10.0
 idna==2.6
@@ -423,7 +352,7 @@ wincertstore==0.2
 
 <p>Now we need to read in our data from the <strong><em>data.csv</em></strong> data file. To do this we will use <code>pd.read_csv()</code> method from <code>pandas</code> to do this. We set <code>sep=','</code> because our <strong><em>data.csv</em></strong> file uses commas <code>,</code> to seperate columns. We use <code>header=0</code> to use the headers from our <strong><em>data.csv</em></strong> file as the headers in our pandas dataframe. We can also print out the data using the <code>print()</code> function</p>
 <div class="highlight"><pre><span></span><span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
 </pre></div>
 
 
@@ -515,7 +444,7 @@ hello world
 
 
 <p>If everything works correctly, you should see a plot that looks something like the follwoing:
-<img alt="simple line plot" src="../images/simple_plot.png"></p>
+<img alt="simple line plot" src="/images/simple_plot.png"></p>
 <p>OK, now we need to do some manipulation. The <code>df[1]</code> column in our data set is the <strong>extension</strong> or <strong>change in length</strong>. The <code>df[2]</code> column in our data set is <strong>force</strong>. We need to convert the <strong>change in length</strong> to strain and the <strong>force</strong> to stress. To do this we need to define some sample parameters:</p>
 <div class="highlight"><pre><span></span><span class="c1"># sample parameters</span>
 <span class="n">d</span> <span class="o">=</span> <span class="mf">1.778</span>     <span class="c1"># diameter of sample in mm</span>
@@ -544,7 +473,7 @@ hello world
 
 
 <p>If we run our <strong><em>tensiletest.py</em></strong> script, you should see the stress strain curve below:
-<img alt="simple line plot" src="../images/stress_strain_curve1.png"></p>
+<img alt="simple line plot" src="/images/stress_strain_curve1.png"></p>
 <p>That looks pretty good. But we need to add some axis labels with units using matplotlibs <code>plt.ylabel()</code> and <code>plt.xlabel()</code> methods. Let's also add a title with the <code>plt.title()</code> method. Ensure these are in btween the <code>plt.plot()</code> and the <code>plt.show()</code>, otherwise your title and axis labels won't show up on the plot.</p>
 <div class="highlight"><pre><span></span><span class="c1"># plot the stress strain curve</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">strain</span><span class="p">,</span><span class="n">stress</span><span class="p">)</span>
@@ -556,7 +485,7 @@ hello world
 
 
 <p>You should see a plot that looks like the one below with axis labels and a title
-<img alt="simple line plot" src="../images/stress_strain_curve2.png"></p>
+<img alt="simple line plot" src="/images/stress_strain_curve2.png"></p>
 <p>Lastly, we are going to make some changes to our axis limits. Notice how the plot doesn't start at <strong>strain=0</strong> or <strong>stress=0</strong>. We can change the axis limits using <code>plt.axis([Xmin, Xmax, Ymin, Ymax])</code> where <code>Xmin</code> and <code>Xmax</code> are our x-axis limits and <code>Ymin</code> and <code>Ymax</code> are our y-axis limits. We are also going to add a grid by setting <code>plt.axis()</code> to <code>True</code>.</p>
 <div class="highlight"><pre><span></span><span class="c1"># plot the stress strain curve</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">strain</span><span class="p">,</span><span class="n">stress</span><span class="p">)</span>
@@ -570,7 +499,7 @@ hello world
 
 
 <p>The final plot is shown below. The next post will detail how to calculate tensile strength, yield strength, elastic modulus and ductility from the stress strain curve. The complete <strong><em>tensiletest.py</em></strong> script is below the plot.</p>
-<p><img alt="simple line plot" src="../images/stress_strain_curve3.png"></p>
+<p><img alt="simple line plot" src="/images/stress_strain_curve3.png"></p>
 <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
@@ -667,11 +596,11 @@ hello world
 <section class="well" id="related-posts">
     <h4>Related Posts:</h4>
     <ul>
-        <li><a href="../python-matplotlib-error-bars.html">Bar charts with error bars using Python and matplotlib</a></li>
-        <li><a href="../unicode-characters-in-python.html">Unicode characters for engineers in Python</a></li>
-        <li><a href="../virtualenv-in-osx-linux-windows.html">Python Virtual Environments in OS X, Linux and Windows 10</a></li>
-        <li><a href="../how-i-built-this-site-7.html">How I Build This Site - Part 7</a></li>
-        <li><a href="../how-i-built-this-site-6.html">How I Build This Site - Part 6</a></li>
+        <li><a href="/python-matplotlib-error-bars.html">Bar charts with error bars using Python and matplotlib</a></li>
+        <li><a href="/unicode-characters-in-python.html">Unicode characters for engineers in Python</a></li>
+        <li><a href="/virtualenv-in-osx-linux-windows.html">Python Virtual Environments in OS X, Linux and Windows 10</a></li>
+        <li><a href="/how-i-built-this-site-7.html">How I Build This Site - Part 7</a></li>
+        <li><a href="/how-i-built-this-site-6.html">How I Build This Site - Part 6</a></li>
     </ul>
 </section>
         </article>
@@ -682,7 +611,7 @@ hello world
             <aside>
 <div id="aboutme">
         <p>
-            <img width="100%" class="img-thumbnail" src="../extra/gear-wrench-icon-512-278694.png"/>
+            <img width="100%" class="img-thumbnail" src="/extra/gear-wrench-icon-512-278694.png"/>
         </p>
     <p>
       <strong>About Peter Kazarinoff</strong><br/>
@@ -696,46 +625,46 @@ hello world
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
-    <li class="list-group-item"><a href="../python-matplotlib-error-bars.html">Bar charts with error bars using Python and matplotlib</a></li>
-    <li class="list-group-item"><a href="../unicode-characters-in-python.html">Unicode characters for engineers in Python</a></li>
-    <li class="list-group-item"><a href="../virtualenv-in-osx-linux-windows.html">Python Virtual Environments in OS X, Linux and Windows 10</a></li>
+    <li class="list-group-item"><a href="/python-matplotlib-error-bars.html">Bar charts with error bars using Python and matplotlib</a></li>
+    <li class="list-group-item"><a href="/unicode-characters-in-python.html">Unicode characters for engineers in Python</a></li>
+    <li class="list-group-item"><a href="/virtualenv-in-osx-linux-windows.html">Python Virtual Environments in OS X, Linux and Windows 10</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
 
 <!-- Sidebar/Tag Cloud -->
 <li class="list-group-item">
-  <a href="../"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <a href="/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
   <ul class="list-group list-inline tagcloud" id="tags">
     <li class="list-group-item tag-3">
-      <a href="../tag/anaconda.html">anaconda</a>
+      <a href="/tag/anaconda.html">anaconda</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="../tag/anaconda-prompt.html">anaconda prompt</a>
+      <a href="/tag/anaconda-prompt.html">anaconda prompt</a>
     </li>
     <li class="list-group-item tag-1">
-      <a href="../tag/blog.html">blog</a>
+      <a href="/tag/blog.html">blog</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="../tag/conda.html">conda</a>
+      <a href="/tag/conda.html">conda</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="../tag/engineering.html">engineering</a>
+      <a href="/tag/engineering.html">engineering</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="../tag/git.html">git</a>
+      <a href="/tag/git.html">git</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="../tag/github.html">github</a>
+      <a href="/tag/github.html">github</a>
     </li>
     <li class="list-group-item tag-1">
-      <a href="../tag/pelican.html">pelican</a>
+      <a href="/tag/pelican.html">pelican</a>
     </li>
     <li class="list-group-item tag-1">
-      <a href="../tag/python.html">python</a>
+      <a href="/tag/python.html">python</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="../tag/virtualenv.html">virtualenv</a>
+      <a href="/tag/virtualenv.html">virtualenv</a>
     </li>
   </ul>
 </li>
@@ -768,15 +697,15 @@ hello world
       </div>
    </div>
 </footer>
-<script src="../theme/js/jquery.min.js"></script>
+<script src="/theme/js/jquery.min.js"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="../theme/js/bootstrap.min.js"></script>
+<script src="/theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="../theme/js/respond.min.js"></script>
+<script src="/theme/js/respond.min.js"></script>
 
-    <script src="../static/js/custom.js"></script>
+    <script src="/static/js/custom.js"></script>
 
 
 <!-- GitHub JS Code -->
@@ -785,7 +714,7 @@ $(document).ready(function () {
   if (!window.jXHR) {
     var jxhr = document.createElement('script');
     jxhr.type = 'text/javascript';
-    jxhr.src = '../theme/js/jXHR.js';
+    jxhr.src = '/theme/js/jXHR.js';
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(jxhr, s);
   }
@@ -798,7 +727,7 @@ $(document).ready(function () {
   });
 });
 </script>
-<script src="../theme/js/github.js" type="text/javascript"></script>
+<script src="/theme/js/github.js" type="text/javascript"></script>
 <!-- End GitHub JS Code -->
 
 <script type="text/javascript">

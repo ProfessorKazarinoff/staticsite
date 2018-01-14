@@ -1,8 +1,8 @@
 Title: Unit conversions with Python and Pint
 Slug: unit-conversions-with-pint
-Date: 2017-12-29 10:30
-Modified: 2017-12-29 11:01
-Status: Draft
+Date: 2018-01-14 10:30
+Modified: 2018-01-14 11:01
+Status: published
 Category: engineering
 Tags: python, jupyter, notebook, pint, units, unit conversion, engineering
 Author: Peter D. Kazarinoff

@@ -172,9 +172,9 @@ init_mathjax = function() {
 }
 init_mathjax();
 </script>
-    <link href="/extra/favicon.ico" rel="icon">
+    <link href="./extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="/drafts/unit-conversions-with-pint.html">
+<link rel="canonical" href="./unit-conversions-with-pint.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
         <meta name="keywords" content="python,jupyter,notebook,pint,units,unit conversion,engineering" />
@@ -183,9 +183,9 @@ init_mathjax();
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="Unit conversions with Python and Pint"/>
-        <meta property="og:url" content="/drafts/unit-conversions-with-pint.html"/>
+        <meta property="og:url" content="./unit-conversions-with-pint.html"/>
         <meta property="og:description" content="Units and unit conversions are BIG in engineering. Engineers solve the world&#39;s problems in teams. Any problem that is solved has to have a context that it is solved in. How heavy can a rocket be and still make it off the ground? What thickness body panels should be used to keep occupants save during a crash? In engineering, a number without a unit is like a fish without water. It just flops around hopelessly without context and is useless. How can we get help using units? Programming is one way. In this post, we are going to use Python and Pint, a python package used for unit conversions, to do a couple of sample unit conversion problems."/>
-        <meta property="article:published_time" content="2017-12-29" />
+        <meta property="article:published_time" content="2018-01-14" />
             <meta property="article:section" content="engineering" />
             <meta property="article:tag" content="python" />
             <meta property="article:tag" content="jupyter" />
@@ -199,17 +199,21 @@ init_mathjax();
 
 
     <!-- Bootstrap -->
-        <link rel="stylesheet" href="/theme/css/bootstrap.flatly.min.css" type="text/css"/>
-    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="./theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="./theme/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="/theme/css/pygments/native.css" rel="stylesheet">
-    <link href="/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
-    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
-        <link href="/static/css/custom.css" rel="stylesheet">
+    <link href="./theme/css/pygments/native.css" rel="stylesheet">
+    <link href="./theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="./theme/css/style.css" type="text/css"/>
+        <link href="./static/css/custom.css" rel="stylesheet">
+
+        <link href="./feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Python for Undergraduate Engineers ATOM Feed"/>
 
 
 
-
+        <link href="./feeds/engineering.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Python for Undergraduate Engineers engineering ATOM Feed"/>
 
 </head>
 <body>
@@ -223,15 +227,15 @@ init_mathjax();
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="/" class="navbar-brand">
+            <a href="./" class="navbar-brand">
 Python for Undergraduate Engineers            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                         <li><a href="/pages/about.html">
+                         <li><a href="./pages/about.html">
                              About
                           </a></li>
-                         <li><a href="/pages/book.html">
+                         <li><a href="./pages/book.html">
                              Book
                           </a></li>
             </ul>
@@ -241,7 +245,7 @@ Python for Undergraduate Engineers            </a>
                   <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
                 </form></span>
               </li>
-              <li><a href="/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+              <li><a href="./archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -253,15 +257,15 @@ Python for Undergraduate Engineers            </a>
     <div class="row">
         <div class="col-sm-9">
             <ol class="breadcrumb">
-                <li><a href="" title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="/category/engineering.html" title="engineering">engineering</a></li>
+                <li><a href="." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="./category/engineering.html" title="engineering">engineering</a></li>
                 <li class="active">Unit conversions with Python and Pint</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="/drafts/unit-conversions-with-pint.html"
+                    <a href="./unit-conversions-with-pint.html"
                        rel="bookmark"
                        title="Permalink to Unit conversions with Python and Pint">
                         Unit conversions with Python and Pint
@@ -274,7 +278,7 @@ Python for Undergraduate Engineers            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2017-12-29T10:30:00-08:00"> Fri 29 December 2017</time>
+        <i class="fa fa-calendar"></i><time datetime="2018-01-14T10:30:00-08:00"> Sun 14 January 2018</time>
     </span>
 
 
@@ -282,19 +286,19 @@ Python for Undergraduate Engineers            </a>
 
 
 <span class="label label-default">Tags</span>
-	<a href="/tag/python.html">python</a>
+	<a href="./tag/python.html">python</a>
         /
-	<a href="/tag/jupyter.html">jupyter</a>
+	<a href="./tag/jupyter.html">jupyter</a>
         /
-	<a href="/tag/notebook.html">notebook</a>
+	<a href="./tag/notebook.html">notebook</a>
         /
-	<a href="/tag/pint.html">pint</a>
+	<a href="./tag/pint.html">pint</a>
         /
-	<a href="/tag/units.html">units</a>
+	<a href="./tag/units.html">units</a>
         /
-	<a href="/tag/unit-conversion.html">unit conversion</a>
+	<a href="./tag/unit-conversion.html">unit conversion</a>
         /
-	<a href="/tag/engineering.html">engineering</a>
+	<a href="./tag/engineering.html">engineering</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
@@ -303,8 +307,8 @@ Python for Undergraduate Engineers            </a>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Units and unit conversions are <strong>BIG</strong> in engineering. Engineers solve the world's problems in teams. Any problem solved has to have a context. How heavy can a rocket be and still make it off the ground? What thickness bodypannels keep occupants save during a crash? In engineering, a number without a unit is like a fish without water. It just flops around hopelessly without context and is useless.</p>
-<p>How can we get help using units? Programming is one way. We are going to use Python and Pint. Pint is a Python package used for unit conversions.</p>
+<p>Units and unit conversions are <strong>BIG</strong> in engineering. Engineers solve the world's problems in teams. Any problem solved has to have a context. How heavy can a rocket be and still make it off the ground? What thickness bodypannels keep occupants save during a crash? In engineering, a number without a unit is like a fish without water. It just flops around hopelessly without context around it is useless.</p>
+<p>How can we get help using units? Programming is one way. We are going to complete some uit conversion problmes using Python and Pint. Pint is a Python package used for unit conversions.</p>
 <p>See the (<a href="http://pint.readthedocs.io/en/latest/">Pint documentation</a>) for more examples.</p>
 
 </div>
@@ -314,14 +318,17 @@ Python for Undergraduate Engineers            </a>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>I am working on a Windows 10 machine. I recommend that undergraduate engineers use Python 3 (Python 2.7 is legacy python). You can check your operating system and Python version using the code below:</p>
+<p>I recommend that undergraduate engineers use Python 3 (Python 2.7 is legacy python) and the Anaconda distribution. To use <strong>Pint</strong>, we need to install pint in our wroking version of Python. Open up the <strong>Anaconda Prompt</strong>:</p>
+
+<pre><code>&gt; pip install pint</code></pre>
+<p>I am working on a Windows 10 machine. You can check your operating system and Python version using the code below:</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">platform</span>
@@ -343,8 +350,8 @@ Python for Undergraduate Engineers            </a>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Operating System: Darwin16.7.0
-Python Version: 3.6.2
+<pre>Operating System: Windows10
+Python Version: 3.6.3
 </pre>
 </div>
 </div>
@@ -364,7 +371,7 @@ Python Version: 3.6.2
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pint</span>
@@ -380,7 +387,7 @@ Python Version: 3.6.2
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>For our first problem we will complete the following converison:</p>
+<p>For our first problem, we will complete the following converison:</p>
 <h4 id="Convert-252-kW-to-Btu/day">Convert 252 kW to Btu/day<a class="anchor-link" href="#Convert-252-kW-to-Btu/day">&#182;</a></h4><p>We'll create a variable called <code>power</code> with units of kilowatts (kW). To create the kW unit, we'll use our <code>ureg</code> object.</p>
 
 </div>
@@ -388,7 +395,7 @@ Python Version: 3.6.2
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">power</span> <span class="o">=</span> <span class="mi">252</span><span class="o">*</span><span class="n">ureg</span><span class="o">.</span><span class="n">kW</span>
@@ -429,7 +436,7 @@ Python Version: 3.6.2
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">power_in_Btu_per_day</span> <span class="o">=</span> <span class="n">power</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">ureg</span><span class="o">.</span><span class="n">Btu</span> <span class="o">/</span> <span class="n">ureg</span><span class="o">.</span><span class="n">day</span><span class="p">)</span>
@@ -470,7 +477,7 @@ Python Version: 3.6.2
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">stress</span> <span class="o">=</span> <span class="mi">722</span><span class="o">*</span><span class="n">ureg</span><span class="o">.</span><span class="n">MPa</span>
@@ -483,7 +490,7 @@ Python Version: 3.6.2
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">stress_in_ksi</span> <span class="o">=</span> <span class="n">stress</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">ureg</span><span class="o">.</span><span class="n">ksi</span><span class="p">)</span>
@@ -524,7 +531,7 @@ Python Version: 3.6.2
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">accel</span> <span class="o">=</span> <span class="mf">1.620</span> <span class="o">*</span><span class="n">ureg</span><span class="o">.</span><span class="n">m</span><span class="o">/</span><span class="p">(</span><span class="n">ureg</span><span class="o">.</span><span class="n">s</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
@@ -565,7 +572,7 @@ Python Version: 3.6.2
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">accel</span><span class="o">.</span><span class="n">ito</span><span class="p">(</span><span class="n">ureg</span><span class="o">.</span><span class="n">ft</span><span class="o">/</span><span class="p">(</span><span class="n">ureg</span><span class="o">.</span><span class="n">min</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
@@ -605,7 +612,7 @@ Python Version: 3.6.2
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">quant</span> <span class="o">=</span> <span class="mf">14.31e8</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">kJ</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">kg</span> <span class="o">*</span> <span class="n">ureg</span><span class="o">.</span><span class="n">mm</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span>
@@ -637,7 +644,7 @@ Python Version: 3.6.2
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">quant</span><span class="o">.</span><span class="n">ito</span><span class="p">(</span> <span class="n">ureg</span><span class="o">.</span><span class="n">cal</span><span class="o">*</span><span class="n">ureg</span><span class="o">.</span><span class="n">lb</span> <span class="o">/</span> <span class="p">(</span><span class="n">ureg</span><span class="o">.</span><span class="n">inch</span><span class="o">**</span><span class="mi">3</span><span class="p">))</span>
@@ -675,11 +682,11 @@ Python Version: 3.6.2
 <section class="well" id="related-posts">
     <h4>Related Posts:</h4>
     <ul>
-        <li><a href="/python-matplotlib-error-bars.html">Bar charts with error bars using Python and matplotlib</a></li>
-        <li><a href="/unicode-characters-in-python.html">Unicode characters for engineers in Python</a></li>
-        <li><a href="/how-i-built-this-site-4.html">How I Build This Site - Part 4</a></li>
-        <li><a href="/virtualenv-in-osx-linux-windows.html">Python Virtual Environments in OS X, Linux and Windows 10</a></li>
-        <li><a href="/how-i-built-this-site-7.html">How I Build This Site - Part 7</a></li>
+        <li><a href="./python-matplotlib-error-bars.html">Bar charts with error bars using Python and matplotlib</a></li>
+        <li><a href="./unicode-characters-in-python.html">Unicode characters for engineers in Python</a></li>
+        <li><a href="./how-i-built-this-site-4.html">How I Build This Site - Part 4</a></li>
+        <li><a href="./virtualenv-in-osx-linux-windows.html">Python Virtual Environments in OS X, Linux and Windows 10</a></li>
+        <li><a href="./how-i-built-this-site-7.html">How I Build This Site - Part 7</a></li>
     </ul>
 </section>
         </article>
@@ -690,7 +697,7 @@ Python Version: 3.6.2
             <aside>
 <div id="aboutme">
         <p>
-            <img width="100%" class="img-thumbnail" src="/extra/gear-wrench-icon-512-278694.png"/>
+            <img width="100%" class="img-thumbnail" src="./extra/gear-wrench-icon-512-278694.png"/>
         </p>
     <p>
       <strong>About Peter Kazarinoff</strong><br/>
@@ -704,46 +711,46 @@ Python Version: 3.6.2
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
-    <li class="list-group-item"><a href="/python-matplotlib-error-bars.html">Bar charts with error bars using Python and matplotlib</a></li>
-    <li class="list-group-item"><a href="/unicode-characters-in-python.html">Unicode characters for engineers in Python</a></li>
-    <li class="list-group-item"><a href="/virtualenv-in-osx-linux-windows.html">Python Virtual Environments in OS X, Linux and Windows 10</a></li>
+    <li class="list-group-item"><a href="./unit-conversions-with-pint.html">Unit conversions with Python and Pint</a></li>
+    <li class="list-group-item"><a href="./python-matplotlib-error-bars.html">Bar charts with error bars using Python and matplotlib</a></li>
+    <li class="list-group-item"><a href="./unicode-characters-in-python.html">Unicode characters for engineers in Python</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
 
 <!-- Sidebar/Tag Cloud -->
 <li class="list-group-item">
-  <a href="/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <a href="./"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
   <ul class="list-group list-inline tagcloud" id="tags">
     <li class="list-group-item tag-3">
-      <a href="/tag/anaconda.html">anaconda</a>
+      <a href="./tag/anaconda.html">anaconda</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="/tag/anaconda-prompt.html">anaconda prompt</a>
+      <a href="./tag/anaconda-prompt.html">anaconda prompt</a>
     </li>
-    <li class="list-group-item tag-1">
-      <a href="/tag/blog.html">blog</a>
+    <li class="list-group-item tag-2">
+      <a href="./tag/blog.html">blog</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="/tag/conda.html">conda</a>
+      <a href="./tag/conda.html">conda</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="./tag/engineering.html">engineering</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="/tag/engineering.html">engineering</a>
+      <a href="./tag/git.html">git</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="/tag/git.html">git</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="/tag/github.html">github</a>
+      <a href="./tag/jupyter.html">jupyter</a>
     </li>
     <li class="list-group-item tag-1">
-      <a href="/tag/pelican.html">pelican</a>
+      <a href="./tag/pelican.html">pelican</a>
     </li>
     <li class="list-group-item tag-1">
-      <a href="/tag/python.html">python</a>
+      <a href="./tag/python.html">python</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="/tag/virtualenv.html">virtualenv</a>
+      <a href="./tag/virtualenv.html">virtualenv</a>
     </li>
   </ul>
 </li>
@@ -776,15 +783,15 @@ Python Version: 3.6.2
       </div>
    </div>
 </footer>
-<script src="/theme/js/jquery.min.js"></script>
+<script src="./theme/js/jquery.min.js"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/theme/js/bootstrap.min.js"></script>
+<script src="./theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="/theme/js/respond.min.js"></script>
+<script src="./theme/js/respond.min.js"></script>
 
-    <script src="/static/js/custom.js"></script>
+    <script src="./static/js/custom.js"></script>
 
 
 <!-- GitHub JS Code -->
@@ -793,7 +800,7 @@ $(document).ready(function () {
   if (!window.jXHR) {
     var jxhr = document.createElement('script');
     jxhr.type = 'text/javascript';
-    jxhr.src = '/theme/js/jXHR.js';
+    jxhr.src = './theme/js/jXHR.js';
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(jxhr, s);
   }
@@ -806,7 +813,7 @@ $(document).ready(function () {
   });
 });
 </script>
-<script src="/theme/js/github.js" type="text/javascript"></script>
+<script src="./theme/js/github.js" type="text/javascript"></script>
 <!-- End GitHub JS Code -->
 
 <script type="text/javascript">

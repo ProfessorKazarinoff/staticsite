@@ -104,7 +104,7 @@ type(num)
 
 ### Converting between different data types
 
-A whole number can be either an integer, float or string depending on how it is assigned. Python has built in functions to convert from one to another. The ```int()``` ```float()``` and ```str()``` methods will convert one Python data type to another. 
+The number five can be either an integer, float or string depending on how it is assigned. Python has built in functions to convert from one to another. The ```int()``` ```float()``` and ```str()``` methods will convert our _5_ one Python data type to another. 
 
 ```python
 int_num = 5

@@ -1,9 +1,9 @@
 Title: Python Data Types
-Date: 2018-01-11 10:15
-Modified: 2018-01-11 10:15
-Status: draft
-Category: python
-Tags: python, data
+Date: 2018-01-18 10:15
+Modified: 2018-01-18 10:15
+Status: published
+Category: Orientation
+Tags: python, data types
 Slug: python-data-types
 Authors: Peter D. Kazarinoff
 JavaScripts: table.js
@@ -104,7 +104,7 @@ type(num)
 
 #### Complex numbers
 
-One final data type useful to engineers are complex numbers. A complex number is defined in Python using a real component ```+``` imaginary component```j```. The letter ```j``` must be used in the imaginary component. Using ```i``` will return an error. Note how imaginary numbers can be added to integers and floats.
+One final data type useful to engineers are complex numbers. A complex number is defined in Python using a real component ```+``` imaginary component```j```. The letter ```j``` must be used in the imaginary component. Using the letter ```i``` will return an error. Note how imaginary numbers can be added to integers and floats.
 
 ```python
 comp = 4 + 2j
@@ -128,7 +128,7 @@ print(comp_sum)
 
 ### Converting between different data types
 
-The number five can be either an integer, float or string depending on how it is assigned. Python has built in functions to convert from one to another. The ```int()``` ```float()``` and ```str()``` methods will convert our _5_ from one Python data type to another.
+The number five can be an integer, or a float or a string depending on how it is assigned. Python has built in functions to convert between data types. The ```int()``` ```float()``` and ```str()``` methods will convert our _5_ from one Python data type to another.
 
 ```python
 int_num = 5
@@ -148,8 +148,8 @@ str_num
 
 |Data Type| Python Class | Description |Examples|
 |---|---|---|---|
-| integer | ```int``` | whole numbers: negative positive and zero | 5 -2 0 |
-| floating point number	| ```float``` | decimal number: negative positive and zero. Can contain an exponent | 2.3 -0.05 4.5e8 |
-| boolean	| ```bool```	| True or False | True False |
-| string	| ```str```	| sequence of letters, numbers, spaces and symbols | Peter Engineering! 5 |
-| complex number | ```comp``` | number with both real and imaginary components | 4 + 2j |
+| integer | ```int``` | whole numbers: negative positive and zero | 5   -2   0 |
+| floating point number	| ```float``` | decimal number: negative positive and zero. Can contain an exponent | 2.3   -0.05   4.5e8 |
+| boolean	| ```bool```	| True or False | True   False |
+| string	| ```str```	| sequence of letters, numbers, spaces and symbols | Gabby   Engineering!   5 |
+| complex number | ```comp``` | number with both real and imaginary components | 4+2j   0-2j   6+0j |

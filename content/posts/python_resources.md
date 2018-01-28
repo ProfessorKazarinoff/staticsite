@@ -24,6 +24,7 @@ If you don't download the Anaconda distribution, try pip installing three packag
 pip install numpy
 pip install pandas
 pip install matplotlib
+pip install jupyter
 ```
 
 ### Google and Stack Overflow
@@ -32,23 +33,18 @@ The easiest and quickest thing to do is google a question or an error. Some of t
 
 ### Blogs and Tutorials
 
-Real Python
-Full stack Python
-dbader.org (need to sign up for email newsletter first)
-[https://pybit.es/](pybyets.es)
-
-### Data Science Blogs
-
-enthough
+[Full Stack Python](https://www.fullstackpython.com/table-of-contents.html)
+[dbader.org](https://dbader.org/blog/) (need to sign up for email newsletter first)
+[PyBytes](https://pybit.es/)
+[Real Python](https://realpython.com/blog/)
 
 ### Youtube
 
 [Sendex - Intro to Python](https://www.youtube.com/watch?v=oVp1vrfL_w4&list=PLQVvvaa0QuDe8XSftW-RAxdo6OmaeL85M)
 [Sendex - Intro to Pandas](https://www.youtube.com/watch?v=q7Bo_J8x_dw&list=PLQVvvaa0QuDfefDfXb9Yf0la1fPDKluPF)
-The pandas guy
+[Data School: Data Analysis in Python with Pandas](https://www.youtube.com/watch?v=yzIMircGU5I&list=PL5-da3qGB5ICCsgW1MxlZ0Hq8LL5U3u9y)
 
 ### Podcasts
 
-talk Python to me
-Python Bytes
-
+[Talk Python to me](https://talkpython.fm/)
+[Python Bytes](https://pythonbytes.fm/)

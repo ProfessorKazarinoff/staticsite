@@ -172,9 +172,9 @@ init_mathjax = function() {
 }
 init_mathjax();
 </script>
-    <link href="/extra/favicon.ico" rel="icon">
+    <link href="../extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="/drafts/classes-in-python.html">
+<link rel="canonical" href="../drafts/classes-in-python.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
         <meta name="keywords" content="python,jupyter,notebook,classes,engineering,vectors" />
@@ -183,7 +183,7 @@ init_mathjax();
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="Classes in Python"/>
-        <meta property="og:url" content="/drafts/classes-in-python.html"/>
+        <meta property="og:url" content="../drafts/classes-in-python.html"/>
         <meta property="og:description" content="This post is about how to create a new Class in Python. Classes are a powerful part of an object oriented programming language like Python and can be useful to engineers."/>
         <meta property="article:published_time" content="2018-01-31" />
             <meta property="article:section" content="python" />
@@ -198,17 +198,21 @@ init_mathjax();
 
 
     <!-- Bootstrap -->
-        <link rel="stylesheet" href="/theme/css/bootstrap.flatly.min.css" type="text/css"/>
-    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="../theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="../theme/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="/theme/css/pygments/native.css" rel="stylesheet">
-    <link href="/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
-    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
-        <link href="/static/css/custom.css" rel="stylesheet">
+    <link href="../theme/css/pygments/native.css" rel="stylesheet">
+    <link href="../theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="../theme/css/style.css" type="text/css"/>
+        <link href="../static/css/custom.css" rel="stylesheet">
+
+        <link href="../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Python for Undergraduate Engineers ATOM Feed"/>
 
 
 
-
+        <link href="../feeds/python.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Python for Undergraduate Engineers python ATOM Feed"/>
 
 </head>
 <body>
@@ -222,15 +226,15 @@ init_mathjax();
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="/" class="navbar-brand">
+            <a href="../" class="navbar-brand">
 Python for Undergraduate Engineers            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                         <li><a href="/pages/about.html">
+                         <li><a href="../pages/about.html">
                              About
                           </a></li>
-                         <li><a href="/pages/book.html">
+                         <li><a href="../pages/book.html">
                              Book
                           </a></li>
             </ul>
@@ -240,7 +244,7 @@ Python for Undergraduate Engineers            </a>
                   <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
                 </form></span>
               </li>
-              <li><a href="/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+              <li><a href="../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -252,15 +256,15 @@ Python for Undergraduate Engineers            </a>
     <div class="row">
         <div class="col-sm-9">
             <ol class="breadcrumb">
-                <li><a href="" title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="/category/python.html" title="python">python</a></li>
+                <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="../category/python.html" title="python">python</a></li>
                 <li class="active">Classes in Python</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="/drafts/classes-in-python.html"
+                    <a href="../drafts/classes-in-python.html"
                        rel="bookmark"
                        title="Permalink to Classes in Python">
                         Classes in Python
@@ -281,17 +285,17 @@ Python for Undergraduate Engineers            </a>
 
 
 <span class="label label-default">Tags</span>
-	<a href="/tag/python.html">python</a>
+	<a href="../tag/python.html">python</a>
         /
-	<a href="/tag/jupyter.html">jupyter</a>
+	<a href="../tag/jupyter.html">jupyter</a>
         /
-	<a href="/tag/notebook.html">notebook</a>
+	<a href="../tag/notebook.html">notebook</a>
         /
-	<a href="/tag/classes.html">classes</a>
+	<a href="../tag/classes.html">classes</a>
         /
-	<a href="/tag/engineering.html">engineering</a>
+	<a href="../tag/engineering.html">engineering</a>
         /
-	<a href="/tag/vectors.html">vectors</a>
+	<a href="../tag/vectors.html">vectors</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
@@ -350,7 +354,7 @@ Helen = grandma()</code></pre>
 <h3 id="Create-a-new-class-in-Python">Create a new class in Python<a class="anchor-link" href="#Create-a-new-class-in-Python">&#182;</a></h3><p>So let's create a new Grandma class in Python. In Python you create new classes by using the <code>class</code> keyword followed by the class name and a colon <code>:</code>. Class names are usually capitalized, so our first line will be:</p>
 
 <pre><code>class Grandma:</code></pre>
-<p>Then we need to indent the set of instructions which detail the properites of our Grandma class. First we will define a special method <code>__init___</code>. This special method is what happens when we create a new instance of our class. It is what happens when we call <code>Helen = Grandma()</code>.</p>
+<p>Then we need to indent the set of instructions which detail the properites of our Grandma class. All the definitions need to be indented. First we will define a special method <code>__init___</code>. This special method is what happens when we create a new instance of a class. It <code>__init__</code> method is what happens when we call <code>Helen = Grandma()</code>. It is the method that runs when a new object of a class is created.</p>
 
 </div>
 </div>
@@ -441,14 +445,14 @@ Helen = grandma()</code></pre>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Now we can define our grandma's attributes. These are attributes that all grandmas have. But our Grandma has Helen different values for these attributes than other grandmas. All grandmas have grandchildren, but each grandma has different grandchildren.</p>
+<p>Now we can define our grandma's attributes. These are attributes that all grandmas have. Our Grandma has Helen different values for these attributes than other grandmas. All grandmas have grandchildren (same atribute), but each grandma has different grandchildren (different values).</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">Helen</span><span class="o">.</span><span class="n">address</span> <span class="o">=</span><span class="s1">&#39;Portland, OR&#39;</span>
@@ -472,10 +476,43 @@ Helen = grandma()</code></pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">Helen</span><span class="o">.</span><span class="n">address</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[4]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;Portland, OR&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Helen</span><span class="o">.</span><span class="n">children</span>
 </pre></div>
 
 </div>
@@ -494,7 +531,7 @@ Helen = grandma()</code></pre>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&#39;Portland, OR&#39;</pre>
+<pre>[&#39;Jan&#39;, &#39;Holly&#39;, &#39;Manya&#39;, &#39;Cookie&#39;]</pre>
 </div>
 
 </div>
@@ -508,7 +545,7 @@ Helen = grandma()</code></pre>
 <div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Helen</span><span class="o">.</span><span class="n">children</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Helen</span><span class="o">.</span><span class="n">grandchildren</span>
 </pre></div>
 
 </div>
@@ -527,39 +564,6 @@ Helen = grandma()</code></pre>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[&#39;Jan&#39;, &#39;Holly&#39;, &#39;Manya&#39;, &#39;Cookie&#39;]</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Helen</span><span class="o">.</span><span class="n">grandchildren</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt output_prompt">Out[7]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
 <pre>[&#39;me&#39;, &#39;Zach&#39;, &#39;Liza&#39;]</pre>
 </div>
 
@@ -573,7 +577,7 @@ Helen = grandma()</code></pre>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Now let's figure out a way to add grandchildren. Imagine we have a new baby cousin who's name is Gabby. Let's create a method in our <code>Grandma</code> class which adds another name in the list of grandchildren.</p>
+<p>Next let's figure out a way to add new grandchildren. Imagine we have a new baby cousin who's name is Gabby. Let's create a method for our <code>Grandma</code> class which adds another name in the list of grandchildren.</p>
 
 </div>
 </div>
@@ -1743,7 +1747,7 @@ Helen = grandma()</code></pre>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>I hope from those two examples, you have an idea of how to create new Python Classes. Classes can be very helpful in solving engineering problems with Python</p>
+<p>I hope from the two examples above, you have an idea of how to create a new Class in Python. Designing your own classes can be very useful when solving engineering problems with Python.</p>
 <p>The chart below details the methods used in the Vector Class</p>
 <table class="table table-striped table-bordered table-hover">
 <thead><tr>
@@ -1799,14 +1803,14 @@ Helen = grandma()</code></pre>
 <td>print in the REPL or notebook</td>
 </tr>
 <tr>
-<td><code>__next___</code></td>
-<td><code>for a in object</code></td>
-<td>iteration order</td>
-</tr>
-<tr>
 <td><code>__iter___</code></td>
 <td><code>for a in object</code></td>
 <td>iteration</td>
+</tr>
+<tr>
+<td><code>__next___</code></td>
+<td></td>
+<td>iteration order</td>
 </tr>
 </tbody>
 </table>
@@ -1822,11 +1826,11 @@ Helen = grandma()</code></pre>
 <section class="well" id="related-posts">
     <h4>Related Posts:</h4>
     <ul>
-        <li><a href="/unit-conversions-with-pint.html">Unit conversions with Python and Pint</a></li>
-        <li><a href="/python-matplotlib-error-bars.html">Bar charts with error bars using Python and matplotlib</a></li>
-        <li><a href="/unicode-characters-in-python.html">Unicode characters for engineers in Python</a></li>
-        <li><a href="/how-i-built-this-site-4.html">How I Build This Site - Part 4</a></li>
-        <li><a href="/python-data-types.html">Python Data Types</a></li>
+        <li><a href="../unit-conversions-with-pint.html">Unit conversions with Python and Pint</a></li>
+        <li><a href="../plotting-sin-cos-with-matplotlib.html">Plotting sin and cos with matplotlib and Python</a></li>
+        <li><a href="../python-matplotlib-error-bars.html">Bar charts with error bars using Python and matplotlib</a></li>
+        <li><a href="../unicode-characters-in-python.html">Unicode characters for engineers in Python</a></li>
+        <li><a href="../how-i-built-this-site-4.html">How I Build This Site - Part 4</a></li>
     </ul>
 </section>
         </article>
@@ -1837,7 +1841,7 @@ Helen = grandma()</code></pre>
             <aside>
 <div id="aboutme">
         <p>
-            <img width="100%" class="img-thumbnail" src="/extra/gear-wrench-icon-512-278694.png"/>
+            <img width="100%" class="img-thumbnail" src="../extra/gear-wrench-icon-512-278694.png"/>
         </p>
     <p>
       <strong>About Peter Kazarinoff</strong><br/>
@@ -1851,46 +1855,46 @@ Helen = grandma()</code></pre>
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
-    <li class="list-group-item"><a href="/python-data-types.html">Python Data Types</a></li>
-    <li class="list-group-item"><a href="/unit-conversions-with-pint.html">Unit conversions with Python and Pint</a></li>
-    <li class="list-group-item"><a href="/python-matplotlib-error-bars.html">Bar charts with error bars using Python and matplotlib</a></li>
+    <li class="list-group-item"><a href="../plotting-sin-cos-with-matplotlib.html">Plotting sin and cos with matplotlib and Python</a></li>
+    <li class="list-group-item"><a href="../python-data-types.html">Python Data Types</a></li>
+    <li class="list-group-item"><a href="../unit-conversions-with-pint.html">Unit conversions with Python and Pint</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
 
 <!-- Sidebar/Tag Cloud -->
 <li class="list-group-item">
-  <a href="/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <a href="../"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
   <ul class="list-group list-inline tagcloud" id="tags">
     <li class="list-group-item tag-3">
-      <a href="/tag/anaconda.html">anaconda</a>
+      <a href="../tag/anaconda.html">anaconda</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="/tag/anaconda-prompt.html">anaconda prompt</a>
+      <a href="../tag/anaconda-prompt.html">anaconda prompt</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="/tag/blog.html">blog</a>
+      <a href="../tag/blog.html">blog</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="/tag/conda.html">conda</a>
+      <a href="../tag/conda.html">conda</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="/tag/engineering.html">engineering</a>
+      <a href="../tag/engineering.html">engineering</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="../tag/jupyter.html">jupyter</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="/tag/git.html">git</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="/tag/jupyter.html">jupyter</a>
+      <a href="../tag/matplotlib.html">matplotlib</a>
     </li>
     <li class="list-group-item tag-1">
-      <a href="/tag/pelican.html">pelican</a>
+      <a href="../tag/pelican.html">pelican</a>
     </li>
     <li class="list-group-item tag-1">
-      <a href="/tag/python.html">python</a>
+      <a href="../tag/python.html">python</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="/tag/virtualenv.html">virtualenv</a>
+      <a href="../tag/virtualenv.html">virtualenv</a>
     </li>
   </ul>
 </li>
@@ -1923,15 +1927,15 @@ Helen = grandma()</code></pre>
       </div>
    </div>
 </footer>
-<script src="/theme/js/jquery.min.js"></script>
+<script src="../theme/js/jquery.min.js"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/theme/js/bootstrap.min.js"></script>
+<script src="../theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="/theme/js/respond.min.js"></script>
+<script src="../theme/js/respond.min.js"></script>
 
-    <script src="/static/js/custom.js"></script>
+    <script src="../static/js/custom.js"></script>
 
 
 <!-- GitHub JS Code -->
@@ -1940,7 +1944,7 @@ $(document).ready(function () {
   if (!window.jXHR) {
     var jxhr = document.createElement('script');
     jxhr.type = 'text/javascript';
-    jxhr.src = '/theme/js/jXHR.js';
+    jxhr.src = '../theme/js/jXHR.js';
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(jxhr, s);
   }
@@ -1953,7 +1957,7 @@ $(document).ready(function () {
   });
 });
 </script>
-<script src="/theme/js/github.js" type="text/javascript"></script>
+<script src="../theme/js/github.js" type="text/javascript"></script>
 <!-- End GitHub JS Code -->
 
 <script type="text/javascript">

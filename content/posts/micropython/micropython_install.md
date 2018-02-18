@@ -1,4 +1,4 @@
-Title: Installing Micropython on a Adadfruit Feather Huzzah ESP8266
+Title: Installing Micropython on an Adadfruit Feather Huzzah ESP8266
 Date: 2018-02-17 09:01
 Modified: 2018-02-17 09:01
 Status: Draft
@@ -24,6 +24,7 @@ To install micropython we will use the following software and tools
 | Software | Purpose |
 | --- | --- |
 | Anaconda distribution of Python on Laptop | Download micropython and install |
+| Anaconda Prompt | install esptool using pip |
 | esptool.py | a pip installable package that we'll use to install micropython |
 | firmware .bin file | the version of micropython that will run on the microcontroller |
 
@@ -32,11 +33,12 @@ Summary of Steps:
 1. Install the Anaconda distribution of Python
 2. Make a new conda environment and install esptool.py
 3. Download the latest micropython firmware .bin file
-4. Connect the Adafruit Feather Huzzah ESP8266 board to the laptop
-5. Determine the Serial port that the Feather Huzzah is connected to
-6. Run the esptool.py to upload the .bin file to the Feather Huzzah
-7. Download and install Putty, a serial monitor
-8. Use Putty to connect to the Feather Huzzah
+4. Install the SiLabs driver for the Adafruit Feather Huzzah ESP8266
+5. Connect the Adafruit Feather Huzzah ESP8266 board to the laptop
+6. Determine the Serial port that the Feather Huzzah is connected to
+7. Run the esptool.py to upload the .bin file to the Feather Huzzah
+8. Download and install Putty, a serial monitor
+9. Use Putty to connect to the Feather Huzzah
 
 ### 1. Install the Anaconda distribution of Python
 
@@ -60,17 +62,27 @@ conda activate micropython
 
 Go to github and download the latest .bin file. Move the file to the micropython directory
 
-### 4. Connect the Adafruit Feather Huzzah ESP8266 board to the laptop
+![.bin firmware on github]({filename}/posts/micropython/firmware_download_page.PNG)
+
+### 4. Install the SiLabs driver for the Adafruit Feather Huzzah ESP8266
+
+![SiLabs Driver]({filename}/posts/micropython/download_silabs_driver.PNG)
+
+### 5. Connect the Adafruit Feather Huzzah ESP8266 board to the laptop
 
 Use a microUSB cable to connect the feather huzzah to the computer. Make sure that the microUSB cable is a full USB data cable and not just a simple power cable. 
 
-### 5. Determine the Serial port that the Feather Huzzah is connected to
+### 6. Determine the Serial port that the Feather Huzzah is connected to
 
 Use Windows device manager to determine the serial port 
 
+![Find Device Manager]({filename}/posts/micropython/find_device_manager.PNG)
+
+![Device Manager Menue]({filename}/posts/micropython/device_manager_menu.PNG)
+
 ### 6. Run the esptool.py to upload the .bin file to the Feather Huzzah
 
-Open the Anaconda Prompt and ```cd``` into the directory with the .bin file. Activate the micropython environment.
+Open the Anaconda Prompt and ```cd``` into the directory with the .bin file. Activate the micropython environment. Run ```esptool --help``` to ensure the esptool is installed correctly. 
 
 ```
 cd Documents
@@ -80,18 +92,44 @@ Documents/micropython
 dir
 firmware.bin
 conda activate micropython
-(micropython) esptool.py --help
-(micropython) esptool.py --port /com3 erease flash --baud
-(micropython) esptool.py --port /com3 write .bin file --baud 
+(micropython) esptool. --help
 ```
+
+![SiLabs Driver]({filename}/posts/micropython/esptool_help.PNG)
+
+First erase what is currently in the flash memory using the ```esptool erease flash``` command. Make sure to specify the ```--port```. In my case this was ```COM4```. Use the port you found active in the Device Manager.
+
+```
+(micropython) esptool.py --port COM4 erease flash --baud
+```
+
+![esptool erase flash]({filename}/posts/micropython/esptool_erase_flash.PNG)
+
+Then write the .bin file to the flash memory using the ```esptool write``` command. 
+
+```
+(micropython) esptool.py --port COM4 write .bin file --baud 
+```
+
+![SiLabs Driver]({filename}/posts/micropython/esptool_write_flash.PNG)
 
 ### 7. Download and install Putty, a serial monitor
 
-Download and install Putty
+Download and install Putty. Putty is a lightweight ssh and serial terminal for Windows. Putty will allow us to communicate with the Adafruit Feather Huzzah ESP8266.
+
+![Download Putty]({filename}/posts/micropython/download_putty.PNG)
 
 ### 8. Use Putty to connect to the Feather Huzzah
 
 Ensure the Feather is connected with a USB cable, and connect with Putty using the proper serial port and 115200 baud.
+
+![Putty in start menus]({filename}/posts/micropython/putty_in_start_menu.PNG)
+
+![SiLabs Driver]({filename}/posts/micropython/putty_config.PNG)
+
+The Python REPL running on the Adafruit Feather Huzzah ESP8266 will open. This version of Python isn't running on the laptop, it's Python running on the microcontroller!
+
+![SiLabs Driver]({filename}/posts/micropython/REPL_prompt.PNG)
 
 At the command prompt try the following commands
 
@@ -101,10 +139,12 @@ Micropython for Engineers
 ```
 
 ```
->>> import os
->>> os.version
-Micropython 
+>>> import sys
+>>> sys.platform
+'esp8266'
 ```
+
+![SiLabs Driver]({filename}/posts/micropython/sys_dot_platform.PNG)
 
 ## Next steps:
 Use the Python REPL on the Adafruit Feather Huzzah to blink an LED and read a sensor.

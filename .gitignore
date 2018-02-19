@@ -28,3 +28,4 @@ _pychache_/
 .secret
 *.config
 .config
+config.py

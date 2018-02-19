@@ -76,9 +76,9 @@ Use a microUSB cable to connect the feather huzzah to the computer. Make sure th
 
 Use Windows device manager to determine the serial port 
 
-![Find Device Manager]({filename}/posts/micropython/find_device_manager.PNG)
+![Find Device Manager]({filename}/posts/micropython/find_device_manager.png)
 
-![Device Manager Menue]({filename}/posts/micropython/device_manager_menu.PNG)
+![Device Manager Menu]({filename}/posts/micropython/device_manager_menu.png)
 
 ### 6. Run the esptool.py to upload the .bin file to the Feather Huzzah
 
@@ -123,7 +123,7 @@ Download and install Putty. Putty is a lightweight ssh and serial terminal for W
 
 Ensure the Feather is connected with a USB cable, and connect with Putty using the proper serial port and 115200 baud.
 
-![Putty in start menus]({filename}/posts/micropython/putty_in_start_menu.PNG)
+![Putty in start menu]({filename}/posts/micropython/putty_in_start_menu.png)
 
 ![SiLabs Driver]({filename}/posts/micropython/putty_config.PNG)
 

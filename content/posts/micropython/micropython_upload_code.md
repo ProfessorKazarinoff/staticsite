@@ -29,6 +29,8 @@ pip install ampy-adafruit
 
 ### 2. Write Python Code
 
+Now we need to write the Python code that we are going to put on the board. The board has two main Python files: **boot.py** and **main.py**. We can also add additional files to the board. **boot.py** is the file that runs first when the board is powered up. After **boot.py** runs, then **main.py** will run. 
+
 ### 3. Upload Python Code to the Feather Huzzah with ampy
 
 Ensure the Feather is connected with a USB cable, and you know what serial port the feather is connected to.

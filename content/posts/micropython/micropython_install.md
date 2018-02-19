@@ -9,7 +9,15 @@ Authors: Peter D. Kazarinoff
 Series: micropython
 series_index:1
 
-This is the first part of a multipart series on Micropython. Micropython is a port of Python that runs on small, inexpensive microcontrollers. In this first post, we will install micropython on an Adafruit Feather Huzzah ESP8266 board using Python and an package called esptool.
+This is the first part of a multipart series on Micropython. Micropython is a port of Python that runs on small, inexpensive microcontrollers. In this first post, we will install micropython on an Adafruit Feather Huzzah ESP8266 board using Python and an package called esptool. In subsequent posts we will build our feather board into a WiFi enabled weather station. The posts in this series:
+
+1. Installing Micropython on an Adafruit Feather Huzzah ESP8266
+2. Run the Micropython REPL on an Adafruit Feather Huzzah ESP8266
+3. Blink an LED on the Adafruit Feather Huzzah ESP8266 using Micropython
+4. Read the temperature from a MCP9808 breakout board using Micropyton
+5. Use Micropython to connect an Adafruit Feather Huzzah to a WiFi network
+6. Upload micropython code to an Adafruit Feather Huzzah to make an IoT weather station
+7. Use pandas and matplotlib to plot the data from an Adafruit Feather Huzzah.
 
 To install micropython on a microcontroller, we need the following hardware:
 
@@ -42,11 +50,11 @@ Summary of Steps:
 
 ### 1. Install the Anaconda distribution of Python
 
-If you don't have Anaconda already installed, go to Anaconda.com/Downloads and install the lastest version.
+If you don't have Anaconda already installed, go to Anaconda.com/Downloads and install the latest version.
 
 ### 2. Create a new conda environment and install esptool.py
 
-Open the Anaconda prompt and create a new virtual environment
+It's best practice when using Python to work in virtual environments. Open the Anaconda prompt and create a new virtual environment. Activate the environment and pip install esptool.
 
 ```
 conda create -n micropython python=3.6
@@ -60,17 +68,19 @@ conda activate micropython
 
 ### 3. Download the latest micropython firmware .bin file
 
-Go to github and download the latest .bin file. Move the file to the micropython directory
+Go to github and download the latest .bin firmware file. Move the file to the micropython directory.
 
 ![.bin firmware on github]({filename}/posts/micropython/firmware_download_page.PNG)
 
 ### 4. Install the SiLabs driver for the Adafruit Feather Huzzah ESP8266
 
+For my Windows 10 laptop to see the Adafruit Feather Huzzah, a driver needs to be uploaded. This is quick and easy, but does require admin privaleges.
+
 ![SiLabs Driver]({filename}/posts/micropython/download_silabs_driver.PNG)
 
 ### 5. Connect the Adafruit Feather Huzzah ESP8266 board to the laptop
 
-Use a microUSB cable to connect the feather huzzah to the computer. Make sure that the microUSB cable is a full USB data cable and not just a simple power cable. 
+Use a microUSB cable to connect the feather huzzah to the computer. Make sure that the microUSB cable is a full USB data cable and not just a simple power cable.
 
 ### 6. Determine the Serial port that the Feather Huzzah is connected to
 
@@ -79,6 +89,8 @@ Use Windows device manager to determine the serial port
 ![Find Device Manager]({filename}/posts/micropython/find_device_manager.png)
 
 ![Device Manager Menu]({filename}/posts/micropython/device_manager_menu.png)
+
+ The first time I plugged the board into my laptop, I could't see the board. I looked through the Device Manager and the board just didn't show up. Turns out the first USB cable I used was just a charging cable. When I switched this out for a USB data cable, the board came right up under COM ports. 
 
 ### 6. Run the esptool.py to upload the .bin file to the Feather Huzzah
 
@@ -97,18 +109,18 @@ conda activate micropython
 
 ![SiLabs Driver]({filename}/posts/micropython/esptool_help.PNG)
 
-First erase what is currently in the flash memory using the ```esptool erease flash``` command. Make sure to specify the ```--port```. In my case this was ```COM4```. Use the port you found active in the Device Manager.
+First erase the flash memory on the feather using the ```esptool erease flash``` command. Make sure to specify the ```--port```. In my case this was ```COM4```. Use the port you found active in the Device Manager.
 
 ```
-(micropython) esptool.py --port COM4 erease flash --baud
+(micropython) esptool.py --port COM4 erease flash --baud 460800
 ```
 
 ![esptool erase flash]({filename}/posts/micropython/esptool_erase_flash.PNG)
 
-Then write the .bin file to the flash memory using the ```esptool write``` command. 
+Then write the .bin file to the flash memory using the ```esptool write``` command. Make sure to use the exact .bin file name you see sitting in the current directory.
 
 ```
-(micropython) esptool.py --port COM4 write .bin file --baud 
+(micropython) esptool.py --port COM4 write .bin file --baud 460800
 ```
 
 ![SiLabs Driver]({filename}/posts/micropython/esptool_write_flash.PNG)

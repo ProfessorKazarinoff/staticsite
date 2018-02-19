@@ -1,5 +1,8 @@
+#wifitools.py
 
+# Wifi connection and post functions for an ESP8266 board running micropython
 #https://docs.micropython.org/en/v1.8.6/esp8266/esp8266/tutorial/network_basics.html
+
 def connect(SSID,password):
     import network
     sta_if = network.WLAN(network.STA_IF)

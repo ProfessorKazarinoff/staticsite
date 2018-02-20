@@ -3,7 +3,7 @@ Date: 2018-02-17 09:01
 Modified: 2018-02-17 09:01
 Status: Draft
 Category: micropython
-Tags: python, micropython, esp8266, microcontroller
+Tags: python, micropython, esp8266, microcontroller, WiFi
 Slug: micropython-wifi
 Authors: Peter D. Kazarinoff
 Series: micropython
@@ -27,20 +27,34 @@ Connect the Feather using a USB data cable. Open Putty. Ensure the serial port i
 
 ### 2. Run commands at the micropython REPL to connect the board to WiFi
 
-To connect the ESP8266 to a WiFi network, we first need to import the ```network``` module and create an instance of the ```WLAN``` module. 
+To connect the ESP8266 to a WiFi network, we first need to import the ```network``` module and create an instance of the ```WLAN``` module. Next we use the ```connect``` method and our WiFi network's SSID and password to logon. We want to run our ESP8266 in station mode (like a laptop or phone) as opposed to access point mode (like a server). We can print the IP address of the board using the ```ifconfig()``` method.
 
 ```
-def connect(SSID,password):
-    import network
-    sta_if = network.WLAN(network.STA_IF)
-    if not sta_if.isconnected():
-        print('connecting to network...')
-        sta_if.active(True)
-        sta_if.connect(SSID, password)
-        while not sta_if.isconnected():
-            pass
-    print('network config:', sta_if.ifconfig())
+>>> import network
+>>> sta_if = network.WLAN(network.STA_IF)
+>>> sta_if.active(True)
+>>> sta_if.connect(SSID, password)
+>>> print('network config:', sta_if.ifconfig())
+```
+
+Now that we are connected to the network, it what we really want to do is read a webpage. Micropython does this with __sockets__ . A socket is a connection between the ESP8266 and the outside internet. 
+
+```
+>>> import socket
+>>> url = 'https://google.com'
+>>> _, _, host, path = url.split('/', 3)
+>>> addr = socket.getaddrinfo(host, 80)[0][-1]
+>>> s = socket.socket()
+>>> s.connect(addr)
+>>> s.send(bytes('GET /%s HTTP/1.0\r\nHost: %s\r\n\r\n' % (path, host), 'utf8'))
+>>> while True:
+....   data = s.recv(100)
+....   if data:
+....       print(str(data, 'utf8'), end='')
+....   else:
+....       break
 ```
 
 ### 3. Upload to ThingSpeak.com
 
+Now imagine that our weather station is up and workinging. It has a temperature sensor and the measured temperature is 21*C. We are going to push this temperature data reading up to ThingSpeak.com

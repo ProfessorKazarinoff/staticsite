@@ -112,7 +112,7 @@ conda activate micropython
 First erase the flash memory on the feather using the ```esptool erease flash``` command. Make sure to specify the ```--port```. In my case this was ```COM4```. Use the port you found active in the Device Manager.
 
 ```
-(micropython) esptool.py --port COM4 erease flash --baud 460800
+(micropython) esptool --port COM4 erease flash --baud 460800
 ```
 
 ![esptool erase flash]({filename}/posts/micropython/esptool_erase_flash.PNG)
@@ -120,7 +120,7 @@ First erase the flash memory on the feather using the ```esptool erease flash```
 Then write the .bin file to the flash memory using the ```esptool write``` command. Make sure to use the exact .bin file name you see sitting in the current directory.
 
 ```
-(micropython) esptool.py --port COM4 write .bin file --baud 460800
+(micropython) esptool --port COM4 --baud 460800 write_flash --flash_size=detect 0 esp8266-20171101-v1.9.3.bin
 ```
 
 ![SiLabs Driver]({filename}/posts/micropython/esptool_write_flash.PNG)

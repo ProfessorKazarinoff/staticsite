@@ -10,10 +10,11 @@ api_key = config.API_KEY
 ssid = config.SSID
 password = config.WIFI_PASSWORD
 
-for i in range(12*60):
-    sta_if = wifitools.connect(ssid, password)
-    time.sleep(5)
+wifitools.connect(ssid,password)
+time.sleep(5)
+
+for i in range(8*60):
     data = MCP9808.readtemp()
     wifitools.thingspeak_post(api_key,data)
-    wifitools.disconnect(sta_if)
-    time.sleep(55)
+    time.sleep(60)
+

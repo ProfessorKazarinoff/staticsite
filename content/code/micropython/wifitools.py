@@ -39,6 +39,7 @@ def http_get(url):
         else:
             break
 
+
 def thingspeak_post(API_key,data):
     if not isinstance(data, str):
         data = str(data)

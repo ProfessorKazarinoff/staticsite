@@ -1,60 +1,63 @@
 Title: Installing Micropython on an Adadfruit Feather Huzzah ESP8266
-Date: 2018-02-17 09:01
-Modified: 2018-02-17 09:01
+Date: 2018-02-26 09:01
+Modified: 2018-02-26 09:01
 Status: Draft
-Category: matplotlib
-Tags: python, micropython, esp8266, microcontroller
+Category: micropython
+Tags: python, micropython, esp8266, microcontroller, REPL
 Slug: micropython-install
 Authors: Peter D. Kazarinoff
 Series: micropython
-series_index:1
+series_index: 2
 
-This is the first part of a multipart series on Micropython. Micropython is a port of Python that runs on small, inexpensive microcontrollers. In this first post, we will install micropython on an Adafruit Feather Huzzah ESP8266 board using Python and an package called esptool. In subsequent posts we will build our feather board into a WiFi enabled weather station. The posts in this series:
+This is the second part of a multipart series on Micropython. Micropython is a port of Python that runs on small, inexpensive microcontrollers. In this post, we will install Micropython on an Adafruit Feather Huzzah ESP8266 board using Python and an package called esptool. In subsequent posts we will build our feather board into a WiFi enabled weather station. The posts in this series:
 
-1. Installing Micropython on an Adafruit Feather Huzzah ESP8266
-2. Run the Micropython REPL on an Adafruit Feather Huzzah ESP8266
+1. What is Micropython?
+2. Install Micropython on an Adafruit Feather Huzzah ESP8266
 3. Blink an LED on the Adafruit Feather Huzzah ESP8266 using Micropython
 4. Read the temperature from a MCP9808 breakout board using Micropyton
 5. Use Micropython to connect an Adafruit Feather Huzzah to a WiFi network
-6. Upload micropython code to an Adafruit Feather Huzzah to make an IoT weather station
-7. Use pandas and matplotlib to plot the data from an Adafruit Feather Huzzah.
+6. Upload micropython code to turn an Adafruit Feather Huzzah into a WiFi enabled IoT weather station
+7. Use pandas and matplotlib to plot the weather data from our a WiFi enabled IoT weather station.
+8. Upload MicroPython to a cheap $2 ESP-01 module
+9. Build custom firmware to turn the $2 ESP-01 into an low-cost WiFi enabled IoT switch.
 
 To install micropython on a microcontroller, we need the following hardware:
 
 | Hardware | Purpose |
 |---|---|
-| Windows 10 Laptop | used to download micropython and install |
-| Adafruit Feather Huzzah ESP8266 | Microcontroller that will run microphythonn |
-| USB Cable | Connect laptop to microcontroller |
+| Windows 10 Laptop | Used to download micropython and install Micropython on the small, cheap microcontroller |
+| Adafruit Feather Huzzah ESP8266 | Microcontroller that will run Microphythonn |
+| USB Cable | Used to connect the laptop to the microcontroller |
 
-To install micropython we will use the following software and tools
+To install micropython we will use the following software and tools:
 
 | Software | Purpose |
 | --- | --- |
-| Anaconda distribution of Python on Laptop | Download micropython and install |
-| Anaconda Prompt | install esptool using pip |
-| esptool.py | a pip installable package that we'll use to install micropython |
-| firmware .bin file | the version of micropython that will run on the microcontroller |
+| Windows 10 | Download Micropyton |
+| Anaconda distribution of Python on Laptop | Run the esptool that installs Micropython |
+| Anaconda Prompt | Install the esptool using pip |
+| esptool.py | a pip installable package that we'll use to install Micropython |
+| firmware .bin file | the version of micropython that will run on the Microcontroller |
 
 Summary of Steps:
 
 1. Install the Anaconda distribution of Python
-2. Make a new conda environment and install esptool.py
+2. Create a new conda environment and install esptool.py
 3. Download the latest micropython firmware .bin file
 4. Install the SiLabs driver for the Adafruit Feather Huzzah ESP8266
-5. Connect the Adafruit Feather Huzzah ESP8266 board to the laptop
-6. Determine the Serial port that the Feather Huzzah is connected to
-7. Run the esptool.py to upload the .bin file to the Feather Huzzah
+5. Connect the Adafruit Feather Huzzah ESP8266 board to the laptop using a USB cable
+6. Determine the which serial port the Feather Huzzah is connected to
+7. Run the esptool to upload the .bin firmware file to the Feather Huzzah ESP8266
 8. Download and install Putty, a serial monitor
-9. Use Putty to connect to the Feather Huzzah
+9. Use Putty to connect to the Feather Huzzah ESP8266 and run commands on the REPL
 
 ### 1. Install the Anaconda distribution of Python
 
-If you don't have Anaconda already installed, go to Anaconda.com/Downloads and install the latest version.
+If you don't have Anaconda already installed, go to Anaconda.com/Downloads and install the latest version. The Anaconda distribution of Python is the Python distribution I recommend for undergraduate engineers. You want to download and install the Python 3.6 Version (2.7 is legacy Python). Most laptops and desktops run a 64-bit version of Windows 10. If in doubt, you can check your Windows installation, or just go with the 64-bit version. 
 
 ### 2. Create a new conda environment and install esptool.py
 
-It's best practice when using Python to work in virtual environments. Open the Anaconda prompt and create a new virtual environment. Activate the environment and pip install esptool.
+It's best practice when using Python to work in virtual environments. We'll create a new virtual environment with conda to use with our Micropython progjects. Open the Anaconda prompt and create a new virtual environment named ```micropython```. Activate the environment with the ```conda activate``` command. After activating the virtual environment you should see ```(micropython)``` before the Anaconda Prompt.  Once inside the virtual environment, use ```pip``` to install ```esptool```. The ```esptool``` will be used to upload Micropython firmware onto the Adafruit Feather Huzzah board. Confirm that ```esptool``` is installed in the ```(micropython)``` virtual environment with ```conda list```.
 
 ```
 conda create -n micropython python=3.6
@@ -68,33 +71,33 @@ conda activate micropython
 
 ### 3. Download the latest micropython firmware .bin file
 
-Go to github and download the latest .bin firmware file. Move the file to the micropython directory.
+Go to github and [download the latest .bin firmware](https://micropython.org/download#esp8266) file. Move the .bin firmware file to a new micropython directory. The .bin firmware file is the version of Micropython that will run on the Adafruit Feather Huzzah ESP8266. Straight from Adafruit, the little microcontroller does not have Micropyton installed. After installing the Micropython .bin firmware file onto the board, we will be able to bring up the Micropython REPL prompt, type commands into the Micropython REPL and run Micropython .py scripts on the board.
 
 ![.bin firmware on github]({filename}/posts/micropython/firmware_download_page.PNG)
 
 ### 4. Install the SiLabs driver for the Adafruit Feather Huzzah ESP8266
 
-For my Windows 10 laptop to see the Adafruit Feather Huzzah, a driver needs to be uploaded. This is quick and easy, but does require admin privaleges.
+Before we can connect the Adafruit Feather Huzzah to the computer, we have a specific driver intstalled. For my Windows 10 laptop to see the Adafruit Feather Huzzah board, the [CP210x USB to UART Bridge VCP driver](https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers) needs to be downloaded from SiLabs and installed. This is quick and easy, but does require admin privaleges.
 
 ![SiLabs Driver]({filename}/posts/micropython/download_silabs_driver.PNG)
 
 ### 5. Connect the Adafruit Feather Huzzah ESP8266 board to the laptop
 
-Use a microUSB cable to connect the feather huzzah to the computer. Make sure that the microUSB cable is a full USB data cable and not just a simple power cable.
+Use a microUSB cable (the same kind of cable that charges many mobile phones) to connect the Feather Huzzah to the computer. Make sure that the microUSB cable is a full USB data cable and not just a simple power cable. I had trouble gettting the Feather Huzzah to work, and it turned out the reason was a USB cable that only did charging and not data transfer. 
 
-### 6. Determine the Serial port that the Feather Huzzah is connected to
+### 6. Determine which Serial Port the Feather Huzzah is connected to
 
-Use Windows device manager to determine the serial port 
+Use Windows device manager to determine the which serial port the Feather Huzzah board is connected to. We will need the serial port as one of the parameters when we put the .bin firmware file on the board. You want to look for something like **Silicon Labs CP210x USB to UART Bridge (COM4)**. The USB to UART bridge is actually the Feather Huzzah board. Make note of the number after **(COM )**. It often comes up as **(COM4)** but it may be different on your computer. 
 
 ![Find Device Manager]({filename}/posts/micropython/find_device_manager.png)
 
 ![Device Manager Menu]({filename}/posts/micropython/device_manager_menu.png)
 
- The first time I plugged the board into my laptop, I could't see the board. I looked through the Device Manager and the board just didn't show up. Turns out the first USB cable I used was just a charging cable. When I switched this out for a USB data cable, the board came right up under COM ports. 
+ The first time I plugged the board into my laptop, Windows could't see the board. I looked through the Device Manager and the board just didn't show up. Turns out the first USB cable I used was just a charging cable. When I switched this out for a USB data cable, the board came right up under COM ports. 
 
 ### 6. Run the esptool.py to upload the .bin file to the Feather Huzzah
 
-Open the Anaconda Prompt and ```cd``` into the directory with the .bin file. Activate the micropython environment. Run ```esptool --help``` to ensure the esptool is installed correctly. 
+Open the Anaconda Prompt and ```cd``` into the micropython directory with the .bin file. Activate the micropython environment with ```conda activate micropython```. Run ```esptool --help``` to ensure the esptool is installed correctly. 
 
 ```
 cd Documents
@@ -104,46 +107,46 @@ Documents/micropython
 dir
 firmware.bin
 conda activate micropython
-(micropython) esptool. --help
+(micropython) esptool --help
 ```
 
-![SiLabs Driver]({filename}/posts/micropython/esptool_help.PNG)
+![esptool help]({filename}/posts/micropython/esptool_help.PNG)
 
-First erase the flash memory on the feather using the ```esptool erease flash``` command. Make sure to specify the ```--port```. In my case this was ```COM4```. Use the port you found active in the Device Manager.
+Before we write the .bin firmare file to the board, we should first erase the flash memory on the feather using the ```esptool erase_flash``` command. Make sure to specify the ```--port```. This is the ```COM``` port you found in the Windows Device Manager.  In my case this was ```COM4```.
 
 ```
-(micropython) esptool --port COM4 erease flash --baud 460800
+(micropython) esptool --port COM4 erase_flash
 ```
 
 ![esptool erase flash]({filename}/posts/micropython/esptool_erase_flash.PNG)
 
-Then write the .bin file to the flash memory using the ```esptool write``` command. Make sure to use the exact .bin file name you see sitting in the current directory.
+Now it's time to write the .bin firmware file to the flash memory on the board using the ```esptool write_flash``` command. Make sure to use the exact .bin firmware file name you see sitting in the micropython directory. The port has to be set as the port you found in the Windows Device Manager. ```--baud``` is the baud rate, or upload speed. I found that ```--baud 460800``` worked, but you could also specify ```--baud 115200``` which is slower. Either way the upload time in a matter of seconds. The ```0``` after ```--flash_size=dectect``` means we want the firmware to be written at the start of the flash memory (the 0th position) on the board. Again, make sure the .bin firmware file name is correst. It is easy to miss type. Another issue I ran into was that I tried to use the command ```esptool.py``` instead of ```esptool```. The main documnetation for [Micropython on the ESP8266](https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/intro.html#deploying-the-firmware) specifies the command ```esptool.py``` (including the .py file extension). This did work on my Windows 10 machine. Omitting the .py file extension, and running ```esptool ``` worked instead. 
 
 ```
 (micropython) esptool --port COM4 --baud 460800 write_flash --flash_size=detect 0 esp8266-20171101-v1.9.3.bin
 ```
 
-![SiLabs Driver]({filename}/posts/micropython/esptool_write_flash.PNG)
+![esptool write flash]({filename}/posts/micropython/esptool_write_flash.PNG)
 
 ### 7. Download and install Putty, a serial monitor
 
-Download and install Putty. Putty is a lightweight ssh and serial terminal for Windows. Putty will allow us to communicate with the Adafruit Feather Huzzah ESP8266.
+Now that Micropthon is installed on the board, we need to talk to it. Windows 10 doesn't have a builtin way to do this. So you need to download and install **Putty**. Putty is a lightweight ssh and serial terminal for Windows. Putty will allow us to communicate with the Adafruit Feather Huzzah ESP8266. [Putty can be downloaded here](https://www.putty.org/). Putty is pretty small and the download and install should be pretty quick.
 
 ![Download Putty]({filename}/posts/micropython/download_putty.PNG)
 
 ### 8. Use Putty to connect to the Feather Huzzah
 
-Ensure the Feather is connected with a USB cable, and connect with Putty using the proper serial port and 115200 baud.
+Ensure the Feather board is connected to the computer with a USB cable and ensure you can see the board in the Windows Device Manager. Then use Putty to connect to the board over serial.  Make sure you specify the correct serial port in the **Serial line** box and **115200** baud in the Speed box. Micropython is set to run at 115200 baud, other baud rates will lead to junk characters in the serial monitor. I had trouble finding the serial connection in Putty. When I opened Putty, the defaut was an SSH connection. We can't connect to the microcontroller over SSH. You need to select the **Serial** radio button below the header **Connection type:** near the top of the Putty window. 
 
 ![Putty in start menu]({filename}/posts/micropython/putty_in_start_menu.png)
 
-![SiLabs Driver]({filename}/posts/micropython/putty_config.PNG)
+![Putty config]({filename}/posts/micropython/putty_config.PNG)
 
-The Python REPL running on the Adafruit Feather Huzzah ESP8266 will open. This version of Python isn't running on the laptop, it's Python running on the microcontroller!
+If you see ```>>>``` the Micropython REPL running on the Adafruit Feather Huzzah ESP8266 is working. This version of Python isn't running on the commputer, it's Micropython running on the little microcontroller! You might need to type [Enter] or Ctrl-D to get the ```>>>``` REPL prompt to show up. A few times I had to close the Putty window, unplug then replug in the board and try Putty again. The Feather Huzzah also has a tiny little black RESET button that can be pressed.  
 
-![SiLabs Driver]({filename}/posts/micropython/REPL_prompt.PNG)
+![REPL Prompt]({filename}/posts/micropython/REPL_prompt.PNG)
 
-At the command prompt try the following commands
+At the ```>>>``` Micropython REPL prompt try the following commands:
 
 ```
 >>> print('Micropython for Engineers!')
@@ -156,7 +159,7 @@ Micropython for Engineers
 'esp8266'
 ```
 
-![SiLabs Driver]({filename}/posts/micropython/sys_dot_platform.PNG)
+![sys_dot_platform]({filename}/posts/micropython/sys_dot_platform.PNG)
 
 ## Next steps:
-Use the Python REPL on the Adafruit Feather Huzzah to blink an LED and read a sensor.
+Use the Micropython REPL on the Adafruit Feather Huzzah to blink an LED.

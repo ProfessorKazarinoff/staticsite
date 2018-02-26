@@ -27,6 +27,7 @@ def disconnect(sta_if):
 #https://docs.micropython.org/en/v1.8.6/esp8266/esp8266/tutorial/network_tcp.html
 def http_get(url):
     import socket
+    response =''
     _, _, host, path = url.split('/', 3)
     addr = socket.getaddrinfo(host, 80)[0][-1]
     s = socket.socket()
@@ -35,16 +36,21 @@ def http_get(url):
     while True:
         data = s.recv(100)
         if data:
-            print(str(data, 'utf8'), end='')
+            new = str(data, 'utf8')
+            #print(str(data, 'utf8'), end='')
+            response = response + new
         else:
             break
+    return data
 
 
-def thingspeak_post(API_key,data):
+def thingspeak_post(API_key,data,field=1):
     if not isinstance(data, str):
         data = str(data)
     #base_url = 'https://api.thingspeak.com/update?api_key=THECLASSAPIKEY&field1=87'
     base_url = 'https://api.thingspeak.com/update?api_key='
-    mid_url = '&field1='
-    url = base_url + API_key + mid_url + data
-    http_get(url)
+    mid_url = '&field'
+    field_num = str(field)
+    url = base_url + API_key + mid_url +field_num + data
+    response = http_get(url)
+    return response

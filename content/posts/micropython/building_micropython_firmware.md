@@ -4,10 +4,10 @@ Modified: 2018-02-17 09:01
 Status: Draft
 Category: micropython
 Tags: python, micropython, esp8266, microcontroller, firmware
-Slug: micropython-on-cheap-modules
+Slug: building-mircopython-firmware
 Authors: Peter D. Kazarinoff
 Series: micropython
-series_index:8
+series_index: 8
 
 This is the eighth part of a multipart series on Micropython. In this last post of the series, we will uploaded micropython on a cheap $2 esp8266-01 board with only 512 kB of flash memory. It was pretty amazing that even these inexpensive boards can run micropython. The problem was that I wasn't able to load any code on the board. The Python REPL worked, but when the board was restarted all the code typed in was erased. This brought me down the rabbit hole of building custom firmware for the ESP-01 board. 
 

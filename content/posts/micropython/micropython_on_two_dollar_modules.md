@@ -7,7 +7,7 @@ Tags: python, micropython, esp8266, microcontroller
 Slug: micropython-on-cheap-modules
 Authors: Peter D. Kazarinoff
 Series: micropython
-series_index:7
+series_index: 7
 
 This is the seventh part of a multipart series on Micropython. In this last post of the series, we will upload our scripts to the Adafruit Feather Huzzah ESP8266 board using Python and a package called ampy. In this post we are going to upload micropython on a cheap $2 esp8266-01 board with only 512 kB of flash memory. It is pretty amazing that even these inexpensive boards can run micropython. There are a couple tricks I learned along the way that I wanted to share.
 

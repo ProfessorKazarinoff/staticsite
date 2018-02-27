@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Python for Undergraduate Engineers</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="https://professorkazarinoff.github.io/staticsite/feeds/all.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2018-02-05T10:30:00-08:00</updated><entry><title>Plotting sin and cos with matplotlib and Python</title><link href="https://professorkazarinoff.github.io/staticsite/plotting-sin-cos-with-matplotlib.html" rel="alternate"></link><published>2018-02-05T10:30:00-08:00</published><updated>2018-02-05T10:30:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-02-05:/staticsite/plotting-sin-cos-with-matplotlib.html</id><summary type="html">&lt;p&gt;In this post we will create a plot using matplotlib and Python. The plot will show two trig functions, sin and cos on the same set of axes.&lt;/p&gt;</summary><content type="html">&lt;p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Python for Undergraduate Engineers</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="https://professorkazarinoff.github.io/staticsite/feeds/all.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2018-02-26T09:01:00-08:00</updated><entry><title>What is Micropython?</title><link href="https://professorkazarinoff.github.io/staticsite/what-is-micropython.html" rel="alternate"></link><published>2018-02-26T09:01:00-08:00</published><updated>2018-02-26T09:01:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-02-26:/staticsite/what-is-micropython.html</id><summary type="html">&lt;p&gt;This is the first part of a multipart series on Micropython. In this post we'll review what Micropython is, what it is used for and how it is both similar and different from "regular" Python. We'll also discuss why Micropython is relevant to undergraduate engineers.&lt;/p&gt;
+&lt;h3&gt;1. What is Micropython?&lt;/h3&gt;
+&lt;p&gt;&lt;a href="http://micropython.org/"&gt;Micropython …&lt;/a&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the first part of a multipart series on Micropython. In this post we'll review what Micropython is, what it is used for and how it is both similar and different from "regular" Python. We'll also discuss why Micropython is relevant to undergraduate engineers.&lt;/p&gt;
+&lt;h3&gt;1. What is Micropython?&lt;/h3&gt;
+&lt;p&gt;&lt;a href="http://micropython.org/"&gt;Micropython&lt;/a&gt; is a port, or version of Python designed to run on small, inexpensive, low power microcontrollers. Examples of microcontrollers that Micropython can run on include the &lt;a href="https://store.micropython.org/"&gt;pyboard&lt;/a&gt;, the &lt;a href="https://pycom.io/development-boards"&gt;WiPy&lt;/a&gt; and ESP8266 boards like the &lt;a href="https://learn.adafruit.com/adafruit-feather-huzzah-esp8266"&gt;Adafruit Feather Huzzah&lt;/a&gt;.  Normally, Python is run on a desktop or laptop computer. Compared to a desktop or laptop, microcontrollers are much smaller, cheaper and less powerful.  A "full" version of Python can not run on small, cheap microcontrollers because Python is too resouce intensive. Regular Python takes up too much hard disk space, runs on too much RAM and requires a more powerful processor than microcontrollers have. &lt;/p&gt;
+&lt;p&gt;It is pretty amazing that a version of Python (Micropython) runs on these small cheap microcontrollers. To get Micropython to run at all on these small boards, Micropython only contains a subset of all the standard library modules inlcuded with "regular" Python. Some of the libraries that are included with Micropython don't have the full set of functions and classes that come with the "regular" version of Python. This allows Micropython to be compact (around 600 kB for the ESP8266 port) and use a small amount of RAM (down to 16k according to the &lt;a href="https://micropython.org/"&gt;Micropython main page&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;You can try using Micropython online with this neat &lt;a href="https://micropython.org/unicorn/"&gt;Micropython online emulator&lt;/a&gt;. The emulator allows you to run commands at a Micropyton Prompt and see the result on a virtual pyboard. &lt;/p&gt;
+&lt;h3&gt;2. What is Micropyton used for?&lt;/h3&gt;
+&lt;p&gt;Micropython is installed on small cheap microcontrollers like the &lt;a href="https://learn.adafruit.com/adafruit-feather-huzzah-esp8266"&gt;ESP8266&lt;/a&gt;. Anthing these small microcontrollers can do, Micropython can do. This includes using the microcontroller as a remote sensor to measure things like temperature, humidity and light level. Micropython could also be used to blink LED's, control arrays of LED's, or run small displays. Micropython can also control servo motors, stepper motors and solenoids. Civil Engineers could use micropython to monitor water levels. Michanical Engineers could use micropython to drive robot motors. Electrical Engineers could use micropython to measure voltage levels. In the later posts in this series, we will use micropython running on a small cheap ESP8266 board to create a remote weather station. The last posts in the series will use micropyton running on a really cheap (around $2) ESP-01 module to turn on an off an LED from any computer connected to the internet anywhere in the world.&lt;/p&gt;
+&lt;h3&gt;3. Why should undergraduate Engineers learn Mircopython?&lt;/h3&gt;
+&lt;p&gt;Using Python to solve engineering problems such as calculations, statistics, modeling and visulization is really useful for undergraduate Engineers. But Python on it's own is fairly limited in controlling devices outside the computer it's running on. You don't want to leave a laptop in a remote estuary to meausure temperature, but you could leave a little microcontroller running microcpython. A small robot can't carry around a heavy laptop, that has to be plugged into the wall periodically. in order for it to move. You don't want to use a laptop for every small electrical measurement or control. In addition, learning how to use Micropython on small, cheap microcontrller can help undergraduates Engineers understand how programming works. It is a different kind of feedback and excitment seeing a motor whirl around compared to seeing a picture of a motor with the speed displayed as text. There is a different kind of wonder seeing an array of LED's light up compared to a 2-D plot on a computer screen. Plus Micropython is just fun! It's as easy to program in Micropython as it is to program in regular Python. The little rojects you can do with Micropython are almost unlimited. We could send Micropython to space in a micro-satalite, or burry Micropython underground in a small borring machine, or launch Micorpython into the sky on a weather ballon.&lt;/p&gt;
+&lt;h2&gt;Next steps:&lt;/h2&gt;
+&lt;p&gt;In the next post, we will install Micropython on a small, cheap ESP8266 microcontroller board called the Adafruit Feather Huzzah. Once micropython is installed on the board, we will run a couple commands at the Micropython REPL running on the board. &lt;/p&gt;</content><category term="python"></category><category term="micropython"></category><category term="esp8266"></category><category term="microcontroller"></category><category term="REPL"></category></entry><entry><title>Plotting sin and cos with matplotlib and Python</title><link href="https://professorkazarinoff.github.io/staticsite/plotting-sin-cos-with-matplotlib.html" rel="alternate"></link><published>2018-02-05T10:30:00-08:00</published><updated>2018-02-05T10:30:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-02-05:/staticsite/plotting-sin-cos-with-matplotlib.html</id><summary type="html">&lt;p&gt;In this post we will create a plot using matplotlib and Python. The plot will show two trig functions, sin and cos on the same set of axes.&lt;/p&gt;</summary><content type="html">&lt;p&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
@@ -205,7 +217,7 @@
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;The &lt;code&gt;plt.plot()&lt;/code&gt; call is the same as before using two pairs of x and y values. To add axis labels we will use the following methods:&lt;/p&gt;
-&lt;table class="table table-striped table-bordered table-hover"&gt;
+&lt;table&gt;
 &lt;thead&gt;&lt;tr&gt;
 &lt;th&gt;matplotlib method&lt;/th&gt;
 &lt;th&gt;description&lt;/th&gt;
@@ -402,7 +414,7 @@
 
 
 &lt;h3&gt;Summary&lt;/h3&gt;
-&lt;table class="table table-striped table-bordered table-hover"&gt;
+&lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
 &lt;th&gt;Data Type&lt;/th&gt;
@@ -821,7 +833,7 @@ Python Version: 3.6.3
 &lt;p&gt;A bar chart with error bars is shown below. Note the labels on the x-axis and the error bars at the top of each bar.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="plot with error bars" src="https://professorkazarinoff.github.io/staticsite/images/bar_plot_with_error_bars.png"&gt;&lt;/p&gt;
 &lt;p&gt;In order to build this plot, we need a couple of things&lt;/p&gt;
-&lt;table class="table table-striped table-bordered table-hover"&gt;
+&lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
 &lt;th&gt;Asset&lt;/th&gt;
@@ -884,7 +896,7 @@ Next install &lt;code&gt;matplotlib&lt;/code&gt; and &lt;code&gt;numpy&lt;/code&
 
 &lt;p&gt;Next we need to read in our data. The chart below shows the measured coefficient of thermal expansion (CTE) of three metals: Aluminum, Copper and Steel. The units for coefficient of thermal expansion is per degrees C ( / &amp;#176;C)&lt;/p&gt;
 &lt;h3&gt;Coefficient of thermal expansion of three metals (units: /  &amp;#176;C)&lt;/h3&gt;
-&lt;table class="table table-striped table-bordered table-hover"&gt;
+&lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
 &lt;th&gt;Sample&lt;/th&gt;
@@ -1046,7 +1058,7 @@ degree: °
 &lt;p&gt;There are a couple of special characters that will combine symbols. A useful one in engineering is the hat &lt;code&gt;^&lt;/code&gt; symbol. This is typically used to denote unit vectors. We can add a hat &lt;code&gt;^&lt;/code&gt; (also called a circumflex) by putting the unicode escape after the letter you want to add a hat to. For example to add a hat to &lt;code&gt;i&lt;/code&gt; the command is &lt;code&gt;print('i\u0302')&lt;/code&gt;. &lt;/p&gt;
 &lt;p&gt;Below is a list of symbols and greek letters and the corresponding unicode escape to produce the character in python. &lt;/p&gt;
 &lt;h3&gt;Useful unicode symbols in engineering&lt;/h3&gt;
-&lt;table class="table table-striped table-bordered table-hover"&gt;
+&lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
 &lt;th&gt;unicode&lt;/th&gt;
@@ -1113,7 +1125,7 @@ degree: °
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;h3&gt;Greek lower case letters&lt;/h3&gt;
-&lt;table class="table table-striped table-bordered table-hover"&gt;
+&lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
 &lt;th&gt;unicode&lt;/th&gt;
@@ -1250,7 +1262,7 @@ degree: °
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;h3&gt;Greek upper case letters&lt;/h3&gt;
-&lt;table class="table table-striped table-bordered table-hover"&gt;
+&lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
 &lt;th&gt;unicode&lt;/th&gt;

@@ -172,9 +172,9 @@ init_mathjax = function() {
 }
 init_mathjax();
 </script>
-    <link href="/extra/favicon.ico" rel="icon">
+    <link href="./extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="/how-i-built-this-site-3.html">
+<link rel="canonical" href="./how-i-built-this-site-3.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
         <meta name="keywords" content="python,pelican,blog,markdown" />
@@ -183,7 +183,7 @@ init_mathjax();
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="How I Build This Site - Part 3"/>
-        <meta property="og:url" content="/how-i-built-this-site-3.html"/>
+        <meta property="og:url" content="./how-i-built-this-site-3.html"/>
         <meta property="og:description" content="This is the third part in a multi-part series on how I built this site. In the last post, we used pelican-quickstart to build the framework of the site and wrote a short first post, then viewed a demo version of the site on localhost:8000. In this post we will add a custom theme to the site called pelican-bootstrap3. The pelican-bootstrap3 theme looks great and is mobile responsive so it will make the site look good on phones and tablets. Then we&#39;ll add some custom css to personalize the look of the theme."/>
         <meta property="article:published_time" content="2017-12-04" />
             <meta property="article:section" content="This site" />
@@ -196,17 +196,21 @@ init_mathjax();
 
 
     <!-- Bootstrap -->
-        <link rel="stylesheet" href="/theme/css/bootstrap.flatly.min.css" type="text/css"/>
-    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="./theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="./theme/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="/theme/css/pygments/native.css" rel="stylesheet">
-    <link href="/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
-    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
-        <link href="/static/css/custom.css" rel="stylesheet">
+    <link href="./theme/css/pygments/native.css" rel="stylesheet">
+    <link href="./theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="./theme/css/style.css" type="text/css"/>
+        <link href="./static/css/custom.css" rel="stylesheet">
+
+        <link href="./feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Python for Undergraduate Engineers ATOM Feed"/>
 
 
 
-
+        <link href="./feeds/this-site.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Python for Undergraduate Engineers This site ATOM Feed"/>
 
 </head>
 <body>
@@ -220,15 +224,15 @@ init_mathjax();
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="/" class="navbar-brand">
+            <a href="./" class="navbar-brand">
 Python for Undergraduate Engineers            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                         <li><a href="/pages/about.html">
+                         <li><a href="./pages/about.html">
                              About
                           </a></li>
-                         <li><a href="/pages/book.html">
+                         <li><a href="./pages/book.html">
                              Book
                           </a></li>
             </ul>
@@ -238,7 +242,7 @@ Python for Undergraduate Engineers            </a>
                   <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
                 </form></span>
               </li>
-              <li><a href="/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+              <li><a href="./archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -250,15 +254,15 @@ Python for Undergraduate Engineers            </a>
     <div class="row">
         <div class="col-sm-9">
             <ol class="breadcrumb">
-                <li><a href="" title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="/category/this-site.html" title="This site">This site</a></li>
+                <li><a href="." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="./category/this-site.html" title="This site">This site</a></li>
                 <li class="active">How I Build This Site - Part 3</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="/how-i-built-this-site-3.html"
+                    <a href="./how-i-built-this-site-3.html"
                        rel="bookmark"
                        title="Permalink to How I Build This Site - Part 3">
                         How I Build This Site - Part 3
@@ -281,17 +285,17 @@ Python for Undergraduate Engineers            </a>
 
 
 <span class="label label-default">Tags</span>
-	<a href="/tag/python.html">python</a>
+	<a href="./tag/python.html">python</a>
         /
-	<a href="/tag/pelican.html">pelican</a>
+	<a href="./tag/pelican.html">pelican</a>
         /
-	<a href="/tag/blog.html">blog</a>
+	<a href="./tag/blog.html">blog</a>
         /
-	<a href="/tag/markdown.html">markdown</a>
+	<a href="./tag/markdown.html">markdown</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>This is the third part in a multi-part series on how I built this site. In the <a href="/how-i-built-this-site-2.html">last post</a>, we used <code>pelican-quickstart</code> to build the framework of the site and wrote a short first post, then viewed a demo version of the site on localhost:8000. In this post we will add a custom theme to the site called pelican-bootstrap3. The pelican-bootstrap3 theme looks great and is mobile reponsive so it will make the site look good on phones and tablets. Then we'll add some custom css to personalize the look of the theme.</p>
+                <p>This is the third part in a multi-part series on how I built this site. In the <a href="./how-i-built-this-site-2.html">last post</a>, we used <code>pelican-quickstart</code> to build the framework of the site and wrote a short first post, then viewed a demo version of the site on localhost:8000. In this post we will add a custom theme to the site called pelican-bootstrap3. The pelican-bootstrap3 theme looks great and is mobile reponsive so it will make the site look good on phones and tablets. Then we'll add some custom css to personalize the look of the theme.</p>
 <h3>Steps in this post</h3>
 <p>We are going to accomplish the following in this post. By the end of the post we are going to have a a static site with a great looking bootstrap3 theme which is mobile responsive and looks great on desktops, tablets and phones.</p>
 <ol>
@@ -404,7 +408,7 @@ make serve
 <p>To view the site, point a brower to <em>localhost:8000</em></p>
 <p><a href="localhost:8000">localhost:8000</a></p>
 <p>Now, the site should look something like this:</p>
-<p><img alt="pelican-boostrap3-basic-site.png" src="/images/simple_pelican-bootstrap3_theme.png"></p>
+<p><img alt="pelican-boostrap3-basic-site.png" src="./images/simple_pelican-bootstrap3_theme.png"></p>
 <p>use <code>ctrl-c</code> to shut down the server.</p>
 <h3>Add and commit the changes then push those changes to github</h3>
 <p>When we are done editing the the site, we add <strong>all of the changes</strong> to our local git repo using <code>git add .</code>. Then we commit those changes with <code>git commit</code> and add the <code>-m "added pelican_bootstrap3 theme"</code> flag to give supply a commit message (make sure to use double quotes "commit message"). To push those changes up to github use <code>git push origin master</code></p>
@@ -414,32 +418,32 @@ git push origin master
 </pre></div>
 
 
-<p>In the <a href="/how-i-built-this-site-4.html">next post</a> we will add some additional <em>pelican-plugins</em> to bring extra functionality to the site and add the ability to include <strong>jupyter notebooks</strong> in posts.</p>
+<p>In the <a href="./how-i-built-this-site-4.html">next post</a> we will add some additional <em>pelican-plugins</em> to bring extra functionality to the site and add the ability to include <strong>jupyter notebooks</strong> in posts.</p>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">
     <h4>Related Posts:</h4>
     <ul>
-        <li><a href="/how-i-built-this-site-2.html">How I Build This Site - Part 2</a></li>
-        <li><a href="/how-i-built-this-site-7.html">How I Build This Site - Part 7</a></li>
-        <li><a href="/how-i-built-this-site-6.html">How I Build This Site - Part 6</a></li>
-        <li><a href="/how-i-built-this-site-5.html">How I Build This Site - Part 5</a></li>
-        <li><a href="/how-i-built-this-site-4.html">How I Build This Site - Part 4</a></li>
+        <li><a href="./how-i-built-this-site-2.html">How I Build This Site - Part 2</a></li>
+        <li><a href="./how-i-built-this-site-7.html">How I Build This Site - Part 7</a></li>
+        <li><a href="./how-i-built-this-site-6.html">How I Build This Site - Part 6</a></li>
+        <li><a href="./how-i-built-this-site-5.html">How I Build This Site - Part 5</a></li>
+        <li><a href="./how-i-built-this-site-4.html">How I Build This Site - Part 4</a></li>
     </ul>
 </section>
 <section class="well" id="related-posts">
     <h4>Article 3 of the How I built this site series</h4>
        <h5>Previous articles</h5>
        <ul>
-           <li><a href="/how-i-built-this-site-1.html">How I Build This Site - Part 1</a></li>
-           <li><a href="/how-i-built-this-site-2.html">How I Build This Site - Part 2</a></li>
+           <li><a href="./how-i-built-this-site-1.html">How I Build This Site - Part 1</a></li>
+           <li><a href="./how-i-built-this-site-2.html">How I Build This Site - Part 2</a></li>
        </ul>
        <h5>Next articles</h5>
        <ul>
-           <li><a href="/how-i-built-this-site-4.html">How I Build This Site - Part 4</a></li>
-           <li><a href="/how-i-built-this-site-5.html">How I Build This Site - Part 5</a></li>
-           <li><a href="/how-i-built-this-site-6.html">How I Build This Site - Part 6</a></li>
-           <li><a href="/how-i-built-this-site-7.html">How I Build This Site - Part 7</a></li>
+           <li><a href="./how-i-built-this-site-4.html">How I Build This Site - Part 4</a></li>
+           <li><a href="./how-i-built-this-site-5.html">How I Build This Site - Part 5</a></li>
+           <li><a href="./how-i-built-this-site-6.html">How I Build This Site - Part 6</a></li>
+           <li><a href="./how-i-built-this-site-7.html">How I Build This Site - Part 7</a></li>
        </ul>
 </section>
         </article>
@@ -450,7 +454,7 @@ git push origin master
             <aside>
 <div id="aboutme">
         <p>
-            <img width="100%" class="img-thumbnail" src="/extra/gear-wrench-icon-512-278694.png"/>
+            <img width="100%" class="img-thumbnail" src="./extra/gear-wrench-icon-512-278694.png"/>
         </p>
     <p>
       <strong>About Peter Kazarinoff</strong><br/>
@@ -464,46 +468,46 @@ git push origin master
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
-    <li class="list-group-item"><a href="/plotting-sin-cos-with-matplotlib.html">Plotting sin and cos with matplotlib and Python</a></li>
-    <li class="list-group-item"><a href="/python-data-types.html">Python Data Types</a></li>
-    <li class="list-group-item"><a href="/unit-conversions-with-pint.html">Unit conversions with Python and Pint</a></li>
+    <li class="list-group-item"><a href="./what-is-micropython.html">What is Micropython?</a></li>
+    <li class="list-group-item"><a href="./plotting-sin-cos-with-matplotlib.html">Plotting sin and cos with matplotlib and Python</a></li>
+    <li class="list-group-item"><a href="./python-data-types.html">Python Data Types</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
 
 <!-- Sidebar/Tag Cloud -->
 <li class="list-group-item">
-  <a href="/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <a href="./"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
   <ul class="list-group list-inline tagcloud" id="tags">
     <li class="list-group-item tag-3">
-      <a href="/tag/anaconda.html">anaconda</a>
+      <a href="./tag/anaconda.html">anaconda</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="/tag/anaconda-prompt.html">anaconda prompt</a>
+      <a href="./tag/anaconda-prompt.html">anaconda prompt</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="/tag/blog.html">blog</a>
+      <a href="./tag/blog.html">blog</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="/tag/conda.html">conda</a>
+      <a href="./tag/conda.html">conda</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="/tag/engineering.html">engineering</a>
+      <a href="./tag/engineering.html">engineering</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="/tag/jupyter.html">jupyter</a>
+      <a href="./tag/jupyter.html">jupyter</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="/tag/matplotlib.html">matplotlib</a>
+      <a href="./tag/matplotlib.html">matplotlib</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="./tag/pelican.html">pelican</a>
     </li>
     <li class="list-group-item tag-1">
-      <a href="/tag/pelican.html">pelican</a>
-    </li>
-    <li class="list-group-item tag-1">
-      <a href="/tag/python.html">python</a>
+      <a href="./tag/python.html">python</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="/tag/virtualenv.html">virtualenv</a>
+      <a href="./tag/virtualenv.html">virtualenv</a>
     </li>
   </ul>
 </li>
@@ -515,11 +519,11 @@ git push origin master
   <ul class="list-group">
     <li class="list-group-item">
       <h5></i>Previous article</h5>
-      <a href="/how-i-built-this-site-2.html">How I Build This Site - Part 2</a>
+      <a href="./how-i-built-this-site-2.html">How I Build This Site - Part 2</a>
     </li>
     <li class="list-group-item">
       <h5>Next article</h5>
-      <a href="/how-i-built-this-site-4.html">How I Build This Site - Part 4</a>
+      <a href="./how-i-built-this-site-4.html">How I Build This Site - Part 4</a>
     </li>
   </ul>
 </li>
@@ -553,15 +557,15 @@ git push origin master
       </div>
    </div>
 </footer>
-<script src="/theme/js/jquery.min.js"></script>
+<script src="./theme/js/jquery.min.js"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/theme/js/bootstrap.min.js"></script>
+<script src="./theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="/theme/js/respond.min.js"></script>
+<script src="./theme/js/respond.min.js"></script>
 
-    <script src="/static/js/custom.js"></script>
+    <script src="./static/js/custom.js"></script>
 
 
 <!-- GitHub JS Code -->
@@ -570,7 +574,7 @@ $(document).ready(function () {
   if (!window.jXHR) {
     var jxhr = document.createElement('script');
     jxhr.type = 'text/javascript';
-    jxhr.src = '/theme/js/jXHR.js';
+    jxhr.src = './theme/js/jXHR.js';
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(jxhr, s);
   }
@@ -583,7 +587,7 @@ $(document).ready(function () {
   });
 });
 </script>
-<script src="/theme/js/github.js" type="text/javascript"></script>
+<script src="./theme/js/github.js" type="text/javascript"></script>
 <!-- End GitHub JS Code -->
 
 <script type="text/javascript">

@@ -119,7 +119,7 @@
 
 
 &lt;h3&gt;Summary&lt;/h3&gt;
-&lt;table class="table table-striped table-bordered table-hover"&gt;
+&lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
 &lt;th&gt;Data Type&lt;/th&gt;

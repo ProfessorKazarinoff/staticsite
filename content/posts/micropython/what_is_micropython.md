@@ -7,7 +7,7 @@ Tags: python, micropython, esp8266, microcontroller, REPL
 Slug: what-is-micropython
 Authors: Peter D. Kazarinoff
 Series: micropython
-series_index:1
+series_index: 1
 
 This is the first part of a multipart series on Micropython. In this post we'll review what Micropython is, what it is used for and how it is both similar and different from "regular" Python. We'll also discuss why Micropython is relevant to undergraduate engineers.
 

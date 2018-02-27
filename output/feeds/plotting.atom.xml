@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Python for Undergraduate Engineers - Plotting</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="https://professorkazarinoff.github.io/staticsite/feeds/plotting.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2018-02-05T10:30:00-08:00</updated><entry><title>Plotting sin and cos with matplotlib and Python</title><link href="https://professorkazarinoff.github.io/staticsite/plotting-sin-cos-with-matplotlib.html" rel="alternate"></link><published>2018-02-05T10:30:00-08:00</published><updated>2018-02-05T10:30:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-02-05:/staticsite/plotting-sin-cos-with-matplotlib.html</id><summary type="html">&lt;p&gt;In this post we will create a plot using matplotlib and Python. The plot will show two trig functions, sin and cos on the same set of axes.&lt;/p&gt;</summary><content type="html">&lt;p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Python for Undergraduate Engineers - Plotting</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="https://professorkazarinoff.github.io/staticsite/feeds/plotting.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2018-02-05T10:30:00-08:00</updated><entry><title>Plotting sine and cosine with matplotlib and Python</title><link href="https://professorkazarinoff.github.io/staticsite/plotting-sin-cos-with-matplotlib.html" rel="alternate"></link><published>2018-02-05T10:30:00-08:00</published><updated>2018-02-05T10:30:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-02-05:/staticsite/plotting-sin-cos-with-matplotlib.html</id><summary type="html">&lt;p&gt;In this post we will create a plot using matplotlib and Python. The plot will show two trig functions, sine and cosine on the same set of axes.&lt;/p&gt;</summary><content type="html">&lt;p&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
@@ -205,7 +205,7 @@
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;The &lt;code&gt;plt.plot()&lt;/code&gt; call is the same as before using two pairs of x and y values. To add axis labels we will use the following methods:&lt;/p&gt;
-&lt;table&gt;
+&lt;table class="table table-striped table-bordered table-hover"&gt;
 &lt;thead&gt;&lt;tr&gt;
 &lt;th&gt;matplotlib method&lt;/th&gt;
 &lt;th&gt;description&lt;/th&gt;

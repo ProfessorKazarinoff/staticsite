@@ -153,9 +153,11 @@ Now each time I work on the site, I navigate to the **staticsite** folder on wha
 git pull origin master
 ```
 
-The after the _pull_ the staticsite folder is up to date with the newest version of all the files on github. Then I go about editing files, writing posts, changing settings, etc. After the edits, the last thing I type before shutting down the computer for the day is:
+After the _pull_, the staticsite folder is up to date with the newest version of all the files on github. Then I go about editing files, writing posts, changing settings, etc. After the edits, the last thing I do before shutting down the computer for the day is add all the changes to git with ```git add .``` (note there is a space between the ```add``` and the period ```.```). Then commit those changes locally with the line ```git commit -m "commit message"``` (note there are double quotes ```"commit message"``` used around the commit message), and finally push the changes up to github.com with ```git push origin master```. Now the version of the site up on github.com is the same as the version of the site on my local machine.
 
 ```
+git add .
+git commit -m "commit message"
 git push origin master
 ```
 

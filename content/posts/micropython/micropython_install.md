@@ -53,11 +53,11 @@ To install micropython we will use the following software and tools:
 
 ### 1. Install the Anaconda distribution of Python
 
-If you don't have Anaconda already installed, go to Anaconda.com/Downloads and install the latest version. The Anaconda distribution of Python is the Python distribution I recommend for undergraduate engineers. You want to download and install the Python 3.6 Version (2.7 is legacy Python). Most laptops and desktops run a 64-bit version of Windows 10. If in doubt, you can check your Windows installation, or just go with the 64-bit version. 
+If you don't have Anaconda already installed, go to [Anaconda.com/download](https://www.anaconda.com/download/) and install the latest version. The Anaconda distribution of Python is the Python distribution I recommend for undergraduate engineers. You want to download and install the Python 3.6 Version (Python 2.7 Version is legacy Python). Most laptops and desktops run a 64-bit version of Windows 10. If in doubt, you can check your Windows installation, or just go with the 64-bit version. 
 
 ### 2. Create a new conda environment and install esptool.py
 
-It's best practice when using Python to work in virtual environments. We'll create a new virtual environment with conda to use with our Micropython progjects. Open the Anaconda prompt and create a new virtual environment named ```micropython```. Activate the environment with the ```conda activate``` command. After activating the virtual environment you should see ```(micropython)``` before the Anaconda Prompt.  Once inside the virtual environment, use ```pip``` to install ```esptool```. The ```esptool``` will be used to upload the Micropython .bin firmware file onto the Adafruit Feather Huzzah board. Confirm that ```esptool``` is installed in the ```(micropython)``` virtual environment with ```conda list```.
+It's best practice when using Python to work in virtual environments. We'll create a new virtual environment with conda to use with our Micropython projects. Open the Anaconda prompt and create a new virtual environment named ```micropython```. Activate the environment with the ```conda activate``` command. After activating the virtual environment you should see ```(micropython)``` before the Anaconda Prompt.  Once inside the virtual environment, use ```pip``` to install ```esptool```. The ```esptool``` will be used to upload the Micropython .bin firmware file onto the Adafruit Feather Huzzah board. Confirm that ```esptool``` is installed in the ```(micropython)``` virtual environment with ```conda list```.
 
 ```
 conda create -n micropython python=3.6

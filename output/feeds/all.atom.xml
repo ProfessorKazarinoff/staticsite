@@ -1,5 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Python for Undergraduate Engineers</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="https://professorkazarinoff.github.io/staticsite/feeds/all.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2018-02-26T09:01:00-08:00</updated><entry><title>What is Micropython?</title><link href="https://professorkazarinoff.github.io/staticsite/what-is-micropython.html" rel="alternate"></link><published>2018-02-26T09:01:00-08:00</published><updated>2018-02-26T09:01:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-02-26:/staticsite/what-is-micropython.html</id><summary type="html">&lt;p&gt;This is the first part of a multipart series on Micropython. In this post we'll review what Micropython is, what it is used for and how it is both similar and different from "regular" Python. We'll also discuss why Micropython is relevant to undergraduate engineers.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Python for Undergraduate Engineers</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="https://professorkazarinoff.github.io/staticsite/feeds/all.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2018-03-01T14:20:00-08:00</updated><entry><title>Installing Micropython on an Adadfruit Feather Huzzah ESP8266</title><link href="https://professorkazarinoff.github.io/staticsite/micropython-install.html" rel="alternate"></link><published>2018-03-01T14:20:00-08:00</published><updated>2018-03-01T14:20:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-03-01:/staticsite/micropython-install.html</id><summary type="html">&lt;p&gt;This is the second part of a multipart series on Micropython. Micropython is a port of the Python programming language that runs on small, inexpensive microcontrollers. In this post, we will install Micropython on an Adafruit Feather Huzzah ESP8266 board using Python and a package called esptool. In subsequent posts …&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the second part of a multipart series on Micropython. Micropython is a port of the Python programming language that runs on small, inexpensive microcontrollers. In this post, we will install Micropython on an Adafruit Feather Huzzah ESP8266 board using Python and a package called esptool. In subsequent posts we will build our Feather Huzzah microcontroller into a WiFi-enabled weather station. The posts in this series:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/what-is-micropython.html"&gt;What is Micropython?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Installing Micropython on an Adafruit Feather Huzzah ESP8266 (This post)&lt;/li&gt;
+&lt;li&gt;Blink an LED on an Adafruit Feather Huzzah ESP8266 using Micropython&lt;/li&gt;
+&lt;li&gt;Read the temperature from a MCP9808 breakout board using Micropyton&lt;/li&gt;
+&lt;li&gt;Use Micropython to connect an Adafruit Feather Huzzah to a WiFi network&lt;/li&gt;
+&lt;li&gt;Upload Micropython code to turn an Adafruit Feather Huzzah into a WiFi-enabled IoT weather station&lt;/li&gt;
+&lt;li&gt;Use &lt;strong&gt;pandas&lt;/strong&gt; and &lt;strong&gt;matplotlib&lt;/strong&gt; to plot the weather data from a WiFi-enabled IoT weather station.&lt;/li&gt;
+&lt;li&gt;Upload MicroPython to a cheap $3 ESP-01 module&lt;/li&gt;
+&lt;li&gt;Build custom firmware to turn the $3 ESP-01 into an low-cost WiFi enabled IoT switch.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;To install Micropython on a microcontroller, like the Adafruit Feather Huzzah ESP8266, we need the following hardware:&lt;/p&gt;
+&lt;table class="table table-striped table-bordered table-hover"&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Hardware&lt;/th&gt;
+&lt;th&gt;Purpose&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Windows 10 Laptop&lt;/td&gt;
+&lt;td&gt;Used to download Micropython and install Micropython on the microcontroller&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Adafruit Feather Huzzah ESP8266&lt;/td&gt;
+&lt;td&gt;Microcontroller that will run Microphythonn&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;microUSB Cable&lt;/td&gt;
+&lt;td&gt;Used to connect the laptop to the microcontroller&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;To install Micropython we will use the following software and tools:&lt;/p&gt;
+&lt;table class="table table-striped table-bordered table-hover"&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Software&lt;/th&gt;
+&lt;th&gt;Purpose&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Windows 10&lt;/td&gt;
+&lt;td&gt;Download Micropython&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Anaconda distribution of Python&lt;/td&gt;
+&lt;td&gt;Run the esptool that installs Micropython&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Anaconda Prompt&lt;/td&gt;
+&lt;td&gt;Install the esptool package using pip&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;esptool&lt;/td&gt;
+&lt;td&gt;a pip installable package used to install Micropython&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;firmware .bin file&lt;/td&gt;
+&lt;td&gt;the version of Micropython will run on the Feather Huzzah board&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3&gt;Summary of Steps:&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Install the &lt;a href="https://www.anaconda.com/download/"&gt;Anaconda distribution&lt;/a&gt; of Python&lt;/li&gt;
+&lt;li&gt;Create a new conda environment and &lt;code&gt;pip install esptool&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Download the &lt;a href="http://micropython.org/download#esp8266"&gt;latest Micropython .bin firmware file&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Install the &lt;a href="https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers"&gt;SiLabs driver&lt;/a&gt; for the Adafruit Feather Huzzah ESP8266&lt;/li&gt;
+&lt;li&gt;Connect the Adafruit Feather Huzzah ESP8266 board to the laptop using a microUSB cable&lt;/li&gt;
+&lt;li&gt;Determine which serial port the Feather Huzzah is connected to&lt;/li&gt;
+&lt;li&gt;Run the esptool to upload the .bin firmware file to the Feather Huzzah&lt;/li&gt;
+&lt;li&gt;Download and install &lt;a href="https://www.putty.org/"&gt;Putty&lt;/a&gt;, a serial monitor&lt;/li&gt;
+&lt;li&gt;Use Putty to connect to the Feather Huzzah and run commands in the Micropython REPL&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;1. Install the Anaconda distribution of Python&lt;/h3&gt;
+&lt;p&gt;If you don't have Anaconda installed already, go to &lt;a href="https://www.anaconda.com/download/"&gt;Anaconda.com/download&lt;/a&gt; and install the latest version. The Anaconda distribution of Python is the Python distribution I recommend for undergraduate engineers. You want to download and install the Python 3.6 Version (the Python 2.7 Version is legacy Python). Most laptops and desktops run a 64-bit version of Windows 10. If in doubt, you can check your Windows installation, or just go with the 64-bit version. &lt;/p&gt;
+&lt;h3&gt;2. Create a new conda environment and install esptool.py&lt;/h3&gt;
+&lt;p&gt;It's best practice when using Python to work in virtual environments. We'll create a new virtual environment with conda to use with our Micropython projects. Open the Anaconda prompt and create a new virtual environment named &lt;code&gt;micropython&lt;/code&gt;. Activate the environment with the &lt;code&gt;conda activate&lt;/code&gt; command. After activating the virtual environment you should see &lt;code&gt;(micropython)&lt;/code&gt; before the Anaconda Prompt.  Once inside the virtual environment, use &lt;code&gt;pip&lt;/code&gt; to install &lt;code&gt;esptool&lt;/code&gt;. The &lt;code&gt;esptool&lt;/code&gt; will be used to upload the Micropython .bin firmware file onto the Adafruit Feather Huzzah board. Confirm that &lt;code&gt;esptool&lt;/code&gt; is installed in the &lt;code&gt;(micropython)&lt;/code&gt; virtual environment with &lt;code&gt;conda list&lt;/code&gt;. I also created a new directory in the &lt;strong&gt;Documents&lt;/strong&gt; folder called &lt;strong&gt;micropython&lt;/strong&gt; to store all the project files. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;conda create -n micropython python=3.6
+conda activate micropython
+(micropython) pip install esptool
+(micropython) conda list
+(micropython) cd Documents
+(micropython) mkdir micropthon
+(micropython) cd micropython
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;3. Download the latest micropython firmware .bin file&lt;/h3&gt;
+&lt;p&gt;Go to github and &lt;a href="https://micropython.org/download#esp8266"&gt;download the latest .bin firmware&lt;/a&gt; file. Move the .bin firmware file to a new &lt;strong&gt;micropython&lt;/strong&gt; directory. The .bin firmware file is the version of Micropython that will run on the Adafruit Feather Huzzah ESP8266. Straight from Adafruit, the little microcontroller does not have Micropyton installed, so we need to install Micropython ourselves. After installing the Micropython .bin firmware file onto the board, we will be able to bring up the Micropython REPL prompt, type commands into the Micropython REPL and run Micropython .py scripts on the board.&lt;/p&gt;
+&lt;p&gt;&lt;img alt=".bin firmware on github" src="https://professorkazarinoff.github.io/staticsite/posts/micropython/firmware_download_page.PNG"&gt;&lt;/p&gt;
+&lt;h3&gt;4. Install the SiLabs driver for the Adafruit Feather Huzzah ESP8266&lt;/h3&gt;
+&lt;p&gt;Before we can connect the Adafruit Feather Huzzah to the computer, we need a specific driver installed. For my Windows 10 laptop to see the Adafruit Feather Huzzah board, the &lt;a href="https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers"&gt;CP210x USB to UART Bridge VCP driver&lt;/a&gt; needs to be downloaded from SiLabs and installed. This is quick and easy, but does require admin privileges.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="SiLabs Driver" src="https://professorkazarinoff.github.io/staticsite/posts/micropython/download_silabs_driver.PNG"&gt;&lt;/p&gt;
+&lt;h3&gt;5. Connect the Adafruit Feather Huzzah ESP8266 board to the laptop&lt;/h3&gt;
+&lt;p&gt;Use a microUSB cable (the same kind of cable that charges many mobile phones) to connect the Feather Huzzah to the computer. Make sure that the microUSB cable is a full USB &lt;strong&gt;data cable&lt;/strong&gt; and not just a simple power cable. I had trouble getting the Feather Huzzah to work, and it turned out the reason was the micoUSB cable was only a charging cable and could not transfer data. &lt;/p&gt;
+&lt;h3&gt;6. Determine which serial port the Feather Huzzah is connected to&lt;/h3&gt;
+&lt;p&gt;Use Windows Device Manager to determine which serial port the Feather Huzzah board is connected to. We will need the serial port as one of the parameters when we upload the .bin firmware file on the board. Look for something like &lt;strong&gt;Silicon Labs CP210x USB to UART Bridge (COM4)&lt;/strong&gt; in the &lt;strong&gt;Ports (COM &amp;amp; LPT)&lt;/strong&gt; menu. The USB to UART bridge is actually the Feather Huzzah board. CP210x refers to the chip that handles serial communication on the Feather Huzzah, not the esp8266 chip itself. Make note of the number after &lt;strong&gt;(COM )&lt;/strong&gt;. It often comes up as &lt;strong&gt;(COM4)&lt;/strong&gt; but it may be different on your computer. &lt;/p&gt;
+&lt;p&gt;&lt;img alt="Find Device Manager" src="https://professorkazarinoff.github.io/staticsite/posts/micropython/find_device_manager.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Device Manager Menu" src="https://professorkazarinoff.github.io/staticsite/posts/micropython/device_manager_menu.png"&gt;&lt;/p&gt;
+&lt;p&gt;The first time I plugged the board into my laptop, Windows could't see the board. I looked through the Device Manager under the Ports menu and the Feather board just didn't show up. Turns out the first USB cable I used was just a charging only cable. When I switched this out for a microUSB data cable, the board came right up under &lt;strong&gt;Ports (COM &amp;amp; LPT)&lt;/strong&gt;. &lt;/p&gt;
+&lt;h3&gt;6. Run esptool to upload the .bin file to the Feather Huzzah&lt;/h3&gt;
+&lt;p&gt;Open the Anaconda Prompt and &lt;code&gt;cd&lt;/code&gt; into the &lt;strong&gt;micropython&lt;/strong&gt; directory with the .bin file. You can use the &lt;code&gt;dir&lt;/code&gt; command to see the directory contents. Make sure the .bin firmware file is in the directory. It will be called something like &lt;code&gt;esp8266-20171101-v1.9.3.bin&lt;/code&gt;. Activate the micropython environment with &lt;code&gt;conda activate micropython&lt;/code&gt;. Run &lt;code&gt;esptool --help&lt;/code&gt; to ensure esptool is installed properly. Note there is no &lt;strong&gt;.py&lt;/strong&gt; extension after &lt;code&gt;esptool&lt;/code&gt;. On my Windows laptop, the command &lt;code&gt;esptool&lt;/code&gt; worked, but the command &lt;code&gt;esptool.py&lt;/code&gt; did not (this is different than the commands shown on the &lt;a href="https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/intro.html#deploying-the-firmware"&gt;Micropython docs&lt;/a&gt;). If you try to run esptool and you are not in the &lt;code&gt;(micropython)&lt;/code&gt; virtual environment, you will get an error. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;cd Documents
+cd micropython
+pwd
+Documents/micropython
+dir
+conda activate micropython
+(micropython) esptool --help
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;img alt="esptool help" src="https://professorkazarinoff.github.io/staticsite/posts/micropython/esptool_help.PNG"&gt;&lt;/p&gt;
+&lt;p&gt;Before we write the .bin firmware file to the board, we should first erase the flash memory on the Feather Huzzah using the &lt;code&gt;esptool erase_flash&lt;/code&gt; command. Make sure to specify the &lt;code&gt;--port&lt;/code&gt;. This is the &lt;code&gt;COM&lt;/code&gt; port you found in the Windows Device Manager.  In my case the port was &lt;code&gt;COM4&lt;/code&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(micropython) esptool --port COM4 erase_flash
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;img alt="esptool erase flash" src="https://professorkazarinoff.github.io/staticsite/posts/micropython/esptool_erase_flash.PNG"&gt;&lt;/p&gt;
+&lt;p&gt;Now it's time to write the .bin firmware file to the flash memory on the board using the &lt;code&gt;esptool write_flash&lt;/code&gt; command. Make sure to use the exact .bin firmware file name you see sitting in the &lt;strong&gt;micropython&lt;/strong&gt; directory. The port has to be set as the port you found in the Windows Device Manager. &lt;code&gt;---baud&lt;/code&gt; is the baud rate, or upload speed. I found that &lt;code&gt;--baud 460800&lt;/code&gt; worked, but you could also specify &lt;code&gt;--baud 115200&lt;/code&gt; which is slower. The upload time was a matter of seconds with either baud rate. The &lt;code&gt;0&lt;/code&gt; after &lt;code&gt;--flash_size=dectect&lt;/code&gt; means we want the firmware to be written at the start of the flash memory (the 0th position) on the board. Again, make sure the .bin firmware file name is correct. It is easy to mistype. Another issue I ran into was that I tried to use the command &lt;code&gt;esptool.py&lt;/code&gt; instead of &lt;code&gt;esptool&lt;/code&gt; as shown on the &lt;a href="https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/intro.html#deploying-the-firmware"&gt;Micropython docs&lt;/a&gt;. The documentation for &lt;a href="https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/intro.html#deploying-the-firmware"&gt;Micropython on the ESP8266&lt;/a&gt; specifies the command &lt;code&gt;esptool.py&lt;/code&gt; (including the &lt;strong&gt;.py&lt;/strong&gt; file extension). This did work on my Windows 10 machine. Omitting the &lt;strong&gt;.py&lt;/strong&gt; file extension, and running &lt;code&gt;esptool&lt;/code&gt; worked instead. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(micropython) esptool --port COM4 --baud 460800 write_flash --flash_size=detect 0 esp8266-20171101-v1.9.3.bin
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;img alt="esptool write flash" src="https://professorkazarinoff.github.io/staticsite/posts/micropython/esptool_write_flash.PNG"&gt;&lt;/p&gt;
+&lt;h3&gt;7. Download and install Putty, a serial monitor&lt;/h3&gt;
+&lt;p&gt;Now that Micropthon is installed on the board, we need to talk to our board over a serial connection. Windows 10 doesn't have a built-in serial monitor (like screen on OSX and Linux). So we need to download and install &lt;strong&gt;Putty&lt;/strong&gt;. Putty is a lightweight SSH and serial client for Windows. Putty will allow us to communicate with the Adafruit Feather Huzzah board. &lt;a href="https://www.putty.org/"&gt;Putty can be downloaded here&lt;/a&gt;. Putty is pretty small and the download and install should be pretty quick.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Download Putty" src="https://professorkazarinoff.github.io/staticsite/posts/micropython/download_putty.PNG"&gt;&lt;/p&gt;
+&lt;h3&gt;8. Use Putty to connect to the Feather Huzzah&lt;/h3&gt;
+&lt;p&gt;Ensure the Feather board is connected to the computer with a USB cable and ensure you can see the board in the Windows Device Manager. Then use Putty to connect to the board over serial.  Make sure you specify the correct serial port in the &lt;strong&gt;Serial line&lt;/strong&gt; box and &lt;strong&gt;115200&lt;/strong&gt; baud in the Speed box. &lt;strong&gt;Micropython is set to run at 115200 baud&lt;/strong&gt;, other baud rates will lead to junk characters in the serial monitor. I had trouble finding the serial connection option in Putty. When I opened Putty, the default was an SSH connection. We can't connect to the Feather Huzzah over SSH. You need to select the &lt;strong&gt;Serial&lt;/strong&gt; radio button below the header &lt;strong&gt;Connection type:&lt;/strong&gt; near the top of the Putty window. &lt;/p&gt;
+&lt;p&gt;&lt;img alt="Putty in start menu" src="https://professorkazarinoff.github.io/staticsite/posts/micropython/putty_in_start_menu.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Putty config" src="https://professorkazarinoff.github.io/staticsite/posts/micropython/putty_config.PNG"&gt;&lt;/p&gt;
+&lt;p&gt;If you see &lt;code&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/code&gt; the Micropython REPL (the Micropython prompt) is running and the Adafruit Feather Huzzah ESP8266 is working! This version of Python isn't running on your computer, it's Micropython running on the little microcontroller! Sometimes I had to type [Enter] or Ctrl-D to get the &lt;code&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/code&gt; REPL prompt to show up. A few times I needed to close Putty, unplug then replug the board and try Putty again. The Feather Huzzah also has a tiny little black RESET button that can be pressed to restart the board.  &lt;/p&gt;
+&lt;p&gt;&lt;img alt="REPL Prompt" src="https://professorkazarinoff.github.io/staticsite/posts/micropython/REPL_prompt.PNG"&gt;&lt;/p&gt;
+&lt;p&gt;At the &lt;code&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/code&gt; Micropython REPL prompt try the following commands:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Micropython for Engineers!&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;Micropython&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;Engineers&lt;/span&gt;
+
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;sys&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;sys&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;platform&lt;/span&gt;
+&lt;span class="s1"&gt;&amp;#39;esp8266&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;img alt="sys_dot_platform" src="https://professorkazarinoff.github.io/staticsite/posts/micropython/sys_dot_platform.PNG"&gt;&lt;/p&gt;
+&lt;h2&gt;Next steps:&lt;/h2&gt;
+&lt;p&gt;In the next post of the series, we will use the Micropython REPL running on the Adafruit Feather Huzzah to blink an LED.&lt;/p&gt;</content><category term="python"></category><category term="micropython"></category><category term="esp8266"></category><category term="microcontroller"></category><category term="REPL"></category></entry><entry><title>What is Micropython?</title><link href="https://professorkazarinoff.github.io/staticsite/what-is-micropython.html" rel="alternate"></link><published>2018-02-26T09:01:00-08:00</published><updated>2018-02-26T09:01:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-02-26:/staticsite/what-is-micropython.html</id><summary type="html">&lt;p&gt;This is the first part of a multipart series on Micropython. In this post we'll review what Micropython is, what it is used for and how it is both similar and different from "regular" Python. We'll also discuss why Micropython is relevant to undergraduate engineers.&lt;/p&gt;
 &lt;h3&gt;1. What is Micropython?&lt;/h3&gt;
 &lt;p&gt;&lt;a href="http://micropython.org/"&gt;Micropython …&lt;/a&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the first part of a multipart series on Micropython. In this post we'll review what Micropython is, what it is used for and how it is both similar and different from "regular" Python. We'll also discuss why Micropython is relevant to undergraduate engineers.&lt;/p&gt;
 &lt;h3&gt;1. What is Micropython?&lt;/h3&gt;

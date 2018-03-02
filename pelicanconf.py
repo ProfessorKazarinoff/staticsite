@@ -15,10 +15,10 @@ ARTICLE_PATHS = ['posts']
 STATIC_PATHS = ['images','extra','posts/seaborn_bar_plot_files','posts/micropython', 'extra/CNAME', 'code']  # removed this, see if any change 'code',
 PLUGIN_PATHS = ['pelican-plugins']
 EXTRA_PATH_METADATA = {
-    'extra/custom.css': {'path': 'static/css/custom.css'},
+    	'extra/custom.css': {'path': 'static/css/custom.css'},
 	'extra/jupyter.css': {'path': 'static/css/jupyter.css'},
-    'extra/custom.js': {'path': 'static/js/custom.js'},
-    'extra/CNAME': {'path': 'CNAME'},
+    	'extra/custom.js': {'path': 'static/js/custom.js'},
+    	'extra/CNAME': {'path': 'CNAME'},
 }
 #consider above to have extra/custom.js bath go to static/theme/js and see if that works
 
@@ -75,7 +75,7 @@ MARKDOWN = {
         'markdown.extensions.codehilite': {'css_class': 'highlight'},
         'markdown.extensions.extra': {},
         'markdown.extensions.meta': {},
-		'markdown.extensions.tables': {},
+	'markdown.extensions.tables': {},
     },
     'output_format': 'html5',
 }

@@ -19,10 +19,10 @@ What does that even mean? Before I started building this site I needed to make s
 1. An operating system: This website was built on machines running Windows 10, Mac OSX and Linux (Ubuntu 16.04 LTS).
 2. Python: Python 3.6 (legacy Python is version 2.7)
 3. Anaconda: The Anaconda Prompt and the Anaconda Python distribution
-6. Github.com and git: Four different computers were used build the site. Github is the central place where the most up to date version of the site is kept. 
+6. Github.com and git: Four different computers were used build the site. Github is the central place where the most up-to-date version of the site is kept. 
 4. Pelican: A static site generator written in Python. Pelican will build the site from a settings file (pelicanconf.py) and posts written in markdown (.md files)
 5. Markdown: the posts on this website are written in markdown, or .md format
-7. fabric and make: fabric is a python package to automate builds and tasks. Fabric works on Windows. Make is used on MacOSX and Linux to build the site and serve up a demo version of the site.
+7. fabric and make: fabric is a Python package to automate builds and tasks. Fabric works on Windows. Make is used on MacOSX and Linux to build the site and serve up a demo version of the site.
 
 
 
@@ -44,7 +44,7 @@ Download the latest release at:
 
 [https://www.anaconda.com/download](https://www.anaconda.com/download/)
 
-The Anaconda distribution of Python comes with an up to date and stable version of Python (Python 3.6) and the **Anaconda Prompt**. The **Anaconda Prompt** is useful because it allows me to run shell commands on my Windows 10 machine at work. These are the same commands I would run in the terminal on my Mac OSX or Linux boxes. The **Anaconda Prompt** makes creating and logging into virtual environments easy and allows me to use git on Windows 10. Follow this post to [install the Anaconda on Windows 10.]({filename}installing_anaconda_on_windows.md)
+The Anaconda distribution of Python comes with an up-to-date and stable version of Python (Python 3.6) and the **Anaconda Prompt**. The **Anaconda Prompt** is useful because it allows me to run shell commands on my Windows 10 machine at work. These are the same commands I would run in the terminal on my Mac OSX or Linux boxes. The **Anaconda Prompt** makes creating and logging into virtual environments easy and allows me to use git on Windows 10. Follow this post to [install the Anaconda on Windows 10.]({filename}installing_anaconda_on_windows.md)
 
  
 ### Create a new virtual environment
@@ -124,7 +124,7 @@ The local version is in a folder call ```staticsite``` in the ```Documents``` fo
 (staticsite)$ cd staticsite
 ```
 
-We can set up git to keep the contents of the local staticsite folder in sync with the contents of the staticsite repo on github.com. The command ```git init``` will initiate or create the local repository. The command ```git add origin``` followed by the url of our github repo links the folder to the repo on github. Note the web address ends in ```.git```. If you are following along and want to build your own static site, make sure to change ```username``` to your github username and ```reponame``` to your github repo name.
+We can set up git to keep the contents of the local staticsite folder in sync with the contents of the staticsite repo on github.com. The command ```git init``` will initiate or create the local repository. The command ```git remote add origin``` followed by the url of our github repo links local folder to the remote repo on github. Note the web address ends in ```.git```. If you are following along and want to build your own static site, make sure to change ```username``` to your github username and ```reponame``` to your github repo name.
 
 ```
 git init
@@ -153,7 +153,7 @@ Now each time I work on the site, I navigate to the **staticsite** folder on wha
 git pull origin master
 ```
 
-After the _pull_, the staticsite folder is up to date with the newest version of all the files on github. Then I go about editing files, writing posts, changing settings, etc. After the edits, the last thing I do before shutting down the computer for the day is add all the changes to git with ```git add .``` (note there is a space between the ```add``` and the period ```.```). Then commit those changes locally with the line ```git commit -m "commit message"``` (note there are double quotes ```"commit message"``` used around the commit message), and finally push the changes up to github.com with ```git push origin master```. Now the version of the site up on github.com is the same as the version of the site on my local machine.
+After the _pull_, the staticsite folder is up-to-date with the newest version of all the files on github. Then I go about editing files, writing posts, changing settings, etc. After the edits, the last thing I do before shutting down the computer for the day is add all the changes to git with ```git add .``` (note there is a space between the ```add``` and the period ```.```). Then commit those changes locally with the line ```git commit -m "commit message"``` (note there are double quotes ```"commit message"``` used around the commit message), and finally push the changes up to github.com with ```git push origin master```. Now the version of the site up on github.com is the same as the version of the site on my local machine.
 
 ```
 git add .
@@ -164,4 +164,4 @@ git push origin master
 This ensures all of my computers and the github repo contain the same version of the site.
 
 
-In the [next post]({filename}how_I_built_this_site2.md) we will In this post, we will use the ```pelican-quickstart``` command to get the blog off the ground, write our first post and view a demo version of the site.
+In the [next post]({filename}how_I_built_this_site2.md) we will use the ```pelican-quickstart``` command to get the blog off the ground, write our first post and view a demo version of the site.

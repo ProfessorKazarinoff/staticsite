@@ -4,11 +4,11 @@
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;Plotting is an essential skill for engineers. Plots can reveal trends in data and outliers. Plots are a way to visually communicate results with your engineering team, supervisors and customers.  In this post, we are going to plot a couple of trig functions using Python and &lt;strong&gt;matplotlib&lt;/strong&gt;. Matplotlib is a plotting library that can produce line plots, bar graphs, histograms and many other types of plots using Python. Matplotlib is not included in the standard library. If you downloaded Python from &lt;a href="https://python.org"&gt;python.org&lt;/a&gt;, you will need to install &lt;strong&gt;matplotlib&lt;/strong&gt; and &lt;strong&gt;numpy&lt;/strong&gt; with &lt;strong&gt;pip&lt;/strong&gt; on the command line.&lt;/p&gt;
+&lt;p&gt;Plotting is an essential skill for Engineers. Plots can reveal trends in data and outliers. Plots are a way to visually communicate results with your engineering team, supervisors and customers.  In this post, we are going to plot a couple of trig functions using Python and &lt;strong&gt;matplotlib&lt;/strong&gt;. Matplotlib is a plotting library that can produce line plots, bar graphs, histograms and many other types of plots using Python. Matplotlib is not included in the standard library. If you downloaded Python from &lt;a href="https://python.org"&gt;python.org&lt;/a&gt;, you will need to install &lt;strong&gt;matplotlib&lt;/strong&gt; and &lt;strong&gt;numpy&lt;/strong&gt; with &lt;strong&gt;pip&lt;/strong&gt; on the command line.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;&amp;gt; pip install matplotlib
 &amp;gt; pip install numpy&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;a href="https://www.anaconda.com/download/"&gt;&lt;strong&gt;Anaconda&lt;/strong&gt;&lt;/a&gt;, which is the distribution of Python I recommend for undergraduate engineers, includes &lt;strong&gt;matplotlib&lt;/strong&gt; and &lt;strong&gt;numpy&lt;/strong&gt; (plus a bunch of other libraries useful for engineers) right out of the box. If you are using &lt;strong&gt;Anaconda&lt;/strong&gt;, you do not need to install any additional packages to use &lt;strong&gt;matplotlib&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;If you are using the &lt;a href="https://www.anaconda.com/download/"&gt;&lt;strong&gt;Anaconda&lt;/strong&gt;&lt;/a&gt; distribution of Python (which is the distribution of Python I recommend for undergraduate engineers) &lt;strong&gt;matplotlib&lt;/strong&gt; and &lt;strong&gt;numpy&lt;/strong&gt; (plus a bunch of other libraries useful for engineers) are included. If you are using &lt;strong&gt;Anaconda&lt;/strong&gt;, you do not need to install any additional packages to use &lt;strong&gt;matplotlib&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;/div&gt;
 &lt;/div&gt;
@@ -17,8 +17,7 @@
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;In this post, we are going to build a couple of plots which show the trig functions &lt;strong&gt;sin&lt;/strong&gt; and &lt;strong&gt;cos&lt;/strong&gt;. We'll start by importing &lt;strong&gt;matplotlib&lt;/strong&gt; and &lt;strong&gt;numpy&lt;/strong&gt; using the standard lines &lt;code&gt;import matplotlib.pyplot as plt&lt;/code&gt; and &lt;code&gt;import numpy as np&lt;/code&gt;. This means we can use the short alias &lt;code&gt;plt&lt;/code&gt; and &lt;code&gt;np&lt;/code&gt; when we call these two libraries.  You could &lt;code&gt;import numpy as wonderburger&lt;/code&gt; and use &lt;code&gt;wonderburger.sin()&lt;/code&gt; to call the numpy sin function, but this would look funny to other engineers.&lt;/p&gt;
-&lt;p&gt;The line &lt;code&gt;import numpy as np&lt;/code&gt; has become a common convention and looks familiar to other engineers using Python.  In case you are working in a Juypiter notebook, the &lt;code&gt;%matplotlib inline&lt;/code&gt; command is also necessary to view the plots directly in the notebook.&lt;/p&gt;
+&lt;p&gt;In this post, we are going to build a couple of plots which show the trig functions &lt;strong&gt;sine&lt;/strong&gt; and &lt;strong&gt;cosine&lt;/strong&gt;. We'll start by importing &lt;strong&gt;matplotlib&lt;/strong&gt; and &lt;strong&gt;numpy&lt;/strong&gt; using the standard lines &lt;code&gt;import matplotlib.pyplot as plt&lt;/code&gt; and &lt;code&gt;import numpy as np&lt;/code&gt;. This means we can use the short alias &lt;code&gt;plt&lt;/code&gt; and &lt;code&gt;np&lt;/code&gt; when we call these two libraries.  You could &lt;code&gt;import numpy as wonderburger&lt;/code&gt; and use &lt;code&gt;wonderburger.sin()&lt;/code&gt; to call the numpy sine function, but this would look funny to other engineers.  The line &lt;code&gt;import numpy as np&lt;/code&gt; has become a common convention and will look familiar to other engineers using Python.  In case you are working in a Juypiter notebook, the &lt;code&gt;%matplotlib inline&lt;/code&gt; command is also necessary to view the plots directly in the notebook.&lt;/p&gt;
 
 &lt;/div&gt;
 &lt;/div&gt;
@@ -43,7 +42,7 @@
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;Next we will build a set of x values from zero to 4&amp;pi; in increments of 0.1 radians to use in our plot. The x-values are stored in a numpy array. Numpy's &lt;code&gt;arange()&lt;/code&gt; function has three arguments: &lt;em&gt;start&lt;/em&gt;, &lt;em&gt;stop&lt;/em&gt;, &lt;em&gt;step&lt;/em&gt;. We &lt;em&gt;start&lt;/em&gt; at zero, &lt;em&gt;stop&lt;/em&gt; at 4&amp;pi; and &lt;em&gt;step&lt;/em&gt; by 0.1 radians. Then we define a variable &lt;code&gt;y&lt;/code&gt; as the sin of x using numpy's &lt;code&gt;sin()&lt;/code&gt; function.&lt;/p&gt;
+&lt;p&gt;Next we will build a set of x values from zero to 4&amp;pi; in increments of 0.1 radians to use in our plot. The x-values are stored in a numpy array. Numpy's &lt;code&gt;arange()&lt;/code&gt; function has three arguments: &lt;em&gt;start&lt;/em&gt;, &lt;em&gt;stop&lt;/em&gt;, &lt;em&gt;step&lt;/em&gt;. We &lt;em&gt;start&lt;/em&gt; at zero, &lt;em&gt;stop&lt;/em&gt; at 4&amp;pi; and &lt;em&gt;step&lt;/em&gt; by 0.1 radians. Then we define a variable &lt;code&gt;y&lt;/code&gt; as the sine of x using numpy's &lt;code&gt;sin()&lt;/code&gt; function.&lt;/p&gt;
 
 &lt;/div&gt;
 &lt;/div&gt;
@@ -111,7 +110,7 @@
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;Next let's build a plot which shows two trig functions, sin and cos. We will create the same two numpy arrays &lt;code&gt;x&lt;/code&gt; and &lt;code&gt;y&lt;/code&gt; as before, and add a third numpy array &lt;code&gt;z&lt;/code&gt; which is the cos of &lt;code&gt;x&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Next let's build a plot which shows two trig functions, sine and cosine. We will create the same two numpy arrays &lt;code&gt;x&lt;/code&gt; and &lt;code&gt;y&lt;/code&gt; as before, and add a third numpy array &lt;code&gt;z&lt;/code&gt; which is the cosine of &lt;code&gt;x&lt;/code&gt;.&lt;/p&gt;
 
 &lt;/div&gt;
 &lt;/div&gt;
@@ -135,7 +134,7 @@
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;To plot both sin and cos on the same set of axies, we need to include two pair of x,y values in our &lt;code&gt;plt.plot()&lt;/code&gt; arguments. The first pair is &lt;code&gt;x,y&lt;/code&gt;. This corresponds to the sin function. The second pair is &lt;code&gt;x,z&lt;/code&gt;. This correspons to the cos function. If you try and only add three arguments as in &lt;code&gt;plt.plot(x,y,z)&lt;/code&gt;, your plot will not show sin and cos on the same set of axies.&lt;/p&gt;
+&lt;p&gt;To plot both sine and cosine on the same set of axies, we need to include two pair of x,y values in our &lt;code&gt;plt.plot()&lt;/code&gt; arguments. The first pair is &lt;code&gt;x,y&lt;/code&gt;. This corresponds to the sine function. The second pair is &lt;code&gt;x,z&lt;/code&gt;. This correspons to the cosine function. If you try and only add three arguments as in &lt;code&gt;plt.plot(x,y,z)&lt;/code&gt;, your plot will not show sine and cosine on the same set of axes.&lt;/p&gt;
 
 &lt;/div&gt;
 &lt;/div&gt;
@@ -180,7 +179,7 @@
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;Let's build one more plot, a plot which shows the sin and cos of x and also includes axis labels, a title and a legend. We build the numpy arrays using the trig functions as before:&lt;/p&gt;
+&lt;p&gt;Let's build one more plot, a plot which shows the sine and cosine of x and also includes axis labels, a title and a legend. We build the numpy arrays using the trig functions as before:&lt;/p&gt;
 
 &lt;/div&gt;
 &lt;/div&gt;

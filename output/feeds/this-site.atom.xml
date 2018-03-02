@@ -1059,10 +1059,10 @@ git push origin master
 &lt;li&gt;An operating system: This website was built on machines running Windows 10, Mac OSX and Linux (Ubuntu 16.04 LTS).&lt;/li&gt;
 &lt;li&gt;Python: Python 3.6 (legacy Python is version 2.7)&lt;/li&gt;
 &lt;li&gt;Anaconda: The Anaconda Prompt and the Anaconda Python distribution&lt;/li&gt;
-&lt;li&gt;Github.com and git: Four different computers were used build the site. Github is the central place where the most up to date version of the site is kept. &lt;/li&gt;
+&lt;li&gt;Github.com and git: Four different computers were used build the site. Github is the central place where the most up-to-date version of the site is kept. &lt;/li&gt;
 &lt;li&gt;Pelican: A static site generator written in Python. Pelican will build the site from a settings file (pelicanconf.py) and posts written in markdown (.md files)&lt;/li&gt;
 &lt;li&gt;Markdown: the posts on this website are written in markdown, or .md format&lt;/li&gt;
-&lt;li&gt;fabric and make: fabric is a python package to automate builds and tasks. Fabric works on Windows. Make is used on MacOSX and Linux to build the site and serve up a demo version of the site.&lt;/li&gt;
+&lt;li&gt;fabric and make: fabric is a Python package to automate builds and tasks. Fabric works on Windows. Make is used on MacOSX and Linux to build the site and serve up a demo version of the site.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3&gt;Installing Python (the Anaconda distribution)&lt;/h3&gt;
 &lt;p&gt;I highly recommend installing the Anaconda distribution of Python. I have the Anaconda distribution installed on all the computers I used to build this site:&lt;/p&gt;
@@ -1083,7 +1083,7 @@ git push origin master
 &lt;p&gt;An advantage of using the Anaconda distribution of Python is that each of these four computers will have the same stable version of Python. &lt;/p&gt;
 &lt;p&gt;Download the latest release at:&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://www.anaconda.com/download/"&gt;https://www.anaconda.com/download&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;The Anaconda distribution of Python comes with an up to date and stable version of Python (Python 3.6) and the &lt;strong&gt;Anaconda Prompt&lt;/strong&gt;. The &lt;strong&gt;Anaconda Prompt&lt;/strong&gt; is useful because it allows me to run shell commands on my Windows 10 machine at work. These are the same commands I would run in the terminal on my Mac OSX or Linux boxes. The &lt;strong&gt;Anaconda Prompt&lt;/strong&gt; makes creating and logging into virtual environments easy and allows me to use git on Windows 10. Follow this post to &lt;a href="https://professorkazarinoff.github.io/staticsite/installing-anaconda-on-windows.html"&gt;install the Anaconda on Windows 10.&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The Anaconda distribution of Python comes with an up-to-date and stable version of Python (Python 3.6) and the &lt;strong&gt;Anaconda Prompt&lt;/strong&gt;. The &lt;strong&gt;Anaconda Prompt&lt;/strong&gt; is useful because it allows me to run shell commands on my Windows 10 machine at work. These are the same commands I would run in the terminal on my Mac OSX or Linux boxes. The &lt;strong&gt;Anaconda Prompt&lt;/strong&gt; makes creating and logging into virtual environments easy and allows me to use git on Windows 10. Follow this post to &lt;a href="https://professorkazarinoff.github.io/staticsite/installing-anaconda-on-windows.html"&gt;install the Anaconda on Windows 10.&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;Create a new virtual environment&lt;/h3&gt;
 &lt;p&gt;Before downloading Pelican, we should create a new virtual environment. The same virtual environment on each of the computers I use means the same packages are installed on each computer. To create a new virtual environment, open up the Anaconda Prompt (on Windows) or a terminal (on Linux or Mac OSX). Let's call our new virtual environment &lt;strong&gt;&lt;em&gt;staticsite&lt;/em&gt;&lt;/strong&gt;. The &lt;code&gt;conda create&lt;/code&gt; command creates the environment and the &lt;code&gt;-n staticsite&lt;/code&gt; flag adds the name.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ conda create -n staticsite
@@ -1139,7 +1139,7 @@ git push origin master
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;We can set up git to keep the contents of the local staticsite folder in sync with the contents of the staticsite repo on github.com. The command &lt;code&gt;git init&lt;/code&gt; will initiate or create the local repository. The command &lt;code&gt;git add origin&lt;/code&gt; followed by the url of our github repo links the folder to the repo on github. Note the web address ends in &lt;code&gt;.git&lt;/code&gt;. If you are following along and want to build your own static site, make sure to change &lt;code&gt;username&lt;/code&gt; to your github username and &lt;code&gt;reponame&lt;/code&gt; to your github repo name.&lt;/p&gt;
+&lt;p&gt;We can set up git to keep the contents of the local staticsite folder in sync with the contents of the staticsite repo on github.com. The command &lt;code&gt;git init&lt;/code&gt; will initiate or create the local repository. The command &lt;code&gt;git remote add origin&lt;/code&gt; followed by the url of our github repo links local folder to the remote repo on github. Note the web address ends in &lt;code&gt;.git&lt;/code&gt;. If you are following along and want to build your own static site, make sure to change &lt;code&gt;username&lt;/code&gt; to your github username and &lt;code&gt;reponame&lt;/code&gt; to your github repo name.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git init
 git remote add origin https://github.com/username/reponame.git
 &lt;/pre&gt;&lt;/div&gt;
@@ -1163,10 +1163,12 @@ git remote add origin https://github.com/username/reponame.git
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;The after the &lt;em&gt;pull&lt;/em&gt; the staticsite folder is up to date with the newest version of all the files on github. Then I go about editing files, writing posts, changing settings, etc. After the edits, the last thing I type before shutting down the computer for the day is:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git push origin master
+&lt;p&gt;After the &lt;em&gt;pull&lt;/em&gt;, the staticsite folder is up-to-date with the newest version of all the files on github. Then I go about editing files, writing posts, changing settings, etc. After the edits, the last thing I do before shutting down the computer for the day is add all the changes to git with &lt;code&gt;git add .&lt;/code&gt; (note there is a space between the &lt;code&gt;add&lt;/code&gt; and the period &lt;code&gt;.&lt;/code&gt;). Then commit those changes locally with the line &lt;code&gt;git commit -m "commit message"&lt;/code&gt; (note there are double quotes &lt;code&gt;"commit message"&lt;/code&gt; used around the commit message), and finally push the changes up to github.com with &lt;code&gt;git push origin master&lt;/code&gt;. Now the version of the site up on github.com is the same as the version of the site on my local machine.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git add .
+git commit -m &amp;quot;commit message&amp;quot;
+git push origin master
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;This ensures all of my computers and the github repo contain the same version of the site.&lt;/p&gt;
-&lt;p&gt;In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-2.html"&gt;next post&lt;/a&gt; we will In this post, we will use the &lt;code&gt;pelican-quickstart&lt;/code&gt; command to get the blog off the ground, write our first post and view a demo version of the site.&lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="staticsite"></category></entry></feed>
+&lt;p&gt;In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-2.html"&gt;next post&lt;/a&gt; we will use the &lt;code&gt;pelican-quickstart&lt;/code&gt; command to get the blog off the ground, write our first post and view a demo version of the site.&lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="staticsite"></category></entry></feed>

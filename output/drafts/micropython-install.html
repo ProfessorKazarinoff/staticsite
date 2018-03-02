@@ -276,7 +276,7 @@ Python for Undergraduate Engineers            </a>
     </span>
 
             <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x0000029459A058F0> of 
+            Part <built-in method index of str object at 0x7f73295760b0> of 
 
 
 
@@ -307,7 +307,7 @@ Python for Undergraduate Engineers            </a>
 <li>Build custom firmware to turn the $3 ESP-01 into an low-cost WiFi enabled IoT switch.</li>
 </ol>
 <p>To install micropython on a microcontroller, like the Adafruit Feather Huzzah ESP8266, we need the following hardware:</p>
-<table>
+<table class="table table-striped table-bordered table-hover">
 <thead>
 <tr>
 <th>Hardware</th>
@@ -330,7 +330,7 @@ Python for Undergraduate Engineers            </a>
 </tbody>
 </table>
 <p>To install micropython we will use the following software and tools:</p>
-<table>
+<table class="table table-striped table-bordered table-hover">
 <thead>
 <tr>
 <th>Software</th>
@@ -360,7 +360,7 @@ Python for Undergraduate Engineers            </a>
 </tr>
 </tbody>
 </table>
-<p>Summary of Steps:</p>
+<h3>Summary of Steps:</h3>
 <ol>
 <li>Install the Anaconda distribution of Python</li>
 <li>Create a new conda environment and pip install esptool</li>
@@ -373,9 +373,9 @@ Python for Undergraduate Engineers            </a>
 <li>Use Putty to connect to the Feather Huzzah and run commands in the Micropython REPL</li>
 </ol>
 <h3>1. Install the Anaconda distribution of Python</h3>
-<p>If you don't have Anaconda already installed, go to Anaconda.com/Downloads and install the latest version. The Anaconda distribution of Python is the Python distribution I recommend for undergraduate engineers. You want to download and install the Python 3.6 Version (2.7 is legacy Python). Most laptops and desktops run a 64-bit version of Windows 10. If in doubt, you can check your Windows installation, or just go with the 64-bit version. </p>
+<p>If you don't have Anaconda already installed, go to <a href="https://www.anaconda.com/download/">Anaconda.com/download</a> and install the latest version. The Anaconda distribution of Python is the Python distribution I recommend for undergraduate engineers. You want to download and install the Python 3.6 Version (Python 2.7 Version is legacy Python). Most laptops and desktops run a 64-bit version of Windows 10. If in doubt, you can check your Windows installation, or just go with the 64-bit version. </p>
 <h3>2. Create a new conda environment and install esptool.py</h3>
-<p>It's best practice when using Python to work in virtual environments. We'll create a new virtual environment with conda to use with our Micropython progjects. Open the Anaconda prompt and create a new virtual environment named <code>micropython</code>. Activate the environment with the <code>conda activate</code> command. After activating the virtual environment you should see <code>(micropython)</code> before the Anaconda Prompt.  Once inside the virtual environment, use <code>pip</code> to install <code>esptool</code>. The <code>esptool</code> will be used to upload the Micropython .bin firmware file onto the Adafruit Feather Huzzah board. Confirm that <code>esptool</code> is installed in the <code>(micropython)</code> virtual environment with <code>conda list</code>.</p>
+<p>It's best practice when using Python to work in virtual environments. We'll create a new virtual environment with conda to use with our Micropython projects. Open the Anaconda prompt and create a new virtual environment named <code>micropython</code>. Activate the environment with the <code>conda activate</code> command. After activating the virtual environment you should see <code>(micropython)</code> before the Anaconda Prompt.  Once inside the virtual environment, use <code>pip</code> to install <code>esptool</code>. The <code>esptool</code> will be used to upload the Micropython .bin firmware file onto the Adafruit Feather Huzzah board. Confirm that <code>esptool</code> is installed in the <code>(micropython)</code> virtual environment with <code>conda list</code>.</p>
 <div class="highlight"><pre><span></span>conda create -n micropython python=3.6
 conda activate micropython
 (micropython) cd Documents
@@ -461,7 +461,7 @@ Micropython for Engineers
     </ul>
 </section>
 <section class="well" id="related-posts">
-    <h4>Article <built-in method index of str object at 0x0000029459A058F0> of the  series</h4>
+    <h4>Article <built-in method index of str object at 0x7f73295760b0> of the  series</h4>
 </section>
         </article>
     </section>

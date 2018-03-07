@@ -79,7 +79,15 @@ If we import the ```sys``` module, we can see the Micropython implementation and
 
 ![REPL prompt]({filename}/posts/micropython/sys_dot_implementation_and_platform.PNG)
 
-If you see similar output, that means Micropython is working on the Feather Huzzah.
+If you see similar output, that means Micropython is working on the Feather Huzzah. We can also view the flash memory size of our Feather Huzzah and the size of the Micropyton firmware we installed. Try this at the Micropython prompt:
+
+```
+>>> import port_diag
+```
+
+![REPL prompt]({filename}/posts/micropython/import_port_diag.PNG)
+
+We can see the flash memory size is 4 MB. Below the label ```Firmware checksum:``` we can see a line for ```size: 600872```. This means our Micropythpon installation is 600 KB or 0.6 MB. Just a little over half a megabyte and we are running a working version of Python!
 
 Now let's turn the Feather Huzzah's built-in LED on and off. The Feather Huzzah has a built-in red LED connected to Pin 0. We can access this LED with Micropython's ```machine``` module. First we use the ```machine``` module to create a ```Pin``` object. The first argument when we instantiate the ```Pin``` object is the pin number on the board (in this case ```0```). Pin zero on the Feather Huzzah is connected to the built-in red LED. The second argument is the pin type. We want Pin 0 to act as an ouput pin (```machine.Pin.OUT```). We are going to assign our ```pin``` the attribute ```.on()``` or ```.off()```. This will cause the Feather board to output a positive voltage or no voltage to Pin 0 to turn the built-in red LED on and off. You can also connect Pin 0 to an LED through a resistor (then to ground) and have this LED turn on and off.
 
@@ -97,7 +105,7 @@ Note that Pin 0 on the Adafruit Feather Huzzah is kind of wired "backwards". We 
 >>> pin.off()
 ```
 
-Now let's see if we can make the LED blink. We'll do this with a simple ```for``` loop. At the micropython REPL, initiating a loop will automatically indent the next line, so a tab is not needed before the ```print``` statement. To run the loop, we type backspace on an empty line (to backspace from an indented line) and hit return.
+Now let's see if we can make the LED blink. We'll do this with a simple ```for``` loop. At the micropython REPL, initiating a loop will automatically indent the next line, so a tab is not needed before the ```pin.on()``` statement. To run the loop, we type backspace on an empty line (to backspace from an indented line) and hit return.
 
 ```
 >>> import time

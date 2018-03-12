@@ -9,7 +9,7 @@ Authors: Peter D. Kazarinoff
 Series: micropython
 series_index: 3
 
-This is the third part of a multipart series on Micropython. In [last post of the series]({filename}micropython_install.md), we installed micropython on an Adafruit Feather Huzzah ESP8266 microcontroller using Python and a package called esptool. In this post, we are going to write commands to the Python REPL (the Micropython prompt) running to turn on and off an LED connected to the Feather Huzzah booard. The posts in this series:
+This is the third part of a multipart series on Micropython. In [last post of the series]({filename}micropython_install.md), we installed Micropython on an Adafruit Feather Huzzah ESP8266 microcontroller using Python and a package called **esptool**. In this post, we are going to write commands to the Micropython REPL (the Micropython prompt) to turn on and off an LED connected to the Feather Huzzah board. The posts in this series:
 
 1. [What is Micropython?]({filename}what_is_micropython.md)
 2. [Installing Micropython on an Adafruit Feather Huzzah ESP8266]({filename}micropython_install.md)
@@ -21,7 +21,7 @@ This is the third part of a multipart series on Micropython. In [last post of th
 8. Upload MicroPython to a cheap $3 ESP-01 module
 9. Build custom firmware to turn the $3 ESP-01 into an low-cost WiFi enabled IoT switch.
 
-Before you can use the Micropython REPL (the Microython prompt) running on the Adafruit Feather Huzzah ESP8266, Micropython needs to be installed on the board and Putty needs to be installed to communicate with the board over serial. See the [previous post]({filename}micropython_install.md) on how to install Micropython on the board and install Putty on a Windows 10 machine.
+Before you can use the Micropython REPL (the Microython prompt) running on the Adafruit Feather Huzzah ESP8266, Micropython needs to be installed on the board and Putty needs to be installed to communicate with the board over serial. See the [previous post]({filename}micropython_install.md) on how to install Micropython on the board and install [Putty](https://www.putty.org/) on a Windows 10 machine.
 
 Summary of Steps:
 
@@ -33,7 +33,7 @@ Summary of Steps:
 
 ### 1. Connect the Adafruit Feather Huzzah ESP8266 board to the laptop
 
-Use a microUSB cable to connect the Feather Huzzah to the computer. Make sure that the microUSB cable is a full USB data cable and not just a simple power cable. The first cable I tried was just for charging mobile phones and I couldn't figure out why Putty wasn't working. Switching out the cable was all it took to get it to work. 
+Use a microUSB cable to connect the Feather Huzzah to the computer. Make sure that the microUSB cable is a full USB data cable and not just a simple power cable. The first cable I tried was just a charging mobile phones and I couldn't figure out why Putty wasn't working. Switching out the cable was all it took to get it to work. 
 
 
 ### 2. Determine which serial port the Feather Huzzah is connected to
@@ -47,7 +47,7 @@ Use Windows Device Manager to determine which serial port the Feather Huzzah is 
 
 ### 3. Use Putty to connect to the Feather Huzzah
 
-Ensure the Feather is connected with a USB cable, and connect to it with Putty using the proper serial port (COM#) and 115200 baud. Remember to use the **Serial** radio button under **Connection Type:** to select serial communication or you will be trying to communicate with the Feather Huzzah over SSH which won't work. 
+Ensure the Feather Huzzah board is connected with a USB cable, then connect to it with Putty using the proper serial port (COM#) and 115200 baud. Remember to use the **Serial** radio button under **Connection Type:** to select serial communication or you will be trying to communicate with the Feather Huzzah over SSH which won't work. 
 
 ![Putty in start menu]({filename}/posts/micropython/putty_in_start_menu.png)
 
@@ -67,7 +67,7 @@ At the micropython REPL (the Micropython command promt ```>>>```) try the follow
 Micropython for Engineers
 ```
 
-If we import the ```sys``` module, we can see the Micropython implementation and platorm. 
+If we import the ```sys``` module, we can see the Micropython implementation and platform. 
 
 ```
 >>> import sys
@@ -87,7 +87,7 @@ If you see similar output, that means Micropython is working on the Feather Huzz
 
 ![REPL prompt]({filename}/posts/micropython/import_port_diag.PNG)
 
-We can see the flash memory size is 4 MB. Below the label ```Firmware checksum:``` we can see a line for ```size: 600872```. This means our Micropythpon installation is 600 KB or 0.6 MB. Just a little over half a megabyte and we are running a working version of Python!
+We can see the flash memory size is 4 MB. Below the label ```Firmware checksum:``` we can see a line for ```size: 600872```. This means the size of our Micropythpon installation is about 600 KB or 0.6 MB. Just a little over half a megabyte and we are running a working version of Python!
 
 Now let's turn the Feather Huzzah's built-in LED on and off. The Feather Huzzah has a built-in red LED connected to Pin 0. We can access this LED with Micropython's ```machine``` module. First we use the ```machine``` module to create a ```Pin``` object. The first argument when we instantiate the ```Pin``` object is the pin number on the board (in this case ```0```). Pin zero on the Feather Huzzah is connected to the built-in red LED. The second argument is the pin type. We want Pin 0 to act as an ouput pin (```machine.Pin.OUT```). We are going to assign our ```pin``` the attribute ```.on()``` or ```.off()```. This will cause the Feather board to output a positive voltage or no voltage to Pin 0 to turn the built-in red LED on and off. You can also connect Pin 0 to an LED through a resistor (then to ground) and have this LED turn on and off.
 

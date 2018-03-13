@@ -1,7 +1,7 @@
 Title: Using the Micropython RERL on an Adadfruit Feather Huzzah ESP8266
-Date: 2018-03-05 09:01
-Modified: 2018-03-05 09:01
-Status: Draft
+Date: 2018-03-12 09:01
+Modified: 2018-03-12 09:01
+Status: published
 Category: micropython
 Tags: python, micropython, esp8266, REPL
 Slug: micropython-REPL
@@ -87,7 +87,7 @@ If you see similar output, that means Micropython is working on the Feather Huzz
 
 ![REPL prompt]({filename}/posts/micropython/import_port_diag.PNG)
 
-We can see the flash memory size is 4 MB. Below the label ```Firmware checksum:``` we can see a line for ```size: 600872```. This means the size of our Micropythpon installation is about 600 KB or 0.6 MB. Just a little over half a megabyte and we are running a working version of Python!
+We can see the flash memory size is 4 MB. Below the label ```Firmware checksum:``` we can see a line for ```size: 600872```. This means the size of our Micropythpon installation is about 600 KB or 0.6 MB. Just over half a megabyte and we are running a working version of Python!
 
 Now let's turn the Feather Huzzah's built-in LED on and off. The Feather Huzzah has a built-in red LED connected to Pin 0. We can access this LED with Micropython's ```machine``` module. First we use the ```machine``` module to create a ```Pin``` object. The first argument when we instantiate the ```Pin``` object is the pin number on the board (in this case ```0```). Pin zero on the Feather Huzzah is connected to the built-in red LED. The second argument is the pin type. We want Pin 0 to act as an ouput pin (```machine.Pin.OUT```). We are going to assign our ```pin``` the attribute ```.on()``` or ```.off()```. This will cause the Feather board to output a positive voltage or no voltage to Pin 0 to turn the built-in red LED on and off. You can also connect Pin 0 to an LED through a resistor (then to ground) and have this LED turn on and off.
 

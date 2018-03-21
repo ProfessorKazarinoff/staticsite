@@ -70,4 +70,4 @@ In the Putty Serial Window, we will import the ```machine``` module and then cre
 ```
 
 ## Next steps:
-Connect the Adafruit Feather Huzzah to WiFi and upload the temperature data to ThingSpeak.com.
+In the next post we will use Micropython to connect the Adafruit Feather Huzzah to a WiFi network.

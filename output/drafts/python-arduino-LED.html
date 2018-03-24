@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>Python Virtual Environments in OS X, Linux and Windows 10 - Python for Undergraduate Engineers</title>
+    <title>Using Python to control an Arduino LED - Python for Undergraduate Engineers</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -172,51 +172,46 @@ init_mathjax = function() {
 }
 init_mathjax();
 </script>
-    <link href="./extra/favicon.ico" rel="icon">
+    <link href="../extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="./virtualenv-in-osx-linux-windows.html">
+<link rel="canonical" href="../drafts/python-arduino-LED.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
-        <meta name="keywords" content="python,Windows 10,virtualenv,OSX,Linux,Ubuntu,pip,conda,anaconda,anaconda prompt" />
-        <meta name="description" content="In this post, I&#39;ll review creating virtual environments on three different operating systems: Windows 10, Linux and Mac OSX. Using virtual environments is good programming practice when using Python. A virtual environment will separate the Python interpreter and installed modules from the main Python installation." />
+        <meta name="keywords" content="python,arduino,serial,hardware,anaconda prompt" />
+        <meta name="description" content="Python is used in many applications including data science, machine learning and web development. Another area where we can use Python is external hardware control. What do I mean by external hardware? A piece of external hardware could be a light or a sensor. External hardware includes multimeters or spectral …" />
 
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
-        <meta property="og:title" content="Python Virtual Environments in OS X, Linux and Windows 10"/>
-        <meta property="og:url" content="./virtualenv-in-osx-linux-windows.html"/>
-        <meta property="og:description" content="In this post, I&#39;ll review creating virtual environments on three different operating systems: Windows 10, Linux and Mac OSX. Using virtual environments is good programming practice when using Python. A virtual environment will separate the Python interpreter and installed modules from the main Python installation."/>
-        <meta property="article:published_time" content="2017-12-22" />
-            <meta property="article:section" content="Orientation" />
+        <meta property="og:title" content="Using Python to control an Arduino LED"/>
+        <meta property="og:url" content="../drafts/python-arduino-LED.html"/>
+        <meta property="og:description" content="Python is used in many applications including data science, machine learning and web development. Another area where we can use Python is external hardware control. What do I mean by external hardware? A piece of external hardware could be a light or a sensor. External hardware includes multimeters or spectral …"/>
+        <meta property="article:published_time" content="2018-03-13" />
+            <meta property="article:section" content="python and arduino" />
             <meta property="article:tag" content="python" />
-            <meta property="article:tag" content="Windows 10" />
-            <meta property="article:tag" content="virtualenv" />
-            <meta property="article:tag" content="OSX" />
-            <meta property="article:tag" content="Linux" />
-            <meta property="article:tag" content="Ubuntu" />
-            <meta property="article:tag" content="pip" />
-            <meta property="article:tag" content="conda" />
-            <meta property="article:tag" content="anaconda" />
+            <meta property="article:tag" content="arduino" />
+            <meta property="article:tag" content="serial" />
+            <meta property="article:tag" content="hardware" />
             <meta property="article:tag" content="anaconda prompt" />
             <meta property="article:author" content="Peter D. Kazarinoff" />
 
 
 
     <!-- Bootstrap -->
-        <link rel="stylesheet" href="./theme/css/bootstrap.flatly.min.css" type="text/css"/>
-    <link href="./theme/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="../theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="../theme/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="./theme/css/pygments/native.css" rel="stylesheet">
-    <link href="./theme/tipuesearch/tipuesearch.css" rel="stylesheet">
-    <link rel="stylesheet" href="./theme/css/style.css" type="text/css"/>
-        <link href="./static/css/custom.css" rel="stylesheet">
+    <link href="../theme/css/pygments/native.css" rel="stylesheet">
+    <link href="../theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="../theme/css/style.css" type="text/css"/>
+        <link href="../static/css/custom.css" rel="stylesheet">
 
-        <link href="./feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+        <link href="../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
               title="Python for Undergraduate Engineers ATOM Feed"/>
 
 
 
-        <link href="./feeds/orientation.atom.xml" type="application/atom+xml" rel="alternate"
-              title="Python for Undergraduate Engineers Orientation ATOM Feed"/>
+        <link href="../feeds/python-and-arduino.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Python for Undergraduate Engineers python and arduino ATOM Feed"/>
 
 </head>
 <body>
@@ -230,15 +225,15 @@ init_mathjax();
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="./" class="navbar-brand">
+            <a href="../" class="navbar-brand">
 Python for Undergraduate Engineers            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                         <li><a href="./pages/about.html">
+                         <li><a href="../pages/about.html">
                              About
                           </a></li>
-                         <li><a href="./pages/book.html">
+                         <li><a href="../pages/book.html">
                              Book
                           </a></li>
             </ul>
@@ -248,7 +243,7 @@ Python for Undergraduate Engineers            </a>
                   <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
                 </form></span>
               </li>
-              <li><a href="./archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+              <li><a href="../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -260,18 +255,18 @@ Python for Undergraduate Engineers            </a>
     <div class="row">
         <div class="col-sm-9">
             <ol class="breadcrumb">
-                <li><a href="." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="./category/orientation.html" title="Orientation">Orientation</a></li>
-                <li class="active">Python Virtual Environments in OS X, Linux and Windows 10</li>
+                <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="../category/python-and-arduino.html" title="python and arduino">python and arduino</a></li>
+                <li class="active">Using Python to control an Arduino LED</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="./virtualenv-in-osx-linux-windows.html"
+                    <a href="../drafts/python-arduino-LED.html"
                        rel="bookmark"
-                       title="Permalink to Python Virtual Environments in OS X, Linux and Windows 10">
-                        Python Virtual Environments in OS X, Linux and Windows 10
+                       title="Permalink to Using Python to control an Arduino LED">
+                        Using Python to control an Arduino LED
                     </a>
                 </h1>
             </header>
@@ -281,7 +276,7 @@ Python for Undergraduate Engineers            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2017-12-22T14:36:00-08:00"> Fri 22 December 2017</time>
+        <i class="fa fa-calendar"></i><time datetime="2018-03-13T20:20:00-07:00"> Tue 13 March 2018</time>
     </span>
 
 
@@ -289,118 +284,50 @@ Python for Undergraduate Engineers            </a>
 
 
 <span class="label label-default">Tags</span>
-	<a href="./tag/python.html">python</a>
+	<a href="../tag/python.html">python</a>
         /
-	<a href="./tag/windows-10.html">Windows 10</a>
+	<a href="../tag/arduino.html">arduino</a>
         /
-	<a href="./tag/virtualenv.html">virtualenv</a>
+	<a href="../tag/serial.html">serial</a>
         /
-	<a href="./tag/osx.html">OSX</a>
+	<a href="../tag/hardware.html">hardware</a>
         /
-	<a href="./tag/linux.html">Linux</a>
-        /
-	<a href="./tag/ubuntu.html">Ubuntu</a>
-        /
-	<a href="./tag/pip.html">pip</a>
-        /
-	<a href="./tag/conda.html">conda</a>
-        /
-	<a href="./tag/anaconda.html">anaconda</a>
-        /
-	<a href="./tag/anaconda-prompt.html">anaconda prompt</a>
+	<a href="../tag/anaconda-prompt.html">anaconda prompt</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>In this post, I'll review creating virtual environments on three different operating systems: Windows 10, Linux and Mac OSX. Using virtual environments is good programming practice when using Python. A virtual environment will separate the Python interpreter and installed modules from the main Python installation.</p>
-<p>I use three different operating systems on three different computers:</p>
-<ul>
-<li>Work: Windows 10 (no admin access)</li>
-<li>Home Office: Ubuntu 16.04 LTS</li>
-<li>Laptop: Mac OSX</li>
-</ul>
-<p>Setting up a Python virtual environment is different on each one of these operating systems. Let's see at what happens when we try and create a new virtual environment in each.</p>
-<h3>Ubuntu 16.04</h3>
-<p>Linux should be the easiest to get a new virtualenv up and running. In Ubuntu 16.04, I have a terminal and admin access (can use sudo). But look what happens when I try to set up a new virtualenv without any flags or customization:</p>
-<div class="highlight"><pre><span></span>$ mkvirtualenv webscrape
-$ <span class="nb">source</span> activate webscrape
-<span class="o">(</span>webscrape<span class="o">)</span>$ which python
-$ <span class="m">2</span>.7.1 
+                <p>Python is used in many applications including data science, machine learning and web development. Another area where we can use Python is external hardware control. What do I mean by external hardware? A piece of external hardware could be a light or a sensor. External hardware includes multimeters or spectral analyzers. I consider anything connected to a computer that isn't typically connected to a computer as external hardware. So not a keyboard, mouse, headphones, webcams, USB drives, but things like motors, light arrays, solenoids, linear actuators, pressure sensors etc.  In this post we review over how to use Python to control an LED that is conneted to an Arduino. Python running on our computer will turn the Arduino LED on and off.</p>
+<p>To start a new Python project, it is best practice to create a new virtual environment. I have the <strong>Anaconda</strong> distribution of Python installed on my Windows 10 machine. When you <a href="{filename}installing_anaconda_on_windows.md">install <strong>Anaconda</strong></a>, it comes with the very useful <strong>Anaconda Prompt</strong>. Using the <strong>Anaconda Prompt</strong> is a bit like using the terminal on a Mac OSX or Linux. To start the <strong>Anaconda Prompt</strong> on Windows 10, go to the Windows start button on the lower left and select <strong>Anaconda Prompt</strong>.</p>
+<p><img alt="anaconda in start menu" src="images/anaconda_from_start_menu.png"></p>
+<p>Let's create a new virtual environment for our Arduino LED project using the Anaconda Prompt:</p>
+<div class="highlight"><pre><span></span>conda create --name arduino python=3.6
 </pre></div>
 
 
-<p>The default installation is legacy Python!? I don't want the legacy 2.7 version, I want at least Python 3.2 and would prefer Python 3.6. Let's delete that legacy Python environment. Make sure the virtual environment is <code>deactivate</code>d first.</p>
-<div class="highlight"><pre><span></span><span class="o">(</span>webscrape<span class="o">)</span>$ <span class="nb">source</span> deactivate
-$ rmvirtualenv webscrape
+<p>The <code>conda create</code> command builds the new virtual environment. The <code>--name arduino</code> flag gives our new virtual environment the name <code>arduino</code>.  I like to name my virtual environments the same name as the project that I will use that environment for, or after the name of the package that will be used the most.  Including <code>python=3.6</code> ensures that your virtual environment has an up to date version of python.</p>
+<p>Type <code>y</code> to confirm that you want to create the new virtual environment. To use the new virtual environment <code>arduino</code> you need to <em>activate</em> it by typing:</p>
+<div class="highlight"><pre><span></span>conda activate arduino
 </pre></div>
 
 
-<p>Let's try to specify Python 3 with the <code>-p python3</code> flag</p>
-<div class="highlight"><pre><span></span>$ mkvirtualenv -p python3 webscrape
-$ error
+<p>You know you are in the <code>arduino</code> virtual environment when <code>(arduino)</code> is in parenthesis at the start of the prompt:</p>
+<div class="highlight"><pre><span></span>(arduino) &gt;
 </pre></div>
 
 
-<p>Now what? Path is too long? How is that possible? What happens when we see which Python version is the default python3?</p>
-<div class="highlight"><pre><span></span>$ which python3
-$ bin/usr/anaconda/python3
+<p>To communicate with the Arudino using Python we need to install the <strong>pyserial</strong> package. We can do this at the <strong>Anaconda Prompt</strong> using the <code>conda install</code> command.</p>
+<div class="highlight"><pre><span></span>(arduino) &gt; conda install pyserial
 </pre></div>
-
-
-<p>So that's the flag we need to use when the <code>viruatlenv</code> is created. The <code>--python='which python3'</code> flag will point <strong>virtualenvwrapper</strong> to the correct Python version. The new virtualenv is initiated with the full file path to our new environment <code>~/.virtualenvs/webscrape</code></p>
-<div class="highlight"><pre><span></span>$ mkvirtualenv --python<span class="o">=</span><span class="s1">&#39;which python3&#39;</span> ~/.virtualenvs/webscrape
-<span class="o">(</span>webscrape<span class="o">)</span>$ python
-Python <span class="m">3</span>.6.2
-</pre></div>
-
-
-<p>Nice. Now we can <code>pip install</code> away. So what about creating a new virtual environment on a MacBook Air with OSX?</p>
-<h3>Mac OSX</h3>
-<p>Mac OSX has a terminal too. I get to it by going to the finder and clicking the search in the upper right or using [command] + [space] to bring up the spotlight search bar. Type <code>terminal</code> into the search bar. Setting up a virtualenv should be pretty easy right?</p>
-<div class="highlight"><pre><span></span>$ mkvirtualenv webscrape
-$ <span class="nb">source</span> activate webscrape
-<span class="o">(</span>webscrape<span class="o">)</span>$ which python
-python <span class="m">2</span>.7
-</pre></div>
-
-
-<p>Again!? More legacy Python?! Stop it already with the legacy Python. We want Python! Preferably 3.6. Gotta make sure that Python 3 is installed some where. <code>rmvirtualenv</code> that thing.</p>
-<div class="highlight"><pre><span></span><span class="o">(</span>webscrape<span class="o">)</span>$ <span class="nb">source</span> deactivate
-$ rmvirtualenv webscrape
-$ which python3
-$ usr/bin/python
-$ virtualenv -p python3 webscrape
-$ <span class="nb">source</span> activate webscrape
-<span class="o">(</span>webscrape<span class="o">)</span>$ python
-python <span class="m">3</span>.6.2
-</pre></div>
-
-
-<p>OK. Two down and one to go. Is this any easier on Windows 10? Especially with no admin access? Can't be right? Let's see.</p>
-<h3>Windows 10 (no admin access)</h3>
-<p>I have a Windows 10 machine at work with no admin access. I can't install any programs on my work computer that use the Windows active directory (which is most programs). The Python distribution that has worked out the best has been <strong>Anaconda</strong>. Besides coming with Python 3, and having a bunch of packages already installed, it also comes with a command line client call the <strong>Anaconda Prompt</strong>. The <strong>Anaconda Prompt</strong> operates a little like the terminal on Linux and Mac OSX, but some of the commands are a little different. To make a new virtual environment from the <strong>Anaconda Prompt</strong> type:</p>
-<div class="highlight"><pre><span></span>$ conda create -n webscrape <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.6
-$ proceed <span class="o">([</span>y<span class="o">]</span>/n<span class="o">)</span>?
-$ conda activate webscrape
-<span class="o">(</span>webscrape<span class="o">)</span>$ python --version
-python <span class="m">3</span>.6.3 :: Anaconda, Inc.
-</pre></div>
-
-
-<p>Rockin' right? Turns out that the Windows 10 virtual environment was one of the easiest to set up. Who would have guessed that? That's one piece of magic from the <strong>Anaconda</strong> distribution. If you are using Windows, I think <strong>Anaconda</strong> is the way to go.</p>
-<p></br>
-</br></p>
-<p>End Note:</p>
-<p>Maybe it's best to use <strong>conda</strong> on both OSX and Linux too...  You don't have to mess around with <strong><em>~/.bash_profile</em></strong> or pointing virtualenv wrapper to the proper directory.</p>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">
     <h4>Related Posts:</h4>
     <ul>
-        <li><a href="./new-virtual-environment-with-conda.html">Create a new virtual environment with Conda</a></li>
-        <li><a href="./installing-anaconda-on-windows.html">Installing Anaconda on Windows</a></li>
-        <li><a href="./micropython-REPL.html">Using the Micropython REPL on an Adadfruit Feather Huzzah ESP8266</a></li>
-        <li><a href="./micropython-install.html">Installing Micropython on an Adadfruit Feather Huzzah ESP8266</a></li>
-        <li><a href="./what-is-micropython.html">What is Micropython?</a></li>
+        <li><a href="../virtualenv-in-osx-linux-windows.html">Python Virtual Environments in OS X, Linux and Windows 10</a></li>
+        <li><a href="../new-virtual-environment-with-conda.html">Create a new virtual environment with Conda</a></li>
+        <li><a href="../micropython-REPL.html">Using the Micropython REPL on an Adadfruit Feather Huzzah ESP8266</a></li>
+        <li><a href="../micropython-install.html">Installing Micropython on an Adadfruit Feather Huzzah ESP8266</a></li>
+        <li><a href="../what-is-micropython.html">What is Micropython?</a></li>
     </ul>
 </section>
         </article>
@@ -411,7 +338,7 @@ python <span class="m">3</span>.6.3 :: Anaconda, Inc.
             <aside>
 <div id="aboutme">
         <p>
-            <img width="100%" class="img-thumbnail" src="./extra/gear-wrench-icon-512-278694.png"/>
+            <img width="100%" class="img-thumbnail" src="../extra/gear-wrench-icon-512-278694.png"/>
         </p>
     <p>
       <strong>About Peter Kazarinoff</strong><br/>
@@ -425,46 +352,46 @@ python <span class="m">3</span>.6.3 :: Anaconda, Inc.
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
-    <li class="list-group-item"><a href="./micropython-REPL.html">Using the Micropython REPL on an Adadfruit Feather Huzzah ESP8266</a></li>
-    <li class="list-group-item"><a href="./micropython-install.html">Installing Micropython on an Adadfruit Feather Huzzah ESP8266</a></li>
-    <li class="list-group-item"><a href="./what-is-micropython.html">What is Micropython?</a></li>
+    <li class="list-group-item"><a href="../micropython-REPL.html">Using the Micropython REPL on an Adadfruit Feather Huzzah ESP8266</a></li>
+    <li class="list-group-item"><a href="../micropython-install.html">Installing Micropython on an Adadfruit Feather Huzzah ESP8266</a></li>
+    <li class="list-group-item"><a href="../what-is-micropython.html">What is Micropython?</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
 
 <!-- Sidebar/Tag Cloud -->
 <li class="list-group-item">
-  <a href="./"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <a href="../"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
   <ul class="list-group list-inline tagcloud" id="tags">
     <li class="list-group-item tag-4">
-      <a href="./tag/anaconda.html">anaconda</a>
+      <a href="../tag/anaconda.html">anaconda</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="./tag/blog.html">blog</a>
+      <a href="../tag/blog.html">blog</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="./tag/conda.html">conda</a>
+      <a href="../tag/conda.html">conda</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="./tag/engineering.html">engineering</a>
+      <a href="../tag/engineering.html">engineering</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="./tag/esp8266.html">esp8266</a>
+      <a href="../tag/esp8266.html">esp8266</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="./tag/jupyter.html">jupyter</a>
+      <a href="../tag/jupyter.html">jupyter</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="./tag/micropython.html">micropython</a>
+      <a href="../tag/micropython.html">micropython</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="./tag/pelican.html">pelican</a>
+      <a href="../tag/pelican.html">pelican</a>
     </li>
     <li class="list-group-item tag-1">
-      <a href="./tag/python.html">python</a>
+      <a href="../tag/python.html">python</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="./tag/repl.html">REPL</a>
+      <a href="../tag/repl.html">REPL</a>
     </li>
   </ul>
 </li>
@@ -497,15 +424,15 @@ python <span class="m">3</span>.6.3 :: Anaconda, Inc.
       </div>
    </div>
 </footer>
-<script src="./theme/js/jquery.min.js"></script>
+<script src="../theme/js/jquery.min.js"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="./theme/js/bootstrap.min.js"></script>
+<script src="../theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="./theme/js/respond.min.js"></script>
+<script src="../theme/js/respond.min.js"></script>
 
-    <script src="./static/js/custom.js"></script>
+    <script src="../static/js/custom.js"></script>
 
 
 <!-- GitHub JS Code -->
@@ -514,7 +441,7 @@ $(document).ready(function () {
   if (!window.jXHR) {
     var jxhr = document.createElement('script');
     jxhr.type = 'text/javascript';
-    jxhr.src = './theme/js/jXHR.js';
+    jxhr.src = '../theme/js/jXHR.js';
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(jxhr, s);
   }
@@ -527,7 +454,7 @@ $(document).ready(function () {
   });
 });
 </script>
-<script src="./theme/js/github.js" type="text/javascript"></script>
+<script src="../theme/js/github.js" type="text/javascript"></script>
 <!-- End GitHub JS Code -->
 
 <script type="text/javascript">

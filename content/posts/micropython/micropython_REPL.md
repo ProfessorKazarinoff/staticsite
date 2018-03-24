@@ -1,4 +1,4 @@
-Title: Using the Micropython RERL on an Adadfruit Feather Huzzah ESP8266
+Title: Using the Micropython REPL on an Adadfruit Feather Huzzah ESP8266
 Date: 2018-03-12 09:01
 Modified: 2018-03-12 09:01
 Status: published

@@ -55,7 +55,7 @@ This should bring up the Micropython REPL prompt ```>>>```. If you can't see the
 
 ### 3. Run code at the Micropython REPL to read the temperature
 
-In the Putty Serial Window, we will import the ```machine``` module and then create an instance of the ```machine.I2C``` class with the scl and sda parameters set as ```scl=machine.Pin(5)``` and ```sda=machine.Pin(4)```.  Then we create an empty ```bytearray``` which will be used to store the data coming in from the MCP9808 temperature sensor. The command ```i2c.readfrom_mem_into()``` method brings in the data from the sensor and saves it to our ```byte_data``` variable. The arguments inside the method ```24``` and ```5``` correspond to the I2C memory address and registry address of the temperature data stored in the MCP9808 temperature sensor.   
+In the Putty Serial Window, we will import the ```machine``` module and then create an instance of the ```machine.I2C``` class with the scl and sda parameters set as ```scl=machine.Pin(5)``` and ```sda=machine.Pin(4)```.  Then we create an empty ```bytearray``` which will be used to store the data coming in from the MCP9808 temperature sensor. As strings in Micropython are UTF-8 encoded by defaut, like in Python 3, a bytearray needs to be used to read the raw output from the MCP9808 chip registers. The command ```i2c.readfrom_mem_into()``` method brings in the data from the sensor and saves it to our ```byte_data``` variable. The arguments inside the method ```24``` and ```5``` correspond to the I2C memory address and registry address of the temperature data stored in the MCP9808 temperature sensor.   
 
 ```
 >>> import machine

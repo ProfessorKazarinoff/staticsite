@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Bar charts with error bars using Python, jupyter notebooks and matplotlib - Python for Undergraduate Engineers</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
+<style type="text/css">
+
+/*some stuff for output/input prompts*/
+div.cell{border:1px solid transparent;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}div.cell.selected{border-radius:4px;border:thin #ababab solid}
+div.cell.edit_mode{border-radius:4px;border:thin #008000 solid}
+div.cell{width:100%;padding:5px 5px 5px 0;margin:0;outline:none}
+div.prompt{min-width:11ex;padding:.4em;margin:0;font-family:monospace;text-align:right;line-height:1.21429em}
+@media (max-width:480px){div.prompt{text-align:left}}div.inner_cell{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
+div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;line-height:1.21429em}
+div.prompt:empty{padding-top:0;padding-bottom:0}
+div.input{page-break-inside:avoid;display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;}
+div.inner_cell{width:90%;}
+div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;}
+div.input_prompt{color:navy;border-top:1px solid transparent;}
+div.output_wrapper{margin-top:5px;position:relative;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+div.output_scroll{height:24em;width:100%;overflow:auto;border-radius:4px;-webkit-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);-moz-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);}
+div.output_collapsed{margin:0px;padding:0px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+div.out_prompt_overlay{height:100%;padding:0px 0.4em;position:absolute;border-radius:4px;}
+div.out_prompt_overlay:hover{-webkit-box-shadow:inset 0 0 1px #000000;-moz-box-shadow:inset 0 0 1px #000000;box-shadow:inset 0 0 1px #000000;background:rgba(240, 240, 240, 0.5);}
+div.output_prompt{color:darkred;}
+
+a.anchor-link:link{text-decoration:none;padding:0px 20px;visibility:hidden;}
+h1:hover .anchor-link,h2:hover .anchor-link,h3:hover .anchor-link,h4:hover .anchor-link,h5:hover .anchor-link,h6:hover .anchor-link{visibility:visible;}
+/* end stuff for output/input prompts*/
+
+
+.highlight-ipynb .hll { background-color: #ffffcc }
+.highlight-ipynb  { background: #f8f8f8; }
+.highlight-ipynb .c { color: #408080; font-style: italic } /* Comment */
+.highlight-ipynb .err { border: 1px solid #FF0000 } /* Error */
+.highlight-ipynb .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight-ipynb .o { color: #666666 } /* Operator */
+.highlight-ipynb .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.highlight-ipynb .cp { color: #BC7A00 } /* Comment.Preproc */
+.highlight-ipynb .c1 { color: #408080; font-style: italic } /* Comment.Single */
+.highlight-ipynb .cs { color: #408080; font-style: italic } /* Comment.Special */
+.highlight-ipynb .gd { color: #A00000 } /* Generic.Deleted */
+.highlight-ipynb .ge { font-style: italic } /* Generic.Emph */
+.highlight-ipynb .gr { color: #FF0000 } /* Generic.Error */
+.highlight-ipynb .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight-ipynb .gi { color: #00A000 } /* Generic.Inserted */
+.highlight-ipynb .go { color: #888888 } /* Generic.Output */
+.highlight-ipynb .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight-ipynb .gs { font-weight: bold } /* Generic.Strong */
+.highlight-ipynb .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight-ipynb .gt { color: #0044DD } /* Generic.Traceback */
+.highlight-ipynb .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight-ipynb .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight-ipynb .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight-ipynb .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight-ipynb .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight-ipynb .kt { color: #B00040 } /* Keyword.Type */
+.highlight-ipynb .m { color: #666666 } /* Literal.Number */
+.highlight-ipynb .s { color: #BA2121 } /* Literal.String */
+.highlight-ipynb .na { color: #7D9029 } /* Name.Attribute */
+.highlight-ipynb .nb { color: #008000 } /* Name.Builtin */
+.highlight-ipynb .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.highlight-ipynb .no { color: #880000 } /* Name.Constant */
+.highlight-ipynb .nd { color: #AA22FF } /* Name.Decorator */
+.highlight-ipynb .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.highlight-ipynb .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.highlight-ipynb .nf { color: #0000FF } /* Name.Function */
+.highlight-ipynb .nl { color: #A0A000 } /* Name.Label */
+.highlight-ipynb .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight-ipynb .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight-ipynb .nv { color: #19177C } /* Name.Variable */
+.highlight-ipynb .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight-ipynb .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight-ipynb .mf { color: #666666 } /* Literal.Number.Float */
+.highlight-ipynb .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight-ipynb .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight-ipynb .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight-ipynb .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight-ipynb .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight-ipynb .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight-ipynb .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight-ipynb .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.highlight-ipynb .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight-ipynb .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.highlight-ipynb .sx { color: #008000 } /* Literal.String.Other */
+.highlight-ipynb .sr { color: #BB6688 } /* Literal.String.Regex */
+.highlight-ipynb .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight-ipynb .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight-ipynb .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight-ipynb .vc { color: #19177C } /* Name.Variable.Class */
+.highlight-ipynb .vg { color: #19177C } /* Name.Variable.Global */
+.highlight-ipynb .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight-ipynb .il { color: #666666 } /* Literal.Number.Integer.Long */
+</style>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+div.entry-content {
+  overflow: visible;
+  padding: 8px;
+}
+.input_area {
+  padding: 0.2em;
+}
+
+a.heading-anchor {
+ white-space: normal;
+}
+
+.rendered_html
+code {
+ font-size: .8em;
+}
+
+pre.ipynb {
+  color: black;
+  background: #f7f7f7;
+  border: none;
+  box-shadow: none;
+  margin-bottom: 0;
+  padding: 0;
+  margin: 0px;
+  font-size: 13px;
+}
+
+/* remove the prompt div from text cells */
+div.text_cell .prompt {
+    display: none;
+}
+
+/* remove horizontal padding from text cells, */
+/* so it aligns with outer body text */
+div.text_cell_render {
+    padding: 0.5em 0em;
+}
+
+img.anim_icon{padding:0; border:0; vertical-align:middle; -webkit-box-shadow:none; -box-shadow:none}
+
+div.collapseheader {
+    width=100%;
+    padding: 2px;
+    cursor: pointer;
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+</style>
+
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+<script type="text/javascript">
+init_mathjax = function() {
+    if (window.MathJax) {
+        // MathJax loaded
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+            },
+            displayAlign: 'left', // Change this to 'center' to center equations.
+            "HTML-CSS": {
+                styles: {'.MathJax_Display': {"margin": 0}}
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    }
+}
+init_mathjax();
+</script>
+    <link href="/extra/favicon.ico" rel="icon">
+
+<link rel="canonical" href="/drafts/bar-plot-with-error-bars-jupyter-matplotlib.html">
+
+        <meta name="author" content="Peter D. Kazarinoff" />
+        <meta name="keywords" content="python,matplotlib,engineering,materials science,statistics,plotting,jupyter notebook" />
+        <meta name="description" content="Bar charts with error bars are useful in engineering to show the confidence or precision in a set of measurements or calculated values. Bar charts without error bars give the illusion that a measured or calculated value is known to high precision or high confidence. In this post we will build a bar plot using Python and matplotlib. The plot will show the coefficient of thermal expansion (CTE) for three different materials based on a small data set. We will then add error bars to this chart based on the standard deviation of the data." />
+
+        <meta property="og:site_name" content="Python for Undergraduate Engineers" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Bar charts with error bars using Python, jupyter notebooks and matplotlib"/>
+        <meta property="og:url" content="/drafts/bar-plot-with-error-bars-jupyter-matplotlib.html"/>
+        <meta property="og:description" content="Bar charts with error bars are useful in engineering to show the confidence or precision in a set of measurements or calculated values. Bar charts without error bars give the illusion that a measured or calculated value is known to high precision or high confidence. In this post we will build a bar plot using Python and matplotlib. The plot will show the coefficient of thermal expansion (CTE) for three different materials based on a small data set. We will then add error bars to this chart based on the standard deviation of the data."/>
+        <meta property="article:published_time" content="2018-04-27" />
+            <meta property="article:section" content="matplotlib" />
+            <meta property="article:tag" content="python" />
+            <meta property="article:tag" content="matplotlib" />
+            <meta property="article:tag" content="engineering" />
+            <meta property="article:tag" content="materials science" />
+            <meta property="article:tag" content="statistics" />
+            <meta property="article:tag" content="plotting" />
+            <meta property="article:tag" content="jupyter notebook" />
+            <meta property="article:author" content="Peter D. Kazarinoff" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="/theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="/theme/css/pygments/native.css" rel="stylesheet">
+    <link href="/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+        <link href="/static/css/custom.css" rel="stylesheet">
+
+
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand">
+Python for Undergraduate Engineers            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="/pages/about.html">
+                             About
+                          </a></li>
+                         <li><a href="/pages/book.html">
+                             Book
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><span>
+                <form class="navbar-search" action="/search.html">
+                  <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
+                </form></span>
+              </li>
+              <li><a href="/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+            <ol class="breadcrumb">
+                <li><a href="" title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="/category/matplotlib.html" title="matplotlib">matplotlib</a></li>
+                <li class="active">Bar charts with error bars using Python, jupyter notebooks and matplotlib</li>
+            </ol>
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="/drafts/bar-plot-with-error-bars-jupyter-matplotlib.html"
+                       rel="bookmark"
+                       title="Permalink to Bar charts with error bars using Python, jupyter notebooks and matplotlib">
+                        Bar charts with error bars using Python, jupyter notebooks and matplotlib
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2018-04-27T10:15:00-07:00"> Fri 27 April 2018</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="/tag/python.html">python</a>
+        /
+	<a href="/tag/matplotlib.html">matplotlib</a>
+        /
+	<a href="/tag/engineering.html">engineering</a>
+        /
+	<a href="/tag/materials-science.html">materials science</a>
+        /
+	<a href="/tag/statistics.html">statistics</a>
+        /
+	<a href="/tag/plotting.html">plotting</a>
+        /
+	<a href="/tag/jupyter-notebook.html">jupyter notebook</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Engineers collect data and make conclusions based on the results. An important way to view results is with statistical charts. In this post we will build a bar chart that compares the tensile strength of 3D-printed ABS plastic under different printing conditions. We will add error bars to the chart to show the amount of uncertainty in the data. For this plot, the hieght of the bars represent the mean or average of the measured tensile stength in the sample of data. The error bars on the plot will represent +1/-1 standard deviation about the mean.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The data we are going to plot is stored in an Microsoft Excel File. You can download the sample data here (clicking link will start the download):</p>
+<p><a href="https://github.com/ProfessorKazarinoff/staticsite/raw/master/content/code/matplotlib_plots/3D-printed_tensile_test_data.xlsx">3D-printed-tensile-bar-data.xlsx</a></p>
+<p>We'll use <strong>pandas</strong> to load the data into the notebook. I recommend that undergraduate engineers use the <strong>Anaconda</strong> distribution of Python, which comes with the <strong>pandas</strong> library already installed. If <strong>pandas</strong> is not available, open a terminal or the <strong>Anaconda Prompt</strong> and type:</p>
+
+<pre><code>pip install pandas</code></pre>
+<p>or</p>
+
+<pre><code>conda install pandas</code></pre>
+<p>Note that when I first tried to run the <code>pd.read_excel()</code> function, I was returned an error:</p>
+<div class="highlight"><pre><span></span><span class="ne">ImportError</span><span class="p">:</span> <span class="n">Install</span> <span class="n">xlrd</span> <span class="o">&gt;=</span> <span class="mf">0.9</span><span class="o">.</span><span class="mi">0</span> <span class="k">for</span> <span class="n">Excel</span> <span class="n">support</span>
+<span class="err">`</span>
+</pre></div>
+<p>To solve this, I went to the <strong>Anaconda Prompt</strong> and typed:</p>
+
+<pre><code>conda install xlrd</code></pre>
+<p>Once the <strong>xlrd</strong> module was installed, the <code>pd.read_excel()</code> function worked just fine.</p>
+<p>To start the jupyter notebook, we need to import the required packages:</p>
+<p><strong>pandas</strong>
+<strong>numpy</strong>
+<strong>matplotlib</strong></p>
+<p>The <code>%matplotlib inline</code> magic command is add so that we can see our plots right in the <strong>jupyter notebook</strong>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data_url</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/ProfessorKazarinoff/staticsite/raw/master/content/code/matplotlib_plots/3D-printed_tensile_test_data.xlsx&#39;</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">data_url</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="c1">#https://raw.githubusercontent.com/guipsamora/pandas_exercises/master/06_Stats/US_Baby_Names/US_Baby_Names_right.csv</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[2]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Material</th>
+      <th>Width (mm)</th>
+      <th>Thickness (mm)</th>
+      <th>Cross-sectional Area (mm^2)</th>
+      <th>Maximum Force (N)</th>
+      <th>Tensile Strength (Mpa)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>ABS</td>
+      <td>6.33</td>
+      <td>3.61</td>
+      <td>22.8513</td>
+      <td>426</td>
+      <td>18.642265</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>ABS</td>
+      <td>6.27</td>
+      <td>3.80</td>
+      <td>23.8260</td>
+      <td>514</td>
+      <td>21.573071</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>ABS</td>
+      <td>6.29</td>
+      <td>3.61</td>
+      <td>22.7069</td>
+      <td>499</td>
+      <td>21.975699</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>ABS</td>
+      <td>6.28</td>
+      <td>3.50</td>
+      <td>21.9800</td>
+      <td>461</td>
+      <td>20.973612</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>ABS</td>
+      <td>6.25</td>
+      <td>3.72</td>
+      <td>23.2500</td>
+      <td>418</td>
+      <td>17.978495</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Pandas</strong> has a nice little method to view the staticstics for column in our datafram called <code>describe()</code>. We'll use the <code>describe()</code> method to get a look at our basic statistics. The tensile strength column is the one we are interested in. Note the <code>describe()</code> method needs to include the <code>()</code> parenthesis at the end.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Tensile Strength (Mpa)&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[3]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>count    36.000000
+mean     14.881000
+std       4.983496
+min       4.931429
+25%      10.695890
+50%      13.420756
+75%      19.429057
+max      23.825110
+Name: Tensile Strength (Mpa), dtype: float64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This gives us the mean for the whole tensile strength column, but we are intrested in comparing the two materials, ABS and HIPS. HIPS stands for High-Impact PolyStyrene and is a common 3-D printing fillament material like ABS and PLA. We need a way to only group the ABS data together and group the HIPS data seperatly. We can view the statistics for the rows that are ABS data and the rows that are HIPS data seperatly using <strong>pandas</strong> <code>groupby</code> method.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Tensile Strength (Mpa)&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Material&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[4]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>50%</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>Material</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>ABS</th>
+      <td>16.0</td>
+      <td>19.935392</td>
+      <td>1.796473</td>
+      <td>16.022111</td>
+      <td>19.166825</td>
+      <td>19.618907</td>
+      <td>20.978060</td>
+      <td>23.825110</td>
+    </tr>
+    <tr>
+      <th>HIPS</th>
+      <td>20.0</td>
+      <td>10.837486</td>
+      <td>2.116019</td>
+      <td>4.931429</td>
+      <td>10.182108</td>
+      <td>10.762229</td>
+      <td>11.982909</td>
+      <td>14.759169</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ABS_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Material&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;ABS&#39;</span><span class="p">]</span>
+<span class="n">HIPS_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Material&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;HIPS&#39;</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's save the <code>mean</code> (the average) and the <code>std</code> (standard deviation) to new variables</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ABS_mean</span> <span class="o">=</span> <span class="n">ABS_df</span><span class="p">[</span><span class="s1">&#39;Tensile Strength (Mpa)&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">ABS_stdev</span> <span class="o">=</span> <span class="n">ABS_df</span><span class="p">[</span><span class="s1">&#39;Tensile Strength (Mpa)&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+
+<span class="n">HIPS_mean</span> <span class="o">=</span> <span class="n">HIPS_df</span><span class="p">[</span><span class="s1">&#39;Tensile Strength (Mpa)&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">HIPS_stdev</span> <span class="o">=</span> <span class="n">HIPS_df</span><span class="p">[</span><span class="s1">&#39;Tensile Strength (Mpa)&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Time to fire up the plot. We will build a plot using <strong>matplotlib</strong>.</p>
+<p>We'll use <strong>matplotlibs</strong> <code>plt.bar</code> method to build the plot.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">([</span><span class="s1">&#39;ABS&#39;</span><span class="p">,</span> <span class="s1">&#39;HIPS&#39;</span><span class="p">],</span> <span class="p">[</span><span class="n">ABS_mean</span><span class="p">,</span> <span class="n">HIPS_mean</span><span class="p">],</span><span class="n">yerr</span><span class="o">=</span><span class="p">[</span><span class="n">ABS_stdev</span><span class="p">,</span> <span class="n">HIPS_stdev</span><span class="p">],</span> <span class="n">capsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Tensile Strength (MPa)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Tensile Strength of 3-D Printed ABS Tensile Bars&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;ABS_HIPS_plot_with_error_bars.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+ 
+
+</p>
+            </div>
+            <!-- /.entry-content -->
+<section class="well" id="related-posts">
+    <h4>Related Posts:</h4>
+    <ul>
+        <li><a href="/python-matplotlib-error-bars.html">Bar charts with error bars using Python and matplotlib</a></li>
+        <li><a href="/plotting-sin-cos-with-matplotlib.html">Plotting sine and cosine with matplotlib and Python</a></li>
+        <li><a href="/unit-conversions-with-pint.html">Unit conversions with Python and Pint</a></li>
+        <li><a href="/unicode-characters-in-python.html">Unicode characters for engineers in Python</a></li>
+        <li><a href="/micropython-temp-sensor.html">Using a Temperature Sensor with Micropython running on an Adadfruit Feather Huzzah ESP8266</a></li>
+    </ul>
+</section>
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<div id="aboutme">
+        <p>
+            <img width="100%" class="img-thumbnail" src="/extra/gear-wrench-icon-512-278694.png"/>
+        </p>
+    <p>
+      <strong>About Peter Kazarinoff</strong><br/>
+        I teach engineering at a community college in the Pacific Northwest. I am interested in programming and how to help students. Here I mostly blog about Python, MATLAB and how programing can be incorporated into engineering education.
+    </p>
+</div><!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Recent Posts -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+  <ul class="list-group" id="recentposts">
+    <li class="list-group-item"><a href="/micropython-temp-sensor.html">Using a Temperature Sensor with Micropython running on an Adadfruit Feather Huzzah ESP8266</a></li>
+    <li class="list-group-item"><a href="/micropython-REPL.html">Using the Micropython REPL on an Adadfruit Feather Huzzah ESP8266</a></li>
+    <li class="list-group-item"><a href="/micropython-install.html">Installing Micropython on an Adadfruit Feather Huzzah ESP8266</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Recent Posts -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-2">
+      <a href="/tag/blog.html">blog</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/conda.html">conda</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/engineering.html">engineering</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="/tag/esp8266.html">esp8266</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/jupyter.html">jupyter</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/microcontroller.html">microcontroller</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="/tag/micropython.html">micropython</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="/tag/pelican.html">pelican</a>
+    </li>
+    <li class="list-group-item tag-0">
+      <a href="/tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/repl.html">REPL</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Github -->
+<li class="list-group-item">
+  <h4><i class="fa fa-github fa-lg"></i><span class="icon-label">GitHub Repos</span></h4>
+  <div id="gh_repos">
+    <p class="list-group-item">Status updating...</p>
+  </div>
+  <a href="https://github.com/professorkazarinoff">@professorkazarinoff</a> on GitHub
+</li>
+<!-- End Sidebar/Github -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2018 Peter Kazarinoff
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="/theme/js/respond.min.js"></script>
+
+    <script src="/static/js/custom.js"></script>
+
+
+<!-- GitHub JS Code -->
+<script type="text/javascript">
+$(document).ready(function () {
+  if (!window.jXHR) {
+    var jxhr = document.createElement('script');
+    jxhr.type = 'text/javascript';
+    jxhr.src = '/theme/js/jXHR.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(jxhr, s);
+  }
+
+  github.showRepos({
+    user: 'professorkazarinoff',
+    count: 5,
+    skip_forks: true,
+    target: '#gh_repos'
+  });
+});
+</script>
+<script src="/theme/js/github.js" type="text/javascript"></script>
+<!-- End GitHub JS Code -->
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-116330557-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+    $("div.collapseheader").click(function () {
+    $header = $(this).children("span").first();
+    $codearea = $(this).children(".input_area");
+    console.log($(this).children());
+    $codearea.slideToggle(500, function () {
+        $header.text(function () {
+            return $codearea.is(":visible") ? "Collapse Code" : "Expand Code";
+        });
+    });
+});
+});
+</script>
+</body>
+</html>

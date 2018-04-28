@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>Violin Plot using Python, matplotlib and seaborn - Python for Undergraduate Engineers</title>
+    <title>jupyter notebook - Python for Undergraduate Engineers</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -174,19 +174,16 @@ init_mathjax();
 </script>
     <link href="/extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="/drafts/violin-plot-using-python-matplotlib-and-seaborn.html">
 
-        <meta name="author" content="Peter D. Kazarinoff" />
-        <meta name="description" content="Import the necessary packages Pandas is used to read in the .csv data. Seaborn to build the plot and Matplotlib for displaying the plot. # seaborn violin plot import pandas as pd import seaborn as sns import matplotlib.pyplot as plt %matplotlib inline Read in the .csv data file Use pandas …" />
+    <meta name="author" content="Peter Kazarinoff" />
+    <meta name="keywords" content="jupyter notebook" />
 
+    <!-- Open Graph tags -->
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
-        <meta property="og:type" content="article"/>
-        <meta property="og:title" content="Violin Plot using Python, matplotlib and seaborn"/>
-        <meta property="og:url" content="/drafts/violin-plot-using-python-matplotlib-and-seaborn.html"/>
-        <meta property="og:description" content="Import the necessary packages Pandas is used to read in the .csv data. Seaborn to build the plot and Matplotlib for displaying the plot. # seaborn violin plot import pandas as pd import seaborn as sns import matplotlib.pyplot as plt %matplotlib inline Read in the .csv data file Use pandas …"/>
-        <meta property="article:published_time" content="2017-10-21" />
-            <meta property="article:section" content="posts" />
-            <meta property="article:author" content="Peter D. Kazarinoff" />
+        <meta property="og:type" content="website"/>
+        <meta property="og:title" content="Python for Undergraduate Engineers"/>
+        <meta property="og:url" content=""/>
+        <meta property="og:description" content="Python for Undergraduate Engineers"/>
 
 
 
@@ -244,93 +241,11 @@ Python for Undergraduate Engineers            </a>
 <div class="container">
     <div class="row">
         <div class="col-sm-9">
-            <ol class="breadcrumb">
-                <li><a href="" title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="/category/posts.html" title="posts">posts</a></li>
-                <li class="active">Violin Plot using Python, matplotlib and seaborn</li>
-            </ol>
-    <section id="content">
-        <article>
-            <header class="page-header">
-                <h1>
-                    <a href="/drafts/violin-plot-using-python-matplotlib-and-seaborn.html"
-                       rel="bookmark"
-                       title="Permalink to Violin Plot using Python, matplotlib and seaborn">
-                        Violin Plot using Python, matplotlib and seaborn
-                    </a>
-                </h1>
-            </header>
-            <div class="entry-content">
-                <div class="panel">
-                    <div class="panel-body">
-<footer class="post-info">
-    <span class="label label-default">Date</span>
-    <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2017-10-21T16:00:00-07:00"> Sat 21 October 2017</time>
-    </span>
-
-
-
-
-
-    
-</footer><!-- /.post-info -->                    </div>
-                </div>
-                <h3>Import the necessary packages</h3>
-<p>Pandas is used to read in the .csv data. Seaborn to build the plot and Matplotlib for displaying the plot.</p>
-<div class="highlight"><pre><span></span><span class="c1"># seaborn violin plot</span>
-
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
-</pre></div>
-
-
-<div class="highlight"><pre><span></span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
-</pre></div>
-
-
-<h3>Read in the .csv data file</h3>
-<p>Use pandas <code>pd.read_csv()</code> function to read in the .csv file</p>
-<div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data.csv&#39;</span><span class="p">)</span>
-</pre></div>
-
-
-<h3>Build the violin plot</h3>
-<p>Use seaborns built-in violin plot function to make the plot. The two fuction arguments are <code>data=df</code> and <code>pallette="pastel"</code>.</p>
-<div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;pastel&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
-
-<p><img alt="png" src="/images/output_7_0.png"></p>
-<h3>Save the figure</h3>
-<p>Save the figure using matplotlib's ax.get_figure() method and <code>fig.savefig()</code> method. Since seaborn produces a matplotlib axis object, we can use matplotlib methods on our <code>ax</code> object. </p>
-<div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_figure</span><span class="p">()</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;sns_violin_plot.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
-</pre></div>
-
-
-<div class="highlight"><pre><span></span><span class="c1">#seaborn violin plot</span>
-
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
-
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data.csv&#39;</span><span class="p">)</span>
-
-<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;pastel&quot;</span><span class="p">)</span>
-
-<span class="n">fig</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_figure</span><span class="p">()</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;sns_violin_plot.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
-</pre></div>
-
-
-<p><img alt="png" src="/images/output_10_0.png"></p>
-            </div>
-            <!-- /.entry-content -->
-        </article>
-    </section>
+    <ol class="breadcrumb">
+        <li><a href="" title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+        <li><a href="/" title="Tags">Tags</a></li>
+        <li class="active">jupyter notebook</li>
+    </ol>
 
         </div>
         <div class="col-sm-3" id="sidebar">
@@ -351,9 +266,6 @@ Python for Undergraduate Engineers            </a>
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
-    <li class="list-group-item"><a href="/micropython-temp-sensor.html">Using a Temperature Sensor with Micropython running on an Adadfruit Feather Huzzah ESP8266</a></li>
-    <li class="list-group-item"><a href="/micropython-REPL.html">Using the Micropython REPL on an Adadfruit Feather Huzzah ESP8266</a></li>
-    <li class="list-group-item"><a href="/micropython-install.html">Installing Micropython on an Adadfruit Feather Huzzah ESP8266</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
@@ -415,7 +327,7 @@ Python for Undergraduate Engineers            </a>
    <div class="container">
       <hr>
       <div class="row">
-         <div class="col-xs-10">&copy; 2018 Peter Kazarinoff
+         <div class="col-xs-10">&copy;  Peter Kazarinoff
             &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
             <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
             <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>

@@ -327,7 +327,7 @@ Python for Undergraduate Engineers            </a>
 <p>$Q_n = 37,600 \frac{J}{mol}$</p>
 <p>$R=8.31 \frac{J}{mol-K}$</p>
 <p>$T$ is the temperature in Kelvin.</p>
-<p>At 300 &deg;C the nitrogen gas pressure on one side of an iron plate is 0.10 MPa. On the other side of the iron plate, the nitrogen gas pressure is 5.0 MPa. The iron plate is a 1.5 mm thick.  Assume the pre-exponential term <em>D<sub>0</sub></em> and the activation energy of diffusion of nitrogen in carbon, <em>Q<sub>d</sub></em> are equal to the values below:</p>
+<p>At 300 &deg;C the nitrogen gas pressure on one side of an iron plate is 0.10 MPa. On the other side of the iron plate, the nitrogen gas pressure is 5.0 MPa. The iron plate is a 1.5 mm thick.  Assume the pre-exponential term $D_0$ and the activation energy of diffusion of nitrogen in carbon, $Q_d$ are equal to the values below:</p>
 <p>$D_0 = 5 \times 10^{-7} \frac{m^2}{s}$</p>
 <p>$Q_d = 77,000 \frac{J}{mol} $</p>
 <h4 id="Find:">Find:<a class="anchor-link" href="#Find:">&#182;</a></h4><p>Calculate the diffusion flux, <em>J</em> through the plate using Fick's First Law of Diffusion:</p>
@@ -359,31 +359,6 @@ Python for Undergraduate Engineers            </a>
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
-<span class="ansi-red-intense-fg ansi-bold">ModuleNotFoundError</span>                       Traceback (most recent call last)
-<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-1-c9921f694a51&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-intense-fg ansi-bold">()</span>
-<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span><span class="ansi-green-intense-fg ansi-bold">import</span> pint
-<span class="ansi-green-fg">      2</span> <span class="ansi-green-intense-fg ansi-bold">from</span> math <span class="ansi-green-intense-fg ansi-bold">import</span> exp<span class="ansi-yellow-intense-fg ansi-bold">,</span> sqrt
-<span class="ansi-green-fg">      3</span> u <span class="ansi-yellow-intense-fg ansi-bold">=</span> pint<span class="ansi-yellow-intense-fg ansi-bold">.</span>UnitRegistry<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-red-intense-fg ansi-bold">ModuleNotFoundError</span>: No module named &#39;pint&#39;</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
@@ -400,7 +375,7 @@ Python for Undergraduate Engineers            </a>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">Q_</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">Quantity</span>
@@ -416,6 +391,26 @@ Python for Undergraduate Engineers            </a>
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>T = 300 degC
+T = 573.15 kelvin
+573.15 kelvin
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
@@ -428,7 +423,7 @@ Python for Undergraduate Engineers            </a>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">Qn</span> <span class="o">=</span> <span class="mi">37600</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">J</span><span class="o">/</span><span class="n">u</span><span class="o">.</span><span class="n">mol</span>
@@ -451,7 +446,7 @@ Python for Undergraduate Engineers            </a>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">PN1</span> <span class="o">=</span> <span class="mf">0.10</span>
@@ -476,7 +471,7 @@ Python for Undergraduate Engineers            </a>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">CN1</span> <span class="o">=</span> <span class="p">(</span><span class="mf">4.9e-3</span><span class="p">)</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="n">PN1</span><span class="p">)</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">Qn</span><span class="o">/</span><span class="p">(</span><span class="n">R</span><span class="o">*</span><span class="n">T</span><span class="p">))</span>
@@ -487,10 +482,28 @@ Python for Undergraduate Engineers            </a>
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>5.777054779474043e-07
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">CN2</span> <span class="o">=</span> <span class="p">(</span><span class="mf">4.9e-3</span><span class="p">)</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="n">PN2</span><span class="p">)</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">Qn</span><span class="o">/</span><span class="p">(</span><span class="n">R</span><span class="o">*</span><span class="n">T</span><span class="p">))</span>
@@ -498,6 +511,24 @@ Python for Undergraduate Engineers            </a>
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>4.084994609852251e-06
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -517,7 +548,7 @@ Python for Undergraduate Engineers            </a>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">p</span><span class="o">=</span><span class="mf">7.874</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">g</span><span class="o">/</span><span class="n">u</span><span class="o">.</span><span class="n">cm</span><span class="o">**</span><span class="mi">3</span>
@@ -543,7 +574,7 @@ Python for Undergraduate Engineers            </a>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">mN1</span> <span class="o">=</span> <span class="n">mFe</span><span class="o">*</span><span class="n">CN1</span><span class="o">*</span><span class="mf">0.01</span>
@@ -556,6 +587,25 @@ Python for Undergraduate Engineers            </a>
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>4.5488529333578606e-05 kilogram / meter ** 3
+0.0003216524755797662 kilogram / meter ** 3
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -573,7 +623,7 @@ Python for Undergraduate Engineers            </a>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">dC</span> <span class="o">=</span> <span class="n">CN2</span><span class="o">-</span><span class="n">CN1</span>
@@ -601,7 +651,7 @@ Python for Undergraduate Engineers            </a>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">D0</span> <span class="o">=</span> <span class="mf">5e-7</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">m</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">u</span><span class="o">.</span><span class="n">s</span>
@@ -625,7 +675,7 @@ Python for Undergraduate Engineers            </a>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">D</span> <span class="o">=</span> <span class="n">D0</span> <span class="o">*</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">Qd</span><span class="o">/</span><span class="p">(</span><span class="n">R</span><span class="o">*</span><span class="n">T</span><span class="p">))</span>
@@ -633,6 +683,24 @@ Python for Undergraduate Engineers            </a>
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>4.7627851906932175e-14 meter ** 2 / second
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -649,7 +717,7 @@ Python for Undergraduate Engineers            </a>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">J</span> <span class="o">=</span> <span class="o">-</span><span class="n">D</span><span class="o">*</span><span class="p">(</span><span class="n">dC</span><span class="o">/</span><span class="n">dx</span><span class="p">)</span>
@@ -657,6 +725,25 @@ Python for Undergraduate Engineers            </a>
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[12]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+-8.768730355898267e-15 kilogram/(meter<sup>2</sup> second)
+</div>
+
+</div>
+
 </div>
 </div>
 

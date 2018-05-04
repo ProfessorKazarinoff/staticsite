@@ -152,7 +152,7 @@ div.collapseheader {
 
 </style>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 <script type="text/javascript">
 init_mathjax = function() {
     if (window.MathJax) {
@@ -162,7 +162,7 @@ init_mathjax = function() {
                 inlineMath: [ ['$','$'], ["\\(","\\)"] ],
                 displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
             },
-            displayAlign: 'left', // Change this to 'center' to center equations.
+            displayAlign: 'center', // Change this to 'center' to center equations.
             "HTML-CSS": {
                 styles: {'.MathJax_Display': {"margin": 0}}
             }
@@ -240,6 +240,36 @@ Python for Undergraduate Engineers            </a>
 <div class="container">
     <div class="row">
         <div class="col-sm-9">
+            <article>
+                <h2><a href="/how-i-built-this-site-4.html">How I Build This Site - Part 4</a></h2>
+                    <div class="well well-sm">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2017-12-08T18:50:00-08:00"> Fri 08 December 2017</time>
+    </span>
+
+            <span class="label label-default">Series</span>
+            Part 4 of How I built this site
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="/tag/python.html">python</a>
+        /
+	<a href="/tag/pelican.html">pelican</a>
+        /
+	<a href="/tag/blog.html">blog</a>
+        /
+	<a href="/tag/jupyter.html">jupyter</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                <div class="summary"><p>This is the fourth part in a multi-part series on how I built this site. In the <a href="/how-i-built-this-site-3.html">last post</a>, we installed the pelican-bootstrap3 theme and made our site mobile responsive. Now the site looks good on all devices.  In this post we are going to install a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of post that are linked together, create a working search bar, add youtube videos to posts, view LaTeX math and add embedded jupyter notebooks in posts.</p>
+                    <a class="btn btn-default btn-xs" href="/how-i-built-this-site-4.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
             <article>
                 <h2><a href="/how-i-built-this-site-3.html">How I Build This Site - Part 3</a></h2>
                     <div class="well well-sm">
@@ -358,36 +388,6 @@ Python for Undergraduate Engineers            </a>
                 </div>
             </article>
             <hr/>
-            <article>
-                <h2><a href="/installing-anaconda-on-windows.html">Installing Anaconda on Windows</a></h2>
-                    <div class="well well-sm">
-<footer class="post-info">
-    <span class="label label-default">Date</span>
-    <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2017-11-14T09:20:00-08:00"> Tue 14 November 2017</time>
-    </span>
-
-
-
-
-
-<span class="label label-default">Tags</span>
-	<a href="/tag/python.html">python</a>
-        /
-	<a href="/tag/anaconda.html">anaconda</a>
-        /
-	<a href="/tag/miniconda.html">miniconda</a>
-        /
-	<a href="/tag/conda.html">conda</a>
-        /
-	<a href="/tag/windows.html">windows</a>
-    
-</footer><!-- /.post-info -->                    </div>
-                <div class="summary"><p>In this post, we will run through installing the <a href="https://www.anaconda.com/what-is-anaconda/">Anaconda distribution</a> of Python on Windows 10. I think the Anaconda distribution of Python is the the best option for undergraduate engineers who want to use Python. Anaconda is free (although the download is large which can take time) and can be installed on school or work computers where you don't have administrator access or the ability to install new programs.</p>
-                    <a class="btn btn-default btn-xs" href="/installing-anaconda-on-windows.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
 
         <ul class="pagination">
                 <li class="prev"><a href="/index3.html">&laquo;</a>
@@ -400,7 +400,10 @@ Python for Undergraduate Engineers            </a>
                             href="/index3.html">3</a></li>
                     <li class="active"><a
                             href="/index4.html">4</a></li>
-                <li class="next disabled"><a href="#">&raquo;</a></li>
+                    <li class=""><a
+                            href="/index5.html">5</a></li>
+                <li class="next"><a
+                        href="/index5.html">&raquo;</a></li>
         </ul>
         </div>
         <div class="col-sm-3" id="sidebar">
@@ -421,9 +424,9 @@ Python for Undergraduate Engineers            </a>
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
+    <li class="list-group-item"><a href="/diffusion-problem-python-pint.html">Diffusion Calculation with Python and Pint</a></li>
     <li class="list-group-item"><a href="/bar-plot-with-error-bars-jupyter-matplotlib.html">Bar charts with error bars using Python, jupyter notebooks and matplotlib</a></li>
     <li class="list-group-item"><a href="/micropython-temp-sensor.html">Using a Temperature Sensor with Micropython running on an Adadfruit Feather Huzzah ESP8266</a></li>
-    <li class="list-group-item"><a href="/micropython-REPL.html">Using the Micropython REPL on an Adadfruit Feather Huzzah ESP8266</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
@@ -435,13 +438,13 @@ Python for Undergraduate Engineers            </a>
     <li class="list-group-item tag-2">
       <a href="/tag/blog.html">blog</a>
     </li>
-    <li class="list-group-item tag-3">
+    <li class="list-group-item tag-2">
       <a href="/tag/engineering.html">engineering</a>
     </li>
     <li class="list-group-item tag-3">
       <a href="/tag/esp8266.html">esp8266</a>
     </li>
-    <li class="list-group-item tag-4">
+    <li class="list-group-item tag-3">
       <a href="/tag/jupyter.html">jupyter</a>
     </li>
     <li class="list-group-item tag-4">

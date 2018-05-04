@@ -1,7 +1,7 @@
 Title: Diffusion Calculation with Python and Pint
 Slug: diffusion-problem-python-pint
-Date: 2018-05-04 10:30
-Modified: 2018-05-04 11:01
+Date: 2018-05-04 09:30
+Modified: 2018-05-04 09:01
 Status: draft
 Category: engineering
 Tags: python, jupyter, notebook, pint, units, unit conversion, engineering

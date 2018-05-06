@@ -457,7 +457,75 @@ T = 573.15 kelvin
 &lt;/div&gt;
  
 
-&lt;/p&gt;</content><category term="python"></category><category term="jupyter"></category><category term="notebook"></category><category term="pint"></category><category term="units"></category><category term="unit conversion"></category><category term="engineering"></category></entry><entry><title>Bar charts with error bars using Python, jupyter notebooks and matplotlib</title><link href="https://professorkazarinoff.github.io/staticsite/bar-plot-with-error-bars-jupyter-matplotlib.html" rel="alternate"></link><published>2018-04-27T10:15:00-07:00</published><updated>2018-04-27T10:15:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-04-27:/staticsite/bar-plot-with-error-bars-jupyter-matplotlib.html</id><summary type="html">&lt;p&gt;Bar charts with error bars are useful in engineering to show the confidence or precision in a set of measurements or calculated values. Bar charts without error bars give the illusion that a measured or calculated value is known to high precision or high confidence. In this post, we will build a bar plot using Python, the statistics module and matplotlib. The plot will show the tensile strength of two different 3-D printer filament materials, ABS and HIPS. We will then add error bars to the plot based on the standard deviation of the data.&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;img alt="bar_plot_with_error_bars" src="https://professorkazarinoff.github.io/staticsite/images/matplotlib/stats_module_bar_plot_error_bars.png"&gt;&lt;/p&gt;
+&lt;/p&gt;</content><category term="python"></category><category term="jupyter"></category><category term="notebook"></category><category term="pint"></category><category term="units"></category><category term="unit conversion"></category><category term="engineering"></category></entry><entry><title>Opening a Jupyter Notebook on Windows</title><link href="https://professorkazarinoff.github.io/staticsite/opening-a-jupyter-notebook-on-windows.html" rel="alternate"></link><published>2018-05-01T09:20:00-07:00</published><updated>2018-05-01T09:21:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-05-01:/staticsite/opening-a-jupyter-notebook-on-windows.html</id><summary type="html">&lt;p&gt;In this post, we will run through how to open a &lt;strong&gt;jupyter notebook&lt;/strong&gt; on Windows 10.  &lt;strong&gt;Jupyter notebooks&lt;/strong&gt; are one way engineers can write and execute &lt;strong&gt;Python&lt;/strong&gt; code. &lt;strong&gt;Jupyter notebooks&lt;/strong&gt; contain &lt;strong&gt;Python&lt;/strong&gt; code, the output of that code produces when it is run and markdown cells to explain what the code means. A &lt;strong&gt;jupyter notebook&lt;/strong&gt; can be started from the &lt;strong&gt;Anaconda Prompt&lt;/strong&gt;, the Windows start menu and by using the &lt;strong&gt;Anaconda Navigator&lt;/strong&gt;.&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this post, we will run through how to open a &lt;strong&gt;jupyter notebook&lt;/strong&gt; on Windows 10.  &lt;strong&gt;Jupyter notebooks&lt;/strong&gt; are one way engineers can write and execute &lt;strong&gt;Python&lt;/strong&gt; code. &lt;strong&gt;Jupyter notebooks&lt;/strong&gt; contain &lt;strong&gt;Python&lt;/strong&gt; code, the output of that code produces when it is run and markdown cells to explain what the code means. A &lt;strong&gt;jupyter notebook&lt;/strong&gt; can be started from the &lt;strong&gt;Anaconda Prompt&lt;/strong&gt;, the Windows start menu and the &lt;strong&gt;Anaconda Navigator&lt;/strong&gt;.&lt;/p&gt;
+&lt;h3&gt;3 ways to open a &lt;strong&gt;jupyter notebook&lt;/strong&gt;:&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Anaconda Prompt&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Windows Start Menu&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Anaconda Navigator&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;1. &lt;strong&gt;Anaconda Prompt&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;The first way to start a new &lt;strong&gt;jupyter notebook&lt;/strong&gt; is to use the &lt;strong&gt;Anaconda Prompt&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Go to the Windows start menu and select &lt;strong&gt;[Anaconda Prompt]&lt;/strong&gt; under &lt;strong&gt;[Anaconda3]&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="anaconda in start menu" src="/posts/jupyter/anaconda_start_menu.png"&gt;&lt;/p&gt;
+&lt;p&gt;If you don't see the &lt;strong&gt;Anaconda Prompt&lt;/strong&gt; in the Windows Start Menu, then you need to install &lt;strong&gt;Anaconda&lt;/strong&gt;. Download &lt;strong&gt;Anaconda&lt;/strong&gt; at the following link: &lt;a href="https://www.anaconda.com/download/"&gt;Anaconda.com/downloads&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The &lt;strong&gt;Anaconda Prompt&lt;/strong&gt; window should look something like:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="anaconda prompt" src="/posts/jupyter/jupyter_notebook_anaconda_prompt.png"&gt;&lt;/p&gt;
+&lt;p&gt;At the &lt;strong&gt;Anaconda Prompt&lt;/strong&gt; type:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;gt; jupyter notebook
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This will start the &lt;strong&gt;jupyter notebook&lt;/strong&gt;. The output in the terminal will look something like below:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;Copy/paste this URL into your browser when you connect for the first time,
+    to login with a token:
+        http://localhost:8888/?token=6bdef677d3503fbb23e1b4fa0c802ee7c20bdcfd4d9b9951
+[I 16:14:12.661 NotebookApp] Accepting one-time-token-authenticated connection from ::1
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;A web browser should open and you should be able to see the &lt;strong&gt;jupyter file browser&lt;/strong&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="jupyter file browswer" src="/posts/jupyter/new_notebook_from_browser.png"&gt;&lt;/p&gt;
+&lt;p&gt;In the upper right select &lt;strong&gt;[New]&lt;/strong&gt; --&amp;gt; &lt;strong&gt;[Python 3]&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;You will see a new tab open in your web browser. This new page is a &lt;strong&gt;jupyter notebook&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="jupyter file browswer" src="/posts/jupyter/new_notebook.png"&gt;&lt;/p&gt;
+&lt;p&gt;To rename the &lt;strong&gt;jupyter notebook&lt;/strong&gt;, click the file name at the top of the page to the right of the jupyter icon.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="jupyter file browswer" src="/posts/jupyter/click_change_name.png"&gt;&lt;/p&gt;
+&lt;p&gt;This will open a dialog box where the new name can be typed.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="jupyter file browswer" src="/posts/jupyter/rename_window.png"&gt;&lt;/p&gt;
+&lt;p&gt;Try typing this in the first cell in the &lt;strong&gt;notebook&lt;/strong&gt; to the right of the &lt;code&gt;In [ ]:&lt;/code&gt; prompt&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt;  &lt;span class="nn"&gt;this&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Then click the run button in the middle of the menu at the top of the notebook&lt;/p&gt;
+&lt;p&gt;&lt;img alt="jupyter file browswer" src="/posts/jupyter/run_import_this.png"&gt;&lt;/p&gt;
+&lt;h3&gt;2. Windows Start Menu&lt;/h3&gt;
+&lt;p&gt;Another way to open a &lt;strong&gt;jupyter notebook&lt;/strong&gt; is to use the Windows start menu. &lt;/p&gt;
+&lt;p&gt;Open the Windows start menu and select &lt;strong&gt;[Anaconda3(64 bit)]&lt;/strong&gt; --&amp;gt; &lt;strong&gt;[Jupyter Notebook]&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="jupyter file browswer" src="/posts/jupyter/windows_start_jupyter_notebook.png"&gt;&lt;/p&gt;
+&lt;p&gt;This will open the &lt;strong&gt;jupyter file browser&lt;/strong&gt; in a web browser tab. &lt;/p&gt;
+&lt;p&gt;In the upper right select &lt;strong&gt;[New]&lt;/strong&gt; --&amp;gt; &lt;strong&gt;[Python 3]&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="jupyter file browswer" src="/posts/jupyter/new_notebook_from_browser.png"&gt;&lt;/p&gt;
+&lt;p&gt;A new &lt;strong&gt;notebook&lt;/strong&gt; will open as a new tab in your web browser&lt;/p&gt;
+&lt;p&gt;&lt;img alt="jupyter file browswer" src="/posts/jupyter/new_notebook.png"&gt;&lt;/p&gt;
+&lt;h3&gt;3. &lt;strong&gt;Anaconda Navigator&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;The last way we'll review how to open a &lt;strong&gt;jupyter notebook&lt;/strong&gt; is by using the &lt;strong&gt;Anaconda Navigator&lt;/strong&gt;. You can open the &lt;strong&gt;Anaconda Navigator&lt;/strong&gt; using the Windows start menu and selecting &lt;strong&gt;[Anaconda3(64-bit)]&lt;/strong&gt; --&amp;gt; [Anaconda Navigator]&lt;/p&gt;
+&lt;p&gt;&lt;img alt="jupyter file browswer" src="/posts/jupyter/windows_start_anaconda_navigator.png"&gt;&lt;/p&gt;
+&lt;p&gt;This will open the &lt;strong&gt;Anaconda Navigator&lt;/strong&gt;.  In the middle of the page, in the &lt;strong&gt;jupyter notebook&lt;/strong&gt; tile, click &lt;strong&gt;[Launch]&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="jupyter file browswer" src="/posts/jupyter/anaconda_navigator_jupyter_notebook_launch.png"&gt;&lt;/p&gt;
+&lt;p&gt;This will open the &lt;strong&gt;jupyter file browser&lt;/strong&gt; in a web browser tab. &lt;/p&gt;
+&lt;p&gt;In the upper right select &lt;strong&gt;[New]&lt;/strong&gt; --&amp;gt; &lt;strong&gt;[Python 3]&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="jupyter file browswer" src="/posts/jupyter/new_notebook_from_browser.png"&gt;&lt;/p&gt;
+&lt;p&gt;A new &lt;strong&gt;notebook&lt;/strong&gt; will open as a new tab in your web browser&lt;/p&gt;
+&lt;p&gt;&lt;img alt="jupyter file browswer" src="/posts/jupyter/new_notebook.png"&gt;&lt;/p&gt;
+&lt;h4&gt;Congratulations! You know how to open a &lt;strong&gt;jupyter notebook&lt;/strong&gt; on your Windows 10. Now go write some &lt;strong&gt;Python Code&lt;/strong&gt; to solve some problems!&lt;/h4&gt;</content><category term="jupyter"></category><category term="python"></category><category term="anaconda"></category><category term="windows"></category><category term="jupyter notebook"></category></entry><entry><title>Bar charts with error bars using Python, jupyter notebooks and matplotlib</title><link href="https://professorkazarinoff.github.io/staticsite/bar-plot-with-error-bars-jupyter-matplotlib.html" rel="alternate"></link><published>2018-04-27T10:15:00-07:00</published><updated>2018-04-27T10:15:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-04-27:/staticsite/bar-plot-with-error-bars-jupyter-matplotlib.html</id><summary type="html">&lt;p&gt;Bar charts with error bars are useful in engineering to show the confidence or precision in a set of measurements or calculated values. Bar charts without error bars give the illusion that a measured or calculated value is known to high precision or high confidence. In this post, we will build a bar plot using Python, the statistics module and matplotlib. The plot will show the tensile strength of two different 3-D printer filament materials, ABS and HIPS. We will then add error bars to the plot based on the standard deviation of the data.&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;img alt="bar_plot_with_error_bars" src="https://professorkazarinoff.github.io/staticsite/images/matplotlib/stats_module_bar_plot_error_bars.png"&gt;&lt;/p&gt;
 &lt;p&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;

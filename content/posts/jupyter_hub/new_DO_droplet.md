@@ -112,11 +112,13 @@ Copy the IP address of the new droplet onto the clipboard. We need to IP address
 
 #### 2. Log into the server as root over SSH using PuTTY.
 
-Open PuTTY from the Windows start menu. Then paste the IP address into the PuTTY main window. A couple other parameters need to be set before we logon.
+Open PuTTY from the Windows start menu. Then paste the IP address into the PuTTY main window. Set the Port = 22. A couple other parameters need to be set before we logon.
 
-Go to the SSH section and select Securtity. Naviage to the SSH private key in Documents/ssh-keys. The private key ends in a .ppk extension. I had trouble finding the key when I first set up PuTTY. It turned out that when the key was saved in Programfiles/PuTTY, it was not visible in the Windows file browser because I don't have administrator permissions on my machine at work. I ended up having to create a new SSH key and save the new key in Documents/ssh-key (that I can access without administrator privaleges). 
+Under Connect --> SSH --> Auth --> Private key file for authentication, click [Browse]. 
 
-Enter the user name: root
+Naviage to the SSH private key in Documents/ssh-keys. The private key ends in a .ppk extension. I had trouble finding the key when I first set up PuTTY. It turned out that when the key was saved in Programfiles/PuTTY, it was not visible in the Windows file browser because I don't have administrator permissions on my machine at work. I ended up having to create a new SSH key and save the new key in Documents/ssh-key (that I can access without administrator privaleges). 
 
-Click connect
+Under Connection --> Data --> Auto-login username: ```root```
+
+Back in [Sessions] (the top-most menue item or main page), click [Open]
 

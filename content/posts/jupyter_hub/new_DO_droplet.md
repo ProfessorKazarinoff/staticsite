@@ -7,7 +7,7 @@ Tags: jupyter, jupyter hub, jupyter notebooks, python
 Slug: why-jupyter-hub
 Authors: Peter D. Kazarinoff
 Series: Jupyter Hub
-Series_index: 2
+Series_index: 3
 Summary: This is the second part of a multi-part series that show how to set up Jupyter Hub for a class. This will be the first time setting up a Jupyter Hub server for me, I am primarily writing to my future self as I may need to do this again in the future. In this post, I am going to try and create a new Digital Ocean droplet and create a non-root sudo user and SSH in with my machine at work.
 
 This is the second part of a multi-part series that show how to set up Jupyter Hub for a class. This will be the first time setting up a Jupyter Hub server for me, I am primarily writing to my future self as I may need to do this again in the future. In this post, I am going to try and create a new Digital Ocean droplet and create a non-root sudo user and SSH in with my machine at work.

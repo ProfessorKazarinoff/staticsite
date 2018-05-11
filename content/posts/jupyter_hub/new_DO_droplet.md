@@ -116,9 +116,95 @@ Open PuTTY from the Windows start menu. Then paste the IP address into the PuTTY
 
 Under Connect --> SSH --> Auth --> Private key file for authentication, click [Browse]. 
 
-Naviage to the SSH private key in Documents/ssh-keys. The private key ends in a .ppk extension. I had trouble finding the key when I first set up PuTTY. It turned out that when the key was saved in Programfiles/PuTTY, it was not visible in the Windows file browser because I don't have administrator permissions on my machine at work. I ended up having to create a new SSH key and save the new key in Documents/ssh-key (that I can access without administrator privaleges). 
+Naviage to the SSH private key in Documents/ssh-keys. The private key ends in a .ppk extension. I had trouble finding the key when I first set up PuTTY. It turned out that when the key was saved in Programfiles/PuTTY, it was not visible in the Windows file browser because I don't have administrator permissions on my machine at work. I ended up having to create a new SSH key and save the new key in Documents/ssh-key (I can access Documents/ssh-key without administrator privaleges). 
 
 Under Connection --> Data --> Auto-login username: ```root```
 
 Back in [Sessions] (the top-most menue item or main page), click [Open]
+
+#### 3. Create a non-root sudo user
+
+Digital Ocean recommends that the servers are run by non-root accounts that have sudo access. So one of the first thing we will do on our server is create a non-root sudo user. First though let's make sure everything is up to date:
+
+```
+$ sudo apt-get update
+```
+
+I followed [this tutorial](https://www.digitalocean.com/community/tutorials/how-to-create-a-sudo-user-on-ubuntu-quickstart) at Digital Ocean to create a non-root sudo user.
+
+Create the new user with a new <username>. I called my new user ```peter```.
+  
+```
+$ adduser <username>
+```
+
+Set a new password and confirm:
+
+```
+Enter new UNIX password:
+Retype new UNIX password:
+passwd: password updated successfully
+```
+
+The user details can be skipped by pressing [Enter]. Then [Y] to complete the new user setup.
+
+```
+Changing the user information for username
+Enter the new value, or press ENTER for the default
+    Full Name []:
+    Room Number []:
+    Work Phone []:
+    Home Phone []:
+    Other []:
+Is the information correct? [Y/n]
+```
+
+Now let's give our new user sudo privaleges:
+
+```
+usermod -aG sudo <username>
+```
+
+The new user account is created and it has sudo privalges. We can switch accounts and become the new uswer with:
+
+```
+$ su - <username>
+```
+
+The new user should have ```sudo``` privaleges. That means we should be able to look in the ```/root``` directory.
+
+```
+$ sudo ls -la /root
+```
+
+If you can see the contents of ```/root``` then the new user is set up. Exit the PuTTY session by typing ```exit``` into the terminal.
+
+```
+$ exit
+```
+
+#### 4. Connect to the server as the non-root sudo user using PuTTY
+
+Now that the non-root sudo user is set up, let's start a new PuTTY session and log into the server as the new user. Like before open PuTTY from the Windows Start menu and add the following settings:
+
+Hostname (or IP Address)           Digital Ocean Server IP Address (example 162.01.254.01)
+Port                               22
+Connection --> Data                Auto-login username: <username> (the new user you just set up)
+Connection --> SSH --> Auth        Private Key file for identification, browse to Documents/SSH-keys and select private_key.ppk
+Sessions --> [Open]
+  
+You should see the Digitial Ocean login screen. Check to see which directory you land it. It should be ```/home/<username>```
+
+```
+$ pwd
+/home/<username>
+```
+
+### Summary
+
+In this post we created a new Digital Ocean server (called a Droplet) and made sure to add our public SSH key to the setup options before we hit [Create]. Then we logged in as ```root``` into the server with PuTTY and our private SSH key. As ```root``` we set up a new user with sudo privaleges. Then we logged into the server as the new user and checked the new user's home directory.
+
+### Next Steps
+
+In the next post we will get to the fun stuff: installing Anaconda and Jupyter Hub on our new server and starting Jupyter Hub for the first time! (but only keep it open for a couple seconds because we don't have SSL set up yet).
 

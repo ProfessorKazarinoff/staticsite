@@ -4,7 +4,7 @@ Modified: 2018-05-07 12:40
 Status: draft
 Category: jupyter
 Tags: jupyter, jupyter hub, jupyter notebooks, python
-Slug: why-jupyter-hub
+Slug: ssh-keys-with-putty
 Authors: Peter D. Kazarinoff
 Series: Jupyter Hub
 Series_index: 2

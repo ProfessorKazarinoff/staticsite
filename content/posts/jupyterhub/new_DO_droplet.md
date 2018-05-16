@@ -165,13 +165,13 @@ Now let's give our new user sudo privaleges:
 usermod -aG sudo <username>
 ```
 
-The new user account is created and it has sudo privalges. We can switch accounts and become the new uswer with:
+The new user account is created and it has sudo privalges. We can switch accounts and become the new user with:
 
 ```
-$ su - <username>
+$ sudo su - <username>
 ```
 
-The new user should have ```sudo``` privaleges. That means we should be able to look in the ```/root``` directory.
+The new user should have ```sudo``` privileges. That means when acting as ```<username>``` we should be able to look in the ```/root``` directory.
 
 ```
 $ sudo ls -la /root
@@ -179,17 +179,12 @@ $ sudo ls -la /root
 
 If you can see the contents of ```/root``` then the new user is set up. Exit the PuTTY session by typing ```exit``` into the terminal.
 
-Before we log off, we need to add our ssh keys to our new user's profile on the server. The second time I set up JupyterHub, I had trouble logging in as the non-root user using PuTTY. I could log in as ```root``` just fine, but I couldn't log in as the newly created user ```peter```. When Digital Ocean created the server it added the ssh keys (specified in the creation page) to the ```root``` profile. The new user ```peter``` didn't exist when the server was created. At server creation time, the only user was ```root```. No ssh keys were added to the ```peter``` profile at server creation time, because the ```peter``` user didn't exist yet. Since we want to log in as our new non-root user ```peter```, we need to add our ssh keys to the ```peter``` profile. The ssh keys belong in a file located at ```/home/peter/.ssh/authorized_keys```. 
-
-If the ssh-key is not still saved to the clipboard, go to PuTTYgen and click [load]. Browse to the Documents/ssh-keys folder and select the ssh-key we created. This will bring up the public SSH key print. Copy the public key to the clipboard. Alternatively, you can log onto Digital Ocean and click on the upper right. Select settings --> security. In the right column of the ssh key select more--> details. This will bring up a window with the ssh key contents. Then copy the contents of the ssh the clipboard. 
-
-On the server type (change ```peter``` to the non-root sudo user):
+Before we log off, we need to add our ssh keys to our new user's profile on the server. The second time I set up JupyterHub, I had trouble logging in as the non-root user using PuTTY. I could log in as ```root``` just fine, but I couldn't log in as the newly created user ```peter```. When Digital Ocean created the server it added the ssh keys (specified on the creation page) to the ```root``` profile. The new user ```peter``` didn't exist when the server was created, the only user was ```root``` at creation time. Therefore no ssh keys were added to the ```peter``` profile at server creation time, because the ```peter``` user didn't exist yet. Since we want to log in as our new non-root user ```peter```, we need to add the ssh keys saved in the ```root``` profile to the ```peter``` profile. The ssh keys belong in a file located at ```/home/peter/.ssh/authorized_keys```. We can use the ```cp``` command to copy the ssh keys from /root/.ssh/authorized_keys to /home/peter/.ssh/authorized_keys.
 
 ```
-$ sudo nano /home/peter/.ssh/authorized_keys 
+$ mkdir /home/peter/.ssh
+$ sudo cp /root/.ssh/authorized_keys /home/peter/.ssh/authorized_keys
 ```
-
-Use the right mouse button to paste in the ssh-key from the clipboard. Use [Ctrl-x] and [Y] to save and exit.
 
 Now we can exit out of the ```peter``` profile
 
@@ -197,7 +192,7 @@ Now we can exit out of the ```peter``` profile
 $ exit
 ```
 
-This should bring you back to the ```root``` user. Restart the server to enact the changes with:
+This should bring you back to the ```root``` prolife. Restart the server to enact the changes with:
 
 ```
 $ sudo shutdown -r now

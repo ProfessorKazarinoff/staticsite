@@ -275,7 +275,7 @@ Python for Undergraduate Engineers            </a>
     </span>
 
             <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x00000247FE749970> of 
+            Part <built-in method index of str object at 0x000002BB0212DA70> of 
 
 
 
@@ -357,7 +357,7 @@ Python for Undergraduate Engineers            </a>
 <h4>2. Log into the server as root over SSH using PuTTY.</h4>
 <p>Open PuTTY from the Windows start menu. Then paste the IP address into the PuTTY main window. Set the Port = 22. A couple other parameters need to be set before we logon.</p>
 <p>Under Connect --&gt; SSH --&gt; Auth --&gt; Private key file for authentication, click [Browse]. </p>
-<p>Naviage to the SSH private key in Documents/ssh-keys. The private key ends in a .ppk extension. I had trouble finding the key when I first set up PuTTY. It turned out that when the key was saved in Programfiles/PuTTY, it was not visible in the Windows file browser because I don't have administrator permissions on my machine at work. I ended up having to create a new SSH key and save the new key in Documents/ssh-key (I can access Documents/ssh-key without administrator privaleges). </p>
+<p>Navigate to the SSH private key in Documents/ssh-keys. The private key ends in a .ppk extension. I had trouble finding the key when I first set up PuTTY. It turned out that when the key was saved in Programfiles/PuTTY, it was not visible in the Windows file browser because I don't have administrator permissions on my machine at work. I ended up having to create a new SSH key and save the new key in Documents/ssh-key (I can access Documents/ssh-key without administrator privaleges). </p>
 <p>Under Connection --&gt; Data --&gt; Auto-login username: <code>root</code></p>
 <p>Back in [Sessions] (the top-most menue item or main page), click [Open]</p>
 <h4>3. Create a non-root sudo user</h4>
@@ -407,12 +407,27 @@ Is the information correct? [Y/n]
 
 
 <p>If you can see the contents of <code>/root</code> then the new user is set up. Exit the PuTTY session by typing <code>exit</code> into the terminal.</p>
+<p>Before we log off, we need to add our ssh keys to our new user's profile on the server. The second time I set up JupyterHub, I had trouble logging in as the non-root user using PuTTY. I could log in as <code>root</code> just fine, but I couldn't log in as the newly created user <code>peter</code>. When Digital Ocean created the server it added the ssh keys (specified in the creation page) to the <code>root</code> profile. The new user <code>peter</code> didn't exist when the server was created. At server creation time, the only user was <code>root</code>. No ssh keys were added to the <code>peter</code> profile at server creation time, because the <code>peter</code> user didn't exist yet. Since we want to log in as our new non-root user <code>peter</code>, we need to add our ssh keys to the <code>peter</code> profile. The ssh keys belong in a file located at <code>/home/peter/.ssh/authorized_keys</code>. </p>
+<p>If the ssh-key is not still saved to the clipboard, go to PuTTYgen and click [load]. Browse to the Documents/ssh-keys folder and select the ssh-key we created. This will bring up the public SSH key print. Copy the public key to the clipboard. Alternatively, you can log onto Digital Ocean and click on the upper right. Select settings --&gt; security. In the right column of the ssh key select more--&gt; details. This will bring up a window with the ssh key contents. Then copy the contents of the ssh the clipboard. </p>
+<p>On the server type (change <code>peter</code> to the non-root sudo user):</p>
+<div class="highlight"><pre><span></span>$ sudo nano /home/peter/.ssh/authorized_keys 
+</pre></div>
+
+
+<p>Use the right mouse button to paste in the ssh-key from the clipboard. Use [Ctrl-x] and [Y] to save and exit.</p>
+<p>Now we can exit out of the <code>peter</code> profile</p>
 <div class="highlight"><pre><span></span>$ <span class="nb">exit</span>
 </pre></div>
 
 
+<p>This should bring you back to the <code>root</code> user. Restart the server to enact the changes with:</p>
+<div class="highlight"><pre><span></span>$ sudo shutdown -r now
+</pre></div>
+
+
+<p>You might need to wait a minute or two for the server to restart.</p>
 <h4>4. Connect to the server as the non-root sudo user using PuTTY</h4>
-<p>Now that the non-root sudo user is set up, let's start a new PuTTY session and log into the server as the new user. Like before open PuTTY from the Windows Start menu and add the following settings:</p>
+<p>Now that the non-root sudo user is set up and our ssh keys are in /home/user/.ssh/authorized_keys, let's start a new PuTTY session and log into the server as the new user. Like before open PuTTY from the Windows Start menu and add the following settings:</p>
 <p>Hostname (or IP Address)           Digital Ocean Server IP Address (example 162.01.254.01)
 Port                               22
 Connection --&gt; Data                Auto-login username: <username> (the new user you just set up)
@@ -441,7 +456,7 @@ Sessions --&gt; [Open]</p>
     </ul>
 </section>
 <section class="well" id="related-posts">
-    <h4>Article <built-in method index of str object at 0x00000247FE749970> of the  series</h4>
+    <h4>Article <built-in method index of str object at 0x000002BB0212DA70> of the  series</h4>
 </section>
         </article>
     </section>

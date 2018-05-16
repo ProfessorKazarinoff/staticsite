@@ -12,7 +12,7 @@ DEFAULT_LANG = 'en'
 PATH = 'content'
 PAGE_PATHS = ['pages']
 ARTICLE_PATHS = ['posts']
-STATIC_PATHS = ['images','extra','posts/seaborn_bar_plot_files','posts/micropython', 'extra/CNAME', 'code','posts/jupyter']  # removed this, see if any change 'code',
+STATIC_PATHS = ['images','extra','posts/seaborn_bar_plot_files','posts/micropython', 'extra/CNAME', 'code','posts/jupyter','posts/jupyterhub']  # removed this, see if any change 'code',
 PLUGIN_PATHS = ['pelican-plugins']
 EXTRA_PATH_METADATA = {
     	'extra/custom.css': {'path': 'static/css/custom.css'},

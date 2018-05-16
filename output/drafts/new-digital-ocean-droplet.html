@@ -178,14 +178,14 @@ init_mathjax();
 
         <meta name="author" content="Peter D. Kazarinoff" />
         <meta name="keywords" content="jupyter,jupyter hub,jupyter notebooks,python" />
-        <meta name="description" content="This is the second part of a multi-part series that show how to set up Jupyter Hub for a college class. My goal is to having a running version of Jupyter Hub that students in the class can log into just using a simple web link. I am primarily writing to my future self as I may need to set Jupyter Hub up again for future classes. In this post, I am going to try and create a new Digital Ocean droplet and create a non-root sudo user and SSH into the droplet with my machine at work." />
+        <meta name="description" content="This is the second part of a multi-part series that show how to set up Jupyter Hub for a college class. My goal is to have a running version of Jupyter Hub that students in the class can log into just using a simple web link. I am primarily writing to my future self as I may need to set up Jupyter Hub again for future classes. In this post, we are going to create a new Digital Ocean droplet and create a non-root sudo user and SSH into the droplet with PuTTY." />
 
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="Creating a new Digital Ocean Droplet?"/>
         <meta property="og:url" content="/drafts/new-digital-ocean-droplet.html"/>
-        <meta property="og:description" content="This is the second part of a multi-part series that show how to set up Jupyter Hub for a college class. My goal is to having a running version of Jupyter Hub that students in the class can log into just using a simple web link. I am primarily writing to my future self as I may need to set Jupyter Hub up again for future classes. In this post, I am going to try and create a new Digital Ocean droplet and create a non-root sudo user and SSH into the droplet with my machine at work."/>
-        <meta property="article:published_time" content="2018-05-07" />
+        <meta property="og:description" content="This is the second part of a multi-part series that show how to set up Jupyter Hub for a college class. My goal is to have a running version of Jupyter Hub that students in the class can log into just using a simple web link. I am primarily writing to my future self as I may need to set up Jupyter Hub again for future classes. In this post, we are going to create a new Digital Ocean droplet and create a non-root sudo user and SSH into the droplet with PuTTY."/>
+        <meta property="article:published_time" content="2018-05-16" />
             <meta property="article:section" content="jupyter" />
             <meta property="article:tag" content="jupyter" />
             <meta property="article:tag" content="jupyter hub" />
@@ -271,11 +271,11 @@ Python for Undergraduate Engineers            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2018-05-07T12:40:00-07:00"> Mon 07 May 2018</time>
+        <i class="fa fa-calendar"></i><time datetime="2018-05-16T12:40:00-07:00"> Wed 16 May 2018</time>
     </span>
 
             <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x000002BB0212DA70> of 
+            Part <built-in method index of str object at 0x000002212F07B970> of 
 
 
 
@@ -291,7 +291,7 @@ Python for Undergraduate Engineers            </a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>This is the second part of a multi-part series that show how to set up Jupyter Hub for a college class. My goal is to having a running version of Jupyter Hub that students in the class can log into just using a simple web link. I am primarily writing to my future self as I may need to set Jupyter Hub up again for future classes. In this post, I am going to try and create a new Digital Ocean droplet and create a non-root sudo user and SSH into the droplet with my machine at work.</p>
+                <p>This is the second part of a multi-part series that show how to set up Jupyter Hub for a college class. My goal is to have a running version of Jupyter Hub that students in the class can log into just using a simple web link. I am primarily writing to my future self as I may need to set up Jupyter Hub again for future classes. In this post, we are going to create a new Digital Ocean droplet and create a non-root sudo user and SSH into the droplet with PuTTY.</p>
 <h3>List of all steps</h3>
 <ol>
 <li>Create ssh key, save to documents/ssh-keys (complete)</li>
@@ -322,11 +322,11 @@ Python for Undergraduate Engineers            </a>
 <h4>2. Create a new Digital Ocean Droplet</h4>
 <p>To create a new Digtial Ocean Droplet (a new server), you to log in here:</p>
 <p><a href="https://cloud.digitalocean.com/login">https://cloud.digitalocean.com/login</a></p>
-<p><img alt="Digital Ocean Login" src="/posts/jupyter_hub/digital_ocean_login.png"></p>
+<p><img alt="Digital Ocean Login" src="/posts/jupyterhub/digital_ocean_login.png"></p>
 <p>After logging in, I got a verify screen and had to go to my email and retrive a six digit code. A the joys of two-factor authentication.</p>
-<p><img alt="Digital Ocean Verify" src="/posts/jupyter_hub/digital_ocean_verify.png"></p>
+<p><img alt="Digital Ocean Verify" src="/posts/jupyterhub/digital_ocean_verify.png"></p>
 <p>The welcome screen looks like this. To create a new server, select [Create Droplet]</p>
-<p><img alt="Digital Ocean Create Droplet" src="/posts/jupyter_hub/digital_ocean_create_droplet.png"></p>
+<p><img alt="Digital Ocean Create Droplet" src="/posts/jupyterhub/digital_ocean_create_droplet.png"></p>
 <p>There are a number of choices to make. These are the ones I selected:</p>
 <ul>
 <li>Image: Ubuntu 16.04.4 x64</li>
@@ -335,24 +335,24 @@ Python for Undergraduate Engineers            </a>
 <li>Add your SSH keys: New SSH Key</li>
 <li>Finalize: 1 Droplet, Hostname: jupyter-hub</li>
 </ul>
-<p><img alt="Digital Droplet Choices" src="/posts/jupyter_hub/digital_ocean_create_droplets_choices.png"></p>
-<p><img alt="Digital Droplet Choices" src="/posts/jupyter_hub/digital_ocean_droplet_size_choices.png"></p>
-<p><img alt="Digital Droplet Choices" src="/posts/jupyter_hub/digital_ocean_droplet_data_center_choices.png"></p>
-<p><img alt="Digital Droplet Choices" src="/posts/jupyter_hub/digital_ocean_droplet_ssh_key__choices.png"></p>
-<p><img alt="Digital Droplet Choices" src="/posts/jupyter_hub/digital_ocean_droplet_finalize_and__create.png"></p>
+<p><img alt="Digital Droplet Choices" src="/posts/jupyterhub/digital_ocean_create_droplets_choices.png"></p>
+<p><img alt="Digital Droplet Choices" src="/posts/jupyterhub/digital_ocean_droplet_size_choices.png"></p>
+<p><img alt="Digital Droplet Choices" src="/posts/jupyterhub/digital_ocean_droplet_data_center_choices.png"></p>
+<p><img alt="Digital Droplet Choices" src="/posts/jupyterhub/digital_ocean_droplet_ssh_key__choices.png"></p>
+<p><img alt="Digital Droplet Choices" src="/posts/jupyterhub/digital_ocean_droplet_finalize_and__create.png"></p>
 <h4>Add an SSH Key</h4>
 <p>Under Add your SSH keys, click [New SSH Key]. A dialog window pops up:</p>
-<p><img alt="Digital Droplet Choices" src="/posts/jupyter_hub/digital_ocean_droplet_new_ssh_key_dialog.png"></p>
+<p><img alt="Digital Droplet Choices" src="/posts/jupyterhub/digital_ocean_droplet_new_ssh_key_dialog.png"></p>
 <p>Paste the contents of the SSH public key into the Add SSH Keys dialog box. If the SSH public key is not on the </p>
-<p><img alt="Putty in Windows Start Menu" src="/posts/jupyter_hub/digital_ocean_droplet_enter_ssh_key__details.png"></p>
+<p><img alt="Putty in Windows Start Menu" src="/posts/jupyterhub/digital_ocean_droplet_enter_ssh_key__details.png"></p>
 <p>Enter a name for the SSH key that will be saved on Digital Ocean. I choose the name jupyter-hub-ssh-key. Then click [Add SSH Key]</p>
-<p><img alt="Putty in Windows Start Menu" src="/posts/jupyter_hub/digital_ocean_droplet_ssh_key_name_and_add.png"></p>
+<p><img alt="Putty in Windows Start Menu" src="/posts/jupyterhub/digital_ocean_droplet_ssh_key_name_and_add.png"></p>
 <p>You should then see the new SSH Key in the Add your SSH Keys? region of the create a new droplets page. Make sure that the radio box for the SSH key we just added is selected. A problem I had when I set up my first droplet was that I did not ensure the new SSH Key was selected to go onto the new server. When the server was created, no SSH keys were installed. I ended up going through this long process of copying the public SSH key into pastbin.com (which is definetly <strong>not a safe thing to do</strong>), and using <code>wget</code> to past the raw contents from the pastebin into the server file system, then using <code>cp</code> to copy the publish SSH key into the correct file name. This required using the Ditigal Ocean console, which is sort of like a bash terminal that pops up in a web browser. I couldn't figure out a way to copy and paste into the Digital Ocean console and it is laggy and slow. It is way easier to insert the SSH key into the server when you create the server. It is way harder to add an SSH key after the server is created.  </p>
-<p><img alt="Putty in Windows Start Menu" src="/posts/jupyter_hub/digital_ocean_see_new_ssh_key.png"></p>
+<p><img alt="Putty in Windows Start Menu" src="/posts/jupyterhub/digital_ocean_see_new_ssh_key.png"></p>
 <p>I think it's time to actually create the droplet. Click the long green [Create] button at the bottom of the page.</p>
-<p><img alt="Putty in Windows Start Menu" src="/posts/jupyter_hub/digital_ocean_droplet_create.png"></p>
+<p><img alt="Putty in Windows Start Menu" src="/posts/jupyterhub/digital_ocean_droplet_create.png"></p>
 <p>This will bring you back the the Digital Ocean main dashboard and you should see your new droplet under Resources --&gt; Droplets</p>
-<p><img alt="Putty in Windows Start Menu" src="/posts/jupyter_hub/digital_ocean_droplets_1.png"></p>
+<p><img alt="Putty in Windows Start Menu" src="/posts/jupyterhub/digital_ocean_droplets_1.png"></p>
 <p>Copy the IP address of the new droplet onto the clipboard. We need to IP address to log into the server with PuTTY.</p>
 <h4>2. Log into the server as root over SSH using PuTTY.</h4>
 <p>Open PuTTY from the Windows start menu. Then paste the IP address into the PuTTY main window. Set the Port = 22. A couple other parameters need to be set before we logon.</p>
@@ -396,25 +396,23 @@ Is the information correct? [Y/n]
 </pre></div>
 
 
-<p>The new user account is created and it has sudo privalges. We can switch accounts and become the new uswer with:</p>
-<div class="highlight"><pre><span></span>$ su - &lt;username&gt;
+<p>The new user account is created and it has sudo privalges. We can switch accounts and become the new user with:</p>
+<div class="highlight"><pre><span></span>$ sudo su - &lt;username&gt;
 </pre></div>
 
 
-<p>The new user should have <code>sudo</code> privaleges. That means we should be able to look in the <code>/root</code> directory.</p>
+<p>The new user should have <code>sudo</code> privileges. That means when acting as <code>&lt;username&gt;</code> we should be able to look in the <code>/root</code> directory.</p>
 <div class="highlight"><pre><span></span>$ sudo ls -la /root
 </pre></div>
 
 
 <p>If you can see the contents of <code>/root</code> then the new user is set up. Exit the PuTTY session by typing <code>exit</code> into the terminal.</p>
-<p>Before we log off, we need to add our ssh keys to our new user's profile on the server. The second time I set up JupyterHub, I had trouble logging in as the non-root user using PuTTY. I could log in as <code>root</code> just fine, but I couldn't log in as the newly created user <code>peter</code>. When Digital Ocean created the server it added the ssh keys (specified in the creation page) to the <code>root</code> profile. The new user <code>peter</code> didn't exist when the server was created. At server creation time, the only user was <code>root</code>. No ssh keys were added to the <code>peter</code> profile at server creation time, because the <code>peter</code> user didn't exist yet. Since we want to log in as our new non-root user <code>peter</code>, we need to add our ssh keys to the <code>peter</code> profile. The ssh keys belong in a file located at <code>/home/peter/.ssh/authorized_keys</code>. </p>
-<p>If the ssh-key is not still saved to the clipboard, go to PuTTYgen and click [load]. Browse to the Documents/ssh-keys folder and select the ssh-key we created. This will bring up the public SSH key print. Copy the public key to the clipboard. Alternatively, you can log onto Digital Ocean and click on the upper right. Select settings --&gt; security. In the right column of the ssh key select more--&gt; details. This will bring up a window with the ssh key contents. Then copy the contents of the ssh the clipboard. </p>
-<p>On the server type (change <code>peter</code> to the non-root sudo user):</p>
-<div class="highlight"><pre><span></span>$ sudo nano /home/peter/.ssh/authorized_keys 
+<p>Before we log off, we need to add our ssh keys to our new user's profile on the server. The second time I set up JupyterHub, I had trouble logging in as the non-root user using PuTTY. I could log in as <code>root</code> just fine, but I couldn't log in as the newly created user <code>peter</code>. When Digital Ocean created the server it added the ssh keys (specified on the creation page) to the <code>root</code> profile. The new user <code>peter</code> didn't exist when the server was created, the only user was <code>root</code> at creation time. Therefore no ssh keys were added to the <code>peter</code> profile at server creation time, because the <code>peter</code> user didn't exist yet. Since we want to log in as our new non-root user <code>peter</code>, we need to add the ssh keys saved in the <code>root</code> profile to the <code>peter</code> profile. The ssh keys belong in a file located at <code>/home/peter/.ssh/authorized_keys</code>.</p>
+<div class="highlight"><pre><span></span>$ sudo nano /home/peter/.ssh/authorized_keys
 </pre></div>
 
 
-<p>Use the right mouse button to paste in the ssh-key from the clipboard. Use [Ctrl-x] and [Y] to save and exit.</p>
+<p>Use the right mouse button to paste in the ssh-key from the clipboard. If the ssh key is not saved in the clipboard, then you can retrive it with PuTTYgen --&gt; load or go to Digital Ocean, click in the upper right on the profile picture --&gt; setttings --&gt; security --&gt; ssh-key --&gt; edit dropdown --&gt; edit. You can paste into the PuTTY window using the right mouse button. Use [Ctrl-x] and [Y] to save and exit.</p>
 <p>Now we can exit out of the <code>peter</code> profile</p>
 <div class="highlight"><pre><span></span>$ <span class="nb">exit</span>
 </pre></div>
@@ -456,7 +454,7 @@ Sessions --&gt; [Open]</p>
     </ul>
 </section>
 <section class="well" id="related-posts">
-    <h4>Article <built-in method index of str object at 0x000002BB0212DA70> of the  series</h4>
+    <h4>Article <built-in method index of str object at 0x000002212F07B970> of the  series</h4>
 </section>
         </article>
     </section>

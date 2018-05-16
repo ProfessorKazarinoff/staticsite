@@ -179,12 +179,14 @@ $ sudo ls -la /root
 
 If you can see the contents of ```/root``` then the new user is set up. Exit the PuTTY session by typing ```exit``` into the terminal.
 
-Before we log off, we need to add our ssh keys to our new user's profile on the server. The second time I set up JupyterHub, I had trouble logging in as the non-root user using PuTTY. I could log in as ```root``` just fine, but I couldn't log in as the newly created user ```peter```. When Digital Ocean created the server it added the ssh keys (specified on the creation page) to the ```root``` profile. The new user ```peter``` didn't exist when the server was created, the only user was ```root``` at creation time. Therefore no ssh keys were added to the ```peter``` profile at server creation time, because the ```peter``` user didn't exist yet. Since we want to log in as our new non-root user ```peter```, we need to add the ssh keys saved in the ```root``` profile to the ```peter``` profile. The ssh keys belong in a file located at ```/home/peter/.ssh/authorized_keys```. We can use the ```cp``` command to copy the ssh keys from /root/.ssh/authorized_keys to /home/peter/.ssh/authorized_keys.
+Before we log off, we need to add our ssh keys to our new user's profile on the server. The second time I set up JupyterHub, I had trouble logging in as the non-root user using PuTTY. I could log in as ```root``` just fine, but I couldn't log in as the newly created user ```peter```. When Digital Ocean created the server it added the ssh keys (specified on the creation page) to the ```root``` profile. The new user ```peter``` didn't exist when the server was created, the only user was ```root``` at creation time. Therefore no ssh keys were added to the ```peter``` profile at server creation time, because the ```peter``` user didn't exist yet. Since we want to log in as our new non-root user ```peter```, we need to add the ssh keys saved in the ```root``` profile to the ```peter``` profile. The ssh keys belong in a file located at ```/home/peter/.ssh/authorized_keys```.
+
 
 ```
-$ mkdir /home/peter/.ssh
-$ sudo cp /root/.ssh/authorized_keys /home/peter/.ssh/authorized_keys
+$ sudo nano /home/peter/.ssh/authorized_keys
 ```
+
+Use the right mouse button to paste in the ssh-key from the clipboard. If the ssh key is not saved in the clipboard, then you can retrive it with PuTTYgen --> load or go to Digital Ocean, click in the upper right on the profile picture --> setttings --> security --> ssh-key --> edit dropdown --> edit. You can paste into the PuTTY window using the right mouse button. Use [Ctrl-x] and [Y] to save and exit.
 
 Now we can exit out of the ```peter``` profile
 
@@ -192,7 +194,7 @@ Now we can exit out of the ```peter``` profile
 $ exit
 ```
 
-This should bring you back to the ```root``` prolife. Restart the server to enact the changes with:
+This should bring you back to the ```root``` user. Restart the server to enact the changes with:
 
 ```
 $ sudo shutdown -r now

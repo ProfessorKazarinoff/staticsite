@@ -1,4 +1,4 @@
-Title: Creating a new Digital Ocean Droplet?
+Title: Creating a new Digital Ocean Droplet
 Date: 2018-05-16 12:40
 Modified: 2018-05-16 12:40
 Status: draft
@@ -181,14 +181,18 @@ $ sudo ls -la /root
 
 If you can see the contents of ```/root``` then the new user is set up with sudo access.
 
-Before we log off, we need to add our ssh keys to our new user's profile on the server. The second time I set up JupyterHub, I had trouble logging in as the non-root user using PuTTY. I could log in as ```root``` just fine, but I couldn't log in as the newly created user ```peter```. When Digital Ocean created the server, the ssh keys (specified on the creation page) were added to the ```root``` profile. The new user ```peter``` didn't exist when the server was created. The only user was ```root``` at creation time. Therefore no ssh keys were added to the ```peter``` profile at server creation time, because the user ```peter``` didn't exist yet. Since we want to log in as our new non-root user ```peter```, we need to add the ssh keys saved in the ```root``` profile to the ```peter``` profile. The ssh keys belong in a file located at ```/home/peter/.ssh/authorized_keys```.
+Before we log off, we need to add our ssh keys to our new user's profile on the server. The second time I set up JupyterHub, I had trouble logging in as the non-root user using PuTTY. I could log in as ```root``` just fine, but I couldn't log in as the newly created user ```peter```. When Digital Ocean created the server, the ssh keys (specified on the creation page) were added to the ```root``` profile. The new user ```peter``` didn't exist when the server was created. The only user was ```root``` at creation time. Therefore no ssh keys were added to the ```peter``` profile at server creation time, because the user ```peter``` didn't exist yet. Since we want to log into our server as the new non-root user ```peter```, we need to add the same ssh keys saved in the ```root``` profile to the ```peter``` profile. The ssh keys belong in a file located at ```/home/peter/.ssh/authorized_keys```. I followed [this tutorial](https://www.digitalocean.com/community/tutorials/how-to-create-ssh-keys-with-putty-to-connect-to-a-vps) from Digital Ocean.
 
 
 ```
-$ sudo nano /home/peter/.ssh/authorized_keys
+$ mkdir ~/.ssh
+$ chmod 0700 ~/.ssh
+$ touch ~/.ssh/authorized_keys
+$ chmod 0644 ~/.ssh/authorized_keys
+$ nano /home/peter/.ssh/authorized_keys
 ```
 
-Use the right mouse button to paste in the ssh-key from the clipboard. If the ssh key is not saved in the clipboard, then you can retrive it with PuTTYgen --> load or go to Digital Ocean, click in the upper right on the profile picture --> setttings --> security --> ssh-key --> edit dropdown --> edit. You can paste into the PuTTY window using the right mouse button. Use [Ctrl-x] and [Y] to save and exit. I tried to use ```cp``` to copy the ```authorized_keys``` file from ```/root/.ssh/``` to ```/home/peter/.ssh``` but there was a problem with permissions and write access to the ```authorized_keys``` file. I couldn't get PuTTY to login as ```peter``` until I removed the file, recreated an empty one and pasted in the SSH key.
+Use the right mouse button to paste in the ssh-key from the clipboard. If the ssh key is not saved in the clipboard, then you can retrive it with PuTTYgen --> load or go to Digital Ocean, click in the upper right on the profile picture --> setttings --> security --> ssh-key --> edit dropdown --> edit. You can paste into the PuTTY window using the right mouse button. Use [Ctrl-x] and [Y] to save and exit. I tried to use ```cp``` to copy the ```authorized_keys``` file from ```/root/.ssh/``` to ```/home/peter/.ssh``` but there was a problem with permissions and write access to the ```authorized_keys``` file. I couldn't get PuTTY to login as ```peter``` until I removed the file, recreated an empty one and pasted in the SSH key. This is probably also possible with ```cat file1 >> file2```. Manually copying and pasting with the right mouse button was the way I got it to work. 
 
 Now we can exit out of the ```peter``` profile
 

@@ -24,7 +24,7 @@ This is the third part of a multi-part series that shows how to set up Jupyter H
 
 ### The last post
 
-In previous post, we created a new Digital Ocean cloud server (called a _droplet_ in Digital Ocean speak). We used PuTTY to log into the server as the ```root``` user using our private SSH key. As ```root```, we set up a new ```<user>``` with sudo privileges and added our SSH key to ```/home/<user>/.ssh/authorized_keys```. Then we logged into the server as the new ```<user>```.
+In the last post we created a new server on Digital Ocean (called a _droplet_) and made sure to add our public SSH key to the setup options. Then we logged into the server as ```root```  with our private SSH key. As ```root```, we set up a new user with sudo privileges (our new user is ```peter```) and added our public SSH key to the new users profile. Then we logged into the server as the new user and checked the new user's home directory.
 
 
 ### This post

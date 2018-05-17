@@ -275,7 +275,7 @@ Python for Undergraduate Engineers            </a>
     </span>
 
             <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x0000025C47CFC8B0> of 
+            Part <built-in method index of str object at 0x00000195BFC7C4F0> of 
 
 
 
@@ -307,12 +307,126 @@ Python for Undergraduate Engineers            </a>
 <h3>Steps in this post:</h3>
 <ol>
 <li>Link domain name to server IP address</li>
-<li>Use let's encrypt to generate SSL keys</li>
+<li>Install nginx</li>
+<li>Use cirtbox to generate SSL certificates</li>
 <li>Create jupyterhub_config.py and modify</li>
-<li>Install nginx and modify nginx_conf</li>
+<li>modify nginx_conf</li>
 <li>Start restart nginx and start jupyterhub. See if we can log in.</li>
 <li>Create another system user on the server. Restart jupyterhub and log in as new user.</li>
 </ol>
+<h3>1. Link domain name to server IP address</h3>
+<p>Go to digital ocean dns control pannel. Add domain name. Link domain name to droplet.</p>
+<p>It takes a couple minutes of waiting until the dns switchover happens. <a href="https://www.whatsmydns.net">https://www.whatsmydns.net</a> can be used to check the NS and A records of your domain and see if they are getting through. The first time I set it up, I added the custom dns servers to google domains but I neglected to select the custom dns servers radio box. So it looked like the domain was going to digital ocean, but actually it was just staying with google. Once I clicked the radio box and waited a coulple minutes, the change over happened. It did take a bit though. Not hours, but a few minutes.</p>
+<h3>2. Install nginx and modify ufw and nginx_conf</h3>
+<p>Following <a href="https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-16-04">this tutorial</a> from Digital Ocean</p>
+<p>Install nginx</p>
+<div class="highlight"><pre><span></span>$ sudo apt-get update
+$ sudo apt-get install nginx
+</pre></div>
+
+
+<p>Check out which apps the ufw firewall is working with. </p>
+<div class="highlight"><pre><span></span>$ sudo ufw app list
+</pre></div>
+
+
+<p>We see a list of available ufw configurations to work with nginx. </p>
+<div class="highlight"><pre><span></span>Available applications:
+  Nginx Full
+  Nginx HTTP
+  Nginx HTTPS
+  OpenSSH
+</pre></div>
+
+
+<p>We want to allow in both http and https requests. Once a http request comes in, we will use nginx to convert it to an https connection. Select nginx full. Note the Capitalization in the command:</p>
+<div class="highlight"><pre><span></span>$ sudo ufw allow <span class="s1">&#39;Nginx Full&#39;</span>
+</pre></div>
+
+
+<p>We can check out which ports ufw is allowing through with:</p>
+<div class="highlight"><pre><span></span>$ sudo ufw status
+</pre></div>
+
+
+<p>Note in the output how ufw is allowing nginx full and requests over port 8000. We opened port 8000 earlier, so we could see how jupyterhub works without a domain name or SSL.  Once we get nginx running and hooked up to jupyterhub, we need to remember to close off port 8000 in ufw.</p>
+<div class="highlight"><pre><span></span><span class="n">Status</span><span class="o">:</span> <span class="n">active</span>
+
+<span class="n">To</span>                         <span class="n">Action</span>      <span class="n">From</span>
+<span class="o">--</span>                         <span class="o">------</span>      <span class="o">----</span>
+<span class="mi">22</span>                         <span class="n">LIMIT</span>       <span class="n">Anywhere</span>
+<span class="mi">2375</span><span class="o">/</span><span class="n">tcp</span>                   <span class="n">ALLOW</span>       <span class="n">Anywhere</span>
+<span class="mi">2376</span><span class="o">/</span><span class="n">tcp</span>                   <span class="n">ALLOW</span>       <span class="n">Anywhere</span>
+<span class="mi">8000</span>                       <span class="n">ALLOW</span>       <span class="n">Anywhere</span>
+<span class="n">Nginx</span> <span class="n">Full</span>                 <span class="n">ALLOW</span>       <span class="n">Anywhere</span>
+<span class="mi">22</span> <span class="o">(</span><span class="n">v6</span><span class="o">)</span>                    <span class="n">LIMIT</span>       <span class="n">Anywhere</span> <span class="o">(</span><span class="n">v6</span><span class="o">)</span>
+<span class="mi">2375</span><span class="o">/</span><span class="n">tcp</span> <span class="o">(</span><span class="n">v6</span><span class="o">)</span>              <span class="n">ALLOW</span>       <span class="n">Anywhere</span> <span class="o">(</span><span class="n">v6</span><span class="o">)</span>
+<span class="mi">2376</span><span class="o">/</span><span class="n">tcp</span> <span class="o">(</span><span class="n">v6</span><span class="o">)</span>              <span class="n">ALLOW</span>       <span class="n">Anywhere</span> <span class="o">(</span><span class="n">v6</span><span class="o">)</span>
+<span class="mi">8000</span> <span class="o">(</span><span class="n">v6</span><span class="o">)</span>                  <span class="n">ALLOW</span>       <span class="n">Anywhere</span> <span class="o">(</span><span class="n">v6</span><span class="o">)</span>
+<span class="n">Nginx</span> <span class="n">Full</span> <span class="o">(</span><span class="n">v6</span><span class="o">)</span>            <span class="n">ALLOW</span>       <span class="n">Anywhere</span> <span class="o">(</span><span class="n">v6</span><span class="o">)</span>
+</pre></div>
+
+
+<p>nginx will start running as soon at it is installed. We can see the status with:</p>
+<div class="highlight"><pre><span></span>$ sudo systemctl status nginx
+</pre></div>
+
+
+<p>In the output, we can see something like below. This mean nginx is running.</p>
+<div class="highlight"><pre><span></span> <span class="nt">Active</span><span class="o">:</span> <span class="nt">active</span> <span class="o">(</span><span class="nt">running</span><span class="o">)</span> <span class="nt">since</span> <span class="nt">Thu</span> <span class="nt">2018-05-17</span> <span class="nt">04</span><span class="p">:</span><span class="nd">51</span><span class="p">:</span><span class="nd">16</span> <span class="nt">UTC</span><span class="o">;</span> <span class="nt">15min</span> <span class="nt">ago</span>
+ <span class="nt">Main</span> <span class="nt">PID</span><span class="o">:</span> <span class="nt">17126</span> <span class="o">(</span><span class="nt">nginx</span><span class="o">)</span>
+   <span class="nt">CGroup</span><span class="o">:</span> <span class="o">/</span><span class="nt">system</span><span class="p">.</span><span class="nc">slice</span><span class="o">/</span><span class="nt">nginx</span><span class="p">.</span><span class="nc">service</span>
+           <span class="err">├─</span><span class="nt">17126</span> <span class="nt">nginx</span><span class="o">:</span> <span class="nt">master</span> <span class="nt">process</span> <span class="o">/</span><span class="nt">usr</span><span class="o">/</span><span class="nt">sbin</span><span class="o">/</span><span class="nt">nginx</span> <span class="nt">-g</span> <span class="nt">daemon</span> <span class="nt">on</span><span class="o">;</span> <span class="nt">master_pr</span>
+           <span class="err">└─</span><span class="nt">17127</span> <span class="nt">nginx</span><span class="o">:</span> <span class="nt">worker</span> <span class="nt">process</span>
+</pre></div>
+
+
+<p>So we can browse over to the domain name (the domain we set up with Digital Ocean and google domains) and we should see the nginx start page.</p>
+<p><img alt="nginx welcome page" src="/posts/jupyterhub/welcome_to_nginx.png"></p>
+<h3>3. Obtain ssl certificates with certbot</h3>
+<p>From <a href="https://www.slideshare.net/willingc/jupyterhub-tutorial-at-jupytercon">this presentation</a></p>
+<p>Install certbot</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~
+$ mkdir certbot
+$ <span class="nb">cd</span> certbot
+$ wget https://dl.eff.org/certbot-auto
+$ chmod a+x certbot-auto
+</pre></div>
+
+
+<p>Before we can run certbot, we need to turn off nginx. When I first tried to run certbot, I got an error that read:</p>
+<div class="highlight"><pre><span></span>Problem binding to port 80: Could not bind to IPv4 or IPv6.
+</pre></div>
+
+
+<p>Since we installed nginx earlier, and we confirmed that it's running, that means that port 80 is currently in use by nginx. We need to open up port 80 to certbot by temporarily shutting down nginx. Once nginx is stopped, we can run cirtbot and get our SSL certificate. We'll have to restart nginx, but that can wait until we change the nginx configuration file.</p>
+<div class="highlight"><pre><span></span>$ sudo systemctl stop nginx
+$ sudo systemctl status nginx
+<span class="c1"># [Ctrl] + [c] to exit</span>
+$ ./certbot-auto certonly --standalone -d notebooks.problemsolvingwithpython.com
+</pre></div>
+
+
+<p>If it worked and we got our SSL certificate, the output will be something like:</p>
+<div class="highlight"><pre><span></span>IMPORTANT NOTES:
+ - Congratulations! Your certificate and chain have been saved at:
+   /etc/letsencrypt/live/notebooks.problemsolvingwithpython.com/fullchain.pem
+   Your key file has been saved at:
+   /etc/letsencrypt/live/notebooks.problemsolvingwithpython.com/privkey.pem
+   Your cert will expire on 2018-08-15. 
+</pre></div>
+
+
+<p>Note the location of the <code>fullchain.pem</code> and <code>privkey.pem</code> files. We'll need to put these locations into the nginx configuration.</p>
+<h3>4. Generate jupyterhub_config.py and modify</h3>
+<div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~
+$ jupyterhub --generate-config
+</pre></div>
+
+
+<h3>5. Modify nginx config</h3>
+<h3>6. Restart nginx and start jupyterhub, see if we can login</h3>
+<h3>7. Create an new user and restart jupyterhub. See if new user can log in.</h3>
 <h3>Summary</h3>
 <h3>Next Steps</h3>
             </div>
@@ -328,7 +442,7 @@ Python for Undergraduate Engineers            </a>
     </ul>
 </section>
 <section class="well" id="related-posts">
-    <h4>Article <built-in method index of str object at 0x0000025C47CFC8B0> of the  series</h4>
+    <h4>Article <built-in method index of str object at 0x00000195BFC7C4F0> of the  series</h4>
 </section>
         </article>
     </section>

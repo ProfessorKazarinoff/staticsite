@@ -8,13 +8,13 @@ Slug: why-jupyter-hub
 Authors: Peter D. Kazarinoff
 Series: Jupyter Hub
 Series_index: 1
-Summary: This is the first part of a multi-part series that shows how to set up **Jupyter Hub** for an engineering programming class. This will be my first time setting up a Jupyter Hub server. I am primarily writing to my future self as I may need to do this again for another class in the future. I hope the lessons learned will help future instructors tackle the same problem if they want to set up Jupyter Hub for their own class or team.
+Summary: This is the first part of a multi-part series that shows how to set up **Jupyter Hub** for an engineering programming class. This will be my first time setting up a **Jupyter Hub** server. I am primarily writing to my future self as I may need to set up a **Jupyter Hub** server again for a different class. I hope the lessons learned will also help future instructors tackle the same problem if they want to set up **Jupyter Hub** for their own class or team.
 
-This is the first part of a multi-part series that shows how to set up **Jupyter Hub** for an engineering programming class. This will be my first time setting up a **Jupyter Hub** server. I am primarily writing to my future self as I may need to set up a **Jupyter Hub** server again for a difference class. I hope the lessons learned will also help future instructors tackle the same problem if they want to set up **Jupyter Hub** for their own class or team.
+This is the first part of a multi-part series that shows how to set up **Jupyter Hub** for an engineering programming class. This will be my first time setting up a **Jupyter Hub** server. I am primarily writing to my future self as I may need to set up a **Jupyter Hub** server again for a different class. I hope the lessons learned will also help future instructors tackle the same problem if they want to set up **Jupyter Hub** for their own class or team.
 
 ### Why Jupyter Hub?
 
-Why **Jupyter Hub**? I am teaching an intro engineering course this summer. The course has a lab component. Three of the labs are are devoted to computer programming. In previous quarters, I've taught MATLAB for those three labs. But this summer, I would like to try teaching **Python** and cover the same concepts and learning outcomes.
+Why **Jupyter Hub**? I am teaching an intro engineering course this summer. The course has a lab component and three of the labs are devoted to computer programming. In previous quarters, I've taught MATLAB for those three computer programming labs. But this summer, I want to try teaching **Python** and cover the same concepts and learning outcomes.
 
 This summer, I would like to spend the three labs in the intro engineering course coding and solving problems. I don't want to spend time during the class downloading Python, creating virtual environments, troubleshooting installs, dealing with system vs. non-system versions of Python, installing packages, dealing with folder structure, explaining the difference between conda and pip, teaching command-line commands, going over Python on Windows compared to Python on MacOSX... 
 

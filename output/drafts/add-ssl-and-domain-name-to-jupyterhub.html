@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>Building a Drop Timer using Micropython on an Adadfruit Feather Huzzah ESP8266 - Python for Undergraduate Engineers</title>
+    <title>Adding SSL and a domain name to Jupyter Hub - Python for Undergraduate Engineers</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -174,25 +174,23 @@ init_mathjax();
 </script>
     <link href="/extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="/drafts/micropython-drop-timer-intro.html">
+<link rel="canonical" href="/drafts/add-ssl-and-domain-name-to-jupyterhub.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
-        <meta name="keywords" content="python,micropython,esp8266,microcontroller,WiFi,timer" />
-        <meta name="description" content="This is the first part of a multipart series on building a drop timer using Micropython. In this first post, I&#39;ll explain what the drop timer is and what it will be used for. I&#39;ll also go over some of the constraints that both make the project more difficult and …" />
+        <meta name="keywords" content="jupyter,jupyter hub,jupyter notebooks,python" />
+        <meta name="description" content="This is the fourth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to add SSL security, link a domain name to our server IP address and configure nginx to run as a proxy in between users and jupyterhub. Then we&#39;ll run jupyterhub over https using the SSL security we created." />
 
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
-        <meta property="og:title" content="Building a Drop Timer using Micropython on an Adadfruit Feather Huzzah ESP8266"/>
-        <meta property="og:url" content="/drafts/micropython-drop-timer-intro.html"/>
-        <meta property="og:description" content="This is the first part of a multipart series on building a drop timer using Micropython. In this first post, I&#39;ll explain what the drop timer is and what it will be used for. I&#39;ll also go over some of the constraints that both make the project more difficult and …"/>
-        <meta property="article:published_time" content="2018-02-17" />
-            <meta property="article:section" content="micropython" />
+        <meta property="og:title" content="Adding SSL and a domain name to Jupyter Hub"/>
+        <meta property="og:url" content="/drafts/add-ssl-and-domain-name-to-jupyterhub.html"/>
+        <meta property="og:description" content="This is the fourth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to add SSL security, link a domain name to our server IP address and configure nginx to run as a proxy in between users and jupyterhub. Then we&#39;ll run jupyterhub over https using the SSL security we created."/>
+        <meta property="article:published_time" content="2018-05-16" />
+            <meta property="article:section" content="jupyter" />
+            <meta property="article:tag" content="jupyter" />
+            <meta property="article:tag" content="jupyter hub" />
+            <meta property="article:tag" content="jupyter notebooks" />
             <meta property="article:tag" content="python" />
-            <meta property="article:tag" content="micropython" />
-            <meta property="article:tag" content="esp8266" />
-            <meta property="article:tag" content="microcontroller" />
-            <meta property="article:tag" content="WiFi" />
-            <meta property="article:tag" content="timer" />
             <meta property="article:author" content="Peter D. Kazarinoff" />
 
 
@@ -253,17 +251,17 @@ Python for Undergraduate Engineers            </a>
         <div class="col-sm-9">
             <ol class="breadcrumb">
                 <li><a href="" title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="/category/micropython.html" title="micropython">micropython</a></li>
-                <li class="active">Building a Drop Timer using Micropython on an Adadfruit Feather Huzzah ESP8266</li>
+                <li><a href="/category/jupyter.html" title="jupyter">jupyter</a></li>
+                <li class="active">Adding SSL and a domain name to Jupyter Hub</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="/drafts/micropython-drop-timer-intro.html"
+                    <a href="/drafts/add-ssl-and-domain-name-to-jupyterhub.html"
                        rel="bookmark"
-                       title="Permalink to Building a Drop Timer using Micropython on an Adadfruit Feather Huzzah ESP8266">
-                        Building a Drop Timer using Micropython on an Adadfruit Feather Huzzah ESP8266
+                       title="Permalink to Adding SSL and a domain name to Jupyter Hub">
+                        Adding SSL and a domain name to Jupyter Hub
                     </a>
                 </h1>
             </header>
@@ -273,47 +271,64 @@ Python for Undergraduate Engineers            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2018-02-17T09:01:00-08:00"> Sat 17 February 2018</time>
+        <i class="fa fa-calendar"></i><time datetime="2018-05-16T12:40:00-07:00"> Wed 16 May 2018</time>
     </span>
 
             <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x0000025C476F2530> of 
+            Part <built-in method index of str object at 0x0000025C47CFC8B0> of 
 
 
 
 
 <span class="label label-default">Tags</span>
+	<a href="/tag/jupyter.html">jupyter</a>
+        /
+	<a href="/tag/jupyter-hub.html">jupyter hub</a>
+        /
+	<a href="/tag/jupyter-notebooks.html">jupyter notebooks</a>
+        /
 	<a href="/tag/python.html">python</a>
-        /
-	<a href="/tag/micropython.html">micropython</a>
-        /
-	<a href="/tag/esp8266.html">esp8266</a>
-        /
-	<a href="/tag/microcontroller.html">microcontroller</a>
-        /
-	<a href="/tag/wifi.html">WiFi</a>
-        /
-	<a href="/tag/timer.html">timer</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>This is the first part of a multipart series on building a drop timer using Micropython. In this first post, I'll explain what the drop timer is and what it will be used for. I'll also go over some of the constraints that both make the project more difficult and make it more contained.</p>
-<p>Problem: Create a system to calculate the drop time of student parachutes dropped from two stories high. The timing system will need to calculat the time between the parachute release and the parachute hitting the ground.</p>
-<p>Constraints: The WiFi network has username and password security in addition to an SSID. The parachutes carry a small weight. Part of the time can fit in this weight, but the weight can not have a wire in it.</p>
+                <p>This is the fourth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to add SSL security, link a domain name to our server IP address and configure nginx to run as a proxy in between users and jupyterhub. Then we'll run jupyterhub over https using the SSL security we created.</p>
+<h3>Posts in this series</h3>
+<ol>
+<li>Why Jupyter Hub? </li>
+<li>Create ssh key, save to documents/ssh-keys</li>
+<li>Create a new Digital Ocean Droplet with a non-root sudo user</li>
+<li>Install Jupyter Hub on the server</li>
+<li>Apply SSL, link a domain name to the server and configure nginx (this post)</li>
+<li>Connect OAuth to Jupyter Hub</li>
+<li>Connect to Jupyter Hub as student</li>
+</ol>
+<h3>The last post</h3>
+<p>In the last post, we installed Anaconda on the server using a shell script. Then we installed some extra python packages such as pint and pyserial to our base conda environment. Next we installed jupyterhub, opened up port 8000 and ran jupyterhub for the first time! And remember we <strong>shut down jupyter hub very quickly</strong> because we ran it without any SSL security.</p>
+<h3>Steps in this post:</h3>
+<ol>
+<li>Link domain name to server IP address</li>
+<li>Use let's encrypt to generate SSL keys</li>
+<li>Create jupyterhub_config.py and modify</li>
+<li>Install nginx and modify nginx_conf</li>
+<li>Start restart nginx and start jupyterhub. See if we can log in.</li>
+<li>Create another system user on the server. Restart jupyterhub and log in as new user.</li>
+</ol>
+<h3>Summary</h3>
+<h3>Next Steps</h3>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">
     <h4>Related Posts:</h4>
     <ul>
-        <li><a href="/micropython-temp-sensor.html">Using a Temperature Sensor with Micropython running on an Adadfruit Feather Huzzah ESP8266</a></li>
-        <li><a href="/micropython-install.html">Installing Micropython on an Adadfruit Feather Huzzah ESP8266</a></li>
-        <li><a href="/what-is-micropython.html">What is Micropython?</a></li>
-        <li><a href="/micropython-REPL.html">Using the Micropython REPL on an Adadfruit Feather Huzzah ESP8266</a></li>
         <li><a href="/diffusion-problem-python-pint.html">Diffusion Calculation with Python and Pint</a></li>
+        <li><a href="/opening-a-jupyter-notebook-on-windows.html">Opening a Jupyter Notebook on Windows</a></li>
+        <li><a href="/plotting-sin-cos-with-matplotlib.html">Plotting sine and cosine with matplotlib and Python</a></li>
+        <li><a href="/unit-conversions-with-pint.html">Unit conversions with Python and Pint</a></li>
+        <li><a href="/how-i-built-this-site-4.html">How I Build This Site - Part 4</a></li>
     </ul>
 </section>
 <section class="well" id="related-posts">
-    <h4>Article <built-in method index of str object at 0x0000025C476F2530> of the  series</h4>
+    <h4>Article <built-in method index of str object at 0x0000025C47CFC8B0> of the  series</h4>
 </section>
         </article>
     </section>

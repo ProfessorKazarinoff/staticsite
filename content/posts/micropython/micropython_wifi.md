@@ -24,7 +24,7 @@ Summary of Steps:
 
 Wire up the temperature sensor to the Adafruit Feather Huzzah as shown in a [previous post]({filename}micropython_temp_sensor.md)
 
-![Fritzing Diagram]({filename}/posts/micropython/fritzing_temp_sensor.png)
+![Fritzing Diagram]({filename}/posts/micropython/feather_huzzah_temp_sensor_fritzing.png)
 
 ### 2. Connect the Adafruit Feather Huzzah ESP8266 board and Open Putty
 

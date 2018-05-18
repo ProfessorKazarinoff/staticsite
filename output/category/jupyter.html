@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>Why Jupyter Hub? - Python for Undergraduate Engineers</title>
+    <title>jupyter - Python for Undergraduate Engineers</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -172,41 +172,37 @@ init_mathjax = function() {
 }
 init_mathjax();
 </script>
-    <link href="/extra/favicon.ico" rel="icon">
+    <link href="../extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="/drafts/why-jupyter-hub.html">
 
-        <meta name="author" content="Peter D. Kazarinoff" />
-        <meta name="keywords" content="jupyter,jupyter hub,jupyter notebooks,python" />
-        <meta name="description" content="This is the first part of a multi-part series that shows how to set up Jupyter Hub for an engineering programming class. This will be my first time setting up a Jupyter Hub server. I am primarily writing to my future self as I may need to set up a Jupyter Hub server again for a different class. I hope the lessons learned will also help future instructors tackle the same problem if they want to set up Jupyter Hub for their own class or team." />
+    <meta name="author" content="Peter Kazarinoff" />
+    <meta name="keywords" content="jupyter" />
 
+    <!-- Open Graph tags -->
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
-        <meta property="og:type" content="article"/>
-        <meta property="og:title" content="Why Jupyter Hub?"/>
-        <meta property="og:url" content="/drafts/why-jupyter-hub.html"/>
-        <meta property="og:description" content="This is the first part of a multi-part series that shows how to set up Jupyter Hub for an engineering programming class. This will be my first time setting up a Jupyter Hub server. I am primarily writing to my future self as I may need to set up a Jupyter Hub server again for a different class. I hope the lessons learned will also help future instructors tackle the same problem if they want to set up Jupyter Hub for their own class or team."/>
-        <meta property="article:published_time" content="2018-05-14" />
-            <meta property="article:section" content="jupyter" />
-            <meta property="article:tag" content="jupyter" />
-            <meta property="article:tag" content="jupyter hub" />
-            <meta property="article:tag" content="jupyter notebooks" />
-            <meta property="article:tag" content="python" />
-            <meta property="article:author" content="Peter D. Kazarinoff" />
+        <meta property="og:type" content="website"/>
+        <meta property="og:title" content="Python for Undergraduate Engineers"/>
+        <meta property="og:url" content=".."/>
+        <meta property="og:description" content="Python for Undergraduate Engineers"/>
 
 
 
     <!-- Bootstrap -->
-        <link rel="stylesheet" href="/theme/css/bootstrap.flatly.min.css" type="text/css"/>
-    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="../theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="../theme/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="/theme/css/pygments/native.css" rel="stylesheet">
-    <link href="/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
-    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
-        <link href="/static/css/custom.css" rel="stylesheet">
+    <link href="../theme/css/pygments/native.css" rel="stylesheet">
+    <link href="../theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="../theme/css/style.css" type="text/css"/>
+        <link href="../static/css/custom.css" rel="stylesheet">
+
+        <link href="../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Python for Undergraduate Engineers ATOM Feed"/>
 
 
 
-
+        <link href="../feeds/jupyter.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Python for Undergraduate Engineers jupyter ATOM Feed"/>
 
 </head>
 <body>
@@ -220,16 +216,19 @@ init_mathjax();
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="/" class="navbar-brand">
+            <a href="../" class="navbar-brand">
 Python for Undergraduate Engineers            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                         <li><a href="/pages/about.html">
+                         <li><a href="../pages/about.html">
                              About
                           </a></li>
-                         <li><a href="/pages/book.html">
+                         <li><a href="../pages/book.html">
                              Book
+                          </a></li>
+                         <li><a href="../pages/now.html">
+                             Now
                           </a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -238,7 +237,7 @@ Python for Undergraduate Engineers            </a>
                   <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
                 </form></span>
               </li>
-              <li><a href="/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+              <li><a href="../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -249,109 +248,48 @@ Python for Undergraduate Engineers            </a>
 <div class="container">
     <div class="row">
         <div class="col-sm-9">
-            <ol class="breadcrumb">
-                <li><a href="" title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="/category/jupyter.html" title="jupyter">jupyter</a></li>
-                <li class="active">Why Jupyter Hub?</li>
-            </ol>
-    <section id="content">
-        <article>
-            <header class="page-header">
-                <h1>
-                    <a href="/drafts/why-jupyter-hub.html"
-                       rel="bookmark"
-                       title="Permalink to Why Jupyter Hub?">
-                        Why Jupyter Hub?
-                    </a>
-                </h1>
-            </header>
-            <div class="entry-content">
-                <div class="panel">
-                    <div class="panel-body">
+    <ol class="breadcrumb">
+        <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+        <li><a href="../" title="Python for Undergraduate Engineers Categories">Categories</a></li>
+        <li class="active">jupyter</li>
+    </ol>
+            <article>
+                <h2><a href="../why-jupyter-hub.html">Why Jupyter Hub?</a></h2>
+                    <div class="well well-sm">
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2018-05-14T12:40:00-07:00"> Mon 14 May 2018</time>
+        <i class="fa fa-calendar"></i><time datetime="2018-05-17T12:40:00-07:00"> Thu 17 May 2018</time>
     </span>
 
             <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x0000025C2900A070> of 
+            Part 1 of Jupyter Hub
 
 
 
 
 <span class="label label-default">Tags</span>
-	<a href="/tag/jupyter.html">jupyter</a>
+	<a href="../tag/jupyter.html">jupyter</a>
         /
-	<a href="/tag/jupyter-hub.html">jupyter hub</a>
+	<a href="../tag/jupyter-hub.html">jupyter hub</a>
         /
-	<a href="/tag/jupyter-notebooks.html">jupyter notebooks</a>
+	<a href="../tag/jupyter-notebooks.html">jupyter notebooks</a>
         /
-	<a href="/tag/python.html">python</a>
+	<a href="../tag/python.html">python</a>
     
 </footer><!-- /.post-info -->                    </div>
+                <div class="summary"><p>This is the first part of a multi-part series that shows how to set up <strong>Jupyter Hub</strong> for an engineering programming class. This is my first time setting up a <strong>Jupyter Hub</strong> server. I am primarily writing to my future self as I may need to set up a <strong>Jupyter Hub</strong> server again for a different class in another quarter. I hope the lessons learned will also help other instructors tackle the same problem if they want to set up <strong>Jupyter Hub</strong> for their own class or team.</p>
+                    <a class="btn btn-default btn-xs" href="../why-jupyter-hub.html">more ...</a>
                 </div>
-                <p>This is the first part of a multi-part series that shows how to set up <strong>Jupyter Hub</strong> for an engineering programming class. This will be my first time setting up a <strong>Jupyter Hub</strong> server. I am primarily writing to my future self as I may need to set up a <strong>Jupyter Hub</strong> server again for a different class. I hope the lessons learned will also help future instructors tackle the same problem if they want to set up <strong>Jupyter Hub</strong> for their own class or team.</p>
-<h3>Why Jupyter Hub?</h3>
-<p>Why <strong>Jupyter Hub</strong>? I am teaching an intro engineering course this summer. The course has a lab component and three of the labs are devoted to computer programming. In previous quarters, I've taught MATLAB for those three computer programming labs. But this summer, I want to try teaching <strong>Python</strong> and cover the same concepts and learning outcomes.</p>
-<p>This summer, I would like to spend the three labs in the intro engineering course coding and solving problems. I don't want to spend time during the class downloading Python, creating virtual environments, troubleshooting installs, dealing with system vs. non-system versions of Python, installing packages, dealing with folder structure, explaining the difference between conda and pip, teaching command-line commands, going over Python on Windows compared to Python on MacOSX... </p>
-<p>I would like to see the first programming lab of the quarter run like:</p>
-<ol>
-<li>There is a .pdf or google doc posted on a shared google drive folder with a link to Jupyter Hub</li>
-<li>Students click the link and bring up the login page</li>
-<li>Students log-in with their college usernames and passwords</li>
-<li>Students type <code>import this</code> [Shift-Enter] in their first code cell and it just runs.</li>
-<li>Students can use <strong>Jupyter Hub</strong> from any computer with a web browser and an internet connection.</li>
-<li>Python code runs the same on all student computers</li>
-</ol>
-<h3>This is theoretically possible with Jupyter Hub</h3>
-<p><strong>Jupyter Hub</strong> can be installed on a Digital Ocean droplet (a cloud server, like AWS or Google Cloud). The version of <strong>Python</strong> running the notebooks created by <strong>Jupyter Hub</strong> can contain the full <strong>Anaconda</strong> distribution of packages plus some extra packages like <strong>pint</strong> and <strong>pyserial</strong>. All of the notebooks will use the same environment. The installed packages will be the same for each student. One Digital Ocean droplet will be able to run all of the notebooks at the same time (hopefully, there will be about 24 students). Student's work will be saved on the server under their user account. Students can download the .ipynb files and upload them to google drive or save the .ipynb files on a thumb drive. After the students login, folders and notebooks can be in place and used as starting points in lab and as lab exercises. After the course ends, students will still be able to log in and use <strong>Jupyter Hub</strong> and practice writing and running Python code to solve engineering problems.</p>
-<h3>What will it take to make Jupyter Hub a reality?</h3>
-<p>This list will surely change as I go through the process of setting up the <strong>Jupyter Hub</strong> server. Below are the steps I expect to take and software/hardware needed at each step.</p>
-<ol>
-<li>Sign up for a Digital Ocean Account (already done)</li>
-<li>Create a new Digital Ocean Droplet (will be called <em>the server</em> from here on out)</li>
-<li>Connect to the server over SSH and set up SSH keys</li>
-<li>Create a non-root sudo user on the server</li>
-<li>Get a public url, hook up the server DNS record to the public URL</li>
-<li>Install Anaconda on the server</li>
-<li>Install the other packages on the server like jupyter hub, npm, pyserial, pint</li>
-<li>Edit permissions of files and directories on the server</li>
-<li>Create and implement SSL certificates on the server</li>
-<li>Run Jupyter Hub as non-root sudo user</li>
-<li>Connect google OAuth to Jupyter Hub</li>
-<li>Connect to the server as student and celebrate teaching <strong>Python</strong> without worrying about installation and virtual environments.</li>
-</ol>
-<h3>Will this work? How much time will it take?</h3>
-<p>Will this work? I hope so. Other people have done it. There was a JupyterCon talk about it, there are example implementations up on github. A large data science class at UC Berkeley ran <strong>Jupyter Hub</strong>. </p>
-<p>I don't really know how long it will take. The only real step that takes time is the DNS connection. The rest of the steps are in the minute time frame of computing time and probably days if not weeks of troubleshooting time. I'm just going to try and complete a step a day or a step a week and see if I can get the server going by the end of the spring quarter.</p>
-<h3>Next Steps:</h3>
-<p>The next step is really the first step:</p>
-<p>Create SSH keys. We'll need a public/private SSH key pair to be able to log into the <strong>Jupyter Hub</strong> server over SSH.</p>
-            </div>
-            <!-- /.entry-content -->
-<section class="well" id="related-posts">
-    <h4>Related Posts:</h4>
-    <ul>
-        <li><a href="/diffusion-problem-python-pint.html">Diffusion Calculation with Python and Pint</a></li>
-        <li><a href="/opening-a-jupyter-notebook-on-windows.html">Opening a Jupyter Notebook on Windows</a></li>
-        <li><a href="/plotting-sin-cos-with-matplotlib.html">Plotting sine and cosine with matplotlib and Python</a></li>
-        <li><a href="/unit-conversions-with-pint.html">Unit conversions with Python and Pint</a></li>
-        <li><a href="/how-i-built-this-site-4.html">How I Build This Site - Part 4</a></li>
-    </ul>
-</section>
-<section class="well" id="related-posts">
-    <h4>Article <built-in method index of str object at 0x0000025C2900A070> of the  series</h4>
-</section>
-        </article>
-    </section>
+            </article>
+            <hr/>
 
         </div>
         <div class="col-sm-3" id="sidebar">
             <aside>
 <div id="aboutme">
         <p>
-            <img width="100%" class="img-thumbnail" src="/extra/gear-wrench-icon-512-278694.png"/>
+            <img width="100%" class="img-thumbnail" src="../extra/gear-wrench-icon-512-278694.png"/>
         </p>
     <p>
       <strong>About Peter Kazarinoff</strong><br/>
@@ -365,59 +303,48 @@ Python for Undergraduate Engineers            </a>
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
-    <li class="list-group-item"><a href="/diffusion-problem-python-pint.html">Diffusion Calculation with Python and Pint</a></li>
-    <li class="list-group-item"><a href="/opening-a-jupyter-notebook-on-windows.html">Opening a Jupyter Notebook on Windows</a></li>
-    <li class="list-group-item"><a href="/bar-plot-with-error-bars-jupyter-matplotlib.html">Bar charts with error bars using Python, jupyter notebooks and matplotlib</a></li>
+    <li class="list-group-item"><a href="../why-jupyter-hub.html">Why Jupyter Hub?</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
 
 <!-- Sidebar/Tag Cloud -->
 <li class="list-group-item">
-  <a href="/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <a href="../"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
   <ul class="list-group list-inline tagcloud" id="tags">
     <li class="list-group-item tag-3">
-      <a href="/tag/anaconda.html">anaconda</a>
+      <a href="../tag/anaconda.html">anaconda</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="/tag/blog.html">blog</a>
+      <a href="../tag/blog.html">blog</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="/tag/engineering.html">engineering</a>
+      <a href="../tag/engineering.html">engineering</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="/tag/esp8266.html">esp8266</a>
+      <a href="../tag/esp8266.html">esp8266</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="/tag/jupyter.html">jupyter</a>
+      <a href="../tag/jupyter.html">jupyter</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="/tag/matplotlib.html">matplotlib</a>
+      <a href="../tag/matplotlib.html">matplotlib</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="/tag/microcontroller.html">microcontroller</a>
+      <a href="../tag/microcontroller.html">microcontroller</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="/tag/micropython.html">micropython</a>
+      <a href="../tag/micropython.html">micropython</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="/tag/pelican.html">pelican</a>
+      <a href="../tag/pelican.html">pelican</a>
     </li>
     <li class="list-group-item tag-1">
-      <a href="/tag/python.html">python</a>
+      <a href="../tag/python.html">python</a>
     </li>
   </ul>
 </li>
 <!-- End Sidebar/Tag Cloud -->
-
-<!-- Sidebar/Series -->
-<li class="list-group-item">
-  <h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Series</span></h4>
-  <ul class="list-group">
-  </ul>
-</li>
-<!-- End Sidebar/Series -->
-
 
 <!-- Sidebar/Github -->
 <li class="list-group-item">
@@ -446,15 +373,15 @@ Python for Undergraduate Engineers            </a>
       </div>
    </div>
 </footer>
-<script src="/theme/js/jquery.min.js"></script>
+<script src="../theme/js/jquery.min.js"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/theme/js/bootstrap.min.js"></script>
+<script src="../theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="/theme/js/respond.min.js"></script>
+<script src="../theme/js/respond.min.js"></script>
 
-    <script src="/static/js/custom.js"></script>
+    <script src="../static/js/custom.js"></script>
 
 
 <!-- GitHub JS Code -->
@@ -463,7 +390,7 @@ $(document).ready(function () {
   if (!window.jXHR) {
     var jxhr = document.createElement('script');
     jxhr.type = 'text/javascript';
-    jxhr.src = '/theme/js/jXHR.js';
+    jxhr.src = '../theme/js/jXHR.js';
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(jxhr, s);
   }
@@ -476,7 +403,7 @@ $(document).ready(function () {
   });
 });
 </script>
-<script src="/theme/js/github.js" type="text/javascript"></script>
+<script src="../theme/js/github.js" type="text/javascript"></script>
 <!-- End GitHub JS Code -->
     <!-- Google Analytics -->
     <script type="text/javascript">

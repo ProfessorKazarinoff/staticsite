@@ -7,7 +7,7 @@ Tags: python, conda, virtualenv, anaconda, anaconda prompt
 Slug: new-virtual-environment-with-conda
 Authors: Peter D. Kazarinoff
 
-To start a new Python project, it is best practice to create a new virtual environment. I have the **Anaconda** distribution of Python installed on my Windows 10 machine at work. When you [install **Anaconda**]({filename}installing_anaconda_on_windows.md), it comes with the very useful **Anaconda Prompt**. Using the **Anaconda Prompt** is a bit like using the terminal on a Mac OSX or Linux. To start the **Anaconda Prompt** on Windows 10, go to the Windows start button on the lower left and select **Anaconda Prompt**. 
+To start a new Python project, it is best practice to create a new virtual environment. I have the **Anaconda** distribution of Python installed on my Windows 10 machine at work. When you [install **Anaconda**]({filename}/posts/installing_anaconda_on_windows.md), it comes with the very useful **Anaconda Prompt**. Using the **Anaconda Prompt** is a bit like using the terminal on a Mac OSX or Linux. To start the **Anaconda Prompt** on Windows 10, go to the Windows start button on the lower left and select **Anaconda Prompt**. 
 
 ![anaconda in start menu](images/anaconda_from_start_menu.png)
 

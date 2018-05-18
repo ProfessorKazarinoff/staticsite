@@ -1,6 +1,6 @@
 Title: Creating a new Digital Ocean Droplet
-Date: 2018-05-16 12:40
-Modified: 2018-05-16 12:40
+Date: 2018-05-18 12:40
+Modified: 2018-05-18 12:40
 Status: draft
 Category: jupyter
 Tags: jupyter, jupyter hub, jupyter notebooks, python
@@ -8,15 +8,15 @@ Slug: new-digital-ocean-droplet
 Authors: Peter D. Kazarinoff
 Series: Jupyter Hub
 Series_index: 3
-Summary: This is the second part of a multi-part series that show how to set up Jupyter Hub for a college class. My goal is to have a running version of Jupyter Hub that students in the class can log into just using a simple web link. I am primarily writing to my future self as I may need to set up Jupyter Hub again for future classes. In this post, we are going to create a new Digital Ocean droplet and create a non-root sudo user and SSH into the droplet with PuTTY.
+Summary: This is the third part of a multi-part series that show how to set up Jupyter Hub for a college class. My goal is to have a running version of Jupyter Hub that students in the class can log into just using a simple web link. I am primarily writing to my future self as I may need to set up Jupyter Hub again for future classes. In this post, we are going to create a new Digital Ocean droplet and create a non-root user with sudo privaledges. Then we'll SSH into the droplet with PuTTY as the new non-root user.
 
-This is the second part of a multi-part series that show how to set up Jupyter Hub for a college class. My goal is to have a running version of Jupyter Hub that students in the class can log into just using a simple web link. I am primarily writing to my future self as I may need to set up Jupyter Hub again for future classes. In this post, we are going to create a new Digital Ocean droplet and create a non-root sudo user and SSH into the droplet with PuTTY.
+This is the third part of a multi-part series that show how to set up Jupyter Hub for a college class. My goal is to have a running version of Jupyter Hub that students in the class can log into just using a simple web link. I am primarily writing to my future self as I may need to set up Jupyter Hub again for future classes. In this post, we are going to create a new Digital Ocean droplet and create a non-root user with sudo privaledges. Then we'll SSH into the droplet with PuTTY as the new non-root user.
 
 
 ### List of all steps
 
 1. Create ssh key, save to documents/ssh-keys (complete)
-2. Create a new Digital Ocean Droplet (this post) with a non-root sudo user
+2. Create a new Digital Ocean Droplet with a non-root sudo user (this post)
 3. Get a public URL, hook up the server DNS record to the public URL
 4. Install Anaconda on the server
 5. Install the other packages on the server like jupyter hub, npm, pyserial, pint
@@ -28,7 +28,7 @@ This is the second part of a multi-part series that show how to set up Jupyter H
 
 ### The last post
 
-In the previous post, we created public and private SSH keys and saved them in Documents/ssh-keys. We also copied the public SSH key (including the ```rsa``` portion) to the clipboard. We'll need the public SSH key when we set up the Digital Ocean Droplet. We'll need the private SSH key to connect to the Dropet with PuTTY.
+In the previous post, we created public and private SSH keys and saved them locally in Documents/ssh-keys. We also copied the public SSH key (including the ```rsa``` portion) to the clipboard. We'll need the public SSH key when we set up the Digital Ocean Droplet. We'll need the private SSH key to connect to the Dropet with PuTTY.
 
 ### This post
 
@@ -40,7 +40,7 @@ In the previous post, we created public and private SSH keys and saved them in D
 
 
 
-#### 1. Sign up for a Digital Ocean Account
+### 1. Sign up for a Digital Ocean Account
 
 Digital Ocean is a cloud service provider like Amazon Web Services (AWS), Google Cloud, Microsoft Azure and Linode. Digital Ocean provides virtual private servers (called Droplets in Digital Ocean-speak) and online storage of static files (called Spaces in Digital Ocean-speak). We are going to run the Jupyter Hub server on a Digital Ocean Droplet. I like Digital Ocean's prices and web interface. The documentation on Digital Ocean is pretty good too. I already have a Digital Ocean account. I don't remember exactly how I did it, but going to this link:
 
@@ -48,7 +48,7 @@ Digital Ocean is a cloud service provider like Amazon Web Services (AWS), Google
 
 and selecting [Create Account -->] should work.
 
-#### 2. Create a new Digital Ocean Droplet
+### 2. Create a new Digital Ocean Droplet
 
 To create a new Digtial Ocean Droplet (a new server), you to log in here:
 
@@ -112,7 +112,7 @@ This will bring you back the the Digital Ocean main dashboard and you should see
 
 Copy the IP address of the new droplet onto the clipboard. We need to IP address to log into the server with PuTTY.
 
-#### 3. Log into the server as root over SSH using PuTTY.
+### 3. Log into the server as root over SSH using PuTTY.
 
 Open PuTTY from the Windows start menu. Then paste the IP address into the PuTTY main window. Set the Port = 22. A couple other parameters need to be set before we logon.
 
@@ -124,7 +124,7 @@ Under Connection --> Data --> Auto-login username: ```root```
 
 Back in [Sessions] (the top-most menue item or main page), click [Open]
 
-#### 3. Create a non-root sudo user
+### 4. Create a non-root sudo user
 
 Digital Ocean recommends that the servers are run by non-root user that have sudo access. So one of the first things we'll do on our server is create a non-root sudo user. First though let's make sure everything is up to date:
 
@@ -208,7 +208,7 @@ $ sudo shutdown -r now
 
 You might need to wait a minute or two for the server to restart.
 
-#### 4. Connect to the server as the non-root sudo user using PuTTY
+### 4. Connect to the server as the non-root sudo user using PuTTY
 
 Now that the non-root sudo user is set up and our ssh keys are in /home/<user>/.ssh/authorized_keys, let's start a new PuTTY session and log into the server as the new user. Like before, open PuTTY from the Windows Start menu and add the following settings:
 
@@ -229,9 +229,25 @@ $ pwd
 /home/<username>
 ```
 
+We can see the non-root user's home directory. Let's make sure we can also see into the ```root``` user's home directory to ensure we have sudo privileges as the non-root user:
+
+
+```
+$ sudo ls -la /root
+```
+
+To log out of the server simply type ```exit```. This should close the PuTTY session.
+
+```
+$ exit
+```
+
+ 
+
 ### Summary
 
-In this post we created a new Digital Ocean server (called a _droplet_) and made sure to add our public SSH key to the setup options before we hit [Create]. Then we logged into the server as ```root```  with our private SSH key. As ```root```, we set up a new user with sudo privaleges and added our public SSH key to the new users profile. Then we logged into the server as the new user and checked the new user's home directory.
+In this post we created a new Digital Ocean server (called a _droplet_) and made sure to add our public SSH key to the setup options before we hit [Create]. Then we logged into the server as ```root```  with our private SSH key. As ```root```, we set up a new user with sudo privaleges and added our public SSH key to the new user's profile. Then we logged into the server as the new user and checked the new user's home directory and ensured the non-root user has sudo privileges.
+
 
 ### Next Steps
 

@@ -178,13 +178,13 @@ init_mathjax();
 
         <meta name="author" content="Peter D. Kazarinoff" />
         <meta name="keywords" content="jupyter,jupyter hub,jupyter notebooks,python" />
-        <meta name="description" content="This is the second part of a multi-part series that show how to set up Jupyter Hub for a class. This will be the first time setting up a Jupyter Hub server for me, I am primarily writing to my future self as I may need to do this again in the future. In this post, I am going to create an SSH key on a Windows 10 machine using PuTTYgen." />
+        <meta name="description" content="This is the second part of a multi-part series on how to set up Jupyter Hub for a class. This is my first time setting up a Jupyter Hub server. I am primarily writing to my future self as I may need to set up Jupyter Hub again for another class. In this post, I we are going to create an SSH key on a Windows 10 machine using PuTTYgen." />
 
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="Create an SSH Key with PuTTYgen"/>
         <meta property="og:url" content="/drafts/ssh-keys-with-putty.html"/>
-        <meta property="og:description" content="This is the second part of a multi-part series that show how to set up Jupyter Hub for a class. This will be the first time setting up a Jupyter Hub server for me, I am primarily writing to my future self as I may need to do this again in the future. In this post, I am going to create an SSH key on a Windows 10 machine using PuTTYgen."/>
+        <meta property="og:description" content="This is the second part of a multi-part series on how to set up Jupyter Hub for a class. This is my first time setting up a Jupyter Hub server. I am primarily writing to my future self as I may need to set up Jupyter Hub again for another class. In this post, I we are going to create an SSH key on a Windows 10 machine using PuTTYgen."/>
         <meta property="article:published_time" content="2018-05-07" />
             <meta property="article:section" content="jupyter" />
             <meta property="article:tag" content="jupyter" />
@@ -278,7 +278,7 @@ Python for Undergraduate Engineers            </a>
     </span>
 
             <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x0000025E2169B0F0> of 
+            Part <built-in method index of str object at 0x0000013F9AB12F30> of 
 
 
 
@@ -294,23 +294,18 @@ Python for Undergraduate Engineers            </a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>This is the second part of a multi-part series that shows how to set up Jupyter Hub for a class. This will be the first time setting up a Jupyter Hub server for me, I am primarily writing to my future self as I may need to do this again in the future. In this post, I am going to create an SSH key on a Windows 10 machine using PuTTYgen.</p>
-<h3>List of all steps</h3>
+                <p>This is the second part of a multi-part series on how to set up Jupyter Hub for a class. This is my first time setting up a Jupyter Hub server. I am primarily writing to my future self as I may need to set up Jupyter Hub again for another class. In this post, I we are going to create an SSH key on a Windows 10 machine using PuTTYgen.</p>
+<h3>Posts in this series</h3>
 <ol>
-<li>Create an SSH Key with PuTTYgen</li>
-<li>Create a new Digital Ocean Droplet (will be called <em>the server</em> from here on out)</li>
-<li>Connect to the server over SSH and set up SSH keys</li>
-<li>Create a non-root sudo user</li>
-<li>Get a public url, hook up the server DNS record to the public URL</li>
-<li>Install Anaconda on the server</li>
-<li>Install the other packages on the server like jupyter hub, npm, pyserial, pint</li>
-<li>Symlinks and permissions of files on the server</li>
-<li>Create and implement SSL certificates on server</li>
-<li>Run Jupyter Hub as non-root sudo user</li>
+<li><a href="/why-jupyter-hub.html">Why Jupyter Hub?</a> </li>
+<li><a href="/drafts/ssh-keys-with-putty.html">Create ssh key, save to documents/ssh-keys</a></li>
+<li><a href="/drafts/new-digital-ocean-droplet.html">Create a new Digital Ocean Droplet with a non-root sudo user</a></li>
+<li><a href="/drafts/installing-jupyter-hub.html">Install Jupyter Hub on the server</a></li>
+<li><strong>Apply SSL, link a domain name to the server and configure nginx</strong> (this post)</li>
 <li>Connect OAuth to Jupyter Hub</li>
-<li>Connect to Server as student</li>
+<li>Connect to Jupyter Hub as student</li>
 </ol>
-<h3>In this post</h3>
+<h3>Steps in this post</h3>
 <ol>
 <li>Download PuTTY for Windows</li>
 <li>Start PuTTYgen and create SSH key</li>
@@ -319,34 +314,36 @@ Python for Undergraduate Engineers            </a>
 </ol>
 <h3>Why SSH keys, PuTTYgen and why do this first?</h3>
 <p>When I set up the server the first time, one of the initial server setup steps is to add SSH keys so the server has them when it initialized. </p>
-<p><img alt="Digital Droplet Choices" src="/posts/jupyter_hub/digital_ocean_droplet_new_ssh_key_dialog.png"></p>
-<p>I tried to create and save the keys to the Digital Ocean dashboard so they would be on the server when it first started, but I goofed up somehow and the server started without any SSH keys. It was a BIG pain adding SSH keys after the server started for the first time. I ended up copying the public key into pastebin.com, logging onto the server with the Digital Ocean console and using <code>wget</code> to bring a textfile of the key onto the server and then <code>mv</code> to copy the key name into the right location.</p>
+<p><img alt="Digital Droplet Choices" src="/posts/jupyterhub/digital_ocean_create_droplets_choices.png"></p>
+<p>I tried to create and save the keys to the Digital Ocean dashboard so the SSH keys would be on the server when it first started. But I goofed up somehow and the server started without any SSH keys. It was a BIG PAIN adding SSH keys after the server started for the first time. </p>
+<p>I ended up copying the public key into pastebin.com, logging onto the server with the Digital Ocean console and using <code>wget</code> to bring a textfile of the SSH key from pastebin.com onto the server and then <code>mv</code> to copy the key name into the right location.</p>
 <p>I'm pretty sure that pasting a public SSH key into pastebin.com is not the best way to initially set up a server. So to make sure that doesn't happen again, I am going to generate the SSH keys first and set up the server second. </p>
-<p>SSH keys are needed to use PuTTY (regular PuTTY not PuTTYgen) to log into the server. Since I'm working on Windows, usinging PuTTYgen (a program that comes with PuTTY that generates SSH keys) seems like the easiest solution. </p>
-<h4>1. Download PuTTY (already done)</h4>
+<p>SSH keys are needed to use PuTTY (regular PuTTY not PuTTYgen) to log into the server. Since I'm working on Windows, using PuTTYgen (a program that comes with PuTTY that generates SSH keys) seems like the easiest solution. </p>
+<h4>1. Download PuTTY</h4>
 <p>I already have PuTTY installed on my Windows 10 Machine at home and at work. The download link is below:</p>
-<p><img alt="Download PuTTY" src="https://www.putty.org/"></p>
+<p><a href="https://www.putty.org/">Download PuTTY</a></p>
 <p>PuTTY seems to want you to install lots of extra stuff when you run the installer. I didn't install any of the "offers" that popped up during installation.</p>
 <h4>2. Start PuTTYgen and create SSH key</h4>
 <p>I went through this tutorial to about setting SSH key on Windows for Digital Ocean when I created the first SSH key:</p>
 <p><a href="https://www.digitalocean.com/community/tutorials/how-to-use-ssh-keys-with-putty-on-digitalocean-droplets-windows-users">How To Use SSH Keys with PuTTY on DigitalOcean Droplets (Windows users)</a></p>
 <p>Using the Windows start menu, open PuTTYgen (not regular PuTTY):</p>
-<p><img alt="Putty in Windows Start Menu" src="/posts/jupyter_hub/puttygen_in_start_menu.png"></p>
-<p><img alt="Putty in Windows Start Menu" src="/posts/jupyter_hub/puttygen_key_generator.png"></p>
+<p><img alt="PuTTYgen in Windows Start Menu" src="/posts/jupyterhub/puttygen_in_start_menu.png"></p>
+<p><img alt="Putty in Windows Start Menu" src="/posts/jupyterhub/puttygen_key_generator.png"></p>
 <p>Use the following parameters</p>
 <ul>
 <li>Type of key to generate: RSA</li>
 <li>Number of bits in generated key: 2048</li>
 </ul>
 <p>Then click [generate]</p>
-<p><img alt="Putty in Windows Start Menu" src="/posts/jupyter_hub/puttygen_generate.png"></p>
+<p><img alt="PuTTYgen generate" src="/posts/jupyterhub/puttygen_generate.png"></p>
 <p>This will bring up a dialog to move the mouse around the empty area to generate some randomness. This is my favorite part. Just move the mouse around the dialog box until the progress bar ends. Fun.</p>
+<p><img alt="PuTTYgen key generator" src="/posts/jupyterhub/puttygen_key_generator.png"></p>
 <p>When the next screen pops up. Right-click and copy the contents of the Public Key for pasting into Open SSH authorized_keys files. Include the rsa line in the copy to clipboard.</p>
 <h4>3. Save SSH public and private keys to Documents folder</h4>
-<p>In the Actions section click [Save Public Key] and click [Save Public Key]</p>
-<p><img alt="Putty in Windows Start Menu" src="/posts/jupyter_hub/puttygen_save_public_private_key.png"></p>
+<p>In the Actions section click [Save public key] and click [Save private key]</p>
+<p><img alt="PuTTYgen save public and private keys" src="/posts/jupyterhub/puttygen_save_public_private_key.png"></p>
 <p>Make sure to save both the public and the private keys. Save these keys to an accessible folder. I saved my first keys in the default location and later I couldn't get to them. I created a folder in the Documents folder called ssh-keys and saved the public and private keys in there. I saved the public key with the name: public_key_jupyter_hub.txt. Digital Ocean documentation recommends a .txt file extension for the public key. The private key should have a .ppk file extension.</p>
-<p><img alt="Putty in Windows Start Menu" src="/posts/jupyter_hub/puttygen_public_key_save_name.png"></p>
+<p><img alt="PuTTYgen save public key name" src="/posts/jupyterhub/puttygen_public_key_save_name.png"></p>
 <h4>4. Copy the public key to clipboard</h4>
 <p>Before closing PuTTYgen, make sure to copy the contents of the Public Key to the clipboard. We'll need this when we create the server. Copy all of the contents including the rsa line. </p>
 <h3>Results</h3>
@@ -366,7 +363,7 @@ Python for Undergraduate Engineers            </a>
     </ul>
 </section>
 <section class="well" id="related-posts">
-    <h4>Article <built-in method index of str object at 0x0000025E2169B0F0> of the  series</h4>
+    <h4>Article <built-in method index of str object at 0x0000013F9AB12F30> of the  series</h4>
 </section>
         </article>
     </section>

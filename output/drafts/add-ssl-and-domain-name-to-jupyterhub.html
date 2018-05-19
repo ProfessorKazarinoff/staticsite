@@ -278,7 +278,7 @@ Python for Undergraduate Engineers            </a>
     </span>
 
             <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x0000025E21839470> of 
+            Part <built-in method index of str object at 0x0000013F9AAF1C70> of 
 
 
 
@@ -341,16 +341,16 @@ ns3.digitalocean.com
 <p><img alt="DO Domains/DNS" src="/posts/jupyterhub/DO_sub_domain.png"></p>
 <p>After completing this step, there will be a number of new DNS records. The ones I set up are below:</p>
 <p><img alt="DO Domains/DNS" src="/posts/jupyterhub/DO_domains_routed.png"></p>
-<p>It takes a couple minutes of waiting for the DNS switchover to register. <a href="https://www.whatsmydns.net">https://www.whatsmydns.net</a> can be used to check the NS and A records of your domain and see if your domain name is getting through. The first time I set the DNS up on Digital Ocean, I had added the custom DNS servers to google domains but neglected to select the custom DNS servers radio box. So it looked like the domain was routing to Digital Ocean, but actually it was just staying with google. Once I clicked the radio box and waited a couple minutes, the change over happened. It did take a bit of time though. Not hours, but a few minutes.</p>
+<p>It takes a couple minutes for the DNS switchover to complete. <a href="https://www.whatsmydns.net">https://www.whatsmydns.net</a> can be used to check the NS and A records of your domain and see if the domain name is getting through. The first time I set up DNS on Digital Ocean, I added the custom DNS servers to google domains but neglected to select the [use custom name servers] radio button. It looked like the domain was routing to Digital Ocean, but actually it was just staying with google. Once I clicked the [use custom name servers] radio button and waited a couple minutes, the change over happened. It did take a bit of time though; not hours, but more than a few minutes.</p>
 <h3>2. Install nginx and modify ufw and nginx_conf</h3>
-<p>Now that the domain is set up, let's up something up on our server that a web browser can see. The next step is to install and configure nginx, an open source web server that can handle many connections all at the same time. Following <a href="https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-16-04">this tutorial</a> from Digital Ocean</p>
-<p>Install nginx</p>
+<p>Now that the domain name is set up,the next step is to install and configure nginx. Nginx is an open source web server that can handle many concurrent web connections all at the same time. For the installation, I followed <a href="https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-16-04">this tutorial</a> from Digital Ocean</p>
+<p>Use PuTTY to connect to the server with the non-root sudo user we set up before. My non-root user is called <code>peter</code>. Once logged in, we can update the system and install nginx.</p>
 <div class="highlight"><pre><span></span>$ sudo apt-get update
 $ sudo apt-get install nginx
 </pre></div>
 
 
-<p>Check out which apps the ufw firewall is working with. </p>
+<p>Digital Ocean installs a firewall application called ufw. Check out which apps the ufw firewall is working with:</p>
 <div class="highlight"><pre><span></span>$ sudo ufw app list
 </pre></div>
 
@@ -408,9 +408,8 @@ $ sudo apt-get install nginx
 
 <p>So we can browse over to the domain name (the domain we set up with Digital Ocean and google domains) and we should see the nginx start page.</p>
 <p><img alt="nginx welcome page" src="/posts/jupyterhub/welcome_to_nginx.png"></p>
-<h3>3. Obtain ssl certificates with certbot</h3>
-<p>From <a href="https://www.slideshare.net/willingc/jupyterhub-tutorial-at-jupytercon">this presentation</a></p>
-<p>Install certbot</p>
+<h3>3. Obtain SSL certificates with certbot</h3>
+<p>With a domain name hooked up to our server, we are now able to obtain an SSL certificate. I followed <a href="https://www.slideshare.net/willingc/jupyterhub-tutorial-at-jupytercon">this presentation</a> to install certbot, a program used to generate SSL certificates. </p>
 <div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~
 $ mkdir certbot
 $ <span class="nb">cd</span> certbot
@@ -424,7 +423,7 @@ $ chmod a+x certbot-auto
 </pre></div>
 
 
-<p>Since we installed nginx earlier, and we confirmed that it's running, that means that port 80 is currently in use by nginx. We need to open up port 80 to certbot by temporarily shutting down nginx. Once nginx is stopped, we can run cirtbot and get our SSL certificate. We'll have to restart nginx, but that can wait until we change the nginx configuration file.</p>
+<p>Since we installed nginx earlier, and we confirmed that it's running, that means that port 80 is currently in use by nginx. We need to open up port 80 to certbot by temporarily shutting down nginx. Once nginx is stopped, we can run cirtbot and get our SSL certificate. We'll have to restart nginx, but that can wait until we change the nginx configuration file. If you are following along, make sure to change <code>notebooks.problemsolvingwithpython.com</code> to your domain.</p>
 <div class="highlight"><pre><span></span>$ sudo systemctl stop nginx
 $ sudo systemctl status nginx
 <span class="c1"># [Ctrl] + [c] to exit</span>
@@ -443,13 +442,14 @@ $ ./certbot-auto certonly --standalone -d notebooks.problemsolvingwithpython.com
 
 
 <p>Note the location of the <code>fullchain.pem</code> and <code>privkey.pem</code> files. We'll need to put these locations into the nginx configuration.</p>
-<h3>4. Generate jupyterhub_config.py and modify</h3>
+<h3>4. Modify nginx config</h3>
+<p>The next step is to modify the nginx config file so that nginx uses our SSL certificates and routes requests on to jupyterhub.</p>
+<h3>5. Generate jupyterhub_config.py and modify</h3>
 <div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~
 $ jupyterhub --generate-config
 </pre></div>
 
 
-<h3>5. Modify nginx config</h3>
 <h3>6. Restart nginx and start jupyterhub, see if we can login</h3>
 <h3>7. Create an new user and restart jupyterhub. See if new user can log in.</h3>
 <h3>Summary</h3>
@@ -467,7 +467,7 @@ $ jupyterhub --generate-config
     </ul>
 </section>
 <section class="well" id="related-posts">
-    <h4>Article <built-in method index of str object at 0x0000025E21839470> of the  series</h4>
+    <h4>Article <built-in method index of str object at 0x0000013F9AAF1C70> of the  series</h4>
 </section>
         </article>
     </section>

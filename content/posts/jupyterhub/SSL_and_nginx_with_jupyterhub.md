@@ -8,24 +8,23 @@ Slug: add-ssl-and-domain-name-to-jupyterhub
 Authors: Peter D. Kazarinoff
 Series: Jupyter Hub
 Series_index: 5
-Summary: This is the fifth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to add SSL security, link a domain name to our server IP address and configure nginx to run as a proxy in between users and jupyterhub. Then we'll run jupyterhub over https using the SSL security we created.
+Summary: This is the fifth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to link a domain name to our server IP address, add SSL security and configure nginx to run as a proxy in between users and jupyterhub. Then we'll run jupyterhub over https using the SSL security we created.
 
-This is the fifth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to add SSL security, link a domain name to our server IP address and configure nginx to run as a proxy in between users and jupyterhub. Then we'll run jupyterhub over https using the SSL security we created.
+This is the fifth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to link a domain name to our server IP address, add SSL security and configure nginx to run as a proxy in between users and jupyterhub. Then we'll run jupyterhub over https using the SSL security we created.
 
 ### Posts in this series
 
 1. [Why Jupyter Hub?]({filename}/posts/jupyterhub/why_jupyter_hub.md) 
 2. [Create ssh key, save to documents/ssh-keys]({filename}/posts/jupyterhub/PuTTYgen_ssh_key.md)
 3. [Create a new Digital Ocean Droplet with a non-root sudo user]({filename}/posts/jupyterhub/new_DO_droplet.md)
-content
 4. [Install Jupyter Hub on the server]({filename}/posts/jupyterhub/installing_jupyterhub.md)
-5. Apply SSL, link a domain name to the server and configure nginx (this post)
+5. **Apply SSL, link a domain name to the server and configure nginx** (this post)
 6. Connect OAuth to Jupyter Hub
 7. Connect to Jupyter Hub as student
 
 ### Last time
 
-In the last post, we installed **Anaconda** on the server using a shell script. Then we installed some extra **Python** packages such as **pint**, **pyserial** and **schemdraw** to our base conda environment. Next we installed **jupyterhub**, opened up port 8000 and ran jupyterhub for the first time! And remember we **shut down jupyter hub very quickly** because we ran it without any SSL security.
+In the last post, we installed **Anaconda** on the server using a shell script. Then we installed some extra **Python** packages such as **pint**, **pyserial** and **schemdraw** to our base conda environment. Next we installed **jupyterhub**, opened up port 8000 and ran jupyterhub for the first time! And remember **we shut down jupyter hub very quickly** because we ran it without any SSL security.
 
 ### Steps in this post:
 
@@ -39,36 +38,60 @@ In the last post, we installed **Anaconda** on the server using a shell script. 
 
 ### 1. Link domain name to server IP address
 
-We are going to set our domain _problemsolvingwithpython.com_ to link to the IP address of our server on Digital Ocean. Log into Digital Ocean and in the upper right select [Create] --> [Domains/DNS]
+When we started Jupyter Hub in the previous post, it ran, we could log in, and we could run Python code. What's not to like, right? Well, security is the big problem. 
+
+In the initial setup, Jupyter Hub was running under regular http, not https. With a web application that has usernames and passwords, like Jupyter Hub, having https and SSL security is best. In order to use https, we need to get an SSL certificate. And that SSL certificate should correspond to the domain name linked to our server. So the first step is getting the domain name and pointing it at Digital Ocean. The next step is linking the domain name to our Jupyter Hub server.
+
+#### Google Domains
+
+I purchased the domain _problemsolvingwithpython.com_ from [google domains](https://domains.google.com). It costs $12/year which seems pretty reasonable and was easy to set up. After purchasing the domain, I added the Digital Ocean DNS servers as a set of custom name servers to my domain options on google domains.
+
+![Google Domains Dashboard](/posts/jupyterhub/google_domains_list.png)
+
+To add a set of custom name servers, click the the button with the two bars under the DNS header. This will bring up a page where you can enter in the Digital Ocean DNS servers. The name servers to add are:
+
+```
+ns1.digitalocean.com
+ns2.digitalocean.com
+ns3.digitalocean.com
+```
+
+![Google Domains Dashboard](/posts/jupyterhub/google_domains_dns_routing.png)
+
+Make sure to click the radio button [Use custom name servers]
+
+#### Digital Ocean DNS
+
+Now we are going to set our domain _problemsolvingwithpython.com_ to link to the IP address of our server on Digital Ocean. Log into Digital Ocean and in the upper right select [Create] --> [Domains/DNS]
 
 ![DO Domains/DNS](/posts/jupyterhub/DO_manage_domains.png)
 
-In the [Add a domain] field, we type in our domain name without http, but including .com (or .edu/.org/.net)
+In the [Add a domain] field, type in the domain name without http, but including .com (or .edu/.org/.net) then click [Add Domain].
 
 ![DO Domains/DNS](/posts/jupyterhub/DO_add_domain.png)
 
-This will bring us to a panel where we add a DNS "record". I want the notebook server to have the web address _https://notebooks.problemsovlingwithpython.com_, so I entered ```notebooks``` in the text field. Then select the droplet (server) that you want the web address to route to.
+This will bring us to a panel you can add a DNS record. I want the notebook server to have the web address _https://notebooks.problemsovlingwithpython.com_, so I entered ```notebooks``` in the text field. Then select the droplet (server) that you want the web address to route to.
 
 ![DO Domains/DNS](/posts/jupyterhub/DO_sub_domain.png)
  
  After completing this step, there will be a number of new DNS records. The ones I set up are below:
  
-![DO Domains/DNS](posts/jupyterhub/DO_domains_routed.png)
+![DO Domains/DNS](/posts/jupyterhub/DO_domains_routed.png)
 
-It takes a couple minutes of waiting for the DNS switchover to register. [https://www.whatsmydns.net](https://www.whatsmydns.net) can be used to check the NS and A records of your domain and see if your domain name is getting through. The first time I set the DNS up on Digital Ocean, I had added the custom DNS servers to google domains but neglected to select the custom DNS servers radio box. So it looked like the domain was routing to Digital Ocean, but actually it was just staying with google. Once I clicked the radio box and waited a couple minutes, the change over happened. It did take a bit of time though. Not hours, but a few minutes.
+It takes a couple minutes for the DNS switchover to complete. [https://www.whatsmydns.net](https://www.whatsmydns.net) can be used to check the NS and A records of your domain and see if the domain name is getting through. The first time I set up DNS on Digital Ocean, I added the custom DNS servers to google domains but neglected to select the [use custom name servers] radio button. It looked like the domain was routing to Digital Ocean, but actually it was just staying with google. Once I clicked the [use custom name servers] radio button and waited a couple minutes, the change over happened. It did take a bit of time though; not hours, but more than a few minutes.
 
 ### 2. Install nginx and modify ufw and nginx_conf
 
-Now that the domain is set up, let's up something up on our server that a web browser can see. The next step is to install and configure nginx, an open source web server that can handle many connections all at the same time. Following [this tutorial](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-16-04) from Digital Ocean
+Now that the domain name is set up,the next step is to install and configure nginx. Nginx is an open source web server that can handle many concurrent web connections all at the same time. For the installation, I followed [this tutorial](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-16-04) from Digital Ocean
 
-Install nginx
+Use PuTTY to connect to the server with the non-root sudo user we set up before. My non-root user is called ```peter```. Once logged in, we can update the system and install nginx.
 
 ```
 $ sudo apt-get update
 $ sudo apt-get install nginx
 ```
 
-Check out which apps the ufw firewall is working with. 
+Digital Ocean installs a firewall application called ufw. Check out which apps the ufw firewall is working with:
 
 ```
 $ sudo ufw app list
@@ -135,11 +158,9 @@ So we can browse over to the domain name (the domain we set up with Digital Ocea
 
 ![nginx welcome page](/posts/jupyterhub/welcome_to_nginx.png)
 
-### 3. Obtain ssl certificates with certbot
+### 3. Obtain SSL certificates with certbot
 
-From [this presentation](https://www.slideshare.net/willingc/jupyterhub-tutorial-at-jupytercon)
-
-Install certbot
+With a domain name hooked up to our server, we are now able to obtain an SSL certificate. I followed [this presentation](https://www.slideshare.net/willingc/jupyterhub-tutorial-at-jupytercon) to install certbot, a program used to generate SSL certificates. 
 
 ```
 $ cd ~
@@ -155,7 +176,7 @@ Before we can run certbot, we need to turn off nginx. When I first tried to run 
 Problem binding to port 80: Could not bind to IPv4 or IPv6.
 ```
 
-Since we installed nginx earlier, and we confirmed that it's running, that means that port 80 is currently in use by nginx. We need to open up port 80 to certbot by temporarily shutting down nginx. Once nginx is stopped, we can run cirtbot and get our SSL certificate. We'll have to restart nginx, but that can wait until we change the nginx configuration file.
+Since we installed nginx earlier, and we confirmed that it's running, that means that port 80 is currently in use by nginx. We need to open up port 80 to certbot by temporarily shutting down nginx. Once nginx is stopped, we can run cirtbot and get our SSL certificate. We'll have to restart nginx, but that can wait until we change the nginx configuration file. If you are following along, make sure to change ```notebooks.problemsolvingwithpython.com``` to your domain.
 
 ```
 $ sudo systemctl stop nginx
@@ -177,14 +198,18 @@ IMPORTANT NOTES:
 
 Note the location of the ```fullchain.pem``` and ```privkey.pem``` files. We'll need to put these locations into the nginx configuration.
 
-### 4. Generate jupyterhub_config.py and modify
+### 4. Modify nginx config
+
+The next step is to modify the nginx config file so that nginx uses our SSL certificates and routes requests on to jupyterhub.
+
+### 5. Generate jupyterhub_config.py and modify
 
 ```
 $ cd ~
 $ jupyterhub --generate-config
 ```
 
-### 5. Modify nginx config
+
 
 
 

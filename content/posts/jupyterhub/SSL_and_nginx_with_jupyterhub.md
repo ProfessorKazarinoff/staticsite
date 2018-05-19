@@ -7,24 +7,25 @@ Tags: jupyter, jupyter hub, jupyter notebooks, python
 Slug: add-ssl-and-domain-name-to-jupyterhub
 Authors: Peter D. Kazarinoff
 Series: Jupyter Hub
-Series_index: 4
-Summary: This is the fourth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to add SSL security, link a domain name to our server IP address and configure nginx to run as a proxy in between users and jupyterhub. Then we'll run jupyterhub over https using the SSL security we created.
+Series_index: 5
+Summary: This is the fifth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to add SSL security, link a domain name to our server IP address and configure nginx to run as a proxy in between users and jupyterhub. Then we'll run jupyterhub over https using the SSL security we created.
 
-This is the fourth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to add SSL security, link a domain name to our server IP address and configure nginx to run as a proxy in between users and jupyterhub. Then we'll run jupyterhub over https using the SSL security we created.
+This is the fifth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to add SSL security, link a domain name to our server IP address and configure nginx to run as a proxy in between users and jupyterhub. Then we'll run jupyterhub over https using the SSL security we created.
 
 ### Posts in this series
 
-1. Why Jupyter Hub? 
-2. Create ssh key, save to documents/ssh-keys
-3. Create a new Digital Ocean Droplet with a non-root sudo user
-4. Install Jupyter Hub on the server
+1. [Why Jupyter Hub?]({filename}/posts/jupyterhub/why_jupyter_hub.md) 
+2. [Create ssh key, save to documents/ssh-keys]({filename}/posts/jupyterhub/PuTTYgen_ssh_key.md)
+3. [Create a new Digital Ocean Droplet with a non-root sudo user]({filename}/posts/jupyterhub/new_DO_droplet.md)
+content
+4. [Install Jupyter Hub on the server]({filename}/posts/jupyterhub/installing_jupyterhub.md)
 5. Apply SSL, link a domain name to the server and configure nginx (this post)
 6. Connect OAuth to Jupyter Hub
 7. Connect to Jupyter Hub as student
 
-### The last post
+### Last time
 
-In the last post, we installed Anaconda on the server using a shell script. Then we installed some extra python packages such as pint and pyserial to our base conda environment. Next we installed jupyterhub, opened up port 8000 and ran jupyterhub for the first time! And remember we **shut down jupyter hub very quickly** because we ran it without any SSL security.
+In the last post, we installed **Anaconda** on the server using a shell script. Then we installed some extra **Python** packages such as **pint**, **pyserial** and **schemdraw** to our base conda environment. Next we installed **jupyterhub**, opened up port 8000 and ran jupyterhub for the first time! And remember we **shut down jupyter hub very quickly** because we ran it without any SSL security.
 
 ### Steps in this post:
 
@@ -38,13 +39,27 @@ In the last post, we installed Anaconda on the server using a shell script. Then
 
 ### 1. Link domain name to server IP address
 
-Go to digital ocean dns control pannel. Add domain name. Link domain name to droplet.
+We are going to set our domain _problemsolvingwithpython.com_ to link to the IP address of our server on Digital Ocean. Log into Digital Ocean and in the upper right select [Create] --> [Domains/DNS]
 
-It takes a couple minutes of waiting until the dns switchover happens. [https://www.whatsmydns.net](https://www.whatsmydns.net) can be used to check the NS and A records of your domain and see if they are getting through. The first time I set it up, I added the custom dns servers to google domains but I neglected to select the custom dns servers radio box. So it looked like the domain was going to digital ocean, but actually it was just staying with google. Once I clicked the radio box and waited a coulple minutes, the change over happened. It did take a bit though. Not hours, but a few minutes.
+![DO Domains/DNS](/posts/jupyterhub/DO_manage_domains.png)
+
+In the [Add a domain] field, we type in our domain name without http, but including .com (or .edu/.org/.net)
+
+![DO Domains/DNS](/posts/jupyterhub/DO_add_domain.png)
+
+This will bring us to a panel where we add a DNS "record". I want the notebook server to have the web address _https://notebooks.problemsovlingwithpython.com_, so I entered ```notebooks``` in the text field. Then select the droplet (server) that you want the web address to route to.
+
+![DO Domains/DNS](/posts/jupyterhub/DO_sub_domain.png)
+ 
+ After completing this step, there will be a number of new DNS records. The ones I set up are below:
+ 
+![DO Domains/DNS](posts/jupyterhub/DO_domains_routed.png)
+
+It takes a couple minutes of waiting for the DNS switchover to register. [https://www.whatsmydns.net](https://www.whatsmydns.net) can be used to check the NS and A records of your domain and see if your domain name is getting through. The first time I set the DNS up on Digital Ocean, I had added the custom DNS servers to google domains but neglected to select the custom DNS servers radio box. So it looked like the domain was routing to Digital Ocean, but actually it was just staying with google. Once I clicked the radio box and waited a couple minutes, the change over happened. It did take a bit of time though. Not hours, but a few minutes.
 
 ### 2. Install nginx and modify ufw and nginx_conf
 
-Following [this tutorial](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-16-04) from Digital Ocean
+Now that the domain is set up, let's up something up on our server that a web browser can see. The next step is to install and configure nginx, an open source web server that can handle many connections all at the same time. Following [this tutorial](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-16-04) from Digital Ocean
 
 Install nginx
 

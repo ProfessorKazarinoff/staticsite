@@ -89,11 +89,11 @@ Under Add your SSH keys, click [New SSH Key]. A dialog window pops up:
 
 ![Digital Droplet Choices](/posts/jupyterhub/digital_ocean_droplet_new_ssh_key_dialog.png)
 
-Paste the contents of the SSH public key into the Add SSH Keys dialog box.
+Paste the contents of the public SSH key into the [New SSH Key] dialog box.
 
 ![Putty in Windows Start Menu](/posts/jupyterhub/digital_ocean_droplet_enter_ssh_key__details.png)
 
-Enter a name for the SSH key that will be saved on Digital Ocean. I choose the name jupyter-hub-ssh-key. Then click [Add SSH Key]
+Enter a name for the SSH key that will be saved on Digital Ocean. I choose the name ```jupyter-hub-ssh-key```. Then click [Add SSH Key]
 
 ![Putty in Windows Start Menu](/posts/jupyterhub/digital_ocean_droplet_ssh_key_name_and_add.png)
 
@@ -109,7 +109,7 @@ This will bring you back the the Digital Ocean main dashboard and you should see
 
 ![Putty in Windows Start Menu](/posts/jupyterhub/digital_ocean_droplets_1.png)
 
-Copy the IP address of the new droplet onto the clipboard. We need to IP address to log into the server with PuTTY.
+Note the IP address of the new droplet. We need to IP address to log into the server with PuTTY.
 
 ### 3. Log into the server as root over SSH using PuTTY.
 

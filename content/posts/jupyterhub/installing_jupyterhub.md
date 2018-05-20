@@ -1,6 +1,6 @@
 Title: Installing Jupyterhub
-Date: 2018-05-16 12:40
-Modified: 2018-05-16 12:40
+Date: 2018-05-21 12:40
+Modified: 2018-05-21 12:40
 Status: draft
 Category: jupyter
 Tags: jupyter, jupyter hub, jupyter notebooks, python
@@ -12,26 +12,26 @@ Summary: This is the third part of a multi-part series that shows how to set up 
 
 This is the third part of a multi-part series that shows how to set up Jupyter Hub for a college class. The goal is to have a running version of Jupyter Hub that students in the class can log into when given a simple web link. In this post, we'll get to the fun stuff: installing Jupyter Hub on the server, installing Python packages and spinning up Jupyter Hub for the first time.
 
+### Posts in this series
 
-### List of all steps
-
-1. Create ssh key, save to documents/ssh-keys (complete)
-2. Create a new Digital Ocean Droplet with a non-root sudo user (complete)
-3. Install Jupyter Hub on the server (this post)
-4. Connect a domain name to the server and apply SSL
-5. Connect OAuth to Jupyter Hub
-6. Connect to Jupyter Hub as student
+1. [Why Jupyter Hub?]({filename}/posts/jupyterhub/why_jupyter_hub.md) 
+2. [Create ssh key, save to documents/ssh-keys]({filename}/posts/jupyterhub/PuTTYgen_ssh_key.md)
+3. [Create a new Digital Ocean Droplet with a non-root sudo user]({filename}/posts/jupyterhub/new_DO_droplet.md)
+4. **Install Jupyter Hub on the server** (this post)
+5. Apply SSL, link a domain name to the server and configure nginx
+6. Connect OAuth to Jupyter Hub
+7. Connect to Jupyter Hub as student
 
 ### The last post
 
-In the last post we created a new server on Digital Ocean (called a _droplet_) and made sure to add our public SSH key to the setup options. Then we logged into the server as ```root```  with our private SSH key. As ```root```, we set up a new user with sudo privileges (our new user is ```peter```) and added our public SSH key to the new users profile. Then we logged into the server as the new user and checked the new user's home directory.
+In the last post we created a new server on Digital Ocean (called a _droplet_) and made sure to add our public SSH key to the setup options. Then we logged into the server as ```root```  with our private SSH key. As ```root```, we set up a new user with sudo privileges (our new user was called ```peter```) and added our public SSH key to the new users profile. Then we logged into the server as the new user and checked the new user's home directory.
 
 
 ### This post
 
 1. Update packages on the server
-2. Install Anaconda
-3. Install Python Packages and JupyterHub 
+2. Install **Anaconda**
+3. Install **Python** packages and **jupyterhub** 
 4. Run very unsecure instance of Jupyter Hub just to see if it works
 5. Shut down Jupyter Hub very quickly because of no SSL security
 
@@ -48,7 +48,7 @@ $ sudo apt-get update
 
 #### 2. Install Anaconda
 
-Next we'll install **Anaconda**. When I install Anaconda on Windows10 I used an msi installer, but for installation on the cloud server we'll use a shell script. The second time I set up Jupyter Hub, I installed Anaconda in the ```/opt``` directory. I don't think this is the best setup. When I installed Anaconda in ```/opt```, I ended up with all sorts of permission problems when I tried to run conda and jupyterhub. It is probably better to install it in the users home directory. The users home directory is also the default Anaconda3 installation location.
+Next we'll install **Anaconda**. When I install Anaconda on Windows10 I used an msi installer, but for installation on the cloud server we'll use a shell script. The second time I set up Jupyter Hub, I installed Anaconda in the ```/opt``` directory. I don't think this is the best setup. When I installed Anaconda in ```/opt```, I ended up with all sorts of permission problems when I tried to run **conda** and **jupyterhub**. It is probably better to install it in the users home directory. The users home directory is also the default Anaconda3 installation location.
 
 I'm following [this tutorial](https://www.digitalocean.com/community/tutorials/how-to-install-the-anaconda-python-distribution-on-ubuntu-16-04) from Digital Ocean.
 
@@ -74,13 +74,13 @@ $ curl -O https://repo.continuum.io/archive/Anaconda3-5.1.0-Linux-x86_64.sh
 $ bash Anaconda3-5.1.0-Linux-x86_64.sh
 ```
 
-We want to be able to run conda from the command line. So make sure to allow Anaconda to append your PATH during the installation. After installation, we need to reload the ```.bashrc``` file because Anaconda made changes to ```.bashrc``` during the install (when it added conda to our PATH).
+We want to be able to run **conda** from the command line. So make sure to allow **Anaconda** to append your PATH during the installation. After installation, we need to reload the ```.bashrc``` file because Anaconda made changes to ```.bashrc``` during the install (when it added conda to our PATH).
 
 ```
 $ source ~/.bashrc
 ```
 
-Now we should be able to run conda. Try:
+Now we should be able to run **conda**. Try:
 
 ```
 $ conda --version
@@ -129,15 +129,19 @@ $ sudo ufw allow 8000
 $ jupyterhub --no-ssl
 ```
 
-Now when we browse to the server IP address appended with ```:8000```. The web address should look something like: http://165.228.68.178:8000. You can find the IP address of the server by going into the digital ocean dashboard. We should see:
+Now we can browse to the server IP address appended with ```:8000```. The web address should look something like: http://165.228.68.178:8000. You can find the IP address of the server by going into the digital ocean dashboard. We should see:
 
 ![jupyter hub no ssl login](/posts/jupyterhub/jupyterhub_no_ssl_login.png)
 
-Awesome! Quick log into jupyterhub using the username and password for the non-root sudo user (in my case ```peter```) that we set up and are using in our current PuTTY session. You should see the typical notebook file browser with all the files you can see when you run ```ls ~/```. This shows the contents of the user's home directory. Try creating and running a new notebook. Should work just like a jupyter notebook running locally.
+Awesome! Quick log into **jupyterhub** using the username and password for the non-root sudo user (in my case ```peter```) that we set up and are using in our current PuTTY session. You should see the typical notebook file browser with all the files you can see when you run ```ls ~/```. This shows the contents of the user's home directory. Try creating and running a new notebook. Should work just like a **jupyter notebook running locally**.
 
 ### Quick! Log out and shut down jupyterhub
 
 **Quick! Log out and shut down jupyterhub**. The site is running without any ssl security over regular HTTP not HTTPS. Key in [Ctrl] + [c] to stop jupyterhub.
+
+<div class="alert alert-warning" role="alert">
+  <strong>Warning!</strong>You should not run JupyterHub without SSL encryption on a public network.
+</div>
 
  
 ### Summary

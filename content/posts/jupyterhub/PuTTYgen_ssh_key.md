@@ -1,7 +1,7 @@
 Title: Create an SSH Key with PuTTYgen
-Date: 2018-05-07 12:40
-Modified: 2018-05-07 12:40
-Status: draft
+Date: 2018-05-19 12:40
+Modified: 2018-05-19 12:40
+Status: published
 Category: jupyter
 Tags: jupyter, jupyter hub, jupyter notebooks, python
 Slug: ssh-keys-with-putty
@@ -15,10 +15,10 @@ This is the second part of a multi-part series on how to set up Jupyter Hub for 
 ### Posts in this series
 
 1. [Why Jupyter Hub?]({filename}/posts/jupyterhub/why_jupyter_hub.md) 
-2. [Create ssh key, save to documents/ssh-keys]({filename}/posts/jupyterhub/PuTTYgen_ssh_key.md)
-3. [Create a new Digital Ocean Droplet with a non-root sudo user]({filename}/posts/jupyterhub/new_DO_droplet.md)
-4. [Install Jupyter Hub on the server]({filename}/posts/jupyterhub/installing_jupyterhub.md)
-5. **Apply SSL, link a domain name to the server and configure nginx** (this post)
+2. **Create ssh key, save to documents/ssh-keys** (this post)
+3. Create a new Digital Ocean Droplet with a non-root sudo user
+4. Install Jupyter Hub on the server
+5. Apply SSL, link a domain name to the server and configure nginx
 6. Connect OAuth to Jupyter Hub
 7. Connect to Jupyter Hub as student
 
@@ -31,9 +31,7 @@ This is the second part of a multi-part series on how to set up Jupyter Hub for 
 
 ### Why SSH keys, PuTTYgen and why do this first?
 
-When I set up the server the first time, one of the initial server setup steps is to add SSH keys so the server has them when it initialized. 
-
-![Digital Droplet Choices](/posts/jupyterhub/digital_ocean_create_droplets_choices.png)
+When I set up the server on Digital Ocean the first time, one of the initial server setup steps was to add SSH keys so the server has them when it initialized. 
 
 I tried to create and save the keys to the Digital Ocean dashboard so the SSH keys would be on the server when it first started. But I goofed up somehow and the server started without any SSH keys. It was a BIG PAIN adding SSH keys after the server started for the first time. 
 
@@ -45,7 +43,7 @@ SSH keys are needed to use PuTTY (regular PuTTY not PuTTYgen) to log into the se
 
 #### 1. Download PuTTY
 
-I already have PuTTY installed on my Windows 10 Machine at home and at work. The download link is below:
+I already have PuTTY installed on my Windows 10 machines at home and at work. The download link is below:
 
 [Download PuTTY](https://www.putty.org/)
 
@@ -77,15 +75,15 @@ This will bring up a dialog to move the mouse around the empty area to generate 
 
 ![PuTTYgen key generator](/posts/jupyterhub/puttygen_key_generator.png)
 
-When the next screen pops up. Right-click and copy the contents of the Public Key for pasting into Open SSH authorized_keys files. Include the rsa line in the copy to clipboard.
+When the next screen pops up, right-click and copy the contents of the Public Key. We'll need the public key contents available to paste into the server's SSH ```authorized_keys file```. Include the rsa line in the text copied to the clipboard.
 
 #### 3. Save SSH public and private keys to Documents folder
 
-In the Actions section click [Save public key] and click [Save private key]
+In the [Actions] section click [Save public key] and click [Save private key]
 
 ![PuTTYgen save public and private keys](/posts/jupyterhub/puttygen_save_public_private_key.png)
 
-Make sure to save both the public and the private keys. Save these keys to an accessible folder. The first time I generated SSH keys, I saved the keys in the default location and later couldn't access them. The second time I created SSH keys, I created a folder in the Documents folder called ssh-keys and saved the public and private keys in Documents/ssh-keys. I saved the public key with the name: ```public_key_jupyter_hub.txt```. Digital Ocean documentation recommends a .txt file extension for the public key (so you can open it and copy the contents). The private key should have a .ppk file extension.
+Make sure to save both the public and the private keys. Save these keys to an accessible folder. The first time I generated SSH keys, I saved the keys in the default location and couldn't access them later. The second time I created SSH keys, I created a folder in the Documents folder called ssh-keys and saved the public and private keys in Documents/ssh-keys. I saved the public key with the name: ```public_key_jupyter_hub.txt```. The Digital Ocean documentation recommends a .txt file extension for the public key (so you can open it and copy the contents). The private key should have a .ppk file extension.
 
 ![PuTTYgen save public key name](/posts/jupyterhub/puttygen_public_key_save_name.png)
 
@@ -95,8 +93,8 @@ Before closing PuTTYgen, make sure to copy the contents of the Public Key to the
 
 ### Results
 
-After completing these steps, we have a public and private SSH key saved in Documents/ssh-keys. We also have the contents of the publish SSH key saved to the clipboard.
+After completing these steps, we have a public and private SSH key pair saved in Documents/ssh-keys. We also have the contents of the public SSH key saved to the clipboard.
 
 ### Next Steps
 
-Next, we'll go to Digital Ocean and create a new droplet. We will set up the new droplet to contain our SSH keys.
+Next, we'll create a new server on Digital Ocean (called a _droplet_). Then we'll use the SSH keys we just set up to log into the server and create a non-root sudo user.

@@ -282,7 +282,7 @@ Python for Undergraduate Engineers            </a>
     </span>
 
             <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x00000198DEC0B0F0> of 
+            Part <built-in method index of str object at 0x0000020E436298B0> of 
 
 
 
@@ -346,7 +346,7 @@ ns3.digitalocean.com
 <p>After completing this step, there will be a number of new DNS records. The ones I set up are below:</p>
 <p><img alt="DO Domains/DNS" src="/posts/jupyterhub/DO_domains_routed.png"></p>
 <p>It takes a couple minutes for the DNS switchover to complete. <a href="https://www.whatsmydns.net">https://www.whatsmydns.net</a> can be used to check the NS and A records of your domain and see if the domain name is getting through. The first time I set up DNS on Digital Ocean, I added the custom DNS servers to google domains but neglected to select the [use custom name servers] radio button. It looked like the domain was routing to Digital Ocean, but actually it was just staying with google. Once I clicked the [use custom name servers] radio button and waited a couple minutes, the change over happened. It did take a bit of time though; not hours, but more than a few minutes.</p>
-<h3>2. Install nginx and modify ufw and nginx_conf</h3>
+<h3>2. Install nginx and modify ufw</h3>
 <p>Now that the domain name is set up,the next step is to install and configure nginx. Nginx is an open source web server that can handle many concurrent web connections all at the same time. For the installation, I followed <a href="https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-16-04">this tutorial</a> from Digital Ocean</p>
 <p>Use PuTTY to connect to the server with the non-root sudo user we set up before. My non-root user is called <code>peter</code>. Once logged in, we can update the system and install nginx.</p>
 <div class="highlight"><pre><span></span>$ sudo apt-get update
@@ -446,8 +446,117 @@ $ ./certbot-auto certonly --standalone -d notebooks.problemsolvingwithpython.com
 
 
 <p>Note the location of the <code>fullchain.pem</code> and <code>privkey.pem</code> files. We'll need to put these locations into the nginx configuration.</p>
-<h3>4. Modify nginx config</h3>
-<p>The next step is to modify the nginx config file so that nginx uses our SSL certificates and routes requests on to jupyterhub.</p>
+<h3>4. Create cookie secret and proxy auth token</h3>
+<p>In addition to the SSL citificute, the <a href="http://jupyterhub.readthedocs.io/en/latest/getting-started/security-basics.html">Jupyter Hub docs on security basics</a> specify that a cookie secret and poxy auth token be created. To create the cookie secret:</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~
+$ mdir srv/jupyterhub
+$ <span class="nb">cd</span> srv/jupyterhub
+$ openssl rand -hex <span class="m">32</span> &gt; jupyterhub_cookie_secret
+$ ls
+</pre></div>
+
+
+<p>Now we have a cookie secret file. We need to make note of the location becuase it will need to be added to the jupyterhub_config.py file later</p>
+<p>To generate the proxy auth token, we can use the same command. </p>
+<div class="highlight"><pre><span></span>$ <span class="nb">pwd</span>
+<span class="c1"># should be in ~/srv/jupyterhub</span>
+$  openssl rand -hex <span class="m">32</span> &gt; proxy_auth_token
+$ ls
+</pre></div>
+
+
+<p>Now if we list the contents of <code>~/srv/jupyterhub</code> we should see:</p>
+<div class="highlight"><pre><span></span>~/srv/jupyterhub/
+├── jupyterhub_cookie_secret
+└── proxy_auth_token
+</pre></div>
+
+
+<h3>5. Modify nginx config</h3>
+<p>The next step is to modify the nginx config file so that nginx uses our SSL certificates and routes requests on to jupyterhub. This was the hardest part for me when I set up the first server. The nginx config file isn't Python code or bash script and I went through many different configurations until I got one that worked. The big inital problem that I had was that the sample nginx config on the Jupyter Hub docs is not a complete nginx config, just the server portion. I didn't know that the whole server portion needed to be enclosed in another frame. Hopefully the config below works. It can also be found at:</p>
+<p><a href="https://github.com/ProfessorKazarinoff/jupyterhub-svr/blob/master/nginx.conf">https://github.com/ProfessorKazarinoff/jupyterhub-svr/blob/master/nginx.conf</a></p>
+<div class="highlight"><pre><span></span><span class="err">##</span> <span class="nt">Based</span> <span class="nt">on</span><span class="o">:</span> <span class="nt">https</span><span class="o">://</span><span class="nt">github</span><span class="p">.</span><span class="nc">com</span><span class="o">/</span><span class="nt">calpolydatascience</span><span class="o">/</span><span class="nt">jupyterhub-deploy-data301</span><span class="o">/</span><span class="nt">blob</span><span class="o">/</span><span class="nt">master</span><span class="o">/</span><span class="nt">roles</span><span class="o">/</span><span class="nt">nginx</span><span class="o">/</span><span class="nt">templates</span><span class="o">/</span><span class="nt">nginx</span><span class="p">.</span><span class="nc">conf</span><span class="p">.</span><span class="nc">j2</span>
+
+<span class="nt">user</span> <span class="nt">www-data</span><span class="o">;</span>
+<span class="nt">worker_processes</span> <span class="nt">4</span><span class="o">;</span>
+<span class="nt">pid</span> <span class="o">/</span><span class="nt">run</span><span class="o">/</span><span class="nt">nginx</span><span class="p">.</span><span class="nc">pid</span><span class="o">;</span>
+
+<span class="nt">events</span> <span class="p">{</span>
+  <span class="err">worker_connections</span> <span class="err">1024</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">http</span> <span class="p">{</span>
+
+        <span class="err">include</span> <span class="err">/etc/nginx/mime.types</span><span class="p">;</span>
+        <span class="err">default_type</span> <span class="err">application/octet-stream</span><span class="p">;</span>
+
+    <span class="err">server</span> <span class="err">{</span>
+        <span class="err">listen</span> <span class="err">80</span><span class="p">;</span>
+        <span class="err">server_name</span> <span class="err">HOSTNAME</span><span class="p">;</span>
+        <span class="err">rewrite</span>        <span class="err">^</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="err">$</span><span class="n">host</span><span class="err">$</span><span class="n">request_uri</span><span class="o">?</span> <span class="n">permanent</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nt">server</span> <span class="p">{</span>
+        <span class="err">listen</span> <span class="err">443</span><span class="p">;</span>
+        <span class="err">client_max_body_size</span> <span class="err">50M</span><span class="p">;</span>
+
+        <span class="err">server_name</span> <span class="err">notebooks.countryfairycampground.com</span><span class="p">;</span>
+
+        <span class="err">ssl</span> <span class="err">on</span><span class="p">;</span>
+        <span class="err">ssl_certificate</span> <span class="err">/usr/local/etc/letsencrypt/live/notebooks.countryfairycampground.com/fullchain.pem</span><span class="p">;</span>
+        <span class="err">ssl_certificate_key</span> <span class="err">/usr/local/etc/letsencrypt/live/notebooks.countryfairycampground.com/privkey.pem</span><span class="p">;</span>
+
+        <span class="err">ssl_ciphers</span> <span class="err">&quot;AES128+</span><span class="n">EECDH</span><span class="p">:</span><span class="n">AES128</span><span class="o">+</span><span class="n">EDH</span><span class="s2">&quot;;</span>
+<span class="s2">        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span>
+<span class="s2">        ssl_prefer_server_ciphers on;</span>
+<span class="s2">        ssl_session_cache shared:SSL:10m;</span>
+<span class="s2">        add_header Strict-Transport-Security &quot;</span><span class="n">max-age</span><span class="o">=</span><span class="mi">63072000</span><span class="p">;</span> <span class="err">includeSubDomains&quot;</span><span class="p">;</span>
+        <span class="err">add_header</span> <span class="err">X-Content-Type-Options</span> <span class="err">nosniff</span><span class="p">;</span>
+        <span class="err">ssl_stapling</span> <span class="err">on</span><span class="p">;</span> <span class="err">#</span> <span class="err">Requires</span> <span class="err">nginx</span> <span class="err">&gt;=</span> <span class="err">1.3.7</span>
+        <span class="err">ssl_stapling_verify</span> <span class="err">on</span><span class="p">;</span> <span class="err">#</span> <span class="err">Requires</span> <span class="err">nginx</span> <span class="err">=&gt;</span> <span class="err">1.3.7</span>
+        <span class="err">resolver_timeout</span> <span class="err">5s</span><span class="p">;</span>
+
+        <span class="err">#</span> <span class="err">Expose</span> <span class="err">logs</span> <span class="err">to</span> <span class="err">&quot;docker</span> <span class="err">logs&quot;.</span>
+        <span class="err">#</span> <span class="err">See</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">nginxinc</span><span class="o">/</span><span class="n">docker-nginx</span><span class="o">/</span><span class="n">blob</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">Dockerfile</span><span class="mh">#L12</span><span class="o">-</span><span class="n">L14</span>
+        <span class="n">access_log</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">log</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">access</span><span class="o">.</span><span class="n">log</span><span class="p">;</span>
+        <span class="err">error_log</span> <span class="err">/var/log/nginx/error.log</span><span class="p">;</span>
+
+        <span class="err">#location</span> <span class="err">~</span> <span class="err">/(user-</span><span class="cp">[</span><span class="nx">a</span><span class="na">-zA-Z0</span><span class="o">-</span><span class="mi">9</span><span class="cp">]</span><span class="err">*)/static(.*)</span> <span class="err">{</span>
+        <span class="err">#</span>    <span class="err">alias</span> <span class="err">/usr/local/lib/python3.4/dist-packages/notebook/static/$2</span><span class="p">;</span>
+        <span class="err">#</span><span class="p">}</span>
+
+        <span class="nt">location</span> <span class="o">/</span> <span class="p">{</span>
+            <span class="err">proxy_pass</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="o">:</span><span class="mi">8000</span><span class="p">;</span>
+
+            <span class="err">proxy_set_header</span> <span class="err">X-Real-IP</span> <span class="err">$remote_addr</span><span class="p">;</span>
+            <span class="err">proxy_set_header</span> <span class="err">Host</span> <span class="err">$host</span><span class="p">;</span>
+            <span class="err">proxy_set_header</span> <span class="err">X-Forwarded-For</span> <span class="err">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+
+            <span class="err">proxy_set_header</span> <span class="err">X-NginX-Proxy</span> <span class="err">true</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="nt">location</span> <span class="o">~*</span> <span class="o">/(</span><span class="nt">user</span><span class="o">/</span><span class="cp">[</span><span class="p">^</span><span class="o">/</span><span class="cp">]</span><span class="o">*)/(</span><span class="nt">api</span><span class="o">/</span><span class="nt">kernels</span><span class="o">/</span><span class="cp">[</span><span class="p">^</span><span class="o">/</span><span class="cp">]</span><span class="o">+/</span><span class="nt">channels</span><span class="o">|</span><span class="nt">terminals</span><span class="o">/</span><span class="nt">websocket</span><span class="o">)/?</span> <span class="p">{</span>
+            <span class="err">proxy_pass</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="o">:</span><span class="mi">8000</span><span class="p">;</span>
+
+            <span class="err">proxy_set_header</span> <span class="err">X-Real-IP</span> <span class="err">$remote_addr</span><span class="p">;</span>
+            <span class="err">proxy_set_header</span> <span class="err">Host</span> <span class="err">$host</span><span class="p">;</span>
+            <span class="err">proxy_set_header</span> <span class="err">X-Forwarded-For</span> <span class="err">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+
+            <span class="err">proxy_set_header</span> <span class="err">X-NginX-Proxy</span> <span class="err">true</span><span class="p">;</span>
+
+            <span class="err">#</span> <span class="err">WebSocket</span> <span class="err">support</span>
+            <span class="err">proxy_http_version</span> <span class="err">1.1</span><span class="p">;</span>
+            <span class="err">proxy_set_header</span> <span class="err">Upgrade</span> <span class="err">$http_upgrade</span><span class="p">;</span>
+            <span class="err">proxy_set_header</span> <span class="err">Connection</span> <span class="err">&quot;upgrade&quot;</span><span class="p">;</span>
+            <span class="err">proxy_read_timeout</span> <span class="err">86400</span><span class="p">;</span>
+
+        <span class="p">}</span>
+    <span class="err">}</span>
+
+<span class="err">}</span>
+</pre></div>
+
+
 <h3>5. Generate jupyterhub_config.py and modify</h3>
 <div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~
 $ jupyterhub --generate-config
@@ -471,7 +580,7 @@ $ jupyterhub --generate-config
     </ul>
 </section>
 <section class="well" id="related-posts">
-    <h4>Article <built-in method index of str object at 0x00000198DEC0B0F0> of the  series</h4>
+    <h4>Article <built-in method index of str object at 0x0000020E436298B0> of the  series</h4>
 </section>
         </article>
     </section>

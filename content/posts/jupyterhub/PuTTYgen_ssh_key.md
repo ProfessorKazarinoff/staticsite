@@ -8,9 +8,9 @@ Slug: ssh-keys-with-putty
 Authors: Peter D. Kazarinoff
 Series: Jupyter Hub
 Series_index: 2
-Summary: This is the second part of a multi-part series on how to set up Jupyter Hub for a class. This is my first time setting up a Jupyter Hub server. I am primarily writing to my future self as I may need to set up Jupyter Hub again for another class. In this post, I we are going to create an SSH key on a Windows 10 machine using PuTTYgen.
+Summary: This is the second part of a multi-part series on how to set up Jupyter Hub for a class. This is my first time setting up a Jupyter Hub server. I am primarily writing to my future self as I may need to set up Jupyter Hub again for another class. In this post, we are going to create an SSH key on a Windows 10 machine using PuTTYgen.
 
-This is the second part of a multi-part series on how to set up Jupyter Hub for a class. This is my first time setting up a Jupyter Hub server. I am primarily writing to my future self as I may need to set up Jupyter Hub again for another class. In this post, I we are going to create an SSH key on a Windows 10 machine using PuTTYgen.
+This is the second part of a multi-part series on how to set up Jupyter Hub for a class. This is my first time setting up a Jupyter Hub server. I am primarily writing to my future self as I may need to set up Jupyter Hub again for another class. In this post, we are going to create an SSH key on a Windows 10 machine using PuTTYgen.
 
 ### Posts in this series
 

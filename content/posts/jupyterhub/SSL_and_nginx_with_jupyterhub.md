@@ -170,7 +170,7 @@ $ wget https://dl.eff.org/certbot-auto
 $ chmod a+x certbot-auto
 ```
 
-Before we can run certbot, we need to turn off nginx. When I first tried to run certbot, I got an error that read:
+Before we can run certbot, we need to turn off nginx. When I first tried to run certbot, I was thrown an error that read:
 
 ```
 Problem binding to port 80: Could not bind to IPv4 or IPv6.
@@ -200,7 +200,7 @@ Note the location of the ```fullchain.pem``` and ```privkey.pem``` files. We'll 
 
 ### 4. Create cookie secret and proxy auth token
 
-In addition to the SSL citificute, the [Jupyter Hub docs on security basics](http://jupyterhub.readthedocs.io/en/latest/getting-started/security-basics.html) specify that a cookie secret and poxy auth token be created. To create the cookie secret:
+In addition to the SSL certificate, the [Jupyter Hub docs on security basics](http://jupyterhub.readthedocs.io/en/latest/getting-started/security-basics.html) specify that a cookie secret and poxy auth token should be created. To create the cookie secret:
 
 ```
 $ cd ~
@@ -210,9 +210,9 @@ $ openssl rand -hex 32 > jupyterhub_cookie_secret
 $ ls
 ```
 
-Now we have a cookie secret file. We need to make note of the location becuase it will need to be added to the jupyterhub_config.py file later
+Now we have a cookie secret file. We need to make note of the location because it will need to be added to the jupyterhub_config.py file later.
 
-To generate the proxy auth token, we can use the same command. 
+To generate the proxy auth token, we can use the same command, but point to a different file. 
 
 ```
 $ pwd
@@ -231,7 +231,7 @@ Now if we list the contents of ```~/srv/jupyterhub``` we should see:
 
 ### 5. Modify nginx config
 
-The next step is to modify the nginx config file so that nginx uses our SSL certificates and routes requests on to jupyterhub. This was the hardest part for me when I set up the first server. The nginx config file isn't Python code or bash script and I went through many different configurations until I got one that worked. The big inital problem that I had was that the sample nginx config on the Jupyter Hub docs is not a complete nginx config, just the server portion. I didn't know that the whole server portion needed to be enclosed in another frame. Hopefully the config below works. It can also be found at:
+The next step is to modify the nginx config file so that nginx uses our SSL certificates and routes requests on to jupyterhub. This was the hardest part for me when I set up the first server. The nginx config file isn't Python code or bash script. I went through many different configurations until I got one that worked. The big initial problem that I had the sample nginx config that's up on the Jupyter Hub docs. But the nginx config posted on the jupyterhub docs is not a complete nginx config, it contains just the server portion. I didn't know that the whole server portion needed to be enclosed in another frame. Hopefully the config below works. It can also be found at:
 
 [https://github.com/ProfessorKazarinoff/jupyterhub-svr/blob/master/nginx.conf](https://github.com/ProfessorKazarinoff/jupyterhub-svr/blob/master/nginx.conf)
 
@@ -243,79 +243,78 @@ worker_processes 4;
 pid /run/nginx.pid;
 
 events {
-  worker_connections 1024;
+        worker_connections 1024;
+        # multi_accept on;
 }
 
 http {
-
         include /etc/nginx/mime.types;
+
         default_type application/octet-stream;
 
+    #top-level http config for websocket headers
+    # from https://github.com/jupyterhub/jupyterhub/blob/master/docs/source/referen$
+    map $http_upgrade $connection_upgrade {
+        default upgrade;
+            ''      close;
+    }
+
+
+    # All regular http requests on port 80 become SSL/HTTPS requests on port 32
     server {
         listen 80;
-        server_name HOSTNAME;
-        rewrite        ^ https://$host$request_uri? permanent;
+        server_name notebooks.problemsolvingwithpython.com;
+
+        # Tell all requests to port 80 to be 302 redirected to HTTPS
+        return 302 https://$host$request_uri;
     }
 
     server {
+        #listen 443 ssl default_server;
         listen 443;
-        client_max_body_size 50M;
-
-        server_name notebooks.countryfairycampground.com;
-
         ssl on;
-        ssl_certificate /usr/local/etc/letsencrypt/live/notebooks.countryfairycampground.com/fullchain.pem;
-        ssl_certificate_key /usr/local/etc/letsencrypt/live/notebooks.countryfairycampground.com/privkey.pem;
+        server_name notebooks.problemsovlingwithpython.com;
 
-        ssl_ciphers "AES128+EECDH:AES128+EDH";
+        ## SSL Protocals
+        ssl_certificate /usr/local/etc/letsencrypt/live/notebooks.problmensolvingwithpyton.com/fullchain.pem;
+        ssl_certificate_key /usr/local/etc/letsencrypt/live/notebooks.problemsolvingwithpython.com/privkey.pem;
+
         ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
         ssl_prefer_server_ciphers on;
-        ssl_session_cache shared:SSL:10m;
-        add_header Strict-Transport-Security "max-age=63072000; includeSubDomains";
-        add_header X-Content-Type-Options nosniff;
-        ssl_stapling on; # Requires nginx >= 1.3.7
-        ssl_stapling_verify on; # Requires nginx => 1.3.7
-        resolver_timeout 5s;
+        #ssl_dhparam /etc/ssl/certs/dhparam.pen;
 
-        # Expose logs to "docker logs".
-        # See https://github.com/nginxinc/docker-nginx/blob/master/Dockerfile#L12-L14
-        access_log /var/log/nginx/access.log;
-        error_log /var/log/nginx/error.log;
+        # Make site accessible from http://localhost/
+        #server_name localhost;
 
-        #location ~ /(user-[a-zA-Z0-9]*)/static(.*) {
-        #    alias /usr/local/lib/python3.4/dist-packages/notebook/static/$2;
-        #}
+        # certs sent to the client in SERVER HELLO are concatenated in
+        ssl_session_timeout 1d;
+        ssl_session_cache shared:SSL:50m;
+        ssl_stapling on;
+        ssl_stapling_verify on;
+
+        # modern configuration. tweak to your needs.
+        ssl_ciphers 'ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256';
+
+        # HSTS (ngx_http_headers_module is required) (15768000 seconds = 6 months)
+        add_header Strict-Transport-Security max-age=15768000;
 
         location / {
-            proxy_pass http://localhost:8000;
-
+            proxy_pass http://127.0.0.1:8000;
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header Host $host;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-
-            proxy_set_header X-NginX-Proxy true;
-        }
-
-        location ~* /(user/[^/]*)/(api/kernels/[^/]+/channels|terminals/websocket)/? {
-            proxy_pass http://localhost:8000;
-
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header Host $host;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-
             proxy_set_header X-NginX-Proxy true;
 
-            # WebSocket support
-            proxy_http_version 1.1;
+            #proxy_http_version 1.1;
             proxy_set_header Upgrade $http_upgrade;
             proxy_set_header Connection "upgrade";
-            proxy_read_timeout 86400;
+        }
 
+        location ~ /.well-known {
+            allow all;
         }
     }
-
 }
-
 
 ```
 

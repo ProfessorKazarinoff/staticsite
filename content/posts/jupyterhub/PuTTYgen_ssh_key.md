@@ -75,7 +75,7 @@ This will bring up a dialog to move the mouse around the empty area to generate 
 
 ![PuTTYgen key generator](/posts/jupyterhub/puttygen_key_generator.png)
 
-When the next screen pops up, right-click and copy the contents of the Public Key. We'll need the public key contents available to paste into the server's SSH ```authorized_keys file```. Include the rsa line in the text copied to the clipboard.
+When the next screen pops up, right-click and copy the contents of the Public Key. We'll need the public key contents available to paste into the server's SSH ```authorized_keys``` file. Include the rsa line in the text copied to the clipboard.
 
 #### 3. Save SSH public and private keys to Documents folder
 
@@ -97,4 +97,4 @@ After completing these steps, we have a public and private SSH key pair saved in
 
 ### Next Steps
 
-Next, we'll create a new server on Digital Ocean (called a _droplet_). Then we'll use the SSH keys we just set up to log into the server and create a non-root sudo user.
+Next, we'll create a new server on Digital Ocean (called a _droplet_). Then we'll use the SSH keys we just created to log into the server and create a non-root sudo user.

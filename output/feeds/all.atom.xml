@@ -21,7 +21,7 @@
 &lt;li&gt;Log into to the server as the non-root sudo user using PuTTY&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3&gt;1. Sign up for a Digital Ocean Account&lt;/h3&gt;
-&lt;p&gt;Digital Ocean is a cloud service provider like Amazon Web Services (AWS), Google Cloud, Microsoft Azure and Linode. Digital Ocean provides virtual private servers (called Droplets in Digital Ocean-speak) and online storage of static files (called Spaces in Digital Ocean-speak). We are going to run the Jupyter Hub server on a Digital Ocean Droplet. I like Digital Ocean's prices and web interface. The documentation on Digital Ocean is pretty good too. I already have a Digital Ocean account. I don't remember exactly how I did it, but going to this link:&lt;/p&gt;
+&lt;p&gt;Digital Ocean is a cloud service provider like Amazon Web Services (AWS), Google Cloud, Microsoft Azure and Linode. Digital Ocean provides virtual private servers (called &lt;em&gt;droplets&lt;/em&gt; in Digital Ocean-speak) and online storage of static files (called &lt;em&gt;spaces&lt;/em&gt; in Digital Ocean-speak). We are going to run the Jupyter Hub server on a Digital Ocean &lt;em&gt;droplet&lt;/em&gt;. I like Digital Ocean's prices and web interface. The documentation on Digital Ocean is pretty good too. I already have a Digital Ocean account. I don't remember exactly how I did it, but going to this link:&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://www.digitalocean.com/"&gt;https://www.digitalocean.com/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;and selecting [Create Account --&amp;gt;] should work.&lt;/p&gt;
 &lt;h3&gt;2. Create a new Digital Ocean Droplet&lt;/h3&gt;
@@ -49,20 +49,22 @@
   &lt;strong&gt;Important!&lt;/strong&gt; You need to add the public SSH key BEFORE creating the droplet
 &lt;/div&gt;
 
-&lt;p&gt;The public SSH key we created needs to be shown on the list of keys and the radio box beside it needs to be checked. If the SSH key isn't listed or the SSH key box not checked, the SSH key will not be added to the server when the server is first created (and then we won't be able to log in with PuTTY). We need to add our SSH key and check the key box so we can log onto the server with PuTTY.&lt;/p&gt;
-&lt;p&gt;Under Add your SSH keys, click [New SSH Key]. A dialog window pops up:&lt;/p&gt;
+&lt;p&gt;The public SSH key we created needs to be shown on the list of keys and the radio box beside it needs to be checked. If the SSH key isn't listed or the SSH key box left  unchecked, the SSH key will not be added to the server when the server is first created (and then we won't be able to log in with PuTTY). We need to add our public SSH key and check the key box so we can log onto the server with PuTTY.&lt;/p&gt;
+&lt;p&gt;Under [Add your SSH keys], click [New SSH Key]. A dialog window pops up:&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Digital Droplet Choices" src="/posts/jupyterhub/digital_ocean_droplet_new_ssh_key_dialog.png"&gt;&lt;/p&gt;
-&lt;p&gt;Paste the contents of the SSH public key into the Add SSH Keys dialog box.&lt;/p&gt;
+&lt;p&gt;Paste the contents of the public SSH key into the [New SSH Key] dialog box.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Putty in Windows Start Menu" src="/posts/jupyterhub/digital_ocean_droplet_enter_ssh_key__details.png"&gt;&lt;/p&gt;
-&lt;p&gt;Enter a name for the SSH key that will be saved on Digital Ocean. I choose the name jupyter-hub-ssh-key. Then click [Add SSH Key]&lt;/p&gt;
+&lt;p&gt;Enter a name for the SSH key that will be saved on Digital Ocean. I choose the name &lt;code&gt;jupyter-hub-ssh-key&lt;/code&gt;. Then click [Add SSH Key]&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Putty in Windows Start Menu" src="/posts/jupyterhub/digital_ocean_droplet_ssh_key_name_and_add.png"&gt;&lt;/p&gt;
-&lt;p&gt;You should then see the new SSH Key in the [Add your SSH Keys?] region of the new droplets page. Make sure that the radio box for the SSH key we just added is checked. A problem I had when I set up my first &lt;em&gt;droplet&lt;/em&gt; was that I did not have the new SSH Key was radio button selected. When that first server was created, no SSH keys were installed. I ended up going through this long process of copying the public SSH key into pastbin.com (which is definitely &lt;strong&gt;not a safe thing to do&lt;/strong&gt;), and using &lt;code&gt;wget&lt;/code&gt; to past the raw contents from the pastebin into the server file system, then using &lt;code&gt;cp&lt;/code&gt; to copy the publish SSH key into the correct file name. This required using the Digital Ocean console, which is sort of like a bash terminal that pops up in a web browser. I couldn't figure out a way to copy and paste into the Digital Ocean console and the console is slow and laggy. It is &lt;em&gt;way easier&lt;/em&gt; to insert the SSH key into the server when the server is created. It is &lt;em&gt;way harder&lt;/em&gt; to add an SSH key after the server is created.&lt;/p&gt;
+&lt;p&gt;Then you should see the new SSH Key in the [Add your SSH Keys?] region of the new droplets page. Make sure that the radio box for the SSH key we just added is checked. &lt;/p&gt;
+&lt;p&gt;A problem I had when I set up my first &lt;em&gt;droplet&lt;/em&gt; was that I did not have the SSH Key was radio button selected. Therefore, when the server was created, no SSH keys were installed. I ended up going through this long process of copying the public SSH key into pastbin.com (which is definitely &lt;strong&gt;not a safe thing to do&lt;/strong&gt;), and using &lt;code&gt;wget&lt;/code&gt; to past the raw contents from the pastebin into the server file system, then using &lt;code&gt;cp&lt;/code&gt; to copy the publish SSH key into the correct file name. This required using the Digital Ocean console, which is sort of like a bash terminal that pops up in a web browser. I couldn't figure out a way to copy and paste into the Digital Ocean console and the console is slow and laggy. &lt;/p&gt;
+&lt;p&gt;It is &lt;em&gt;way easier&lt;/em&gt; to insert SSH keys into the server when the server is created. It is &lt;em&gt;way harder&lt;/em&gt; to add an SSH key after the server is created.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Putty in Windows Start Menu" src="/posts/jupyterhub/digital_ocean_see_new_ssh_key.png"&gt;&lt;/p&gt;
-&lt;p&gt;I think it's time to actually create the droplet. Click the long green [Create] button at the bottom of the page.&lt;/p&gt;
+&lt;p&gt;OK, I think it's time to actually create the &lt;em&gt;droplet&lt;/em&gt;. Click the long green [Create] button at the bottom of the page.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Putty in Windows Start Menu" src="/posts/jupyterhub/digital_ocean_droplet_create.png"&gt;&lt;/p&gt;
 &lt;p&gt;This will bring you back the the Digital Ocean main dashboard and you should see your new droplet under [Resources] --&amp;gt; [Droplets]&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Putty in Windows Start Menu" src="/posts/jupyterhub/digital_ocean_droplets_1.png"&gt;&lt;/p&gt;
-&lt;p&gt;Copy the IP address of the new droplet onto the clipboard. We need to IP address to log into the server with PuTTY.&lt;/p&gt;
+&lt;p&gt;Note the IP address of the new droplet. We need to IP address to log into our server with PuTTY.&lt;/p&gt;
 &lt;h3&gt;3. Log into the server as root over SSH using PuTTY.&lt;/h3&gt;
 &lt;p&gt;Open PuTTY from the Windows start menu. A couple other parameters need to be set before we log onto the server.&lt;/p&gt;
 &lt;table class="table table-striped table-bordered table-hover"&gt;
@@ -103,7 +105,7 @@
 &lt;p&gt;This should bring up a new window that is a terminal for our server:&lt;/p&gt;
 &lt;p&gt;&lt;img alt="PyTTY SSH window open" src="/posts/jupyterhub/putty_ssh_window_open.png"&gt;&lt;/p&gt;
 &lt;h3&gt;4. Create a non-root sudo user&lt;/h3&gt;
-&lt;p&gt;Digital Ocean recommends that the servers are run by non-root user that have sudo access. So one of the first things we'll do on our server is create a non-root sudo user. First though let's make sure everything is up to date:&lt;/p&gt;
+&lt;p&gt;Digital Ocean recommends that the servers are run by non-root user that have sudo access. So one of the first things we'll do on our server is create a non-root sudo user. First though, let's make sure everything is up to date:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo apt-get update
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -160,14 +162,14 @@ $ nano /home/peter/.ssh/authorized_keys
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Use the right mouse button to paste in the public SSH key from the clipboard. If the SSH key is not saved in the clipboard, then you can retrieve it with PuTTYgen --&amp;gt; load or go to Digital Ocean, click in the upper right on the profile picture --&amp;gt; settings --&amp;gt; security --&amp;gt; ssh-key --&amp;gt; edit dropdown --&amp;gt; edit. You can paste into the PuTTY window using the right mouse button. Use [Ctrl-x] and [Y] to save and exit. &lt;/p&gt;
+&lt;p&gt;Use the right mouse button to paste in the public SSH key from the clipboard into the PuTTY window. If the SSH key is not saved in the clipboard, then you can retrieve it with PuTTYgen --&amp;gt; load or go to Digital Ocean, click in the upper right on the profile picture --&amp;gt; settings --&amp;gt; security --&amp;gt; ssh-key --&amp;gt; edit dropdown --&amp;gt; edit. You can paste into the PuTTY window using the right mouse button. Use [Ctrl-x] and [y] to save and exit. &lt;/p&gt;
 &lt;p&gt;I tried to use &lt;code&gt;cp&lt;/code&gt; to copy the &lt;code&gt;authorized_keys&lt;/code&gt; file from &lt;code&gt;/root/.ssh/&lt;/code&gt; to &lt;code&gt;/home/peter/.ssh&lt;/code&gt; but there was a problem with permissions and write access to the &lt;code&gt;authorized_keys&lt;/code&gt; file. I couldn't get PuTTY to login as &lt;code&gt;peter&lt;/code&gt; until I removed the file, recreated an empty one and pasted in the SSH key. This is probably also possible with &lt;code&gt;cat file1 &amp;gt;&amp;gt; file2&lt;/code&gt;. Manually copying and pasting with the right mouse button was the way I got it to work. &lt;/p&gt;
 &lt;p&gt;Now we can exit out of the &lt;code&gt;peter&lt;/code&gt; profile&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;exit&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;This should bring you back to the &lt;code&gt;root&lt;/code&gt; user. Restart the server to enact the changes with:&lt;/p&gt;
+&lt;p&gt;This should bring us back to the &lt;code&gt;root&lt;/code&gt; user. Restart the server to enact the changes with:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo shutdown -r now
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -204,9 +206,9 @@ $ nano /home/peter/.ssh/authorized_keys
 &lt;p&gt;I also saved the PuTTY session details at this point so that I wouldn't have to re-enter all of the parameters each time I want to log into the server. Enter a name into [Saved Sessions] and click [Save]. Once the parameters are saved in PuTTY, you can simply double-click the profile name and you will log into the server.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="PuTTY save profile" src="/posts/jupyterhub/putty_save_session.PNG"&gt;&lt;/p&gt;
 &lt;p&gt;Log into the server with Sessions --&amp;gt; [Open]&lt;/p&gt;
-&lt;p&gt;You should see the Digital Ocean login screen again. Note the prompt, it should have the new users name before the &lt;code&gt;@&lt;/code&gt; symbol. &lt;/p&gt;
+&lt;p&gt;You should see the Digital Ocean login screen again. Note the prompt, it should have the new user's name before the &lt;code&gt;@&lt;/code&gt; symbol. &lt;/p&gt;
 &lt;p&gt;&lt;img alt="server terminal as peter" src="/posts/jupyterhub/putty_ssh_window_open_as_peter.png"&gt;&lt;/p&gt;
-&lt;p&gt;Check to see which directory you land it. It should be &lt;code&gt;/home/&amp;lt;username&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Check to see which directory you land in. It should be &lt;code&gt;/home/&amp;lt;username&amp;gt;&lt;/code&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;pwd&lt;/span&gt;
 /home/&amp;lt;username&amp;gt;
 &lt;/pre&gt;&lt;/div&gt;

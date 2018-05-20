@@ -185,7 +185,7 @@ init_mathjax();
         <meta property="og:title" content="Installing Jupyterhub"/>
         <meta property="og:url" content="../drafts/installing-jupyter-hub.html"/>
         <meta property="og:description" content="This is the third part of a multi-part series that shows how to set up Jupyter Hub for a college class. The goal is to have a running version of Jupyter Hub that students in the class can log into when given a simple web link. In this post, we&#39;ll get to the fun stuff: installing Jupyter Hub on the server, installing Python packages and spinning up Jupyter Hub for the first time."/>
-        <meta property="article:published_time" content="2018-05-16" />
+        <meta property="article:published_time" content="2018-05-21" />
             <meta property="article:section" content="jupyter" />
             <meta property="article:tag" content="jupyter" />
             <meta property="article:tag" content="jupyter hub" />
@@ -278,11 +278,11 @@ Python for Undergraduate Engineers            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2018-05-16T12:40:00-07:00"> Wed 16 May 2018</time>
+        <i class="fa fa-calendar"></i><time datetime="2018-05-21T12:40:00-07:00"> Mon 21 May 2018</time>
     </span>
 
             <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x0000024E9C451170> of 
+            Part <built-in method index of str object at 0x000001F6A64A4BB0> of 
 
 
 
@@ -299,22 +299,23 @@ Python for Undergraduate Engineers            </a>
 </footer><!-- /.post-info -->                    </div>
                 </div>
                 <p>This is the third part of a multi-part series that shows how to set up Jupyter Hub for a college class. The goal is to have a running version of Jupyter Hub that students in the class can log into when given a simple web link. In this post, we'll get to the fun stuff: installing Jupyter Hub on the server, installing Python packages and spinning up Jupyter Hub for the first time.</p>
-<h3>List of all steps</h3>
+<h3>Posts in this series</h3>
 <ol>
-<li>Create ssh key, save to documents/ssh-keys (complete)</li>
-<li>Create a new Digital Ocean Droplet with a non-root sudo user (complete)</li>
-<li>Install Jupyter Hub on the server (this post)</li>
-<li>Connect a domain name to the server and apply SSL</li>
+<li><a href="../why-jupyter-hub.html">Why Jupyter Hub?</a> </li>
+<li><a href="../ssh-keys-with-putty.html">Create ssh key, save to documents/ssh-keys</a></li>
+<li><a href="../new-digital-ocean-droplet.html">Create a new Digital Ocean Droplet with a non-root sudo user</a></li>
+<li><strong>Install Jupyter Hub on the server</strong> (this post)</li>
+<li>Apply SSL, link a domain name to the server and configure nginx</li>
 <li>Connect OAuth to Jupyter Hub</li>
 <li>Connect to Jupyter Hub as student</li>
 </ol>
 <h3>The last post</h3>
-<p>In the last post we created a new server on Digital Ocean (called a <em>droplet</em>) and made sure to add our public SSH key to the setup options. Then we logged into the server as <code>root</code>  with our private SSH key. As <code>root</code>, we set up a new user with sudo privileges (our new user is <code>peter</code>) and added our public SSH key to the new users profile. Then we logged into the server as the new user and checked the new user's home directory.</p>
+<p>In the last post we created a new server on Digital Ocean (called a <em>droplet</em>) and made sure to add our public SSH key to the setup options. Then we logged into the server as <code>root</code>  with our private SSH key. As <code>root</code>, we set up a new user with sudo privileges (our new user was called <code>peter</code>) and added our public SSH key to the new users profile. Then we logged into the server as the new user and checked the new user's home directory.</p>
 <h3>This post</h3>
 <ol>
 <li>Update packages on the server</li>
-<li>Install Anaconda</li>
-<li>Install Python Packages and JupyterHub </li>
+<li>Install <strong>Anaconda</strong></li>
+<li>Install <strong>Python</strong> packages and <strong>jupyterhub</strong> </li>
 <li>Run very unsecure instance of Jupyter Hub just to see if it works</li>
 <li>Shut down Jupyter Hub very quickly because of no SSL security</li>
 </ol>
@@ -325,7 +326,7 @@ Python for Undergraduate Engineers            </a>
 
 
 <h4>2. Install Anaconda</h4>
-<p>Next we'll install <strong>Anaconda</strong>. When I install Anaconda on Windows10 I used an msi installer, but for installation on the cloud server we'll use a shell script. The second time I set up Jupyter Hub, I installed Anaconda in the <code>/opt</code> directory. I don't think this is the best setup. When I installed Anaconda in <code>/opt</code>, I ended up with all sorts of permission problems when I tried to run conda and jupyterhub. It is probably better to install it in the users home directory. The users home directory is also the default Anaconda3 installation location.</p>
+<p>Next we'll install <strong>Anaconda</strong>. When I install Anaconda on Windows10 I used an msi installer, but for installation on the cloud server we'll use a shell script. The second time I set up Jupyter Hub, I installed Anaconda in the <code>/opt</code> directory. I don't think this is the best setup. When I installed Anaconda in <code>/opt</code>, I ended up with all sorts of permission problems when I tried to run <strong>conda</strong> and <strong>jupyterhub</strong>. It is probably better to install it in the users home directory. The users home directory is also the default Anaconda3 installation location.</p>
 <p>I'm following <a href="https://www.digitalocean.com/community/tutorials/how-to-install-the-anaconda-python-distribution-on-ubuntu-16-04">this tutorial</a> from Digital Ocean.</p>
 <p>Go to <a href="https://repo.continuum.io/archive/">https://repo.continuum.io/archive/</a> and look down the list of installs for the newest installer that corresponds to:</p>
 <ul>
@@ -347,12 +348,12 @@ $ bash Anaconda3-5.1.0-Linux-x86_64.sh
 </pre></div>
 
 
-<p>We want to be able to run conda from the command line. So make sure to allow Anaconda to append your PATH during the installation. After installation, we need to reload the <code>.bashrc</code> file because Anaconda made changes to <code>.bashrc</code> during the install (when it added conda to our PATH).</p>
+<p>We want to be able to run <strong>conda</strong> from the command line. So make sure to allow <strong>Anaconda</strong> to append your PATH during the installation. After installation, we need to reload the <code>.bashrc</code> file because Anaconda made changes to <code>.bashrc</code> during the install (when it added conda to our PATH).</p>
 <div class="highlight"><pre><span></span>$ <span class="nb">source</span> ~/.bashrc
 </pre></div>
 
 
-<p>Now we should be able to run conda. Try:</p>
+<p>Now we should be able to run <strong>conda</strong>. Try:</p>
 <div class="highlight"><pre><span></span>$ conda --version
 </pre></div>
 
@@ -391,11 +392,15 @@ $ jupyterhub --no-ssl
 </pre></div>
 
 
-<p>Now when we browse to the server IP address appended with <code>:8000</code>. The web address should look something like: http://165.228.68.178:8000. You can find the IP address of the server by going into the digital ocean dashboard. We should see:</p>
+<p>Now we can browse to the server IP address appended with <code>:8000</code>. The web address should look something like: http://165.228.68.178:8000. You can find the IP address of the server by going into the digital ocean dashboard. We should see:</p>
 <p><img alt="jupyter hub no ssl login" src="/posts/jupyterhub/jupyterhub_no_ssl_login.png"></p>
-<p>Awesome! Quick log into jupyterhub using the username and password for the non-root sudo user (in my case <code>peter</code>) that we set up and are using in our current PuTTY session. You should see the typical notebook file browser with all the files you can see when you run <code>ls ~/</code>. This shows the contents of the user's home directory. Try creating and running a new notebook. Should work just like a jupyter notebook running locally.</p>
+<p>Awesome! Quick log into <strong>jupyterhub</strong> using the username and password for the non-root sudo user (in my case <code>peter</code>) that we set up and are using in our current PuTTY session. You should see the typical notebook file browser with all the files you can see when you run <code>ls ~/</code>. This shows the contents of the user's home directory. Try creating and running a new notebook. Should work just like a <strong>jupyter notebook running locally</strong>.</p>
 <h3>Quick! Log out and shut down jupyterhub</h3>
 <p><strong>Quick! Log out and shut down jupyterhub</strong>. The site is running without any ssl security over regular HTTP not HTTPS. Key in [Ctrl] + [c] to stop jupyterhub.</p>
+<div class="alert alert-warning" role="alert">
+  <strong>Warning!</strong>You should not run JupyterHub without SSL encryption on a public network.
+</div>
+
 <h3>Summary</h3>
 <p>In this post we installed Anaconda on the server using a shell script. We added conda to our path and reloaded our .bashrc file. Then we installed some extra python packages such as pint and pyserial. Finally we installed jupyterhub, opened up port 8000 and ran jupyterhub for the first time! Remember we <strong>shut down jupyter hub very quickly</strong> because we ran it without any SSL security.</p>
 <h3>Next Steps</h3>
@@ -413,7 +418,7 @@ $ jupyterhub --no-ssl
     </ul>
 </section>
 <section class="well" id="related-posts">
-    <h4>Article <built-in method index of str object at 0x0000024E9C451170> of the  series</h4>
+    <h4>Article <built-in method index of str object at 0x000001F6A64A4BB0> of the  series</h4>
 </section>
         </article>
     </section>

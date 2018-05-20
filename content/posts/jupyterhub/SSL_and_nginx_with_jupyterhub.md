@@ -80,7 +80,7 @@ This will bring us to a panel you can add a DNS record. I want the notebook serv
 
 It takes a couple minutes for the DNS switchover to complete. [https://www.whatsmydns.net](https://www.whatsmydns.net) can be used to check the NS and A records of your domain and see if the domain name is getting through. The first time I set up DNS on Digital Ocean, I added the custom DNS servers to google domains but neglected to select the [use custom name servers] radio button. It looked like the domain was routing to Digital Ocean, but actually it was just staying with google. Once I clicked the [use custom name servers] radio button and waited a couple minutes, the change over happened. It did take a bit of time though; not hours, but more than a few minutes.
 
-### 2. Install nginx and modify ufw and nginx_conf
+### 2. Install nginx and modify ufw
 
 Now that the domain name is set up,the next step is to install and configure nginx. Nginx is an open source web server that can handle many concurrent web connections all at the same time. For the installation, I followed [this tutorial](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-16-04) from Digital Ocean
 
@@ -198,9 +198,126 @@ IMPORTANT NOTES:
 
 Note the location of the ```fullchain.pem``` and ```privkey.pem``` files. We'll need to put these locations into the nginx configuration.
 
-### 4. Modify nginx config
+### 4. Create cookie secret and proxy auth token
 
-The next step is to modify the nginx config file so that nginx uses our SSL certificates and routes requests on to jupyterhub.
+In addition to the SSL citificute, the [Jupyter Hub docs on security basics](http://jupyterhub.readthedocs.io/en/latest/getting-started/security-basics.html) specify that a cookie secret and poxy auth token be created. To create the cookie secret:
+
+```
+$ cd ~
+$ mdir srv/jupyterhub
+$ cd srv/jupyterhub
+$ openssl rand -hex 32 > jupyterhub_cookie_secret
+$ ls
+```
+
+Now we have a cookie secret file. We need to make note of the location becuase it will need to be added to the jupyterhub_config.py file later
+
+To generate the proxy auth token, we can use the same command. 
+
+```
+$ pwd
+# should be in ~/srv/jupyterhub
+$  openssl rand -hex 32 > proxy_auth_token
+$ ls
+```
+
+Now if we list the contents of ```~/srv/jupyterhub``` we should see:
+
+```
+~/srv/jupyterhub/
+├── jupyterhub_cookie_secret
+└── proxy_auth_token
+```
+
+### 5. Modify nginx config
+
+The next step is to modify the nginx config file so that nginx uses our SSL certificates and routes requests on to jupyterhub. This was the hardest part for me when I set up the first server. The nginx config file isn't Python code or bash script and I went through many different configurations until I got one that worked. The big inital problem that I had was that the sample nginx config on the Jupyter Hub docs is not a complete nginx config, just the server portion. I didn't know that the whole server portion needed to be enclosed in another frame. Hopefully the config below works. It can also be found at:
+
+[https://github.com/ProfessorKazarinoff/jupyterhub-svr/blob/master/nginx.conf](https://github.com/ProfessorKazarinoff/jupyterhub-svr/blob/master/nginx.conf)
+
+```
+## Based on: https://github.com/calpolydatascience/jupyterhub-deploy-data301/blob/master/roles/nginx/templates/nginx.conf.j2
+
+user www-data;
+worker_processes 4;
+pid /run/nginx.pid;
+
+events {
+  worker_connections 1024;
+}
+
+http {
+
+        include /etc/nginx/mime.types;
+        default_type application/octet-stream;
+
+    server {
+        listen 80;
+        server_name HOSTNAME;
+        rewrite        ^ https://$host$request_uri? permanent;
+    }
+
+    server {
+        listen 443;
+        client_max_body_size 50M;
+
+        server_name notebooks.countryfairycampground.com;
+
+        ssl on;
+        ssl_certificate /usr/local/etc/letsencrypt/live/notebooks.countryfairycampground.com/fullchain.pem;
+        ssl_certificate_key /usr/local/etc/letsencrypt/live/notebooks.countryfairycampground.com/privkey.pem;
+
+        ssl_ciphers "AES128+EECDH:AES128+EDH";
+        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+        ssl_prefer_server_ciphers on;
+        ssl_session_cache shared:SSL:10m;
+        add_header Strict-Transport-Security "max-age=63072000; includeSubDomains";
+        add_header X-Content-Type-Options nosniff;
+        ssl_stapling on; # Requires nginx >= 1.3.7
+        ssl_stapling_verify on; # Requires nginx => 1.3.7
+        resolver_timeout 5s;
+
+        # Expose logs to "docker logs".
+        # See https://github.com/nginxinc/docker-nginx/blob/master/Dockerfile#L12-L14
+        access_log /var/log/nginx/access.log;
+        error_log /var/log/nginx/error.log;
+
+        #location ~ /(user-[a-zA-Z0-9]*)/static(.*) {
+        #    alias /usr/local/lib/python3.4/dist-packages/notebook/static/$2;
+        #}
+
+        location / {
+            proxy_pass http://localhost:8000;
+
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header Host $host;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+            proxy_set_header X-NginX-Proxy true;
+        }
+
+        location ~* /(user/[^/]*)/(api/kernels/[^/]+/channels|terminals/websocket)/? {
+            proxy_pass http://localhost:8000;
+
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header Host $host;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+            proxy_set_header X-NginX-Proxy true;
+
+            # WebSocket support
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+            proxy_read_timeout 86400;
+
+        }
+    }
+
+}
+
+
+```
 
 ### 5. Generate jupyterhub_config.py and modify
 

@@ -91,7 +91,7 @@ Make sure to save both the public and the private keys. Save these keys to an ac
 
 Before closing PuTTYgen, make sure to copy the contents of the Public Key to the clipboard. We'll need this when we create the server. Copy all of the contents including the rsa line. 
 
-### Results
+### Summary
 
 After completing these steps, we have a public and private SSH key pair saved in Documents/ssh-keys. We also have the contents of the public SSH key saved to the clipboard.
 

@@ -69,13 +69,14 @@ PLUGINS = [
 NOTEBOOK_DIR = 'posts'
 
 I18N_TEMPLATES_LANG = 'en'
-MARKUP = ('md', 'ipynb','html')
+MARKUP = ('md', 'ipynb', 'html')
 MARKDOWN = {
     'extension_configs': {
         'markdown.extensions.codehilite': {'css_class': 'highlight'},
         'markdown.extensions.extra': {},
         'markdown.extensions.meta': {},
-	'markdown.extensions.tables': {},
+	    'markdown.extensions.tables': {},
+        'markdown.extensions.admonition': {},
     },
     'output_format': 'html5',
 }

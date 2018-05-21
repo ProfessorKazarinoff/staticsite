@@ -198,6 +198,16 @@ IMPORTANT NOTES:
 
 Note the location of the ```fullchain.pem``` and ```privkey.pem``` files. We'll need to put these locations into the nginx configuration.
 
+We also need to allow nginx to access these files. I had trouble getting nginx to run and [this presentation](https://www.youtube.com/watch?v=alaGteCPZU8&t=1721s) showed a way to give nginx access to the SSL key files.
+
+```
+$ cd /etc/letsencrypt
+$ ls
+accounts  archive  csr  keys  live  renewal  renewal-hooks
+$ sudo chmod 777 -R archive/
+$ sudo chmod 777 -R live/
+```
+
 ### 4. Create cookie secret and proxy auth token
 
 In addition to the SSL certificate, the [Jupyter Hub docs on security basics](http://jupyterhub.readthedocs.io/en/latest/getting-started/security-basics.html) specify that a cookie secret and poxy auth token should be created. To create the cookie secret:
@@ -227,6 +237,16 @@ Now if we list the contents of ```~/srv/jupyterhub``` we should see:
 ~/srv/jupyterhub/
 ├── jupyterhub_cookie_secret
 └── proxy_auth_token
+```
+
+Also we can generate a dhparam.pem file. Need to cd into /etc/nginx and create a ssl directory, give it 777 permissions, then touch a new file called dhparam.pem. After that use openssl to generate the dhparams.
+
+```
+cd /etc/nginx
+mkdir ssl
+sudo chmod 777 -R ssl/
+touch ssl/dhparam.pem
+sudo openssl dhparam -out /etc/nginx/ssl/dhparam.pem 2048
 ```
 
 ### 5. Modify nginx config
@@ -281,7 +301,7 @@ http {
 
         ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
         ssl_prefer_server_ciphers on;
-        #ssl_dhparam /etc/ssl/certs/dhparam.pen;
+        #ssl_dhparam /etc/nginx/ssl/dhparam.pem;
 
         # Make site accessible from http://localhost/
         #server_name localhost;
@@ -320,23 +340,69 @@ http {
 
 ### 5. Generate jupyterhub_config.py and modify
 
+Generate the jupyterhub_config.py file
+
 ```
 $ cd ~
 $ jupyterhub --generate-config
 ```
 
+Now modify jupyterhub_config.py to allow local spawners and include our user ```peter``` as an admin user:
 
+```
+$ nano jupyterhub_config.py
+```
 
+There will be a lot of commented out text in the file. Att the top of the file, add the following:
 
+```
+#jupyterhub_config.py
+
+import os
+c = get_config()
+c.JupyterHub.log_level = 10
+c.Spawner.cmd = '/home/peter/anaconda3/bin/jupyterhub-singleuser'
+
+c.Authenticator.whitelist = {'peter'}
+c.Authenticator.admin_users = {'peter'}
+
+```
 
 ### 6. Restart nginx and start jupyterhub, see if we can login
 
+```
+$ sudo systemctl stop nginx
+$ sudo systemctl start nginx
+
+$ cd ~
+$ jupyterhub
+```
+
 ### 7. Create an new user and restart jupyterhub. See if new user can log in.
 
-### Summary
+```python
+$ sudo adduser kendra
+go through prompts
+```
 
+now modify jupyterhub_conf.py to include our new user and add ```peter``` as an administrator:
+
+```
+c.Authenticator.whitelist = {'peter','kendra'}
+c.Authenticator.admin_users = {'peter'}
+```
+
+restart jupyterhub and try and login as ```kendra```
+
+```
+$ jupyterhub
+```
+
+### Summary
+In this post we created an SSL cirtifuicut. Modified the nginx config and modified the jupyterhub config. At the end of it we were able to get a working version of jupyter hub running SSL security.
 
 
 
 ### Next Steps
+Up next will be adding an authentification system so that users can log into our Jupyter Hub server using their college usernames and passwords.
 

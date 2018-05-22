@@ -1,16 +1,16 @@
-﻿Title: Adding SSL and a domain name to Jupyter Hub
-Date: 2018-05-16 12:40
-Modified: 2018-05-16 12:40
+﻿Title: Adding Google OAuth and system service to a Jupyter Hub server
+Date: 2018-05-22 12:40
+Modified: 2018-05-22 12:40
 Status: draft
 Category: jupyter
 Tags: jupyter, jupyter hub, jupyter notebooks, python
-Slug: add-ssl-and-domain-name-to-jupyterhub
+Slug: add-google-oauth-and-system-service-to-jupyterhub
 Authors: Peter D. Kazarinoff
 Series: Jupyter Hub
-Series_index: 5
-Summary: This is the fifth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to link a domain name to our server IP address, add SSL security and configure nginx to run as a proxy in between users and jupyterhub. Then we'll run jupyterhub over https using the SSL security we created.
+Series_index: 6
+Summary: This is the sixth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we will add an authentication system so that users can log into our Jupyter Hub server using their college usernames and passwords. We will also set **jupyterhub** to run as a system service in the background which will allow us to work on the server and run **jupyterhub** at the same time.
 
-This is the fifth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to link a domain name to our server IP address, add SSL security and configure nginx to run as a proxy in between users and jupyterhub. Then we'll run jupyterhub over https using the SSL security we created.
+This is the sixth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we will add an authentication system so that users can log into our Jupyter Hub server using their college usernames and passwords. We will also set **jupyterhub** to run as a system service in the background which will allow us to work on the server and run **jupyterhub** at the same time.
 
 ### Posts in this series
 
@@ -18,25 +18,92 @@ This is the fifth part of a multi-part series that shows how to set up Jupyter H
 2. [Create ssh key, save to documents/ssh-keys]({filename}/posts/jupyterhub/PuTTYgen_ssh_key.md)
 3. [Create a new Digital Ocean Droplet with a non-root sudo user]({filename}/posts/jupyterhub/new_DO_droplet.md)
 4. [Install Jupyter Hub on the server]({filename}/posts/jupyterhub/installing_jupyterhub.md)
-5. **Apply SSL, link a domain name to the server and configure nginx** (this post)
-6. Connect OAuth to Jupyter Hub
+5. [Apply SSL, link a domain name to the server and configure nginx]({filename}/posts/jupyterhub/SSL_and_nginx_with_jupyterhub.md)
+6. **Connect OAuth to Jupyter Hub** (this post)
 7. Connect to Jupyter Hub as student
 
 ### Last time
 
-In the last post, we installed **Anaconda** on the server using a shell script. Then we installed some extra **Python** packages such as **pint**, **pyserial** and **schemdraw** to our base conda environment. Next we installed **jupyterhub**, opened up port 8000 and ran jupyterhub for the first time! And remember **we shut down jupyter hub very quickly** because we ran it without any SSL security.
+In the last post, we succceed in getting jupyterhub to run on https and use SSL cirtificuts. We created SSL cirtifuicuts, modified the nginx config and modified the jupyterhub config. At the end of it we were able to get a working version of jupyter hub running SSL security.
 
 ### Steps in this post:
 
-1. Link domain name to server IP address
-2. Install nginx
-3. Use cirtbox to generate SSL certificates
-4. Create jupyterhub_config.py and modify
-5. modify nginx_conf
-6. Start restart nginx and start jupyterhub. See if we can log in.
-7. Create another system user on the server. Restart jupyterhub and log in as new user.
+1. Run **jupterhub** as a system service
+2. Test local OAuth
+3. Aquire google OAuth credentials
+4. Modify jupyterhub_config.py to use google OAuth.
+5. Start restart nginx and start jupyterhub. See if we can log in using google credentials.
 
-### 1. Link domain name to server IP address
+
+### 1. Run **jupterhub** as a system service
+
+Working off of [this wiki](https://github.com/jupyterhub/jupyterhub/wiki/Run-jupyterhub-as-a-system-service)
+
+To run jupyterhub as a system service, we need to create a service file in the ```/etc/systemd/system``` directory. ```cd``` into the directory and have a look around. You should see a couple files that end in ```.service```
+
+```
+$ cd /etc/systemd/system
+$ ls
+cloud-init.target.wants                network-online.target.wants
+dbus-org.freedesktop.thermald.service  paths.target.wants
+default.target.wants                   sockets.target.wants
+final.target.wants                     sshd.service
+getty.target.wants                     sysinit.target.wants
+graphical.target.wants                 syslog.service
+iscsi.service                          timers.target.wants
+multi-user.target.wants
+```
+
+Next we'll create a new ```.service``` file called ```jupyterhub.service```
+
+```
+$ sudo nano jupyterhub.service
+```
+
+In the file, add the following:
+
+```
+[Unit]
+Description=Jupyterhub
+After=syslog.target network.target
+
+[Service]
+User=root
+Environment="PATH=/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/home/peter/anaconda3/bin"
+ExecStart=/home/peter/anaconda3/bin/jupyterhub -f /home/peter/jupyterhub_config.py
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Save and exit with [Ctrl-c] + [y]. Now we need to reload the system daemon and run jupyterhub as a system process using the command: ```sudo systemctl <start|stop|status> jupyterhub```
+
+```
+$ sudo systemctl daemon-reload
+$ sudo systemctl start jupyterhub
+```
+
+We can see if jupyterhub is running with:
+
+```
+$ sudo systemctl status jupyterhub
+
+ Loaded: loaded (/etc/systemd/system/jupyterhub.service; 
+ Active: active (running)
+```
+
+Now we can go to the server and log in as our non-root user, and log in as the other user we created ```kendra```
+
+A problem is that if we go to the admin page on jupyter hub, we can't add new users. The users have to be added to the server using PuTTY first and then can be added to jupyterhub with the admin pannel. This is OK for a small team or a couple users, but for a college class, creating a new user for each one, then emailing out passwords... That will end up a mess. So we need to give jupyterhub the authority to create new users from the admin pannel.
+
+Something similar to this in jupyterhub_config.py
+
+```
+#jupyterhub_config.py
+
+c.LocalGoogleOAuthenticator.create_system_users = True
+```
+
 
 When we started Jupyter Hub in the previous post, it ran, we could log in, and we could run Python code. What's not to like, right? Well, security is the big problem. 
 

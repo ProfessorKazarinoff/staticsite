@@ -1,6 +1,6 @@
 Title: Installing Jupyterhub
-Date: 2018-05-21 12:40
-Modified: 2018-05-21 12:40
+Date: 2018-05-23 12:40
+Modified: 2018-05-23 12:40
 Status: draft
 Category: jupyter
 Tags: jupyter, jupyter hub, jupyter notebooks, python
@@ -8,14 +8,14 @@ Slug: installing-jupyter-hub
 Authors: Peter D. Kazarinoff
 Series: Jupyter Hub
 Series_index: 4
-Summary: This is the fourth part of a multi-part series that shows how to set up Jupyter Hub for a college class. The goal is to have a running version of Jupyter Hub that students in the class can log into when given a simple web link. In this post, we'll get to the fun stuff: installing Jupyter Hub on the server, installing Python packages and spinning up Jupyter Hub for the first time.
+Summary: This is the fourth part of a multi-part series that shows how to set up Jupyter Hub for a college class. The goal is to have a running version of Jupyter Hub that students in the class can log into when given a simple web link. In this post, we'll get to the fun stuff: installing **juupyterhub** on the server, installing **Python** packages and spinning up Jupyter Hub for the first time.
 
-This is the fourth part of a multi-part series that shows how to set up Jupyter Hub for a college class. The goal is to have a running version of Jupyter Hub that students in the class can log into when given a simple web link. In this post, we'll get to the fun stuff: installing Jupyter Hub on the server, installing Python packages and spinning up Jupyter Hub for the first time.
+This is the fourth part of a multi-part series that shows how to set up Jupyter Hub for a college class. The goal is to have a running version of Jupyter Hub that students in the class can log into when given a simple web link. In this post, we'll get to the fun stuff: installing **juupyterhub** on the server, installing **Python** packages and spinning up Jupyter Hub for the first time.
 
 ### Posts in this series
 
 1. [Why Jupyter Hub?]({filename}/posts/jupyterhub/why_jupyter_hub.md) 
-2. [Create ssh key, save to documents/ssh-keys]({filename}/posts/jupyterhub/PuTTYgen_ssh_key.md)
+2. [Create SSH keys, save to documents/ssh-keys]({filename}/posts/jupyterhub/PuTTYgen_ssh_key.md)
 3. [Create a new Digital Ocean Droplet with a non-root sudo user]({filename}/posts/jupyterhub/new_DO_droplet.md)
 4. **Install Jupyter Hub on the server** (this post)
 5. Apply SSL, link a domain name to the server and configure nginx

@@ -172,19 +172,19 @@ init_mathjax = function() {
 }
 init_mathjax();
 </script>
-    <link href="/extra/favicon.ico" rel="icon">
+    <link href="../extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="/drafts/add-google-oauth-and-system-service-to-jupyterhub.html">
+<link rel="canonical" href="../drafts/add-google-oauth-and-system-service-to-jupyterhub.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
         <meta name="keywords" content="jupyter,jupyter hub,jupyter notebooks,python" />
-        <meta name="description" content="This is the sixth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we will add an authentication system so that users can log into our Jupyter Hub server using their college usernames and passwords. We will also set jupyterhub to run as a system service in the background which will allow us to work on the server and run jupyterhub at the same time." />
+        <meta name="description" content="This is the sixth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we will set up jupyterhub to run as a system service in the background which will allow us to work on the server and run jupyterhub at the same time. Then we will add an authentication system so that users can log into our Jupyter Hub server using github usernames and passwords. Finally we will modify the authentication system so that users can log into our Jupyer Hub server using google usernames and passwords. The same user name and password a student uses to access their college email." />
 
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="Adding Google OAuth and system service to a Jupyter Hub server"/>
-        <meta property="og:url" content="/drafts/add-google-oauth-and-system-service-to-jupyterhub.html"/>
-        <meta property="og:description" content="This is the sixth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we will add an authentication system so that users can log into our Jupyter Hub server using their college usernames and passwords. We will also set jupyterhub to run as a system service in the background which will allow us to work on the server and run jupyterhub at the same time."/>
+        <meta property="og:url" content="../drafts/add-google-oauth-and-system-service-to-jupyterhub.html"/>
+        <meta property="og:description" content="This is the sixth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we will set up jupyterhub to run as a system service in the background which will allow us to work on the server and run jupyterhub at the same time. Then we will add an authentication system so that users can log into our Jupyter Hub server using github usernames and passwords. Finally we will modify the authentication system so that users can log into our Jupyer Hub server using google usernames and passwords. The same user name and password a student uses to access their college email."/>
         <meta property="article:published_time" content="2018-05-22" />
             <meta property="article:section" content="jupyter" />
             <meta property="article:tag" content="jupyter" />
@@ -196,17 +196,21 @@ init_mathjax();
 
 
     <!-- Bootstrap -->
-        <link rel="stylesheet" href="/theme/css/bootstrap.flatly.min.css" type="text/css"/>
-    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="../theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="../theme/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="/theme/css/pygments/native.css" rel="stylesheet">
-    <link href="/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
-    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
-        <link href="/static/css/custom.css" rel="stylesheet">
+    <link href="../theme/css/pygments/native.css" rel="stylesheet">
+    <link href="../theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="../theme/css/style.css" type="text/css"/>
+        <link href="../static/css/custom.css" rel="stylesheet">
+
+        <link href="../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Python for Undergraduate Engineers ATOM Feed"/>
 
 
 
-
+        <link href="../feeds/jupyter.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Python for Undergraduate Engineers jupyter ATOM Feed"/>
 
 </head>
 <body>
@@ -220,18 +224,18 @@ init_mathjax();
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="/" class="navbar-brand">
+            <a href="../" class="navbar-brand">
 Python for Undergraduate Engineers            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                         <li><a href="/pages/about.html">
+                         <li><a href="../pages/about.html">
                              About
                           </a></li>
-                         <li><a href="/pages/book.html">
+                         <li><a href="../pages/book.html">
                              Book
                           </a></li>
-                         <li><a href="/pages/now.html">
+                         <li><a href="../pages/now.html">
                              Now
                           </a></li>
             </ul>
@@ -241,7 +245,7 @@ Python for Undergraduate Engineers            </a>
                   <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
                 </form></span>
               </li>
-              <li><a href="/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+              <li><a href="../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -253,15 +257,15 @@ Python for Undergraduate Engineers            </a>
     <div class="row">
         <div class="col-sm-9">
             <ol class="breadcrumb">
-                <li><a href="" title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="/category/jupyter.html" title="jupyter">jupyter</a></li>
+                <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="../category/jupyter.html" title="jupyter">jupyter</a></li>
                 <li class="active">Adding Google OAuth and system service to a Jupyter Hub server</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="/drafts/add-google-oauth-and-system-service-to-jupyterhub.html"
+                    <a href="../drafts/add-google-oauth-and-system-service-to-jupyterhub.html"
                        rel="bookmark"
                        title="Permalink to Adding Google OAuth and system service to a Jupyter Hub server">
                         Adding Google OAuth and system service to a Jupyter Hub server
@@ -278,30 +282,30 @@ Python for Undergraduate Engineers            </a>
     </span>
 
             <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x000001D99C59D8B0> of 
+            Part <built-in method index of str object at 0x00000201B8F8CEB0> of 
 
 
 
 
 <span class="label label-default">Tags</span>
-	<a href="/tag/jupyter.html">jupyter</a>
+	<a href="../tag/jupyter.html">jupyter</a>
         /
-	<a href="/tag/jupyter-hub.html">jupyter hub</a>
+	<a href="../tag/jupyter-hub.html">jupyter hub</a>
         /
-	<a href="/tag/jupyter-notebooks.html">jupyter notebooks</a>
+	<a href="../tag/jupyter-notebooks.html">jupyter notebooks</a>
         /
-	<a href="/tag/python.html">python</a>
+	<a href="../tag/python.html">python</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>This is the sixth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we will add an authentication system so that users can log into our Jupyter Hub server using their college usernames and passwords. We will also set <strong>jupyterhub</strong> to run as a system service in the background which will allow us to work on the server and run <strong>jupyterhub</strong> at the same time.</p>
+                <p>This is the sixth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we will set up <strong>jupyterhub</strong> to run as a system service in the background which will allow us to work on the server and run <strong>jupyterhub</strong> at the same time. Then we will add an authentication system so that users can log into our Jupyter Hub server using github usernames and passwords. Finally we will modify the authentication system so that users can log into our Jupyer Hub server using google usernames and passwords. The same user name and password a student uses to access their college email.</p>
 <h3>Posts in this series</h3>
 <ol>
-<li><a href="/why-jupyter-hub.html">Why Jupyter Hub?</a> </li>
-<li><a href="/ssh-keys-with-putty.html">Create ssh key, save to documents/ssh-keys</a></li>
-<li><a href="/new-digital-ocean-droplet.html">Create a new Digital Ocean Droplet with a non-root sudo user</a></li>
-<li><a href="/drafts/installing-jupyter-hub.html">Install Jupyter Hub on the server</a></li>
-<li><a href="/drafts/add-ssl-and-domain-name-to-jupyterhub.html">Apply SSL, link a domain name to the server and configure nginx</a></li>
+<li><a href="../why-jupyter-hub.html">Why Jupyter Hub?</a> </li>
+<li><a href="../ssh-keys-with-putty.html">Create ssh key, save to documents/ssh-keys</a></li>
+<li><a href="../new-digital-ocean-droplet.html">Create a new Digital Ocean Droplet with a non-root sudo user</a></li>
+<li><a href="../drafts/installing-jupyter-hub.html">Install Jupyter Hub on the server</a></li>
+<li><a href="../drafts/add-ssl-and-domain-name-to-jupyterhub.html">Apply SSL, link a domain name to the server and configure nginx</a></li>
 <li><strong>Connect OAuth to Jupyter Hub</strong> (this post)</li>
 <li>Pre-populate each new user's directory tree to include three notebook assignments.</li>
 </ol>
@@ -311,9 +315,10 @@ Python for Undergraduate Engineers            </a>
 <ol>
 <li>Run <strong>jupterhub</strong> as a system service</li>
 <li>Test local OAuth</li>
-<li>Aquire google OAuth credentials</li>
-<li>Modify jupyterhub_config.py to use google OAuth.</li>
-<li>Start restart nginx and start jupyterhub. See if we can log in using google credentials.</li>
+<li>Acquire github OAuth credentials</li>
+<li>Modify jupyterhub_config.py to use github OAuth</li>
+<li>Acquire google OAuth credentials</li>
+<li>Modify jupyterhub_config.py to use google OAuth</li>
 </ol>
 <h3>1. Run <strong>jupterhub</strong> as a system service</h3>
 <p>Working off of <a href="https://github.com/jupyterhub/jupyterhub/wiki/Run-jupyterhub-as-a-system-service">this wiki</a></p>
@@ -365,6 +370,7 @@ $ sudo systemctl start jupyterhub
 </pre></div>
 
 
+<h3>2. Test local OAuth</h3>
 <p>Now we can go to the server and log in as our non-root user, and log in as the other user we created <code>kendra</code></p>
 <p>A couple times I thought that <strong>jupyterhub</strong> was running after using <code>systemctl start jupyterhub</code> but the hub wasn't working when I went to the hub's web address. It turned out that <strong>jupyterhub</strong> wasn't running when I keyed in <code>systemctl status jupyterhub</code>. Most times looking for an error and tracking down the the error worked, but one time it seemed to be a problem with the http-configurable-proxy. The following command will shut down the proxy if you get stuck like I did (insert the number corresponding to the configurable-http-proxy process after the <code>kill</code> command):</p>
 <div class="highlight"><pre><span></span>$ ps aux <span class="p">|</span> grep configurable-http-proxy
@@ -379,32 +385,38 @@ c.LocalGoogleOAuthenticator.create_system_users = True
 </pre></div>
 
 
-<h3>2. Github Authenticator</h3>
-<p>A problem now is that if we go to the admin page on jupyter hub, we can't add new users. The users have to be added to the server using PuTTY first and then can be added to jupyterhub with the admin pannel. This is OK for a small team or a couple users, but for a college class, creating a new user on the server for each student, then emailing out passwords... That will end up a mess. So we need to give jupyterhub the authority to create new users from the admin panel and we need a way to have users login with a user name and password that they already have.</p>
-<p>One of the ways that students could log into Jupyter Hub is using their github credentials. This would force each student to set up a github account, but that might be worth it to give each student the exposure to git and github as a tools. So let's give the github authenticator a whirl. It is an authenticator that is pretty well documented for Jupyter Hub.</p>
-<p>First we need to install <strong>oauthenticator</strong>. I couldn't find oauthenticator on conda-forge. If it's on conda-forge, I would install it from there rather than PyPI. But for this one, I used <strong>pip</strong>.</p>
+<h3>3. Acquire Github OAuth credentials</h3>
+<p>A problem now is that if we go to the admin page on jupyter hub, we can't add new users. The users have to be added to the server using PuTTY first and then can be added to jupyterhub with the admin panel. This is OK for a small team or a couple users, but for a college class, creating a new user on the server for each student, then emailing out passwords... Ah! what a mess. So we need to give jupyterhub the authority to create new users from the admin panel and we need a way to have users login with a user name and password they already have.</p>
+<p>One of the ways that students could log into Jupyter Hub is using their github credentials. This would require each student to have a github account. A github account for each student might be worth it to give students the exposure git and github as a tools. So let's give the github authenticator a whirl. The github authenticator is also pretty well documented for Jupyter Hub, so it is good authenticator to try first.</p>
+<p>To use the github authenticator, we need to install <strong>oauthenticator</strong>. I couldn't find oauthenticator on conda-forge. If it's on conda-forge, I would install it from there rather than PyPI. But for this one, I used <strong>pip</strong>.</p>
 <div class="highlight"><pre><span></span>$ pip install conda install oauthenticator
 </pre></div>
 
 
-<p>Now we need to log onto github and create an OAuth App and copy the client id and secret. The short version is:</p>
-<p>github profile --&gt; settings --&gt; Developer Settings --&gt; Authorized OAuth Apps</p>
+<p>Now we need to log into github and create an OAuth App and copy the client id and secret. The short version is:</p>
+<p>github profile --&gt; settings --&gt; Developer Settings --&gt; OAuth Apps --&gt; Register a new application</p>
 <p><img alt="github settings" src="/posts/jupyterhub/github_settings.png"></p>
 <p><img alt="github developer settings" src="/posts/jupyterhub/github_developer_settings.png"></p>
 <p><img alt="github register new applicaiton" src="/posts/jupyterhub/github_register_new_application.png"></p>
-<p>We set the <strong>Homepage URL</strong> as:</p>
-<p>https://notebooks.problemsolvingwithpython.com/</p>
-<p>We set the <strong>Authorization call-back URL</strong> as</p>
-<p>https://notebooks.problemsolvingwithpython.com/hub/oauth_callback</p>
-<p><img alt="github register new app" src="/posts/jupyterhub/github_register_new_application.png"></p>
-<p>on the App settings we need to copy two settings:</p>
+<p>set the <strong>Homepage URL</strong> as:</p>
+<div class="highlight"><pre><span></span>https://notebooks.problemsolvingwithpython.com/
+</pre></div>
+
+
+<p>set the <strong>Authorization call-back URL</strong> as:</p>
+<div class="highlight"><pre><span></span>https://notebooks.problemsolvingwithpython.com/hub/oauth_callback
+</pre></div>
+
+
+<p><img alt="github register new app" src="/posts/jupyterhub/github_register_oauth_app.png"></p>
+<p>in the App Settings page, we need to copy two settings:</p>
 <ul>
 <li>client_id</li>
 <li>client_secret</li>
 </ul>
 <p><img alt="github client id and secret" src="/posts/jupyterhub/github_client_id_and_secret.png"></p>
 <p>These two long strings will need to be pasted into the jupyterhub_config.py file. </p>
-<p>Now edit the <code>jupyterhub_config.py</code> file to include the following lines. Note that the <code>#c.Authenticator.whitelist</code> is commented out. We want to see if a github user can log onto the server (which will automatically create a new user and spawn a jupyter notebook server) and run notebooks. Once the server is working, then we can uncomment the white list and only allow in specific github usernames. Note the <code>c.LocalGitHubOAuthenticator.client_id</code> and <code>c.LocalGitHubOAuthenticator.client_secret</code> are the long strings from our github OAuth App.</p>
+<p>Now we'll edit the <code>jupyterhub_config.py</code> file to include the following lines. Note <code>#c.Authenticator.whitelist</code> is commented out. We want to see if a github user can log onto the server (which will automatically create a new user and spawn a jupyter notebook server) and run notebooks. Once we know the server is working, we can uncomment the white list and only allow in specific github usernames. Note <code>c.LocalGitHubOAuthenticator.client_id</code> and <code>c.LocalGitHubOAuthenticator.client_secret</code> are the long strings from our github OAuth App.</p>
 <div class="highlight"><pre><span></span><span class="c1">#jupyterhub_config.py</span>
 
 <span class="kn">from</span> <span class="nn">oauthenticator.github</span> <span class="kn">import</span> <span class="n">LocalGitHubOAuthenticator</span>
@@ -430,7 +442,7 @@ $ sudo systemctl status jupyterhub
 <p>Browse over to the hub's URL and we should be able to log in with a github username and password. </p>
 <p><img alt="Sign in with GitHub" src="/posts/jupyterhub/sign_in_with_github.PNG"></p>
 <h3>3. Google Authenticator</h3>
-<p>Now that the github authenticator works, we are going to get into the weeds of getting the google authenticator to work. Why google authenticator instead of github? Our college uses the gmail suite for both staff and students. When you log onto your college email, you are logging into gmail. You can use google calendar and google drive with your college email account. So it is probably best that we use the same google login that students use for their email as they use for their jupyterhub login. </p>
+<p>Now that the github authenticator works, we are going to get into the weeds of getting the google authenticator to work. Why google authenticator instead of github? Our college uses the gmail suite for both staff and students. When students log onto their college email, they are logging into gmail. Students can use google calendar and google drive with their college email account as well. So it is probably best that students log into juypter hub using the same google login that they use to access their college email, google drive and calendar. </p>
 <p>First up we need to set up a google OAuth instance. I did this using my personal gmail account rather than my college gmail account. Some of the part of google suite are not available in my college profile like youtube and developer tabs. </p>
 <p>When getting google OAuth credentials note:</p>
 <ul>
@@ -483,7 +495,7 @@ $ sudo systemctl status jupyterhub
 
 <p>was a real gottacha. Our college email addresses are in the form</p>
 <p>firstname.lastname@college.edu </p>
-<p>So jupyterhub was trying to create these users that have dots <code>.</code> in their usernames. This doesn't work in linux. I tried creating a new user with a dot in their username and it asked me to use the <code>--force-badname</code> flag. So that is what we have to add to the <code>c.Authenticator.add_user_cmd</code> list. Otherwise the users will be able to authenticate, but they won't get a new account on the server and they won't be able to run notebooks.</p>
+<p>So jupyterhub was trying to create users with dots <code>.</code> in their usernames. This doesn't work in linux. I tried creating a new user with a dot in their username and it asked me to use the <code>--force-badname</code> flag. So that is what we'll add to the <code>c.Authenticator.add_user_cmd</code> list. Otherwise the users will be able to authenticate, they won't get a new account on the server and they won't be able to run notebooks.</p>
 <p>Restart jupyterhub and browse to the web address</p>
 <div class="highlight"><pre><span></span>$ sudo systemctl stop jupyterhub
 $ sudo systemctl start jupyterhub
@@ -495,7 +507,7 @@ $ sudo systemctl status jupyterhub
 <p>The login window should look something like:</p>
 <p><img alt="Sign in with google" src="/posts/jupyterhub/sign_in_with_google.PNG"></p>
 <h3>Summary</h3>
-<p>In this post, We will also set <strong>jupyterhub</strong> to run as a system service in the background which will allow us to work on the server and run <strong>jupyterhub</strong> at the same time. Then we added a github authentication system so that users could log into our Jupyter Hub server using their github usernames and passwords. Then we modified the authentication system to use gmail user names and passwords even if the usernames contained a dot. </p>
+<p>In this post, We will also set <strong>jupyterhub</strong> to run as a system service in the background which will allow us to work on the server and run <strong>jupyterhub</strong> at the same time. Then we added a github authentication system so that users could log into our Jupyter Hub server using their github usernames and passwords. Then we modified the authentication system to use google user names and passwords even if the usernames contained a dot. </p>
 <h3>Next Steps</h3>
 <p>Up next we will see if we can populate each new user's working directory tree with a couple of notebooks that will be the three labs of the quarter. We'll see if we can pull these up from github so that they can be easily edited and viewed by the students before the quarter starts. </p>
             </div>
@@ -503,15 +515,15 @@ $ sudo systemctl status jupyterhub
 <section class="well" id="related-posts">
     <h4>Related Posts:</h4>
     <ul>
-        <li><a href="/new-digital-ocean-droplet.html">Creating a new Digital Ocean Droplet</a></li>
-        <li><a href="/ssh-keys-with-putty.html">Create an SSH Key with PuTTYgen</a></li>
-        <li><a href="/why-jupyter-hub.html">Why Jupyter Hub?</a></li>
-        <li><a href="/diffusion-problem-python-pint.html">Diffusion Calculation with Python and Pint</a></li>
-        <li><a href="/opening-a-jupyter-notebook-on-windows.html">Opening a Jupyter Notebook on Windows</a></li>
+        <li><a href="../new-digital-ocean-droplet.html">Creating a new Digital Ocean Droplet</a></li>
+        <li><a href="../ssh-keys-with-putty.html">Create an SSH Key with PuTTYgen</a></li>
+        <li><a href="../why-jupyter-hub.html">Why Jupyter Hub?</a></li>
+        <li><a href="../diffusion-problem-python-pint.html">Diffusion Calculation with Python and Pint</a></li>
+        <li><a href="../opening-a-jupyter-notebook-on-windows.html">Opening a Jupyter Notebook on Windows</a></li>
     </ul>
 </section>
 <section class="well" id="related-posts">
-    <h4>Article <built-in method index of str object at 0x000001D99C59D8B0> of the  series</h4>
+    <h4>Article <built-in method index of str object at 0x00000201B8F8CEB0> of the  series</h4>
 </section>
         </article>
     </section>
@@ -521,7 +533,7 @@ $ sudo systemctl status jupyterhub
             <aside>
 <div id="aboutme">
         <p>
-            <img width="100%" class="img-thumbnail" src="/extra/gear-wrench-icon-512-278694.png"/>
+            <img width="100%" class="img-thumbnail" src="../extra/gear-wrench-icon-512-278694.png"/>
         </p>
     <p>
       <strong>About Peter Kazarinoff</strong><br/>
@@ -535,46 +547,46 @@ $ sudo systemctl status jupyterhub
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
-    <li class="list-group-item"><a href="/new-digital-ocean-droplet.html">Creating a new Digital Ocean Droplet</a></li>
-    <li class="list-group-item"><a href="/ssh-keys-with-putty.html">Create an SSH Key with PuTTYgen</a></li>
-    <li class="list-group-item"><a href="/why-jupyter-hub.html">Why Jupyter Hub?</a></li>
+    <li class="list-group-item"><a href="../new-digital-ocean-droplet.html">Creating a new Digital Ocean Droplet</a></li>
+    <li class="list-group-item"><a href="../ssh-keys-with-putty.html">Create an SSH Key with PuTTYgen</a></li>
+    <li class="list-group-item"><a href="../why-jupyter-hub.html">Why Jupyter Hub?</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
 
 <!-- Sidebar/Tag Cloud -->
 <li class="list-group-item">
-  <a href="/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <a href="../"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
   <ul class="list-group list-inline tagcloud" id="tags">
     <li class="list-group-item tag-3">
-      <a href="/tag/anaconda.html">anaconda</a>
+      <a href="../tag/anaconda.html">anaconda</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="/tag/blog.html">blog</a>
+      <a href="../tag/blog.html">blog</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="/tag/engineering.html">engineering</a>
+      <a href="../tag/engineering.html">engineering</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="/tag/esp8266.html">esp8266</a>
+      <a href="../tag/esp8266.html">esp8266</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="/tag/jupyter.html">jupyter</a>
+      <a href="../tag/jupyter.html">jupyter</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="/tag/jupyter-hub.html">jupyter hub</a>
+      <a href="../tag/jupyter-hub.html">jupyter hub</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="/tag/jupyter-notebooks.html">jupyter notebooks</a>
+      <a href="../tag/jupyter-notebooks.html">jupyter notebooks</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="/tag/micropython.html">micropython</a>
+      <a href="../tag/micropython.html">micropython</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="/tag/pelican.html">pelican</a>
+      <a href="../tag/pelican.html">pelican</a>
     </li>
     <li class="list-group-item tag-1">
-      <a href="/tag/python.html">python</a>
+      <a href="../tag/python.html">python</a>
     </li>
   </ul>
 </li>
@@ -616,15 +628,15 @@ $ sudo systemctl status jupyterhub
       </div>
    </div>
 </footer>
-<script src="/theme/js/jquery.min.js"></script>
+<script src="../theme/js/jquery.min.js"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/theme/js/bootstrap.min.js"></script>
+<script src="../theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="/theme/js/respond.min.js"></script>
+<script src="../theme/js/respond.min.js"></script>
 
-    <script src="/static/js/custom.js"></script>
+    <script src="../static/js/custom.js"></script>
 
 
 <!-- GitHub JS Code -->
@@ -633,7 +645,7 @@ $(document).ready(function () {
   if (!window.jXHR) {
     var jxhr = document.createElement('script');
     jxhr.type = 'text/javascript';
-    jxhr.src = '/theme/js/jXHR.js';
+    jxhr.src = '../theme/js/jXHR.js';
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(jxhr, s);
   }
@@ -646,7 +658,7 @@ $(document).ready(function () {
   });
 });
 </script>
-<script src="/theme/js/github.js" type="text/javascript"></script>
+<script src="../theme/js/github.js" type="text/javascript"></script>
 <!-- End GitHub JS Code -->
     <!-- Google Analytics -->
     <script type="text/javascript">

@@ -1,6 +1,6 @@
 Title: Installing Jupyterhub
-Date: 2018-05-23 12:40
-Modified: 2018-05-23 12:40
+Date: 2018-05-24 12:40
+Modified: 2018-05-24 12:40
 Status: draft
 Category: jupyter
 Tags: jupyter, jupyter hub, jupyter notebooks, python
@@ -35,9 +35,9 @@ In the last post, we created a new server on Digital Ocean (called a _droplet_) 
 4. Run a very unsecured instance of Jupyter Hub just to see if it works
 5. Shut down Jupyter Hub very quickly because of no SSL security
 
+<br>
 
-
-### 1. Update Packages
+### 1. Update Packages on the Server
 
 It is probably best to update the packages installed on the server in case there are changes and updates to the operating system since the server was created. This is probably a reflex for those that use Linux a lot. Open PuTTY and log into the server as the non-root sudo user we created in the last post. Then update the system:
 
@@ -45,10 +45,11 @@ It is probably best to update the packages installed on the server in case there
 $ sudo apt-get update
 ```
 
+<br>
 
 ### 2. Install Anaconda
 
-Next we'll install **Anaconda**. When I installed Anaconda on Windows10, I used an msi installer. But for installation of **Anaconda** on the cloud server we'll use a shell script. The first time I set up Jupyter Hub, I installed Anaconda in the ```/opt``` directory. I don't think this is the best setup. When I installed Anaconda in ```/opt```, I ended up with all sorts of permission problems when I tried to run **conda** and **jupyterhub**. For me it was probably better to install it in the non-root user's home directory(```/home/peter/```). The user's home directory is also the default Anaconda3 installation location.
+Next we'll install **Anaconda**. When I installed **Anaconda** on Windows10, I used an msi installer. But for installation of **Anaconda** on the cloud server we'll use a shell script. The first time I set up Jupyter Hub, I installed **Anaconda** in the ```/opt``` directory. I don't think this is the best setup. When I installed Anaconda in ```/opt```, I ended up with all sorts of permission problems when I tried to run **conda** and **jupyterhub**. For me it caused less problems to install **Anaconda** in the non-root user's home directory(```/home/peter/```). The user's home directory is also the default Anaconda3 installation location.
 
 I followed [this tutorial](https://www.digitalocean.com/community/tutorials/how-to-install-the-anaconda-python-distribution-on-ubuntu-16-04) from Digital Ocean.
 
@@ -88,6 +89,8 @@ $ conda --version
 
 If you see output, that means **conda** was installed and can be run by the non-root user.
 
+<br>
+
 ### 3. Install **Python** packages and **jupyterhub** 
 
 We have a full installation of **Anaconda** which includes a lot of useful packages for engineers including: **numpy**, **pandas**, **matplotlib**, **scipy**, **sympy**, **bokeh** and **holoviews**. **Anaconda** also includes other useful packages such as **requests**, **beautiful soup** and **attrs**. And for student who want to go further, the **Anaconda** distribution comes with **django**, **flask**, **tk**, **tornado** and **scikit-learn**.
@@ -100,12 +103,13 @@ $ conda install -c anaconda pyserial
 $ pip install SchemDraw
 ```
 
-Now we'll install Jupyter Hub! Since we are using **conda** to install **jupyterhub** (rather than pip), we don't need to install node and configurable-http-proxy separably. **Conda** installs the non-python dependencies (like node and configurable-http-proxy) that jupyter hub relies upon.
+Now we'll install Jupyter Hub! Since we are using **conda** to install **jupyterhub** (rather than pip), we don't need to install node and configurable-http-proxy separately. **Conda** installs the non-python dependencies (like node and configurable-http-proxy) that jupyter hub relies upon.
 
 ```
 $ conda install -c conda-forge jupyterhub
 $ conda install notebook
 ```
+<br>
 
 ### 4. Run a very unsecured instance of Jupyter Hub just to see if it works
 
@@ -119,40 +123,43 @@ You should see some output in the PuTTY window. The last line should be somethin
 
 ![anaconda in start menu](/posts/jupyterhub/site_can't_be_reached.png)
 
-Why? It turns out Digital Ocean installs a firewall called ufw by default and turns the ufw firewall on. When the server was created, ufw was configured to only allow incoming connections on ports 22, 80 and 433. This output is shown when we first log into the server:
+Why? It turns out Digital Ocean installs a firewall called **ufw** by default and turns the **ufw** firewall on. When the server was created, ufw was configured to only allow incoming connections on ports 22, 80 and 433. This output is shown when we first log into the server:
 
 ```
 "ufw" has been enabled. All ports except 22 (SSH), 80 (http) and 443 (https)
 have been blocked by default.
 ```
 
-But **jupyterhub runs on port 8000**, it tells us so when it starts. So we need to configure ufw to allow connections on port 8000 (at least for now, just to see if **jupyterhub** works). To allow communication on port 8000 and restart **jupyterhub**, type:
+But **jupyterhub runs on port 8000** - it tells us so when **jupyterhub** starts. So we need to configure **ufw** to allow connections on port 8000 (at least for now, just to see if **jupyterhub** works). To allow communication on port 8000 and restart **jupyterhub**, type:
 
 ```
 $ sudo ufw allow 8000
 $ jupyterhub --no-ssl
 ```
 
-Now we can browse to the server IP address appended with ```:8000```. The web address should look something like: http://165.228.68.178:8000. You can find the IP address of the server by going into the digital ocean dashboard. We should see:
+Now we can browse to the server IP address appended with ```:8000```. The web address should look something like: http://165.228.68.178:8000. You can find the IP address of the server by going into the Digital Ocean dashboard. We should see:
 
 ![jupyter hub no ssl login](/posts/jupyterhub/jupyterhub_no_ssl_login.png)
 
 Awesome! Quick log into **jupyterhub** using the username and password for the non-root sudo user (in my case ```peter```) that we set up and are using in our current PuTTY session. You should see the typical notebook file browser with all the files you can see when you run ```ls ~/```. Try creating and running a new notebook. The notebook work just like a **jupyter notebook running locally**.
+
+![start my server](/posts/jupyterhub/start_my_server.PNG)
+![jupyter file browser](/posts/jupyterhub/jupyter_file_browser.PNG)
 
 ### 5. Quick! Log out and shut down jupyterhub
 
 **Quick! Log out and shut down jupyterhub**. (does quick really matter in internet security?) The site is running without any ssl security over regular HTTP not HTTPS. Key in [Ctrl] + [c] to stop jupyterhub.
 
 <div class="alert alert-warning" role="alert">
-  <strong>Warning!</strong>You should not run JupyterHub without SSL encryption on a public network.
+  <strong>Warning!</strong> You should not run JupyterHub without SSL encryption on a public network.
 </div>
 
  
 ### Summary
 
-In this post we installed **Anaconda** on the server using a shell script. We added **conda** to our path and reloaded our .bashrc file. Then we installed some extra Python packages such as **pint** and **pyserial**. Finally we installed **jupyterhub**, opened up port 8000 and ran **jupyterhub** for the first time! Remember we **shut down jupyter hub very quickly** because we ran it without any SSL security.
+In this post we installed **Anaconda** on the server using a shell script. We added **conda** to our path and reloaded our .bashrc file. Then we installed some extra **Python** packages such as **pint** and **pyserial**. Finally we installed **jupyterhub**, opened up port 8000 and ran **jupyterhub** for the first time! Remember we **shut down jupyter hub very quickly** because we ran it without any SSL security.
 
 ### Next Steps
 
-In the next post we will build SSL security into our Jupyterhub deployment and connect the server to domain name. Plus we'll customize the **jupyterhub** config file and install and use nginx as a proxy server.
+In the next post we will build SSL security into our Jupyter Hub deployment and connect the server to domain name. Plus we'll customize the **jupyterhub** config file and install and use nginx as a proxy server.
 

@@ -1,6 +1,6 @@
 ﻿Title: Adding SSL and a domain name to Jupyter Hub
-Date: 2018-05-16 12:40
-Modified: 2018-05-16 12:40
+Date: 2018-05-24 12:40
+Modified: 2018-05-24 12:40
 Status: draft
 Category: jupyter
 Tags: jupyter, jupyter hub, jupyter notebooks, python
@@ -24,17 +24,20 @@ This is the fifth part of a multi-part series that shows how to set up Jupyter H
 
 ### Last time
 
-In the last post, we installed **Anaconda** on the server using a shell script. Then we installed some extra **Python** packages such as **pint**, **pyserial** and **schemdraw** to our base conda environment. Next we installed **jupyterhub**, opened up port 8000 and ran jupyterhub for the first time! And remember **we shut down jupyter hub very quickly** because we ran it without any SSL security.
+In the [last post](({filename}/posts/jupyterhub/installing_jupyterhub.md)), we installed **Anaconda** on the server using a shell script. Then we installed some extra **Python** packages such as **pint**, **pyserial** and **schemdraw** to our base conda environment. Next we installed **jupyterhub**, opened up port 8000 and ran jupyterhub for the first time! And remember **we shut down jupyter hub very quickly** because we ran it without any SSL security.
 
 ### Steps in this post:
 
 1. Link domain name to server IP address
-2. Install nginx
-3. Use cirtbox to generate SSL certificates
-4. Create jupyterhub_config.py and modify
-5. modify nginx_conf
-6. Start restart nginx and start jupyterhub. See if we can log in.
-7. Create another system user on the server. Restart jupyterhub and log in as new user.
+2. Install nginx and modify ufw
+3. Obtain SSL certificates with certbot
+4. Create a cookie secret and a proxy auth token
+5. Modify nginx config
+6. Generate jupyterhub_config.py and modify
+7. Restart nginx and start jupyterhub, see if we can login
+8. Create an new user and restart **jupyterhub**. See if the new user can log in.
+
+<br>
 
 ### 1. Link domain name to server IP address
 
@@ -70,7 +73,11 @@ In the [Add a domain] field, type in the domain name without http, but including
 
 ![DO Domains/DNS](/posts/jupyterhub/DO_add_domain.png)
 
-This will bring us to a panel you can add a DNS record. I want the notebook server to have the web address _https://notebooks.problemsovlingwithpython.com_, so I entered ```notebooks``` in the text field. Then select the droplet (server) that you want the web address to route to.
+This will bring up a panel where we can add a DNS record. I want the notebook server to have the web address 
+
+_https://notebooks.problemsovlingwithpython.com_
+
+So I entered ```notebooks``` in the text field. Then selected the droplet (server) that the web address will to route to.
 
 ![DO Domains/DNS](/posts/jupyterhub/DO_sub_domain.png)
  
@@ -78,20 +85,22 @@ This will bring us to a panel you can add a DNS record. I want the notebook serv
  
 ![DO Domains/DNS](/posts/jupyterhub/DO_domains_routed.png)
 
-It takes a couple minutes for the DNS switchover to complete. [https://www.whatsmydns.net](https://www.whatsmydns.net) can be used to check the NS and A records of your domain and see if the domain name is getting through. The first time I set up DNS on Digital Ocean, I added the custom DNS servers to google domains but neglected to select the [use custom name servers] radio button. It looked like the domain was routing to Digital Ocean, but actually it was just staying with google. Once I clicked the [use custom name servers] radio button and waited a couple minutes, the change over happened. It did take a bit of time though; not hours, but more than a few minutes.
+It takes a couple minutes for the DNS switchover to complete. [https://www.whatsmydns.net](https://www.whatsmydns.net) can be used to check the NS and A records of your domain and see if the domain name is getting through. The first time I set up DNS on Digital Ocean, I added the custom DNS servers to google domains but neglected to select the [use custom name servers] radio button on the google domains dashboard. It looked like the domain was routing to Digital Ocean, but actually the domain was just staying with google. Once I clicked the [use custom name servers] radio button and waited a couple minutes, the change over happened. It did take a bit of time though; not hours, but more than a few minutes.
+
+<br>
 
 ### 2. Install nginx and modify ufw
 
-Now that the domain name is set up,the next step is to install and configure nginx. Nginx is an open source web server that can handle many concurrent web connections all at the same time. For the installation, I followed [this tutorial](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-16-04) from Digital Ocean
+Now that the domain name is set up, the next step is to install and configure nginx. Nginx is an open source web server that can handle many concurrent web connections at the same time. For the nginx installation, I followed [this tutorial](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-16-04) from Digital Ocean.
 
-Use PuTTY to connect to the server with the non-root sudo user we set up before. My non-root user is called ```peter```. Once logged in, we can update the system and install nginx.
+Use PuTTY to connect to the server with the non-root sudo user we set up before. Once logged in, we can update the system and install nginx.
 
 ```
 $ sudo apt-get update
 $ sudo apt-get install nginx
 ```
 
-Digital Ocean installs a firewall application called ufw. Check out which apps the ufw firewall is working with:
+Digital Ocean installs a firewall application called ufw. Check out which apps the ufw firewall can work with:
 
 ```
 $ sudo ufw app list
@@ -107,7 +116,7 @@ Available applications:
   OpenSSH
 ```
 
-We want to allow in both http and https requests. Once a http request comes in, we will use nginx to convert it to an https connection. Select nginx full. Note the Capitalization in the command:
+We want to allow in both http and https requests. Once a http request comes in, we'll use nginx to convert the http connection to a https connection. Select nginx full. Note the Capitalization in the command:
 
 ```
 $ sudo ufw allow 'Nginx Full'
@@ -138,7 +147,7 @@ Nginx Full                 ALLOW       Anywhere
 Nginx Full (v6)            ALLOW       Anywhere (v6)
 ```
 
-nginx will start running as soon at it is installed. We can see the status with:
+Nginx will start running as soon at it is installed. We can see the status with:
 
 ```
 $ sudo systemctl status nginx
@@ -147,16 +156,18 @@ $ sudo systemctl status nginx
 In the output, we can see something like below. This mean nginx is running.
 
 ```
- Active: active (running) since Thu 2018-05-17 04:51:16 UTC; 15min ago
- Main PID: 17126 (nginx)
-   CGroup: /system.slice/nginx.service
-           ├─17126 nginx: master process /usr/sbin/nginx -g daemon on; master_pr
-           └─17127 nginx: worker process
+Active: active (running) since Thu 2018-05-17 04:51:16 UTC; 15min ago
+Main PID: 17126 (nginx)
+  CGroup: /system.slice/nginx.service
+    ├── 17126 nginx: master process /usr/sbin/nginx -g daemon on; master_pr
+    └── 17127 nginx: worker process
 ```
 
-So we can browse over to the domain name (the domain we set up with Digital Ocean and google domains) and we should see the nginx start page.
+Now we can browse over to the domain (the domain we set up with Digital Ocean and google domains) and we should see the nginx start page.
 
 ![nginx welcome page](/posts/jupyterhub/welcome_to_nginx.png)
+
+<br>
 
 ### 3. Obtain SSL certificates with certbot
 
@@ -198,7 +209,7 @@ IMPORTANT NOTES:
 
 Note the location of the ```fullchain.pem``` and ```privkey.pem``` files. We'll need to put these locations into the nginx configuration.
 
-We also need to allow nginx to access these files. I had trouble getting nginx to run and [this presentation](https://www.youtube.com/watch?v=alaGteCPZU8&t=1721s) showed a way to give nginx access to the SSL key files.
+We also need to allow nginx to access these files. I had trouble getting nginx to run and [this presentation](https://www.youtube.com/watch?v=alaGteCPZU8&t=1721s) showed a way to give nginx access to the SSL key files. There is probably a more "Linuxy" way of giving nginx access to the cert files, but I messed around with the permission settings a bit and this way worked.
 
 ```
 $ cd /etc/letsencrypt
@@ -208,7 +219,9 @@ $ sudo chmod 777 -R archive/
 $ sudo chmod 777 -R live/
 ```
 
-### 4. Create cookie secret and proxy auth token
+<br>
+
+### 4. Create a cookie secret and a proxy auth token
 
 In addition to the SSL certificate, the [Jupyter Hub docs on security basics](http://jupyterhub.readthedocs.io/en/latest/getting-started/security-basics.html) specify that a cookie secret and poxy auth token should be created. To create the cookie secret:
 
@@ -220,7 +233,7 @@ $ openssl rand -hex 32 > jupyterhub_cookie_secret
 $ ls
 ```
 
-Now we have a cookie secret file. We need to make note of the location because it will need to be added to the jupyterhub_config.py file later.
+Now we have a cookie secret file. We need to make note of the location because we'll add this location to the jupyterhub_config.py file later.
 
 To generate the proxy auth token, we can use the same command, but point to a different file. 
 
@@ -239,7 +252,7 @@ Now if we list the contents of ```~/srv/jupyterhub``` we should see:
 └── proxy_auth_token
 ```
 
-Also we can generate a dhparam.pem file. Need to cd into /etc/nginx and create a ssl directory, give it 777 permissions, then touch a new file called dhparam.pem. After that use openssl to generate the dhparams.
+Also we can generate a dhparam.pem file. I'm not exactly sure what the dhparam.pem file is but I think it's good for security. First we need to ```cd``` into ```/etc/nginx``` and create a new ```ssl``` directory. Next give the ```ssl``` directory 777 permissions and ```touch``` a new file called dhparam.pem. After that we can use openssl to generate the dhparams.pem file.
 
 ```
 cd /etc/nginx
@@ -249,15 +262,26 @@ touch ssl/dhparam.pem
 sudo openssl dhparam -out /etc/nginx/ssl/dhparam.pem 2048
 ```
 
+<br>
+
 ### 5. Modify nginx config
 
-The next step is to modify the nginx config file so that nginx uses our SSL certificates and routes requests on to jupyterhub. This was the hardest part for me when I set up the first server. The nginx config file isn't Python code or bash script. I went through many different configurations until I got one that worked. The big initial problem that I had the sample nginx config that's up on the Jupyter Hub docs. But the nginx config posted on the jupyterhub docs is not a complete nginx config, it contains just the server portion. I didn't know that the whole server portion needed to be enclosed in another frame. Hopefully the config below works. It can also be found at:
-
-[https://github.com/ProfessorKazarinoff/jupyterhub-svr/blob/master/nginx.conf](https://github.com/ProfessorKazarinoff/jupyterhub-svr/blob/master/nginx.conf)
+The next step is to modify the nginx config file so that nginx uses our SSL certificates and routes requests on to **jupyterhub**. This was the hardest part for me when I set up the first server. The nginx config file isn't Python code or bash script. I went through many different configurations until I got one that worked. The big initial problem that I copied the sample nginx config that's up on the Jupyter Hub docs. But the nginx config posted on the jupyterhub docs is not a complete nginx config, it contains just the server portion. I didn't know that the whole server portion needed to be enclosed in another frame.
+ 
+To modify ```nginx.conf```, ```cd``` into the ```/etc/nginx``` directory. The nginx.conf file should be there along with a couple other files and directories.
 
 ```
-## Based on: https://github.com/calpolydatascience/jupyterhub-deploy-data301/blob/master/roles/nginx/templates/nginx.conf.j2
+$ cd /etc/nginx
+$ ls
+conf.d          koi-utf     nginx.conf    sites-available  ssl
+fastcgi.conf    koi-win     proxy_params  sites-enabled    uwsgi_params
+fastcgi_params  mime.types  scgi_params   snippets         win-utf
+$ sudo nano nginx.conf
+```
 
+The nginx config that eventually worked for me is below. It can also be found [here](https://github.com/ProfessorKazarinoff/jupyterhub-svr/blob/master/nginx.conf):
+
+```text
 user www-data;
 worker_processes 4;
 pid /run/nginx.pid;
@@ -296,12 +320,12 @@ http {
         server_name notebooks.problemsovlingwithpython.com;
 
         ## SSL Protocals
-        ssl_certificate /usr/local/etc/letsencrypt/live/notebooks.problmensolvingwithpyton.com/fullchain.pem;
-        ssl_certificate_key /usr/local/etc/letsencrypt/live/notebooks.problemsolvingwithpython.com/privkey.pem;
+        ssl_certificate /etc/letsencrypt/live/notebooks.problemsolvingwithpython.com/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/notebooks.problemsolvingwithpython.com/privkey.pem;
 
         ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
         ssl_prefer_server_ciphers on;
-        #ssl_dhparam /etc/nginx/ssl/dhparam.pem;
+        ssl_dhparam /etc/nginx/ssl/dhparam.pem;
 
         # Make site accessible from http://localhost/
         #server_name localhost;
@@ -313,7 +337,7 @@ http {
         ssl_stapling_verify on;
 
         # modern configuration. tweak to your needs.
-        ssl_ciphers 'ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256';
+        ssl_ciphers 'ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:$
 
         # HSTS (ngx_http_headers_module is required) (15768000 seconds = 6 months)
         add_header Strict-Transport-Security max-age=15768000;
@@ -335,25 +359,28 @@ http {
         }
     }
 }
-
 ```
 
-### 5. Generate jupyterhub_config.py and modify
+Save and exit with [Ctrl] + [c] and [y]
 
-Generate the jupyterhub_config.py file
+<br>
+
+### 6. Generate jupyterhub_config.py and modify
+
+Next, we'll generate a jupyterhub_config.py file and modify it a little bit. 
 
 ```
 $ cd ~
 $ jupyterhub --generate-config
 ```
 
-Now modify jupyterhub_config.py to allow local spawners and include our user ```peter``` as an admin user:
+Now we'll modify the jupyterhub_config.py file to allow local spawners and include our user ```peter``` as an admin user:
 
 ```
 $ nano jupyterhub_config.py
 ```
 
-There will be a lot of commented out text in the file. Att the top of the file, add the following:
+There will be a lot of commented out text in the file. At the top of the file, add the following:
 
 ```
 #jupyterhub_config.py
@@ -368,7 +395,11 @@ c.Authenticator.admin_users = {'peter'}
 
 ```
 
-### 6. Restart nginx and start jupyterhub, see if we can login
+<br>
+
+### 7. Restart nginx and start jupyterhub, see if we can login
+
+Now we'll restart nginx and start jupyterhub. Not that this time when we start jupyter hub we don't need to use the ```--no-ssl``` flag because we have SSL running on nginx. If it seems like nginx isn't working, try ```$ sudo systemctl status nginx``` and see if nginx really started. If it didn't, try the command ```nginx -t```. This will print out any error messages if nginx failed to start. I had to do this many different times before I got nginx to work.
 
 ```
 $ sudo systemctl stop nginx
@@ -378,30 +409,39 @@ $ cd ~
 $ jupyterhub
 ```
 
-### 7. Create an new user and restart jupyterhub. See if new user can log in.
+Now we can browse to our domain and see Jupyter Hub running in its full SSL glory. Log in with the non-root sudo username and password (same user that's running the PuTTY session).
 
-```python
+<br>
+
+### 8. Create an new user and restart **jupyterhub**. See if the new user can log in.
+
+OK, it's all well and good that we can log into **jupyterhub**. But the purpose of setting of of this up is for multiple students to be able to log into **jupyterhub**. If **jupyterhub** is still running, it can be stopped with [Ctrl] + [c].  Let's create a new user and see if we can log in as her.
+
+```
 $ sudo adduser kendra
-go through prompts
 ```
 
-now modify jupyterhub_conf.py to include our new user and add ```peter``` as an administrator:
+Go through the prompts and remember the UNIX password. Now we'll modify jupyterhub_conf.py to include our new user ```kendra``` and add ```peter``` (our non-root sudo user) as an administrator:
 
 ```
 c.Authenticator.whitelist = {'peter','kendra'}
 c.Authenticator.admin_users = {'peter'}
 ```
 
-restart jupyterhub and try and login as ```kendra```
+Restart **jupyterhub** and try and login as ```kendra```
 
 ```
 $ jupyterhub
 ```
 
+Amazing! right? Jupyter Hub running on our own domain using SSL security and https. Pretty cool. 
+
+<br>
+
 ### Summary
-In this post we created an SSL cirtifuicut. Modified the nginx config and modified the jupyterhub config. At the end of it we were able to get a working version of jupyter hub running SSL security.
+In this post we created an SSL certificate with cetbot. We modified the nginx config to use our SSL certificate and modified jupyterhub_config.py. At the end of all of that we were able to get a working version of **jupyterhub** running on https using SSL security and can log into **jupyterhub** as two different users.
 
-
+<br>
 
 ### Next Steps
 Up next will add an authentication system so that users can log into our Jupyter Hub server using their college usernames and passwords. We will also set **jupyterhub** to run as a system service in the background which will allow us to work on the server and run **jupyterhub** at the same time.

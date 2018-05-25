@@ -75,7 +75,7 @@ In the [Add a domain] field, type in the domain name without http, but including
 
 This will bring up a panel where we can add a DNS record. I want the notebook server to have the web address 
 
-_https://notebooks.problemsovlingwithpython.com_
+https://notebooks.problemsovlingwithpython.com_
 
 So I entered ```notebooks``` in the text field. Then selected the droplet (server) that the web address will to route to.
 
@@ -227,7 +227,7 @@ In addition to the SSL certificate, the [Jupyter Hub docs on security basics](ht
 
 ```
 $ cd ~
-$ mdir srv/jupyterhub
+$ mkdir srv/jupyterhub
 $ cd srv/jupyterhub
 $ openssl rand -hex 32 > jupyterhub_cookie_secret
 $ ls
@@ -240,8 +240,9 @@ To generate the proxy auth token, we can use the same command, but point to a di
 ```
 $ pwd
 # should be in ~/srv/jupyterhub
-$  openssl rand -hex 32 > proxy_auth_token
+$ openssl rand -hex 32 > proxy_auth_token
 $ ls
+jupyterhub_cookie_secret  proxy_auth_token
 ```
 
 Now if we list the contents of ```~/srv/jupyterhub``` we should see:
@@ -256,7 +257,7 @@ Also we can generate a dhparam.pem file. I'm not exactly sure what the dhparam.p
 
 ```
 cd /etc/nginx
-mkdir ssl
+sudo mkdir ssl
 sudo chmod 777 -R ssl/
 touch ssl/dhparam.pem
 sudo openssl dhparam -out /etc/nginx/ssl/dhparam.pem 2048

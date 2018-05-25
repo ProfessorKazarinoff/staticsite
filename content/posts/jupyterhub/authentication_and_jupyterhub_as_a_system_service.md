@@ -189,14 +189,19 @@ Now that the github authenticator works, we are going to get into the weeds of g
 
 First up we need to set up a google OAuth instance. I did this using my personal gmail account rather than my college gmail account. Some of the part of google suite are not available in my college profile like youtube and developer tabs. 
 
-When getting google OAuth credentials note:
+To obtain the google OAuth credentials, we need to log into the google API console [https://console.developers.google.com/](https://console.developers.google.com/).
 
- * callback url: https://notebooks.problemsolvingwithpython.com/hub/oauth_callback
+When getting google OAuth credentials you will need to input:
+
+ * Authorized JavaScript origins: https://notebooks.yourdomain.com
+ * callback url: https://notebooks.yourdomain.com/hub/oauth_callback
+
+After creating a new set of google OAuth credentials, note the:
 
  * client id
  * client secret
- * hosted domain: college.edu
- * login service: College Name 
+
+
  
 Then the following environmental variables need to be specified:
 
@@ -209,6 +214,7 @@ Once we get our google OAuth credentials, we need to edit ```jupyterhub_conf.py`
 ```
 #jupyterhub_conf.py
 
+import os
 c = get_config()
 c.JupyterHub.log_level = 10
 c.Spawner.cmd = '/home/peter/anaconda3/bin/jupyterhub-singleuser'
@@ -242,6 +248,25 @@ was a real gottacha. Our college email addresses are in the form
 firstname.lastname@college.edu 
 
 So jupyterhub was trying to create users with dots ```.``` in their usernames. This doesn't work in linux. I tried creating a new user with a dot in their username and it asked me to use the ```--force-badname``` flag. So that is what we'll add to the ```c.Authenticator.add_user_cmd``` list. Otherwise the users will be able to authenticate, they won't get a new account on the server and they won't be able to run notebooks.
+
+We are also going to edit the ```/etc/systemd/system/jupyterhub.service``` to include the google OAuth client ID and client secret as part of the environmental variables that load when the system service starts.
+
+```
+$ cd /etc/systemd/system
+$ sudo nano jupyterhub.serice
+```
+
+Now add lines for 
+
+ * OAUTH_CALLBACK_URL
+ * OAUTH_CLIENT_ID
+ * OAUTH_CLIENT_SECRET
+ 
+ ```python
+* OAUTH_CALLBACK_URL
+ * OAUTH_CLIENT_ID
+ * OAUTH_CLIENT_SECRET
+```
 
 Restart jupyterhub and browse to the web address
 

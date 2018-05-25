@@ -1,6 +1,6 @@
 ﻿Title: Adding SSL and a domain name to Jupyter Hub
-Date: 2018-05-24 12:40
-Modified: 2018-05-24 12:40
+Date: 2018-05-25 12:40
+Modified: 2018-05-25 12:40
 Status: draft
 Category: jupyter
 Tags: jupyter, jupyter hub, jupyter notebooks, python
@@ -282,7 +282,12 @@ $ sudo nano nginx.conf
 
 The nginx config that eventually worked for me is below. It can also be found [here](https://github.com/ProfessorKazarinoff/jupyterhub-svr/blob/master/nginx.conf):
 
+Note the line which shows the path to the SSL certificates. This will change based on your domain and where certbot showed the SSL .pem files were saved to.
+
 ```text
+
+## Based on: https://github.com/calpolydatascience/jupyterhub-deploy-data301/blob/master/roles/nginx/templates/nginx.conf.j2
+
 user www-data;
 worker_processes 4;
 pid /run/nginx.pid;
@@ -338,7 +343,7 @@ http {
         ssl_stapling_verify on;
 
         # modern configuration. tweak to your needs.
-        ssl_ciphers 'ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:$
+        ssl_ciphers 'ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256';
 
         # HSTS (ngx_http_headers_module is required) (15768000 seconds = 6 months)
         add_header Strict-Transport-Security max-age=15768000;
@@ -360,6 +365,7 @@ http {
         }
     }
 }
+
 ```
 
 Save and exit with [Ctrl] + [c] and [y]

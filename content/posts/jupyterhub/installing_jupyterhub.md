@@ -1,7 +1,7 @@
 Title: Installing Jupyterhub
 Date: 2018-05-24 12:40
 Modified: 2018-05-24 12:40
-Status: draft
+Status: published
 Category: jupyter
 Tags: jupyter, jupyter hub, jupyter notebooks, python
 Slug: installing-jupyter-hub

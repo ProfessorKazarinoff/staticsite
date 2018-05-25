@@ -1,5 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Python for Undergraduate Engineers - jupyter</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="https://professorkazarinoff.github.io/staticsite/feeds/jupyter.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2018-05-20T12:40:00-07:00</updated><entry><title>Creating a new Digital Ocean Droplet</title><link href="https://professorkazarinoff.github.io/staticsite/new-digital-ocean-droplet.html" rel="alternate"></link><published>2018-05-20T12:40:00-07:00</published><updated>2018-05-20T12:40:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-05-20:/staticsite/new-digital-ocean-droplet.html</id><summary type="html">&lt;p&gt;This is the third part of a multi-part series on how to set up Jupyter Hub for a class.  My goal is to have a running version of Jupyter Hub that students can access using a simple web link. I am primarily writing to my future self as I may need to set up Jupyter Hub again for a future class. In this post, we are going to create a new Digital Ocean server (called a &lt;em&gt;droplet&lt;/em&gt;) and create a non-root user with sudo privileges. Then we'll SSH into the droplet with PuTTY as the non-root user.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the third part of a multi-part series on how to set up Jupyter Hub for a class.  My goal is to have a running version of Jupyter Hub that students can access using a simple web link. I am primarily writing to my future self as I may need to set up Jupyter Hub again for a future class. In this post, we are going to create a new Digital Ocean server (called a &lt;em&gt;droplet&lt;/em&gt;) and create a non-root user with sudo privileges. Then we'll SSH into the droplet with PuTTY as the non-root user.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Python for Undergraduate Engineers - jupyter</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="https://professorkazarinoff.github.io/staticsite/feeds/jupyter.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2018-05-24T12:40:00-07:00</updated><entry><title>Installing Jupyterhub</title><link href="https://professorkazarinoff.github.io/staticsite/installing-jupyter-hub.html" rel="alternate"></link><published>2018-05-24T12:40:00-07:00</published><updated>2018-05-24T12:40:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-05-24:/staticsite/installing-jupyter-hub.html</id><summary type="html">&lt;p&gt;This is the fourth part of a multi-part series that shows how to set up Jupyter Hub for a college class. The goal is to have a running version of Jupyter Hub that students in the class can log into when given a simple web link. In this post, we'll get to the fun stuff: installing &lt;strong&gt;juupyterhub&lt;/strong&gt; on the server, installing &lt;strong&gt;Python&lt;/strong&gt; packages and spinning up Jupyter Hub for the first time.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the fourth part of a multi-part series that shows how to set up Jupyter Hub for a college class. The goal is to have a running version of Jupyter Hub that students in the class can log into when given a simple web link. In this post, we'll get to the fun stuff: installing &lt;strong&gt;juupyterhub&lt;/strong&gt; on the server, installing &lt;strong&gt;Python&lt;/strong&gt; packages and spinning up Jupyter Hub for the first time.&lt;/p&gt;
+&lt;h3&gt;Posts in this series&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/why-jupyter-hub.html"&gt;Why Jupyter Hub?&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/ssh-keys-with-putty.html"&gt;Create SSH keys, save to documents/ssh-keys&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/new-digital-ocean-droplet.html"&gt;Create a new Digital Ocean Droplet with a non-root sudo user&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Install Jupyter Hub on the server&lt;/strong&gt; (this post)&lt;/li&gt;
+&lt;li&gt;Apply SSL, link a domain name to the server and configure nginx&lt;/li&gt;
+&lt;li&gt;Connect OAuth to Jupyter Hub&lt;/li&gt;
+&lt;li&gt;Connect to Jupyter Hub as student&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;The last post&lt;/h3&gt;
+&lt;p&gt;In the last post, we created a new server on Digital Ocean (called a &lt;em&gt;droplet&lt;/em&gt;) and made sure to add our public SSH key to the setup options. Then we logged into the server as &lt;code&gt;root&lt;/code&gt;  with our private SSH key. As &lt;code&gt;root&lt;/code&gt;, we set up a new user with sudo privileges and added our public SSH key to the new users profile. Then we logged into the server as the new user and checked the new user's home directory.&lt;/p&gt;
+&lt;h3&gt;This post&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Update packages on the server&lt;/li&gt;
+&lt;li&gt;Install &lt;strong&gt;Anaconda&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Install &lt;strong&gt;Python&lt;/strong&gt; packages and &lt;strong&gt;jupyterhub&lt;/strong&gt; &lt;/li&gt;
+&lt;li&gt;Run a very unsecured instance of Jupyter Hub just to see if it works&lt;/li&gt;
+&lt;li&gt;Shut down Jupyter Hub very quickly because of no SSL security&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3&gt;1. Update Packages on the Server&lt;/h3&gt;
+&lt;p&gt;It is probably best to update the packages installed on the server in case there are changes and updates to the operating system since the server was created. This is probably a reflex for those that use Linux a lot. Open PuTTY and log into the server as the non-root sudo user we created in the last post. Then update the system:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo apt-get update
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3&gt;2. Install Anaconda&lt;/h3&gt;
+&lt;p&gt;Next we'll install &lt;strong&gt;Anaconda&lt;/strong&gt;. When I installed &lt;strong&gt;Anaconda&lt;/strong&gt; on Windows10, I used an msi installer. But for installation of &lt;strong&gt;Anaconda&lt;/strong&gt; on the cloud server we'll use a shell script. The first time I set up Jupyter Hub, I installed &lt;strong&gt;Anaconda&lt;/strong&gt; in the &lt;code&gt;/opt&lt;/code&gt; directory. I don't think this is the best setup. When I installed Anaconda in &lt;code&gt;/opt&lt;/code&gt;, I ended up with all sorts of permission problems when I tried to run &lt;strong&gt;conda&lt;/strong&gt; and &lt;strong&gt;jupyterhub&lt;/strong&gt;. For me it caused less problems to install &lt;strong&gt;Anaconda&lt;/strong&gt; in the non-root user's home directory(&lt;code&gt;/home/peter/&lt;/code&gt;). The user's home directory is also the default Anaconda3 installation location.&lt;/p&gt;
+&lt;p&gt;I followed &lt;a href="https://www.digitalocean.com/community/tutorials/how-to-install-the-anaconda-python-distribution-on-ubuntu-16-04"&gt;this tutorial&lt;/a&gt; from Digital Ocean.&lt;/p&gt;
+&lt;p&gt;Go to &lt;a href="https://repo.continuum.io/archive/"&gt;https://repo.continuum.io/archive/&lt;/a&gt; and look down the list of installs for the newest installer that corresponds to:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Anaconda 3 (not Anaconda 2, we don't want legacy Python version 2.7)&lt;/li&gt;
+&lt;li&gt;Linux&lt;/li&gt;
+&lt;li&gt;x86&lt;/li&gt;
+&lt;li&gt;64 (bit)&lt;/li&gt;
+&lt;li&gt;.sh (linux shell script)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;At the time of writing, the shell script was:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;Anaconda3-5.1.0-Linux-x86_64.sh
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;cd&lt;/code&gt; into the &lt;code&gt;/tmp&lt;/code&gt; directory and download the script. Then run the script and follow the prompts.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;cd&lt;/span&gt; /tmp
+$ curl -O https://repo.continuum.io/archive/Anaconda3-5.1.0-Linux-x86_64.sh
+$ bash Anaconda3-5.1.0-Linux-x86_64.sh
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We want to be able to run &lt;strong&gt;conda&lt;/strong&gt; from the command line. So make sure to allow &lt;strong&gt;Anaconda&lt;/strong&gt; to append your PATH during the installation. After installation, we need to reload the &lt;code&gt;.bashrc&lt;/code&gt; file because &lt;strong&gt;Anaconda&lt;/strong&gt; made changes to &lt;code&gt;.bashrc&lt;/code&gt; during the install (when it added &lt;strong&gt;conda&lt;/strong&gt; to our PATH).&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;source&lt;/span&gt; ~/.bashrc
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now we should be able to run &lt;strong&gt;conda&lt;/strong&gt;. Try:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ conda --version
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;If you see output, that means &lt;strong&gt;conda&lt;/strong&gt; was installed and can be run by the non-root user.&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3&gt;3. Install &lt;strong&gt;Python&lt;/strong&gt; packages and &lt;strong&gt;jupyterhub&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;We have a full installation of &lt;strong&gt;Anaconda&lt;/strong&gt; which includes a lot of useful packages for engineers including: &lt;strong&gt;numpy&lt;/strong&gt;, &lt;strong&gt;pandas&lt;/strong&gt;, &lt;strong&gt;matplotlib&lt;/strong&gt;, &lt;strong&gt;scipy&lt;/strong&gt;, &lt;strong&gt;sympy&lt;/strong&gt;, &lt;strong&gt;bokeh&lt;/strong&gt; and &lt;strong&gt;holoviews&lt;/strong&gt;. &lt;strong&gt;Anaconda&lt;/strong&gt; also includes other useful packages such as &lt;strong&gt;requests&lt;/strong&gt;, &lt;strong&gt;beautiful soup&lt;/strong&gt; and &lt;strong&gt;attrs&lt;/strong&gt;. And for student who want to go further, the &lt;strong&gt;Anaconda&lt;/strong&gt; distribution comes with &lt;strong&gt;django&lt;/strong&gt;, &lt;strong&gt;flask&lt;/strong&gt;, &lt;strong&gt;tk&lt;/strong&gt;, &lt;strong&gt;tornado&lt;/strong&gt; and &lt;strong&gt;scikit-learn&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;There are a couple other packages I want to install in addition to the standard &lt;strong&gt;Anaconda&lt;/strong&gt; packages. First are some extra packages useful for engineers: &lt;strong&gt;pint&lt;/strong&gt;, &lt;strong&gt;pyserial&lt;/strong&gt; and &lt;strong&gt;schemdraw&lt;/strong&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ conda install -c conda-forge pint
+$ conda install -c anaconda pyserial
+$ pip install SchemDraw
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now we'll install Jupyter Hub! Since we are using &lt;strong&gt;conda&lt;/strong&gt; to install &lt;strong&gt;jupyterhub&lt;/strong&gt; (rather than pip), we don't need to install node and configurable-http-proxy separately. &lt;strong&gt;Conda&lt;/strong&gt; installs the non-python dependencies (like node and configurable-http-proxy) that jupyter hub relies upon.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ conda install -c conda-forge jupyterhub
+$ conda install notebook
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3&gt;4. Run a very unsecured instance of Jupyter Hub just to see if it works&lt;/h3&gt;
+&lt;p&gt;OK let's give it a whirl. Start &lt;strong&gt;jupyterhub&lt;/strong&gt; for the first time. Note the &lt;code&gt;--no-ssl&lt;/code&gt; flag at the end. This needs to be included or you won't be able to browse to the server.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ jupyterhub --no-ssl
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You should see some output in the PuTTY window. The last line should be something like &lt;code&gt;JupyterHub is now running at http://:8000/&lt;/code&gt;. The first time I set up Jupyter Hub, I wasn't able to see the site using a web browser. Nothing would come up and the connection would time out.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="anaconda in start menu" src="/posts/jupyterhub/site_can't_be_reached.png"&gt;&lt;/p&gt;
+&lt;p&gt;Why? It turns out Digital Ocean installs a firewall called &lt;strong&gt;ufw&lt;/strong&gt; by default and turns the &lt;strong&gt;ufw&lt;/strong&gt; firewall on. When the server was created, ufw was configured to only allow incoming connections on ports 22, 80 and 433. This output is shown when we first log into the server:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;quot;ufw&amp;quot; has been enabled. All ports except 22 (SSH), 80 (http) and 443 (https)
+have been blocked by default.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;But &lt;strong&gt;jupyterhub runs on port 8000&lt;/strong&gt; - it tells us so when &lt;strong&gt;jupyterhub&lt;/strong&gt; starts. So we need to configure &lt;strong&gt;ufw&lt;/strong&gt; to allow connections on port 8000 (at least for now, just to see if &lt;strong&gt;jupyterhub&lt;/strong&gt; works). To allow communication on port 8000 and restart &lt;strong&gt;jupyterhub&lt;/strong&gt;, type:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo ufw allow &lt;span class="m"&gt;8000&lt;/span&gt;
+$ jupyterhub --no-ssl
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now we can browse to the server IP address appended with &lt;code&gt;:8000&lt;/code&gt;. The web address should look something like: http://165.228.68.178:8000. You can find the IP address of the server by going into the Digital Ocean dashboard. We should see:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="jupyter hub no ssl login" src="/posts/jupyterhub/jupyterhub_no_ssl_login.png"&gt;&lt;/p&gt;
+&lt;p&gt;Awesome! Quick log into &lt;strong&gt;jupyterhub&lt;/strong&gt; using the username and password for the non-root sudo user (in my case &lt;code&gt;peter&lt;/code&gt;) that we set up and are using in our current PuTTY session. You should see the typical notebook file browser with all the files you can see when you run &lt;code&gt;ls ~/&lt;/code&gt;. Try creating and running a new notebook. The notebook work just like a &lt;strong&gt;jupyter notebook running locally&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="start my server" src="/posts/jupyterhub/start_my_server.PNG"&gt;
+&lt;img alt="jupyter file browser" src="/posts/jupyterhub/jupyter_file_browser.PNG"&gt;&lt;/p&gt;
+&lt;h3&gt;5. Quick! Log out and shut down jupyterhub&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Quick! Log out and shut down jupyterhub&lt;/strong&gt;. (does quick really matter in internet security?) The site is running without any ssl security over regular HTTP not HTTPS. Key in [Ctrl] + [c] to stop jupyterhub.&lt;/p&gt;
+&lt;div class="alert alert-warning" role="alert"&gt;
+  &lt;strong&gt;Warning!&lt;/strong&gt; You should not run JupyterHub without SSL encryption on a public network.
+&lt;/div&gt;
+
+&lt;h3&gt;Summary&lt;/h3&gt;
+&lt;p&gt;In this post we installed &lt;strong&gt;Anaconda&lt;/strong&gt; on the server using a shell script. We added &lt;strong&gt;conda&lt;/strong&gt; to our path and reloaded our .bashrc file. Then we installed some extra &lt;strong&gt;Python&lt;/strong&gt; packages such as &lt;strong&gt;pint&lt;/strong&gt; and &lt;strong&gt;pyserial&lt;/strong&gt;. Finally we installed &lt;strong&gt;jupyterhub&lt;/strong&gt;, opened up port 8000 and ran &lt;strong&gt;jupyterhub&lt;/strong&gt; for the first time! Remember we &lt;strong&gt;shut down jupyter hub very quickly&lt;/strong&gt; because we ran it without any SSL security.&lt;/p&gt;
+&lt;h3&gt;Next Steps&lt;/h3&gt;
+&lt;p&gt;In the next post we will build SSL security into our Jupyter Hub deployment and connect the server to domain name. Plus we'll customize the &lt;strong&gt;jupyterhub&lt;/strong&gt; config file and install and use nginx as a proxy server.&lt;/p&gt;</content><category term="jupyter"></category><category term="jupyter hub"></category><category term="jupyter notebooks"></category><category term="python"></category></entry><entry><title>Creating a new Digital Ocean Droplet</title><link href="https://professorkazarinoff.github.io/staticsite/new-digital-ocean-droplet.html" rel="alternate"></link><published>2018-05-20T12:40:00-07:00</published><updated>2018-05-20T12:40:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-05-20:/staticsite/new-digital-ocean-droplet.html</id><summary type="html">&lt;p&gt;This is the third part of a multi-part series on how to set up Jupyter Hub for a class.  My goal is to have a running version of Jupyter Hub that students can access using a simple web link. I am primarily writing to my future self as I may need to set up Jupyter Hub again for a future class. In this post, we are going to create a new Digital Ocean server (called a &lt;em&gt;droplet&lt;/em&gt;) and create a non-root user with sudo privileges. Then we'll SSH into the droplet with PuTTY as the non-root user.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the third part of a multi-part series on how to set up Jupyter Hub for a class.  My goal is to have a running version of Jupyter Hub that students can access using a simple web link. I am primarily writing to my future self as I may need to set up Jupyter Hub again for a future class. In this post, we are going to create a new Digital Ocean server (called a &lt;em&gt;droplet&lt;/em&gt;) and create a non-root user with sudo privileges. Then we'll SSH into the droplet with PuTTY as the non-root user.&lt;/p&gt;
 &lt;h3&gt;Posts in this series&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/why-jupyter-hub.html"&gt;Why Jupyter Hub?&lt;/a&gt; &lt;/li&gt;

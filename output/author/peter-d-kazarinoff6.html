@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>Installing Jupyterhub - Python for Undergraduate Engineers</title>
+    <title>Articles by Peter D. Kazarinoff - Python for Undergraduate Engineers</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -174,24 +174,15 @@ init_mathjax();
 </script>
     <link href="../extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="../drafts/installing-jupyter-hub.html">
 
-        <meta name="author" content="Peter D. Kazarinoff" />
-        <meta name="keywords" content="jupyter,jupyter hub,jupyter notebooks,python" />
-        <meta name="description" content="This is the fourth part of a multi-part series that shows how to set up Jupyter Hub for a college class. The goal is to have a running version of Jupyter Hub that students in the class can log into when given a simple web link. In this post, we&#39;ll get to the fun stuff: installing juupyterhub on the server, installing Python packages and spinning up Jupyter Hub for the first time." />
+        <meta name="author" content="Peter Kazarinoff" />
 
+    <!-- Open Graph tags -->
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
-        <meta property="og:type" content="article"/>
-        <meta property="og:title" content="Installing Jupyterhub"/>
-        <meta property="og:url" content="../drafts/installing-jupyter-hub.html"/>
-        <meta property="og:description" content="This is the fourth part of a multi-part series that shows how to set up Jupyter Hub for a college class. The goal is to have a running version of Jupyter Hub that students in the class can log into when given a simple web link. In this post, we&#39;ll get to the fun stuff: installing juupyterhub on the server, installing Python packages and spinning up Jupyter Hub for the first time."/>
-        <meta property="article:published_time" content="2018-05-24" />
-            <meta property="article:section" content="jupyter" />
-            <meta property="article:tag" content="jupyter" />
-            <meta property="article:tag" content="jupyter hub" />
-            <meta property="article:tag" content="jupyter notebooks" />
-            <meta property="article:tag" content="python" />
-            <meta property="article:author" content="Peter D. Kazarinoff" />
+        <meta property="og:type" content="website"/>
+        <meta property="og:title" content="Python for Undergraduate Engineers"/>
+        <meta property="og:url" content=".."/>
+        <meta property="og:description" content="Python for Undergraduate Engineers"/>
 
 
 
@@ -209,8 +200,6 @@ init_mathjax();
 
 
 
-        <link href="../feeds/jupyter.atom.xml" type="application/atom+xml" rel="alternate"
-              title="Python for Undergraduate Engineers jupyter ATOM Feed"/>
 
 </head>
 <body>
@@ -256,181 +245,59 @@ Python for Undergraduate Engineers            </a>
 <div class="container">
     <div class="row">
         <div class="col-sm-9">
-            <ol class="breadcrumb">
-                <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="../category/jupyter.html" title="jupyter">jupyter</a></li>
-                <li class="active">Installing Jupyterhub</li>
-            </ol>
-    <section id="content">
-        <article>
-            <header class="page-header">
-                <h1>
-                    <a href="../drafts/installing-jupyter-hub.html"
-                       rel="bookmark"
-                       title="Permalink to Installing Jupyterhub">
-                        Installing Jupyterhub
-                    </a>
-                </h1>
-            </header>
-            <div class="entry-content">
-                <div class="panel">
-                    <div class="panel-body">
+        <ol class="breadcrumb">
+            <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+            <li><a href="../authors.html" title="Authors">Authors</a></li>
+            <li class="active">Peter Kazarinoff</li>
+        </ol>
+            <article>
+                <h2><a href="../installing-anaconda-on-windows.html">Installing Anaconda on Windows</a></h2>
+                    <div class="well well-sm">
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2018-05-24T12:40:00-07:00"> Thu 24 May 2018</time>
+        <i class="fa fa-calendar"></i><time datetime="2017-11-14T09:20:00-08:00"> Tue 14 November 2017</time>
     </span>
 
-            <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x00000201B8FC4DF0> of 
 
 
 
 
 <span class="label label-default">Tags</span>
-	<a href="../tag/jupyter.html">jupyter</a>
-        /
-	<a href="../tag/jupyter-hub.html">jupyter hub</a>
-        /
-	<a href="../tag/jupyter-notebooks.html">jupyter notebooks</a>
-        /
 	<a href="../tag/python.html">python</a>
+        /
+	<a href="../tag/anaconda.html">anaconda</a>
+        /
+	<a href="../tag/miniconda.html">miniconda</a>
+        /
+	<a href="../tag/conda.html">conda</a>
+        /
+	<a href="../tag/windows.html">windows</a>
     
 </footer><!-- /.post-info -->                    </div>
+                <div class="summary"><p>In this post, we will run through installing the <a href="https://www.anaconda.com/what-is-anaconda/">Anaconda distribution</a> of Python on Windows 10. I think the Anaconda distribution of Python is the the best option for undergraduate engineers who want to use Python. Anaconda is free (although the download is large which can take time) and can be installed on school or work computers where you don't have administrator access or the ability to install new programs.</p>
+                    <a class="btn btn-default btn-xs" href="../installing-anaconda-on-windows.html">more ...</a>
                 </div>
-                <p>This is the fourth part of a multi-part series that shows how to set up Jupyter Hub for a college class. The goal is to have a running version of Jupyter Hub that students in the class can log into when given a simple web link. In this post, we'll get to the fun stuff: installing <strong>juupyterhub</strong> on the server, installing <strong>Python</strong> packages and spinning up Jupyter Hub for the first time.</p>
-<h3>Posts in this series</h3>
-<ol>
-<li><a href="../why-jupyter-hub.html">Why Jupyter Hub?</a> </li>
-<li><a href="../ssh-keys-with-putty.html">Create SSH keys, save to documents/ssh-keys</a></li>
-<li><a href="../new-digital-ocean-droplet.html">Create a new Digital Ocean Droplet with a non-root sudo user</a></li>
-<li><strong>Install Jupyter Hub on the server</strong> (this post)</li>
-<li>Apply SSL, link a domain name to the server and configure nginx</li>
-<li>Connect OAuth to Jupyter Hub</li>
-<li>Connect to Jupyter Hub as student</li>
-</ol>
-<h3>The last post</h3>
-<p>In the last post, we created a new server on Digital Ocean (called a <em>droplet</em>) and made sure to add our public SSH key to the setup options. Then we logged into the server as <code>root</code>  with our private SSH key. As <code>root</code>, we set up a new user with sudo privileges and added our public SSH key to the new users profile. Then we logged into the server as the new user and checked the new user's home directory.</p>
-<h3>This post</h3>
-<ol>
-<li>Update packages on the server</li>
-<li>Install <strong>Anaconda</strong></li>
-<li>Install <strong>Python</strong> packages and <strong>jupyterhub</strong> </li>
-<li>Run a very unsecured instance of Jupyter Hub just to see if it works</li>
-<li>Shut down Jupyter Hub very quickly because of no SSL security</li>
-</ol>
-<p><br></p>
-<h3>1. Update Packages on the Server</h3>
-<p>It is probably best to update the packages installed on the server in case there are changes and updates to the operating system since the server was created. This is probably a reflex for those that use Linux a lot. Open PuTTY and log into the server as the non-root sudo user we created in the last post. Then update the system:</p>
-<div class="highlight"><pre><span></span>$ sudo apt-get update
-</pre></div>
+            </article>
+            <hr/>
 
-
-<p><br></p>
-<h3>2. Install Anaconda</h3>
-<p>Next we'll install <strong>Anaconda</strong>. When I installed <strong>Anaconda</strong> on Windows10, I used an msi installer. But for installation of <strong>Anaconda</strong> on the cloud server we'll use a shell script. The first time I set up Jupyter Hub, I installed <strong>Anaconda</strong> in the <code>/opt</code> directory. I don't think this is the best setup. When I installed Anaconda in <code>/opt</code>, I ended up with all sorts of permission problems when I tried to run <strong>conda</strong> and <strong>jupyterhub</strong>. For me it caused less problems to install <strong>Anaconda</strong> in the non-root user's home directory(<code>/home/peter/</code>). The user's home directory is also the default Anaconda3 installation location.</p>
-<p>I followed <a href="https://www.digitalocean.com/community/tutorials/how-to-install-the-anaconda-python-distribution-on-ubuntu-16-04">this tutorial</a> from Digital Ocean.</p>
-<p>Go to <a href="https://repo.continuum.io/archive/">https://repo.continuum.io/archive/</a> and look down the list of installs for the newest installer that corresponds to:</p>
-<ul>
-<li>Anaconda 3 (not Anaconda 2, we don't want legacy Python version 2.7)</li>
-<li>Linux</li>
-<li>x86</li>
-<li>64 (bit)</li>
-<li>.sh (linux shell script)</li>
-</ul>
-<p>At the time of writing, the shell script was:</p>
-<div class="highlight"><pre><span></span>Anaconda3-5.1.0-Linux-x86_64.sh
-</pre></div>
-
-
-<p><code>cd</code> into the <code>/tmp</code> directory and download the script. Then run the script and follow the prompts.</p>
-<div class="highlight"><pre><span></span>$ <span class="nb">cd</span> /tmp
-$ curl -O https://repo.continuum.io/archive/Anaconda3-5.1.0-Linux-x86_64.sh
-$ bash Anaconda3-5.1.0-Linux-x86_64.sh
-</pre></div>
-
-
-<p>We want to be able to run <strong>conda</strong> from the command line. So make sure to allow <strong>Anaconda</strong> to append your PATH during the installation. After installation, we need to reload the <code>.bashrc</code> file because <strong>Anaconda</strong> made changes to <code>.bashrc</code> during the install (when it added <strong>conda</strong> to our PATH).</p>
-<div class="highlight"><pre><span></span>$ <span class="nb">source</span> ~/.bashrc
-</pre></div>
-
-
-<p>Now we should be able to run <strong>conda</strong>. Try:</p>
-<div class="highlight"><pre><span></span>$ conda --version
-</pre></div>
-
-
-<p>If you see output, that means <strong>conda</strong> was installed and can be run by the non-root user.</p>
-<p><br></p>
-<h3>3. Install <strong>Python</strong> packages and <strong>jupyterhub</strong></h3>
-<p>We have a full installation of <strong>Anaconda</strong> which includes a lot of useful packages for engineers including: <strong>numpy</strong>, <strong>pandas</strong>, <strong>matplotlib</strong>, <strong>scipy</strong>, <strong>sympy</strong>, <strong>bokeh</strong> and <strong>holoviews</strong>. <strong>Anaconda</strong> also includes other useful packages such as <strong>requests</strong>, <strong>beautiful soup</strong> and <strong>attrs</strong>. And for student who want to go further, the <strong>Anaconda</strong> distribution comes with <strong>django</strong>, <strong>flask</strong>, <strong>tk</strong>, <strong>tornado</strong> and <strong>scikit-learn</strong>.</p>
-<p>There are a couple other packages I want to install in addition to the standard <strong>Anaconda</strong> packages. First are some extra packages useful for engineers: <strong>pint</strong>, <strong>pyserial</strong> and <strong>schemdraw</strong>.</p>
-<div class="highlight"><pre><span></span>$ conda install -c conda-forge pint
-$ conda install -c anaconda pyserial
-$ pip install SchemDraw
-</pre></div>
-
-
-<p>Now we'll install Jupyter Hub! Since we are using <strong>conda</strong> to install <strong>jupyterhub</strong> (rather than pip), we don't need to install node and configurable-http-proxy separately. <strong>Conda</strong> installs the non-python dependencies (like node and configurable-http-proxy) that jupyter hub relies upon.</p>
-<div class="highlight"><pre><span></span>$ conda install -c conda-forge jupyterhub
-$ conda install notebook
-</pre></div>
-
-
-<p><br></p>
-<h3>4. Run a very unsecured instance of Jupyter Hub just to see if it works</h3>
-<p>OK let's give it a whirl. Start <strong>jupyterhub</strong> for the first time. Note the <code>--no-ssl</code> flag at the end. This needs to be included or you won't be able to browse to the server.</p>
-<div class="highlight"><pre><span></span>$ jupyterhub --no-ssl
-</pre></div>
-
-
-<p>You should see some output in the PuTTY window. The last line should be something like <code>JupyterHub is now running at http://:8000/</code>. The first time I set up Jupyter Hub, I wasn't able to see the site using a web browser. Nothing would come up and the connection would time out.</p>
-<p><img alt="anaconda in start menu" src="/posts/jupyterhub/site_can't_be_reached.png"></p>
-<p>Why? It turns out Digital Ocean installs a firewall called <strong>ufw</strong> by default and turns the <strong>ufw</strong> firewall on. When the server was created, ufw was configured to only allow incoming connections on ports 22, 80 and 433. This output is shown when we first log into the server:</p>
-<div class="highlight"><pre><span></span>&quot;ufw&quot; has been enabled. All ports except 22 (SSH), 80 (http) and 443 (https)
-have been blocked by default.
-</pre></div>
-
-
-<p>But <strong>jupyterhub runs on port 8000</strong> - it tells us so when <strong>jupyterhub</strong> starts. So we need to configure <strong>ufw</strong> to allow connections on port 8000 (at least for now, just to see if <strong>jupyterhub</strong> works). To allow communication on port 8000 and restart <strong>jupyterhub</strong>, type:</p>
-<div class="highlight"><pre><span></span>$ sudo ufw allow <span class="m">8000</span>
-$ jupyterhub --no-ssl
-</pre></div>
-
-
-<p>Now we can browse to the server IP address appended with <code>:8000</code>. The web address should look something like: http://165.228.68.178:8000. You can find the IP address of the server by going into the Digital Ocean dashboard. We should see:</p>
-<p><img alt="jupyter hub no ssl login" src="/posts/jupyterhub/jupyterhub_no_ssl_login.png"></p>
-<p>Awesome! Quick log into <strong>jupyterhub</strong> using the username and password for the non-root sudo user (in my case <code>peter</code>) that we set up and are using in our current PuTTY session. You should see the typical notebook file browser with all the files you can see when you run <code>ls ~/</code>. Try creating and running a new notebook. The notebook work just like a <strong>jupyter notebook running locally</strong>.</p>
-<p><img alt="start my server" src="/posts/jupyterhub/start_my_server.PNG">
-<img alt="jupyter file browser" src="/posts/jupyterhub/jupyter_file_browser.PNG"></p>
-<h3>5. Quick! Log out and shut down jupyterhub</h3>
-<p><strong>Quick! Log out and shut down jupyterhub</strong>. (does quick really matter in internet security?) The site is running without any ssl security over regular HTTP not HTTPS. Key in [Ctrl] + [c] to stop jupyterhub.</p>
-<div class="alert alert-warning" role="alert">
-  <strong>Warning!</strong> You should not run JupyterHub without SSL encryption on a public network.
-</div>
-
-<h3>Summary</h3>
-<p>In this post we installed <strong>Anaconda</strong> on the server using a shell script. We added <strong>conda</strong> to our path and reloaded our .bashrc file. Then we installed some extra <strong>Python</strong> packages such as <strong>pint</strong> and <strong>pyserial</strong>. Finally we installed <strong>jupyterhub</strong>, opened up port 8000 and ran <strong>jupyterhub</strong> for the first time! Remember we <strong>shut down jupyter hub very quickly</strong> because we ran it without any SSL security.</p>
-<h3>Next Steps</h3>
-<p>In the next post we will build SSL security into our Jupyter Hub deployment and connect the server to domain name. Plus we'll customize the <strong>jupyterhub</strong> config file and install and use nginx as a proxy server.</p>
-            </div>
-            <!-- /.entry-content -->
-<section class="well" id="related-posts">
-    <h4>Related Posts:</h4>
-    <ul>
-        <li><a href="../new-digital-ocean-droplet.html">Creating a new Digital Ocean Droplet</a></li>
-        <li><a href="../ssh-keys-with-putty.html">Create an SSH Key with PuTTYgen</a></li>
-        <li><a href="../why-jupyter-hub.html">Why Jupyter Hub?</a></li>
-        <li><a href="../diffusion-problem-python-pint.html">Diffusion Calculation with Python and Pint</a></li>
-        <li><a href="../opening-a-jupyter-notebook-on-windows.html">Opening a Jupyter Notebook on Windows</a></li>
-    </ul>
-</section>
-<section class="well" id="related-posts">
-    <h4>Article <built-in method index of str object at 0x00000201B8FC4DF0> of the  series</h4>
-</section>
-        </article>
-    </section>
-
+        <ul class="pagination">
+                <li class="prev"><a href="../author/peter-d-kazarinoff5.html">&laquo;</a>
+                </li>
+                    <li class=""><a
+                            href="../author/peter-d-kazarinoff.html">1</a></li>
+                    <li class=""><a
+                            href="../author/peter-d-kazarinoff2.html">2</a></li>
+                    <li class=""><a
+                            href="../author/peter-d-kazarinoff3.html">3</a></li>
+                    <li class=""><a
+                            href="../author/peter-d-kazarinoff4.html">4</a></li>
+                    <li class=""><a
+                            href="../author/peter-d-kazarinoff5.html">5</a></li>
+                    <li class="active"><a
+                            href="../author/peter-d-kazarinoff6.html">6</a></li>
+                <li class="next disabled"><a href="#">&raquo;</a></li>
+        </ul>
         </div>
         <div class="col-sm-3" id="sidebar">
             <aside>
@@ -450,9 +317,9 @@ $ jupyterhub --no-ssl
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
+    <li class="list-group-item"><a href="../installing-jupyter-hub.html">Installing Jupyterhub</a></li>
     <li class="list-group-item"><a href="../new-digital-ocean-droplet.html">Creating a new Digital Ocean Droplet</a></li>
     <li class="list-group-item"><a href="../ssh-keys-with-putty.html">Create an SSH Key with PuTTYgen</a></li>
-    <li class="list-group-item"><a href="../why-jupyter-hub.html">Why Jupyter Hub?</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
@@ -461,16 +328,16 @@ $ jupyterhub --no-ssl
 <li class="list-group-item">
   <a href="../"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
   <ul class="list-group list-inline tagcloud" id="tags">
-    <li class="list-group-item tag-3">
+    <li class="list-group-item tag-4">
       <a href="../tag/anaconda.html">anaconda</a>
     </li>
     <li class="list-group-item tag-2">
       <a href="../tag/blog.html">blog</a>
     </li>
-    <li class="list-group-item tag-2">
+    <li class="list-group-item tag-3">
       <a href="../tag/engineering.html">engineering</a>
     </li>
-    <li class="list-group-item tag-3">
+    <li class="list-group-item tag-4">
       <a href="../tag/esp8266.html">esp8266</a>
     </li>
     <li class="list-group-item tag-2">
@@ -482,7 +349,7 @@ $ jupyterhub --no-ssl
     <li class="list-group-item tag-4">
       <a href="../tag/jupyter-notebooks.html">jupyter notebooks</a>
     </li>
-    <li class="list-group-item tag-3">
+    <li class="list-group-item tag-4">
       <a href="../tag/micropython.html">micropython</a>
     </li>
     <li class="list-group-item tag-2">
@@ -494,15 +361,6 @@ $ jupyterhub --no-ssl
   </ul>
 </li>
 <!-- End Sidebar/Tag Cloud -->
-
-<!-- Sidebar/Series -->
-<li class="list-group-item">
-  <h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Series</span></h4>
-  <ul class="list-group">
-  </ul>
-</li>
-<!-- End Sidebar/Series -->
-
 
 <!-- Sidebar/Github -->
 <li class="list-group-item">

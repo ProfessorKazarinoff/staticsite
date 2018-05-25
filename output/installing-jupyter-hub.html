@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>Using a Temperature Sensor with Micropython running on an Adadfruit Feather Huzzah ESP8266 - Python for Undergraduate Engineers</title>
+    <title>Installing Jupyterhub - Python for Undergraduate Engineers</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -174,24 +174,23 @@ init_mathjax();
 </script>
     <link href="./extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="./micropython-temp-sensor.html">
+<link rel="canonical" href="./installing-jupyter-hub.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
-        <meta name="keywords" content="python,micropython,esp8266,microcontroller,sensor" />
-        <meta name="description" content="This is the fourth part of a multipart series on Micropython. In this last post of the series, we blinked an LED on and off using Micropython. In this post, we will connect a temperature sensor to an Adafruit Feather Huzzah and use the Micropython REPL to read the temperature …" />
+        <meta name="keywords" content="jupyter,jupyter hub,jupyter notebooks,python" />
+        <meta name="description" content="This is the fourth part of a multi-part series that shows how to set up Jupyter Hub for a college class. The goal is to have a running version of Jupyter Hub that students in the class can log into when given a simple web link. In this post, we&#39;ll get to the fun stuff: installing juupyterhub on the server, installing Python packages and spinning up Jupyter Hub for the first time." />
 
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
-        <meta property="og:title" content="Using a Temperature Sensor with Micropython running on an Adadfruit Feather Huzzah ESP8266"/>
-        <meta property="og:url" content="./micropython-temp-sensor.html"/>
-        <meta property="og:description" content="This is the fourth part of a multipart series on Micropython. In this last post of the series, we blinked an LED on and off using Micropython. In this post, we will connect a temperature sensor to an Adafruit Feather Huzzah and use the Micropython REPL to read the temperature …"/>
-        <meta property="article:published_time" content="2018-03-28" />
-            <meta property="article:section" content="micropython" />
+        <meta property="og:title" content="Installing Jupyterhub"/>
+        <meta property="og:url" content="./installing-jupyter-hub.html"/>
+        <meta property="og:description" content="This is the fourth part of a multi-part series that shows how to set up Jupyter Hub for a college class. The goal is to have a running version of Jupyter Hub that students in the class can log into when given a simple web link. In this post, we&#39;ll get to the fun stuff: installing juupyterhub on the server, installing Python packages and spinning up Jupyter Hub for the first time."/>
+        <meta property="article:published_time" content="2018-05-24" />
+            <meta property="article:section" content="jupyter" />
+            <meta property="article:tag" content="jupyter" />
+            <meta property="article:tag" content="jupyter hub" />
+            <meta property="article:tag" content="jupyter notebooks" />
             <meta property="article:tag" content="python" />
-            <meta property="article:tag" content="micropython" />
-            <meta property="article:tag" content="esp8266" />
-            <meta property="article:tag" content="microcontroller" />
-            <meta property="article:tag" content="sensor" />
             <meta property="article:author" content="Peter D. Kazarinoff" />
 
 
@@ -210,8 +209,8 @@ init_mathjax();
 
 
 
-        <link href="./feeds/micropython.atom.xml" type="application/atom+xml" rel="alternate"
-              title="Python for Undergraduate Engineers micropython ATOM Feed"/>
+        <link href="./feeds/jupyter.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Python for Undergraduate Engineers jupyter ATOM Feed"/>
 
 </head>
 <body>
@@ -259,17 +258,17 @@ Python for Undergraduate Engineers            </a>
         <div class="col-sm-9">
             <ol class="breadcrumb">
                 <li><a href="." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="./category/micropython.html" title="micropython">micropython</a></li>
-                <li class="active">Using a Temperature Sensor with Micropython running on an Adadfruit Feather Huzzah ESP8266</li>
+                <li><a href="./category/jupyter.html" title="jupyter">jupyter</a></li>
+                <li class="active">Installing Jupyterhub</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="./micropython-temp-sensor.html"
+                    <a href="./installing-jupyter-hub.html"
                        rel="bookmark"
-                       title="Permalink to Using a Temperature Sensor with Micropython running on an Adadfruit Feather Huzzah ESP8266">
-                        Using a Temperature Sensor with Micropython running on an Adadfruit Feather Huzzah ESP8266
+                       title="Permalink to Installing Jupyterhub">
+                        Installing Jupyterhub
                     </a>
                 </h1>
             </header>
@@ -279,121 +278,160 @@ Python for Undergraduate Engineers            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2018-03-28T08:40:00-07:00"> Wed 28 March 2018</time>
+        <i class="fa fa-calendar"></i><time datetime="2018-05-24T12:40:00-07:00"> Thu 24 May 2018</time>
     </span>
 
             <span class="label label-default">Series</span>
-            Part 4 of micropython
+            Part 4 of Jupyter Hub
 
 
 
 
 <span class="label label-default">Tags</span>
+	<a href="./tag/jupyter.html">jupyter</a>
+        /
+	<a href="./tag/jupyter-hub.html">jupyter hub</a>
+        /
+	<a href="./tag/jupyter-notebooks.html">jupyter notebooks</a>
+        /
 	<a href="./tag/python.html">python</a>
-        /
-	<a href="./tag/micropython.html">micropython</a>
-        /
-	<a href="./tag/esp8266.html">esp8266</a>
-        /
-	<a href="./tag/microcontroller.html">microcontroller</a>
-        /
-	<a href="./tag/sensor.html">sensor</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>This is the fourth part of a multipart series on Micropython. In this last post of the series, we blinked an LED on and off using Micropython. In this post, we will connect a temperature sensor to an Adafruit Feather Huzzah and use the Micropython REPL to read the temperature. The posts in this series:</p>
+                <p>This is the fourth part of a multi-part series that shows how to set up Jupyter Hub for a college class. The goal is to have a running version of Jupyter Hub that students in the class can log into when given a simple web link. In this post, we'll get to the fun stuff: installing <strong>juupyterhub</strong> on the server, installing <strong>Python</strong> packages and spinning up Jupyter Hub for the first time.</p>
+<h3>Posts in this series</h3>
 <ol>
-<li><a href="./what-is-micropython.html">What is Micropython?</a></li>
-<li><a href="./micropython-install.html">Installing Micropython on an Adafruit Feather Huzzah ESP8266</a></li>
-<li><a href="./micropython-REPL.html">Blink an LED on an Adafruit Feather Huzzah ESP8266 using Micropython</a></li>
-<li>Read the temperature from a MCP9808 breakout board using Micropyton (this post)</li>
-<li>Use Micropython to connect an Adafruit Feather Huzzah to a WiFi network</li>
-<li>Upload Micropython code to turn an Adafruit Feather Huzzah into a WiFi-enabled IoT weather station</li>
-<li>Use <strong>pandas</strong> and <strong>matplotlib</strong> to plot the weather data from a WiFi-enabled IoT weather station.</li>
-<li>Upload MicroPython to a cheap $3 ESP-01 module</li>
-<li>Build custom firmware to turn the $3 ESP-01 into an low-cost WiFi enabled IoT switch.</li>
+<li><a href="./why-jupyter-hub.html">Why Jupyter Hub?</a> </li>
+<li><a href="./ssh-keys-with-putty.html">Create SSH keys, save to documents/ssh-keys</a></li>
+<li><a href="./new-digital-ocean-droplet.html">Create a new Digital Ocean Droplet with a non-root sudo user</a></li>
+<li><strong>Install Jupyter Hub on the server</strong> (this post)</li>
+<li>Apply SSL, link a domain name to the server and configure nginx</li>
+<li>Connect OAuth to Jupyter Hub</li>
+<li>Connect to Jupyter Hub as student</li>
 </ol>
-<p>Before we can use the <a href="https://www.adafruit.com/product/1782">MCP9808 temperature sensor</a> running on the Adafruit Feather Huzzah ESP8266, Micropython needs to be installed on the board and Putty needs to be installed in Windows 10 to communicate with the board over serial. See a <a href="./micropython-install.html">previous post</a> to install Micropython on your board and Putty on a Windows machine.</p>
-<p>Summary of Steps:</p>
+<h3>The last post</h3>
+<p>In the last post, we created a new server on Digital Ocean (called a <em>droplet</em>) and made sure to add our public SSH key to the setup options. Then we logged into the server as <code>root</code>  with our private SSH key. As <code>root</code>, we set up a new user with sudo privileges and added our public SSH key to the new users profile. Then we logged into the server as the new user and checked the new user's home directory.</p>
+<h3>This post</h3>
 <ol>
-<li>Connect the temperature sensor to the Adafruit Feather Huzzah board</li>
-<li>Connect the Adafruit Feather Huzzah to the computer with a USB cable and bring up the Micropython REPL using Putty. </li>
-<li>Run code at the Micropython REPL to read the temperature</li>
+<li>Update packages on the server</li>
+<li>Install <strong>Anaconda</strong></li>
+<li>Install <strong>Python</strong> packages and <strong>jupyterhub</strong> </li>
+<li>Run a very unsecured instance of Jupyter Hub just to see if it works</li>
+<li>Shut down Jupyter Hub very quickly because of no SSL security</li>
 </ol>
-<h3>1. Connect the MCP9808 temperature sensor to the Adafruit Feather Huzzah board</h3>
-<p>Connect the <a href="https://www.adafruit.com/product/1782">MCP9808 temperature sensor</a> breakout board to the Feather Huzzah board with jumper wires. There are four connections: A 3V power line from the Feather Huzzah to the MCP9808 Vdd pin, GND connected between both boards, and the I2C data and clock lines. On the Feather Huzzah, the I2C data line is SDA (pin 4) and the I2C clock line is SCL (pin 5). These connect with the MPC9808 I2C data line SDA and the MPC9808 I2C clock line SCL. Unlike Serial communication where RX connects to TX, in I2C SDA connects to SDA and SCL connects to SCL.</p>
-<table class="table table-striped table-bordered table-hover">
-<thead>
-<tr>
-<th>Feather Huzzah</th>
-<th>wire</th>
-<th>MCP9808</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>3V</td>
-<td>red</td>
-<td>Vdd</td>
-</tr>
-<tr>
-<td>GND</td>
-<td>black</td>
-<td>GND</td>
-</tr>
-<tr>
-<td>SDA</td>
-<td>green</td>
-<td>SDA</td>
-</tr>
-<tr>
-<td>SCL</td>
-<td>yellow</td>
-<td>SCL</td>
-</tr>
-</tbody>
-</table>
-<p><img alt="Fritzing Image" src="./posts/micropython/feather_huzzah_temp_sensor_fritzing.png"></p>
-<h3>2. Connect the Adafruit Feather Huzzah to the computer with a USB cable and bring up the Micropython REPL using Putty.</h3>
-<p>Connect the Adafruit Feather Huzzah to the computer with a microUSB cable. Ensure this is a data cable, not just a charging cable. Open Putty and connect to the Feather Huzzah using the proper serial port (COM#) and 115200 baud. (Remember to use the <strong>Serial</strong> radio button under <strong>Connection Type:</strong>)</p>
-<p><img alt="Putty in start menu" src="./posts/micropython/putty_in_start_menu.png"></p>
-<p><img alt="Putty config" src="./posts/micropython/putty_config.PNG"></p>
-<p>This should bring up the Micropython REPL prompt <code>&gt;&gt;&gt;</code>. If you can't see the <code>&gt;&gt;&gt;</code> prompt, try typing [Enter], Ctrl-D, pushing the RESET button on the Feather Huzzah. If that doesn't work, try closing putty then unplugging then replugging the USB cable.</p>
-<h3>3. Run code at the Micropython REPL to read the temperature</h3>
-<p>In the Putty Serial Window, we will import the <code>machine</code> module and then create an instance of the <code>machine.I2C</code> class with the scl and sda parameters set as <code>scl=machine.Pin(5)</code> and <code>sda=machine.Pin(4)</code>.  Then we create an empty <code>bytearray</code> which will be used to store the data coming in from the MCP9808 temperature sensor. As strings in Micropython are UTF-8 encoded by defaut, like in Python 3, a bytearray needs to be used to read the raw output from the MCP9808 chip registers. The command <code>i2c.readfrom_mem_into()</code> method brings in the data from the sensor and saves it to our <code>byte_data</code> variable. The arguments inside the method <code>24</code> and <code>5</code> correspond to the I2C memory address and registry address of the temperature data stored in the MCP9808 temperature sensor.   </p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">machine</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">i2c</span> <span class="o">=</span> <span class="n">machine</span><span class="o">.</span><span class="n">I2C</span><span class="p">(</span><span class="n">scl</span><span class="o">=</span><span class="n">machine</span><span class="o">.</span><span class="n">Pin</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="n">sda</span><span class="o">=</span><span class="n">machine</span><span class="o">.</span><span class="n">Pin</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">byte_data</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">i2c</span><span class="o">.</span><span class="n">readfrom_mem_into</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">byte_data</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">value</span> <span class="o">=</span> <span class="n">byte_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span> <span class="o">|</span> <span class="n">byte_data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">temp</span> <span class="o">=</span> <span class="p">(</span><span class="n">value</span> <span class="o">&amp;</span> <span class="mh">0xFFF</span><span class="p">)</span> <span class="o">/</span> <span class="mf">16.0</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">if</span> <span class="n">value</span> <span class="o">&amp;</span> <span class="mh">0x1000</span><span class="p">:</span>
-<span class="o">...</span>     <span class="n">temp</span> <span class="o">-=</span> <span class="mf">256.0</span>
-<span class="o">.....</span>   <span class="k">print</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+<p><br></p>
+<h3>1. Update Packages on the Server</h3>
+<p>It is probably best to update the packages installed on the server in case there are changes and updates to the operating system since the server was created. This is probably a reflex for those that use Linux a lot. Open PuTTY and log into the server as the non-root sudo user we created in the last post. Then update the system:</p>
+<div class="highlight"><pre><span></span>$ sudo apt-get update
 </pre></div>
 
 
-<h2>Next steps:</h2>
-<p>In the next post we will use Micropython to connect the Adafruit Feather Huzzah to a WiFi network.</p>
+<p><br></p>
+<h3>2. Install Anaconda</h3>
+<p>Next we'll install <strong>Anaconda</strong>. When I installed <strong>Anaconda</strong> on Windows10, I used an msi installer. But for installation of <strong>Anaconda</strong> on the cloud server we'll use a shell script. The first time I set up Jupyter Hub, I installed <strong>Anaconda</strong> in the <code>/opt</code> directory. I don't think this is the best setup. When I installed Anaconda in <code>/opt</code>, I ended up with all sorts of permission problems when I tried to run <strong>conda</strong> and <strong>jupyterhub</strong>. For me it caused less problems to install <strong>Anaconda</strong> in the non-root user's home directory(<code>/home/peter/</code>). The user's home directory is also the default Anaconda3 installation location.</p>
+<p>I followed <a href="https://www.digitalocean.com/community/tutorials/how-to-install-the-anaconda-python-distribution-on-ubuntu-16-04">this tutorial</a> from Digital Ocean.</p>
+<p>Go to <a href="https://repo.continuum.io/archive/">https://repo.continuum.io/archive/</a> and look down the list of installs for the newest installer that corresponds to:</p>
+<ul>
+<li>Anaconda 3 (not Anaconda 2, we don't want legacy Python version 2.7)</li>
+<li>Linux</li>
+<li>x86</li>
+<li>64 (bit)</li>
+<li>.sh (linux shell script)</li>
+</ul>
+<p>At the time of writing, the shell script was:</p>
+<div class="highlight"><pre><span></span>Anaconda3-5.1.0-Linux-x86_64.sh
+</pre></div>
+
+
+<p><code>cd</code> into the <code>/tmp</code> directory and download the script. Then run the script and follow the prompts.</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">cd</span> /tmp
+$ curl -O https://repo.continuum.io/archive/Anaconda3-5.1.0-Linux-x86_64.sh
+$ bash Anaconda3-5.1.0-Linux-x86_64.sh
+</pre></div>
+
+
+<p>We want to be able to run <strong>conda</strong> from the command line. So make sure to allow <strong>Anaconda</strong> to append your PATH during the installation. After installation, we need to reload the <code>.bashrc</code> file because <strong>Anaconda</strong> made changes to <code>.bashrc</code> during the install (when it added <strong>conda</strong> to our PATH).</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">source</span> ~/.bashrc
+</pre></div>
+
+
+<p>Now we should be able to run <strong>conda</strong>. Try:</p>
+<div class="highlight"><pre><span></span>$ conda --version
+</pre></div>
+
+
+<p>If you see output, that means <strong>conda</strong> was installed and can be run by the non-root user.</p>
+<p><br></p>
+<h3>3. Install <strong>Python</strong> packages and <strong>jupyterhub</strong></h3>
+<p>We have a full installation of <strong>Anaconda</strong> which includes a lot of useful packages for engineers including: <strong>numpy</strong>, <strong>pandas</strong>, <strong>matplotlib</strong>, <strong>scipy</strong>, <strong>sympy</strong>, <strong>bokeh</strong> and <strong>holoviews</strong>. <strong>Anaconda</strong> also includes other useful packages such as <strong>requests</strong>, <strong>beautiful soup</strong> and <strong>attrs</strong>. And for student who want to go further, the <strong>Anaconda</strong> distribution comes with <strong>django</strong>, <strong>flask</strong>, <strong>tk</strong>, <strong>tornado</strong> and <strong>scikit-learn</strong>.</p>
+<p>There are a couple other packages I want to install in addition to the standard <strong>Anaconda</strong> packages. First are some extra packages useful for engineers: <strong>pint</strong>, <strong>pyserial</strong> and <strong>schemdraw</strong>.</p>
+<div class="highlight"><pre><span></span>$ conda install -c conda-forge pint
+$ conda install -c anaconda pyserial
+$ pip install SchemDraw
+</pre></div>
+
+
+<p>Now we'll install Jupyter Hub! Since we are using <strong>conda</strong> to install <strong>jupyterhub</strong> (rather than pip), we don't need to install node and configurable-http-proxy separately. <strong>Conda</strong> installs the non-python dependencies (like node and configurable-http-proxy) that jupyter hub relies upon.</p>
+<div class="highlight"><pre><span></span>$ conda install -c conda-forge jupyterhub
+$ conda install notebook
+</pre></div>
+
+
+<p><br></p>
+<h3>4. Run a very unsecured instance of Jupyter Hub just to see if it works</h3>
+<p>OK let's give it a whirl. Start <strong>jupyterhub</strong> for the first time. Note the <code>--no-ssl</code> flag at the end. This needs to be included or you won't be able to browse to the server.</p>
+<div class="highlight"><pre><span></span>$ jupyterhub --no-ssl
+</pre></div>
+
+
+<p>You should see some output in the PuTTY window. The last line should be something like <code>JupyterHub is now running at http://:8000/</code>. The first time I set up Jupyter Hub, I wasn't able to see the site using a web browser. Nothing would come up and the connection would time out.</p>
+<p><img alt="anaconda in start menu" src="/posts/jupyterhub/site_can't_be_reached.png"></p>
+<p>Why? It turns out Digital Ocean installs a firewall called <strong>ufw</strong> by default and turns the <strong>ufw</strong> firewall on. When the server was created, ufw was configured to only allow incoming connections on ports 22, 80 and 433. This output is shown when we first log into the server:</p>
+<div class="highlight"><pre><span></span>&quot;ufw&quot; has been enabled. All ports except 22 (SSH), 80 (http) and 443 (https)
+have been blocked by default.
+</pre></div>
+
+
+<p>But <strong>jupyterhub runs on port 8000</strong> - it tells us so when <strong>jupyterhub</strong> starts. So we need to configure <strong>ufw</strong> to allow connections on port 8000 (at least for now, just to see if <strong>jupyterhub</strong> works). To allow communication on port 8000 and restart <strong>jupyterhub</strong>, type:</p>
+<div class="highlight"><pre><span></span>$ sudo ufw allow <span class="m">8000</span>
+$ jupyterhub --no-ssl
+</pre></div>
+
+
+<p>Now we can browse to the server IP address appended with <code>:8000</code>. The web address should look something like: http://165.228.68.178:8000. You can find the IP address of the server by going into the Digital Ocean dashboard. We should see:</p>
+<p><img alt="jupyter hub no ssl login" src="/posts/jupyterhub/jupyterhub_no_ssl_login.png"></p>
+<p>Awesome! Quick log into <strong>jupyterhub</strong> using the username and password for the non-root sudo user (in my case <code>peter</code>) that we set up and are using in our current PuTTY session. You should see the typical notebook file browser with all the files you can see when you run <code>ls ~/</code>. Try creating and running a new notebook. The notebook work just like a <strong>jupyter notebook running locally</strong>.</p>
+<p><img alt="start my server" src="/posts/jupyterhub/start_my_server.PNG">
+<img alt="jupyter file browser" src="/posts/jupyterhub/jupyter_file_browser.PNG"></p>
+<h3>5. Quick! Log out and shut down jupyterhub</h3>
+<p><strong>Quick! Log out and shut down jupyterhub</strong>. (does quick really matter in internet security?) The site is running without any ssl security over regular HTTP not HTTPS. Key in [Ctrl] + [c] to stop jupyterhub.</p>
+<div class="alert alert-warning" role="alert">
+  <strong>Warning!</strong> You should not run JupyterHub without SSL encryption on a public network.
+</div>
+
+<h3>Summary</h3>
+<p>In this post we installed <strong>Anaconda</strong> on the server using a shell script. We added <strong>conda</strong> to our path and reloaded our .bashrc file. Then we installed some extra <strong>Python</strong> packages such as <strong>pint</strong> and <strong>pyserial</strong>. Finally we installed <strong>jupyterhub</strong>, opened up port 8000 and ran <strong>jupyterhub</strong> for the first time! Remember we <strong>shut down jupyter hub very quickly</strong> because we ran it without any SSL security.</p>
+<h3>Next Steps</h3>
+<p>In the next post we will build SSL security into our Jupyter Hub deployment and connect the server to domain name. Plus we'll customize the <strong>jupyterhub</strong> config file and install and use nginx as a proxy server.</p>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">
     <h4>Related Posts:</h4>
     <ul>
-        <li><a href="./micropython-install.html">Installing Micropython on an Adadfruit Feather Huzzah ESP8266</a></li>
-        <li><a href="./what-is-micropython.html">What is Micropython?</a></li>
-        <li><a href="./micropython-REPL.html">Using the Micropython REPL on an Adadfruit Feather Huzzah ESP8266</a></li>
-        <li><a href="./installing-jupyter-hub.html">Installing Jupyterhub</a></li>
         <li><a href="./new-digital-ocean-droplet.html">Creating a new Digital Ocean Droplet</a></li>
+        <li><a href="./ssh-keys-with-putty.html">Create an SSH Key with PuTTYgen</a></li>
+        <li><a href="./why-jupyter-hub.html">Why Jupyter Hub?</a></li>
+        <li><a href="./diffusion-problem-python-pint.html">Diffusion Calculation with Python and Pint</a></li>
+        <li><a href="./opening-a-jupyter-notebook-on-windows.html">Opening a Jupyter Notebook on Windows</a></li>
     </ul>
 </section>
 <section class="well" id="related-posts">
-    <h4>Article 4 of the micropython series</h4>
+    <h4>Article 4 of the Jupyter Hub series</h4>
        <h5>Previous articles</h5>
        <ul>
-           <li><a href="./what-is-micropython.html">What is Micropython?</a></li>
-           <li><a href="./micropython-install.html">Installing Micropython on an Adadfruit Feather Huzzah ESP8266</a></li>
-           <li><a href="./micropython-REPL.html">Using the Micropython REPL on an Adadfruit Feather Huzzah ESP8266</a></li>
+           <li><a href="./why-jupyter-hub.html">Why Jupyter Hub?</a></li>
+           <li><a href="./ssh-keys-with-putty.html">Create an SSH Key with PuTTYgen</a></li>
+           <li><a href="./new-digital-ocean-droplet.html">Creating a new Digital Ocean Droplet</a></li>
        </ul>
 </section>
         </article>
@@ -469,7 +507,7 @@ Python for Undergraduate Engineers            </a>
   <ul class="list-group">
     <li class="list-group-item">
       <h5></i>Previous article</h5>
-      <a href="./micropython-REPL.html">Using the Micropython REPL on an Adadfruit Feather Huzzah ESP8266</a>
+      <a href="./new-digital-ocean-droplet.html">Creating a new Digital Ocean Droplet</a>
     </li>
   </ul>
 </li>

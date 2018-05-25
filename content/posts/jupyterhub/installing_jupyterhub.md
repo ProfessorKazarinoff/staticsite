@@ -146,6 +146,8 @@ Awesome! Quick log into **jupyterhub** using the username and password for the n
 ![start my server](/posts/jupyterhub/start_my_server.PNG)
 ![jupyter file browser](/posts/jupyterhub/jupyter_file_browser.PNG)
 
+<br>
+
 ### 5. Quick! Log out and shut down jupyterhub
 
 **Quick! Log out and shut down jupyterhub**. (does quick really matter in internet security?) The site is running without any ssl security over regular HTTP not HTTPS. Key in [Ctrl] + [c] to stop jupyterhub.
@@ -154,10 +156,13 @@ Awesome! Quick log into **jupyterhub** using the username and password for the n
   <strong>Warning!</strong> You should not run JupyterHub without SSL encryption on a public network.
 </div>
 
+<br>
  
 ### Summary
 
 In this post we installed **Anaconda** on the server using a shell script. We added **conda** to our path and reloaded our .bashrc file. Then we installed some extra **Python** packages such as **pint** and **pyserial**. Finally we installed **jupyterhub**, opened up port 8000 and ran **jupyterhub** for the first time! Remember we **shut down jupyter hub very quickly** because we ran it without any SSL security.
+
+<br>
 
 ### Next Steps
 

@@ -1,5 +1,374 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Python for Undergraduate Engineers - jupyter</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="https://professorkazarinoff.github.io/staticsite/feeds/jupyter.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2018-05-24T12:40:00-07:00</updated><entry><title>Installing Jupyterhub</title><link href="https://professorkazarinoff.github.io/staticsite/installing-jupyter-hub.html" rel="alternate"></link><published>2018-05-24T12:40:00-07:00</published><updated>2018-05-24T12:40:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-05-24:/staticsite/installing-jupyter-hub.html</id><summary type="html">&lt;p&gt;This is the fourth part of a multi-part series that shows how to set up Jupyter Hub for a college class. The goal is to have a running version of Jupyter Hub that students in the class can log into when given a simple web link. In this post, we'll get to the fun stuff: installing &lt;strong&gt;juupyterhub&lt;/strong&gt; on the server, installing &lt;strong&gt;Python&lt;/strong&gt; packages and spinning up Jupyter Hub for the first time.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the fourth part of a multi-part series that shows how to set up Jupyter Hub for a college class. The goal is to have a running version of Jupyter Hub that students in the class can log into when given a simple web link. In this post, we'll get to the fun stuff: installing &lt;strong&gt;juupyterhub&lt;/strong&gt; on the server, installing &lt;strong&gt;Python&lt;/strong&gt; packages and spinning up Jupyter Hub for the first time.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Python for Undergraduate Engineers - jupyter</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="https://professorkazarinoff.github.io/staticsite/feeds/jupyter.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2018-05-25T12:40:00-07:00</updated><entry><title>Adding SSL and a domain name to Jupyter Hub</title><link href="https://professorkazarinoff.github.io/staticsite/add-ssl-and-domain-name-to-jupyterhub.html" rel="alternate"></link><published>2018-05-25T12:40:00-07:00</published><updated>2018-05-25T12:40:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-05-25:/staticsite/add-ssl-and-domain-name-to-jupyterhub.html</id><summary type="html">&lt;p&gt;This is the fifth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to link a domain name to our server IP address, add SSL security and configure nginx to run as a proxy in between users and jupyterhub. Then we'll run &lt;strong&gt;jupyterhub&lt;/strong&gt; over https using the SSL security we created.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the fifth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to link a domain name to our server IP address, add SSL security and configure nginx to run as a proxy in between users and jupyterhub. Then we'll run &lt;strong&gt;jupyterhub&lt;/strong&gt; over https using the SSL security we created.&lt;/p&gt;
+&lt;h3&gt;Posts in this series&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/why-jupyter-hub.html"&gt;Why Jupyter Hub?&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/ssh-keys-with-putty.html"&gt;Create ssh key, save to documents/ssh-keys&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/new-digital-ocean-droplet.html"&gt;Create a new Digital Ocean Droplet with a non-root sudo user&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/installing-jupyter-hub.html"&gt;Install Jupyter Hub on the server&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Apply SSL, link a domain name to the server and configure nginx&lt;/strong&gt; (this post)&lt;/li&gt;
+&lt;li&gt;Connect OAuth to Jupyter Hub&lt;/li&gt;
+&lt;li&gt;Connect to Jupyter Hub as student&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Last time&lt;/h3&gt;
+&lt;p&gt;In the &lt;a href="({filename}/posts/jupyterhub/installing_jupyterhub.md)"&gt;last post&lt;/a&gt;, we installed &lt;strong&gt;Anaconda&lt;/strong&gt; on the server using a shell script. Then we installed some extra Python packages such as &lt;strong&gt;pint&lt;/strong&gt;, &lt;strong&gt;pyserial&lt;/strong&gt; and &lt;strong&gt;schemdraw&lt;/strong&gt; to our base conda environment. Next we installed &lt;strong&gt;jupyterhub&lt;/strong&gt;, opened up port 8000 and ran &lt;strong&gt;jupyterhub&lt;/strong&gt; for the first time! And remember &lt;strong&gt;we shut down jupyter hub very quickly&lt;/strong&gt; because we ran it without any SSL security.&lt;/p&gt;
+&lt;h3&gt;Steps in this post:&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Link domain name to server IP address&lt;/li&gt;
+&lt;li&gt;Install nginx and modify ufw&lt;/li&gt;
+&lt;li&gt;Obtain SSL certificates with certbot&lt;/li&gt;
+&lt;li&gt;Create a cookie secret and a proxy auth token&lt;/li&gt;
+&lt;li&gt;Modify nginx config&lt;/li&gt;
+&lt;li&gt;Generate jupyterhub_config.py and modify&lt;/li&gt;
+&lt;li&gt;Restart nginx and start jupyterhub, see if we can login&lt;/li&gt;
+&lt;li&gt;Create an new user and restart &lt;strong&gt;jupyterhub&lt;/strong&gt;. See if the new user can log in.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3&gt;1. Link domain name to server IP address&lt;/h3&gt;
+&lt;p&gt;When we started Jupyter Hub in the previous post, it ran, we could log in, and we could run Python code. What's not to like, right? Well, security is the big problem. &lt;/p&gt;
+&lt;p&gt;In the initial setup, Jupyter Hub was running under regular http, not https. With a web application that has usernames and passwords, like Jupyter Hub, having https and SSL security is best (or maybe manditory). In order to use https, we need to get an SSL certificate. And that SSL certificate should correspond to the domain name linked to our server. So the first step is getting the domain name and pointing it at Digital Ocean. The next step is linking the domain name to our Jupyter Hub server.&lt;/p&gt;
+&lt;h4&gt;Google Domains&lt;/h4&gt;
+&lt;p&gt;I purchased the domain &lt;em&gt;problemsolvingwithpython.com&lt;/em&gt; from &lt;a href="https://domains.google.com"&gt;google domains&lt;/a&gt;. It costs $12/year which seems pretty reasonable and was easy to set up. After purchasing the domain, I added the Digital Ocean DNS servers as a set of custom name servers to my domain options on google domains.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Google Domains Dashboard" src="/posts/jupyterhub/google_domains_list.png"&gt;&lt;/p&gt;
+&lt;p&gt;To add a set of custom name servers, click the button with the two bars under the DNS header. This will bring up a page where you can enter in the Digital Ocean DNS servers. The name servers to add are:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;ns1.digitalocean.com
+ns2.digitalocean.com
+ns3.digitalocean.com
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;img alt="Google Domains Dashboard" src="/posts/jupyterhub/google_domains_dns_routing.png"&gt;&lt;/p&gt;
+&lt;p&gt;Make sure to click the radio button [Use custom name servers] and click [save].&lt;/p&gt;
+&lt;h4&gt;Digital Ocean DNS&lt;/h4&gt;
+&lt;p&gt;Now we are going to set our domain &lt;em&gt;problemsolvingwithpython.com&lt;/em&gt; to link to the IP address of our server on Digital Ocean. Log into Digital Ocean and in the upper right select [Create] --&amp;gt; [Domains/DNS]&lt;/p&gt;
+&lt;p&gt;&lt;img alt="DO Domains/DNS" src="/posts/jupyterhub/DO_manage_domains.png"&gt;&lt;/p&gt;
+&lt;p&gt;In the [Add a domain] field, type in the domain name without http, but including .com (or .edu/.org/.net) then click [Add Domain].&lt;/p&gt;
+&lt;p&gt;&lt;img alt="DO Domains/DNS" src="/posts/jupyterhub/DO_add_domain.png"&gt;&lt;/p&gt;
+&lt;p&gt;This will bring up a panel where we can add a DNS record. I want the notebook server to have the web address &lt;/p&gt;
+&lt;p&gt;https://notebooks.problemsovlingwithpython.com&lt;/p&gt;
+&lt;p&gt;So I entered &lt;code&gt;notebooks&lt;/code&gt; in the text field. Then selected the droplet (server) that the web address will to route to.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="DO Domains/DNS" src="/posts/jupyterhub/DO_sub_domain.png"&gt;&lt;/p&gt;
+&lt;p&gt;After completing this step, there will be a number of new DNS records. The ones I set up are below:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="DO Domains/DNS" src="/posts/jupyterhub/DO_domains_routed.png"&gt;&lt;/p&gt;
+&lt;p&gt;It takes a couple minutes for the DNS switchover to complete. &lt;a href="https://www.whatsmydns.net"&gt;https://www.whatsmydns.net&lt;/a&gt; can be used to check the NS and A records of your domain and see if the domain name is getting through. The first time I set up DNS on Digital Ocean, I added the custom DNS servers to google domains but neglected to select the [use custom name servers] radio button on the google domains dashboard. It looked like the domain was routing to Digital Ocean, but actually the domain was just staying with google. Once I clicked the [use custom name servers] radio button and waited a couple minutes, the change over happened. It did take a bit of time though; not hours, but more than a few minutes.&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3&gt;2. Install nginx and modify ufw&lt;/h3&gt;
+&lt;p&gt;Now that the domain name is set up, the next step is to install and configure nginx. Nginx is an open source web server that can handle many concurrent web connections at the same time. For the nginx installation, I followed &lt;a href="https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-16-04"&gt;this tutorial&lt;/a&gt; from Digital Ocean.&lt;/p&gt;
+&lt;p&gt;Use PuTTY to connect to the server with the non-root sudo user we set up before. Once logged in, we can update the system and install nginx.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo apt-get update
+$ sudo apt-get install nginx
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Digital Ocean installs a firewall application called ufw. Check out which apps the ufw firewall can work with:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo ufw app list
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We see a list of available ufw configurations to work with nginx. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;Available applications:
+  Nginx Full
+  Nginx HTTP
+  Nginx HTTPS
+  OpenSSH
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We want to allow in both http and https requests. Once a http request comes in, we'll use nginx to convert the http connection to a https connection. Select nginx full. Note the Capitalization in the command:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo ufw allow &lt;span class="s1"&gt;&amp;#39;Nginx Full&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We can check out which ports ufw is allowing through with:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo ufw status
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Note in the output how ufw is allowing nginx full and requests over port 8000. We opened port 8000 earlier, so we could see how &lt;strong&gt;jupyterhub&lt;/strong&gt; works without a domain name or SSL.  Once we get nginx running and hooked up to &lt;strong&gt;jupyterhub&lt;/strong&gt;, we need to remember to close off port 8000 in ufw.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;Status&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;active&lt;/span&gt;
+
+&lt;span class="n"&gt;To&lt;/span&gt;                         &lt;span class="n"&gt;Action&lt;/span&gt;      &lt;span class="n"&gt;From&lt;/span&gt;
+&lt;span class="o"&gt;--&lt;/span&gt;                         &lt;span class="o"&gt;------&lt;/span&gt;      &lt;span class="o"&gt;----&lt;/span&gt;
+&lt;span class="mi"&gt;22&lt;/span&gt;                         &lt;span class="n"&gt;LIMIT&lt;/span&gt;       &lt;span class="n"&gt;Anywhere&lt;/span&gt;
+&lt;span class="mi"&gt;2375&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;tcp&lt;/span&gt;                   &lt;span class="n"&gt;ALLOW&lt;/span&gt;       &lt;span class="n"&gt;Anywhere&lt;/span&gt;
+&lt;span class="mi"&gt;2376&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;tcp&lt;/span&gt;                   &lt;span class="n"&gt;ALLOW&lt;/span&gt;       &lt;span class="n"&gt;Anywhere&lt;/span&gt;
+&lt;span class="mi"&gt;8000&lt;/span&gt;                       &lt;span class="n"&gt;ALLOW&lt;/span&gt;       &lt;span class="n"&gt;Anywhere&lt;/span&gt;
+&lt;span class="n"&gt;Nginx&lt;/span&gt; &lt;span class="n"&gt;Full&lt;/span&gt;                 &lt;span class="n"&gt;ALLOW&lt;/span&gt;       &lt;span class="n"&gt;Anywhere&lt;/span&gt;
+&lt;span class="mi"&gt;22&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;v6&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;                    &lt;span class="n"&gt;LIMIT&lt;/span&gt;       &lt;span class="n"&gt;Anywhere&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;v6&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="mi"&gt;2375&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;tcp&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;v6&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;              &lt;span class="n"&gt;ALLOW&lt;/span&gt;       &lt;span class="n"&gt;Anywhere&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;v6&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="mi"&gt;2376&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;tcp&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;v6&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;              &lt;span class="n"&gt;ALLOW&lt;/span&gt;       &lt;span class="n"&gt;Anywhere&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;v6&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="mi"&gt;8000&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;v6&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;                  &lt;span class="n"&gt;ALLOW&lt;/span&gt;       &lt;span class="n"&gt;Anywhere&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;v6&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;Nginx&lt;/span&gt; &lt;span class="n"&gt;Full&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;v6&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;            &lt;span class="n"&gt;ALLOW&lt;/span&gt;       &lt;span class="n"&gt;Anywhere&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;v6&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Nginx will start running as soon at it is installed. We can see the status with:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo systemctl status nginx
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;In the output, we should see something like below. This mean nginx is running.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;Active: active (running) since Thu 2018-05-17 04:51:16 UTC; 15min ago
+Main PID: 17126 (nginx)
+  CGroup: /system.slice/nginx.service
+    ├── 17126 nginx: master process /usr/sbin/nginx -g daemon on; master_pr
+    └── 17127 nginx: worker process
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now we can browse over to the domain (the domain we set up with Digital Ocean and google domains) and see the nginx start page.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="nginx welcome page" src="/posts/jupyterhub/welcome_to_nginx.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3&gt;3. Obtain SSL certificates with certbot&lt;/h3&gt;
+&lt;p&gt;With a domain name hooked up to our server, we'll now able to obtain an SSL certificate. I followed &lt;a href="https://www.slideshare.net/willingc/jupyterhub-tutorial-at-jupytercon"&gt;this presentation&lt;/a&gt; to install certbot, a program used to generate SSL certificates. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;cd&lt;/span&gt; ~
+$ mkdir certbot
+$ &lt;span class="nb"&gt;cd&lt;/span&gt; certbot
+$ wget https://dl.eff.org/certbot-auto
+$ chmod a+x certbot-auto
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Before we can run certbot, we need to turn off nginx. When I first tried to run certbot, I was thrown an error:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;Problem binding to port 80: Could not bind to IPv4 or IPv6.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Since we installed nginx earlier, and we confirmed that it's running, that means that port 80 is currently in use by nginx. We need to open up port 80 to certbot by temporarily shutting down nginx. Once nginx is stopped, we can run certbot and get our SSL certificate. We'll eventually have to restart nginx, but this can wait until after we change the nginx configuration file. If you are following along, make sure to change &lt;code&gt;notebooks.problemsolvingwithpython.com&lt;/code&gt; to your domain.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo systemctl stop nginx
+$ sudo systemctl status nginx
+&lt;span class="c1"&gt;# [Ctrl] + [c] to exit&lt;/span&gt;
+$ ./certbot-auto certonly --standalone -d notebooks.problemsolvingwithpython.com
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;If it worked and we got our SSL certificate, the output will be something like:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;IMPORTANT NOTES:
+ - Congratulations! Your certificate and chain have been saved at:
+   /etc/letsencrypt/live/notebooks.problemsolvingwithpython.com/fullchain.pem
+   Your key file has been saved at:
+   /etc/letsencrypt/live/notebooks.problemsolvingwithpython.com/privkey.pem
+   Your cert will expire on 2018-08-15. 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Note the location of the &lt;code&gt;fullchain.pem&lt;/code&gt; and &lt;code&gt;privkey.pem&lt;/code&gt; files. We'll need to put these locations into the nginx configuration.&lt;/p&gt;
+&lt;p&gt;We also need to allow nginx to access these files. I had trouble getting nginx to run and &lt;a href="https://www.youtube.com/watch?v=alaGteCPZU8&amp;amp;t=1721s"&gt;this presentation&lt;/a&gt; showed a way to give nginx access to the SSL key files. There is probably a more "Linuxy" way of giving nginx access to the cert files, but I messed around with the permission settings for a while, and this way worked.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;cd&lt;/span&gt; /etc/letsencrypt
+$ ls
+accounts  archive  csr  keys  live  renewal  renewal-hooks
+$ sudo chmod &lt;span class="m"&gt;777&lt;/span&gt; -R archive/
+$ sudo chmod &lt;span class="m"&gt;777&lt;/span&gt; -R live/
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3&gt;4. Create a cookie secret and a proxy auth token&lt;/h3&gt;
+&lt;p&gt;In addition to the SSL certificate, the &lt;a href="http://jupyterhub.readthedocs.io/en/latest/getting-started/security-basics.html"&gt;Jupyter Hub docs on security basics&lt;/a&gt; specify that a cookie secret and poxy auth token should be created. To create the cookie secret:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;cd&lt;/span&gt; /srv
+$ &lt;span class="nb"&gt;cd&lt;/span&gt; jupyterhub            &lt;span class="c1"&gt;#if not present, mkdir it&lt;/span&gt;
+$ openssl rand -hex &lt;span class="m"&gt;32&lt;/span&gt; &amp;gt; /srv/jupyterhub/jupyterhub_cookie_secret
+$ ls
+$ sudo chmod &lt;span class="m"&gt;600&lt;/span&gt; jupyterhub_cookie_secret
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;I had trouble with the cookie secret file because I missed where the &lt;a href="http://jupyterhub.readthedocs.io/en/latest/getting-started/security-basics.html#generating-and-storing-as-a-cookie-secret-file"&gt;jupyterhub docs&lt;/a&gt; show:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The file must not be readable by group or other or the server won’t start. The recommended permissions for the cookie secret file are 600 (owner-only rw).&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Now we have a cookie secret file. We need to make note of the location because we'll add this location to the jupyterhub_config.py file later.&lt;/p&gt;
+&lt;p&gt;To generate the proxy auth token, we can use the same command, but point to a different file. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;pwd&lt;/span&gt;
+&lt;span class="c1"&gt;# should be in /srv/jupyterhub&lt;/span&gt;
+$ openssl rand -hex &lt;span class="m"&gt;32&lt;/span&gt; &amp;gt; proxy_auth_token
+$ sudo chmod &lt;span class="m"&gt;600&lt;/span&gt; proxy_auth_token
+$ ls
+cookie_secret  proxy_auth_token
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now if we list the contents of &lt;code&gt;~/srv/jupyterhub&lt;/code&gt; we should see:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;/srv/jupyterhub/
+├── jupyterhub_cookie_secret
+└── proxy_auth_token
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Also we can generate a dhparam.pem file. I'm not exactly sure what the dhparam.pem file is, but I think it's good for security. First we need to &lt;code&gt;cd&lt;/code&gt; into &lt;code&gt;/etc/nginx&lt;/code&gt; and create a new &lt;code&gt;ssl&lt;/code&gt; directory. Next give the &lt;code&gt;ssl&lt;/code&gt; directory 777 permissions and &lt;code&gt;touch&lt;/code&gt; a new file called dhparam.pem. After that we can use openssl to generate the dhparams.pem file. Note the location of this file as we will add it to the nginx config file.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;cd /etc/nginx
+sudo mkdir ssl
+sudo chmod 777 -R ssl/
+touch ssl/dhparam.pem
+sudo openssl dhparam -out /etc/nginx/ssl/dhparam.pem 2048
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3&gt;5. Modify nginx config&lt;/h3&gt;
+&lt;p&gt;The next step is to modify the nginx config file so that nginx uses our SSL certificates and routes requests on to &lt;strong&gt;jupyterhub&lt;/strong&gt;. This was the hardest part for me when I set up the first server. The nginx config file isn't Python code or bash script. I went through many different configurations until I got one that worked. The big initial problem that I copied the sample nginx config that's up on the Jupyter Hub docs. But the nginx config posted on the &lt;strong&gt;jupyterhub&lt;/strong&gt; docs is not a complete nginx config, it contains just the server portion. I didn't know that the whole server portion needed to be enclosed in another frame.&lt;/p&gt;
+&lt;p&gt;To modify &lt;code&gt;nginx.conf&lt;/code&gt;, &lt;code&gt;cd&lt;/code&gt; into the &lt;code&gt;/etc/nginx&lt;/code&gt; directory. The nginx.conf file should be there along with a couple other files and directories.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;cd&lt;/span&gt; /etc/nginx
+$ ls
+conf.d          koi-utf     nginx.conf    sites-available  ssl
+fastcgi.conf    koi-win     proxy_params  sites-enabled    uwsgi_params
+fastcgi_params  mime.types  scgi_params   snippets         win-utf
+$ sudo nano nginx.conf
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The nginx config that eventually worked for me is below. It can also be found &lt;a href="https://github.com/ProfessorKazarinoff/jupyterhub-svr/blob/master/nginx.conf"&gt;here&lt;/a&gt;:&lt;/p&gt;
+&lt;p&gt;Note the line which shows the path to the SSL certificates. This will change based on your domain and where certbot saved the .pem files to.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;## Based on: https://github.com/calpolydatascience/jupyterhub-deploy-data301/blob/master/roles/nginx/templates/nginx.conf.j2
+
+user www-data;
+worker_processes 4;
+pid /run/nginx.pid;
+
+events {
+        worker_connections 1024;
+        # multi_accept on;
+}
+
+http {
+        include /etc/nginx/mime.types;
+
+        default_type application/octet-stream;
+
+    #top-level http config for websocket headers
+    # from https://github.com/jupyterhub/jupyterhub/blob/master/docs/source/referen$
+    map $http_upgrade $connection_upgrade {
+        default upgrade;
+            &amp;#39;&amp;#39;      close;
+    }
+
+
+    # All regular http requests on port 80 become SSL/HTTPS requests on port 32
+    server {
+        listen 80;
+        server_name notebooks.problemsolvingwithpython.com;
+
+        # Tell all requests to port 80 to be 302 redirected to HTTPS
+        return 302 https://$host$request_uri;
+    }
+
+    server {
+        #listen 443 ssl default_server;
+        listen 443;
+        ssl on;
+        server_name notebooks.problemsovlingwithpython.com;
+
+        ## SSL Protocals
+        ssl_certificate /etc/letsencrypt/live/notebooks.problemsolvingwithpython.com/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/notebooks.problemsolvingwithpython.com/privkey.pem;
+
+        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+        ssl_prefer_server_ciphers on;
+        ssl_dhparam /etc/nginx/ssl/dhparam.pem;
+
+        # Make site accessible from http://localhost/
+        #server_name localhost;
+
+        # certs sent to the client in SERVER HELLO are concatenated in
+        ssl_session_timeout 1d;
+        ssl_session_cache shared:SSL:50m;
+        ssl_stapling on;
+        ssl_stapling_verify on;
+
+        # modern configuration. tweak to your needs.
+        ssl_ciphers &amp;#39;ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256&amp;#39;;
+
+        # HSTS (ngx_http_headers_module is required) (15768000 seconds = 6 months)
+        add_header Strict-Transport-Security max-age=15768000;
+
+        location / {
+            proxy_pass http://127.0.0.1:8000;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header Host $host;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-NginX-Proxy true;
+
+            #proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection &amp;quot;upgrade&amp;quot;;
+        }
+
+        location ~ /.well-known {
+            allow all;
+        }
+    }
+}
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Save and exit with [Ctrl] + [c] and [y]&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3&gt;6. Generate jupyterhub_config.py and modify&lt;/h3&gt;
+&lt;p&gt;Next, we'll generate a jupyterhub_config.py file and modify it a little bit. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;cd&lt;/span&gt; ~
+$ jupyterhub --generate-config
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now we'll modify the jupyterhub_config.py file to allow local spawners and include our user &lt;code&gt;peter&lt;/code&gt; as an admin user:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ nano jupyterhub_config.py
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;There will be a lot of commented out text in the file. At the top of the file, add the following:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;#jupyterhub_config.py&lt;/span&gt;
+
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;os&lt;/span&gt;
+&lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;get_config&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;JupyterHub&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;log_level&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Spawner&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cmd&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;/home/peter/anaconda3/bin/jupyterhub-singleuser&amp;#39;&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Cookie Secret Files&lt;/span&gt;
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;JupyterHub&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cookie_secret_file&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;/srv/jupyterhub/jupyterhub_cookie_secret&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ConfigurableHTTPProxy&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;auth_token&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;/srv/jupyterhub/proxy_auth_token&amp;#39;&lt;/span&gt;
+
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Authenticator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;whitelist&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;peter&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Authenticator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;admin_users&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;peter&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3&gt;7. Restart nginx and start jupyterhub, see if we can login&lt;/h3&gt;
+&lt;p&gt;Now we'll restart nginx and start jupyterhub. Not that this time when we start jupyter hub we don't need to use the &lt;code&gt;--no-ssl&lt;/code&gt; flag because we have SSL running on nginx. If it seems like nginx isn't working, try &lt;code&gt;$ sudo systemctl status nginx&lt;/code&gt; and see if nginx really started. If it didn't, try the command &lt;code&gt;nginx -t&lt;/code&gt;. This will print out any error messages if nginx failed to start. I had to do this many different times before I got nginx to work.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo systemctl stop nginx
+$ sudo systemctl start nginx
+
+$ &lt;span class="nb"&gt;cd&lt;/span&gt; ~
+$ jupyterhub
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now we can browse to our domain and see Jupyter Hub running in its full SSL glory. Log in with the non-root sudo username and password (same user that's running the PuTTY session).&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3&gt;8. Create an new user and restart &lt;strong&gt;jupyterhub&lt;/strong&gt;. See if the new user can log in.&lt;/h3&gt;
+&lt;p&gt;OK, it's all well and good that we can log into &lt;strong&gt;jupyterhub&lt;/strong&gt;. But the purpose of setting of of this up is for multiple students to be able to log into &lt;strong&gt;jupyterhub&lt;/strong&gt;. If &lt;strong&gt;jupyterhub&lt;/strong&gt; is still running, it can be stopped with [Ctrl] + [c].  Let's create a new user and see if we can log in as her.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo adduser kendra
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Go through the prompts and remember the UNIX password. Now we'll modify jupyterhub_conf.py to include our new user &lt;code&gt;kendra&lt;/code&gt; and add &lt;code&gt;peter&lt;/code&gt; (our non-root sudo user) as an administrator:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;c.Authenticator.whitelist = {&amp;#39;peter&amp;#39;,&amp;#39;kendra&amp;#39;}
+c.Authenticator.admin_users = {&amp;#39;peter&amp;#39;}
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Restart &lt;strong&gt;jupyterhub&lt;/strong&gt; and try and login as &lt;code&gt;kendra&lt;/code&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ jupyterhub
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Amazing! right? Jupyter Hub running on our own domain using SSL security and https. Pretty cool. &lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3&gt;Summary&lt;/h3&gt;
+&lt;p&gt;In this post we created an SSL certificate with cetbot. We modified the nginx config to use our SSL certificate and modified jupyterhub_config.py. At the end of all of that we were able to get a working version of &lt;strong&gt;jupyterhub&lt;/strong&gt; running on https using SSL security and can log into &lt;strong&gt;jupyterhub&lt;/strong&gt; as two different users.&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3&gt;Next Steps&lt;/h3&gt;
+&lt;p&gt;Up next will add an authentication system so that users can log into our Jupyter Hub server using their college usernames and passwords. We will also set &lt;strong&gt;jupyterhub&lt;/strong&gt; to run as a system service in the background which will allow us to work on the server and run &lt;strong&gt;jupyterhub&lt;/strong&gt; at the same time.&lt;/p&gt;</content><category term="jupyter"></category><category term="jupyter hub"></category><category term="jupyter notebooks"></category><category term="python"></category></entry><entry><title>Installing Jupyterhub</title><link href="https://professorkazarinoff.github.io/staticsite/installing-jupyter-hub.html" rel="alternate"></link><published>2018-05-24T12:40:00-07:00</published><updated>2018-05-24T12:40:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-05-24:/staticsite/installing-jupyter-hub.html</id><summary type="html">&lt;p&gt;This is the fourth part of a multi-part series that shows how to set up Jupyter Hub for a college class. The goal is to have a running version of Jupyter Hub that students in the class can log into when given a simple web link. In this post, we'll get to the fun stuff: installing &lt;strong&gt;jupyterhub&lt;/strong&gt; on the server, installing &lt;strong&gt;Python&lt;/strong&gt; packages and spinning up Jupyter Hub for the first time.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the fourth part of a multi-part series that shows how to set up Jupyter Hub for a college class. The goal is to have a running version of Jupyter Hub that students in the class can log into when given a simple web link. In this post, we'll get to the fun stuff: installing &lt;strong&gt;jupyterhub&lt;/strong&gt; on the server, installing &lt;strong&gt;Python&lt;/strong&gt; packages and spinning up Jupyter Hub for the first time.&lt;/p&gt;
 &lt;h3&gt;Posts in this series&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/why-jupyter-hub.html"&gt;Why Jupyter Hub?&lt;/a&gt; &lt;/li&gt;

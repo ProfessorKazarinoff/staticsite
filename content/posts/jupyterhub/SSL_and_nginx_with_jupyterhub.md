@@ -1,7 +1,7 @@
 ﻿Title: Adding SSL and a domain name to Jupyter Hub
 Date: 2018-05-25 12:40
 Modified: 2018-05-25 12:40
-Status: draft
+Status: published
 Category: jupyter
 Tags: jupyter, jupyter hub, jupyter notebooks, python
 Slug: add-ssl-and-domain-name-to-jupyterhub

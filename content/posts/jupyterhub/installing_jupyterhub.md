@@ -8,9 +8,9 @@ Slug: installing-jupyter-hub
 Authors: Peter D. Kazarinoff
 Series: Jupyter Hub
 Series_index: 4
-Summary: This is the fourth part of a multi-part series that shows how to set up Jupyter Hub for a college class. The goal is to have a running version of Jupyter Hub that students in the class can log into when given a simple web link. In this post, we'll get to the fun stuff: installing **juupyterhub** on the server, installing **Python** packages and spinning up Jupyter Hub for the first time.
+Summary: This is the fourth part of a multi-part series that shows how to set up Jupyter Hub for a college class. The goal is to have a running version of Jupyter Hub that students in the class can log into when given a simple web link. In this post, we'll get to the fun stuff: installing **jupyterhub** on the server, installing **Python** packages and spinning up Jupyter Hub for the first time.
 
-This is the fourth part of a multi-part series that shows how to set up Jupyter Hub for a college class. The goal is to have a running version of Jupyter Hub that students in the class can log into when given a simple web link. In this post, we'll get to the fun stuff: installing **juupyterhub** on the server, installing **Python** packages and spinning up Jupyter Hub for the first time.
+This is the fourth part of a multi-part series that shows how to set up Jupyter Hub for a college class. The goal is to have a running version of Jupyter Hub that students in the class can log into when given a simple web link. In this post, we'll get to the fun stuff: installing **jupyterhub** on the server, installing **Python** packages and spinning up Jupyter Hub for the first time.
 
 ### Posts in this series
 

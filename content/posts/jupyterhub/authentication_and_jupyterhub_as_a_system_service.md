@@ -35,6 +35,7 @@ In the last post, we succeeded in getting **jupyterhub** to run on https and use
 5. Acquire google OAuth credentials
 6. Modify jupyterhub_config.py to use google OAuth
 
+<br>
 
 ### 1. Run **jupterhub** as a system service
 
@@ -93,6 +94,8 @@ $ sudo systemctl status jupyterhub
  Active: active (running)
 ```
 
+<br>
+
 ### 2. Test local OAuth
 
 Now we can go to the server and log in as our non-root user, and log in as the other user we created ```kendra```
@@ -111,6 +114,8 @@ Something similar to this in jupyterhub_config.py
 
 c.LocalGoogleOAuthenticator.create_system_users = True
 ```
+
+<br>
 
 ### 3. Acquire Github OAuth credentials
 
@@ -183,31 +188,37 @@ Browse over to the hub's URL and we should be able to log in with a github usern
 
 ![Sign in with GitHub](/posts/jupyterhub/sign_in_with_github.PNG)
 
+<br>
+
 ### 3. Google Authenticator
 
 Now that the github authenticator works, we are going to get into the weeds of getting the google authenticator to work. Why google authenticator instead of github? Our college uses the gmail suite for both staff and students. When students log onto their college email, they are logging into gmail. Students can use google calendar and google drive with their college email account as well. So it is probably best that students log into juypter hub using the same google login that they use to access their college email, google drive and calendar. 
 
 First up we need to set up a google OAuth instance. I did this using my personal gmail account rather than my college gmail account. Some of the part of google suite are not available in my college profile like youtube and developer tabs. 
 
-To obtain the google OAuth credentials, we need to log into the google API console [https://console.developers.google.com/](https://console.developers.google.com/).
+To obtain the google OAuth credentials, we need to log into the google API console [https://console.developers.google.com/](https://console.developers.google.com/) and select [Credentials] on the lefthand menus
+
+![google oauth credentials](/posts/jupyterhub/google_oauth_credentials.png)
+
+Next we'll create a new OAuth credential under [credentials] --> [create credentials] --> [OAuth Client ID]:
+
+![google create credentials](/posts/jupyterhub/google_oauth_credentials.png)
 
 When getting google OAuth credentials you will need to input:
 
  * Authorized JavaScript origins: https://notebooks.yourdomain.com
  * callback url: https://notebooks.yourdomain.com/hub/oauth_callback
 
+![google js origins and callback url](/posts/jupyterhub/google_oauth_javascript_origins_redirect_uri.png)
+
 After creating a new set of google OAuth credentials, note the:
 
  * client id
  * client secret
-
-
  
-Then the following environmental variables need to be specified:
-
- * OAUTH_CALLBACK_URL
- * OAUTH_CLIENT_ID
- * OAUTH_CLIENT_SECRET
+![google client ID and secret](/posts/jupyterhub/google_oauth_client_id_and_secret.png)
+ 
+ These two longs strings will be included in our revised jupyterhub configuration.
 
 Once we get our google OAuth credentials, we need to edit ```jupyterhub_conf.py```
 
@@ -225,16 +236,16 @@ c.JupyterHub.authenticator_class = LocalGoogleOAuthenticator
 
 c.LocalGoogleOAuthenticator.create_system_users = True
 
-c.LocalGoogleOAuthenticator.hosted_domain = 'pcc.edu'
-c.LocalGoogleOAuthenticator.login_service = 'Portland Community College'
+c.LocalGoogleOAuthenticator.hosted_domain = 'yourcollege.edu'
+c.LocalGoogleOAuthenticator.login_service = 'Your College Name'
 
-c.LocalGoogleOAuthenticator.oauth_callback_url = os.environ['OAUTH_CALLBACK_URL']
-c.LocalGoogleOAuthenticator.oauth_client_id = os.environ['OAUTH_CLIENT_ID']
-c.LocalGoogleOAuthenticator.oauth_client_secret = os.environ['OAUTH_CLIENT_SECRET']
+c.LocalGoogleOAuthenticator.oauth_callback_url = 'https://notebooks.yourserver.com/hub/oauth_callback'
+c.LocalGoogleOAuthenticator.oauth_client_id = 'xxxxxxxxxxxxxxxxxxxxx'
+c.LocalGoogleOAuthenticator.oauth_client_secret = 'xxxxxxxxxxxxxxxxxxx"
 #c.JupyterHub.cookie_secret_file = '/srv/jupyterhub/jupyterhub_cookie_secret'
 c.Authenticator.add_user_cmd = ['adduser', '-q', '--gecos', '""', '--disabled-password', '--force-badname']
-c.Authenticator.whitelist = {'peter.kazarinoff','peter','sergio.amador','dan.kruger'}
-c.Authenticator.admin_users = {'peter.kazarinoff'}
+c.Authenticator.whitelist = {'studnet.username','faculty.username'}
+c.Authenticator.admin_users = {'faculty.username'}
 ``` 
 
 This little line:
@@ -243,30 +254,13 @@ This little line:
 c.Authenticator.add_user_cmd = ['adduser', '-q', '--gecos', '""', '--disabled-password', '--force-badname']
 ```
 
-was a real gottacha. Our college email addresses are in the form
+was a real gottacha. Our college email addresses are in the form:
 
 firstname.lastname@college.edu 
 
-So jupyterhub was trying to create users with dots ```.``` in their usernames. This doesn't work in linux. I tried creating a new user with a dot in their username and it asked me to use the ```--force-badname``` flag. So that is what we'll add to the ```c.Authenticator.add_user_cmd``` list. Otherwise the users will be able to authenticate, they won't get a new account on the server and they won't be able to run notebooks.
+So jupyterhub was trying to create users with dots ```.``` in their usernames. This doesn't work in linux. I tried creating a new user with a dot in their username and it asked me to use the ```--force-badname``` flag. So that is what we'll add to the ```c.Authenticator.add_user_cmd``` list. Otherwise the users will be able to authenticate, buy they won't get a new account on the server and they won't be able to run notebooks.
 
 We are also going to edit the ```/etc/systemd/system/jupyterhub.service``` to include the google OAuth client ID and client secret as part of the environmental variables that load when the system service starts.
-
-```
-$ cd /etc/systemd/system
-$ sudo nano jupyterhub.serice
-```
-
-Now add lines for 
-
- * OAUTH_CALLBACK_URL
- * OAUTH_CLIENT_ID
- * OAUTH_CLIENT_SECRET
- 
- ```python
-* OAUTH_CALLBACK_URL
- * OAUTH_CLIENT_ID
- * OAUTH_CLIENT_SECRET
-```
 
 Restart jupyterhub and browse to the web address
 
@@ -281,11 +275,14 @@ The login window should look something like:
 
 ![Sign in with google](/posts/jupyterhub/sign_in_with_google.PNG)
 
+We can log in with our google user name and password (college username and password). Pretty sweet.
+
+<br>
+
 ### Summary
 In this post, We will also set **jupyterhub** to run as a system service in the background which will allow us to work on the server and run **jupyterhub** at the same time. Then we added a github authentication system so that users could log into our Jupyter Hub server using their github usernames and passwords. Then we modified the authentication system to use google user names and passwords even if the usernames contained a dot. 
 
-
+<br>
 
 ### Next Steps
-Up next we will see if we can populate each new user's working directory tree with a couple of notebooks that will be the three labs of the quarter. We'll see if we can pull these up from github so that they can be easily edited and viewed by the students before the quarter starts. 
-
+Up next we will see if we can populate each new user's working directory tree with a couple of notebooks that will be the three labs of the quarter. We'll see if we can pull these up from github so that they can be easily edited and viewed by the students before the quarter starts.

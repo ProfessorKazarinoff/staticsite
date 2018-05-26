@@ -278,7 +278,7 @@ Python for Undergraduate Engineers            </a>
     </span>
 
             <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x000001E214552670> of 
+            Part <built-in method index of str object at 0x000001F6AE7521B0> of 
 
 
 
@@ -316,6 +316,7 @@ Python for Undergraduate Engineers            </a>
 <li>Acquire google OAuth credentials</li>
 <li>Modify jupyterhub_config.py to use google OAuth</li>
 </ol>
+<p><br></p>
 <h3>1. Run <strong>jupterhub</strong> as a system service</h3>
 <p>Working off of <a href="https://github.com/jupyterhub/jupyterhub/wiki/Run-jupyterhub-as-a-system-service">this wiki</a></p>
 <p>To run jupyterhub as a system service, we need to create a service file in the <code>/etc/systemd/system</code> directory. <code>cd</code> into the directory and have a look around. You should see a couple files that end in <code>.service</code></p>
@@ -366,6 +367,7 @@ $ sudo systemctl start jupyterhub
 </pre></div>
 
 
+<p><br></p>
 <h3>2. Test local OAuth</h3>
 <p>Now we can go to the server and log in as our non-root user, and log in as the other user we created <code>kendra</code></p>
 <p>A couple times I thought that <strong>jupyterhub</strong> was running after using <code>systemctl start jupyterhub</code> but the hub wasn't working when I went to the hub's web address. It turned out that <strong>jupyterhub</strong> wasn't running when I keyed in <code>systemctl status jupyterhub</code>. Most times looking for an error and tracking down the the error worked, but one time it seemed to be a problem with the http-configurable-proxy. The following command will shut down the proxy if you get stuck like I did (insert the number corresponding to the configurable-http-proxy process after the <code>kill</code> command):</p>
@@ -381,6 +383,7 @@ c.LocalGoogleOAuthenticator.create_system_users = True
 </pre></div>
 
 
+<p><br></p>
 <h3>3. Acquire Github OAuth credentials</h3>
 <p>A problem now is that if we go to the admin page on jupyter hub, we can't add new users. The users have to be added to the server using PuTTY first and then can be added to jupyterhub with the admin panel. This is OK for a small team or a couple users, but for a college class, creating a new user on the server for each student, then emailing out passwords... Ah! what a mess. So we need to give jupyterhub the authority to create new users from the admin panel and we need a way to have users login with a user name and password they already have.</p>
 <p>One of the ways that students could log into Jupyter Hub is using their github credentials. This would require each student to have a github account. A github account for each student might be worth it to give students the exposure git and github as a tools. So let's give the github authenticator a whirl. The github authenticator is also pretty well documented for Jupyter Hub, so it is good authenticator to try first.</p>
@@ -437,30 +440,31 @@ $ sudo systemctl status jupyterhub
 
 <p>Browse over to the hub's URL and we should be able to log in with a github username and password. </p>
 <p><img alt="Sign in with GitHub" src="/posts/jupyterhub/sign_in_with_github.PNG"></p>
+<p><br></p>
 <h3>3. Google Authenticator</h3>
 <p>Now that the github authenticator works, we are going to get into the weeds of getting the google authenticator to work. Why google authenticator instead of github? Our college uses the gmail suite for both staff and students. When students log onto their college email, they are logging into gmail. Students can use google calendar and google drive with their college email account as well. So it is probably best that students log into juypter hub using the same google login that they use to access their college email, google drive and calendar. </p>
 <p>First up we need to set up a google OAuth instance. I did this using my personal gmail account rather than my college gmail account. Some of the part of google suite are not available in my college profile like youtube and developer tabs. </p>
-<p>When getting google OAuth credentials note:</p>
+<p>To obtain the google OAuth credentials, we need to log into the google API console <a href="https://console.developers.google.com/">https://console.developers.google.com/</a> and select [Credentials] on the lefthand menus</p>
+<p><img alt="google oauth credentials" src="/posts/jupyterhub/google_oauth_credentials.png"></p>
+<p>Next we'll create a new OAuth credential under [credentials] --&gt; [create credentials] --&gt; [OAuth Client ID]:</p>
+<p><img alt="google create credentials" src="/posts/jupyterhub/google_oauth_credentials.png"></p>
+<p>When getting google OAuth credentials you will need to input:</p>
 <ul>
-<li>
-<p>callback url: https://notebooks.problemsolvingwithpython.com/hub/oauth_callback</p>
-</li>
-<li>
-<p>client id</p>
-</li>
+<li>Authorized JavaScript origins: https://notebooks.yourdomain.com</li>
+<li>callback url: https://notebooks.yourdomain.com/hub/oauth_callback</li>
+</ul>
+<p><img alt="google js origins and callback url" src="/posts/jupyterhub/google_oauth_javascript_origins_redirect_uri.png"></p>
+<p>After creating a new set of google OAuth credentials, note the:</p>
+<ul>
+<li>client id</li>
 <li>client secret</li>
-<li>hosted domain: college.edu</li>
-<li>login service: College Name </li>
 </ul>
-<p>Then the following environmental variables need to be specified:</p>
-<ul>
-<li>OAUTH_CALLBACK_URL</li>
-<li>OAUTH_CLIENT_ID</li>
-<li>OAUTH_CLIENT_SECRET</li>
-</ul>
+<p><img alt="google client ID and secret" src="/posts/jupyterhub/google_oauth_client_id_and_secret.png"></p>
+<p>These two longs strings will be included in our revised jupyterhub configuration.</p>
 <p>Once we get our google OAuth credentials, we need to edit <code>jupyterhub_conf.py</code></p>
 <div class="highlight"><pre><span></span><span class="c1">#jupyterhub_conf.py</span>
 
+<span class="kn">import</span> <span class="nn">os</span>
 <span class="n">c</span> <span class="o">=</span> <span class="n">get_config</span><span class="p">()</span>
 <span class="n">c</span><span class="o">.</span><span class="n">JupyterHub</span><span class="o">.</span><span class="n">log_level</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="n">c</span><span class="o">.</span><span class="n">Spawner</span><span class="o">.</span><span class="n">cmd</span> <span class="o">=</span> <span class="s1">&#39;/home/peter/anaconda3/bin/jupyterhub-singleuser&#39;</span>
@@ -471,16 +475,16 @@ $ sudo systemctl status jupyterhub
 
 <span class="n">c</span><span class="o">.</span><span class="n">LocalGoogleOAuthenticator</span><span class="o">.</span><span class="n">create_system_users</span> <span class="o">=</span> <span class="bp">True</span>
 
-<span class="n">c</span><span class="o">.</span><span class="n">LocalGoogleOAuthenticator</span><span class="o">.</span><span class="n">hosted_domain</span> <span class="o">=</span> <span class="s1">&#39;pcc.edu&#39;</span>
-<span class="n">c</span><span class="o">.</span><span class="n">LocalGoogleOAuthenticator</span><span class="o">.</span><span class="n">login_service</span> <span class="o">=</span> <span class="s1">&#39;Portland Community College&#39;</span>
+<span class="n">c</span><span class="o">.</span><span class="n">LocalGoogleOAuthenticator</span><span class="o">.</span><span class="n">hosted_domain</span> <span class="o">=</span> <span class="s1">&#39;yourcollege.edu&#39;</span>
+<span class="n">c</span><span class="o">.</span><span class="n">LocalGoogleOAuthenticator</span><span class="o">.</span><span class="n">login_service</span> <span class="o">=</span> <span class="s1">&#39;Your College Name&#39;</span>
 
-<span class="n">c</span><span class="o">.</span><span class="n">LocalGoogleOAuthenticator</span><span class="o">.</span><span class="n">oauth_callback_url</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;OAUTH_CALLBACK_URL&#39;</span><span class="p">]</span>
-<span class="n">c</span><span class="o">.</span><span class="n">LocalGoogleOAuthenticator</span><span class="o">.</span><span class="n">oauth_client_id</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;OAUTH_CLIENT_ID&#39;</span><span class="p">]</span>
-<span class="n">c</span><span class="o">.</span><span class="n">LocalGoogleOAuthenticator</span><span class="o">.</span><span class="n">oauth_client_secret</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;OAUTH_CLIENT_SECRET&#39;</span><span class="p">]</span>
+<span class="n">c</span><span class="o">.</span><span class="n">LocalGoogleOAuthenticator</span><span class="o">.</span><span class="n">oauth_callback_url</span> <span class="o">=</span> <span class="s1">&#39;https://notebooks.yourserver.com/hub/oauth_callback&#39;</span>
+<span class="n">c</span><span class="o">.</span><span class="n">LocalGoogleOAuthenticator</span><span class="o">.</span><span class="n">oauth_client_id</span> <span class="o">=</span> <span class="s1">&#39;xxxxxxxxxxxxxxxxxxxxx&#39;</span>
+<span class="n">c</span><span class="o">.</span><span class="n">LocalGoogleOAuthenticator</span><span class="o">.</span><span class="n">oauth_client_secret</span> <span class="o">=</span> <span class="s1">&#39;xxxxxxxxxxxxxxxxxxx&quot;</span>
 <span class="c1">#c.JupyterHub.cookie_secret_file = &#39;/srv/jupyterhub/jupyterhub_cookie_secret&#39;</span>
 <span class="n">c</span><span class="o">.</span><span class="n">Authenticator</span><span class="o">.</span><span class="n">add_user_cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;adduser&#39;</span><span class="p">,</span> <span class="s1">&#39;-q&#39;</span><span class="p">,</span> <span class="s1">&#39;--gecos&#39;</span><span class="p">,</span> <span class="s1">&#39;&quot;&quot;&#39;</span><span class="p">,</span> <span class="s1">&#39;--disabled-password&#39;</span><span class="p">,</span> <span class="s1">&#39;--force-badname&#39;</span><span class="p">]</span>
-<span class="n">c</span><span class="o">.</span><span class="n">Authenticator</span><span class="o">.</span><span class="n">whitelist</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;peter.kazarinoff&#39;</span><span class="p">,</span><span class="s1">&#39;peter&#39;</span><span class="p">,</span><span class="s1">&#39;sergio.amador&#39;</span><span class="p">,</span><span class="s1">&#39;dan.kruger&#39;</span><span class="p">}</span>
-<span class="n">c</span><span class="o">.</span><span class="n">Authenticator</span><span class="o">.</span><span class="n">admin_users</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;peter.kazarinoff&#39;</span><span class="p">}</span>
+<span class="n">c</span><span class="o">.</span><span class="n">Authenticator</span><span class="o">.</span><span class="n">whitelist</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;studnet.username&#39;</span><span class="p">,</span><span class="s1">&#39;faculty.username&#39;</span><span class="p">}</span>
+<span class="n">c</span><span class="o">.</span><span class="n">Authenticator</span><span class="o">.</span><span class="n">admin_users</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;faculty.username&#39;</span><span class="p">}</span>
 </pre></div>
 
 
@@ -489,9 +493,10 @@ $ sudo systemctl status jupyterhub
 </pre></div>
 
 
-<p>was a real gottacha. Our college email addresses are in the form</p>
+<p>was a real gottacha. Our college email addresses are in the form:</p>
 <p>firstname.lastname@college.edu </p>
-<p>So jupyterhub was trying to create users with dots <code>.</code> in their usernames. This doesn't work in linux. I tried creating a new user with a dot in their username and it asked me to use the <code>--force-badname</code> flag. So that is what we'll add to the <code>c.Authenticator.add_user_cmd</code> list. Otherwise the users will be able to authenticate, they won't get a new account on the server and they won't be able to run notebooks.</p>
+<p>So jupyterhub was trying to create users with dots <code>.</code> in their usernames. This doesn't work in linux. I tried creating a new user with a dot in their username and it asked me to use the <code>--force-badname</code> flag. So that is what we'll add to the <code>c.Authenticator.add_user_cmd</code> list. Otherwise the users will be able to authenticate, buy they won't get a new account on the server and they won't be able to run notebooks.</p>
+<p>We are also going to edit the <code>/etc/systemd/system/jupyterhub.service</code> to include the google OAuth client ID and client secret as part of the environmental variables that load when the system service starts.</p>
 <p>Restart jupyterhub and browse to the web address</p>
 <div class="highlight"><pre><span></span>$ sudo systemctl stop jupyterhub
 $ sudo systemctl start jupyterhub
@@ -502,10 +507,13 @@ $ sudo systemctl status jupyterhub
 
 <p>The login window should look something like:</p>
 <p><img alt="Sign in with google" src="/posts/jupyterhub/sign_in_with_google.PNG"></p>
+<p>We can log in with our google user name and password (college username and password). Pretty sweet.</p>
+<p><br></p>
 <h3>Summary</h3>
 <p>In this post, We will also set <strong>jupyterhub</strong> to run as a system service in the background which will allow us to work on the server and run <strong>jupyterhub</strong> at the same time. Then we added a github authentication system so that users could log into our Jupyter Hub server using their github usernames and passwords. Then we modified the authentication system to use google user names and passwords even if the usernames contained a dot. </p>
+<p><br></p>
 <h3>Next Steps</h3>
-<p>Up next we will see if we can populate each new user's working directory tree with a couple of notebooks that will be the three labs of the quarter. We'll see if we can pull these up from github so that they can be easily edited and viewed by the students before the quarter starts. </p>
+<p>Up next we will see if we can populate each new user's working directory tree with a couple of notebooks that will be the three labs of the quarter. We'll see if we can pull these up from github so that they can be easily edited and viewed by the students before the quarter starts.</p>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">
@@ -519,7 +527,7 @@ $ sudo systemctl status jupyterhub
     </ul>
 </section>
 <section class="well" id="related-posts">
-    <h4>Article <built-in method index of str object at 0x000001E214552670> of the  series</h4>
+    <h4>Article <built-in method index of str object at 0x000001F6AE7521B0> of the  series</h4>
 </section>
         </article>
     </section>

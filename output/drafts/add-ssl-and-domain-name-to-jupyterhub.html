@@ -185,7 +185,7 @@ init_mathjax();
         <meta property="og:title" content="Adding SSL and a domain name to Jupyter Hub"/>
         <meta property="og:url" content="/drafts/add-ssl-and-domain-name-to-jupyterhub.html"/>
         <meta property="og:description" content="This is the fifth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to link a domain name to our server IP address, add SSL security and configure nginx to run as a proxy in between users and jupyterhub. Then we&#39;ll run jupyterhub over https using the SSL security we created."/>
-        <meta property="article:published_time" content="2018-05-24" />
+        <meta property="article:published_time" content="2018-05-25" />
             <meta property="article:section" content="jupyter" />
             <meta property="article:tag" content="jupyter" />
             <meta property="article:tag" content="jupyter hub" />
@@ -274,11 +274,11 @@ Python for Undergraduate Engineers            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2018-05-24T12:40:00-07:00"> Thu 24 May 2018</time>
+        <i class="fa fa-calendar"></i><time datetime="2018-05-25T12:40:00-07:00"> Fri 25 May 2018</time>
     </span>
 
             <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x000001E2143724B0> of 
+            Part <built-in method index of str object at 0x000001F6AE857230> of 
 
 
 
@@ -310,12 +310,13 @@ Python for Undergraduate Engineers            </a>
 <h3>Steps in this post:</h3>
 <ol>
 <li>Link domain name to server IP address</li>
-<li>Install nginx</li>
-<li>Use cirtbox to generate SSL certificates</li>
-<li>Create jupyterhub_config.py and modify</li>
-<li>Modify nginx_conf</li>
-<li>Start restart nginx and start jupyterhub. See if we can log in.</li>
-<li>Create another system user on the server. Restart jupyterhub and log in as new user.</li>
+<li>Install nginx and modify ufw</li>
+<li>Obtain SSL certificates with certbot</li>
+<li>Create a cookie secret and a proxy auth token</li>
+<li>Modify nginx config</li>
+<li>Generate jupyterhub_config.py and modify</li>
+<li>Restart nginx and start jupyterhub, see if we can login</li>
+<li>Create an new user and restart <strong>jupyterhub</strong>. See if the new user can log in.</li>
 </ol>
 <p><br></p>
 <h3>1. Link domain name to server IP address</h3>
@@ -339,7 +340,7 @@ ns3.digitalocean.com
 <p>In the [Add a domain] field, type in the domain name without http, but including .com (or .edu/.org/.net) then click [Add Domain].</p>
 <p><img alt="DO Domains/DNS" src="/posts/jupyterhub/DO_add_domain.png"></p>
 <p>This will bring up a panel where we can add a DNS record. I want the notebook server to have the web address </p>
-<p><em>https://notebooks.problemsovlingwithpython.com</em></p>
+<p>https://notebooks.problemsovlingwithpython.com_</p>
 <p>So I entered <code>notebooks</code> in the text field. Then selected the droplet (server) that the web address will to route to.</p>
 <p><img alt="DO Domains/DNS" src="/posts/jupyterhub/DO_sub_domain.png"></p>
 <p>After completing this step, there will be a number of new DNS records. The ones I set up are below:</p>
@@ -457,10 +458,10 @@ $ sudo chmod <span class="m">777</span> -R live/
 
 
 <p><br></p>
-<h3>4. Create cookie secret and proxy auth token</h3>
+<h3>4. Create a cookie secret and a proxy auth token</h3>
 <p>In addition to the SSL certificate, the <a href="http://jupyterhub.readthedocs.io/en/latest/getting-started/security-basics.html">Jupyter Hub docs on security basics</a> specify that a cookie secret and poxy auth token should be created. To create the cookie secret:</p>
 <div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~
-$ mdir srv/jupyterhub
+$ mkdir srv/jupyterhub
 $ <span class="nb">cd</span> srv/jupyterhub
 $ openssl rand -hex <span class="m">32</span> &gt; jupyterhub_cookie_secret
 $ ls
@@ -471,8 +472,9 @@ $ ls
 <p>To generate the proxy auth token, we can use the same command, but point to a different file. </p>
 <div class="highlight"><pre><span></span>$ <span class="nb">pwd</span>
 <span class="c1"># should be in ~/srv/jupyterhub</span>
-$  openssl rand -hex <span class="m">32</span> &gt; proxy_auth_token
+$ openssl rand -hex <span class="m">32</span> &gt; proxy_auth_token
 $ ls
+jupyterhub_cookie_secret  proxy_auth_token
 </pre></div>
 
 
@@ -485,7 +487,7 @@ $ ls
 
 <p>Also we can generate a dhparam.pem file. I'm not exactly sure what the dhparam.pem file is but I think it's good for security. First we need to <code>cd</code> into <code>/etc/nginx</code> and create a new <code>ssl</code> directory. Next give the <code>ssl</code> directory 777 permissions and <code>touch</code> a new file called dhparam.pem. After that we can use openssl to generate the dhparams.pem file.</p>
 <div class="highlight"><pre><span></span>cd /etc/nginx
-mkdir ssl
+sudo mkdir ssl
 sudo chmod 777 -R ssl/
 touch ssl/dhparam.pem
 sudo openssl dhparam -out /etc/nginx/ssl/dhparam.pem 2048
@@ -506,7 +508,10 @@ $ sudo nano nginx.conf
 
 
 <p>The nginx config that eventually worked for me is below. It can also be found <a href="https://github.com/ProfessorKazarinoff/jupyterhub-svr/blob/master/nginx.conf">here</a>:</p>
-<div class="highlight"><pre><span></span>user www-data;
+<p>Note the line which shows the path to the SSL certificates. This will change based on your domain and where certbot showed the SSL .pem files were saved to.</p>
+<div class="highlight"><pre><span></span>## Based on: https://github.com/calpolydatascience/jupyterhub-deploy-data301/blob/master/roles/nginx/templates/nginx.conf.j2
+
+user www-data;
 worker_processes 4;
 pid /run/nginx.pid;
 
@@ -561,7 +566,7 @@ http {
         ssl_stapling_verify on;
 
         # modern configuration. tweak to your needs.
-        ssl_ciphers &#39;ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:$
+        ssl_ciphers &#39;ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256&#39;;
 
         # HSTS (ngx_http_headers_module is required) (15768000 seconds = 6 months)
         add_header Strict-Transport-Security max-age=15768000;
@@ -588,7 +593,7 @@ http {
 
 <p>Save and exit with [Ctrl] + [c] and [y]</p>
 <p><br></p>
-<h3>5. Generate jupyterhub_config.py and modify</h3>
+<h3>6. Generate jupyterhub_config.py and modify</h3>
 <p>Next, we'll generate a jupyterhub_config.py file and modify it a little bit. </p>
 <div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~
 $ jupyterhub --generate-config
@@ -614,7 +619,7 @@ $ jupyterhub --generate-config
 
 
 <p><br></p>
-<h3>6. Restart nginx and start jupyterhub, see if we can login</h3>
+<h3>7. Restart nginx and start jupyterhub, see if we can login</h3>
 <p>Now we'll restart nginx and start jupyterhub. Not that this time when we start jupyter hub we don't need to use the <code>--no-ssl</code> flag because we have SSL running on nginx. If it seems like nginx isn't working, try <code>$ sudo systemctl status nginx</code> and see if nginx really started. If it didn't, try the command <code>nginx -t</code>. This will print out any error messages if nginx failed to start. I had to do this many different times before I got nginx to work.</p>
 <div class="highlight"><pre><span></span>$ sudo systemctl stop nginx
 $ sudo systemctl start nginx
@@ -626,7 +631,7 @@ $ jupyterhub
 
 <p>Now we can browse to our domain and see Jupyter Hub running in its full SSL glory. Log in with the non-root sudo username and password (same user that's running the PuTTY session).</p>
 <p><br></p>
-<h3>7. Create an new user and restart <strong>jupyterhub</strong>. See if new user can log in.</h3>
+<h3>8. Create an new user and restart <strong>jupyterhub</strong>. See if the new user can log in.</h3>
 <p>OK, it's all well and good that we can log into <strong>jupyterhub</strong>. But the purpose of setting of of this up is for multiple students to be able to log into <strong>jupyterhub</strong>. If <strong>jupyterhub</strong> is still running, it can be stopped with [Ctrl] + [c].  Let's create a new user and see if we can log in as her.</p>
 <div class="highlight"><pre><span></span>$ sudo adduser kendra
 </pre></div>
@@ -663,7 +668,7 @@ c.Authenticator.admin_users = {&#39;peter&#39;}
     </ul>
 </section>
 <section class="well" id="related-posts">
-    <h4>Article <built-in method index of str object at 0x000001E2143724B0> of the  series</h4>
+    <h4>Article <built-in method index of str object at 0x000001F6AE857230> of the  series</h4>
 </section>
         </article>
     </section>

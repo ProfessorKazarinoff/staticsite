@@ -8,9 +8,9 @@ Slug: add-ssl-and-domain-name-to-jupyterhub
 Authors: Peter D. Kazarinoff
 Series: Jupyter Hub
 Series_index: 5
-Summary: This is the fifth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to link a domain name to our server IP address, add SSL security and configure nginx to run as a proxy in between users and jupyterhub. Then we'll run jupyterhub over https using the SSL security we created.
+Summary: This is the fifth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to link a domain name to our server IP address, add SSL security and configure nginx to run as a proxy in between users and jupyterhub. Then we'll run **jupyterhub** over https using the SSL security we created.
 
-This is the fifth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to link a domain name to our server IP address, add SSL security and configure nginx to run as a proxy in between users and jupyterhub. Then we'll run jupyterhub over https using the SSL security we created.
+This is the fifth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to link a domain name to our server IP address, add SSL security and configure nginx to run as a proxy in between users and jupyterhub. Then we'll run **jupyterhub** over https using the SSL security we created.
 
 ### Posts in this series
 
@@ -24,7 +24,7 @@ This is the fifth part of a multi-part series that shows how to set up Jupyter H
 
 ### Last time
 
-In the [last post](({filename}/posts/jupyterhub/installing_jupyterhub.md)), we installed **Anaconda** on the server using a shell script. Then we installed some extra **Python** packages such as **pint**, **pyserial** and **schemdraw** to our base conda environment. Next we installed **jupyterhub**, opened up port 8000 and ran jupyterhub for the first time! And remember **we shut down jupyter hub very quickly** because we ran it without any SSL security.
+In the [last post](({filename}/posts/jupyterhub/installing_jupyterhub.md)), we installed **Anaconda** on the server using a shell script. Then we installed some extra Python packages such as **pint**, **pyserial** and **schemdraw** to our base conda environment. Next we installed **jupyterhub**, opened up port 8000 and ran **jupyterhub** for the first time! And remember **we shut down jupyter hub very quickly** because we ran it without any SSL security.
 
 ### Steps in this post:
 
@@ -43,7 +43,7 @@ In the [last post](({filename}/posts/jupyterhub/installing_jupyterhub.md)), we i
 
 When we started Jupyter Hub in the previous post, it ran, we could log in, and we could run Python code. What's not to like, right? Well, security is the big problem. 
 
-In the initial setup, Jupyter Hub was running under regular http, not https. With a web application that has usernames and passwords, like Jupyter Hub, having https and SSL security is best. In order to use https, we need to get an SSL certificate. And that SSL certificate should correspond to the domain name linked to our server. So the first step is getting the domain name and pointing it at Digital Ocean. The next step is linking the domain name to our Jupyter Hub server.
+In the initial setup, Jupyter Hub was running under regular http, not https. With a web application that has usernames and passwords, like Jupyter Hub, having https and SSL security is best (or maybe manditory). In order to use https, we need to get an SSL certificate. And that SSL certificate should correspond to the domain name linked to our server. So the first step is getting the domain name and pointing it at Digital Ocean. The next step is linking the domain name to our Jupyter Hub server.
 
 #### Google Domains
 
@@ -51,7 +51,7 @@ I purchased the domain _problemsolvingwithpython.com_ from [google domains](http
 
 ![Google Domains Dashboard](/posts/jupyterhub/google_domains_list.png)
 
-To add a set of custom name servers, click the the button with the two bars under the DNS header. This will bring up a page where you can enter in the Digital Ocean DNS servers. The name servers to add are:
+To add a set of custom name servers, click the button with the two bars under the DNS header. This will bring up a page where you can enter in the Digital Ocean DNS servers. The name servers to add are:
 
 ```
 ns1.digitalocean.com
@@ -61,7 +61,7 @@ ns3.digitalocean.com
 
 ![Google Domains Dashboard](/posts/jupyterhub/google_domains_dns_routing.png)
 
-Make sure to click the radio button [Use custom name servers]
+Make sure to click the radio button [Use custom name servers] and click [save].
 
 #### Digital Ocean DNS
 
@@ -75,7 +75,7 @@ In the [Add a domain] field, type in the domain name without http, but including
 
 This will bring up a panel where we can add a DNS record. I want the notebook server to have the web address 
 
-https://notebooks.problemsovlingwithpython.com_
+https://notebooks.problemsovlingwithpython.com
 
 So I entered ```notebooks``` in the text field. Then selected the droplet (server) that the web address will to route to.
 
@@ -128,7 +128,7 @@ We can check out which ports ufw is allowing through with:
 $ sudo ufw status
 ```
 
-Note in the output how ufw is allowing nginx full and requests over port 8000. We opened port 8000 earlier, so we could see how jupyterhub works without a domain name or SSL.  Once we get nginx running and hooked up to jupyterhub, we need to remember to close off port 8000 in ufw.
+Note in the output how ufw is allowing nginx full and requests over port 8000. We opened port 8000 earlier, so we could see how **jupyterhub** works without a domain name or SSL.  Once we get nginx running and hooked up to **jupyterhub**, we need to remember to close off port 8000 in ufw.
 
 ```
 Status: active
@@ -153,9 +153,9 @@ Nginx will start running as soon at it is installed. We can see the status with:
 $ sudo systemctl status nginx
 ```
 
-In the output, we can see something like below. This mean nginx is running.
+In the output, we should see something like below. This mean nginx is running.
 
-```
+```text
 Active: active (running) since Thu 2018-05-17 04:51:16 UTC; 15min ago
 Main PID: 17126 (nginx)
   CGroup: /system.slice/nginx.service
@@ -163,7 +163,7 @@ Main PID: 17126 (nginx)
     └── 17127 nginx: worker process
 ```
 
-Now we can browse over to the domain (the domain we set up with Digital Ocean and google domains) and we should see the nginx start page.
+Now we can browse over to the domain (the domain we set up with Digital Ocean and google domains) and see the nginx start page.
 
 ![nginx welcome page](/posts/jupyterhub/welcome_to_nginx.png)
 
@@ -171,7 +171,7 @@ Now we can browse over to the domain (the domain we set up with Digital Ocean an
 
 ### 3. Obtain SSL certificates with certbot
 
-With a domain name hooked up to our server, we are now able to obtain an SSL certificate. I followed [this presentation](https://www.slideshare.net/willingc/jupyterhub-tutorial-at-jupytercon) to install certbot, a program used to generate SSL certificates. 
+With a domain name hooked up to our server, we'll now able to obtain an SSL certificate. I followed [this presentation](https://www.slideshare.net/willingc/jupyterhub-tutorial-at-jupytercon) to install certbot, a program used to generate SSL certificates. 
 
 ```
 $ cd ~
@@ -181,13 +181,13 @@ $ wget https://dl.eff.org/certbot-auto
 $ chmod a+x certbot-auto
 ```
 
-Before we can run certbot, we need to turn off nginx. When I first tried to run certbot, I was thrown an error that read:
+Before we can run certbot, we need to turn off nginx. When I first tried to run certbot, I was thrown an error:
 
 ```
 Problem binding to port 80: Could not bind to IPv4 or IPv6.
 ```
 
-Since we installed nginx earlier, and we confirmed that it's running, that means that port 80 is currently in use by nginx. We need to open up port 80 to certbot by temporarily shutting down nginx. Once nginx is stopped, we can run cirtbot and get our SSL certificate. We'll have to restart nginx, but that can wait until we change the nginx configuration file. If you are following along, make sure to change ```notebooks.problemsolvingwithpython.com``` to your domain.
+Since we installed nginx earlier, and we confirmed that it's running, that means that port 80 is currently in use by nginx. We need to open up port 80 to certbot by temporarily shutting down nginx. Once nginx is stopped, we can run certbot and get our SSL certificate. We'll eventually have to restart nginx, but this can wait until after we change the nginx configuration file. If you are following along, make sure to change ```notebooks.problemsolvingwithpython.com``` to your domain.
 
 ```
 $ sudo systemctl stop nginx
@@ -209,7 +209,7 @@ IMPORTANT NOTES:
 
 Note the location of the ```fullchain.pem``` and ```privkey.pem``` files. We'll need to put these locations into the nginx configuration.
 
-We also need to allow nginx to access these files. I had trouble getting nginx to run and [this presentation](https://www.youtube.com/watch?v=alaGteCPZU8&t=1721s) showed a way to give nginx access to the SSL key files. There is probably a more "Linuxy" way of giving nginx access to the cert files, but I messed around with the permission settings a bit and this way worked.
+We also need to allow nginx to access these files. I had trouble getting nginx to run and [this presentation](https://www.youtube.com/watch?v=alaGteCPZU8&t=1721s) showed a way to give nginx access to the SSL key files. There is probably a more "Linuxy" way of giving nginx access to the cert files, but I messed around with the permission settings for a while, and this way worked.
 
 ```
 $ cd /etc/letsencrypt
@@ -226,12 +226,16 @@ $ sudo chmod 777 -R live/
 In addition to the SSL certificate, the [Jupyter Hub docs on security basics](http://jupyterhub.readthedocs.io/en/latest/getting-started/security-basics.html) specify that a cookie secret and poxy auth token should be created. To create the cookie secret:
 
 ```
-$ cd ~
-$ mkdir srv/jupyterhub
-$ cd srv/jupyterhub
-$ openssl rand -hex 32 > jupyterhub_cookie_secret
+$ cd /srv
+$ cd jupyterhub            #if not present, mkdir it
+$ openssl rand -hex 32 > /srv/jupyterhub/jupyterhub_cookie_secret
 $ ls
+$ sudo chmod 600 jupyterhub_cookie_secret
 ```
+
+I had trouble with the cookie secret file because I missed where the [jupyterhub docs](http://jupyterhub.readthedocs.io/en/latest/getting-started/security-basics.html#generating-and-storing-as-a-cookie-secret-file) show:
+
+> The file must not be readable by group or other or the server won’t start. The recommended permissions for the cookie secret file are 600 (owner-only rw).
 
 Now we have a cookie secret file. We need to make note of the location because we'll add this location to the jupyterhub_config.py file later.
 
@@ -239,21 +243,22 @@ To generate the proxy auth token, we can use the same command, but point to a di
 
 ```
 $ pwd
-# should be in ~/srv/jupyterhub
+# should be in /srv/jupyterhub
 $ openssl rand -hex 32 > proxy_auth_token
+$ sudo chmod 600 proxy_auth_token
 $ ls
-jupyterhub_cookie_secret  proxy_auth_token
+cookie_secret  proxy_auth_token
 ```
 
 Now if we list the contents of ```~/srv/jupyterhub``` we should see:
 
 ```
-~/srv/jupyterhub/
+/srv/jupyterhub/
 ├── jupyterhub_cookie_secret
 └── proxy_auth_token
 ```
 
-Also we can generate a dhparam.pem file. I'm not exactly sure what the dhparam.pem file is but I think it's good for security. First we need to ```cd``` into ```/etc/nginx``` and create a new ```ssl``` directory. Next give the ```ssl``` directory 777 permissions and ```touch``` a new file called dhparam.pem. After that we can use openssl to generate the dhparams.pem file.
+Also we can generate a dhparam.pem file. I'm not exactly sure what the dhparam.pem file is, but I think it's good for security. First we need to ```cd``` into ```/etc/nginx``` and create a new ```ssl``` directory. Next give the ```ssl``` directory 777 permissions and ```touch``` a new file called dhparam.pem. After that we can use openssl to generate the dhparams.pem file. Note the location of this file as we will add it to the nginx config file.
 
 ```
 cd /etc/nginx
@@ -267,7 +272,7 @@ sudo openssl dhparam -out /etc/nginx/ssl/dhparam.pem 2048
 
 ### 5. Modify nginx config
 
-The next step is to modify the nginx config file so that nginx uses our SSL certificates and routes requests on to **jupyterhub**. This was the hardest part for me when I set up the first server. The nginx config file isn't Python code or bash script. I went through many different configurations until I got one that worked. The big initial problem that I copied the sample nginx config that's up on the Jupyter Hub docs. But the nginx config posted on the jupyterhub docs is not a complete nginx config, it contains just the server portion. I didn't know that the whole server portion needed to be enclosed in another frame.
+The next step is to modify the nginx config file so that nginx uses our SSL certificates and routes requests on to **jupyterhub**. This was the hardest part for me when I set up the first server. The nginx config file isn't Python code or bash script. I went through many different configurations until I got one that worked. The big initial problem that I copied the sample nginx config that's up on the Jupyter Hub docs. But the nginx config posted on the **jupyterhub** docs is not a complete nginx config, it contains just the server portion. I didn't know that the whole server portion needed to be enclosed in another frame.
  
 To modify ```nginx.conf```, ```cd``` into the ```/etc/nginx``` directory. The nginx.conf file should be there along with a couple other files and directories.
 
@@ -282,7 +287,7 @@ $ sudo nano nginx.conf
 
 The nginx config that eventually worked for me is below. It can also be found [here](https://github.com/ProfessorKazarinoff/jupyterhub-svr/blob/master/nginx.conf):
 
-Note the line which shows the path to the SSL certificates. This will change based on your domain and where certbot showed the SSL .pem files were saved to.
+Note the line which shows the path to the SSL certificates. This will change based on your domain and where certbot saved the .pem files to.
 
 ```text
 
@@ -396,6 +401,10 @@ import os
 c = get_config()
 c.JupyterHub.log_level = 10
 c.Spawner.cmd = '/home/peter/anaconda3/bin/jupyterhub-singleuser'
+
+# Cookie Secret Files
+c.JupyterHub.cookie_secret_file = '/srv/jupyterhub/jupyterhub_cookie_secret'
+c.ConfigurableHTTPProxy.auth_token = '/srv/jupyterhub/proxy_auth_token'
 
 c.Authenticator.whitelist = {'peter'}
 c.Authenticator.admin_users = {'peter'}

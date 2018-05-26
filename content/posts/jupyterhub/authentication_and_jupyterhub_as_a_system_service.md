@@ -24,7 +24,7 @@ This is the sixth part of a multi-part series that shows how to set up Jupyter H
 
 ### Last time
 
-In the last post, we succeeded in getting **jupyterhub** to run on https and use SSL certificates. We created SSL certificates, modified the nginx config and modified the jupyterhub config. At the end of it we were able to get a working version of jupyter hub running SSL security.
+In the last post, we succeeded in getting **jupyterhub** to run on https and use SSL certificates. We created SSL certificates, modified the nginx config and modified the **jupyterhub** config. At the end of it we were able to get a working version of jupyter hub running SSL security.
 
 ### Steps in this post:
 
@@ -41,7 +41,7 @@ In the last post, we succeeded in getting **jupyterhub** to run on https and use
 
 Working off of [this wiki](https://github.com/jupyterhub/jupyterhub/wiki/Run-jupyterhub-as-a-system-service)
 
-To run jupyterhub as a system service, we need to create a service file in the ```/etc/systemd/system``` directory. ```cd``` into the directory and have a look around. You should see a couple files that end in ```.service```
+To run **jupyterhub** as a system service, we need to create a service file in the ```/etc/systemd/system``` directory. ```cd``` into the directory and have a look around. You should see a couple files that end in ```.service```
 
 ```
 $ cd /etc/systemd/system
@@ -119,7 +119,7 @@ c.LocalGoogleOAuthenticator.create_system_users = True
 
 ### 3. Acquire Github OAuth credentials
 
-A problem now is that if we go to the admin page on jupyter hub, we can't add new users. The users have to be added to the server using PuTTY first and then can be added to jupyterhub with the admin panel. This is OK for a small team or a couple users, but for a college class, creating a new user on the server for each student, then emailing out passwords... Ah! what a mess. So we need to give jupyterhub the authority to create new users from the admin panel and we need a way to have users login with a user name and password they already have.
+A problem now is that if we go to the admin page on jupyter hub, we can't add new users. The users have to be added to the server using PuTTY first and then can be added to **jupyterhub** with the admin panel. This is OK for a small team or a couple users, but for a college class, creating a new user on the server for each student, then emailing out passwords... Ah! what a mess. So we need to give **jupyterhub** the authority to create new users from the admin panel and we need a way to have users login with a user name and password they already have.
 
 One of the ways that students could log into Jupyter Hub is using their github credentials. This would require each student to have a github account. A github account for each student might be worth it to give students the exposure git and github as a tools. So let's give the github authenticator a whirl. The github authenticator is also pretty well documented for Jupyter Hub, so it is good authenticator to try first.
 
@@ -218,7 +218,7 @@ After creating a new set of google OAuth credentials, note the:
  
 ![google client ID and secret](/posts/jupyterhub/google_oauth_client_id_and_secret.png)
  
- These two longs strings will be included in our revised jupyterhub configuration.
+ These two longs strings will be included in our revised **jupyterhub** configuration.
 
 Once we get our google OAuth credentials, we need to edit ```jupyterhub_conf.py```
 
@@ -258,11 +258,11 @@ was a real gottacha. Our college email addresses are in the form:
 
 firstname.lastname@college.edu 
 
-So jupyterhub was trying to create users with dots ```.``` in their usernames. This doesn't work in linux. I tried creating a new user with a dot in their username and it asked me to use the ```--force-badname``` flag. So that is what we'll add to the ```c.Authenticator.add_user_cmd``` list. Otherwise the users will be able to authenticate, buy they won't get a new account on the server and they won't be able to run notebooks.
+So **jupyterhub** was trying to create users with dots ```.``` in their usernames. This doesn't work in linux. I tried creating a new user with a dot in their username and it asked me to use the ```--force-badname``` flag. So that is what we'll add to the ```c.Authenticator.add_user_cmd``` list. Otherwise the users will be able to authenticate, buy they won't get a new account on the server and they won't be able to run notebooks.
 
 We are also going to edit the ```/etc/systemd/system/jupyterhub.service``` to include the google OAuth client ID and client secret as part of the environmental variables that load when the system service starts.
 
-Restart jupyterhub and browse to the web address
+Restart **jupyterhub** and browse to the web address
 
 ```
 $ sudo systemctl stop jupyterhub

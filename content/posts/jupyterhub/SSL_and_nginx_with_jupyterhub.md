@@ -8,9 +8,9 @@ Slug: add-ssl-and-domain-name-to-jupyterhub
 Authors: Peter D. Kazarinoff
 Series: Jupyter Hub
 Series_index: 5
-Summary: This is the fifth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to link a domain name to our server IP address, add SSL security and configure nginx to run as a proxy in between users and jupyterhub. Then we'll run **jupyterhub** over https using the SSL security we created.
+Summary: This is the fifth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to link a domain name to our server IP address, add SSL security and configure nginx to run as a proxy in between users and **jupyterhub**. Then we'll run **jupyterhub** over https using the SSL security we created.
 
-This is the fifth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to link a domain name to our server IP address, add SSL security and configure nginx to run as a proxy in between users and jupyterhub. Then we'll run **jupyterhub** over https using the SSL security we created.
+This is the fifth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to link a domain name to our server IP address, add SSL security and configure nginx to run as a proxy in between users and **jupyterhub**. Then we'll run **jupyterhub** over https using the SSL security we created.
 
 ### Posts in this series
 

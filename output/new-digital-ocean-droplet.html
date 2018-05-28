@@ -172,9 +172,9 @@ init_mathjax = function() {
 }
 init_mathjax();
 </script>
-    <link href="./extra/favicon.ico" rel="icon">
+    <link href="/extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="./new-digital-ocean-droplet.html">
+<link rel="canonical" href="/new-digital-ocean-droplet.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
         <meta name="keywords" content="jupyter,jupyter hub,jupyter notebooks,python" />
@@ -183,7 +183,7 @@ init_mathjax();
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="Creating a new Digital Ocean Droplet"/>
-        <meta property="og:url" content="./new-digital-ocean-droplet.html"/>
+        <meta property="og:url" content="/new-digital-ocean-droplet.html"/>
         <meta property="og:description" content="This is the third part of a multi-part series on how to set up Jupyter Hub for a class. My goal is to have a running version of Jupyter Hub that students can access using a simple web link. I am primarily writing to my future self as I may need to set up Jupyter Hub again for a future class. In this post, we are going to create a new Digital Ocean server (called a droplet) and create a non-root user with sudo privileges. Then we&#39;ll SSH into the droplet with PuTTY as the non-root user."/>
         <meta property="article:published_time" content="2018-05-20" />
             <meta property="article:section" content="jupyter" />
@@ -196,21 +196,17 @@ init_mathjax();
 
 
     <!-- Bootstrap -->
-        <link rel="stylesheet" href="./theme/css/bootstrap.flatly.min.css" type="text/css"/>
-    <link href="./theme/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="/theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="./theme/css/pygments/native.css" rel="stylesheet">
-    <link href="./theme/tipuesearch/tipuesearch.css" rel="stylesheet">
-    <link rel="stylesheet" href="./theme/css/style.css" type="text/css"/>
-        <link href="./static/css/custom.css" rel="stylesheet">
-
-        <link href="./feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
-              title="Python for Undergraduate Engineers ATOM Feed"/>
+    <link href="/theme/css/pygments/native.css" rel="stylesheet">
+    <link href="/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+        <link href="/static/css/custom.css" rel="stylesheet">
 
 
 
-        <link href="./feeds/jupyter.atom.xml" type="application/atom+xml" rel="alternate"
-              title="Python for Undergraduate Engineers jupyter ATOM Feed"/>
+
 
 </head>
 <body>
@@ -224,18 +220,18 @@ init_mathjax();
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="./" class="navbar-brand">
+            <a href="/" class="navbar-brand">
 Python for Undergraduate Engineers            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                         <li><a href="./pages/about.html">
+                         <li><a href="/pages/about.html">
                              About
                           </a></li>
-                         <li><a href="./pages/book.html">
+                         <li><a href="/pages/book.html">
                              Book
                           </a></li>
-                         <li><a href="./pages/now.html">
+                         <li><a href="/pages/now.html">
                              Now
                           </a></li>
             </ul>
@@ -245,7 +241,7 @@ Python for Undergraduate Engineers            </a>
                   <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
                 </form></span>
               </li>
-              <li><a href="./archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+              <li><a href="/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -257,15 +253,15 @@ Python for Undergraduate Engineers            </a>
     <div class="row">
         <div class="col-sm-9">
             <ol class="breadcrumb">
-                <li><a href="." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="./category/jupyter.html" title="jupyter">jupyter</a></li>
+                <li><a href="" title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="/category/jupyter.html" title="jupyter">jupyter</a></li>
                 <li class="active">Creating a new Digital Ocean Droplet</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="./new-digital-ocean-droplet.html"
+                    <a href="/new-digital-ocean-droplet.html"
                        rel="bookmark"
                        title="Permalink to Creating a new Digital Ocean Droplet">
                         Creating a new Digital Ocean Droplet
@@ -288,30 +284,30 @@ Python for Undergraduate Engineers            </a>
 
 
 <span class="label label-default">Tags</span>
-	<a href="./tag/jupyter.html">jupyter</a>
+	<a href="/tag/jupyter.html">jupyter</a>
         /
-	<a href="./tag/jupyter-hub.html">jupyter hub</a>
+	<a href="/tag/jupyter-hub.html">jupyter hub</a>
         /
-	<a href="./tag/jupyter-notebooks.html">jupyter notebooks</a>
+	<a href="/tag/jupyter-notebooks.html">jupyter notebooks</a>
         /
-	<a href="./tag/python.html">python</a>
+	<a href="/tag/python.html">python</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
                 <p>This is the third part of a multi-part series on how to set up Jupyter Hub for a class.  My goal is to have a running version of Jupyter Hub that students can access using a simple web link. I am primarily writing to my future self as I may need to set up Jupyter Hub again for a future class. In this post, we are going to create a new Digital Ocean server (called a <em>droplet</em>) and create a non-root user with sudo privileges. Then we'll SSH into the droplet with PuTTY as the non-root user.</p>
-<h3>Posts in this series</h3>
+<h3 id="posts-in-this-series">Posts in this series</h3>
 <ol>
-<li><a href="./why-jupyter-hub.html">Why Jupyter Hub?</a> </li>
-<li><a href="./ssh-keys-with-putty.html">Create ssh key, save to documents/ssh-keys</a></li>
+<li><a href="/why-jupyter-hub.html">Why Jupyter Hub?</a> </li>
+<li><a href="/ssh-keys-with-putty.html">Create ssh key, save to documents/ssh-keys</a></li>
 <li><strong>Create a new Digital Ocean Droplet with a non-root sudo user</strong> (this post)</li>
 <li>Install Jupyter Hub on the server</li>
 <li>Apply SSL, link a domain name to the server and configure nginx</li>
 <li>Connect OAuth to Jupyter Hub</li>
 <li>Connect to Jupyter Hub as student</li>
 </ol>
-<h3>The last post</h3>
-<p>In the <a href="./ssh-keys-with-putty.html">previous post</a>, we created a public/private SSH key pair using PuTTYgen. We saved the SSH keys in the Documents/ssh-keys directory. We also copied contents of the public SSH key to the clipboard.</p>
-<h3>Steps in this post</h3>
+<h3 id="the-last-post">The last post</h3>
+<p>In the <a href="/ssh-keys-with-putty.html">previous post</a>, we created a public/private SSH key pair using PuTTYgen. We saved the SSH keys in the Documents/ssh-keys directory. We also copied contents of the public SSH key to the clipboard.</p>
+<h3 id="steps-in-this-post">Steps in this post</h3>
 <ol>
 <li>Sign up for a Digital Ocean Account</li>
 <li>Create a new Digital Ocean Droplet (will be called <em>the server</em> from here on out)</li>
@@ -319,11 +315,11 @@ Python for Undergraduate Engineers            </a>
 <li>Create a non-root sudo user</li>
 <li>Log into to the server as the non-root sudo user using PuTTY</li>
 </ol>
-<h3>1. Sign up for a Digital Ocean Account</h3>
+<h3 id="1-sign-up-for-a-digital-ocean-account">1. Sign up for a Digital Ocean Account</h3>
 <p>Digital Ocean is a cloud service provider like Amazon Web Services (AWS), Google Cloud, Microsoft Azure and Linode. Digital Ocean provides virtual private servers (called <em>droplets</em> in Digital Ocean-speak) and online storage of static files (called <em>spaces</em> in Digital Ocean-speak). We are going to run the Jupyter Hub server on a Digital Ocean <em>droplet</em>. I like Digital Ocean's prices and web interface. The documentation on Digital Ocean is pretty good too. I already have a Digital Ocean account. I don't remember exactly how I did it, but going to this link:</p>
 <p><a href="https://www.digitalocean.com/">https://www.digitalocean.com/</a></p>
 <p>and selecting [Create Account --&gt;] should work.</p>
-<h3>2. Create a new Digital Ocean Droplet</h3>
+<h3 id="2-create-a-new-digital-ocean-droplet">2. Create a new Digital Ocean Droplet</h3>
 <p>To create a new Digtial Ocean Droplet (a new server), log in here:</p>
 <p><a href="https://cloud.digitalocean.com/login">https://cloud.digitalocean.com/login</a></p>
 <p><img alt="Digital Ocean Login" src="/posts/jupyterhub/digital_ocean_login.png"></p>
@@ -343,7 +339,7 @@ Python for Undergraduate Engineers            </a>
 <p><img alt="Digital Droplet Choices" src="/posts/jupyterhub/digital_ocean_droplet_size_choices.png"></p>
 <p><img alt="Digital Droplet Choices" src="/posts/jupyterhub/digital_ocean_droplet_data_center_choices.png"></p>
 <p><img alt="Digital Droplet Choices" src="/posts/jupyterhub/digital_ocean_droplet_ssh_key__choices.png"></p>
-<h4>Add an SSH Key</h4>
+<h4 id="add-an-ssh-key">Add an SSH Key</h4>
 <div class="alert alert-warning" role="alert">
   <strong>Important!</strong> You need to add the public SSH key BEFORE creating the droplet
 </div>
@@ -364,7 +360,7 @@ Python for Undergraduate Engineers            </a>
 <p>This will bring you back the the Digital Ocean main dashboard and you should see your new droplet under [Resources] --&gt; [Droplets]</p>
 <p><img alt="Putty in Windows Start Menu" src="/posts/jupyterhub/digital_ocean_droplets_1.png"></p>
 <p>Note the IP address of the new droplet. We need to IP address to log into our server with PuTTY.</p>
-<h3>3. Log into the server as root over SSH using PuTTY.</h3>
+<h3 id="3-log-into-the-server-as-root-over-ssh-using-putty">3. Log into the server as root over SSH using PuTTY.</h3>
 <p>Open PuTTY from the Windows start menu. A couple other parameters need to be set before we log onto the server.</p>
 <table class="table table-striped table-bordered table-hover">
 <thead>
@@ -403,7 +399,7 @@ Python for Undergraduate Engineers            </a>
 <p><img alt="Putty IP address and Port" src="/posts/jupyterhub/puTTY_IP_and_Port.png"></p>
 <p>This should bring up a new window that is a terminal for our server:</p>
 <p><img alt="PyTTY SSH window open" src="/posts/jupyterhub/putty_ssh_window_open.png"></p>
-<h3>4. Create a non-root sudo user</h3>
+<h3 id="4-create-a-non-root-sudo-user">4. Create a non-root sudo user</h3>
 <p>Digital Ocean recommends that the servers are run by non-root user that have sudo access. So one of the first things we'll do on our server is create a non-root sudo user. First though, let's make sure everything is up to date:</p>
 <div class="highlight"><pre><span></span>$ sudo apt-get update
 </pre></div>
@@ -450,7 +446,7 @@ Is the information correct? [Y/n]
 
 
 <p>If you can see the contents of <code>/root</code> then the new user is set up with sudo access.</p>
-<h4>Add SSH keys to new user's profile</h4>
+<h4 id="add-ssh-keys-to-new-users-profile">Add SSH keys to new user's profile</h4>
 <p>Before we log off, we need to add our SSH keys to our new user's profile on the server. The second time I set up JupyterHub, I had trouble logging in as the non-root user using PuTTY. I could log in as <code>root</code> just fine, but I couldn't log in as the newly created user <code>peter</code>. When Digital Ocean created the server, the SSH keys (specified on the creation page) were added to the <code>root</code> profile. The new user <code>peter</code> didn't exist when the server was created. The only user was <code>root</code> at creation time. Therefore no SSH keys were added to the <code>peter</code> profile at server creation time, because the user <code>peter</code> didn't exist yet. Since we want to log into our server as the new non-root user <code>peter</code>, we need to add the same SSH keys saved in the <code>root</code> profile to the <code>peter</code> profile. The SSH keys belong in a file located at <code>/home/peter/.ssh/authorized_keys</code>. </p>
 <p>I followed <a href="https://www.digitalocean.com/community/tutorials/how-to-create-ssh-keys-with-putty-to-connect-to-a-vps">this tutorial</a> from Digital Ocean.</p>
 <div class="highlight"><pre><span></span>$ mkdir ~/.ssh
@@ -474,7 +470,7 @@ $ nano /home/peter/.ssh/authorized_keys
 
 
 <p>You might need to wait a minute or two for the server to restart.</p>
-<h3>4. Connect to the server as the non-root sudo user using PuTTY</h3>
+<h3 id="4-connect-to-the-server-as-the-non-root-sudo-user-using-putty">4. Connect to the server as the non-root sudo user using PuTTY</h3>
 <p>Now that the non-root sudo user is set up and our ssh keys are in /home/<user>/.ssh/authorized_keys, let's start a new PuTTY session and log into the server as the new user. Like before, open PuTTY from the Windows Start menu and add the following settings, but this time the Auto-login user name is the name of our new non-root sudo user:</p>
 <table class="table table-striped table-bordered table-hover">
 <thead>
@@ -523,33 +519,33 @@ $ nano /home/peter/.ssh/authorized_keys
 </pre></div>
 
 
-<h3>Summary</h3>
+<h3 id="summary">Summary</h3>
 <p>In this post we created a new Digital Ocean server (called a <em>droplet</em>) and made sure to add our public SSH key to the setup options before we hit [Create]. Then we logged into the server as <code>root</code>  with our private SSH key. As <code>root</code>, we set up a new user with sudo privileges and added our public SSH key to the new user's profile in <code>~/.ssh/authorized_keys</code>. Then we logged into the server as the new user and checked the new user's home directory and ensured the new user has sudo privileges.</p>
-<h3>Next Steps</h3>
+<h3 id="next-steps">Next Steps</h3>
 <p>In the next post, we will get to the fun stuff: installing <strong>Anaconda and jupyterhub</strong> on our new server and starting Jupyter Hub for the first time! (but only keep it open for a couple seconds because we don't have SSL set up yet).</p>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">
     <h4>Related Posts:</h4>
     <ul>
-        <li><a href="./add-ssl-and-domain-name-to-jupyterhub.html">Adding SSL and a domain name to Jupyter Hub</a></li>
-        <li><a href="./installing-jupyter-hub.html">Installing Jupyterhub</a></li>
-        <li><a href="./ssh-keys-with-putty.html">Create an SSH Key with PuTTYgen</a></li>
-        <li><a href="./why-jupyter-hub.html">Why Jupyter Hub?</a></li>
-        <li><a href="./diffusion-problem-python-pint.html">Diffusion Calculation with Python and Pint</a></li>
+        <li><a href="/add-ssl-and-domain-name-to-jupyterhub.html">Adding SSL and a domain name to Jupyter Hub</a></li>
+        <li><a href="/installing-jupyter-hub.html">Installing Jupyterhub</a></li>
+        <li><a href="/ssh-keys-with-putty.html">Create an SSH Key with PuTTYgen</a></li>
+        <li><a href="/why-jupyter-hub.html">Why Jupyter Hub?</a></li>
+        <li><a href="/diffusion-problem-python-pint.html">Diffusion Calculation with Python and Pint</a></li>
     </ul>
 </section>
 <section class="well" id="related-posts">
     <h4>Article 3 of the Jupyter Hub series</h4>
        <h5>Previous articles</h5>
        <ul>
-           <li><a href="./why-jupyter-hub.html">Why Jupyter Hub?</a></li>
-           <li><a href="./ssh-keys-with-putty.html">Create an SSH Key with PuTTYgen</a></li>
+           <li><a href="/why-jupyter-hub.html">Why Jupyter Hub?</a></li>
+           <li><a href="/ssh-keys-with-putty.html">Create an SSH Key with PuTTYgen</a></li>
        </ul>
        <h5>Next articles</h5>
        <ul>
-           <li><a href="./installing-jupyter-hub.html">Installing Jupyterhub</a></li>
-           <li><a href="./add-ssl-and-domain-name-to-jupyterhub.html">Adding SSL and a domain name to Jupyter Hub</a></li>
+           <li><a href="/installing-jupyter-hub.html">Installing Jupyterhub</a></li>
+           <li><a href="/add-ssl-and-domain-name-to-jupyterhub.html">Adding SSL and a domain name to Jupyter Hub</a></li>
        </ul>
 </section>
         </article>
@@ -560,7 +556,7 @@ $ nano /home/peter/.ssh/authorized_keys
             <aside>
 <div id="aboutme">
         <p>
-            <img width="100%" class="img-thumbnail" src="./extra/gear-wrench-icon-512-278694.png"/>
+            <img width="100%" class="img-thumbnail" src="/extra/gear-wrench-icon-512-278694.png"/>
         </p>
     <p>
       <strong>About Peter Kazarinoff</strong><br/>
@@ -574,46 +570,46 @@ $ nano /home/peter/.ssh/authorized_keys
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
-    <li class="list-group-item"><a href="./add-ssl-and-domain-name-to-jupyterhub.html">Adding SSL and a domain name to Jupyter Hub</a></li>
-    <li class="list-group-item"><a href="./installing-jupyter-hub.html">Installing Jupyterhub</a></li>
-    <li class="list-group-item"><a href="./new-digital-ocean-droplet.html">Creating a new Digital Ocean Droplet</a></li>
+    <li class="list-group-item"><a href="/add-ssl-and-domain-name-to-jupyterhub.html">Adding SSL and a domain name to Jupyter Hub</a></li>
+    <li class="list-group-item"><a href="/installing-jupyter-hub.html">Installing Jupyterhub</a></li>
+    <li class="list-group-item"><a href="/new-digital-ocean-droplet.html">Creating a new Digital Ocean Droplet</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
 
 <!-- Sidebar/Tag Cloud -->
 <li class="list-group-item">
-  <a href="./"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <a href="/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
   <ul class="list-group list-inline tagcloud" id="tags">
     <li class="list-group-item tag-4">
-      <a href="./tag/anaconda.html">anaconda</a>
+      <a href="/tag/anaconda.html">anaconda</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="./tag/blog.html">blog</a>
+      <a href="/tag/blog.html">blog</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="./tag/engineering.html">engineering</a>
+      <a href="/tag/engineering.html">engineering</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="./tag/esp8266.html">esp8266</a>
+      <a href="/tag/esp8266.html">esp8266</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="./tag/jupyter.html">jupyter</a>
+      <a href="/tag/jupyter.html">jupyter</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="./tag/jupyter-hub.html">jupyter hub</a>
+      <a href="/tag/jupyter-hub.html">jupyter hub</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="./tag/jupyter-notebooks.html">jupyter notebooks</a>
+      <a href="/tag/jupyter-notebooks.html">jupyter notebooks</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="./tag/micropython.html">micropython</a>
+      <a href="/tag/micropython.html">micropython</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="./tag/pelican.html">pelican</a>
+      <a href="/tag/pelican.html">pelican</a>
     </li>
     <li class="list-group-item tag-1">
-      <a href="./tag/python.html">python</a>
+      <a href="/tag/python.html">python</a>
     </li>
   </ul>
 </li>
@@ -625,11 +621,11 @@ $ nano /home/peter/.ssh/authorized_keys
   <ul class="list-group">
     <li class="list-group-item">
       <h5></i>Previous article</h5>
-      <a href="./ssh-keys-with-putty.html">Create an SSH Key with PuTTYgen</a>
+      <a href="/ssh-keys-with-putty.html">Create an SSH Key with PuTTYgen</a>
     </li>
     <li class="list-group-item">
       <h5>Next article</h5>
-      <a href="./installing-jupyter-hub.html">Installing Jupyterhub</a>
+      <a href="/installing-jupyter-hub.html">Installing Jupyterhub</a>
     </li>
   </ul>
 </li>
@@ -663,15 +659,15 @@ $ nano /home/peter/.ssh/authorized_keys
       </div>
    </div>
 </footer>
-<script src="./theme/js/jquery.min.js"></script>
+<script src="/theme/js/jquery.min.js"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="./theme/js/bootstrap.min.js"></script>
+<script src="/theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="./theme/js/respond.min.js"></script>
+<script src="/theme/js/respond.min.js"></script>
 
-    <script src="./static/js/custom.js"></script>
+    <script src="/static/js/custom.js"></script>
 
 
 <!-- GitHub JS Code -->
@@ -680,7 +676,7 @@ $(document).ready(function () {
   if (!window.jXHR) {
     var jxhr = document.createElement('script');
     jxhr.type = 'text/javascript';
-    jxhr.src = './theme/js/jXHR.js';
+    jxhr.src = '/theme/js/jXHR.js';
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(jxhr, s);
   }
@@ -693,7 +689,7 @@ $(document).ready(function () {
   });
 });
 </script>
-<script src="./theme/js/github.js" type="text/javascript"></script>
+<script src="/theme/js/github.js" type="text/javascript"></script>
 <!-- End GitHub JS Code -->
     <!-- Google Analytics -->
     <script type="text/javascript">

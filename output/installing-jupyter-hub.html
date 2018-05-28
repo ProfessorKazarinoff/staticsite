@@ -172,9 +172,9 @@ init_mathjax = function() {
 }
 init_mathjax();
 </script>
-    <link href="./extra/favicon.ico" rel="icon">
+    <link href="/extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="./installing-jupyter-hub.html">
+<link rel="canonical" href="/installing-jupyter-hub.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
         <meta name="keywords" content="jupyter,jupyter hub,jupyter notebooks,python" />
@@ -183,7 +183,7 @@ init_mathjax();
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="Installing Jupyterhub"/>
-        <meta property="og:url" content="./installing-jupyter-hub.html"/>
+        <meta property="og:url" content="/installing-jupyter-hub.html"/>
         <meta property="og:description" content="This is the fourth part of a multi-part series that shows how to set up Jupyter Hub for a college class. The goal is to have a running version of Jupyter Hub that students in the class can log into when given a simple web link. In this post, we&#39;ll get to the fun stuff: installing jupyterhub on the server, installing Python packages and spinning up Jupyter Hub for the first time."/>
         <meta property="article:published_time" content="2018-05-24" />
             <meta property="article:section" content="jupyter" />
@@ -196,21 +196,17 @@ init_mathjax();
 
 
     <!-- Bootstrap -->
-        <link rel="stylesheet" href="./theme/css/bootstrap.flatly.min.css" type="text/css"/>
-    <link href="./theme/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="/theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="./theme/css/pygments/native.css" rel="stylesheet">
-    <link href="./theme/tipuesearch/tipuesearch.css" rel="stylesheet">
-    <link rel="stylesheet" href="./theme/css/style.css" type="text/css"/>
-        <link href="./static/css/custom.css" rel="stylesheet">
-
-        <link href="./feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
-              title="Python for Undergraduate Engineers ATOM Feed"/>
+    <link href="/theme/css/pygments/native.css" rel="stylesheet">
+    <link href="/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+        <link href="/static/css/custom.css" rel="stylesheet">
 
 
 
-        <link href="./feeds/jupyter.atom.xml" type="application/atom+xml" rel="alternate"
-              title="Python for Undergraduate Engineers jupyter ATOM Feed"/>
+
 
 </head>
 <body>
@@ -224,18 +220,18 @@ init_mathjax();
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="./" class="navbar-brand">
+            <a href="/" class="navbar-brand">
 Python for Undergraduate Engineers            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                         <li><a href="./pages/about.html">
+                         <li><a href="/pages/about.html">
                              About
                           </a></li>
-                         <li><a href="./pages/book.html">
+                         <li><a href="/pages/book.html">
                              Book
                           </a></li>
-                         <li><a href="./pages/now.html">
+                         <li><a href="/pages/now.html">
                              Now
                           </a></li>
             </ul>
@@ -245,7 +241,7 @@ Python for Undergraduate Engineers            </a>
                   <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
                 </form></span>
               </li>
-              <li><a href="./archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+              <li><a href="/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -257,15 +253,15 @@ Python for Undergraduate Engineers            </a>
     <div class="row">
         <div class="col-sm-9">
             <ol class="breadcrumb">
-                <li><a href="." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="./category/jupyter.html" title="jupyter">jupyter</a></li>
+                <li><a href="" title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="/category/jupyter.html" title="jupyter">jupyter</a></li>
                 <li class="active">Installing Jupyterhub</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="./installing-jupyter-hub.html"
+                    <a href="/installing-jupyter-hub.html"
                        rel="bookmark"
                        title="Permalink to Installing Jupyterhub">
                         Installing Jupyterhub
@@ -288,30 +284,30 @@ Python for Undergraduate Engineers            </a>
 
 
 <span class="label label-default">Tags</span>
-	<a href="./tag/jupyter.html">jupyter</a>
+	<a href="/tag/jupyter.html">jupyter</a>
         /
-	<a href="./tag/jupyter-hub.html">jupyter hub</a>
+	<a href="/tag/jupyter-hub.html">jupyter hub</a>
         /
-	<a href="./tag/jupyter-notebooks.html">jupyter notebooks</a>
+	<a href="/tag/jupyter-notebooks.html">jupyter notebooks</a>
         /
-	<a href="./tag/python.html">python</a>
+	<a href="/tag/python.html">python</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
                 <p>This is the fourth part of a multi-part series that shows how to set up Jupyter Hub for a college class. The goal is to have a running version of Jupyter Hub that students in the class can log into when given a simple web link. In this post, we'll get to the fun stuff: installing <strong>jupyterhub</strong> on the server, installing <strong>Python</strong> packages and spinning up Jupyter Hub for the first time.</p>
-<h3>Posts in this series</h3>
+<h3 id="posts-in-this-series">Posts in this series</h3>
 <ol>
-<li><a href="./why-jupyter-hub.html">Why Jupyter Hub?</a> </li>
-<li><a href="./ssh-keys-with-putty.html">Create SSH keys, save to documents/ssh-keys</a></li>
-<li><a href="./new-digital-ocean-droplet.html">Create a new Digital Ocean Droplet with a non-root sudo user</a></li>
+<li><a href="/why-jupyter-hub.html">Why Jupyter Hub?</a> </li>
+<li><a href="/ssh-keys-with-putty.html">Create SSH keys, save to documents/ssh-keys</a></li>
+<li><a href="/new-digital-ocean-droplet.html">Create a new Digital Ocean Droplet with a non-root sudo user</a></li>
 <li><strong>Install Jupyter Hub on the server</strong> (this post)</li>
 <li>Apply SSL, link a domain name to the server and configure nginx</li>
 <li>Connect OAuth to Jupyter Hub</li>
 <li>Connect to Jupyter Hub as student</li>
 </ol>
-<h3>The last post</h3>
+<h3 id="the-last-post">The last post</h3>
 <p>In the last post, we created a new server on Digital Ocean (called a <em>droplet</em>) and made sure to add our public SSH key to the setup options. Then we logged into the server as <code>root</code>  with our private SSH key. As <code>root</code>, we set up a new user with sudo privileges and added our public SSH key to the new users profile. Then we logged into the server as the new user and checked the new user's home directory.</p>
-<h3>This post</h3>
+<h3 id="this-post">This post</h3>
 <ol>
 <li>Update packages on the server</li>
 <li>Install <strong>Anaconda</strong></li>
@@ -320,14 +316,14 @@ Python for Undergraduate Engineers            </a>
 <li>Shut down Jupyter Hub very quickly because of no SSL security</li>
 </ol>
 <p><br></p>
-<h3>1. Update Packages on the Server</h3>
+<h3 id="1-update-packages-on-the-server">1. Update Packages on the Server</h3>
 <p>It is probably best to update the packages installed on the server in case there are changes and updates to the operating system since the server was created. This is probably a reflex for those that use Linux a lot. Open PuTTY and log into the server as the non-root sudo user we created in the last post. Then update the system:</p>
 <div class="highlight"><pre><span></span>$ sudo apt-get update
 </pre></div>
 
 
 <p><br></p>
-<h3>2. Install Anaconda</h3>
+<h3 id="2-install-anaconda">2. Install Anaconda</h3>
 <p>Next we'll install <strong>Anaconda</strong>. When I installed <strong>Anaconda</strong> on Windows10, I used an msi installer. But for installation of <strong>Anaconda</strong> on the cloud server we'll use a shell script. The first time I set up Jupyter Hub, I installed <strong>Anaconda</strong> in the <code>/opt</code> directory. I don't think this is the best setup. When I installed Anaconda in <code>/opt</code>, I ended up with all sorts of permission problems when I tried to run <strong>conda</strong> and <strong>jupyterhub</strong>. For me it caused less problems to install <strong>Anaconda</strong> in the non-root user's home directory(<code>/home/peter/</code>). The user's home directory is also the default Anaconda3 installation location.</p>
 <p>I followed <a href="https://www.digitalocean.com/community/tutorials/how-to-install-the-anaconda-python-distribution-on-ubuntu-16-04">this tutorial</a> from Digital Ocean.</p>
 <p>Go to <a href="https://repo.continuum.io/archive/">https://repo.continuum.io/archive/</a> and look down the list of installs for the newest installer that corresponds to:</p>
@@ -362,7 +358,7 @@ $ bash Anaconda3-5.1.0-Linux-x86_64.sh
 
 <p>If you see output, that means <strong>conda</strong> was installed and can be run by the non-root user.</p>
 <p><br></p>
-<h3>3. Install <strong>Python</strong> packages and <strong>jupyterhub</strong></h3>
+<h3 id="3-install-python-packages-and-jupyterhub">3. Install <strong>Python</strong> packages and <strong>jupyterhub</strong></h3>
 <p>We have a full installation of <strong>Anaconda</strong> which includes a lot of useful packages for engineers including: <strong>numpy</strong>, <strong>pandas</strong>, <strong>matplotlib</strong>, <strong>scipy</strong>, <strong>sympy</strong>, <strong>bokeh</strong> and <strong>holoviews</strong>. <strong>Anaconda</strong> also includes other useful packages such as <strong>requests</strong>, <strong>beautiful soup</strong> and <strong>attrs</strong>. And for student who want to go further, the <strong>Anaconda</strong> distribution comes with <strong>django</strong>, <strong>flask</strong>, <strong>tk</strong>, <strong>tornado</strong> and <strong>scikit-learn</strong>.</p>
 <p>There are a couple other packages I want to install in addition to the standard <strong>Anaconda</strong> packages. First are some extra packages useful for engineers: <strong>pint</strong>, <strong>pyserial</strong> and <strong>schemdraw</strong>.</p>
 <div class="highlight"><pre><span></span>$ conda install -c conda-forge pint
@@ -378,7 +374,7 @@ $ conda install notebook
 
 
 <p><br></p>
-<h3>4. Run a very unsecured instance of Jupyter Hub just to see if it works</h3>
+<h3 id="4-run-a-very-unsecured-instance-of-jupyter-hub-just-to-see-if-it-works">4. Run a very unsecured instance of Jupyter Hub just to see if it works</h3>
 <p>OK let's give it a whirl. Start <strong>jupyterhub</strong> for the first time. Note the <code>--no-ssl</code> flag at the end. This needs to be included or you won't be able to browse to the server.</p>
 <div class="highlight"><pre><span></span>$ jupyterhub --no-ssl
 </pre></div>
@@ -404,41 +400,41 @@ $ jupyterhub --no-ssl
 <p><img alt="start my server" src="/posts/jupyterhub/start_my_server.PNG">
 <img alt="jupyter file browser" src="/posts/jupyterhub/jupyter_file_browser.PNG"></p>
 <p><br></p>
-<h3>5. Quick! Log out and shut down jupyterhub</h3>
+<h3 id="5-quick-log-out-and-shut-down-jupyterhub">5. Quick! Log out and shut down jupyterhub</h3>
 <p><strong>Quick! Log out and shut down jupyterhub</strong>. (does quick really matter in internet security?) The site is running without any ssl security over regular HTTP not HTTPS. Key in [Ctrl] + [c] to stop jupyterhub.</p>
 <div class="alert alert-warning" role="alert">
   <strong>Warning!</strong> You should not run JupyterHub without SSL encryption on a public network.
 </div>
 
 <p><br></p>
-<h3>Summary</h3>
+<h3 id="summary">Summary</h3>
 <p>In this post we installed <strong>Anaconda</strong> on the server using a shell script. We added <strong>conda</strong> to our path and reloaded our .bashrc file. Then we installed some extra <strong>Python</strong> packages such as <strong>pint</strong> and <strong>pyserial</strong>. Finally we installed <strong>jupyterhub</strong>, opened up port 8000 and ran <strong>jupyterhub</strong> for the first time! Remember we <strong>shut down jupyter hub very quickly</strong> because we ran it without any SSL security.</p>
 <p><br></p>
-<h3>Next Steps</h3>
+<h3 id="next-steps">Next Steps</h3>
 <p>In the next post we will build SSL security into our Jupyter Hub deployment and connect the server to domain name. Plus we'll customize the <strong>jupyterhub</strong> config file and install and use nginx as a proxy server.</p>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">
     <h4>Related Posts:</h4>
     <ul>
-        <li><a href="./add-ssl-and-domain-name-to-jupyterhub.html">Adding SSL and a domain name to Jupyter Hub</a></li>
-        <li><a href="./new-digital-ocean-droplet.html">Creating a new Digital Ocean Droplet</a></li>
-        <li><a href="./ssh-keys-with-putty.html">Create an SSH Key with PuTTYgen</a></li>
-        <li><a href="./why-jupyter-hub.html">Why Jupyter Hub?</a></li>
-        <li><a href="./diffusion-problem-python-pint.html">Diffusion Calculation with Python and Pint</a></li>
+        <li><a href="/add-ssl-and-domain-name-to-jupyterhub.html">Adding SSL and a domain name to Jupyter Hub</a></li>
+        <li><a href="/new-digital-ocean-droplet.html">Creating a new Digital Ocean Droplet</a></li>
+        <li><a href="/ssh-keys-with-putty.html">Create an SSH Key with PuTTYgen</a></li>
+        <li><a href="/why-jupyter-hub.html">Why Jupyter Hub?</a></li>
+        <li><a href="/diffusion-problem-python-pint.html">Diffusion Calculation with Python and Pint</a></li>
     </ul>
 </section>
 <section class="well" id="related-posts">
     <h4>Article 4 of the Jupyter Hub series</h4>
        <h5>Previous articles</h5>
        <ul>
-           <li><a href="./why-jupyter-hub.html">Why Jupyter Hub?</a></li>
-           <li><a href="./ssh-keys-with-putty.html">Create an SSH Key with PuTTYgen</a></li>
-           <li><a href="./new-digital-ocean-droplet.html">Creating a new Digital Ocean Droplet</a></li>
+           <li><a href="/why-jupyter-hub.html">Why Jupyter Hub?</a></li>
+           <li><a href="/ssh-keys-with-putty.html">Create an SSH Key with PuTTYgen</a></li>
+           <li><a href="/new-digital-ocean-droplet.html">Creating a new Digital Ocean Droplet</a></li>
        </ul>
        <h5>Next articles</h5>
        <ul>
-           <li><a href="./add-ssl-and-domain-name-to-jupyterhub.html">Adding SSL and a domain name to Jupyter Hub</a></li>
+           <li><a href="/add-ssl-and-domain-name-to-jupyterhub.html">Adding SSL and a domain name to Jupyter Hub</a></li>
        </ul>
 </section>
         </article>
@@ -449,7 +445,7 @@ $ jupyterhub --no-ssl
             <aside>
 <div id="aboutme">
         <p>
-            <img width="100%" class="img-thumbnail" src="./extra/gear-wrench-icon-512-278694.png"/>
+            <img width="100%" class="img-thumbnail" src="/extra/gear-wrench-icon-512-278694.png"/>
         </p>
     <p>
       <strong>About Peter Kazarinoff</strong><br/>
@@ -463,46 +459,46 @@ $ jupyterhub --no-ssl
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
-    <li class="list-group-item"><a href="./add-ssl-and-domain-name-to-jupyterhub.html">Adding SSL and a domain name to Jupyter Hub</a></li>
-    <li class="list-group-item"><a href="./installing-jupyter-hub.html">Installing Jupyterhub</a></li>
-    <li class="list-group-item"><a href="./new-digital-ocean-droplet.html">Creating a new Digital Ocean Droplet</a></li>
+    <li class="list-group-item"><a href="/add-ssl-and-domain-name-to-jupyterhub.html">Adding SSL and a domain name to Jupyter Hub</a></li>
+    <li class="list-group-item"><a href="/installing-jupyter-hub.html">Installing Jupyterhub</a></li>
+    <li class="list-group-item"><a href="/new-digital-ocean-droplet.html">Creating a new Digital Ocean Droplet</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
 
 <!-- Sidebar/Tag Cloud -->
 <li class="list-group-item">
-  <a href="./"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <a href="/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
   <ul class="list-group list-inline tagcloud" id="tags">
     <li class="list-group-item tag-4">
-      <a href="./tag/anaconda.html">anaconda</a>
+      <a href="/tag/anaconda.html">anaconda</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="./tag/blog.html">blog</a>
+      <a href="/tag/blog.html">blog</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="./tag/engineering.html">engineering</a>
+      <a href="/tag/engineering.html">engineering</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="./tag/esp8266.html">esp8266</a>
+      <a href="/tag/esp8266.html">esp8266</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="./tag/jupyter.html">jupyter</a>
+      <a href="/tag/jupyter.html">jupyter</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="./tag/jupyter-hub.html">jupyter hub</a>
+      <a href="/tag/jupyter-hub.html">jupyter hub</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="./tag/jupyter-notebooks.html">jupyter notebooks</a>
+      <a href="/tag/jupyter-notebooks.html">jupyter notebooks</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="./tag/micropython.html">micropython</a>
+      <a href="/tag/micropython.html">micropython</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="./tag/pelican.html">pelican</a>
+      <a href="/tag/pelican.html">pelican</a>
     </li>
     <li class="list-group-item tag-1">
-      <a href="./tag/python.html">python</a>
+      <a href="/tag/python.html">python</a>
     </li>
   </ul>
 </li>
@@ -514,11 +510,11 @@ $ jupyterhub --no-ssl
   <ul class="list-group">
     <li class="list-group-item">
       <h5></i>Previous article</h5>
-      <a href="./new-digital-ocean-droplet.html">Creating a new Digital Ocean Droplet</a>
+      <a href="/new-digital-ocean-droplet.html">Creating a new Digital Ocean Droplet</a>
     </li>
     <li class="list-group-item">
       <h5>Next article</h5>
-      <a href="./add-ssl-and-domain-name-to-jupyterhub.html">Adding SSL and a domain name to Jupyter Hub</a>
+      <a href="/add-ssl-and-domain-name-to-jupyterhub.html">Adding SSL and a domain name to Jupyter Hub</a>
     </li>
   </ul>
 </li>
@@ -552,15 +548,15 @@ $ jupyterhub --no-ssl
       </div>
    </div>
 </footer>
-<script src="./theme/js/jquery.min.js"></script>
+<script src="/theme/js/jquery.min.js"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="./theme/js/bootstrap.min.js"></script>
+<script src="/theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="./theme/js/respond.min.js"></script>
+<script src="/theme/js/respond.min.js"></script>
 
-    <script src="./static/js/custom.js"></script>
+    <script src="/static/js/custom.js"></script>
 
 
 <!-- GitHub JS Code -->
@@ -569,7 +565,7 @@ $(document).ready(function () {
   if (!window.jXHR) {
     var jxhr = document.createElement('script');
     jxhr.type = 'text/javascript';
-    jxhr.src = './theme/js/jXHR.js';
+    jxhr.src = '/theme/js/jXHR.js';
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(jxhr, s);
   }
@@ -582,7 +578,7 @@ $(document).ready(function () {
   });
 });
 </script>
-<script src="./theme/js/github.js" type="text/javascript"></script>
+<script src="/theme/js/github.js" type="text/javascript"></script>
 <!-- End GitHub JS Code -->
     <!-- Google Analytics -->
     <script type="text/javascript">

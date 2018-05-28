@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>Adding Google OAuth and system service to a Jupyter Hub server - Python for Undergraduate Engineers</title>
+    <title>Does TOC work - Python for Undergraduate Engineers</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -174,23 +174,25 @@ init_mathjax();
 </script>
     <link href="/extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="/drafts/add-google-oauth-and-system-service-to-jupyterhub.html">
+<link rel="canonical" href="/drafts/aaaa-toc-in-markdown.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
-        <meta name="keywords" content="jupyter,jupyter hub,jupyter notebooks,python" />
+        <meta name="keywords" content="python,jupyter,notebook,classes,engineering,vectors" />
         <meta name="description" content="This is the sixth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we will set up jupyterhub to run as a system service in the background which will allow us to work on the server and run jupyterhub at the same time. Then we will add an authentication system so that users can log into our Jupyter Hub server using github usernames and passwords. Finally we will modify the authentication system so that users can log into our Jupyer Hub server using google usernames and passwords. The same user name and password a student uses to access their college email." />
 
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
-        <meta property="og:title" content="Adding Google OAuth and system service to a Jupyter Hub server"/>
-        <meta property="og:url" content="/drafts/add-google-oauth-and-system-service-to-jupyterhub.html"/>
+        <meta property="og:title" content="Does TOC work"/>
+        <meta property="og:url" content="/drafts/aaaa-toc-in-markdown.html"/>
         <meta property="og:description" content="This is the sixth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we will set up jupyterhub to run as a system service in the background which will allow us to work on the server and run jupyterhub at the same time. Then we will add an authentication system so that users can log into our Jupyter Hub server using github usernames and passwords. Finally we will modify the authentication system so that users can log into our Jupyer Hub server using google usernames and passwords. The same user name and password a student uses to access their college email."/>
-        <meta property="article:published_time" content="2018-05-22" />
-            <meta property="article:section" content="jupyter" />
-            <meta property="article:tag" content="jupyter" />
-            <meta property="article:tag" content="jupyter hub" />
-            <meta property="article:tag" content="jupyter notebooks" />
+        <meta property="article:published_time" content="2018-01-31" />
+            <meta property="article:section" content="python" />
             <meta property="article:tag" content="python" />
+            <meta property="article:tag" content="jupyter" />
+            <meta property="article:tag" content="notebook" />
+            <meta property="article:tag" content="classes" />
+            <meta property="article:tag" content="engineering" />
+            <meta property="article:tag" content="vectors" />
             <meta property="article:author" content="Peter D. Kazarinoff" />
 
 
@@ -254,17 +256,17 @@ Python for Undergraduate Engineers            </a>
         <div class="col-sm-9">
             <ol class="breadcrumb">
                 <li><a href="" title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="/category/jupyter.html" title="jupyter">jupyter</a></li>
-                <li class="active">Adding Google OAuth and system service to a Jupyter Hub server</li>
+                <li><a href="/category/python.html" title="python">python</a></li>
+                <li class="active">Does TOC work</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="/drafts/add-google-oauth-and-system-service-to-jupyterhub.html"
+                    <a href="/drafts/aaaa-toc-in-markdown.html"
                        rel="bookmark"
-                       title="Permalink to Adding Google OAuth and system service to a Jupyter Hub server">
-                        Adding Google OAuth and system service to a Jupyter Hub server
+                       title="Permalink to Does TOC work">
+                        Does TOC work
                     </a>
                 </h1>
             </header>
@@ -274,23 +276,25 @@ Python for Undergraduate Engineers            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2018-05-22T12:40:00-07:00"> Tue 22 May 2018</time>
+        <i class="fa fa-calendar"></i><time datetime="2018-01-31T10:30:00-08:00"> Wed 31 January 2018</time>
     </span>
 
-            <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x0000019BA45E85B0> of 
 
 
 
 
 <span class="label label-default">Tags</span>
+	<a href="/tag/python.html">python</a>
+        /
 	<a href="/tag/jupyter.html">jupyter</a>
         /
-	<a href="/tag/jupyter-hub.html">jupyter hub</a>
+	<a href="/tag/notebook.html">notebook</a>
         /
-	<a href="/tag/jupyter-notebooks.html">jupyter notebooks</a>
+	<a href="/tag/classes.html">classes</a>
         /
-	<a href="/tag/python.html">python</a>
+	<a href="/tag/engineering.html">engineering</a>
+        /
+	<a href="/tag/vectors.html">vectors</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
@@ -308,14 +312,18 @@ Python for Undergraduate Engineers            </a>
 <h3 id="last-time">Last time</h3>
 <p>In the last post, we succeeded in getting <strong>jupyterhub</strong> to run on https and use SSL certificates. We created SSL certificates, modified the nginx config and modified the <strong>jupyterhub</strong> config. At the end of it we were able to get a working version of jupyter hub running SSL security.</p>
 <h3 id="steps-in-this-post">Steps in this post:</h3>
-<ol>
-<li>Run <strong>jupterhub</strong> as a system service</li>
-<li>Test local OAuth</li>
-<li>Acquire github OAuth credentials</li>
-<li>Modify jupyterhub_config.py to use github OAuth</li>
-<li>Acquire google OAuth credentials</li>
-<li>Modify jupyterhub_config.py to use google OAuth</li>
-</ol>
+<div class="toc"><span class="toctitle">Table of contents:</span><ul>
+<li><a href="#posts-in-this-series">Posts in this series</a></li>
+<li><a href="#last-time">Last time</a></li>
+<li><a href="#steps-in-this-post">Steps in this post:</a></li>
+<li><a href="#1-run-jupterhub-as-a-system-service">1. Run jupterhub as a system service</a></li>
+<li><a href="#2-test-local-oauth">2. Test local OAuth</a></li>
+<li><a href="#3-acquire-github-oauth-credentials">3. Acquire Github OAuth credentials</a></li>
+<li><a href="#3-google-authenticator">3. Google Authenticator</a></li>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#next-steps">Next Steps</a></li>
+</ul>
+</div>
 <p><br></p>
 <h3 id="1-run-jupterhub-as-a-system-service">1. Run <strong>jupterhub</strong> as a system service</h3>
 <p>Working off of <a href="https://github.com/jupyterhub/jupyterhub/wiki/Run-jupyterhub-as-a-system-service">this wiki</a></p>
@@ -519,15 +527,12 @@ $ sudo systemctl status jupyterhub
 <section class="well" id="related-posts">
     <h4>Related Posts:</h4>
     <ul>
+        <li><a href="/diffusion-problem-python-pint.html">Diffusion Calculation with Python and Pint</a></li>
+        <li><a href="/unit-conversions-with-pint.html">Unit conversions with Python and Pint</a></li>
         <li><a href="/add-ssl-and-domain-name-to-jupyterhub.html">Adding SSL and a domain name to Jupyter Hub</a></li>
         <li><a href="/installing-jupyter-hub.html">Installing Jupyterhub</a></li>
         <li><a href="/new-digital-ocean-droplet.html">Creating a new Digital Ocean Droplet</a></li>
-        <li><a href="/ssh-keys-with-putty.html">Create an SSH Key with PuTTYgen</a></li>
-        <li><a href="/why-jupyter-hub.html">Why Jupyter Hub?</a></li>
     </ul>
-</section>
-<section class="well" id="related-posts">
-    <h4>Article <built-in method index of str object at 0x0000019BA45E85B0> of the  series</h4>
 </section>
         </article>
     </section>
@@ -595,15 +600,6 @@ $ sudo systemctl status jupyterhub
   </ul>
 </li>
 <!-- End Sidebar/Tag Cloud -->
-
-<!-- Sidebar/Series -->
-<li class="list-group-item">
-  <h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Series</span></h4>
-  <ul class="list-group">
-  </ul>
-</li>
-<!-- End Sidebar/Series -->
-
 
 <!-- Sidebar/Github -->
 <li class="list-group-item">

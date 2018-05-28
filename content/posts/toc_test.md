@@ -1,13 +1,12 @@
-﻿Title: Adding Google OAuth and system service to a Jupyter Hub server
-Date: 2018-05-22 12:40
-Modified: 2018-05-22 12:40
-Status: draft
-Category: jupyter
-Tags: jupyter, jupyter hub, jupyter notebooks, python
-Slug: add-google-oauth-and-system-service-to-jupyterhub
-Authors: Peter D. Kazarinoff
-Series: Jupyter Hub
-Series_index: 6
+Title: Does TOC work
+Slug: aaaa-toc-in-markdown
+Date: 2018-01-31 10:30
+Modified: 2018-01-31 10:30
+Status: Draft
+Category: python
+Tags: python, jupyter, notebook, classes, engineering, vectors
+JavaScripts: ipynb_mathjax_inline.js
+Author: Peter D. Kazarinoff
 Summary: This is the sixth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we will set up **jupyterhub** to run as a system service in the background which will allow us to work on the server and run **jupyterhub** at the same time. Then we will add an authentication system so that users can log into our Jupyter Hub server using github usernames and passwords. Finally we will modify the authentication system so that users can log into our Jupyer Hub server using google usernames and passwords. The same user name and password a student uses to access their college email.
 
 This is the sixth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we will set up **jupyterhub** to run as a system service in the background which will allow us to work on the server and run **jupyterhub** at the same time. Then we will add an authentication system so that users can log into our Jupyter Hub server using github usernames and passwords. Finally we will modify the authentication system so that users can log into our Jupyer Hub server using google usernames and passwords. The same user name and password a student uses to access their college email.
@@ -28,12 +27,7 @@ In the last post, we succeeded in getting **jupyterhub** to run on https and use
 
 ### Steps in this post:
 
-1. Run **jupterhub** as a system service
-2. Test local OAuth
-3. Acquire github OAuth credentials
-4. Modify jupyterhub_config.py to use github OAuth
-5. Acquire google OAuth credentials
-6. Modify jupyterhub_config.py to use google OAuth
+[TOC]
 
 <br>
 
@@ -190,7 +184,7 @@ Browse over to the hub's URL and we should be able to log in with a github usern
 
 <br>
 
-### 4. Google Authenticator
+### 3. Google Authenticator
 
 Now that the github authenticator works, we are going to get into the weeds of getting the google authenticator to work. Why google authenticator instead of github? Our college uses the gmail suite for both staff and students. When students log onto their college email, they are logging into gmail. Students can use google calendar and google drive with their college email account as well. So it is probably best that students log into juypter hub using the same google login that they use to access their college email, google drive and calendar. 
 

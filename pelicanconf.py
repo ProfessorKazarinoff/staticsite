@@ -72,6 +72,7 @@ I18N_TEMPLATES_LANG = 'en'
 MARKUP = ('md', 'ipynb', 'html')
 MARKDOWN = {
     'extension_configs': {
+        'markdown.extensions.toc': {'title': 'Table of contents:'}, #consider out
         'markdown.extensions.codehilite': {'css_class': 'highlight'},
         'markdown.extensions.extra': {},
         'markdown.extensions.meta': {},

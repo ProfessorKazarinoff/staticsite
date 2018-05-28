@@ -85,7 +85,7 @@ $ sudo systemctl daemon-reload
 $ sudo systemctl start jupyterhub
 ```
 
-We can see if **jupyterhub*** is running with:
+We can see if **jupyterhub** is running with:
 
 ```
 $ sudo systemctl status jupyterhub
@@ -98,21 +98,13 @@ $ sudo systemctl status jupyterhub
 
 ### 2. Test local OAuth
 
-Now we can go to the server and log in as our non-root user, and log in as the other user we created ```kendra```
+Now we can go to the server and log in as our non-root user, and log in as the other user we created ```kendra```.
 
-A couple times I thought that **jupyterhub** was running after using ```systemctl start jupyterhub``` but the hub wasn't working when I went to the hub's web address. It turned out that **jupyterhub** wasn't running when I keyed in ```systemctl status jupyterhub```. Most times looking for an error and tracking down the the error worked, but one time it seemed to be a problem with the http-configurable-proxy. The following command will shut down the proxy if you get stuck like I did (insert the number corresponding to the configurable-http-proxy process after the ```kill``` command):
+A couple times I thought that **jupyterhub** was running after using ```systemctl start jupyterhub```, but the hub wasn't working when I went to the hub's web address. It turned out that **jupyterhub** wasn't running when I keyed in ```systemctl status jupyterhub```. Most times looking for an error and tracking down the the error worked, but one time it seemed to be a problem with the http-configurable-proxy. The following command will shut down the proxy if you get stuck like I did (insert the number corresponding to the configurable-http-proxy process after the ```kill``` command):
 
 ```
 $ ps aux | grep configurable-http-proxy
 $ kill #### 
-```
-
-Something similar to this in jupyterhub_config.py
-
-```
-#jupyterhub_config.py
-
-c.LocalGoogleOAuthenticator.create_system_users = True
 ```
 
 <br>
@@ -121,7 +113,7 @@ c.LocalGoogleOAuthenticator.create_system_users = True
 
 A problem now is that if we go to the admin page on jupyter hub, we can't add new users. The users have to be added to the server using PuTTY first and then can be added to **jupyterhub** with the admin panel. This is OK for a small team or a couple users, but for a college class, creating a new user on the server for each student, then emailing out passwords... Ah! what a mess. So we need to give **jupyterhub** the authority to create new users from the admin panel and we need a way to have users login with a user name and password they already have.
 
-One of the ways that students could log into Jupyter Hub is using their github credentials. This would require each student to have a github account. A github account for each student might be worth it to give students the exposure git and github as a tools. So let's give the github authenticator a whirl. The github authenticator is also pretty well documented for Jupyter Hub, so it is good authenticator to try first.
+One of the ways students could log into Jupyter Hub is using their github credentials. This would require each student to have a github account. A github account for each student might be worth it to give students exposure to git and github as a tools. So let's give the github authenticator a whirl. The github authenticator is also pretty well documented for Jupyter Hub, so it's good authenticator to try first.
 
 To use the github authenticator, we need to install **oauthenticator**. I couldn't find oauthenticator on conda-forge. If it's on conda-forge, I would install it from there rather than PyPI. But for this one, I used **pip**.
 
@@ -129,7 +121,7 @@ To use the github authenticator, we need to install **oauthenticator**. I couldn
 $ pip install conda install oauthenticator
 ```
 
-Now we need to log into github and create an OAuth App and copy the client id and secret. The short version is:
+Now we need to log into github and create an OAuth App and copy the Client ID and Client Secret. The short version is:
 
 github profile --> settings --> Developer Settings --> OAuth Apps --> Register a new application
 
@@ -140,20 +132,20 @@ github profile --> settings --> Developer Settings --> OAuth Apps --> Register a
 ![github register new applicaiton](/posts/jupyterhub/github_register_new_application.png)
 
 
-set the **Homepage URL** as:
+Set the **Homepage URL** as:
 
-    https://notebooks.problemsolvingwithpython.com/
+    https://notebooks.yourdomain.com/
 
-set the **Authorization call-back URL** as:
+Set the **Authorization call-back URL** as:
 
-    https://notebooks.problemsolvingwithpython.com/hub/oauth_callback
+    https://notebooks.yourdomain.com/hub/oauth_callback
 
 ![github register new app](/posts/jupyterhub/github_register_oauth_app.png)
 
 in the App Settings page, we need to copy two settings:
 
- * client_id
- * client_secret
+ * Client ID
+ * Client Secret
 
 ![github client id and secret](/posts/jupyterhub/github_client_id_and_secret.png)
  
@@ -198,17 +190,17 @@ Browse over to the hub's URL and we should be able to log in with a github usern
 
 Now that the github authenticator works, we are going to get into the weeds of getting the google authenticator to work. Why google authenticator instead of github? Our college uses the gmail suite for both staff and students. When students log onto their college email, they are logging into gmail. Students can use google calendar and google drive with their college email account as well. So it is probably best that students log into juypter hub using the same google login that they use to access their college email, google drive and calendar. 
 
-First up we need to set up a google OAuth instance. I did this using my personal gmail account rather than my college gmail account. Some of the part of google suite are not available in my college profile like youtube and developer tabs. 
+First up we need to set up a google OAuth instance. I did this using my personal gmail account rather than my college gmail account. Some parts of google suite are not available in my college profile like youtube and developer tabs. 
 
 To obtain the google OAuth credentials, we need to log into the google API console [https://console.developers.google.com/](https://console.developers.google.com/) and select [Credentials] on the lefthand menu.
 
 ![google oauth credentials](/posts/jupyterhub/google_oauth_credentials.png)
 
-Next we'll create a new OAuth credential under [credentials] --> [create credentials] --> [OAuth Client ID]:
+Next we'll create a new OAuth credential under [Credentials] --> [Create Credentials] --> [OAuth client ID]:
 
-![google create credentials](/posts/jupyterhub/google_oauth_credentials.png)
+![google create credentials](/posts/jupyterhub/google_oauth_create_credentials.png)
 
-When getting google OAuth credentials you will need to input:
+To create a set of google OAuth credentials you will need to input:
 
  * Authorized JavaScript origins: https://notebooks.yourdomain.com
  * callback url: https://notebooks.yourdomain.com/hub/oauth_callback
@@ -287,4 +279,4 @@ In this post, we set **jupyterhub** to run as a system service in the background
 <br>
 
 ### Next Steps
-Up next we will see if we can populate each new user's working directory tree with a couple of notebooks that will be the three labs of the quarter. We'll see if we can pull these up from github so that they can be easily edited and viewed by the students before the quarter starts.
+Up next we will see if we can populate each new user's working directory tree with a couple of notebooks that will be the assignments for the quarter. We'll see if we can pull these down from github so that the assignments can be edited by instructors and viewed by the students before the quarter starts.

@@ -64,7 +64,7 @@ $ sudo systemctl start jupyterhub
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;We can see if &lt;strong&gt;jupyterhub&lt;/strong&gt;* is running with:&lt;/p&gt;
+&lt;p&gt;We can see if &lt;strong&gt;jupyterhub&lt;/strong&gt; is running with:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo systemctl status jupyterhub
 
  Loaded: loaded &lt;span class="o"&gt;(&lt;/span&gt;/etc/systemd/system/jupyterhub.service&lt;span class="p"&gt;;&lt;/span&gt; 
@@ -74,49 +74,42 @@ $ sudo systemctl start jupyterhub
 
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h3 id="2-test-local-oauth"&gt;2. Test local OAuth&lt;/h3&gt;
-&lt;p&gt;Now we can go to the server and log in as our non-root user, and log in as the other user we created &lt;code&gt;kendra&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;A couple times I thought that &lt;strong&gt;jupyterhub&lt;/strong&gt; was running after using &lt;code&gt;systemctl start jupyterhub&lt;/code&gt; but the hub wasn't working when I went to the hub's web address. It turned out that &lt;strong&gt;jupyterhub&lt;/strong&gt; wasn't running when I keyed in &lt;code&gt;systemctl status jupyterhub&lt;/code&gt;. Most times looking for an error and tracking down the the error worked, but one time it seemed to be a problem with the http-configurable-proxy. The following command will shut down the proxy if you get stuck like I did (insert the number corresponding to the configurable-http-proxy process after the &lt;code&gt;kill&lt;/code&gt; command):&lt;/p&gt;
+&lt;p&gt;Now we can go to the server and log in as our non-root user, and log in as the other user we created &lt;code&gt;kendra&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;A couple times I thought that &lt;strong&gt;jupyterhub&lt;/strong&gt; was running after using &lt;code&gt;systemctl start jupyterhub&lt;/code&gt;, but the hub wasn't working when I went to the hub's web address. It turned out that &lt;strong&gt;jupyterhub&lt;/strong&gt; wasn't running when I keyed in &lt;code&gt;systemctl status jupyterhub&lt;/code&gt;. Most times looking for an error and tracking down the the error worked, but one time it seemed to be a problem with the http-configurable-proxy. The following command will shut down the proxy if you get stuck like I did (insert the number corresponding to the configurable-http-proxy process after the &lt;code&gt;kill&lt;/code&gt; command):&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ ps aux &lt;span class="p"&gt;|&lt;/span&gt; grep configurable-http-proxy
 $ &lt;span class="nb"&gt;kill&lt;/span&gt; &lt;span class="c1"&gt;#### &lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Something similar to this in jupyterhub_config.py&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;#jupyterhub_config.py
-
-c.LocalGoogleOAuthenticator.create_system_users = True
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h3 id="3-acquire-github-oauth-credentials"&gt;3. Acquire Github OAuth credentials&lt;/h3&gt;
 &lt;p&gt;A problem now is that if we go to the admin page on jupyter hub, we can't add new users. The users have to be added to the server using PuTTY first and then can be added to &lt;strong&gt;jupyterhub&lt;/strong&gt; with the admin panel. This is OK for a small team or a couple users, but for a college class, creating a new user on the server for each student, then emailing out passwords... Ah! what a mess. So we need to give &lt;strong&gt;jupyterhub&lt;/strong&gt; the authority to create new users from the admin panel and we need a way to have users login with a user name and password they already have.&lt;/p&gt;
-&lt;p&gt;One of the ways that students could log into Jupyter Hub is using their github credentials. This would require each student to have a github account. A github account for each student might be worth it to give students the exposure git and github as a tools. So let's give the github authenticator a whirl. The github authenticator is also pretty well documented for Jupyter Hub, so it is good authenticator to try first.&lt;/p&gt;
+&lt;p&gt;One of the ways students could log into Jupyter Hub is using their github credentials. This would require each student to have a github account. A github account for each student might be worth it to give students exposure to git and github as a tools. So let's give the github authenticator a whirl. The github authenticator is also pretty well documented for Jupyter Hub, so it's good authenticator to try first.&lt;/p&gt;
 &lt;p&gt;To use the github authenticator, we need to install &lt;strong&gt;oauthenticator&lt;/strong&gt;. I couldn't find oauthenticator on conda-forge. If it's on conda-forge, I would install it from there rather than PyPI. But for this one, I used &lt;strong&gt;pip&lt;/strong&gt;.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ pip install conda install oauthenticator
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Now we need to log into github and create an OAuth App and copy the client id and secret. The short version is:&lt;/p&gt;
+&lt;p&gt;Now we need to log into github and create an OAuth App and copy the Client ID and Client Secret. The short version is:&lt;/p&gt;
 &lt;p&gt;github profile --&amp;gt; settings --&amp;gt; Developer Settings --&amp;gt; OAuth Apps --&amp;gt; Register a new application&lt;/p&gt;
 &lt;p&gt;&lt;img alt="github settings" src="/posts/jupyterhub/github_settings.png"&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="github developer settings" src="/posts/jupyterhub/github_developer_settings.png"&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="github register new applicaiton" src="/posts/jupyterhub/github_register_new_application.png"&gt;&lt;/p&gt;
-&lt;p&gt;set the &lt;strong&gt;Homepage URL&lt;/strong&gt; as:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;https://notebooks.problemsolvingwithpython.com/
+&lt;p&gt;Set the &lt;strong&gt;Homepage URL&lt;/strong&gt; as:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;https://notebooks.yourdomain.com/
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;set the &lt;strong&gt;Authorization call-back URL&lt;/strong&gt; as:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;https://notebooks.problemsolvingwithpython.com/hub/oauth_callback
+&lt;p&gt;Set the &lt;strong&gt;Authorization call-back URL&lt;/strong&gt; as:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;https://notebooks.yourdomain.com/hub/oauth_callback
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;&lt;img alt="github register new app" src="/posts/jupyterhub/github_register_oauth_app.png"&gt;&lt;/p&gt;
 &lt;p&gt;in the App Settings page, we need to copy two settings:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;client_id&lt;/li&gt;
-&lt;li&gt;client_secret&lt;/li&gt;
+&lt;li&gt;Client ID&lt;/li&gt;
+&lt;li&gt;Client Secret&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;img alt="github client id and secret" src="/posts/jupyterhub/github_client_id_and_secret.png"&gt;&lt;/p&gt;
 &lt;p&gt;These two long strings will need to be pasted into the jupyterhub_config.py file. &lt;/p&gt;
@@ -150,12 +143,12 @@ $ sudo systemctl status jupyterhub
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h3 id="4-google-authenticator"&gt;4. Google Authenticator&lt;/h3&gt;
 &lt;p&gt;Now that the github authenticator works, we are going to get into the weeds of getting the google authenticator to work. Why google authenticator instead of github? Our college uses the gmail suite for both staff and students. When students log onto their college email, they are logging into gmail. Students can use google calendar and google drive with their college email account as well. So it is probably best that students log into juypter hub using the same google login that they use to access their college email, google drive and calendar. &lt;/p&gt;
-&lt;p&gt;First up we need to set up a google OAuth instance. I did this using my personal gmail account rather than my college gmail account. Some of the part of google suite are not available in my college profile like youtube and developer tabs. &lt;/p&gt;
+&lt;p&gt;First up we need to set up a google OAuth instance. I did this using my personal gmail account rather than my college gmail account. Some parts of google suite are not available in my college profile like youtube and developer tabs. &lt;/p&gt;
 &lt;p&gt;To obtain the google OAuth credentials, we need to log into the google API console &lt;a href="https://console.developers.google.com/"&gt;https://console.developers.google.com/&lt;/a&gt; and select [Credentials] on the lefthand menu.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="google oauth credentials" src="/posts/jupyterhub/google_oauth_credentials.png"&gt;&lt;/p&gt;
-&lt;p&gt;Next we'll create a new OAuth credential under [credentials] --&amp;gt; [create credentials] --&amp;gt; [OAuth Client ID]:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="google create credentials" src="/posts/jupyterhub/google_oauth_credentials.png"&gt;&lt;/p&gt;
-&lt;p&gt;When getting google OAuth credentials you will need to input:&lt;/p&gt;
+&lt;p&gt;Next we'll create a new OAuth credential under [Credentials] --&amp;gt; [Create Credentials] --&amp;gt; [OAuth client ID]:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="google create credentials" src="/posts/jupyterhub/google_oauth_create_credentials.png"&gt;&lt;/p&gt;
+&lt;p&gt;To create a set of google OAuth credentials you will need to input:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Authorized JavaScript origins: https://notebooks.yourdomain.com&lt;/li&gt;
 &lt;li&gt;callback url: https://notebooks.yourdomain.com/hub/oauth_callback&lt;/li&gt;
@@ -219,7 +212,7 @@ $ sudo systemctl status jupyterhub
 &lt;p&gt;In this post, we set &lt;strong&gt;jupyterhub&lt;/strong&gt; to run as a system service in the background which allowed us to work on the server and run &lt;strong&gt;jupyterhub&lt;/strong&gt; at the same time. Then we added a github authentication system so that users could log into our Jupyter Hub server using their github usernames and passwords. Then we modified the authentication system to use google user names and passwords even if the usernames contained a dot. &lt;/p&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h3 id="next-steps"&gt;Next Steps&lt;/h3&gt;
-&lt;p&gt;Up next we will see if we can populate each new user's working directory tree with a couple of notebooks that will be the three labs of the quarter. We'll see if we can pull these up from github so that they can be easily edited and viewed by the students before the quarter starts.&lt;/p&gt;</content><category term="jupyter"></category><category term="jupyter hub"></category><category term="jupyter notebooks"></category><category term="python"></category></entry><entry><title>Adding SSL and a domain name to Jupyter Hub</title><link href="https://professorkazarinoff.github.io/staticsite/add-ssl-and-domain-name-to-jupyterhub.html" rel="alternate"></link><published>2018-05-25T12:40:00-07:00</published><updated>2018-05-25T12:40:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-05-25:/staticsite/add-ssl-and-domain-name-to-jupyterhub.html</id><summary type="html">&lt;p&gt;This is the fifth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to link a domain name to our server IP address, add SSL security and configure nginx to run as a proxy in between users and &lt;strong&gt;jupyterhub&lt;/strong&gt;. Then we'll run &lt;strong&gt;jupyterhub&lt;/strong&gt; over https using the SSL security we created.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the fifth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to link a domain name to our server IP address, add SSL security and configure nginx to run as a proxy in between users and &lt;strong&gt;jupyterhub&lt;/strong&gt;. Then we'll run &lt;strong&gt;jupyterhub&lt;/strong&gt; over https using the SSL security we created.&lt;/p&gt;
+&lt;p&gt;Up next we will see if we can populate each new user's working directory tree with a couple of notebooks that will be the assignments for the quarter. We'll see if we can pull these down from github so that the assignments can be edited by instructors and viewed by the students before the quarter starts.&lt;/p&gt;</content><category term="jupyter"></category><category term="jupyter hub"></category><category term="jupyter notebooks"></category><category term="python"></category></entry><entry><title>Adding SSL and a domain name to Jupyter Hub</title><link href="https://professorkazarinoff.github.io/staticsite/add-ssl-and-domain-name-to-jupyterhub.html" rel="alternate"></link><published>2018-05-25T12:40:00-07:00</published><updated>2018-05-25T12:40:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-05-25:/staticsite/add-ssl-and-domain-name-to-jupyterhub.html</id><summary type="html">&lt;p&gt;This is the fifth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to link a domain name to our server IP address, add SSL security and configure nginx to run as a proxy in between users and &lt;strong&gt;jupyterhub&lt;/strong&gt;. Then we'll run &lt;strong&gt;jupyterhub&lt;/strong&gt; over https using the SSL security we created.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the fifth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to link a domain name to our server IP address, add SSL security and configure nginx to run as a proxy in between users and &lt;strong&gt;jupyterhub&lt;/strong&gt;. Then we'll run &lt;strong&gt;jupyterhub&lt;/strong&gt; over https using the SSL security we created.&lt;/p&gt;
 &lt;h3 id="posts-in-this-series"&gt;Posts in this series&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/why-jupyter-hub.html"&gt;Why Jupyter Hub?&lt;/a&gt; &lt;/li&gt;

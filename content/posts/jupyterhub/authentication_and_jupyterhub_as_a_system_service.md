@@ -1,16 +1,16 @@
 ﻿Title: Adding Google OAuth and system service to a Jupyter Hub server
-Date: 2018-05-22 12:40
-Modified: 2018-05-22 12:40
-Status: draft
+Date: 2018-05-27 12:40
+Modified: 2018-05-27 12:40
+Status: published
 Category: jupyter
 Tags: jupyter, jupyter hub, jupyter notebooks, python
 Slug: add-google-oauth-and-system-service-to-jupyterhub
 Authors: Peter D. Kazarinoff
 Series: Jupyter Hub
 Series_index: 6
-Summary: This is the sixth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we will set up **jupyterhub** to run as a system service in the background which will allow us to work on the server and run **jupyterhub** at the same time. Then we will add an authentication system so that users can log into our Jupyter Hub server using github usernames and passwords. Finally we will modify the authentication system so that users can log into our Jupyer Hub server using google usernames and passwords. The same user name and password a student uses to access their college email.
+Summary: This is the sixth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we will set up **jupyterhub** to run as a system service in the background which will allow us to work on the server and run **jupyterhub** at the same time. Then we will add an authentication system so that users can log into our Jupyter Hub server using github usernames and passwords. Finally we will modify the authentication system so that users can log into our Jupyer Hub server using their google usernames and passwords. The same user name and password a student uses to access their college email.
 
-This is the sixth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we will set up **jupyterhub** to run as a system service in the background which will allow us to work on the server and run **jupyterhub** at the same time. Then we will add an authentication system so that users can log into our Jupyter Hub server using github usernames and passwords. Finally we will modify the authentication system so that users can log into our Jupyer Hub server using google usernames and passwords. The same user name and password a student uses to access their college email.
+This is the sixth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we will set up **jupyterhub** to run as a system service in the background which will allow us to work on the server and run **jupyterhub** at the same time. Then we will add an authentication system so that users can log into our Jupyter Hub server using github usernames and passwords. Finally we will modify the authentication system so that users can log into our Jupyer Hub server using their google usernames and passwords. The same user name and password a student uses to access their college email.
 
 ### Posts in this series
 
@@ -159,7 +159,11 @@ in the App Settings page, we need to copy two settings:
  
 These two long strings will need to be pasted into the jupyterhub_config.py file. 
 
-Now we'll edit the ```jupyterhub_config.py``` file to include the following lines. Note ```#c.Authenticator.whitelist``` is commented out. We want to see if a github user can log onto the server (which will automatically create a new user and spawn a jupyter notebook server) and run notebooks. Once we know the server is working, we can uncomment the white list and only allow in specific github usernames. Note ```c.LocalGitHubOAuthenticator.client_id``` and ```c.LocalGitHubOAuthenticator.client_secret``` are the long strings from our github OAuth App.
+<br>
+
+### 4. Modify jupyterhub_config.py to use github OAuth
+
+Now we'll edit the ```jupyterhub_config.py``` file to include a couple additional lines. Note in the configuration below, ```#c.Authenticator.whitelist``` is commented out. We want to see if a github user can log onto the server (which will automatically create a new user and spawn a jupyter notebook server) and run notebooks. Once we know the server is working, we can uncomment the white list and only allow in specific github usernames. Note ```c.LocalGitHubOAuthenticator.client_id``` and ```c.LocalGitHubOAuthenticator.client_secret``` are the long strings from our github OAuth App.
 
 ```
 #jupyterhub_config.py
@@ -196,7 +200,7 @@ Now that the github authenticator works, we are going to get into the weeds of g
 
 First up we need to set up a google OAuth instance. I did this using my personal gmail account rather than my college gmail account. Some of the part of google suite are not available in my college profile like youtube and developer tabs. 
 
-To obtain the google OAuth credentials, we need to log into the google API console [https://console.developers.google.com/](https://console.developers.google.com/) and select [Credentials] on the lefthand menus
+To obtain the google OAuth credentials, we need to log into the google API console [https://console.developers.google.com/](https://console.developers.google.com/) and select [Credentials] on the lefthand menu.
 
 ![google oauth credentials](/posts/jupyterhub/google_oauth_credentials.png)
 
@@ -213,14 +217,14 @@ When getting google OAuth credentials you will need to input:
 
 After creating a new set of google OAuth credentials, note the:
 
- * client id
+ * client ID
  * client secret
  
 ![google client ID and secret](/posts/jupyterhub/google_oauth_client_id_and_secret.png)
  
  These two longs strings will be included in our revised **jupyterhub** configuration.
 
-Once we get our google OAuth credentials, we need to edit ```jupyterhub_conf.py```
+Once we get our google OAuth credentials, we need to edit ```jupyterhub_conf.py```. Note the google OAuth credentials need to replace ```'xxxxxxxxxxxxxxx'``` 
 
 ```
 #jupyterhub_conf.py
@@ -260,9 +264,7 @@ firstname.lastname@college.edu
 
 So **jupyterhub** was trying to create users with dots ```.``` in their usernames. This doesn't work in linux. I tried creating a new user with a dot in their username and it asked me to use the ```--force-badname``` flag. So that is what we'll add to the ```c.Authenticator.add_user_cmd``` list. Otherwise the users will be able to authenticate, buy they won't get a new account on the server and they won't be able to run notebooks.
 
-We are also going to edit the ```/etc/systemd/system/jupyterhub.service``` to include the google OAuth client ID and client secret as part of the environmental variables that load when the system service starts.
-
-Restart **jupyterhub** and browse to the web address
+Restart **jupyterhub** and browse to the web address attached to the server.
 
 ```
 $ sudo systemctl stop jupyterhub
@@ -280,7 +282,7 @@ We can log in with our google user name and password (college username and passw
 <br>
 
 ### Summary
-In this post, We will also set **jupyterhub** to run as a system service in the background which will allow us to work on the server and run **jupyterhub** at the same time. Then we added a github authentication system so that users could log into our Jupyter Hub server using their github usernames and passwords. Then we modified the authentication system to use google user names and passwords even if the usernames contained a dot. 
+In this post, we set **jupyterhub** to run as a system service in the background which allowed us to work on the server and run **jupyterhub** at the same time. Then we added a github authentication system so that users could log into our Jupyter Hub server using their github usernames and passwords. Then we modified the authentication system to use google user names and passwords even if the usernames contained a dot. 
 
 <br>
 

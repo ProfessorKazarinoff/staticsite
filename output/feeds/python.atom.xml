@@ -35,7 +35,7 @@ degree: °
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;There are a couple of special characters that will combine symbols. A useful one in engineering is the hat &lt;code&gt;^&lt;/code&gt; symbol. This is typically used to denote unit vectors. We can add a hat &lt;code&gt;^&lt;/code&gt; (also called a circumflex) by putting the unicode escape after the letter you want to add a hat to. For example to add a hat to &lt;code&gt;i&lt;/code&gt; the command is &lt;code&gt;print('i\u0302')&lt;/code&gt;. &lt;/p&gt;
 &lt;p&gt;Below is a list of symbols and greek letters and the corresponding unicode escape to produce the character in python. &lt;/p&gt;
-&lt;h3&gt;Useful unicode symbols in engineering&lt;/h3&gt;
+&lt;h3 id="useful-unicode-symbols-in-engineering"&gt;Useful unicode symbols in engineering&lt;/h3&gt;
 &lt;table class="table table-striped table-bordered table-hover"&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -102,7 +102,7 @@ degree: °
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;h3&gt;Greek lower case letters&lt;/h3&gt;
+&lt;h3 id="greek-lower-case-letters"&gt;Greek lower case letters&lt;/h3&gt;
 &lt;table class="table table-striped table-bordered table-hover"&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -239,7 +239,7 @@ degree: °
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;h3&gt;Greek upper case letters&lt;/h3&gt;
+&lt;h3 id="greek-upper-case-letters"&gt;Greek upper case letters&lt;/h3&gt;
 &lt;table class="table table-striped table-bordered table-hover"&gt;
 &lt;thead&gt;
 &lt;tr&gt;

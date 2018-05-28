@@ -1,6 +1,226 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Python for Undergraduate Engineers - jupyter</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="https://professorkazarinoff.github.io/staticsite/feeds/jupyter.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2018-05-25T12:40:00-07:00</updated><entry><title>Adding SSL and a domain name to Jupyter Hub</title><link href="https://professorkazarinoff.github.io/staticsite/add-ssl-and-domain-name-to-jupyterhub.html" rel="alternate"></link><published>2018-05-25T12:40:00-07:00</published><updated>2018-05-25T12:40:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-05-25:/staticsite/add-ssl-and-domain-name-to-jupyterhub.html</id><summary type="html">&lt;p&gt;This is the fifth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to link a domain name to our server IP address, add SSL security and configure nginx to run as a proxy in between users and &lt;strong&gt;jupyterhub&lt;/strong&gt;. Then we'll run &lt;strong&gt;jupyterhub&lt;/strong&gt; over https using the SSL security we created.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the fifth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to link a domain name to our server IP address, add SSL security and configure nginx to run as a proxy in between users and &lt;strong&gt;jupyterhub&lt;/strong&gt;. Then we'll run &lt;strong&gt;jupyterhub&lt;/strong&gt; over https using the SSL security we created.&lt;/p&gt;
-&lt;h3&gt;Posts in this series&lt;/h3&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Python for Undergraduate Engineers - jupyter</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="https://professorkazarinoff.github.io/staticsite/feeds/jupyter.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2018-05-27T12:40:00-07:00</updated><entry><title>Adding Google OAuth and system service to a Jupyter Hub server</title><link href="https://professorkazarinoff.github.io/staticsite/add-google-oauth-and-system-service-to-jupyterhub.html" rel="alternate"></link><published>2018-05-27T12:40:00-07:00</published><updated>2018-05-27T12:40:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-05-27:/staticsite/add-google-oauth-and-system-service-to-jupyterhub.html</id><summary type="html">&lt;p&gt;This is the sixth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we will set up &lt;strong&gt;jupyterhub&lt;/strong&gt; to run as a system service in the background which will allow us to work on the server and run &lt;strong&gt;jupyterhub&lt;/strong&gt; at the same time. Then we will add an authentication system so that users can log into our Jupyter Hub server using github usernames and passwords. Finally we will modify the authentication system so that users can log into our Jupyer Hub server using their google usernames and passwords. The same user name and password a student uses to access their college email.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the sixth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we will set up &lt;strong&gt;jupyterhub&lt;/strong&gt; to run as a system service in the background which will allow us to work on the server and run &lt;strong&gt;jupyterhub&lt;/strong&gt; at the same time. Then we will add an authentication system so that users can log into our Jupyter Hub server using github usernames and passwords. Finally we will modify the authentication system so that users can log into our Jupyer Hub server using their google usernames and passwords. The same user name and password a student uses to access their college email.&lt;/p&gt;
+&lt;h3 id="posts-in-this-series"&gt;Posts in this series&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/why-jupyter-hub.html"&gt;Why Jupyter Hub?&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/ssh-keys-with-putty.html"&gt;Create ssh key, save to documents/ssh-keys&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/new-digital-ocean-droplet.html"&gt;Create a new Digital Ocean Droplet with a non-root sudo user&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/installing-jupyter-hub.html"&gt;Install Jupyter Hub on the server&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/add-ssl-and-domain-name-to-jupyterhub.html"&gt;Apply SSL, link a domain name to the server and configure nginx&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Connect OAuth to Jupyter Hub&lt;/strong&gt; (this post)&lt;/li&gt;
+&lt;li&gt;Pre-populate each new user's directory tree to include three notebook assignments.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="last-time"&gt;Last time&lt;/h3&gt;
+&lt;p&gt;In the last post, we succeeded in getting &lt;strong&gt;jupyterhub&lt;/strong&gt; to run on https and use SSL certificates. We created SSL certificates, modified the nginx config and modified the &lt;strong&gt;jupyterhub&lt;/strong&gt; config. At the end of it we were able to get a working version of jupyter hub running SSL security.&lt;/p&gt;
+&lt;h3 id="steps-in-this-post"&gt;Steps in this post:&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Run &lt;strong&gt;jupterhub&lt;/strong&gt; as a system service&lt;/li&gt;
+&lt;li&gt;Test local OAuth&lt;/li&gt;
+&lt;li&gt;Acquire github OAuth credentials&lt;/li&gt;
+&lt;li&gt;Modify jupyterhub_config.py to use github OAuth&lt;/li&gt;
+&lt;li&gt;Acquire google OAuth credentials&lt;/li&gt;
+&lt;li&gt;Modify jupyterhub_config.py to use google OAuth&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3 id="1-run-jupterhub-as-a-system-service"&gt;1. Run &lt;strong&gt;jupterhub&lt;/strong&gt; as a system service&lt;/h3&gt;
+&lt;p&gt;Working off of &lt;a href="https://github.com/jupyterhub/jupyterhub/wiki/Run-jupyterhub-as-a-system-service"&gt;this wiki&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;To run &lt;strong&gt;jupyterhub&lt;/strong&gt; as a system service, we need to create a service file in the &lt;code&gt;/etc/systemd/system&lt;/code&gt; directory. &lt;code&gt;cd&lt;/code&gt; into the directory and have a look around. You should see a couple files that end in &lt;code&gt;.service&lt;/code&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;cd&lt;/span&gt; /etc/systemd/system
+$ ls
+cloud-init.target.wants                network-online.target.wants
+dbus-org.freedesktop.thermald.service  paths.target.wants
+default.target.wants                   sockets.target.wants
+final.target.wants                     sshd.service
+getty.target.wants                     sysinit.target.wants
+graphical.target.wants                 syslog.service
+iscsi.service                          timers.target.wants
+multi-user.target.wants
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We'll create a new &lt;code&gt;.service&lt;/code&gt; file called &lt;code&gt;jupyterhub.service&lt;/code&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo nano jupyterhub.service
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;In the file, add the following. Note that as part of the &lt;code&gt;PATH&lt;/code&gt; environment variable &lt;code&gt;/home/peter/anaconda3/bin&lt;/code&gt; is included. This is the path to our &lt;strong&gt;Anaconda&lt;/strong&gt; environment. As part of the &lt;code&gt;ExecStart&lt;/code&gt; we include a flag for our &lt;code&gt;jupyterhub_config.py&lt;/code&gt; file. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;[Unit]&lt;/span&gt;
+&lt;span class="na"&gt;Description&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;Jupyterhub&lt;/span&gt;
+&lt;span class="na"&gt;After&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;syslog.target network.target&lt;/span&gt;
+
+&lt;span class="k"&gt;[Service]&lt;/span&gt;
+&lt;span class="na"&gt;User&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;root&lt;/span&gt;
+&lt;span class="na"&gt;Environment&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;PATH=/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/home/peter/anaconda3/bin&amp;quot;&lt;/span&gt;
+&lt;span class="na"&gt;ExecStart&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;/home/peter/anaconda3/bin/jupyterhub -f /home/peter/jupyterhub_config.py&lt;/span&gt;
+
+&lt;span class="k"&gt;[Install]&lt;/span&gt;
+&lt;span class="na"&gt;WantedBy&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;multi-user.target&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Save and exit with [Ctrl-c] + [y]. Now we need to reload the system daemon and run &lt;strong&gt;jupyterhub&lt;/strong&gt; as a system process using the command: &lt;code&gt;sudo systemctl &amp;lt;start|stop|status&amp;gt; jupyterhub&lt;/code&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo systemctl daemon-reload
+$ sudo systemctl start jupyterhub
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We can see if &lt;strong&gt;jupyterhub&lt;/strong&gt;* is running with:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo systemctl status jupyterhub
+
+ Loaded: loaded &lt;span class="o"&gt;(&lt;/span&gt;/etc/systemd/system/jupyterhub.service&lt;span class="p"&gt;;&lt;/span&gt; 
+ Active: active &lt;span class="o"&gt;(&lt;/span&gt;running&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3 id="2-test-local-oauth"&gt;2. Test local OAuth&lt;/h3&gt;
+&lt;p&gt;Now we can go to the server and log in as our non-root user, and log in as the other user we created &lt;code&gt;kendra&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;A couple times I thought that &lt;strong&gt;jupyterhub&lt;/strong&gt; was running after using &lt;code&gt;systemctl start jupyterhub&lt;/code&gt; but the hub wasn't working when I went to the hub's web address. It turned out that &lt;strong&gt;jupyterhub&lt;/strong&gt; wasn't running when I keyed in &lt;code&gt;systemctl status jupyterhub&lt;/code&gt;. Most times looking for an error and tracking down the the error worked, but one time it seemed to be a problem with the http-configurable-proxy. The following command will shut down the proxy if you get stuck like I did (insert the number corresponding to the configurable-http-proxy process after the &lt;code&gt;kill&lt;/code&gt; command):&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ ps aux &lt;span class="p"&gt;|&lt;/span&gt; grep configurable-http-proxy
+$ &lt;span class="nb"&gt;kill&lt;/span&gt; &lt;span class="c1"&gt;#### &lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Something similar to this in jupyterhub_config.py&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;#jupyterhub_config.py
+
+c.LocalGoogleOAuthenticator.create_system_users = True
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3 id="3-acquire-github-oauth-credentials"&gt;3. Acquire Github OAuth credentials&lt;/h3&gt;
+&lt;p&gt;A problem now is that if we go to the admin page on jupyter hub, we can't add new users. The users have to be added to the server using PuTTY first and then can be added to &lt;strong&gt;jupyterhub&lt;/strong&gt; with the admin panel. This is OK for a small team or a couple users, but for a college class, creating a new user on the server for each student, then emailing out passwords... Ah! what a mess. So we need to give &lt;strong&gt;jupyterhub&lt;/strong&gt; the authority to create new users from the admin panel and we need a way to have users login with a user name and password they already have.&lt;/p&gt;
+&lt;p&gt;One of the ways that students could log into Jupyter Hub is using their github credentials. This would require each student to have a github account. A github account for each student might be worth it to give students the exposure git and github as a tools. So let's give the github authenticator a whirl. The github authenticator is also pretty well documented for Jupyter Hub, so it is good authenticator to try first.&lt;/p&gt;
+&lt;p&gt;To use the github authenticator, we need to install &lt;strong&gt;oauthenticator&lt;/strong&gt;. I couldn't find oauthenticator on conda-forge. If it's on conda-forge, I would install it from there rather than PyPI. But for this one, I used &lt;strong&gt;pip&lt;/strong&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ pip install conda install oauthenticator
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now we need to log into github and create an OAuth App and copy the client id and secret. The short version is:&lt;/p&gt;
+&lt;p&gt;github profile --&amp;gt; settings --&amp;gt; Developer Settings --&amp;gt; OAuth Apps --&amp;gt; Register a new application&lt;/p&gt;
+&lt;p&gt;&lt;img alt="github settings" src="/posts/jupyterhub/github_settings.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="github developer settings" src="/posts/jupyterhub/github_developer_settings.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="github register new applicaiton" src="/posts/jupyterhub/github_register_new_application.png"&gt;&lt;/p&gt;
+&lt;p&gt;set the &lt;strong&gt;Homepage URL&lt;/strong&gt; as:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;https://notebooks.problemsolvingwithpython.com/
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;set the &lt;strong&gt;Authorization call-back URL&lt;/strong&gt; as:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;https://notebooks.problemsolvingwithpython.com/hub/oauth_callback
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;img alt="github register new app" src="/posts/jupyterhub/github_register_oauth_app.png"&gt;&lt;/p&gt;
+&lt;p&gt;in the App Settings page, we need to copy two settings:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;client_id&lt;/li&gt;
+&lt;li&gt;client_secret&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img alt="github client id and secret" src="/posts/jupyterhub/github_client_id_and_secret.png"&gt;&lt;/p&gt;
+&lt;p&gt;These two long strings will need to be pasted into the jupyterhub_config.py file. &lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3 id="4-modify-jupyterhub_configpy-to-use-github-oauth"&gt;4. Modify jupyterhub_config.py to use github OAuth&lt;/h3&gt;
+&lt;p&gt;Now we'll edit the &lt;code&gt;jupyterhub_config.py&lt;/code&gt; file to include a couple additional lines. Note in the configuration below, &lt;code&gt;#c.Authenticator.whitelist&lt;/code&gt; is commented out. We want to see if a github user can log onto the server (which will automatically create a new user and spawn a jupyter notebook server) and run notebooks. Once we know the server is working, we can uncomment the white list and only allow in specific github usernames. Note &lt;code&gt;c.LocalGitHubOAuthenticator.client_id&lt;/code&gt; and &lt;code&gt;c.LocalGitHubOAuthenticator.client_secret&lt;/code&gt; are the long strings from our github OAuth App.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;#jupyterhub_config.py&lt;/span&gt;
+
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;oauthenticator.github&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;LocalGitHubOAuthenticator&lt;/span&gt;
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;JupyterHub&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;authenticator_class&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;LocalGitHubOAuthenticator&lt;/span&gt;
+
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;LocalGitHubOAuthenticator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;oauth_callback_url&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;https://notebooks.problemsolvingwithpython.com/hub/oauth_callback&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;LocalGitHubOAuthenticator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;client_id&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;xxxxxxxxxxxxxxxxxxxxxx&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;LocalGitHubOAuthenticator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;client_secret&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&amp;#39;&lt;/span&gt;
+
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;LocalGitHubOAuthenticator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;create_system_users&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;True&lt;/span&gt;
+&lt;span class="c1"&gt;#c.Authenticator.whitelist = {&amp;#39;peter&amp;#39;,&amp;#39;kendra&amp;#39;}&lt;/span&gt;
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Authenticator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;admin_users&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;peter&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Restart &lt;strong&gt;jupyterhub with&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo systemctl stop jupyterhub
+$ sudo systemctl start jupyterhub
+$ sudo systemctl status jupyterhub
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Browse over to the hub's URL and we should be able to log in with a github username and password. &lt;/p&gt;
+&lt;p&gt;&lt;img alt="Sign in with GitHub" src="/posts/jupyterhub/sign_in_with_github.PNG"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3 id="4-google-authenticator"&gt;4. Google Authenticator&lt;/h3&gt;
+&lt;p&gt;Now that the github authenticator works, we are going to get into the weeds of getting the google authenticator to work. Why google authenticator instead of github? Our college uses the gmail suite for both staff and students. When students log onto their college email, they are logging into gmail. Students can use google calendar and google drive with their college email account as well. So it is probably best that students log into juypter hub using the same google login that they use to access their college email, google drive and calendar. &lt;/p&gt;
+&lt;p&gt;First up we need to set up a google OAuth instance. I did this using my personal gmail account rather than my college gmail account. Some of the part of google suite are not available in my college profile like youtube and developer tabs. &lt;/p&gt;
+&lt;p&gt;To obtain the google OAuth credentials, we need to log into the google API console &lt;a href="https://console.developers.google.com/"&gt;https://console.developers.google.com/&lt;/a&gt; and select [Credentials] on the lefthand menu.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="google oauth credentials" src="/posts/jupyterhub/google_oauth_credentials.png"&gt;&lt;/p&gt;
+&lt;p&gt;Next we'll create a new OAuth credential under [credentials] --&amp;gt; [create credentials] --&amp;gt; [OAuth Client ID]:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="google create credentials" src="/posts/jupyterhub/google_oauth_credentials.png"&gt;&lt;/p&gt;
+&lt;p&gt;When getting google OAuth credentials you will need to input:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Authorized JavaScript origins: https://notebooks.yourdomain.com&lt;/li&gt;
+&lt;li&gt;callback url: https://notebooks.yourdomain.com/hub/oauth_callback&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img alt="google js origins and callback url" src="/posts/jupyterhub/google_oauth_javascript_origins_redirect_uri.png"&gt;&lt;/p&gt;
+&lt;p&gt;After creating a new set of google OAuth credentials, note the:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;client ID&lt;/li&gt;
+&lt;li&gt;client secret&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img alt="google client ID and secret" src="/posts/jupyterhub/google_oauth_client_id_and_secret.png"&gt;&lt;/p&gt;
+&lt;p&gt;These two longs strings will be included in our revised &lt;strong&gt;jupyterhub&lt;/strong&gt; configuration.&lt;/p&gt;
+&lt;p&gt;Once we get our google OAuth credentials, we need to edit &lt;code&gt;jupyterhub_conf.py&lt;/code&gt;. Note the google OAuth credentials need to replace &lt;code&gt;'xxxxxxxxxxxxxxx'&lt;/code&gt; &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;#jupyterhub_conf.py&lt;/span&gt;
+
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;os&lt;/span&gt;
+&lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;get_config&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;JupyterHub&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;log_level&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Spawner&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cmd&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;/home/peter/anaconda3/bin/jupyterhub-singleuser&amp;#39;&lt;/span&gt;
+
+&lt;span class="c1"&gt;# For Google OAuth Authentication&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;oauthenticator.google&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;LocalGoogleOAuthenticator&lt;/span&gt;
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;JupyterHub&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;authenticator_class&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;LocalGoogleOAuthenticator&lt;/span&gt;
+
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;LocalGoogleOAuthenticator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;create_system_users&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;True&lt;/span&gt;
+
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;LocalGoogleOAuthenticator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;hosted_domain&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;yourcollege.edu&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;LocalGoogleOAuthenticator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;login_service&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Your College Name&amp;#39;&lt;/span&gt;
+
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;LocalGoogleOAuthenticator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;oauth_callback_url&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;https://notebooks.yourserver.com/hub/oauth_callback&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;LocalGoogleOAuthenticator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;oauth_client_id&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;xxxxxxxxxxxxxxxxxxxxx&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;LocalGoogleOAuthenticator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;oauth_client_secret&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;xxxxxxxxxxxxxxxxxxx&amp;quot;&lt;/span&gt;
+&lt;span class="c1"&gt;#c.JupyterHub.cookie_secret_file = &amp;#39;/srv/jupyterhub/jupyterhub_cookie_secret&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Authenticator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add_user_cmd&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;adduser&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;-q&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;--gecos&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;&amp;quot;&amp;quot;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;--disabled-password&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;--force-badname&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Authenticator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;whitelist&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;studnet.username&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;faculty.username&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Authenticator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;admin_users&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;faculty.username&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This little line:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;c.Authenticator.add_user_cmd = [&amp;#39;adduser&amp;#39;, &amp;#39;-q&amp;#39;, &amp;#39;--gecos&amp;#39;, &amp;#39;&amp;quot;&amp;quot;&amp;#39;, &amp;#39;--disabled-password&amp;#39;, &amp;#39;--force-badname&amp;#39;]
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;was a real gottacha. Our college email addresses are in the form:&lt;/p&gt;
+&lt;p&gt;firstname.lastname@college.edu &lt;/p&gt;
+&lt;p&gt;So &lt;strong&gt;jupyterhub&lt;/strong&gt; was trying to create users with dots &lt;code&gt;.&lt;/code&gt; in their usernames. This doesn't work in linux. I tried creating a new user with a dot in their username and it asked me to use the &lt;code&gt;--force-badname&lt;/code&gt; flag. So that is what we'll add to the &lt;code&gt;c.Authenticator.add_user_cmd&lt;/code&gt; list. Otherwise the users will be able to authenticate, buy they won't get a new account on the server and they won't be able to run notebooks.&lt;/p&gt;
+&lt;p&gt;Restart &lt;strong&gt;jupyterhub&lt;/strong&gt; and browse to the web address attached to the server.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo systemctl stop jupyterhub
+$ sudo systemctl start jupyterhub
+$ sudo systemctl status jupyterhub
+&lt;span class="c1"&gt;# [Ctrl + c] to exit&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The login window should look something like:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Sign in with google" src="/posts/jupyterhub/sign_in_with_google.PNG"&gt;&lt;/p&gt;
+&lt;p&gt;We can log in with our google user name and password (college username and password). Pretty sweet.&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3 id="summary"&gt;Summary&lt;/h3&gt;
+&lt;p&gt;In this post, we set &lt;strong&gt;jupyterhub&lt;/strong&gt; to run as a system service in the background which allowed us to work on the server and run &lt;strong&gt;jupyterhub&lt;/strong&gt; at the same time. Then we added a github authentication system so that users could log into our Jupyter Hub server using their github usernames and passwords. Then we modified the authentication system to use google user names and passwords even if the usernames contained a dot. &lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3 id="next-steps"&gt;Next Steps&lt;/h3&gt;
+&lt;p&gt;Up next we will see if we can populate each new user's working directory tree with a couple of notebooks that will be the three labs of the quarter. We'll see if we can pull these up from github so that they can be easily edited and viewed by the students before the quarter starts.&lt;/p&gt;</content><category term="jupyter"></category><category term="jupyter hub"></category><category term="jupyter notebooks"></category><category term="python"></category></entry><entry><title>Adding SSL and a domain name to Jupyter Hub</title><link href="https://professorkazarinoff.github.io/staticsite/add-ssl-and-domain-name-to-jupyterhub.html" rel="alternate"></link><published>2018-05-25T12:40:00-07:00</published><updated>2018-05-25T12:40:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-05-25:/staticsite/add-ssl-and-domain-name-to-jupyterhub.html</id><summary type="html">&lt;p&gt;This is the fifth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to link a domain name to our server IP address, add SSL security and configure nginx to run as a proxy in between users and &lt;strong&gt;jupyterhub&lt;/strong&gt;. Then we'll run &lt;strong&gt;jupyterhub&lt;/strong&gt; over https using the SSL security we created.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the fifth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to link a domain name to our server IP address, add SSL security and configure nginx to run as a proxy in between users and &lt;strong&gt;jupyterhub&lt;/strong&gt;. Then we'll run &lt;strong&gt;jupyterhub&lt;/strong&gt; over https using the SSL security we created.&lt;/p&gt;
+&lt;h3 id="posts-in-this-series"&gt;Posts in this series&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/why-jupyter-hub.html"&gt;Why Jupyter Hub?&lt;/a&gt; &lt;/li&gt;
 &lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/ssh-keys-with-putty.html"&gt;Create ssh key, save to documents/ssh-keys&lt;/a&gt;&lt;/li&gt;
@@ -10,9 +230,9 @@
 &lt;li&gt;Connect OAuth to Jupyter Hub&lt;/li&gt;
 &lt;li&gt;Connect to Jupyter Hub as student&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3&gt;Last time&lt;/h3&gt;
+&lt;h3 id="last-time"&gt;Last time&lt;/h3&gt;
 &lt;p&gt;In the &lt;a href="({filename}/posts/jupyterhub/installing_jupyterhub.md)"&gt;last post&lt;/a&gt;, we installed &lt;strong&gt;Anaconda&lt;/strong&gt; on the server using a shell script. Then we installed some extra Python packages such as &lt;strong&gt;pint&lt;/strong&gt;, &lt;strong&gt;pyserial&lt;/strong&gt; and &lt;strong&gt;schemdraw&lt;/strong&gt; to our base conda environment. Next we installed &lt;strong&gt;jupyterhub&lt;/strong&gt;, opened up port 8000 and ran &lt;strong&gt;jupyterhub&lt;/strong&gt; for the first time! And remember &lt;strong&gt;we shut down jupyter hub very quickly&lt;/strong&gt; because we ran it without any SSL security.&lt;/p&gt;
-&lt;h3&gt;Steps in this post:&lt;/h3&gt;
+&lt;h3 id="steps-in-this-post"&gt;Steps in this post:&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;Link domain name to server IP address&lt;/li&gt;
 &lt;li&gt;Install nginx and modify ufw&lt;/li&gt;
@@ -24,10 +244,10 @@
 &lt;li&gt;Create an new user and restart &lt;strong&gt;jupyterhub&lt;/strong&gt;. See if the new user can log in.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;1. Link domain name to server IP address&lt;/h3&gt;
+&lt;h3 id="1-link-domain-name-to-server-ip-address"&gt;1. Link domain name to server IP address&lt;/h3&gt;
 &lt;p&gt;When we started Jupyter Hub in the previous post, it ran, we could log in, and we could run Python code. What's not to like, right? Well, security is the big problem. &lt;/p&gt;
 &lt;p&gt;In the initial setup, Jupyter Hub was running under regular http, not https. With a web application that has usernames and passwords, like Jupyter Hub, having https and SSL security is best (or maybe manditory). In order to use https, we need to get an SSL certificate. And that SSL certificate should correspond to the domain name linked to our server. So the first step is getting the domain name and pointing it at Digital Ocean. The next step is linking the domain name to our Jupyter Hub server.&lt;/p&gt;
-&lt;h4&gt;Google Domains&lt;/h4&gt;
+&lt;h4 id="google-domains"&gt;Google Domains&lt;/h4&gt;
 &lt;p&gt;I purchased the domain &lt;em&gt;problemsolvingwithpython.com&lt;/em&gt; from &lt;a href="https://domains.google.com"&gt;google domains&lt;/a&gt;. It costs $12/year which seems pretty reasonable and was easy to set up. After purchasing the domain, I added the Digital Ocean DNS servers as a set of custom name servers to my domain options on google domains.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Google Domains Dashboard" src="/posts/jupyterhub/google_domains_list.png"&gt;&lt;/p&gt;
 &lt;p&gt;To add a set of custom name servers, click the button with the two bars under the DNS header. This will bring up a page where you can enter in the Digital Ocean DNS servers. The name servers to add are:&lt;/p&gt;
@@ -39,7 +259,7 @@ ns3.digitalocean.com
 
 &lt;p&gt;&lt;img alt="Google Domains Dashboard" src="/posts/jupyterhub/google_domains_dns_routing.png"&gt;&lt;/p&gt;
 &lt;p&gt;Make sure to click the radio button [Use custom name servers] and click [save].&lt;/p&gt;
-&lt;h4&gt;Digital Ocean DNS&lt;/h4&gt;
+&lt;h4 id="digital-ocean-dns"&gt;Digital Ocean DNS&lt;/h4&gt;
 &lt;p&gt;Now we are going to set our domain &lt;em&gt;problemsolvingwithpython.com&lt;/em&gt; to link to the IP address of our server on Digital Ocean. Log into Digital Ocean and in the upper right select [Create] --&amp;gt; [Domains/DNS]&lt;/p&gt;
 &lt;p&gt;&lt;img alt="DO Domains/DNS" src="/posts/jupyterhub/DO_manage_domains.png"&gt;&lt;/p&gt;
 &lt;p&gt;In the [Add a domain] field, type in the domain name without http, but including .com (or .edu/.org/.net) then click [Add Domain].&lt;/p&gt;
@@ -52,7 +272,7 @@ ns3.digitalocean.com
 &lt;p&gt;&lt;img alt="DO Domains/DNS" src="/posts/jupyterhub/DO_domains_routed.png"&gt;&lt;/p&gt;
 &lt;p&gt;It takes a couple minutes for the DNS switchover to complete. &lt;a href="https://www.whatsmydns.net"&gt;https://www.whatsmydns.net&lt;/a&gt; can be used to check the NS and A records of your domain and see if the domain name is getting through. The first time I set up DNS on Digital Ocean, I added the custom DNS servers to google domains but neglected to select the [use custom name servers] radio button on the google domains dashboard. It looked like the domain was routing to Digital Ocean, but actually the domain was just staying with google. Once I clicked the [use custom name servers] radio button and waited a couple minutes, the change over happened. It did take a bit of time though; not hours, but more than a few minutes.&lt;/p&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;2. Install nginx and modify ufw&lt;/h3&gt;
+&lt;h3 id="2-install-nginx-and-modify-ufw"&gt;2. Install nginx and modify ufw&lt;/h3&gt;
 &lt;p&gt;Now that the domain name is set up, the next step is to install and configure nginx. Nginx is an open source web server that can handle many concurrent web connections at the same time. For the nginx installation, I followed &lt;a href="https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-16-04"&gt;this tutorial&lt;/a&gt; from Digital Ocean.&lt;/p&gt;
 &lt;p&gt;Use PuTTY to connect to the server with the non-root sudo user we set up before. Once logged in, we can update the system and install nginx.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo apt-get update
@@ -119,7 +339,7 @@ Main PID: 17126 (nginx)
 &lt;p&gt;Now we can browse over to the domain (the domain we set up with Digital Ocean and google domains) and see the nginx start page.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="nginx welcome page" src="/posts/jupyterhub/welcome_to_nginx.png"&gt;&lt;/p&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;3. Obtain SSL certificates with certbot&lt;/h3&gt;
+&lt;h3 id="3-obtain-ssl-certificates-with-certbot"&gt;3. Obtain SSL certificates with certbot&lt;/h3&gt;
 &lt;p&gt;With a domain name hooked up to our server, we'll now able to obtain an SSL certificate. I followed &lt;a href="https://www.slideshare.net/willingc/jupyterhub-tutorial-at-jupytercon"&gt;this presentation&lt;/a&gt; to install certbot, a program used to generate SSL certificates. &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;cd&lt;/span&gt; ~
 $ mkdir certbot
@@ -163,7 +383,7 @@ $ sudo chmod &lt;span class="m"&gt;777&lt;/span&gt; -R live/
 
 
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;4. Create a cookie secret and a proxy auth token&lt;/h3&gt;
+&lt;h3 id="4-create-a-cookie-secret-and-a-proxy-auth-token"&gt;4. Create a cookie secret and a proxy auth token&lt;/h3&gt;
 &lt;p&gt;In addition to the SSL certificate, the &lt;a href="http://jupyterhub.readthedocs.io/en/latest/getting-started/security-basics.html"&gt;Jupyter Hub docs on security basics&lt;/a&gt; specify that a cookie secret and poxy auth token should be created. To create the cookie secret:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;cd&lt;/span&gt; /srv
 $ &lt;span class="nb"&gt;cd&lt;/span&gt; jupyterhub            &lt;span class="c1"&gt;#if not present, mkdir it&lt;/span&gt;
@@ -205,7 +425,7 @@ sudo openssl dhparam -out /etc/nginx/ssl/dhparam.pem 2048
 
 
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;5. Modify nginx config&lt;/h3&gt;
+&lt;h3 id="5-modify-nginx-config"&gt;5. Modify nginx config&lt;/h3&gt;
 &lt;p&gt;The next step is to modify the nginx config file so that nginx uses our SSL certificates and routes requests on to &lt;strong&gt;jupyterhub&lt;/strong&gt;. This was the hardest part for me when I set up the first server. The nginx config file isn't Python code or bash script. I went through many different configurations until I got one that worked. The big initial problem that I copied the sample nginx config that's up on the Jupyter Hub docs. But the nginx config posted on the &lt;strong&gt;jupyterhub&lt;/strong&gt; docs is not a complete nginx config, it contains just the server portion. I didn't know that the whole server portion needed to be enclosed in another frame.&lt;/p&gt;
 &lt;p&gt;To modify &lt;code&gt;nginx.conf&lt;/code&gt;, &lt;code&gt;cd&lt;/code&gt; into the &lt;code&gt;/etc/nginx&lt;/code&gt; directory. The nginx.conf file should be there along with a couple other files and directories.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;cd&lt;/span&gt; /etc/nginx
@@ -303,7 +523,7 @@ http {
 
 &lt;p&gt;Save and exit with [Ctrl] + [c] and [y]&lt;/p&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;6. Generate jupyterhub_config.py and modify&lt;/h3&gt;
+&lt;h3 id="6-generate-jupyterhub_configpy-and-modify"&gt;6. Generate jupyterhub_config.py and modify&lt;/h3&gt;
 &lt;p&gt;Next, we'll generate a jupyterhub_config.py file and modify it a little bit. &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;cd&lt;/span&gt; ~
 $ jupyterhub --generate-config
@@ -333,7 +553,7 @@ $ jupyterhub --generate-config
 
 
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;7. Restart nginx and start jupyterhub, see if we can login&lt;/h3&gt;
+&lt;h3 id="7-restart-nginx-and-start-jupyterhub-see-if-we-can-login"&gt;7. Restart nginx and start jupyterhub, see if we can login&lt;/h3&gt;
 &lt;p&gt;Now we'll restart nginx and start jupyterhub. Not that this time when we start jupyter hub we don't need to use the &lt;code&gt;--no-ssl&lt;/code&gt; flag because we have SSL running on nginx. If it seems like nginx isn't working, try &lt;code&gt;$ sudo systemctl status nginx&lt;/code&gt; and see if nginx really started. If it didn't, try the command &lt;code&gt;nginx -t&lt;/code&gt;. This will print out any error messages if nginx failed to start. I had to do this many different times before I got nginx to work.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo systemctl stop nginx
 $ sudo systemctl start nginx
@@ -345,7 +565,7 @@ $ jupyterhub
 
 &lt;p&gt;Now we can browse to our domain and see Jupyter Hub running in its full SSL glory. Log in with the non-root sudo username and password (same user that's running the PuTTY session).&lt;/p&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;8. Create an new user and restart &lt;strong&gt;jupyterhub&lt;/strong&gt;. See if the new user can log in.&lt;/h3&gt;
+&lt;h3 id="8-create-an-new-user-and-restart-jupyterhub-see-if-the-new-user-can-log-in"&gt;8. Create an new user and restart &lt;strong&gt;jupyterhub&lt;/strong&gt;. See if the new user can log in.&lt;/h3&gt;
 &lt;p&gt;OK, it's all well and good that we can log into &lt;strong&gt;jupyterhub&lt;/strong&gt;. But the purpose of setting of of this up is for multiple students to be able to log into &lt;strong&gt;jupyterhub&lt;/strong&gt;. If &lt;strong&gt;jupyterhub&lt;/strong&gt; is still running, it can be stopped with [Ctrl] + [c].  Let's create a new user and see if we can log in as her.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo adduser kendra
 &lt;/pre&gt;&lt;/div&gt;
@@ -364,12 +584,12 @@ c.Authenticator.admin_users = {&amp;#39;peter&amp;#39;}
 
 &lt;p&gt;Amazing! right? Jupyter Hub running on our own domain using SSL security and https. Pretty cool. &lt;/p&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;Summary&lt;/h3&gt;
+&lt;h3 id="summary"&gt;Summary&lt;/h3&gt;
 &lt;p&gt;In this post we created an SSL certificate with cetbot. We modified the nginx config to use our SSL certificate and modified jupyterhub_config.py. At the end of all of that we were able to get a working version of &lt;strong&gt;jupyterhub&lt;/strong&gt; running on https using SSL security and can log into &lt;strong&gt;jupyterhub&lt;/strong&gt; as two different users.&lt;/p&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;Next Steps&lt;/h3&gt;
+&lt;h3 id="next-steps"&gt;Next Steps&lt;/h3&gt;
 &lt;p&gt;Up next will add an authentication system so that users can log into our Jupyter Hub server using their college usernames and passwords. We will also set &lt;strong&gt;jupyterhub&lt;/strong&gt; to run as a system service in the background which will allow us to work on the server and run &lt;strong&gt;jupyterhub&lt;/strong&gt; at the same time.&lt;/p&gt;</content><category term="jupyter"></category><category term="jupyter hub"></category><category term="jupyter notebooks"></category><category term="python"></category></entry><entry><title>Installing Jupyterhub</title><link href="https://professorkazarinoff.github.io/staticsite/installing-jupyter-hub.html" rel="alternate"></link><published>2018-05-24T12:40:00-07:00</published><updated>2018-05-24T12:40:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-05-24:/staticsite/installing-jupyter-hub.html</id><summary type="html">&lt;p&gt;This is the fourth part of a multi-part series that shows how to set up Jupyter Hub for a college class. The goal is to have a running version of Jupyter Hub that students in the class can log into when given a simple web link. In this post, we'll get to the fun stuff: installing &lt;strong&gt;jupyterhub&lt;/strong&gt; on the server, installing &lt;strong&gt;Python&lt;/strong&gt; packages and spinning up Jupyter Hub for the first time.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the fourth part of a multi-part series that shows how to set up Jupyter Hub for a college class. The goal is to have a running version of Jupyter Hub that students in the class can log into when given a simple web link. In this post, we'll get to the fun stuff: installing &lt;strong&gt;jupyterhub&lt;/strong&gt; on the server, installing &lt;strong&gt;Python&lt;/strong&gt; packages and spinning up Jupyter Hub for the first time.&lt;/p&gt;
-&lt;h3&gt;Posts in this series&lt;/h3&gt;
+&lt;h3 id="posts-in-this-series"&gt;Posts in this series&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/why-jupyter-hub.html"&gt;Why Jupyter Hub?&lt;/a&gt; &lt;/li&gt;
 &lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/ssh-keys-with-putty.html"&gt;Create SSH keys, save to documents/ssh-keys&lt;/a&gt;&lt;/li&gt;
@@ -379,9 +599,9 @@ c.Authenticator.admin_users = {&amp;#39;peter&amp;#39;}
 &lt;li&gt;Connect OAuth to Jupyter Hub&lt;/li&gt;
 &lt;li&gt;Connect to Jupyter Hub as student&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3&gt;The last post&lt;/h3&gt;
+&lt;h3 id="the-last-post"&gt;The last post&lt;/h3&gt;
 &lt;p&gt;In the last post, we created a new server on Digital Ocean (called a &lt;em&gt;droplet&lt;/em&gt;) and made sure to add our public SSH key to the setup options. Then we logged into the server as &lt;code&gt;root&lt;/code&gt;  with our private SSH key. As &lt;code&gt;root&lt;/code&gt;, we set up a new user with sudo privileges and added our public SSH key to the new users profile. Then we logged into the server as the new user and checked the new user's home directory.&lt;/p&gt;
-&lt;h3&gt;This post&lt;/h3&gt;
+&lt;h3 id="this-post"&gt;This post&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;Update packages on the server&lt;/li&gt;
 &lt;li&gt;Install &lt;strong&gt;Anaconda&lt;/strong&gt;&lt;/li&gt;
@@ -390,14 +610,14 @@ c.Authenticator.admin_users = {&amp;#39;peter&amp;#39;}
 &lt;li&gt;Shut down Jupyter Hub very quickly because of no SSL security&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;1. Update Packages on the Server&lt;/h3&gt;
+&lt;h3 id="1-update-packages-on-the-server"&gt;1. Update Packages on the Server&lt;/h3&gt;
 &lt;p&gt;It is probably best to update the packages installed on the server in case there are changes and updates to the operating system since the server was created. This is probably a reflex for those that use Linux a lot. Open PuTTY and log into the server as the non-root sudo user we created in the last post. Then update the system:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo apt-get update
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;2. Install Anaconda&lt;/h3&gt;
+&lt;h3 id="2-install-anaconda"&gt;2. Install Anaconda&lt;/h3&gt;
 &lt;p&gt;Next we'll install &lt;strong&gt;Anaconda&lt;/strong&gt;. When I installed &lt;strong&gt;Anaconda&lt;/strong&gt; on Windows10, I used an msi installer. But for installation of &lt;strong&gt;Anaconda&lt;/strong&gt; on the cloud server we'll use a shell script. The first time I set up Jupyter Hub, I installed &lt;strong&gt;Anaconda&lt;/strong&gt; in the &lt;code&gt;/opt&lt;/code&gt; directory. I don't think this is the best setup. When I installed Anaconda in &lt;code&gt;/opt&lt;/code&gt;, I ended up with all sorts of permission problems when I tried to run &lt;strong&gt;conda&lt;/strong&gt; and &lt;strong&gt;jupyterhub&lt;/strong&gt;. For me it caused less problems to install &lt;strong&gt;Anaconda&lt;/strong&gt; in the non-root user's home directory(&lt;code&gt;/home/peter/&lt;/code&gt;). The user's home directory is also the default Anaconda3 installation location.&lt;/p&gt;
 &lt;p&gt;I followed &lt;a href="https://www.digitalocean.com/community/tutorials/how-to-install-the-anaconda-python-distribution-on-ubuntu-16-04"&gt;this tutorial&lt;/a&gt; from Digital Ocean.&lt;/p&gt;
 &lt;p&gt;Go to &lt;a href="https://repo.continuum.io/archive/"&gt;https://repo.continuum.io/archive/&lt;/a&gt; and look down the list of installs for the newest installer that corresponds to:&lt;/p&gt;
@@ -432,7 +652,7 @@ $ bash Anaconda3-5.1.0-Linux-x86_64.sh
 
 &lt;p&gt;If you see output, that means &lt;strong&gt;conda&lt;/strong&gt; was installed and can be run by the non-root user.&lt;/p&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;3. Install &lt;strong&gt;Python&lt;/strong&gt; packages and &lt;strong&gt;jupyterhub&lt;/strong&gt;&lt;/h3&gt;
+&lt;h3 id="3-install-python-packages-and-jupyterhub"&gt;3. Install &lt;strong&gt;Python&lt;/strong&gt; packages and &lt;strong&gt;jupyterhub&lt;/strong&gt;&lt;/h3&gt;
 &lt;p&gt;We have a full installation of &lt;strong&gt;Anaconda&lt;/strong&gt; which includes a lot of useful packages for engineers including: &lt;strong&gt;numpy&lt;/strong&gt;, &lt;strong&gt;pandas&lt;/strong&gt;, &lt;strong&gt;matplotlib&lt;/strong&gt;, &lt;strong&gt;scipy&lt;/strong&gt;, &lt;strong&gt;sympy&lt;/strong&gt;, &lt;strong&gt;bokeh&lt;/strong&gt; and &lt;strong&gt;holoviews&lt;/strong&gt;. &lt;strong&gt;Anaconda&lt;/strong&gt; also includes other useful packages such as &lt;strong&gt;requests&lt;/strong&gt;, &lt;strong&gt;beautiful soup&lt;/strong&gt; and &lt;strong&gt;attrs&lt;/strong&gt;. And for student who want to go further, the &lt;strong&gt;Anaconda&lt;/strong&gt; distribution comes with &lt;strong&gt;django&lt;/strong&gt;, &lt;strong&gt;flask&lt;/strong&gt;, &lt;strong&gt;tk&lt;/strong&gt;, &lt;strong&gt;tornado&lt;/strong&gt; and &lt;strong&gt;scikit-learn&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;There are a couple other packages I want to install in addition to the standard &lt;strong&gt;Anaconda&lt;/strong&gt; packages. First are some extra packages useful for engineers: &lt;strong&gt;pint&lt;/strong&gt;, &lt;strong&gt;pyserial&lt;/strong&gt; and &lt;strong&gt;schemdraw&lt;/strong&gt;.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ conda install -c conda-forge pint
@@ -448,7 +668,7 @@ $ conda install notebook
 
 
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;4. Run a very unsecured instance of Jupyter Hub just to see if it works&lt;/h3&gt;
+&lt;h3 id="4-run-a-very-unsecured-instance-of-jupyter-hub-just-to-see-if-it-works"&gt;4. Run a very unsecured instance of Jupyter Hub just to see if it works&lt;/h3&gt;
 &lt;p&gt;OK let's give it a whirl. Start &lt;strong&gt;jupyterhub&lt;/strong&gt; for the first time. Note the &lt;code&gt;--no-ssl&lt;/code&gt; flag at the end. This needs to be included or you won't be able to browse to the server.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ jupyterhub --no-ssl
 &lt;/pre&gt;&lt;/div&gt;
@@ -474,19 +694,19 @@ $ jupyterhub --no-ssl
 &lt;p&gt;&lt;img alt="start my server" src="/posts/jupyterhub/start_my_server.PNG"&gt;
 &lt;img alt="jupyter file browser" src="/posts/jupyterhub/jupyter_file_browser.PNG"&gt;&lt;/p&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;5. Quick! Log out and shut down jupyterhub&lt;/h3&gt;
+&lt;h3 id="5-quick-log-out-and-shut-down-jupyterhub"&gt;5. Quick! Log out and shut down jupyterhub&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;Quick! Log out and shut down jupyterhub&lt;/strong&gt;. (does quick really matter in internet security?) The site is running without any ssl security over regular HTTP not HTTPS. Key in [Ctrl] + [c] to stop jupyterhub.&lt;/p&gt;
 &lt;div class="alert alert-warning" role="alert"&gt;
   &lt;strong&gt;Warning!&lt;/strong&gt; You should not run JupyterHub without SSL encryption on a public network.
 &lt;/div&gt;
 
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;Summary&lt;/h3&gt;
+&lt;h3 id="summary"&gt;Summary&lt;/h3&gt;
 &lt;p&gt;In this post we installed &lt;strong&gt;Anaconda&lt;/strong&gt; on the server using a shell script. We added &lt;strong&gt;conda&lt;/strong&gt; to our path and reloaded our .bashrc file. Then we installed some extra &lt;strong&gt;Python&lt;/strong&gt; packages such as &lt;strong&gt;pint&lt;/strong&gt; and &lt;strong&gt;pyserial&lt;/strong&gt;. Finally we installed &lt;strong&gt;jupyterhub&lt;/strong&gt;, opened up port 8000 and ran &lt;strong&gt;jupyterhub&lt;/strong&gt; for the first time! Remember we &lt;strong&gt;shut down jupyter hub very quickly&lt;/strong&gt; because we ran it without any SSL security.&lt;/p&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;Next Steps&lt;/h3&gt;
+&lt;h3 id="next-steps"&gt;Next Steps&lt;/h3&gt;
 &lt;p&gt;In the next post we will build SSL security into our Jupyter Hub deployment and connect the server to domain name. Plus we'll customize the &lt;strong&gt;jupyterhub&lt;/strong&gt; config file and install and use nginx as a proxy server.&lt;/p&gt;</content><category term="jupyter"></category><category term="jupyter hub"></category><category term="jupyter notebooks"></category><category term="python"></category></entry><entry><title>Creating a new Digital Ocean Droplet</title><link href="https://professorkazarinoff.github.io/staticsite/new-digital-ocean-droplet.html" rel="alternate"></link><published>2018-05-20T12:40:00-07:00</published><updated>2018-05-20T12:40:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-05-20:/staticsite/new-digital-ocean-droplet.html</id><summary type="html">&lt;p&gt;This is the third part of a multi-part series on how to set up Jupyter Hub for a class.  My goal is to have a running version of Jupyter Hub that students can access using a simple web link. I am primarily writing to my future self as I may need to set up Jupyter Hub again for a future class. In this post, we are going to create a new Digital Ocean server (called a &lt;em&gt;droplet&lt;/em&gt;) and create a non-root user with sudo privileges. Then we'll SSH into the droplet with PuTTY as the non-root user.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the third part of a multi-part series on how to set up Jupyter Hub for a class.  My goal is to have a running version of Jupyter Hub that students can access using a simple web link. I am primarily writing to my future self as I may need to set up Jupyter Hub again for a future class. In this post, we are going to create a new Digital Ocean server (called a &lt;em&gt;droplet&lt;/em&gt;) and create a non-root user with sudo privileges. Then we'll SSH into the droplet with PuTTY as the non-root user.&lt;/p&gt;
-&lt;h3&gt;Posts in this series&lt;/h3&gt;
+&lt;h3 id="posts-in-this-series"&gt;Posts in this series&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/why-jupyter-hub.html"&gt;Why Jupyter Hub?&lt;/a&gt; &lt;/li&gt;
 &lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/ssh-keys-with-putty.html"&gt;Create ssh key, save to documents/ssh-keys&lt;/a&gt;&lt;/li&gt;
@@ -496,9 +716,9 @@ $ jupyterhub --no-ssl
 &lt;li&gt;Connect OAuth to Jupyter Hub&lt;/li&gt;
 &lt;li&gt;Connect to Jupyter Hub as student&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3&gt;The last post&lt;/h3&gt;
+&lt;h3 id="the-last-post"&gt;The last post&lt;/h3&gt;
 &lt;p&gt;In the &lt;a href="https://professorkazarinoff.github.io/staticsite/ssh-keys-with-putty.html"&gt;previous post&lt;/a&gt;, we created a public/private SSH key pair using PuTTYgen. We saved the SSH keys in the Documents/ssh-keys directory. We also copied contents of the public SSH key to the clipboard.&lt;/p&gt;
-&lt;h3&gt;Steps in this post&lt;/h3&gt;
+&lt;h3 id="steps-in-this-post"&gt;Steps in this post&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;Sign up for a Digital Ocean Account&lt;/li&gt;
 &lt;li&gt;Create a new Digital Ocean Droplet (will be called &lt;em&gt;the server&lt;/em&gt; from here on out)&lt;/li&gt;
@@ -506,11 +726,11 @@ $ jupyterhub --no-ssl
 &lt;li&gt;Create a non-root sudo user&lt;/li&gt;
 &lt;li&gt;Log into to the server as the non-root sudo user using PuTTY&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3&gt;1. Sign up for a Digital Ocean Account&lt;/h3&gt;
+&lt;h3 id="1-sign-up-for-a-digital-ocean-account"&gt;1. Sign up for a Digital Ocean Account&lt;/h3&gt;
 &lt;p&gt;Digital Ocean is a cloud service provider like Amazon Web Services (AWS), Google Cloud, Microsoft Azure and Linode. Digital Ocean provides virtual private servers (called &lt;em&gt;droplets&lt;/em&gt; in Digital Ocean-speak) and online storage of static files (called &lt;em&gt;spaces&lt;/em&gt; in Digital Ocean-speak). We are going to run the Jupyter Hub server on a Digital Ocean &lt;em&gt;droplet&lt;/em&gt;. I like Digital Ocean's prices and web interface. The documentation on Digital Ocean is pretty good too. I already have a Digital Ocean account. I don't remember exactly how I did it, but going to this link:&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://www.digitalocean.com/"&gt;https://www.digitalocean.com/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;and selecting [Create Account --&amp;gt;] should work.&lt;/p&gt;
-&lt;h3&gt;2. Create a new Digital Ocean Droplet&lt;/h3&gt;
+&lt;h3 id="2-create-a-new-digital-ocean-droplet"&gt;2. Create a new Digital Ocean Droplet&lt;/h3&gt;
 &lt;p&gt;To create a new Digtial Ocean Droplet (a new server), log in here:&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://cloud.digitalocean.com/login"&gt;https://cloud.digitalocean.com/login&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Digital Ocean Login" src="/posts/jupyterhub/digital_ocean_login.png"&gt;&lt;/p&gt;
@@ -530,7 +750,7 @@ $ jupyterhub --no-ssl
 &lt;p&gt;&lt;img alt="Digital Droplet Choices" src="/posts/jupyterhub/digital_ocean_droplet_size_choices.png"&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Digital Droplet Choices" src="/posts/jupyterhub/digital_ocean_droplet_data_center_choices.png"&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Digital Droplet Choices" src="/posts/jupyterhub/digital_ocean_droplet_ssh_key__choices.png"&gt;&lt;/p&gt;
-&lt;h4&gt;Add an SSH Key&lt;/h4&gt;
+&lt;h4 id="add-an-ssh-key"&gt;Add an SSH Key&lt;/h4&gt;
 &lt;div class="alert alert-warning" role="alert"&gt;
   &lt;strong&gt;Important!&lt;/strong&gt; You need to add the public SSH key BEFORE creating the droplet
 &lt;/div&gt;
@@ -551,7 +771,7 @@ $ jupyterhub --no-ssl
 &lt;p&gt;This will bring you back the the Digital Ocean main dashboard and you should see your new droplet under [Resources] --&amp;gt; [Droplets]&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Putty in Windows Start Menu" src="/posts/jupyterhub/digital_ocean_droplets_1.png"&gt;&lt;/p&gt;
 &lt;p&gt;Note the IP address of the new droplet. We need to IP address to log into our server with PuTTY.&lt;/p&gt;
-&lt;h3&gt;3. Log into the server as root over SSH using PuTTY.&lt;/h3&gt;
+&lt;h3 id="3-log-into-the-server-as-root-over-ssh-using-putty"&gt;3. Log into the server as root over SSH using PuTTY.&lt;/h3&gt;
 &lt;p&gt;Open PuTTY from the Windows start menu. A couple other parameters need to be set before we log onto the server.&lt;/p&gt;
 &lt;table class="table table-striped table-bordered table-hover"&gt;
 &lt;thead&gt;
@@ -590,7 +810,7 @@ $ jupyterhub --no-ssl
 &lt;p&gt;&lt;img alt="Putty IP address and Port" src="/posts/jupyterhub/puTTY_IP_and_Port.png"&gt;&lt;/p&gt;
 &lt;p&gt;This should bring up a new window that is a terminal for our server:&lt;/p&gt;
 &lt;p&gt;&lt;img alt="PyTTY SSH window open" src="/posts/jupyterhub/putty_ssh_window_open.png"&gt;&lt;/p&gt;
-&lt;h3&gt;4. Create a non-root sudo user&lt;/h3&gt;
+&lt;h3 id="4-create-a-non-root-sudo-user"&gt;4. Create a non-root sudo user&lt;/h3&gt;
 &lt;p&gt;Digital Ocean recommends that the servers are run by non-root user that have sudo access. So one of the first things we'll do on our server is create a non-root sudo user. First though, let's make sure everything is up to date:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo apt-get update
 &lt;/pre&gt;&lt;/div&gt;
@@ -637,7 +857,7 @@ Is the information correct? [Y/n]
 
 
 &lt;p&gt;If you can see the contents of &lt;code&gt;/root&lt;/code&gt; then the new user is set up with sudo access.&lt;/p&gt;
-&lt;h4&gt;Add SSH keys to new user's profile&lt;/h4&gt;
+&lt;h4 id="add-ssh-keys-to-new-users-profile"&gt;Add SSH keys to new user's profile&lt;/h4&gt;
 &lt;p&gt;Before we log off, we need to add our SSH keys to our new user's profile on the server. The second time I set up JupyterHub, I had trouble logging in as the non-root user using PuTTY. I could log in as &lt;code&gt;root&lt;/code&gt; just fine, but I couldn't log in as the newly created user &lt;code&gt;peter&lt;/code&gt;. When Digital Ocean created the server, the SSH keys (specified on the creation page) were added to the &lt;code&gt;root&lt;/code&gt; profile. The new user &lt;code&gt;peter&lt;/code&gt; didn't exist when the server was created. The only user was &lt;code&gt;root&lt;/code&gt; at creation time. Therefore no SSH keys were added to the &lt;code&gt;peter&lt;/code&gt; profile at server creation time, because the user &lt;code&gt;peter&lt;/code&gt; didn't exist yet. Since we want to log into our server as the new non-root user &lt;code&gt;peter&lt;/code&gt;, we need to add the same SSH keys saved in the &lt;code&gt;root&lt;/code&gt; profile to the &lt;code&gt;peter&lt;/code&gt; profile. The SSH keys belong in a file located at &lt;code&gt;/home/peter/.ssh/authorized_keys&lt;/code&gt;. &lt;/p&gt;
 &lt;p&gt;I followed &lt;a href="https://www.digitalocean.com/community/tutorials/how-to-create-ssh-keys-with-putty-to-connect-to-a-vps"&gt;this tutorial&lt;/a&gt; from Digital Ocean.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ mkdir ~/.ssh
@@ -661,7 +881,7 @@ $ nano /home/peter/.ssh/authorized_keys
 
 
 &lt;p&gt;You might need to wait a minute or two for the server to restart.&lt;/p&gt;
-&lt;h3&gt;4. Connect to the server as the non-root sudo user using PuTTY&lt;/h3&gt;
+&lt;h3 id="4-connect-to-the-server-as-the-non-root-sudo-user-using-putty"&gt;4. Connect to the server as the non-root sudo user using PuTTY&lt;/h3&gt;
 &lt;p&gt;Now that the non-root sudo user is set up and our ssh keys are in /home/&lt;user&gt;/.ssh/authorized_keys, let's start a new PuTTY session and log into the server as the new user. Like before, open PuTTY from the Windows Start menu and add the following settings, but this time the Auto-login user name is the name of our new non-root sudo user:&lt;/p&gt;
 &lt;table class="table table-striped table-bordered table-hover"&gt;
 &lt;thead&gt;
@@ -710,11 +930,11 @@ $ nano /home/peter/.ssh/authorized_keys
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;Summary&lt;/h3&gt;
+&lt;h3 id="summary"&gt;Summary&lt;/h3&gt;
 &lt;p&gt;In this post we created a new Digital Ocean server (called a &lt;em&gt;droplet&lt;/em&gt;) and made sure to add our public SSH key to the setup options before we hit [Create]. Then we logged into the server as &lt;code&gt;root&lt;/code&gt;  with our private SSH key. As &lt;code&gt;root&lt;/code&gt;, we set up a new user with sudo privileges and added our public SSH key to the new user's profile in &lt;code&gt;~/.ssh/authorized_keys&lt;/code&gt;. Then we logged into the server as the new user and checked the new user's home directory and ensured the new user has sudo privileges.&lt;/p&gt;
-&lt;h3&gt;Next Steps&lt;/h3&gt;
+&lt;h3 id="next-steps"&gt;Next Steps&lt;/h3&gt;
 &lt;p&gt;In the next post, we will get to the fun stuff: installing &lt;strong&gt;Anaconda and jupyterhub&lt;/strong&gt; on our new server and starting Jupyter Hub for the first time! (but only keep it open for a couple seconds because we don't have SSL set up yet).&lt;/p&gt;</content><category term="jupyter"></category><category term="jupyter hub"></category><category term="jupyter notebooks"></category><category term="python"></category></entry><entry><title>Create an SSH Key with PuTTYgen</title><link href="https://professorkazarinoff.github.io/staticsite/ssh-keys-with-putty.html" rel="alternate"></link><published>2018-05-19T12:40:00-07:00</published><updated>2018-05-19T12:40:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-05-19:/staticsite/ssh-keys-with-putty.html</id><summary type="html">&lt;p&gt;This is the second part of a multi-part series on how to set up Jupyter Hub for a class. This is my first time setting up a Jupyter Hub server. I am primarily writing to my future self as I may need to set up Jupyter Hub again for another class. In this post, we are going to create an SSH key on a Windows 10 machine using PuTTYgen.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the second part of a multi-part series on how to set up Jupyter Hub for a class. This is my first time setting up a Jupyter Hub server. I am primarily writing to my future self as I may need to set up Jupyter Hub again for another class. In this post, we are going to create an SSH key on a Windows 10 machine using PuTTYgen.&lt;/p&gt;
-&lt;h3&gt;Posts in this series&lt;/h3&gt;
+&lt;h3 id="posts-in-this-series"&gt;Posts in this series&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/why-jupyter-hub.html"&gt;Why Jupyter Hub?&lt;/a&gt; &lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Create ssh key, save to documents/ssh-keys&lt;/strong&gt; (this post)&lt;/li&gt;
@@ -724,24 +944,24 @@ $ nano /home/peter/.ssh/authorized_keys
 &lt;li&gt;Connect OAuth to Jupyter Hub&lt;/li&gt;
 &lt;li&gt;Connect to Jupyter Hub as student&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3&gt;Steps in this post&lt;/h3&gt;
+&lt;h3 id="steps-in-this-post"&gt;Steps in this post&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;Download PuTTY for Windows&lt;/li&gt;
 &lt;li&gt;Start PuTTYgen and create SSH key&lt;/li&gt;
 &lt;li&gt;Save SSH public and private keys to Documents folder&lt;/li&gt;
 &lt;li&gt;Copy the public key to clipboard&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3&gt;Why SSH keys, PuTTYgen and why do this first?&lt;/h3&gt;
+&lt;h3 id="why-ssh-keys-puttygen-and-why-do-this-first"&gt;Why SSH keys, PuTTYgen and why do this first?&lt;/h3&gt;
 &lt;p&gt;When I set up the server on Digital Ocean the first time, one of the initial server setup steps was to add SSH keys so the server has them when it initialized. &lt;/p&gt;
 &lt;p&gt;I tried to create and save the keys to the Digital Ocean dashboard so the SSH keys would be on the server when it first started. But I goofed up somehow and the server started without any SSH keys. It was a BIG PAIN adding SSH keys after the server started for the first time. &lt;/p&gt;
 &lt;p&gt;I ended up copying the public key into pastebin.com, logging onto the server with the Digital Ocean console and using &lt;code&gt;wget&lt;/code&gt; to bring a textfile of the SSH key from pastebin.com onto the server and then &lt;code&gt;mv&lt;/code&gt; to copy the key name into the right location.&lt;/p&gt;
 &lt;p&gt;I'm pretty sure that pasting a public SSH key into pastebin.com is not the best way to initially set up a server. So to make sure that doesn't happen again, I am going to generate the SSH keys first and set up the server second. &lt;/p&gt;
 &lt;p&gt;SSH keys are needed to use PuTTY (regular PuTTY not PuTTYgen) to log into the server. Since I'm working on Windows, using PuTTYgen (a program that comes with PuTTY that generates SSH keys) seems like the easiest solution. &lt;/p&gt;
-&lt;h4&gt;1. Download PuTTY&lt;/h4&gt;
+&lt;h4 id="1-download-putty"&gt;1. Download PuTTY&lt;/h4&gt;
 &lt;p&gt;I already have PuTTY installed on my Windows 10 machines at home and at work. The download link is below:&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://www.putty.org/"&gt;Download PuTTY&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;PuTTY seems to want you to install lots of extra stuff when you run the installer. I didn't install any of the "offers" that popped up during installation.&lt;/p&gt;
-&lt;h4&gt;2. Start PuTTYgen and create SSH key&lt;/h4&gt;
+&lt;h4 id="2-start-puttygen-and-create-ssh-key"&gt;2. Start PuTTYgen and create SSH key&lt;/h4&gt;
 &lt;p&gt;I went through this tutorial to about setting SSH key on Windows for Digital Ocean when I created the first SSH key:&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://www.digitalocean.com/community/tutorials/how-to-use-ssh-keys-with-putty-on-digitalocean-droplets-windows-users"&gt;How To Use SSH Keys with PuTTY on DigitalOcean Droplets (Windows users)&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Using the Windows start menu, open PuTTYgen (not regular PuTTY):&lt;/p&gt;
@@ -757,18 +977,18 @@ $ nano /home/peter/.ssh/authorized_keys
 &lt;p&gt;This will bring up a dialog to move the mouse around the empty area to generate some randomness. This is my favorite part. Just move the mouse around the dialog box until the progress bar ends. Fun.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="PuTTYgen key generator" src="/posts/jupyterhub/puttygen_key_generator.png"&gt;&lt;/p&gt;
 &lt;p&gt;When the next screen pops up, right-click and copy the contents of the Public Key. We'll need the public key contents available to paste into the server's SSH &lt;code&gt;authorized_keys&lt;/code&gt; file. Include the rsa line in the text copied to the clipboard.&lt;/p&gt;
-&lt;h4&gt;3. Save SSH public and private keys to Documents folder&lt;/h4&gt;
+&lt;h4 id="3-save-ssh-public-and-private-keys-to-documents-folder"&gt;3. Save SSH public and private keys to Documents folder&lt;/h4&gt;
 &lt;p&gt;In the [Actions] section click [Save public key] and click [Save private key]&lt;/p&gt;
 &lt;p&gt;&lt;img alt="PuTTYgen save public and private keys" src="/posts/jupyterhub/puttygen_save_public_private_key.png"&gt;&lt;/p&gt;
 &lt;p&gt;Make sure to save both the public and the private keys. Save these keys to an accessible folder. The first time I generated SSH keys, I saved the keys in the default location and couldn't access them later. The second time I created SSH keys, I created a folder in the Documents folder called ssh-keys and saved the public and private keys in Documents/ssh-keys. I saved the public key with the name: &lt;code&gt;public_key_jupyter_hub.txt&lt;/code&gt;. The Digital Ocean documentation recommends a .txt file extension for the public key (so you can open it and copy the contents). The private key should have a .ppk file extension.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="PuTTYgen save public key name" src="/posts/jupyterhub/puttygen_public_key_save_name.png"&gt;&lt;/p&gt;
-&lt;h4&gt;4. Copy the public key to clipboard&lt;/h4&gt;
+&lt;h4 id="4-copy-the-public-key-to-clipboard"&gt;4. Copy the public key to clipboard&lt;/h4&gt;
 &lt;p&gt;Before closing PuTTYgen, make sure to copy the contents of the Public Key to the clipboard. We'll need this when we create the server. Copy all of the contents including the rsa line. &lt;/p&gt;
-&lt;h3&gt;Summary&lt;/h3&gt;
+&lt;h3 id="summary"&gt;Summary&lt;/h3&gt;
 &lt;p&gt;After completing these steps, we have a public and private SSH key pair saved in Documents/ssh-keys. We also have the contents of the public SSH key saved to the clipboard.&lt;/p&gt;
-&lt;h3&gt;Next Steps&lt;/h3&gt;
+&lt;h3 id="next-steps"&gt;Next Steps&lt;/h3&gt;
 &lt;p&gt;Next, we'll create a new server on Digital Ocean (called a &lt;em&gt;droplet&lt;/em&gt;). Then we'll use the SSH keys we just created to log into the server and create a non-root sudo user.&lt;/p&gt;</content><category term="jupyter"></category><category term="jupyter hub"></category><category term="jupyter notebooks"></category><category term="python"></category></entry><entry><title>Why Jupyter Hub?</title><link href="https://professorkazarinoff.github.io/staticsite/why-jupyter-hub.html" rel="alternate"></link><published>2018-05-17T12:40:00-07:00</published><updated>2018-05-17T12:40:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-05-17:/staticsite/why-jupyter-hub.html</id><summary type="html">&lt;p&gt;This is the first part of a multi-part series that shows how to set up &lt;strong&gt;Jupyter Hub&lt;/strong&gt; for an engineering programming class. This is my first time setting up a &lt;strong&gt;Jupyter Hub&lt;/strong&gt; server. I am primarily writing to my future self as I may need to set up a &lt;strong&gt;Jupyter Hub&lt;/strong&gt; server again for a different class in another quarter. I hope the lessons learned will also help other instructors tackle the same problem if they want to set up &lt;strong&gt;Jupyter Hub&lt;/strong&gt; for their own class or team.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the first part of a multi-part series that shows how to set up &lt;strong&gt;Jupyter Hub&lt;/strong&gt; for an engineering programming class. This is my first time setting up a &lt;strong&gt;Jupyter Hub&lt;/strong&gt; server. I am primarily writing to my future self as I may need to set up a &lt;strong&gt;Jupyter Hub&lt;/strong&gt; server again for a different class in another quarter. I hope the lessons learned will also help other instructors tackle the same problem if they want to set up &lt;strong&gt;Jupyter Hub&lt;/strong&gt; for their own class or team.&lt;/p&gt;
-&lt;h3&gt;Why Jupyter Hub?&lt;/h3&gt;
+&lt;h3 id="why-jupyter-hub"&gt;Why Jupyter Hub?&lt;/h3&gt;
 &lt;p&gt;Why &lt;strong&gt;Jupyter Hub&lt;/strong&gt;? I am teaching an intro engineering course this summer. The course has a lab component and three of the labs are devoted to computer programming. In previous quarters, I've taught MATLAB for the three computer programming labs. But this summer, I want to try teaching &lt;strong&gt;Python&lt;/strong&gt; and cover the same concepts and learning outcomes.&lt;/p&gt;
 &lt;p&gt;If we use &lt;strong&gt;Python&lt;/strong&gt; in the three programming labs this summer, I would like to spend the lab time coding and solving problems. I don't want to spend time during the class downloading Python, creating virtual environments, troubleshooting installs, dealing with system vs. non-system versions of Python, installing packages, dealing with folder structure, explaining the difference between conda and pip, teaching command-line commands, going over Python on Windows compared to Python on MacOSX... &lt;/p&gt;
 &lt;p&gt;I imagine the first programming lab of the quarter runs like:&lt;/p&gt;
@@ -780,9 +1000,9 @@ $ nano /home/peter/.ssh/authorized_keys
 &lt;li&gt;Students can use &lt;strong&gt;Jupyter Hub&lt;/strong&gt; from any computer with a web browser and an internet connection.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Jupyter Hub&lt;/strong&gt; looks and runs the same on all student computers&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3&gt;This is theoretically possible with Jupyter Hub&lt;/h3&gt;
+&lt;h3 id="this-is-theoretically-possible-with-jupyter-hub"&gt;This is theoretically possible with Jupyter Hub&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;Jupyter Hub&lt;/strong&gt; can be installed on a Digital Ocean droplet (a cloud server, like AWS or Google Cloud). The version of &lt;strong&gt;Python&lt;/strong&gt; running the notebooks created by &lt;strong&gt;Jupyter Hub&lt;/strong&gt; can contain the full &lt;strong&gt;Anaconda&lt;/strong&gt; distribution of packages plus some extra packages like &lt;strong&gt;pint&lt;/strong&gt; and &lt;strong&gt;pyserial&lt;/strong&gt;. All of the notebooks will use the same environment. The installed packages will be the same for each student. One Digital Ocean droplet will be able to run all of the notebooks at the same time (hopefully, there will be about 24 students). Student's work will be saved on the server under their user account. Students can download the .ipynb files and upload them to google drive or save the .ipynb files on a thumb drive. After the students login, folders and notebooks can be in place and used as starting points in lab and as lab exercises. After the course ends, students will still be able to log in and use &lt;strong&gt;Jupyter Hub&lt;/strong&gt; and practice writing and running Python code to solve engineering problems.&lt;/p&gt;
-&lt;h3&gt;What will it take to make Jupyter Hub a reality?&lt;/h3&gt;
+&lt;h3 id="what-will-it-take-to-make-jupyter-hub-a-reality"&gt;What will it take to make Jupyter Hub a reality?&lt;/h3&gt;
 &lt;p&gt;This list will surely change as I go through the process of setting up the &lt;strong&gt;Jupyter Hub&lt;/strong&gt; server. Below are the steps I expect to take and software/hardware needed at each step.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Sign up for a Digital Ocean Account (already done)&lt;/li&gt;
@@ -798,9 +1018,9 @@ $ nano /home/peter/.ssh/authorized_keys
 &lt;li&gt;Connect google OAuth to Jupyter Hub&lt;/li&gt;
 &lt;li&gt;Connect to the server as student and celebrate teaching &lt;strong&gt;Python&lt;/strong&gt; without worrying about installation and virtual environments.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3&gt;Will this work? How much time will it take?&lt;/h3&gt;
+&lt;h3 id="will-this-work-how-much-time-will-it-take"&gt;Will this work? How much time will it take?&lt;/h3&gt;
 &lt;p&gt;Will this work? I hope so. Other people have done it. There was a JupyterCon talk about it, there are &lt;a href="http://jupyterhub.readthedocs.io/en/latest/gallery-jhub-deployments.html"&gt;example implementations&lt;/a&gt; up on github. A large data science class at UC Berkeley ran &lt;strong&gt;Jupyter Hub&lt;/strong&gt;. &lt;/p&gt;
 &lt;p&gt;I don't really know how long it will take. The only real step that takes time is the DNS connection. The rest of the steps are in the minute time frame of computing time and probably days if not weeks of troubleshooting time. I'm just going to try and complete a step per day or a step per week and see if I can get the server going by the end of the spring quarter.&lt;/p&gt;
-&lt;h3&gt;Next Steps:&lt;/h3&gt;
+&lt;h3 id="next-steps"&gt;Next Steps:&lt;/h3&gt;
 &lt;p&gt;The next step is really the first step:&lt;/p&gt;
 &lt;p&gt;Create SSH keys. We'll need a public/private SSH key pair to be able to log into the &lt;strong&gt;Jupyter Hub&lt;/strong&gt; server over SSH.&lt;/p&gt;</content><category term="jupyter"></category><category term="jupyter hub"></category><category term="jupyter notebooks"></category><category term="python"></category></entry></feed>

@@ -1,6 +1,226 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Python for Undergraduate Engineers</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="https://professorkazarinoff.github.io/staticsite/feeds/all.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2018-05-25T12:40:00-07:00</updated><entry><title>Adding SSL and a domain name to Jupyter Hub</title><link href="https://professorkazarinoff.github.io/staticsite/add-ssl-and-domain-name-to-jupyterhub.html" rel="alternate"></link><published>2018-05-25T12:40:00-07:00</published><updated>2018-05-25T12:40:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-05-25:/staticsite/add-ssl-and-domain-name-to-jupyterhub.html</id><summary type="html">&lt;p&gt;This is the fifth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to link a domain name to our server IP address, add SSL security and configure nginx to run as a proxy in between users and &lt;strong&gt;jupyterhub&lt;/strong&gt;. Then we'll run &lt;strong&gt;jupyterhub&lt;/strong&gt; over https using the SSL security we created.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the fifth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to link a domain name to our server IP address, add SSL security and configure nginx to run as a proxy in between users and &lt;strong&gt;jupyterhub&lt;/strong&gt;. Then we'll run &lt;strong&gt;jupyterhub&lt;/strong&gt; over https using the SSL security we created.&lt;/p&gt;
-&lt;h3&gt;Posts in this series&lt;/h3&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Python for Undergraduate Engineers</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="https://professorkazarinoff.github.io/staticsite/feeds/all.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2018-05-27T12:40:00-07:00</updated><entry><title>Adding Google OAuth and system service to a Jupyter Hub server</title><link href="https://professorkazarinoff.github.io/staticsite/add-google-oauth-and-system-service-to-jupyterhub.html" rel="alternate"></link><published>2018-05-27T12:40:00-07:00</published><updated>2018-05-27T12:40:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-05-27:/staticsite/add-google-oauth-and-system-service-to-jupyterhub.html</id><summary type="html">&lt;p&gt;This is the sixth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we will set up &lt;strong&gt;jupyterhub&lt;/strong&gt; to run as a system service in the background which will allow us to work on the server and run &lt;strong&gt;jupyterhub&lt;/strong&gt; at the same time. Then we will add an authentication system so that users can log into our Jupyter Hub server using github usernames and passwords. Finally we will modify the authentication system so that users can log into our Jupyer Hub server using their google usernames and passwords. The same user name and password a student uses to access their college email.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the sixth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we will set up &lt;strong&gt;jupyterhub&lt;/strong&gt; to run as a system service in the background which will allow us to work on the server and run &lt;strong&gt;jupyterhub&lt;/strong&gt; at the same time. Then we will add an authentication system so that users can log into our Jupyter Hub server using github usernames and passwords. Finally we will modify the authentication system so that users can log into our Jupyer Hub server using their google usernames and passwords. The same user name and password a student uses to access their college email.&lt;/p&gt;
+&lt;h3 id="posts-in-this-series"&gt;Posts in this series&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/why-jupyter-hub.html"&gt;Why Jupyter Hub?&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/ssh-keys-with-putty.html"&gt;Create ssh key, save to documents/ssh-keys&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/new-digital-ocean-droplet.html"&gt;Create a new Digital Ocean Droplet with a non-root sudo user&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/installing-jupyter-hub.html"&gt;Install Jupyter Hub on the server&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/add-ssl-and-domain-name-to-jupyterhub.html"&gt;Apply SSL, link a domain name to the server and configure nginx&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Connect OAuth to Jupyter Hub&lt;/strong&gt; (this post)&lt;/li&gt;
+&lt;li&gt;Pre-populate each new user's directory tree to include three notebook assignments.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="last-time"&gt;Last time&lt;/h3&gt;
+&lt;p&gt;In the last post, we succeeded in getting &lt;strong&gt;jupyterhub&lt;/strong&gt; to run on https and use SSL certificates. We created SSL certificates, modified the nginx config and modified the &lt;strong&gt;jupyterhub&lt;/strong&gt; config. At the end of it we were able to get a working version of jupyter hub running SSL security.&lt;/p&gt;
+&lt;h3 id="steps-in-this-post"&gt;Steps in this post:&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Run &lt;strong&gt;jupterhub&lt;/strong&gt; as a system service&lt;/li&gt;
+&lt;li&gt;Test local OAuth&lt;/li&gt;
+&lt;li&gt;Acquire github OAuth credentials&lt;/li&gt;
+&lt;li&gt;Modify jupyterhub_config.py to use github OAuth&lt;/li&gt;
+&lt;li&gt;Acquire google OAuth credentials&lt;/li&gt;
+&lt;li&gt;Modify jupyterhub_config.py to use google OAuth&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3 id="1-run-jupterhub-as-a-system-service"&gt;1. Run &lt;strong&gt;jupterhub&lt;/strong&gt; as a system service&lt;/h3&gt;
+&lt;p&gt;Working off of &lt;a href="https://github.com/jupyterhub/jupyterhub/wiki/Run-jupyterhub-as-a-system-service"&gt;this wiki&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;To run &lt;strong&gt;jupyterhub&lt;/strong&gt; as a system service, we need to create a service file in the &lt;code&gt;/etc/systemd/system&lt;/code&gt; directory. &lt;code&gt;cd&lt;/code&gt; into the directory and have a look around. You should see a couple files that end in &lt;code&gt;.service&lt;/code&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;cd&lt;/span&gt; /etc/systemd/system
+$ ls
+cloud-init.target.wants                network-online.target.wants
+dbus-org.freedesktop.thermald.service  paths.target.wants
+default.target.wants                   sockets.target.wants
+final.target.wants                     sshd.service
+getty.target.wants                     sysinit.target.wants
+graphical.target.wants                 syslog.service
+iscsi.service                          timers.target.wants
+multi-user.target.wants
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We'll create a new &lt;code&gt;.service&lt;/code&gt; file called &lt;code&gt;jupyterhub.service&lt;/code&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo nano jupyterhub.service
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;In the file, add the following. Note that as part of the &lt;code&gt;PATH&lt;/code&gt; environment variable &lt;code&gt;/home/peter/anaconda3/bin&lt;/code&gt; is included. This is the path to our &lt;strong&gt;Anaconda&lt;/strong&gt; environment. As part of the &lt;code&gt;ExecStart&lt;/code&gt; we include a flag for our &lt;code&gt;jupyterhub_config.py&lt;/code&gt; file. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;[Unit]&lt;/span&gt;
+&lt;span class="na"&gt;Description&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;Jupyterhub&lt;/span&gt;
+&lt;span class="na"&gt;After&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;syslog.target network.target&lt;/span&gt;
+
+&lt;span class="k"&gt;[Service]&lt;/span&gt;
+&lt;span class="na"&gt;User&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;root&lt;/span&gt;
+&lt;span class="na"&gt;Environment&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;PATH=/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/home/peter/anaconda3/bin&amp;quot;&lt;/span&gt;
+&lt;span class="na"&gt;ExecStart&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;/home/peter/anaconda3/bin/jupyterhub -f /home/peter/jupyterhub_config.py&lt;/span&gt;
+
+&lt;span class="k"&gt;[Install]&lt;/span&gt;
+&lt;span class="na"&gt;WantedBy&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;multi-user.target&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Save and exit with [Ctrl-c] + [y]. Now we need to reload the system daemon and run &lt;strong&gt;jupyterhub&lt;/strong&gt; as a system process using the command: &lt;code&gt;sudo systemctl &amp;lt;start|stop|status&amp;gt; jupyterhub&lt;/code&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo systemctl daemon-reload
+$ sudo systemctl start jupyterhub
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We can see if &lt;strong&gt;jupyterhub&lt;/strong&gt;* is running with:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo systemctl status jupyterhub
+
+ Loaded: loaded &lt;span class="o"&gt;(&lt;/span&gt;/etc/systemd/system/jupyterhub.service&lt;span class="p"&gt;;&lt;/span&gt; 
+ Active: active &lt;span class="o"&gt;(&lt;/span&gt;running&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3 id="2-test-local-oauth"&gt;2. Test local OAuth&lt;/h3&gt;
+&lt;p&gt;Now we can go to the server and log in as our non-root user, and log in as the other user we created &lt;code&gt;kendra&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;A couple times I thought that &lt;strong&gt;jupyterhub&lt;/strong&gt; was running after using &lt;code&gt;systemctl start jupyterhub&lt;/code&gt; but the hub wasn't working when I went to the hub's web address. It turned out that &lt;strong&gt;jupyterhub&lt;/strong&gt; wasn't running when I keyed in &lt;code&gt;systemctl status jupyterhub&lt;/code&gt;. Most times looking for an error and tracking down the the error worked, but one time it seemed to be a problem with the http-configurable-proxy. The following command will shut down the proxy if you get stuck like I did (insert the number corresponding to the configurable-http-proxy process after the &lt;code&gt;kill&lt;/code&gt; command):&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ ps aux &lt;span class="p"&gt;|&lt;/span&gt; grep configurable-http-proxy
+$ &lt;span class="nb"&gt;kill&lt;/span&gt; &lt;span class="c1"&gt;#### &lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Something similar to this in jupyterhub_config.py&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;#jupyterhub_config.py
+
+c.LocalGoogleOAuthenticator.create_system_users = True
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3 id="3-acquire-github-oauth-credentials"&gt;3. Acquire Github OAuth credentials&lt;/h3&gt;
+&lt;p&gt;A problem now is that if we go to the admin page on jupyter hub, we can't add new users. The users have to be added to the server using PuTTY first and then can be added to &lt;strong&gt;jupyterhub&lt;/strong&gt; with the admin panel. This is OK for a small team or a couple users, but for a college class, creating a new user on the server for each student, then emailing out passwords... Ah! what a mess. So we need to give &lt;strong&gt;jupyterhub&lt;/strong&gt; the authority to create new users from the admin panel and we need a way to have users login with a user name and password they already have.&lt;/p&gt;
+&lt;p&gt;One of the ways that students could log into Jupyter Hub is using their github credentials. This would require each student to have a github account. A github account for each student might be worth it to give students the exposure git and github as a tools. So let's give the github authenticator a whirl. The github authenticator is also pretty well documented for Jupyter Hub, so it is good authenticator to try first.&lt;/p&gt;
+&lt;p&gt;To use the github authenticator, we need to install &lt;strong&gt;oauthenticator&lt;/strong&gt;. I couldn't find oauthenticator on conda-forge. If it's on conda-forge, I would install it from there rather than PyPI. But for this one, I used &lt;strong&gt;pip&lt;/strong&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ pip install conda install oauthenticator
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now we need to log into github and create an OAuth App and copy the client id and secret. The short version is:&lt;/p&gt;
+&lt;p&gt;github profile --&amp;gt; settings --&amp;gt; Developer Settings --&amp;gt; OAuth Apps --&amp;gt; Register a new application&lt;/p&gt;
+&lt;p&gt;&lt;img alt="github settings" src="/posts/jupyterhub/github_settings.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="github developer settings" src="/posts/jupyterhub/github_developer_settings.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="github register new applicaiton" src="/posts/jupyterhub/github_register_new_application.png"&gt;&lt;/p&gt;
+&lt;p&gt;set the &lt;strong&gt;Homepage URL&lt;/strong&gt; as:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;https://notebooks.problemsolvingwithpython.com/
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;set the &lt;strong&gt;Authorization call-back URL&lt;/strong&gt; as:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;https://notebooks.problemsolvingwithpython.com/hub/oauth_callback
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;img alt="github register new app" src="/posts/jupyterhub/github_register_oauth_app.png"&gt;&lt;/p&gt;
+&lt;p&gt;in the App Settings page, we need to copy two settings:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;client_id&lt;/li&gt;
+&lt;li&gt;client_secret&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img alt="github client id and secret" src="/posts/jupyterhub/github_client_id_and_secret.png"&gt;&lt;/p&gt;
+&lt;p&gt;These two long strings will need to be pasted into the jupyterhub_config.py file. &lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3 id="4-modify-jupyterhub_configpy-to-use-github-oauth"&gt;4. Modify jupyterhub_config.py to use github OAuth&lt;/h3&gt;
+&lt;p&gt;Now we'll edit the &lt;code&gt;jupyterhub_config.py&lt;/code&gt; file to include a couple additional lines. Note in the configuration below, &lt;code&gt;#c.Authenticator.whitelist&lt;/code&gt; is commented out. We want to see if a github user can log onto the server (which will automatically create a new user and spawn a jupyter notebook server) and run notebooks. Once we know the server is working, we can uncomment the white list and only allow in specific github usernames. Note &lt;code&gt;c.LocalGitHubOAuthenticator.client_id&lt;/code&gt; and &lt;code&gt;c.LocalGitHubOAuthenticator.client_secret&lt;/code&gt; are the long strings from our github OAuth App.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;#jupyterhub_config.py&lt;/span&gt;
+
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;oauthenticator.github&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;LocalGitHubOAuthenticator&lt;/span&gt;
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;JupyterHub&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;authenticator_class&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;LocalGitHubOAuthenticator&lt;/span&gt;
+
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;LocalGitHubOAuthenticator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;oauth_callback_url&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;https://notebooks.problemsolvingwithpython.com/hub/oauth_callback&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;LocalGitHubOAuthenticator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;client_id&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;xxxxxxxxxxxxxxxxxxxxxx&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;LocalGitHubOAuthenticator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;client_secret&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&amp;#39;&lt;/span&gt;
+
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;LocalGitHubOAuthenticator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;create_system_users&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;True&lt;/span&gt;
+&lt;span class="c1"&gt;#c.Authenticator.whitelist = {&amp;#39;peter&amp;#39;,&amp;#39;kendra&amp;#39;}&lt;/span&gt;
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Authenticator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;admin_users&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;peter&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Restart &lt;strong&gt;jupyterhub with&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo systemctl stop jupyterhub
+$ sudo systemctl start jupyterhub
+$ sudo systemctl status jupyterhub
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Browse over to the hub's URL and we should be able to log in with a github username and password. &lt;/p&gt;
+&lt;p&gt;&lt;img alt="Sign in with GitHub" src="/posts/jupyterhub/sign_in_with_github.PNG"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3 id="4-google-authenticator"&gt;4. Google Authenticator&lt;/h3&gt;
+&lt;p&gt;Now that the github authenticator works, we are going to get into the weeds of getting the google authenticator to work. Why google authenticator instead of github? Our college uses the gmail suite for both staff and students. When students log onto their college email, they are logging into gmail. Students can use google calendar and google drive with their college email account as well. So it is probably best that students log into juypter hub using the same google login that they use to access their college email, google drive and calendar. &lt;/p&gt;
+&lt;p&gt;First up we need to set up a google OAuth instance. I did this using my personal gmail account rather than my college gmail account. Some of the part of google suite are not available in my college profile like youtube and developer tabs. &lt;/p&gt;
+&lt;p&gt;To obtain the google OAuth credentials, we need to log into the google API console &lt;a href="https://console.developers.google.com/"&gt;https://console.developers.google.com/&lt;/a&gt; and select [Credentials] on the lefthand menu.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="google oauth credentials" src="/posts/jupyterhub/google_oauth_credentials.png"&gt;&lt;/p&gt;
+&lt;p&gt;Next we'll create a new OAuth credential under [credentials] --&amp;gt; [create credentials] --&amp;gt; [OAuth Client ID]:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="google create credentials" src="/posts/jupyterhub/google_oauth_credentials.png"&gt;&lt;/p&gt;
+&lt;p&gt;When getting google OAuth credentials you will need to input:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Authorized JavaScript origins: https://notebooks.yourdomain.com&lt;/li&gt;
+&lt;li&gt;callback url: https://notebooks.yourdomain.com/hub/oauth_callback&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img alt="google js origins and callback url" src="/posts/jupyterhub/google_oauth_javascript_origins_redirect_uri.png"&gt;&lt;/p&gt;
+&lt;p&gt;After creating a new set of google OAuth credentials, note the:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;client ID&lt;/li&gt;
+&lt;li&gt;client secret&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img alt="google client ID and secret" src="/posts/jupyterhub/google_oauth_client_id_and_secret.png"&gt;&lt;/p&gt;
+&lt;p&gt;These two longs strings will be included in our revised &lt;strong&gt;jupyterhub&lt;/strong&gt; configuration.&lt;/p&gt;
+&lt;p&gt;Once we get our google OAuth credentials, we need to edit &lt;code&gt;jupyterhub_conf.py&lt;/code&gt;. Note the google OAuth credentials need to replace &lt;code&gt;'xxxxxxxxxxxxxxx'&lt;/code&gt; &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;#jupyterhub_conf.py&lt;/span&gt;
+
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;os&lt;/span&gt;
+&lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;get_config&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;JupyterHub&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;log_level&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Spawner&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cmd&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;/home/peter/anaconda3/bin/jupyterhub-singleuser&amp;#39;&lt;/span&gt;
+
+&lt;span class="c1"&gt;# For Google OAuth Authentication&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;oauthenticator.google&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;LocalGoogleOAuthenticator&lt;/span&gt;
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;JupyterHub&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;authenticator_class&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;LocalGoogleOAuthenticator&lt;/span&gt;
+
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;LocalGoogleOAuthenticator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;create_system_users&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;True&lt;/span&gt;
+
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;LocalGoogleOAuthenticator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;hosted_domain&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;yourcollege.edu&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;LocalGoogleOAuthenticator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;login_service&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Your College Name&amp;#39;&lt;/span&gt;
+
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;LocalGoogleOAuthenticator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;oauth_callback_url&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;https://notebooks.yourserver.com/hub/oauth_callback&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;LocalGoogleOAuthenticator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;oauth_client_id&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;xxxxxxxxxxxxxxxxxxxxx&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;LocalGoogleOAuthenticator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;oauth_client_secret&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;xxxxxxxxxxxxxxxxxxx&amp;quot;&lt;/span&gt;
+&lt;span class="c1"&gt;#c.JupyterHub.cookie_secret_file = &amp;#39;/srv/jupyterhub/jupyterhub_cookie_secret&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Authenticator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add_user_cmd&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;adduser&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;-q&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;--gecos&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;&amp;quot;&amp;quot;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;--disabled-password&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;--force-badname&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Authenticator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;whitelist&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;studnet.username&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;faculty.username&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Authenticator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;admin_users&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;faculty.username&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This little line:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;c.Authenticator.add_user_cmd = [&amp;#39;adduser&amp;#39;, &amp;#39;-q&amp;#39;, &amp;#39;--gecos&amp;#39;, &amp;#39;&amp;quot;&amp;quot;&amp;#39;, &amp;#39;--disabled-password&amp;#39;, &amp;#39;--force-badname&amp;#39;]
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;was a real gottacha. Our college email addresses are in the form:&lt;/p&gt;
+&lt;p&gt;firstname.lastname@college.edu &lt;/p&gt;
+&lt;p&gt;So &lt;strong&gt;jupyterhub&lt;/strong&gt; was trying to create users with dots &lt;code&gt;.&lt;/code&gt; in their usernames. This doesn't work in linux. I tried creating a new user with a dot in their username and it asked me to use the &lt;code&gt;--force-badname&lt;/code&gt; flag. So that is what we'll add to the &lt;code&gt;c.Authenticator.add_user_cmd&lt;/code&gt; list. Otherwise the users will be able to authenticate, buy they won't get a new account on the server and they won't be able to run notebooks.&lt;/p&gt;
+&lt;p&gt;Restart &lt;strong&gt;jupyterhub&lt;/strong&gt; and browse to the web address attached to the server.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo systemctl stop jupyterhub
+$ sudo systemctl start jupyterhub
+$ sudo systemctl status jupyterhub
+&lt;span class="c1"&gt;# [Ctrl + c] to exit&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The login window should look something like:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Sign in with google" src="/posts/jupyterhub/sign_in_with_google.PNG"&gt;&lt;/p&gt;
+&lt;p&gt;We can log in with our google user name and password (college username and password). Pretty sweet.&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3 id="summary"&gt;Summary&lt;/h3&gt;
+&lt;p&gt;In this post, we set &lt;strong&gt;jupyterhub&lt;/strong&gt; to run as a system service in the background which allowed us to work on the server and run &lt;strong&gt;jupyterhub&lt;/strong&gt; at the same time. Then we added a github authentication system so that users could log into our Jupyter Hub server using their github usernames and passwords. Then we modified the authentication system to use google user names and passwords even if the usernames contained a dot. &lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3 id="next-steps"&gt;Next Steps&lt;/h3&gt;
+&lt;p&gt;Up next we will see if we can populate each new user's working directory tree with a couple of notebooks that will be the three labs of the quarter. We'll see if we can pull these up from github so that they can be easily edited and viewed by the students before the quarter starts.&lt;/p&gt;</content><category term="jupyter"></category><category term="jupyter hub"></category><category term="jupyter notebooks"></category><category term="python"></category></entry><entry><title>Adding SSL and a domain name to Jupyter Hub</title><link href="https://professorkazarinoff.github.io/staticsite/add-ssl-and-domain-name-to-jupyterhub.html" rel="alternate"></link><published>2018-05-25T12:40:00-07:00</published><updated>2018-05-25T12:40:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-05-25:/staticsite/add-ssl-and-domain-name-to-jupyterhub.html</id><summary type="html">&lt;p&gt;This is the fifth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to link a domain name to our server IP address, add SSL security and configure nginx to run as a proxy in between users and &lt;strong&gt;jupyterhub&lt;/strong&gt;. Then we'll run &lt;strong&gt;jupyterhub&lt;/strong&gt; over https using the SSL security we created.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the fifth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to link a domain name to our server IP address, add SSL security and configure nginx to run as a proxy in between users and &lt;strong&gt;jupyterhub&lt;/strong&gt;. Then we'll run &lt;strong&gt;jupyterhub&lt;/strong&gt; over https using the SSL security we created.&lt;/p&gt;
+&lt;h3 id="posts-in-this-series"&gt;Posts in this series&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/why-jupyter-hub.html"&gt;Why Jupyter Hub?&lt;/a&gt; &lt;/li&gt;
 &lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/ssh-keys-with-putty.html"&gt;Create ssh key, save to documents/ssh-keys&lt;/a&gt;&lt;/li&gt;
@@ -10,9 +230,9 @@
 &lt;li&gt;Connect OAuth to Jupyter Hub&lt;/li&gt;
 &lt;li&gt;Connect to Jupyter Hub as student&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3&gt;Last time&lt;/h3&gt;
+&lt;h3 id="last-time"&gt;Last time&lt;/h3&gt;
 &lt;p&gt;In the &lt;a href="({filename}/posts/jupyterhub/installing_jupyterhub.md)"&gt;last post&lt;/a&gt;, we installed &lt;strong&gt;Anaconda&lt;/strong&gt; on the server using a shell script. Then we installed some extra Python packages such as &lt;strong&gt;pint&lt;/strong&gt;, &lt;strong&gt;pyserial&lt;/strong&gt; and &lt;strong&gt;schemdraw&lt;/strong&gt; to our base conda environment. Next we installed &lt;strong&gt;jupyterhub&lt;/strong&gt;, opened up port 8000 and ran &lt;strong&gt;jupyterhub&lt;/strong&gt; for the first time! And remember &lt;strong&gt;we shut down jupyter hub very quickly&lt;/strong&gt; because we ran it without any SSL security.&lt;/p&gt;
-&lt;h3&gt;Steps in this post:&lt;/h3&gt;
+&lt;h3 id="steps-in-this-post"&gt;Steps in this post:&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;Link domain name to server IP address&lt;/li&gt;
 &lt;li&gt;Install nginx and modify ufw&lt;/li&gt;
@@ -24,10 +244,10 @@
 &lt;li&gt;Create an new user and restart &lt;strong&gt;jupyterhub&lt;/strong&gt;. See if the new user can log in.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;1. Link domain name to server IP address&lt;/h3&gt;
+&lt;h3 id="1-link-domain-name-to-server-ip-address"&gt;1. Link domain name to server IP address&lt;/h3&gt;
 &lt;p&gt;When we started Jupyter Hub in the previous post, it ran, we could log in, and we could run Python code. What's not to like, right? Well, security is the big problem. &lt;/p&gt;
 &lt;p&gt;In the initial setup, Jupyter Hub was running under regular http, not https. With a web application that has usernames and passwords, like Jupyter Hub, having https and SSL security is best (or maybe manditory). In order to use https, we need to get an SSL certificate. And that SSL certificate should correspond to the domain name linked to our server. So the first step is getting the domain name and pointing it at Digital Ocean. The next step is linking the domain name to our Jupyter Hub server.&lt;/p&gt;
-&lt;h4&gt;Google Domains&lt;/h4&gt;
+&lt;h4 id="google-domains"&gt;Google Domains&lt;/h4&gt;
 &lt;p&gt;I purchased the domain &lt;em&gt;problemsolvingwithpython.com&lt;/em&gt; from &lt;a href="https://domains.google.com"&gt;google domains&lt;/a&gt;. It costs $12/year which seems pretty reasonable and was easy to set up. After purchasing the domain, I added the Digital Ocean DNS servers as a set of custom name servers to my domain options on google domains.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Google Domains Dashboard" src="/posts/jupyterhub/google_domains_list.png"&gt;&lt;/p&gt;
 &lt;p&gt;To add a set of custom name servers, click the button with the two bars under the DNS header. This will bring up a page where you can enter in the Digital Ocean DNS servers. The name servers to add are:&lt;/p&gt;
@@ -39,7 +259,7 @@ ns3.digitalocean.com
 
 &lt;p&gt;&lt;img alt="Google Domains Dashboard" src="/posts/jupyterhub/google_domains_dns_routing.png"&gt;&lt;/p&gt;
 &lt;p&gt;Make sure to click the radio button [Use custom name servers] and click [save].&lt;/p&gt;
-&lt;h4&gt;Digital Ocean DNS&lt;/h4&gt;
+&lt;h4 id="digital-ocean-dns"&gt;Digital Ocean DNS&lt;/h4&gt;
 &lt;p&gt;Now we are going to set our domain &lt;em&gt;problemsolvingwithpython.com&lt;/em&gt; to link to the IP address of our server on Digital Ocean. Log into Digital Ocean and in the upper right select [Create] --&amp;gt; [Domains/DNS]&lt;/p&gt;
 &lt;p&gt;&lt;img alt="DO Domains/DNS" src="/posts/jupyterhub/DO_manage_domains.png"&gt;&lt;/p&gt;
 &lt;p&gt;In the [Add a domain] field, type in the domain name without http, but including .com (or .edu/.org/.net) then click [Add Domain].&lt;/p&gt;
@@ -52,7 +272,7 @@ ns3.digitalocean.com
 &lt;p&gt;&lt;img alt="DO Domains/DNS" src="/posts/jupyterhub/DO_domains_routed.png"&gt;&lt;/p&gt;
 &lt;p&gt;It takes a couple minutes for the DNS switchover to complete. &lt;a href="https://www.whatsmydns.net"&gt;https://www.whatsmydns.net&lt;/a&gt; can be used to check the NS and A records of your domain and see if the domain name is getting through. The first time I set up DNS on Digital Ocean, I added the custom DNS servers to google domains but neglected to select the [use custom name servers] radio button on the google domains dashboard. It looked like the domain was routing to Digital Ocean, but actually the domain was just staying with google. Once I clicked the [use custom name servers] radio button and waited a couple minutes, the change over happened. It did take a bit of time though; not hours, but more than a few minutes.&lt;/p&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;2. Install nginx and modify ufw&lt;/h3&gt;
+&lt;h3 id="2-install-nginx-and-modify-ufw"&gt;2. Install nginx and modify ufw&lt;/h3&gt;
 &lt;p&gt;Now that the domain name is set up, the next step is to install and configure nginx. Nginx is an open source web server that can handle many concurrent web connections at the same time. For the nginx installation, I followed &lt;a href="https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-16-04"&gt;this tutorial&lt;/a&gt; from Digital Ocean.&lt;/p&gt;
 &lt;p&gt;Use PuTTY to connect to the server with the non-root sudo user we set up before. Once logged in, we can update the system and install nginx.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo apt-get update
@@ -119,7 +339,7 @@ Main PID: 17126 (nginx)
 &lt;p&gt;Now we can browse over to the domain (the domain we set up with Digital Ocean and google domains) and see the nginx start page.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="nginx welcome page" src="/posts/jupyterhub/welcome_to_nginx.png"&gt;&lt;/p&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;3. Obtain SSL certificates with certbot&lt;/h3&gt;
+&lt;h3 id="3-obtain-ssl-certificates-with-certbot"&gt;3. Obtain SSL certificates with certbot&lt;/h3&gt;
 &lt;p&gt;With a domain name hooked up to our server, we'll now able to obtain an SSL certificate. I followed &lt;a href="https://www.slideshare.net/willingc/jupyterhub-tutorial-at-jupytercon"&gt;this presentation&lt;/a&gt; to install certbot, a program used to generate SSL certificates. &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;cd&lt;/span&gt; ~
 $ mkdir certbot
@@ -163,7 +383,7 @@ $ sudo chmod &lt;span class="m"&gt;777&lt;/span&gt; -R live/
 
 
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;4. Create a cookie secret and a proxy auth token&lt;/h3&gt;
+&lt;h3 id="4-create-a-cookie-secret-and-a-proxy-auth-token"&gt;4. Create a cookie secret and a proxy auth token&lt;/h3&gt;
 &lt;p&gt;In addition to the SSL certificate, the &lt;a href="http://jupyterhub.readthedocs.io/en/latest/getting-started/security-basics.html"&gt;Jupyter Hub docs on security basics&lt;/a&gt; specify that a cookie secret and poxy auth token should be created. To create the cookie secret:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;cd&lt;/span&gt; /srv
 $ &lt;span class="nb"&gt;cd&lt;/span&gt; jupyterhub            &lt;span class="c1"&gt;#if not present, mkdir it&lt;/span&gt;
@@ -205,7 +425,7 @@ sudo openssl dhparam -out /etc/nginx/ssl/dhparam.pem 2048
 
 
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;5. Modify nginx config&lt;/h3&gt;
+&lt;h3 id="5-modify-nginx-config"&gt;5. Modify nginx config&lt;/h3&gt;
 &lt;p&gt;The next step is to modify the nginx config file so that nginx uses our SSL certificates and routes requests on to &lt;strong&gt;jupyterhub&lt;/strong&gt;. This was the hardest part for me when I set up the first server. The nginx config file isn't Python code or bash script. I went through many different configurations until I got one that worked. The big initial problem that I copied the sample nginx config that's up on the Jupyter Hub docs. But the nginx config posted on the &lt;strong&gt;jupyterhub&lt;/strong&gt; docs is not a complete nginx config, it contains just the server portion. I didn't know that the whole server portion needed to be enclosed in another frame.&lt;/p&gt;
 &lt;p&gt;To modify &lt;code&gt;nginx.conf&lt;/code&gt;, &lt;code&gt;cd&lt;/code&gt; into the &lt;code&gt;/etc/nginx&lt;/code&gt; directory. The nginx.conf file should be there along with a couple other files and directories.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;cd&lt;/span&gt; /etc/nginx
@@ -303,7 +523,7 @@ http {
 
 &lt;p&gt;Save and exit with [Ctrl] + [c] and [y]&lt;/p&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;6. Generate jupyterhub_config.py and modify&lt;/h3&gt;
+&lt;h3 id="6-generate-jupyterhub_configpy-and-modify"&gt;6. Generate jupyterhub_config.py and modify&lt;/h3&gt;
 &lt;p&gt;Next, we'll generate a jupyterhub_config.py file and modify it a little bit. &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;cd&lt;/span&gt; ~
 $ jupyterhub --generate-config
@@ -333,7 +553,7 @@ $ jupyterhub --generate-config
 
 
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;7. Restart nginx and start jupyterhub, see if we can login&lt;/h3&gt;
+&lt;h3 id="7-restart-nginx-and-start-jupyterhub-see-if-we-can-login"&gt;7. Restart nginx and start jupyterhub, see if we can login&lt;/h3&gt;
 &lt;p&gt;Now we'll restart nginx and start jupyterhub. Not that this time when we start jupyter hub we don't need to use the &lt;code&gt;--no-ssl&lt;/code&gt; flag because we have SSL running on nginx. If it seems like nginx isn't working, try &lt;code&gt;$ sudo systemctl status nginx&lt;/code&gt; and see if nginx really started. If it didn't, try the command &lt;code&gt;nginx -t&lt;/code&gt;. This will print out any error messages if nginx failed to start. I had to do this many different times before I got nginx to work.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo systemctl stop nginx
 $ sudo systemctl start nginx
@@ -345,7 +565,7 @@ $ jupyterhub
 
 &lt;p&gt;Now we can browse to our domain and see Jupyter Hub running in its full SSL glory. Log in with the non-root sudo username and password (same user that's running the PuTTY session).&lt;/p&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;8. Create an new user and restart &lt;strong&gt;jupyterhub&lt;/strong&gt;. See if the new user can log in.&lt;/h3&gt;
+&lt;h3 id="8-create-an-new-user-and-restart-jupyterhub-see-if-the-new-user-can-log-in"&gt;8. Create an new user and restart &lt;strong&gt;jupyterhub&lt;/strong&gt;. See if the new user can log in.&lt;/h3&gt;
 &lt;p&gt;OK, it's all well and good that we can log into &lt;strong&gt;jupyterhub&lt;/strong&gt;. But the purpose of setting of of this up is for multiple students to be able to log into &lt;strong&gt;jupyterhub&lt;/strong&gt;. If &lt;strong&gt;jupyterhub&lt;/strong&gt; is still running, it can be stopped with [Ctrl] + [c].  Let's create a new user and see if we can log in as her.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo adduser kendra
 &lt;/pre&gt;&lt;/div&gt;
@@ -364,12 +584,12 @@ c.Authenticator.admin_users = {&amp;#39;peter&amp;#39;}
 
 &lt;p&gt;Amazing! right? Jupyter Hub running on our own domain using SSL security and https. Pretty cool. &lt;/p&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;Summary&lt;/h3&gt;
+&lt;h3 id="summary"&gt;Summary&lt;/h3&gt;
 &lt;p&gt;In this post we created an SSL certificate with cetbot. We modified the nginx config to use our SSL certificate and modified jupyterhub_config.py. At the end of all of that we were able to get a working version of &lt;strong&gt;jupyterhub&lt;/strong&gt; running on https using SSL security and can log into &lt;strong&gt;jupyterhub&lt;/strong&gt; as two different users.&lt;/p&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;Next Steps&lt;/h3&gt;
+&lt;h3 id="next-steps"&gt;Next Steps&lt;/h3&gt;
 &lt;p&gt;Up next will add an authentication system so that users can log into our Jupyter Hub server using their college usernames and passwords. We will also set &lt;strong&gt;jupyterhub&lt;/strong&gt; to run as a system service in the background which will allow us to work on the server and run &lt;strong&gt;jupyterhub&lt;/strong&gt; at the same time.&lt;/p&gt;</content><category term="jupyter"></category><category term="jupyter hub"></category><category term="jupyter notebooks"></category><category term="python"></category></entry><entry><title>Installing Jupyterhub</title><link href="https://professorkazarinoff.github.io/staticsite/installing-jupyter-hub.html" rel="alternate"></link><published>2018-05-24T12:40:00-07:00</published><updated>2018-05-24T12:40:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-05-24:/staticsite/installing-jupyter-hub.html</id><summary type="html">&lt;p&gt;This is the fourth part of a multi-part series that shows how to set up Jupyter Hub for a college class. The goal is to have a running version of Jupyter Hub that students in the class can log into when given a simple web link. In this post, we'll get to the fun stuff: installing &lt;strong&gt;jupyterhub&lt;/strong&gt; on the server, installing &lt;strong&gt;Python&lt;/strong&gt; packages and spinning up Jupyter Hub for the first time.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the fourth part of a multi-part series that shows how to set up Jupyter Hub for a college class. The goal is to have a running version of Jupyter Hub that students in the class can log into when given a simple web link. In this post, we'll get to the fun stuff: installing &lt;strong&gt;jupyterhub&lt;/strong&gt; on the server, installing &lt;strong&gt;Python&lt;/strong&gt; packages and spinning up Jupyter Hub for the first time.&lt;/p&gt;
-&lt;h3&gt;Posts in this series&lt;/h3&gt;
+&lt;h3 id="posts-in-this-series"&gt;Posts in this series&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/why-jupyter-hub.html"&gt;Why Jupyter Hub?&lt;/a&gt; &lt;/li&gt;
 &lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/ssh-keys-with-putty.html"&gt;Create SSH keys, save to documents/ssh-keys&lt;/a&gt;&lt;/li&gt;
@@ -379,9 +599,9 @@ c.Authenticator.admin_users = {&amp;#39;peter&amp;#39;}
 &lt;li&gt;Connect OAuth to Jupyter Hub&lt;/li&gt;
 &lt;li&gt;Connect to Jupyter Hub as student&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3&gt;The last post&lt;/h3&gt;
+&lt;h3 id="the-last-post"&gt;The last post&lt;/h3&gt;
 &lt;p&gt;In the last post, we created a new server on Digital Ocean (called a &lt;em&gt;droplet&lt;/em&gt;) and made sure to add our public SSH key to the setup options. Then we logged into the server as &lt;code&gt;root&lt;/code&gt;  with our private SSH key. As &lt;code&gt;root&lt;/code&gt;, we set up a new user with sudo privileges and added our public SSH key to the new users profile. Then we logged into the server as the new user and checked the new user's home directory.&lt;/p&gt;
-&lt;h3&gt;This post&lt;/h3&gt;
+&lt;h3 id="this-post"&gt;This post&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;Update packages on the server&lt;/li&gt;
 &lt;li&gt;Install &lt;strong&gt;Anaconda&lt;/strong&gt;&lt;/li&gt;
@@ -390,14 +610,14 @@ c.Authenticator.admin_users = {&amp;#39;peter&amp;#39;}
 &lt;li&gt;Shut down Jupyter Hub very quickly because of no SSL security&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;1. Update Packages on the Server&lt;/h3&gt;
+&lt;h3 id="1-update-packages-on-the-server"&gt;1. Update Packages on the Server&lt;/h3&gt;
 &lt;p&gt;It is probably best to update the packages installed on the server in case there are changes and updates to the operating system since the server was created. This is probably a reflex for those that use Linux a lot. Open PuTTY and log into the server as the non-root sudo user we created in the last post. Then update the system:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo apt-get update
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;2. Install Anaconda&lt;/h3&gt;
+&lt;h3 id="2-install-anaconda"&gt;2. Install Anaconda&lt;/h3&gt;
 &lt;p&gt;Next we'll install &lt;strong&gt;Anaconda&lt;/strong&gt;. When I installed &lt;strong&gt;Anaconda&lt;/strong&gt; on Windows10, I used an msi installer. But for installation of &lt;strong&gt;Anaconda&lt;/strong&gt; on the cloud server we'll use a shell script. The first time I set up Jupyter Hub, I installed &lt;strong&gt;Anaconda&lt;/strong&gt; in the &lt;code&gt;/opt&lt;/code&gt; directory. I don't think this is the best setup. When I installed Anaconda in &lt;code&gt;/opt&lt;/code&gt;, I ended up with all sorts of permission problems when I tried to run &lt;strong&gt;conda&lt;/strong&gt; and &lt;strong&gt;jupyterhub&lt;/strong&gt;. For me it caused less problems to install &lt;strong&gt;Anaconda&lt;/strong&gt; in the non-root user's home directory(&lt;code&gt;/home/peter/&lt;/code&gt;). The user's home directory is also the default Anaconda3 installation location.&lt;/p&gt;
 &lt;p&gt;I followed &lt;a href="https://www.digitalocean.com/community/tutorials/how-to-install-the-anaconda-python-distribution-on-ubuntu-16-04"&gt;this tutorial&lt;/a&gt; from Digital Ocean.&lt;/p&gt;
 &lt;p&gt;Go to &lt;a href="https://repo.continuum.io/archive/"&gt;https://repo.continuum.io/archive/&lt;/a&gt; and look down the list of installs for the newest installer that corresponds to:&lt;/p&gt;
@@ -432,7 +652,7 @@ $ bash Anaconda3-5.1.0-Linux-x86_64.sh
 
 &lt;p&gt;If you see output, that means &lt;strong&gt;conda&lt;/strong&gt; was installed and can be run by the non-root user.&lt;/p&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;3. Install &lt;strong&gt;Python&lt;/strong&gt; packages and &lt;strong&gt;jupyterhub&lt;/strong&gt;&lt;/h3&gt;
+&lt;h3 id="3-install-python-packages-and-jupyterhub"&gt;3. Install &lt;strong&gt;Python&lt;/strong&gt; packages and &lt;strong&gt;jupyterhub&lt;/strong&gt;&lt;/h3&gt;
 &lt;p&gt;We have a full installation of &lt;strong&gt;Anaconda&lt;/strong&gt; which includes a lot of useful packages for engineers including: &lt;strong&gt;numpy&lt;/strong&gt;, &lt;strong&gt;pandas&lt;/strong&gt;, &lt;strong&gt;matplotlib&lt;/strong&gt;, &lt;strong&gt;scipy&lt;/strong&gt;, &lt;strong&gt;sympy&lt;/strong&gt;, &lt;strong&gt;bokeh&lt;/strong&gt; and &lt;strong&gt;holoviews&lt;/strong&gt;. &lt;strong&gt;Anaconda&lt;/strong&gt; also includes other useful packages such as &lt;strong&gt;requests&lt;/strong&gt;, &lt;strong&gt;beautiful soup&lt;/strong&gt; and &lt;strong&gt;attrs&lt;/strong&gt;. And for student who want to go further, the &lt;strong&gt;Anaconda&lt;/strong&gt; distribution comes with &lt;strong&gt;django&lt;/strong&gt;, &lt;strong&gt;flask&lt;/strong&gt;, &lt;strong&gt;tk&lt;/strong&gt;, &lt;strong&gt;tornado&lt;/strong&gt; and &lt;strong&gt;scikit-learn&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;There are a couple other packages I want to install in addition to the standard &lt;strong&gt;Anaconda&lt;/strong&gt; packages. First are some extra packages useful for engineers: &lt;strong&gt;pint&lt;/strong&gt;, &lt;strong&gt;pyserial&lt;/strong&gt; and &lt;strong&gt;schemdraw&lt;/strong&gt;.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ conda install -c conda-forge pint
@@ -448,7 +668,7 @@ $ conda install notebook
 
 
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;4. Run a very unsecured instance of Jupyter Hub just to see if it works&lt;/h3&gt;
+&lt;h3 id="4-run-a-very-unsecured-instance-of-jupyter-hub-just-to-see-if-it-works"&gt;4. Run a very unsecured instance of Jupyter Hub just to see if it works&lt;/h3&gt;
 &lt;p&gt;OK let's give it a whirl. Start &lt;strong&gt;jupyterhub&lt;/strong&gt; for the first time. Note the &lt;code&gt;--no-ssl&lt;/code&gt; flag at the end. This needs to be included or you won't be able to browse to the server.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ jupyterhub --no-ssl
 &lt;/pre&gt;&lt;/div&gt;
@@ -474,19 +694,19 @@ $ jupyterhub --no-ssl
 &lt;p&gt;&lt;img alt="start my server" src="/posts/jupyterhub/start_my_server.PNG"&gt;
 &lt;img alt="jupyter file browser" src="/posts/jupyterhub/jupyter_file_browser.PNG"&gt;&lt;/p&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;5. Quick! Log out and shut down jupyterhub&lt;/h3&gt;
+&lt;h3 id="5-quick-log-out-and-shut-down-jupyterhub"&gt;5. Quick! Log out and shut down jupyterhub&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;Quick! Log out and shut down jupyterhub&lt;/strong&gt;. (does quick really matter in internet security?) The site is running without any ssl security over regular HTTP not HTTPS. Key in [Ctrl] + [c] to stop jupyterhub.&lt;/p&gt;
 &lt;div class="alert alert-warning" role="alert"&gt;
   &lt;strong&gt;Warning!&lt;/strong&gt; You should not run JupyterHub without SSL encryption on a public network.
 &lt;/div&gt;
 
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;Summary&lt;/h3&gt;
+&lt;h3 id="summary"&gt;Summary&lt;/h3&gt;
 &lt;p&gt;In this post we installed &lt;strong&gt;Anaconda&lt;/strong&gt; on the server using a shell script. We added &lt;strong&gt;conda&lt;/strong&gt; to our path and reloaded our .bashrc file. Then we installed some extra &lt;strong&gt;Python&lt;/strong&gt; packages such as &lt;strong&gt;pint&lt;/strong&gt; and &lt;strong&gt;pyserial&lt;/strong&gt;. Finally we installed &lt;strong&gt;jupyterhub&lt;/strong&gt;, opened up port 8000 and ran &lt;strong&gt;jupyterhub&lt;/strong&gt; for the first time! Remember we &lt;strong&gt;shut down jupyter hub very quickly&lt;/strong&gt; because we ran it without any SSL security.&lt;/p&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;Next Steps&lt;/h3&gt;
+&lt;h3 id="next-steps"&gt;Next Steps&lt;/h3&gt;
 &lt;p&gt;In the next post we will build SSL security into our Jupyter Hub deployment and connect the server to domain name. Plus we'll customize the &lt;strong&gt;jupyterhub&lt;/strong&gt; config file and install and use nginx as a proxy server.&lt;/p&gt;</content><category term="jupyter"></category><category term="jupyter hub"></category><category term="jupyter notebooks"></category><category term="python"></category></entry><entry><title>Creating a new Digital Ocean Droplet</title><link href="https://professorkazarinoff.github.io/staticsite/new-digital-ocean-droplet.html" rel="alternate"></link><published>2018-05-20T12:40:00-07:00</published><updated>2018-05-20T12:40:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-05-20:/staticsite/new-digital-ocean-droplet.html</id><summary type="html">&lt;p&gt;This is the third part of a multi-part series on how to set up Jupyter Hub for a class.  My goal is to have a running version of Jupyter Hub that students can access using a simple web link. I am primarily writing to my future self as I may need to set up Jupyter Hub again for a future class. In this post, we are going to create a new Digital Ocean server (called a &lt;em&gt;droplet&lt;/em&gt;) and create a non-root user with sudo privileges. Then we'll SSH into the droplet with PuTTY as the non-root user.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the third part of a multi-part series on how to set up Jupyter Hub for a class.  My goal is to have a running version of Jupyter Hub that students can access using a simple web link. I am primarily writing to my future self as I may need to set up Jupyter Hub again for a future class. In this post, we are going to create a new Digital Ocean server (called a &lt;em&gt;droplet&lt;/em&gt;) and create a non-root user with sudo privileges. Then we'll SSH into the droplet with PuTTY as the non-root user.&lt;/p&gt;
-&lt;h3&gt;Posts in this series&lt;/h3&gt;
+&lt;h3 id="posts-in-this-series"&gt;Posts in this series&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/why-jupyter-hub.html"&gt;Why Jupyter Hub?&lt;/a&gt; &lt;/li&gt;
 &lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/ssh-keys-with-putty.html"&gt;Create ssh key, save to documents/ssh-keys&lt;/a&gt;&lt;/li&gt;
@@ -496,9 +716,9 @@ $ jupyterhub --no-ssl
 &lt;li&gt;Connect OAuth to Jupyter Hub&lt;/li&gt;
 &lt;li&gt;Connect to Jupyter Hub as student&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3&gt;The last post&lt;/h3&gt;
+&lt;h3 id="the-last-post"&gt;The last post&lt;/h3&gt;
 &lt;p&gt;In the &lt;a href="https://professorkazarinoff.github.io/staticsite/ssh-keys-with-putty.html"&gt;previous post&lt;/a&gt;, we created a public/private SSH key pair using PuTTYgen. We saved the SSH keys in the Documents/ssh-keys directory. We also copied contents of the public SSH key to the clipboard.&lt;/p&gt;
-&lt;h3&gt;Steps in this post&lt;/h3&gt;
+&lt;h3 id="steps-in-this-post"&gt;Steps in this post&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;Sign up for a Digital Ocean Account&lt;/li&gt;
 &lt;li&gt;Create a new Digital Ocean Droplet (will be called &lt;em&gt;the server&lt;/em&gt; from here on out)&lt;/li&gt;
@@ -506,11 +726,11 @@ $ jupyterhub --no-ssl
 &lt;li&gt;Create a non-root sudo user&lt;/li&gt;
 &lt;li&gt;Log into to the server as the non-root sudo user using PuTTY&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3&gt;1. Sign up for a Digital Ocean Account&lt;/h3&gt;
+&lt;h3 id="1-sign-up-for-a-digital-ocean-account"&gt;1. Sign up for a Digital Ocean Account&lt;/h3&gt;
 &lt;p&gt;Digital Ocean is a cloud service provider like Amazon Web Services (AWS), Google Cloud, Microsoft Azure and Linode. Digital Ocean provides virtual private servers (called &lt;em&gt;droplets&lt;/em&gt; in Digital Ocean-speak) and online storage of static files (called &lt;em&gt;spaces&lt;/em&gt; in Digital Ocean-speak). We are going to run the Jupyter Hub server on a Digital Ocean &lt;em&gt;droplet&lt;/em&gt;. I like Digital Ocean's prices and web interface. The documentation on Digital Ocean is pretty good too. I already have a Digital Ocean account. I don't remember exactly how I did it, but going to this link:&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://www.digitalocean.com/"&gt;https://www.digitalocean.com/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;and selecting [Create Account --&amp;gt;] should work.&lt;/p&gt;
-&lt;h3&gt;2. Create a new Digital Ocean Droplet&lt;/h3&gt;
+&lt;h3 id="2-create-a-new-digital-ocean-droplet"&gt;2. Create a new Digital Ocean Droplet&lt;/h3&gt;
 &lt;p&gt;To create a new Digtial Ocean Droplet (a new server), log in here:&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://cloud.digitalocean.com/login"&gt;https://cloud.digitalocean.com/login&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Digital Ocean Login" src="/posts/jupyterhub/digital_ocean_login.png"&gt;&lt;/p&gt;
@@ -530,7 +750,7 @@ $ jupyterhub --no-ssl
 &lt;p&gt;&lt;img alt="Digital Droplet Choices" src="/posts/jupyterhub/digital_ocean_droplet_size_choices.png"&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Digital Droplet Choices" src="/posts/jupyterhub/digital_ocean_droplet_data_center_choices.png"&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Digital Droplet Choices" src="/posts/jupyterhub/digital_ocean_droplet_ssh_key__choices.png"&gt;&lt;/p&gt;
-&lt;h4&gt;Add an SSH Key&lt;/h4&gt;
+&lt;h4 id="add-an-ssh-key"&gt;Add an SSH Key&lt;/h4&gt;
 &lt;div class="alert alert-warning" role="alert"&gt;
   &lt;strong&gt;Important!&lt;/strong&gt; You need to add the public SSH key BEFORE creating the droplet
 &lt;/div&gt;
@@ -551,7 +771,7 @@ $ jupyterhub --no-ssl
 &lt;p&gt;This will bring you back the the Digital Ocean main dashboard and you should see your new droplet under [Resources] --&amp;gt; [Droplets]&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Putty in Windows Start Menu" src="/posts/jupyterhub/digital_ocean_droplets_1.png"&gt;&lt;/p&gt;
 &lt;p&gt;Note the IP address of the new droplet. We need to IP address to log into our server with PuTTY.&lt;/p&gt;
-&lt;h3&gt;3. Log into the server as root over SSH using PuTTY.&lt;/h3&gt;
+&lt;h3 id="3-log-into-the-server-as-root-over-ssh-using-putty"&gt;3. Log into the server as root over SSH using PuTTY.&lt;/h3&gt;
 &lt;p&gt;Open PuTTY from the Windows start menu. A couple other parameters need to be set before we log onto the server.&lt;/p&gt;
 &lt;table class="table table-striped table-bordered table-hover"&gt;
 &lt;thead&gt;
@@ -590,7 +810,7 @@ $ jupyterhub --no-ssl
 &lt;p&gt;&lt;img alt="Putty IP address and Port" src="/posts/jupyterhub/puTTY_IP_and_Port.png"&gt;&lt;/p&gt;
 &lt;p&gt;This should bring up a new window that is a terminal for our server:&lt;/p&gt;
 &lt;p&gt;&lt;img alt="PyTTY SSH window open" src="/posts/jupyterhub/putty_ssh_window_open.png"&gt;&lt;/p&gt;
-&lt;h3&gt;4. Create a non-root sudo user&lt;/h3&gt;
+&lt;h3 id="4-create-a-non-root-sudo-user"&gt;4. Create a non-root sudo user&lt;/h3&gt;
 &lt;p&gt;Digital Ocean recommends that the servers are run by non-root user that have sudo access. So one of the first things we'll do on our server is create a non-root sudo user. First though, let's make sure everything is up to date:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo apt-get update
 &lt;/pre&gt;&lt;/div&gt;
@@ -637,7 +857,7 @@ Is the information correct? [Y/n]
 
 
 &lt;p&gt;If you can see the contents of &lt;code&gt;/root&lt;/code&gt; then the new user is set up with sudo access.&lt;/p&gt;
-&lt;h4&gt;Add SSH keys to new user's profile&lt;/h4&gt;
+&lt;h4 id="add-ssh-keys-to-new-users-profile"&gt;Add SSH keys to new user's profile&lt;/h4&gt;
 &lt;p&gt;Before we log off, we need to add our SSH keys to our new user's profile on the server. The second time I set up JupyterHub, I had trouble logging in as the non-root user using PuTTY. I could log in as &lt;code&gt;root&lt;/code&gt; just fine, but I couldn't log in as the newly created user &lt;code&gt;peter&lt;/code&gt;. When Digital Ocean created the server, the SSH keys (specified on the creation page) were added to the &lt;code&gt;root&lt;/code&gt; profile. The new user &lt;code&gt;peter&lt;/code&gt; didn't exist when the server was created. The only user was &lt;code&gt;root&lt;/code&gt; at creation time. Therefore no SSH keys were added to the &lt;code&gt;peter&lt;/code&gt; profile at server creation time, because the user &lt;code&gt;peter&lt;/code&gt; didn't exist yet. Since we want to log into our server as the new non-root user &lt;code&gt;peter&lt;/code&gt;, we need to add the same SSH keys saved in the &lt;code&gt;root&lt;/code&gt; profile to the &lt;code&gt;peter&lt;/code&gt; profile. The SSH keys belong in a file located at &lt;code&gt;/home/peter/.ssh/authorized_keys&lt;/code&gt;. &lt;/p&gt;
 &lt;p&gt;I followed &lt;a href="https://www.digitalocean.com/community/tutorials/how-to-create-ssh-keys-with-putty-to-connect-to-a-vps"&gt;this tutorial&lt;/a&gt; from Digital Ocean.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ mkdir ~/.ssh
@@ -661,7 +881,7 @@ $ nano /home/peter/.ssh/authorized_keys
 
 
 &lt;p&gt;You might need to wait a minute or two for the server to restart.&lt;/p&gt;
-&lt;h3&gt;4. Connect to the server as the non-root sudo user using PuTTY&lt;/h3&gt;
+&lt;h3 id="4-connect-to-the-server-as-the-non-root-sudo-user-using-putty"&gt;4. Connect to the server as the non-root sudo user using PuTTY&lt;/h3&gt;
 &lt;p&gt;Now that the non-root sudo user is set up and our ssh keys are in /home/&lt;user&gt;/.ssh/authorized_keys, let's start a new PuTTY session and log into the server as the new user. Like before, open PuTTY from the Windows Start menu and add the following settings, but this time the Auto-login user name is the name of our new non-root sudo user:&lt;/p&gt;
 &lt;table class="table table-striped table-bordered table-hover"&gt;
 &lt;thead&gt;
@@ -710,11 +930,11 @@ $ nano /home/peter/.ssh/authorized_keys
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;Summary&lt;/h3&gt;
+&lt;h3 id="summary"&gt;Summary&lt;/h3&gt;
 &lt;p&gt;In this post we created a new Digital Ocean server (called a &lt;em&gt;droplet&lt;/em&gt;) and made sure to add our public SSH key to the setup options before we hit [Create]. Then we logged into the server as &lt;code&gt;root&lt;/code&gt;  with our private SSH key. As &lt;code&gt;root&lt;/code&gt;, we set up a new user with sudo privileges and added our public SSH key to the new user's profile in &lt;code&gt;~/.ssh/authorized_keys&lt;/code&gt;. Then we logged into the server as the new user and checked the new user's home directory and ensured the new user has sudo privileges.&lt;/p&gt;
-&lt;h3&gt;Next Steps&lt;/h3&gt;
+&lt;h3 id="next-steps"&gt;Next Steps&lt;/h3&gt;
 &lt;p&gt;In the next post, we will get to the fun stuff: installing &lt;strong&gt;Anaconda and jupyterhub&lt;/strong&gt; on our new server and starting Jupyter Hub for the first time! (but only keep it open for a couple seconds because we don't have SSL set up yet).&lt;/p&gt;</content><category term="jupyter"></category><category term="jupyter hub"></category><category term="jupyter notebooks"></category><category term="python"></category></entry><entry><title>Create an SSH Key with PuTTYgen</title><link href="https://professorkazarinoff.github.io/staticsite/ssh-keys-with-putty.html" rel="alternate"></link><published>2018-05-19T12:40:00-07:00</published><updated>2018-05-19T12:40:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-05-19:/staticsite/ssh-keys-with-putty.html</id><summary type="html">&lt;p&gt;This is the second part of a multi-part series on how to set up Jupyter Hub for a class. This is my first time setting up a Jupyter Hub server. I am primarily writing to my future self as I may need to set up Jupyter Hub again for another class. In this post, we are going to create an SSH key on a Windows 10 machine using PuTTYgen.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the second part of a multi-part series on how to set up Jupyter Hub for a class. This is my first time setting up a Jupyter Hub server. I am primarily writing to my future self as I may need to set up Jupyter Hub again for another class. In this post, we are going to create an SSH key on a Windows 10 machine using PuTTYgen.&lt;/p&gt;
-&lt;h3&gt;Posts in this series&lt;/h3&gt;
+&lt;h3 id="posts-in-this-series"&gt;Posts in this series&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/why-jupyter-hub.html"&gt;Why Jupyter Hub?&lt;/a&gt; &lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Create ssh key, save to documents/ssh-keys&lt;/strong&gt; (this post)&lt;/li&gt;
@@ -724,24 +944,24 @@ $ nano /home/peter/.ssh/authorized_keys
 &lt;li&gt;Connect OAuth to Jupyter Hub&lt;/li&gt;
 &lt;li&gt;Connect to Jupyter Hub as student&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3&gt;Steps in this post&lt;/h3&gt;
+&lt;h3 id="steps-in-this-post"&gt;Steps in this post&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;Download PuTTY for Windows&lt;/li&gt;
 &lt;li&gt;Start PuTTYgen and create SSH key&lt;/li&gt;
 &lt;li&gt;Save SSH public and private keys to Documents folder&lt;/li&gt;
 &lt;li&gt;Copy the public key to clipboard&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3&gt;Why SSH keys, PuTTYgen and why do this first?&lt;/h3&gt;
+&lt;h3 id="why-ssh-keys-puttygen-and-why-do-this-first"&gt;Why SSH keys, PuTTYgen and why do this first?&lt;/h3&gt;
 &lt;p&gt;When I set up the server on Digital Ocean the first time, one of the initial server setup steps was to add SSH keys so the server has them when it initialized. &lt;/p&gt;
 &lt;p&gt;I tried to create and save the keys to the Digital Ocean dashboard so the SSH keys would be on the server when it first started. But I goofed up somehow and the server started without any SSH keys. It was a BIG PAIN adding SSH keys after the server started for the first time. &lt;/p&gt;
 &lt;p&gt;I ended up copying the public key into pastebin.com, logging onto the server with the Digital Ocean console and using &lt;code&gt;wget&lt;/code&gt; to bring a textfile of the SSH key from pastebin.com onto the server and then &lt;code&gt;mv&lt;/code&gt; to copy the key name into the right location.&lt;/p&gt;
 &lt;p&gt;I'm pretty sure that pasting a public SSH key into pastebin.com is not the best way to initially set up a server. So to make sure that doesn't happen again, I am going to generate the SSH keys first and set up the server second. &lt;/p&gt;
 &lt;p&gt;SSH keys are needed to use PuTTY (regular PuTTY not PuTTYgen) to log into the server. Since I'm working on Windows, using PuTTYgen (a program that comes with PuTTY that generates SSH keys) seems like the easiest solution. &lt;/p&gt;
-&lt;h4&gt;1. Download PuTTY&lt;/h4&gt;
+&lt;h4 id="1-download-putty"&gt;1. Download PuTTY&lt;/h4&gt;
 &lt;p&gt;I already have PuTTY installed on my Windows 10 machines at home and at work. The download link is below:&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://www.putty.org/"&gt;Download PuTTY&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;PuTTY seems to want you to install lots of extra stuff when you run the installer. I didn't install any of the "offers" that popped up during installation.&lt;/p&gt;
-&lt;h4&gt;2. Start PuTTYgen and create SSH key&lt;/h4&gt;
+&lt;h4 id="2-start-puttygen-and-create-ssh-key"&gt;2. Start PuTTYgen and create SSH key&lt;/h4&gt;
 &lt;p&gt;I went through this tutorial to about setting SSH key on Windows for Digital Ocean when I created the first SSH key:&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://www.digitalocean.com/community/tutorials/how-to-use-ssh-keys-with-putty-on-digitalocean-droplets-windows-users"&gt;How To Use SSH Keys with PuTTY on DigitalOcean Droplets (Windows users)&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Using the Windows start menu, open PuTTYgen (not regular PuTTY):&lt;/p&gt;
@@ -757,18 +977,18 @@ $ nano /home/peter/.ssh/authorized_keys
 &lt;p&gt;This will bring up a dialog to move the mouse around the empty area to generate some randomness. This is my favorite part. Just move the mouse around the dialog box until the progress bar ends. Fun.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="PuTTYgen key generator" src="/posts/jupyterhub/puttygen_key_generator.png"&gt;&lt;/p&gt;
 &lt;p&gt;When the next screen pops up, right-click and copy the contents of the Public Key. We'll need the public key contents available to paste into the server's SSH &lt;code&gt;authorized_keys&lt;/code&gt; file. Include the rsa line in the text copied to the clipboard.&lt;/p&gt;
-&lt;h4&gt;3. Save SSH public and private keys to Documents folder&lt;/h4&gt;
+&lt;h4 id="3-save-ssh-public-and-private-keys-to-documents-folder"&gt;3. Save SSH public and private keys to Documents folder&lt;/h4&gt;
 &lt;p&gt;In the [Actions] section click [Save public key] and click [Save private key]&lt;/p&gt;
 &lt;p&gt;&lt;img alt="PuTTYgen save public and private keys" src="/posts/jupyterhub/puttygen_save_public_private_key.png"&gt;&lt;/p&gt;
 &lt;p&gt;Make sure to save both the public and the private keys. Save these keys to an accessible folder. The first time I generated SSH keys, I saved the keys in the default location and couldn't access them later. The second time I created SSH keys, I created a folder in the Documents folder called ssh-keys and saved the public and private keys in Documents/ssh-keys. I saved the public key with the name: &lt;code&gt;public_key_jupyter_hub.txt&lt;/code&gt;. The Digital Ocean documentation recommends a .txt file extension for the public key (so you can open it and copy the contents). The private key should have a .ppk file extension.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="PuTTYgen save public key name" src="/posts/jupyterhub/puttygen_public_key_save_name.png"&gt;&lt;/p&gt;
-&lt;h4&gt;4. Copy the public key to clipboard&lt;/h4&gt;
+&lt;h4 id="4-copy-the-public-key-to-clipboard"&gt;4. Copy the public key to clipboard&lt;/h4&gt;
 &lt;p&gt;Before closing PuTTYgen, make sure to copy the contents of the Public Key to the clipboard. We'll need this when we create the server. Copy all of the contents including the rsa line. &lt;/p&gt;
-&lt;h3&gt;Summary&lt;/h3&gt;
+&lt;h3 id="summary"&gt;Summary&lt;/h3&gt;
 &lt;p&gt;After completing these steps, we have a public and private SSH key pair saved in Documents/ssh-keys. We also have the contents of the public SSH key saved to the clipboard.&lt;/p&gt;
-&lt;h3&gt;Next Steps&lt;/h3&gt;
+&lt;h3 id="next-steps"&gt;Next Steps&lt;/h3&gt;
 &lt;p&gt;Next, we'll create a new server on Digital Ocean (called a &lt;em&gt;droplet&lt;/em&gt;). Then we'll use the SSH keys we just created to log into the server and create a non-root sudo user.&lt;/p&gt;</content><category term="jupyter"></category><category term="jupyter hub"></category><category term="jupyter notebooks"></category><category term="python"></category></entry><entry><title>Why Jupyter Hub?</title><link href="https://professorkazarinoff.github.io/staticsite/why-jupyter-hub.html" rel="alternate"></link><published>2018-05-17T12:40:00-07:00</published><updated>2018-05-17T12:40:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-05-17:/staticsite/why-jupyter-hub.html</id><summary type="html">&lt;p&gt;This is the first part of a multi-part series that shows how to set up &lt;strong&gt;Jupyter Hub&lt;/strong&gt; for an engineering programming class. This is my first time setting up a &lt;strong&gt;Jupyter Hub&lt;/strong&gt; server. I am primarily writing to my future self as I may need to set up a &lt;strong&gt;Jupyter Hub&lt;/strong&gt; server again for a different class in another quarter. I hope the lessons learned will also help other instructors tackle the same problem if they want to set up &lt;strong&gt;Jupyter Hub&lt;/strong&gt; for their own class or team.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the first part of a multi-part series that shows how to set up &lt;strong&gt;Jupyter Hub&lt;/strong&gt; for an engineering programming class. This is my first time setting up a &lt;strong&gt;Jupyter Hub&lt;/strong&gt; server. I am primarily writing to my future self as I may need to set up a &lt;strong&gt;Jupyter Hub&lt;/strong&gt; server again for a different class in another quarter. I hope the lessons learned will also help other instructors tackle the same problem if they want to set up &lt;strong&gt;Jupyter Hub&lt;/strong&gt; for their own class or team.&lt;/p&gt;
-&lt;h3&gt;Why Jupyter Hub?&lt;/h3&gt;
+&lt;h3 id="why-jupyter-hub"&gt;Why Jupyter Hub?&lt;/h3&gt;
 &lt;p&gt;Why &lt;strong&gt;Jupyter Hub&lt;/strong&gt;? I am teaching an intro engineering course this summer. The course has a lab component and three of the labs are devoted to computer programming. In previous quarters, I've taught MATLAB for the three computer programming labs. But this summer, I want to try teaching &lt;strong&gt;Python&lt;/strong&gt; and cover the same concepts and learning outcomes.&lt;/p&gt;
 &lt;p&gt;If we use &lt;strong&gt;Python&lt;/strong&gt; in the three programming labs this summer, I would like to spend the lab time coding and solving problems. I don't want to spend time during the class downloading Python, creating virtual environments, troubleshooting installs, dealing with system vs. non-system versions of Python, installing packages, dealing with folder structure, explaining the difference between conda and pip, teaching command-line commands, going over Python on Windows compared to Python on MacOSX... &lt;/p&gt;
 &lt;p&gt;I imagine the first programming lab of the quarter runs like:&lt;/p&gt;
@@ -780,9 +1000,9 @@ $ nano /home/peter/.ssh/authorized_keys
 &lt;li&gt;Students can use &lt;strong&gt;Jupyter Hub&lt;/strong&gt; from any computer with a web browser and an internet connection.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Jupyter Hub&lt;/strong&gt; looks and runs the same on all student computers&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3&gt;This is theoretically possible with Jupyter Hub&lt;/h3&gt;
+&lt;h3 id="this-is-theoretically-possible-with-jupyter-hub"&gt;This is theoretically possible with Jupyter Hub&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;Jupyter Hub&lt;/strong&gt; can be installed on a Digital Ocean droplet (a cloud server, like AWS or Google Cloud). The version of &lt;strong&gt;Python&lt;/strong&gt; running the notebooks created by &lt;strong&gt;Jupyter Hub&lt;/strong&gt; can contain the full &lt;strong&gt;Anaconda&lt;/strong&gt; distribution of packages plus some extra packages like &lt;strong&gt;pint&lt;/strong&gt; and &lt;strong&gt;pyserial&lt;/strong&gt;. All of the notebooks will use the same environment. The installed packages will be the same for each student. One Digital Ocean droplet will be able to run all of the notebooks at the same time (hopefully, there will be about 24 students). Student's work will be saved on the server under their user account. Students can download the .ipynb files and upload them to google drive or save the .ipynb files on a thumb drive. After the students login, folders and notebooks can be in place and used as starting points in lab and as lab exercises. After the course ends, students will still be able to log in and use &lt;strong&gt;Jupyter Hub&lt;/strong&gt; and practice writing and running Python code to solve engineering problems.&lt;/p&gt;
-&lt;h3&gt;What will it take to make Jupyter Hub a reality?&lt;/h3&gt;
+&lt;h3 id="what-will-it-take-to-make-jupyter-hub-a-reality"&gt;What will it take to make Jupyter Hub a reality?&lt;/h3&gt;
 &lt;p&gt;This list will surely change as I go through the process of setting up the &lt;strong&gt;Jupyter Hub&lt;/strong&gt; server. Below are the steps I expect to take and software/hardware needed at each step.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Sign up for a Digital Ocean Account (already done)&lt;/li&gt;
@@ -798,10 +1018,10 @@ $ nano /home/peter/.ssh/authorized_keys
 &lt;li&gt;Connect google OAuth to Jupyter Hub&lt;/li&gt;
 &lt;li&gt;Connect to the server as student and celebrate teaching &lt;strong&gt;Python&lt;/strong&gt; without worrying about installation and virtual environments.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3&gt;Will this work? How much time will it take?&lt;/h3&gt;
+&lt;h3 id="will-this-work-how-much-time-will-it-take"&gt;Will this work? How much time will it take?&lt;/h3&gt;
 &lt;p&gt;Will this work? I hope so. Other people have done it. There was a JupyterCon talk about it, there are &lt;a href="http://jupyterhub.readthedocs.io/en/latest/gallery-jhub-deployments.html"&gt;example implementations&lt;/a&gt; up on github. A large data science class at UC Berkeley ran &lt;strong&gt;Jupyter Hub&lt;/strong&gt;. &lt;/p&gt;
 &lt;p&gt;I don't really know how long it will take. The only real step that takes time is the DNS connection. The rest of the steps are in the minute time frame of computing time and probably days if not weeks of troubleshooting time. I'm just going to try and complete a step per day or a step per week and see if I can get the server going by the end of the spring quarter.&lt;/p&gt;
-&lt;h3&gt;Next Steps:&lt;/h3&gt;
+&lt;h3 id="next-steps"&gt;Next Steps:&lt;/h3&gt;
 &lt;p&gt;The next step is really the first step:&lt;/p&gt;
 &lt;p&gt;Create SSH keys. We'll need a public/private SSH key pair to be able to log into the &lt;strong&gt;Jupyter Hub&lt;/strong&gt; server over SSH.&lt;/p&gt;</content><category term="jupyter"></category><category term="jupyter hub"></category><category term="jupyter notebooks"></category><category term="python"></category></entry><entry><title>Diffusion Calculation with Python and Pint</title><link href="https://professorkazarinoff.github.io/staticsite/diffusion-problem-python-pint.html" rel="alternate"></link><published>2018-05-04T09:30:00-07:00</published><updated>2018-05-04T09:01:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-05-04:/staticsite/diffusion-problem-python-pint.html</id><summary type="html">&lt;p&gt;I was working on an engineering problem involving diffusion that involved a couple of different units including joules, grams, kilograms, meters, centimeters, moles, megapascals and weight percent. To make sure that I kept track of all the units and unit conversions throughout the problem, I thought I'd try using &lt;strong&gt;pint&lt;/strong&gt;, a &lt;strong&gt;Python&lt;/strong&gt; package for unit conversions.&lt;/p&gt;</summary><content type="html">&lt;p&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
@@ -1262,7 +1482,7 @@ T = 573.15 kelvin
  
 
 &lt;/p&gt;</content><category term="python"></category><category term="jupyter"></category><category term="notebook"></category><category term="pint"></category><category term="units"></category><category term="unit conversion"></category><category term="engineering"></category></entry><entry><title>Opening a Jupyter Notebook on Windows</title><link href="https://professorkazarinoff.github.io/staticsite/opening-a-jupyter-notebook-on-windows.html" rel="alternate"></link><published>2018-05-01T09:20:00-07:00</published><updated>2018-05-01T09:21:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-05-01:/staticsite/opening-a-jupyter-notebook-on-windows.html</id><summary type="html">&lt;p&gt;In this post, we will run through how to open a &lt;strong&gt;jupyter notebook&lt;/strong&gt; on Windows 10.  &lt;strong&gt;Jupyter notebooks&lt;/strong&gt; are one way engineers can write and execute &lt;strong&gt;Python&lt;/strong&gt; code. &lt;strong&gt;Jupyter notebooks&lt;/strong&gt; contain &lt;strong&gt;Python&lt;/strong&gt; code, the output of that code produces when it is run and markdown cells to explain what the code means. A &lt;strong&gt;jupyter notebook&lt;/strong&gt; can be started from the &lt;strong&gt;Anaconda Prompt&lt;/strong&gt;, the Windows start menu and by using the &lt;strong&gt;Anaconda Navigator&lt;/strong&gt;.&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this post, we will run through how to open a &lt;strong&gt;jupyter notebook&lt;/strong&gt; on Windows 10.  &lt;strong&gt;Jupyter notebooks&lt;/strong&gt; are one way engineers can write and execute &lt;strong&gt;Python&lt;/strong&gt; code. &lt;strong&gt;Jupyter notebooks&lt;/strong&gt; contain &lt;strong&gt;Python&lt;/strong&gt; code, the output of that code produces when it is run and markdown cells to explain what the code means. A &lt;strong&gt;jupyter notebook&lt;/strong&gt; can be started from the &lt;strong&gt;Anaconda Prompt&lt;/strong&gt;, the Windows start menu and the &lt;strong&gt;Anaconda Navigator&lt;/strong&gt;.&lt;/p&gt;
-&lt;h3&gt;3 ways to open a &lt;strong&gt;jupyter notebook&lt;/strong&gt;:&lt;/h3&gt;
+&lt;h3 id="3-ways-to-open-a-jupyter-notebook"&gt;3 ways to open a &lt;strong&gt;jupyter notebook&lt;/strong&gt;:&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;Anaconda Prompt&lt;/strong&gt;&lt;/p&gt;
@@ -1274,7 +1494,7 @@ T = 573.15 kelvin
 &lt;p&gt;Anaconda Navigator&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3&gt;1. &lt;strong&gt;Anaconda Prompt&lt;/strong&gt;&lt;/h3&gt;
+&lt;h3 id="1-anaconda-prompt"&gt;1. &lt;strong&gt;Anaconda Prompt&lt;/strong&gt;&lt;/h3&gt;
 &lt;p&gt;The first way to start a new &lt;strong&gt;jupyter notebook&lt;/strong&gt; is to use the &lt;strong&gt;Anaconda Prompt&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;Go to the Windows start menu and select &lt;strong&gt;[Anaconda Prompt]&lt;/strong&gt; under &lt;strong&gt;[Anaconda3]&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="anaconda in start menu" src="/posts/jupyter/anaconda_start_menu.png"&gt;&lt;/p&gt;
@@ -1310,7 +1530,7 @@ T = 573.15 kelvin
 
 &lt;p&gt;Then click the run button in the middle of the menu at the top of the notebook&lt;/p&gt;
 &lt;p&gt;&lt;img alt="jupyter file browswer" src="/posts/jupyter/run_import_this.png"&gt;&lt;/p&gt;
-&lt;h3&gt;2. Windows Start Menu&lt;/h3&gt;
+&lt;h3 id="2-windows-start-menu"&gt;2. Windows Start Menu&lt;/h3&gt;
 &lt;p&gt;Another way to open a &lt;strong&gt;jupyter notebook&lt;/strong&gt; is to use the Windows start menu. &lt;/p&gt;
 &lt;p&gt;Open the Windows start menu and select &lt;strong&gt;[Anaconda3(64 bit)]&lt;/strong&gt; --&amp;gt; &lt;strong&gt;[Jupyter Notebook]&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="jupyter file browswer" src="/posts/jupyter/windows_start_jupyter_notebook.png"&gt;&lt;/p&gt;
@@ -1319,7 +1539,7 @@ T = 573.15 kelvin
 &lt;p&gt;&lt;img alt="jupyter file browswer" src="/posts/jupyter/new_notebook_from_browser.png"&gt;&lt;/p&gt;
 &lt;p&gt;A new &lt;strong&gt;notebook&lt;/strong&gt; will open as a new tab in your web browser&lt;/p&gt;
 &lt;p&gt;&lt;img alt="jupyter file browswer" src="/posts/jupyter/new_notebook.png"&gt;&lt;/p&gt;
-&lt;h3&gt;3. &lt;strong&gt;Anaconda Navigator&lt;/strong&gt;&lt;/h3&gt;
+&lt;h3 id="3-anaconda-navigator"&gt;3. &lt;strong&gt;Anaconda Navigator&lt;/strong&gt;&lt;/h3&gt;
 &lt;p&gt;The last way we'll review how to open a &lt;strong&gt;jupyter notebook&lt;/strong&gt; is by using the &lt;strong&gt;Anaconda Navigator&lt;/strong&gt;. You can open the &lt;strong&gt;Anaconda Navigator&lt;/strong&gt; using the Windows start menu and selecting &lt;strong&gt;[Anaconda3(64-bit)]&lt;/strong&gt; --&amp;gt; [Anaconda Navigator]&lt;/p&gt;
 &lt;p&gt;&lt;img alt="jupyter file browswer" src="/posts/jupyter/windows_start_anaconda_navigator.png"&gt;&lt;/p&gt;
 &lt;p&gt;This will open the &lt;strong&gt;Anaconda Navigator&lt;/strong&gt;.  In the middle of the page, in the &lt;strong&gt;jupyter notebook&lt;/strong&gt; tile, click &lt;strong&gt;[Launch]&lt;/strong&gt;&lt;/p&gt;
@@ -1329,7 +1549,7 @@ T = 573.15 kelvin
 &lt;p&gt;&lt;img alt="jupyter file browswer" src="/posts/jupyter/new_notebook_from_browser.png"&gt;&lt;/p&gt;
 &lt;p&gt;A new &lt;strong&gt;notebook&lt;/strong&gt; will open as a new tab in your web browser&lt;/p&gt;
 &lt;p&gt;&lt;img alt="jupyter file browswer" src="/posts/jupyter/new_notebook.png"&gt;&lt;/p&gt;
-&lt;h4&gt;Congratulations! You know how to open a &lt;strong&gt;jupyter notebook&lt;/strong&gt; on your Windows 10. Now go write some &lt;strong&gt;Python Code&lt;/strong&gt; to solve some problems!&lt;/h4&gt;</content><category term="jupyter"></category><category term="python"></category><category term="anaconda"></category><category term="windows"></category><category term="jupyter notebook"></category></entry><entry><title>Bar charts with error bars using Python, jupyter notebooks and matplotlib</title><link href="https://professorkazarinoff.github.io/staticsite/bar-plot-with-error-bars-jupyter-matplotlib.html" rel="alternate"></link><published>2018-04-27T10:15:00-07:00</published><updated>2018-04-27T10:15:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-04-27:/staticsite/bar-plot-with-error-bars-jupyter-matplotlib.html</id><summary type="html">&lt;p&gt;Bar charts with error bars are useful in engineering to show the confidence or precision in a set of measurements or calculated values. Bar charts without error bars give the illusion that a measured or calculated value is known to high precision or high confidence. In this post, we will build a bar plot using Python, the statistics module and matplotlib. The plot will show the tensile strength of two different 3-D printer filament materials, ABS and HIPS. We will then add error bars to the plot based on the standard deviation of the data.&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;img alt="bar_plot_with_error_bars" src="https://professorkazarinoff.github.io/staticsite/images/matplotlib/stats_module_bar_plot_error_bars.png"&gt;&lt;/p&gt;
+&lt;h4 id="congratulations-you-know-how-to-open-a-jupyter-notebook-on-your-windows-10-now-go-write-some-python-code-to-solve-some-problems"&gt;Congratulations! You know how to open a &lt;strong&gt;jupyter notebook&lt;/strong&gt; on your Windows 10. Now go write some &lt;strong&gt;Python Code&lt;/strong&gt; to solve some problems!&lt;/h4&gt;</content><category term="jupyter"></category><category term="python"></category><category term="anaconda"></category><category term="windows"></category><category term="jupyter notebook"></category></entry><entry><title>Bar charts with error bars using Python, jupyter notebooks and matplotlib</title><link href="https://professorkazarinoff.github.io/staticsite/bar-plot-with-error-bars-jupyter-matplotlib.html" rel="alternate"></link><published>2018-04-27T10:15:00-07:00</published><updated>2018-04-27T10:15:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-04-27:/staticsite/bar-plot-with-error-bars-jupyter-matplotlib.html</id><summary type="html">&lt;p&gt;Bar charts with error bars are useful in engineering to show the confidence or precision in a set of measurements or calculated values. Bar charts without error bars give the illusion that a measured or calculated value is known to high precision or high confidence. In this post, we will build a bar plot using Python, the statistics module and matplotlib. The plot will show the tensile strength of two different 3-D printer filament materials, ABS and HIPS. We will then add error bars to the plot based on the standard deviation of the data.&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;img alt="bar_plot_with_error_bars" src="https://professorkazarinoff.github.io/staticsite/images/matplotlib/stats_module_bar_plot_error_bars.png"&gt;&lt;/p&gt;
 &lt;p&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;
@@ -1935,7 +2155,7 @@ T = 573.15 kelvin
 &lt;li&gt;Connect the Adafruit Feather Huzzah to the computer with a USB cable and bring up the Micropython REPL using Putty. &lt;/li&gt;
 &lt;li&gt;Run code at the Micropython REPL to read the temperature&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3&gt;1. Connect the MCP9808 temperature sensor to the Adafruit Feather Huzzah board&lt;/h3&gt;
+&lt;h3 id="1-connect-the-mcp9808-temperature-sensor-to-the-adafruit-feather-huzzah-board"&gt;1. Connect the MCP9808 temperature sensor to the Adafruit Feather Huzzah board&lt;/h3&gt;
 &lt;p&gt;Connect the &lt;a href="https://www.adafruit.com/product/1782"&gt;MCP9808 temperature sensor&lt;/a&gt; breakout board to the Feather Huzzah board with jumper wires. There are four connections: A 3V power line from the Feather Huzzah to the MCP9808 Vdd pin, GND connected between both boards, and the I2C data and clock lines. On the Feather Huzzah, the I2C data line is SDA (pin 4) and the I2C clock line is SCL (pin 5). These connect with the MPC9808 I2C data line SDA and the MPC9808 I2C clock line SCL. Unlike Serial communication where RX connects to TX, in I2C SDA connects to SDA and SCL connects to SCL.&lt;/p&gt;
 &lt;table class="table table-striped table-bordered table-hover"&gt;
 &lt;thead&gt;
@@ -1969,12 +2189,12 @@ T = 573.15 kelvin
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;&lt;img alt="Fritzing Image" src="https://professorkazarinoff.github.io/staticsite/posts/micropython/feather_huzzah_temp_sensor_fritzing.png"&gt;&lt;/p&gt;
-&lt;h3&gt;2. Connect the Adafruit Feather Huzzah to the computer with a USB cable and bring up the Micropython REPL using Putty.&lt;/h3&gt;
+&lt;h3 id="2-connect-the-adafruit-feather-huzzah-to-the-computer-with-a-usb-cable-and-bring-up-the-micropython-repl-using-putty"&gt;2. Connect the Adafruit Feather Huzzah to the computer with a USB cable and bring up the Micropython REPL using Putty.&lt;/h3&gt;
 &lt;p&gt;Connect the Adafruit Feather Huzzah to the computer with a microUSB cable. Ensure this is a data cable, not just a charging cable. Open Putty and connect to the Feather Huzzah using the proper serial port (COM#) and 115200 baud. (Remember to use the &lt;strong&gt;Serial&lt;/strong&gt; radio button under &lt;strong&gt;Connection Type:&lt;/strong&gt;)&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Putty in start menu" src="https://professorkazarinoff.github.io/staticsite/posts/micropython/putty_in_start_menu.png"&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Putty config" src="https://professorkazarinoff.github.io/staticsite/posts/micropython/putty_config.PNG"&gt;&lt;/p&gt;
 &lt;p&gt;This should bring up the Micropython REPL prompt &lt;code&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/code&gt;. If you can't see the &lt;code&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/code&gt; prompt, try typing [Enter], Ctrl-D, pushing the RESET button on the Feather Huzzah. If that doesn't work, try closing putty then unplugging then replugging the USB cable.&lt;/p&gt;
-&lt;h3&gt;3. Run code at the Micropython REPL to read the temperature&lt;/h3&gt;
+&lt;h3 id="3-run-code-at-the-micropython-repl-to-read-the-temperature"&gt;3. Run code at the Micropython REPL to read the temperature&lt;/h3&gt;
 &lt;p&gt;In the Putty Serial Window, we will import the &lt;code&gt;machine&lt;/code&gt; module and then create an instance of the &lt;code&gt;machine.I2C&lt;/code&gt; class with the scl and sda parameters set as &lt;code&gt;scl=machine.Pin(5)&lt;/code&gt; and &lt;code&gt;sda=machine.Pin(4)&lt;/code&gt;.  Then we create an empty &lt;code&gt;bytearray&lt;/code&gt; which will be used to store the data coming in from the MCP9808 temperature sensor. As strings in Micropython are UTF-8 encoded by defaut, like in Python 3, a bytearray needs to be used to read the raw output from the MCP9808 chip registers. The command &lt;code&gt;i2c.readfrom_mem_into()&lt;/code&gt; method brings in the data from the sensor and saves it to our &lt;code&gt;byte_data&lt;/code&gt; variable. The arguments inside the method &lt;code&gt;24&lt;/code&gt; and &lt;code&gt;5&lt;/code&gt; correspond to the I2C memory address and registry address of the temperature data stored in the MCP9808 temperature sensor.   &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;machine&lt;/span&gt;
 &lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;i2c&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;machine&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;I2C&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;scl&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;machine&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Pin&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;sda&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;machine&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Pin&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
@@ -1988,7 +2208,7 @@ T = 573.15 kelvin
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h2&gt;Next steps:&lt;/h2&gt;
+&lt;h2 id="next-steps"&gt;Next steps:&lt;/h2&gt;
 &lt;p&gt;In the next post we will use Micropython to connect the Adafruit Feather Huzzah to a WiFi network.&lt;/p&gt;</content><category term="python"></category><category term="micropython"></category><category term="esp8266"></category><category term="microcontroller"></category><category term="sensor"></category></entry><entry><title>Using the Micropython REPL on an Adadfruit Feather Huzzah ESP8266</title><link href="https://professorkazarinoff.github.io/staticsite/micropython-REPL.html" rel="alternate"></link><published>2018-03-12T09:01:00-07:00</published><updated>2018-03-12T09:01:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-03-12:/staticsite/micropython-REPL.html</id><summary type="html">&lt;p&gt;This is the third part of a multipart series on Micropython. In &lt;a href="https://professorkazarinoff.github.io/staticsite/micropython-install.html"&gt;last post of the series&lt;/a&gt;, we installed Micropython on an Adafruit Feather Huzzah ESP8266 microcontroller using Python and a package called &lt;strong&gt;esptool&lt;/strong&gt;. In this post, we are going to write commands to the Micropython REPL (the Micropython prompt …&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the third part of a multipart series on Micropython. In &lt;a href="https://professorkazarinoff.github.io/staticsite/micropython-install.html"&gt;last post of the series&lt;/a&gt;, we installed Micropython on an Adafruit Feather Huzzah ESP8266 microcontroller using Python and a package called &lt;strong&gt;esptool&lt;/strong&gt;. In this post, we are going to write commands to the Micropython REPL (the Micropython prompt) to turn on and off an LED connected to the Feather Huzzah board. The posts in this series:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/what-is-micropython.html"&gt;What is Micropython?&lt;/a&gt;&lt;/li&gt;
@@ -2009,19 +2229,19 @@ T = 573.15 kelvin
 &lt;li&gt;Open Putty and connect to the board at 115200 baud&lt;/li&gt;
 &lt;li&gt;Run commands at the prompt to turn the builtin LED on the Adafruit Feather Huzzah ESP8266 on and off&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3&gt;1. Connect the Adafruit Feather Huzzah ESP8266 board to the laptop&lt;/h3&gt;
+&lt;h3 id="1-connect-the-adafruit-feather-huzzah-esp8266-board-to-the-laptop"&gt;1. Connect the Adafruit Feather Huzzah ESP8266 board to the laptop&lt;/h3&gt;
 &lt;p&gt;Use a microUSB cable to connect the Feather Huzzah to the computer. Make sure that the microUSB cable is a full USB data cable and not just a simple power cable. The first cable I tried was just a charging mobile phones and I couldn't figure out why Putty wasn't working. Switching out the cable was all it took to get it to work. &lt;/p&gt;
-&lt;h3&gt;2. Determine which serial port the Feather Huzzah is connected to&lt;/h3&gt;
+&lt;h3 id="2-determine-which-serial-port-the-feather-huzzah-is-connected-to"&gt;2. Determine which serial port the Feather Huzzah is connected to&lt;/h3&gt;
 &lt;p&gt;Use Windows Device Manager to determine which serial port the Feather Huzzah is connected to. On my Windows 10 laptop, it usually comes up as &lt;code&gt;COM4&lt;/code&gt;. You can find the serial port by looking in the Ports (COM &amp;amp; LPT) category of the Windows Device Manager. Look for something like &lt;strong&gt;Silicon Labs CP210x USB to UART Bridge (COM4)&lt;/strong&gt; in the &lt;strong&gt;Ports (COM &amp;amp; LPT)&lt;/strong&gt; menu. It is the &lt;strong&gt;COM#&lt;/strong&gt; that you are looking for.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Find Device Manager" src="https://professorkazarinoff.github.io/staticsite/posts/micropython/find_device_manager.png"&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Device Manager Menu" src="https://professorkazarinoff.github.io/staticsite/posts/micropython/device_manager_menu.png"&gt;&lt;/p&gt;
-&lt;h3&gt;3. Use Putty to connect to the Feather Huzzah&lt;/h3&gt;
+&lt;h3 id="3-use-putty-to-connect-to-the-feather-huzzah"&gt;3. Use Putty to connect to the Feather Huzzah&lt;/h3&gt;
 &lt;p&gt;Ensure the Feather Huzzah board is connected with a USB cable, then connect to it with Putty using the proper serial port (COM#) and 115200 baud. Remember to use the &lt;strong&gt;Serial&lt;/strong&gt; radio button under &lt;strong&gt;Connection Type:&lt;/strong&gt; to select serial communication or you will be trying to communicate with the Feather Huzzah over SSH which won't work. &lt;/p&gt;
 &lt;p&gt;&lt;img alt="Putty in start menu" src="https://professorkazarinoff.github.io/staticsite/posts/micropython/putty_in_start_menu.png"&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Putty config" src="https://professorkazarinoff.github.io/staticsite/posts/micropython/putty_config.PNG"&gt;&lt;/p&gt;
 &lt;p&gt;This should bring up the Micropython REPL prompt &lt;code&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/code&gt;. If you can't see the &lt;code&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/code&gt; prompt, try typing [Enter], Ctrl-D, pushing the RESET button on the Feather Huzzah or unplugging then replugging the USB cable.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="REPL prompt" src="https://professorkazarinoff.github.io/staticsite/posts/micropython/REPL_prompt.PNG"&gt;&lt;/p&gt;
-&lt;h3&gt;4. Run commands at the prompt to turn the built-in LED on the Adafruit Feather Huzzah ESP8266 on and off&lt;/h3&gt;
+&lt;h3 id="4-run-commands-at-the-prompt-to-turn-the-built-in-led-on-the-adafruit-feather-huzzah-esp8266-on-and-off"&gt;4. Run commands at the prompt to turn the built-in LED on the Adafruit Feather Huzzah ESP8266 on and off&lt;/h3&gt;
 &lt;p&gt;At the micropython REPL (the Micropython command promt &lt;code&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/code&gt;) try the following commands:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;gt;&amp;gt;&amp;gt; print(&amp;#39;Micropython for Engineers!&amp;#39;)
 Micropython for Engineers
@@ -2071,7 +2291,7 @@ Micropython for Engineers
 
 
 &lt;p&gt;This will blink the LED on and off for a total of 20 seconds.&lt;/p&gt;
-&lt;h2&gt;Next steps:&lt;/h2&gt;
+&lt;h2 id="next-steps"&gt;Next steps:&lt;/h2&gt;
 &lt;p&gt;In the next post, we'll connect to a I2C temperature sensor to the Adafruit Feather Huzzah and use Micropython to read the temperature.&lt;/p&gt;</content><category term="python"></category><category term="micropython"></category><category term="esp8266"></category><category term="REPL"></category></entry><entry><title>Installing Micropython on an Adadfruit Feather Huzzah ESP8266</title><link href="https://professorkazarinoff.github.io/staticsite/micropython-install.html" rel="alternate"></link><published>2018-03-01T14:20:00-08:00</published><updated>2018-03-01T14:20:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-03-01:/staticsite/micropython-install.html</id><summary type="html">&lt;p&gt;This is the second part of a multipart series on Micropython. Micropython is a port of the Python programming language that runs on small, inexpensive microcontrollers. In this post, we will install Micropython on an Adafruit Feather Huzzah ESP8266 board using Python and a package called esptool. In subsequent posts …&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the second part of a multipart series on Micropython. Micropython is a port of the Python programming language that runs on small, inexpensive microcontrollers. In this post, we will install Micropython on an Adafruit Feather Huzzah ESP8266 board using Python and a package called esptool. In subsequent posts we will build our Feather Huzzah microcontroller into a WiFi-enabled weather station. The posts in this series:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/what-is-micropython.html"&gt;What is Micropython?&lt;/a&gt;&lt;/li&gt;
@@ -2138,7 +2358,7 @@ Micropython for Engineers
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;h3&gt;Summary of Steps:&lt;/h3&gt;
+&lt;h3 id="summary-of-steps"&gt;Summary of Steps:&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;Install the &lt;a href="https://www.anaconda.com/download/"&gt;Anaconda distribution&lt;/a&gt; of Python&lt;/li&gt;
 &lt;li&gt;Create a new conda environment and &lt;code&gt;pip install esptool&lt;/code&gt;&lt;/li&gt;
@@ -2150,9 +2370,9 @@ Micropython for Engineers
 &lt;li&gt;Download and install &lt;a href="https://www.putty.org/"&gt;Putty&lt;/a&gt;, a serial monitor&lt;/li&gt;
 &lt;li&gt;Use Putty to connect to the Feather Huzzah and run commands in the Micropython REPL&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3&gt;1. Install the Anaconda distribution of Python&lt;/h3&gt;
+&lt;h3 id="1-install-the-anaconda-distribution-of-python"&gt;1. Install the Anaconda distribution of Python&lt;/h3&gt;
 &lt;p&gt;If you don't have Anaconda installed already, go to &lt;a href="https://www.anaconda.com/download/"&gt;Anaconda.com/download&lt;/a&gt; and install the latest version. The Anaconda distribution of Python is the Python distribution I recommend for undergraduate engineers. You want to download and install the Python 3.6 Version (the Python 2.7 Version is legacy Python). Most laptops and desktops run a 64-bit version of Windows 10. If in doubt, you can check your Windows installation, or just go with the 64-bit version. &lt;/p&gt;
-&lt;h3&gt;2. Create a new conda environment and install esptool.py&lt;/h3&gt;
+&lt;h3 id="2-create-a-new-conda-environment-and-install-esptoolpy"&gt;2. Create a new conda environment and install esptool.py&lt;/h3&gt;
 &lt;p&gt;It's best practice when using Python to work in virtual environments. We'll create a new virtual environment with conda to use with our Micropython projects. Open the Anaconda prompt and create a new virtual environment named &lt;code&gt;micropython&lt;/code&gt;. Activate the environment with the &lt;code&gt;conda activate&lt;/code&gt; command. After activating the virtual environment you should see &lt;code&gt;(micropython)&lt;/code&gt; before the Anaconda Prompt.  Once inside the virtual environment, use &lt;code&gt;pip&lt;/code&gt; to install &lt;code&gt;esptool&lt;/code&gt;. The &lt;code&gt;esptool&lt;/code&gt; will be used to upload the Micropython .bin firmware file onto the Adafruit Feather Huzzah board. Confirm that &lt;code&gt;esptool&lt;/code&gt; is installed in the &lt;code&gt;(micropython)&lt;/code&gt; virtual environment with &lt;code&gt;conda list&lt;/code&gt;. I also created a new directory in the &lt;strong&gt;Documents&lt;/strong&gt; folder called &lt;strong&gt;micropython&lt;/strong&gt; to store all the project files. &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;conda create -n micropython python=3.6
 conda activate micropython
@@ -2164,20 +2384,20 @@ conda activate micropython
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;3. Download the latest micropython firmware .bin file&lt;/h3&gt;
+&lt;h3 id="3-download-the-latest-micropython-firmware-bin-file"&gt;3. Download the latest micropython firmware .bin file&lt;/h3&gt;
 &lt;p&gt;Go to github and &lt;a href="https://micropython.org/download#esp8266"&gt;download the latest .bin firmware&lt;/a&gt; file. Move the .bin firmware file to a new &lt;strong&gt;micropython&lt;/strong&gt; directory. The .bin firmware file is the version of Micropython that will run on the Adafruit Feather Huzzah ESP8266. Straight from Adafruit, the little microcontroller does not have Micropyton installed, so we need to install Micropython ourselves. After installing the Micropython .bin firmware file onto the board, we will be able to bring up the Micropython REPL prompt, type commands into the Micropython REPL and run Micropython .py scripts on the board.&lt;/p&gt;
 &lt;p&gt;&lt;img alt=".bin firmware on github" src="https://professorkazarinoff.github.io/staticsite/posts/micropython/firmware_download_page.PNG"&gt;&lt;/p&gt;
-&lt;h3&gt;4. Install the SiLabs driver for the Adafruit Feather Huzzah ESP8266&lt;/h3&gt;
+&lt;h3 id="4-install-the-silabs-driver-for-the-adafruit-feather-huzzah-esp8266"&gt;4. Install the SiLabs driver for the Adafruit Feather Huzzah ESP8266&lt;/h3&gt;
 &lt;p&gt;Before we can connect the Adafruit Feather Huzzah to the computer, we need a specific driver installed. For my Windows 10 laptop to see the Adafruit Feather Huzzah board, the &lt;a href="https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers"&gt;CP210x USB to UART Bridge VCP driver&lt;/a&gt; needs to be downloaded from SiLabs and installed. This is quick and easy, but does require admin privileges.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="SiLabs Driver" src="https://professorkazarinoff.github.io/staticsite/posts/micropython/download_silabs_driver.PNG"&gt;&lt;/p&gt;
-&lt;h3&gt;5. Connect the Adafruit Feather Huzzah ESP8266 board to the laptop&lt;/h3&gt;
+&lt;h3 id="5-connect-the-adafruit-feather-huzzah-esp8266-board-to-the-laptop"&gt;5. Connect the Adafruit Feather Huzzah ESP8266 board to the laptop&lt;/h3&gt;
 &lt;p&gt;Use a microUSB cable (the same kind of cable that charges many mobile phones) to connect the Feather Huzzah to the computer. Make sure that the microUSB cable is a full USB &lt;strong&gt;data cable&lt;/strong&gt; and not just a simple power cable. I had trouble getting the Feather Huzzah to work, and it turned out the reason was the micoUSB cable was only a charging cable and could not transfer data. &lt;/p&gt;
-&lt;h3&gt;6. Determine which serial port the Feather Huzzah is connected to&lt;/h3&gt;
+&lt;h3 id="6-determine-which-serial-port-the-feather-huzzah-is-connected-to"&gt;6. Determine which serial port the Feather Huzzah is connected to&lt;/h3&gt;
 &lt;p&gt;Use Windows Device Manager to determine which serial port the Feather Huzzah board is connected to. We will need the serial port as one of the parameters when we upload the .bin firmware file on the board. Look for something like &lt;strong&gt;Silicon Labs CP210x USB to UART Bridge (COM4)&lt;/strong&gt; in the &lt;strong&gt;Ports (COM &amp;amp; LPT)&lt;/strong&gt; menu. The USB to UART bridge is actually the Feather Huzzah board. CP210x refers to the chip that handles serial communication on the Feather Huzzah, not the esp8266 chip itself. Make note of the number after &lt;strong&gt;(COM )&lt;/strong&gt;. It often comes up as &lt;strong&gt;(COM4)&lt;/strong&gt; but it may be different on your computer. &lt;/p&gt;
 &lt;p&gt;&lt;img alt="Find Device Manager" src="https://professorkazarinoff.github.io/staticsite/posts/micropython/find_device_manager.png"&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Device Manager Menu" src="https://professorkazarinoff.github.io/staticsite/posts/micropython/device_manager_menu.png"&gt;&lt;/p&gt;
 &lt;p&gt;The first time I plugged the board into my laptop, Windows could't see the board. I looked through the Device Manager under the Ports menu and the Feather board just didn't show up. Turns out the first USB cable I used was just a charging only cable. When I switched this out for a microUSB data cable, the board came right up under &lt;strong&gt;Ports (COM &amp;amp; LPT)&lt;/strong&gt;. &lt;/p&gt;
-&lt;h3&gt;6. Run esptool to upload the .bin file to the Feather Huzzah&lt;/h3&gt;
+&lt;h3 id="6-run-esptool-to-upload-the-bin-file-to-the-feather-huzzah"&gt;6. Run esptool to upload the .bin file to the Feather Huzzah&lt;/h3&gt;
 &lt;p&gt;Open the Anaconda Prompt and &lt;code&gt;cd&lt;/code&gt; into the &lt;strong&gt;micropython&lt;/strong&gt; directory with the .bin file. You can use the &lt;code&gt;dir&lt;/code&gt; command to see the directory contents. Make sure the .bin firmware file is in the directory. It will be called something like &lt;code&gt;esp8266-20171101-v1.9.3.bin&lt;/code&gt;. Activate the micropython environment with &lt;code&gt;conda activate micropython&lt;/code&gt;. Run &lt;code&gt;esptool --help&lt;/code&gt; to ensure esptool is installed properly. Note there is no &lt;strong&gt;.py&lt;/strong&gt; extension after &lt;code&gt;esptool&lt;/code&gt;. On my Windows laptop, the command &lt;code&gt;esptool&lt;/code&gt; worked, but the command &lt;code&gt;esptool.py&lt;/code&gt; did not (this is different than the commands shown on the &lt;a href="https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/intro.html#deploying-the-firmware"&gt;Micropython docs&lt;/a&gt;). If you try to run esptool and you are not in the &lt;code&gt;(micropython)&lt;/code&gt; virtual environment, you will get an error. &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;cd Documents
 cd micropython
@@ -2202,10 +2422,10 @@ conda activate micropython
 
 
 &lt;p&gt;&lt;img alt="esptool write flash" src="https://professorkazarinoff.github.io/staticsite/posts/micropython/esptool_write_flash.PNG"&gt;&lt;/p&gt;
-&lt;h3&gt;7. Download and install Putty, a serial monitor&lt;/h3&gt;
+&lt;h3 id="7-download-and-install-putty-a-serial-monitor"&gt;7. Download and install Putty, a serial monitor&lt;/h3&gt;
 &lt;p&gt;Now that Micropthon is installed on the board, we need to talk to our board over a serial connection. Windows 10 doesn't have a built-in serial monitor (like screen on OSX and Linux). So we need to download and install &lt;strong&gt;Putty&lt;/strong&gt;. Putty is a lightweight SSH and serial client for Windows. Putty will allow us to communicate with the Adafruit Feather Huzzah board. &lt;a href="https://www.putty.org/"&gt;Putty can be downloaded here&lt;/a&gt;. Putty is pretty small and the download and install should be pretty quick.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Download Putty" src="https://professorkazarinoff.github.io/staticsite/posts/micropython/download_putty.PNG"&gt;&lt;/p&gt;
-&lt;h3&gt;8. Use Putty to connect to the Feather Huzzah&lt;/h3&gt;
+&lt;h3 id="8-use-putty-to-connect-to-the-feather-huzzah"&gt;8. Use Putty to connect to the Feather Huzzah&lt;/h3&gt;
 &lt;p&gt;Ensure the Feather board is connected to the computer with a USB cable and ensure you can see the board in the Windows Device Manager. Then use Putty to connect to the board over serial.  Make sure you specify the correct serial port in the &lt;strong&gt;Serial line&lt;/strong&gt; box and &lt;strong&gt;115200&lt;/strong&gt; baud in the Speed box. &lt;strong&gt;Micropython is set to run at 115200 baud&lt;/strong&gt;, other baud rates will lead to junk characters in the serial monitor. I had trouble finding the serial connection option in Putty. When I opened Putty, the default was an SSH connection. We can't connect to the Feather Huzzah over SSH. You need to select the &lt;strong&gt;Serial&lt;/strong&gt; radio button below the header &lt;strong&gt;Connection type:&lt;/strong&gt; near the top of the Putty window. &lt;/p&gt;
 &lt;p&gt;&lt;img alt="Putty in start menu" src="https://professorkazarinoff.github.io/staticsite/posts/micropython/putty_in_start_menu.png"&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Putty config" src="https://professorkazarinoff.github.io/staticsite/posts/micropython/putty_config.PNG"&gt;&lt;/p&gt;
@@ -2222,20 +2442,20 @@ conda activate micropython
 
 
 &lt;p&gt;&lt;img alt="sys_dot_platform" src="https://professorkazarinoff.github.io/staticsite/posts/micropython/sys_dot_platform.PNG"&gt;&lt;/p&gt;
-&lt;h2&gt;Next steps:&lt;/h2&gt;
+&lt;h2 id="next-steps"&gt;Next steps:&lt;/h2&gt;
 &lt;p&gt;In the next post of the series, we will use the Micropython REPL running on the Adafruit Feather Huzzah to blink an LED.&lt;/p&gt;</content><category term="python"></category><category term="micropython"></category><category term="esp8266"></category><category term="microcontroller"></category><category term="REPL"></category></entry><entry><title>What is Micropython?</title><link href="https://professorkazarinoff.github.io/staticsite/what-is-micropython.html" rel="alternate"></link><published>2018-02-26T09:01:00-08:00</published><updated>2018-02-26T09:01:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-02-26:/staticsite/what-is-micropython.html</id><summary type="html">&lt;p&gt;This is the first part of a multipart series on Micropython. In this post we'll review what Micropython is, what it is used for and how it is both similar and different from "regular" Python. We'll also discuss why Micropython is relevant to undergraduate engineers.&lt;/p&gt;
-&lt;h3&gt;1. What is Micropython?&lt;/h3&gt;
+&lt;h3 id="1-what-is-micropython"&gt;1. What is Micropython?&lt;/h3&gt;
 &lt;p&gt;&lt;a href="http://micropython.org/"&gt;Micropython …&lt;/a&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the first part of a multipart series on Micropython. In this post we'll review what Micropython is, what it is used for and how it is both similar and different from "regular" Python. We'll also discuss why Micropython is relevant to undergraduate engineers.&lt;/p&gt;
-&lt;h3&gt;1. What is Micropython?&lt;/h3&gt;
+&lt;h3 id="1-what-is-micropython"&gt;1. What is Micropython?&lt;/h3&gt;
 &lt;p&gt;&lt;a href="http://micropython.org/"&gt;Micropython&lt;/a&gt; is a port, or version of Python designed to run on small, inexpensive, low-power microcontrollers. Examples of microcontrollers that Micropython can run on include the &lt;a href="https://store.micropython.org/"&gt;pyboard&lt;/a&gt;, the &lt;a href="https://pycom.io/development-boards"&gt;WiPy&lt;/a&gt; and ESP8266 boards like the &lt;a href="https://learn.adafruit.com/adafruit-feather-huzzah-esp8266"&gt;Adafruit Feather Huzzah&lt;/a&gt;.  Normally, Python is run on a desktop or laptop computer (also on big servers at server farms). Compared to a desktop or laptop, microcontrollers are much smaller, cheaper and less powerful.  A "regular" version of Python can't run on small, cheap microcontrollers because Python is too resouce intensive. Regular Python takes up too much hard disk space, runs on too much RAM and requires a more powerful processor than microcontrollers have. &lt;/p&gt;
 &lt;p&gt;It is pretty amazing that a version of Python (Micropython) runs on these small, cheap microcontrollers like the ESP8266. To get Micropython to run at all on these small boards, Micropython only contains a subset of all the standard library modules inlcuded with "regular" Python. Some of the libraries that are included with Micropython don't have the full set of functions and classes that come with the full version of Python. This allows Micropython to be compact (around 600 kB for the ESP8266 port) and only use a small amount of RAM (down to 16k according to the &lt;a href="https://micropython.org/"&gt;Micropython main page&lt;/a&gt;)&lt;/p&gt;
 &lt;p&gt;You can try using Micropython online with this neat &lt;a href="https://micropython.org/unicorn/"&gt;Micropython online emulator&lt;/a&gt;. The emulator allows you to run commands at a Micropyton Prompt and see the result on a virtual pyboard. &lt;/p&gt;
-&lt;h3&gt;2. What is Micropyton used for?&lt;/h3&gt;
+&lt;h3 id="2-what-is-micropyton-used-for"&gt;2. What is Micropyton used for?&lt;/h3&gt;
 &lt;p&gt;Micropython is installed on small, cheap microcontrollers like the &lt;a href="https://learn.adafruit.com/adafruit-feather-huzzah-esp8266"&gt;ESP8266&lt;/a&gt;. Anthing these small microcontrollers can do, Micropython can do. This includes using the microcontroller as a remote sensor to measure things like temperature, humidity and light level. Micropython can also be used to blink LED's, control arrays of LED's, or run small displays. Micropython can control servo motors, stepper motors and solenoids. Civil Engineers could use Micropython to monitor water levels. Michanical Engineers could use Micropython to drive robots. Electrical Engineers could use micropython to measure voltage levels in embedded systems. In the later posts in this series, we will use Micropython, running on a small cheap ESP8266 board, to create a remote internet-connected weather station. The last posts in the series will use Micropyton, running on a &lt;strong&gt;really cheap&lt;/strong&gt; (around $2) ESP-01 module to turn on and off an LED from any computer connected to the internet anywhere in the world.&lt;/p&gt;
-&lt;h3&gt;3. Why should undergraduate Engineers learn Mircopython?&lt;/h3&gt;
+&lt;h3 id="3-why-should-undergraduate-engineers-learn-mircopython"&gt;3. Why should undergraduate Engineers learn Mircopython?&lt;/h3&gt;
 &lt;p&gt;Using Python to solve engineering problems such as calculations, statistics, modeling and visulization is really useful for undergraduate Engineers. But Python on it's own is fairly limited in controlling devices outside the computer it's running on. You don't want to leave a laptop in a remote estuary to meausure water temperature, but you could leave a little microcontroller and low-cost temperature sensor. A small robot can't carry around a heavy laptop, but a small, light, low-power board could run a simple robot. You don't want to use a laptop for every small electrical measurement or embedded system control, but a $2 WiFi module would work. &lt;/p&gt;
 &lt;p&gt;In addition, learning how to use Micropython on small, cheap microcontrller can help undergraduates Engineers understand how programming works. It is a different kind of feedback and excitment seeing a motor whirl around compared to seeing a picture of a motor with the speed displayed as text. There is a different kind of wonder seeing an array of LED's light up compared to a 2-D plot on a computer screen. Plus Micropython is just fun! It's as easy to program Micropython as it is to program regular Python. The little projects you can do with Micropython running on a small, low-cost board are almost unlimited. We could send Micropython to space in a micro-satalite, or burry Micropython underground in a small borring machine, or launch Micorpython into the sky on a weather ballon.&lt;/p&gt;
-&lt;h3&gt;Next steps:&lt;/h3&gt;
+&lt;h3 id="next-steps"&gt;Next steps:&lt;/h3&gt;
 &lt;p&gt;In the next post, we will install Micropython on a small, cheap ESP8266 microcontroller board called the Adafruit Feather Huzzah. Once Micropython is installed on the board, we will run a couple commands at the Micropython REPL running on the board.&lt;/p&gt;</content><category term="python"></category><category term="micropython"></category><category term="esp8266"></category><category term="microcontroller"></category><category term="REPL"></category></entry><entry><title>Plotting sine and cosine with matplotlib and Python</title><link href="https://professorkazarinoff.github.io/staticsite/plotting-sin-cos-with-matplotlib.html" rel="alternate"></link><published>2018-02-05T10:30:00-08:00</published><updated>2018-02-05T10:30:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-02-05:/staticsite/plotting-sin-cos-with-matplotlib.html</id><summary type="html">&lt;p&gt;In this post we will create a plot using matplotlib and Python. The plot will show two trig functions, sine and cosine on the same set of axes.&lt;/p&gt;</summary><content type="html">&lt;p&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;
@@ -2519,7 +2739,7 @@ conda activate micropython
  
 
 &lt;/p&gt;</content><category term="python"></category><category term="jupyter"></category><category term="matplotlib"></category><category term="numpy"></category><category term="plots"></category></entry><entry><title>Python Data Types</title><link href="https://professorkazarinoff.github.io/staticsite/python-data-types.html" rel="alternate"></link><published>2018-01-18T10:15:00-08:00</published><updated>2018-01-18T10:15:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-01-18:/staticsite/python-data-types.html</id><summary type="html">&lt;p&gt;Python has many useful built in data types. Python variables can store different types of data and can be created dynamically, without first defining a data type. It's useful for engineers to understand a couple of Python's core data types in order to write well constructed code. Below we will discuss a few different data types.&lt;/p&gt;</summary><content type="html">&lt;p&gt;Python has many useful built in data types. Python variables can store different types of data and can be created dynamically, without first defining a data type. It's useful for engineers to understand a couple of Python's core data types in order to write well constructed code. Below we will discuss a few different data types.&lt;/p&gt;
-&lt;h4&gt;Integers&lt;/h4&gt;
+&lt;h4 id="integers"&gt;Integers&lt;/h4&gt;
 &lt;p&gt;Integers are one of the Python data types. An integer is a whole number, negative, positive or zero. In Python, integer variables can be defined by simply assigning a whole number to a variable name. We can determine data type of a variable using the &lt;code&gt;type()&lt;/code&gt; function.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;
 &lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="nb"&gt;type&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -2533,7 +2753,7 @@ conda activate micropython
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h4&gt;Floating Point Numbers&lt;/h4&gt;
+&lt;h4 id="floating-point-numbers"&gt;Floating Point Numbers&lt;/h4&gt;
 &lt;p&gt;Floating point numbers or &lt;em&gt;floats&lt;/em&gt; are another Python data type. Floats are decimals, positive, negative and zero. Floats can also be numbers in scientific notation which contain exponents. In Python, a float can be defined using a decimal point &lt;code&gt;.&lt;/code&gt; when a variable is assigned.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mf"&gt;6.2&lt;/span&gt;
 &lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="nb"&gt;type&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -2559,7 +2779,7 @@ conda activate micropython
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h4&gt;Boolean&lt;/h4&gt;
+&lt;h4 id="boolean"&gt;Boolean&lt;/h4&gt;
 &lt;p&gt;The &lt;em&gt;boolean&lt;/em&gt; data type is either True or False. In Python, boolean variables are defined by the &lt;code&gt;True&lt;/code&gt; and &lt;code&gt;False&lt;/code&gt; key words. Note that &lt;code&gt;True&lt;/code&gt; and &lt;code&gt;False&lt;/code&gt; must have an Upper Case first letter. Using a lowercase &lt;code&gt;true&lt;/code&gt; returns an error.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;True&lt;/span&gt;
 &lt;span class="nb"&gt;type&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -2578,7 +2798,7 @@ conda activate micropython
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h4&gt;String&lt;/h4&gt;
+&lt;h4 id="string"&gt;String&lt;/h4&gt;
 &lt;p&gt;Strings are sequences of letters, numbers, spaces and symbols. In Python, strings can be almost any length and can contain spaces. String variables are assigned in Python using quotation marks &lt;code&gt;'   '&lt;/code&gt;.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;string&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;z&amp;#39;&lt;/span&gt;
 &lt;span class="nb"&gt;type&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;string&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -2599,7 +2819,7 @@ conda activate micropython
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h4&gt;Complex numbers&lt;/h4&gt;
+&lt;h4 id="complex-numbers"&gt;Complex numbers&lt;/h4&gt;
 &lt;p&gt;One final data type useful to engineers are complex numbers. A complex number is defined in Python using a real component &lt;code&gt;+&lt;/code&gt; imaginary component&lt;code&gt;j&lt;/code&gt;. The letter &lt;code&gt;j&lt;/code&gt; must be used in the imaginary component. Using the letter &lt;code&gt;i&lt;/code&gt; will return an error. Note how imaginary numbers can be added to integers and floats.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;comp&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;2j&lt;/span&gt;
 &lt;span class="nb"&gt;type&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;comp&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -2621,7 +2841,7 @@ conda activate micropython
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;Converting between different data types&lt;/h3&gt;
+&lt;h3 id="converting-between-different-data-types"&gt;Converting between different data types&lt;/h3&gt;
 &lt;p&gt;The number five can be an integer, or a float or a string depending on how it is assigned. Python has built in functions to convert between data types. The &lt;code&gt;int()&lt;/code&gt; &lt;code&gt;float()&lt;/code&gt; and &lt;code&gt;str()&lt;/code&gt; methods will convert our &lt;em&gt;5&lt;/em&gt; from one Python data type to another.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;int_num&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;
 &lt;span class="nb"&gt;type&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;int_num&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -2637,7 +2857,7 @@ conda activate micropython
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;Summary&lt;/h3&gt;
+&lt;h3 id="summary"&gt;Summary&lt;/h3&gt;
 &lt;table class="table table-striped table-bordered table-hover"&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -3119,7 +3339,7 @@ Next install &lt;code&gt;matplotlib&lt;/code&gt; and &lt;code&gt;numpy&lt;/code&
 
 
 &lt;p&gt;Next we need to read in our data. The chart below shows the measured coefficient of thermal expansion (CTE) of three metals: Aluminum, Copper and Steel. The units for coefficient of thermal expansion is per degrees C ( / &amp;#176;C)&lt;/p&gt;
-&lt;h3&gt;Coefficient of thermal expansion of three metals (units: /  &amp;#176;C)&lt;/h3&gt;
+&lt;h3 id="coefficient-of-thermal-expansion-of-three-metals-units-c"&gt;Coefficient of thermal expansion of three metals (units: /  &amp;#176;C)&lt;/h3&gt;
 &lt;table class="table table-striped table-bordered table-hover"&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -3281,7 +3501,7 @@ degree: °
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;There are a couple of special characters that will combine symbols. A useful one in engineering is the hat &lt;code&gt;^&lt;/code&gt; symbol. This is typically used to denote unit vectors. We can add a hat &lt;code&gt;^&lt;/code&gt; (also called a circumflex) by putting the unicode escape after the letter you want to add a hat to. For example to add a hat to &lt;code&gt;i&lt;/code&gt; the command is &lt;code&gt;print('i\u0302')&lt;/code&gt;. &lt;/p&gt;
 &lt;p&gt;Below is a list of symbols and greek letters and the corresponding unicode escape to produce the character in python. &lt;/p&gt;
-&lt;h3&gt;Useful unicode symbols in engineering&lt;/h3&gt;
+&lt;h3 id="useful-unicode-symbols-in-engineering"&gt;Useful unicode symbols in engineering&lt;/h3&gt;
 &lt;table class="table table-striped table-bordered table-hover"&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -3348,7 +3568,7 @@ degree: °
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;h3&gt;Greek lower case letters&lt;/h3&gt;
+&lt;h3 id="greek-lower-case-letters"&gt;Greek lower case letters&lt;/h3&gt;
 &lt;table class="table table-striped table-bordered table-hover"&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -3485,7 +3705,7 @@ degree: °
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;h3&gt;Greek upper case letters&lt;/h3&gt;
+&lt;h3 id="greek-upper-case-letters"&gt;Greek upper case letters&lt;/h3&gt;
 &lt;table class="table table-striped table-bordered table-hover"&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -3629,7 +3849,7 @@ degree: °
 &lt;li&gt;Laptop: Mac OSX&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Setting up a Python virtual environment is different on each one of these operating systems. Let's see at what happens when we try and create a new virtual environment in each.&lt;/p&gt;
-&lt;h3&gt;Ubuntu 16.04&lt;/h3&gt;
+&lt;h3 id="ubuntu-1604"&gt;Ubuntu 16.04&lt;/h3&gt;
 &lt;p&gt;Linux should be the easiest to get a new virtualenv up and running. In Ubuntu 16.04, I have a terminal and admin access (can use sudo). But look what happens when I try to set up a new virtualenv without any flags or customization:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ mkvirtualenv webscrape
 $ &lt;span class="nb"&gt;source&lt;/span&gt; activate webscrape
@@ -3664,7 +3884,7 @@ Python &lt;span class="m"&gt;3&lt;/span&gt;.6.2
 
 
 &lt;p&gt;Nice. Now we can &lt;code&gt;pip install&lt;/code&gt; away. So what about creating a new virtual environment on a MacBook Air with OSX?&lt;/p&gt;
-&lt;h3&gt;Mac OSX&lt;/h3&gt;
+&lt;h3 id="mac-osx"&gt;Mac OSX&lt;/h3&gt;
 &lt;p&gt;Mac OSX has a terminal too. I get to it by going to the finder and clicking the search in the upper right or using [command] + [space] to bring up the spotlight search bar. Type &lt;code&gt;terminal&lt;/code&gt; into the search bar. Setting up a virtualenv should be pretty easy right?&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ mkvirtualenv webscrape
 $ &lt;span class="nb"&gt;source&lt;/span&gt; activate webscrape
@@ -3686,7 +3906,7 @@ python &lt;span class="m"&gt;3&lt;/span&gt;.6.2
 
 
 &lt;p&gt;OK. Two down and one to go. Is this any easier on Windows 10? Especially with no admin access? Can't be right? Let's see.&lt;/p&gt;
-&lt;h3&gt;Windows 10 (no admin access)&lt;/h3&gt;
+&lt;h3 id="windows-10-no-admin-access"&gt;Windows 10 (no admin access)&lt;/h3&gt;
 &lt;p&gt;I have a Windows 10 machine at work with no admin access. I can't install any programs on my work computer that use the Windows active directory (which is most programs). The Python distribution that has worked out the best has been &lt;strong&gt;Anaconda&lt;/strong&gt;. Besides coming with Python 3, and having a bunch of packages already installed, it also comes with a command line client call the &lt;strong&gt;Anaconda Prompt&lt;/strong&gt;. The &lt;strong&gt;Anaconda Prompt&lt;/strong&gt; operates a little like the terminal on Linux and Mac OSX, but some of the commands are a little different. To make a new virtual environment from the &lt;strong&gt;Anaconda Prompt&lt;/strong&gt; type:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ conda create -n webscrape &lt;span class="nv"&gt;python&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;.6
 $ proceed &lt;span class="o"&gt;([&lt;/span&gt;y&lt;span class="o"&gt;]&lt;/span&gt;/n&lt;span class="o"&gt;)&lt;/span&gt;?
@@ -3701,7 +3921,7 @@ python &lt;span class="m"&gt;3&lt;/span&gt;.6.3 :: Anaconda, Inc.
 &lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;End Note:&lt;/p&gt;
 &lt;p&gt;Maybe it's best to use &lt;strong&gt;conda&lt;/strong&gt; on both OSX and Linux too...  You don't have to mess around with &lt;strong&gt;&lt;em&gt;~/.bash_profile&lt;/em&gt;&lt;/strong&gt; or pointing virtualenv wrapper to the proper directory.&lt;/p&gt;</content><category term="python"></category><category term="Windows 10"></category><category term="virtualenv"></category><category term="OSX"></category><category term="Linux"></category><category term="Ubuntu"></category><category term="pip"></category><category term="conda"></category><category term="anaconda"></category><category term="anaconda prompt"></category></entry><entry><title>How I Build This Site - Part 7</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-7.html" rel="alternate"></link><published>2017-12-14T12:40:00-08:00</published><updated>2017-12-14T12:40:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-12-14:/staticsite/how-i-built-this-site-7.html</id><summary type="html">&lt;p&gt;This is the seventh part of a multi-part series on how I built this site. In &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-6.html"&gt;last post&lt;/a&gt;, we added two new &lt;em&gt;pages&lt;/em&gt; to our site. An &lt;strong&gt;About&lt;/strong&gt; page and a &lt;strong&gt;Book&lt;/strong&gt; page.  In this post, we are going to deploy the site to &lt;a href="https://pages.github.com/"&gt;github pages&lt;/a&gt;. Github pages is a place on github were documentation and static sites can be hosted.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the seventh part of a multi-part series on how I built this site. In &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-6.html"&gt;last post&lt;/a&gt;, we added two new &lt;em&gt;pages&lt;/em&gt; to our site. An &lt;strong&gt;About&lt;/strong&gt; page and a &lt;strong&gt;Book&lt;/strong&gt; page.  In this post, we are going to deploy the site to &lt;a href="https://pages.github.com/"&gt;github pages&lt;/a&gt;. Github pages is a place on github were documentation and static sites can be hosted.&lt;/p&gt;
-&lt;h3&gt;Steps in this post&lt;/h3&gt;
+&lt;h3 id="steps-in-this-post"&gt;Steps in this post&lt;/h3&gt;
 &lt;p&gt;By the end of the post we are going to have a working static website hosted on github pages. To accomplish this, we will complete the following steps:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Pull the most recent version of the site from gitub&lt;/li&gt;
@@ -3715,7 +3935,7 @@ python &lt;span class="m"&gt;3&lt;/span&gt;.6.3 :: Anaconda, Inc.
 &lt;/ol&gt;
 &lt;p&gt;OK, let's get started. Can't wait to see the published site live on github pages.&lt;/p&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;Pull to the most recent version of the site from github&lt;/h3&gt;
+&lt;h3 id="pull-to-the-most-recent-version-of-the-site-from-github"&gt;Pull to the most recent version of the site from github&lt;/h3&gt;
 &lt;p&gt;Open a terminal and &lt;code&gt;cd&lt;/code&gt; to the &lt;code&gt;staticsite&lt;/code&gt; directory. Then activate the &lt;code&gt;(staticsite)&lt;/code&gt; virtual environment with &lt;code&gt;source activate staticsite&lt;/code&gt;. Once in the &lt;code&gt;(staticsite)&lt;/code&gt; environment, pull the most recent version of the site down from github with &lt;code&gt;git pull origin master&lt;/code&gt;.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; ~/Documents/staticsite
 &lt;span class="nb"&gt;source&lt;/span&gt; activate staticsite
@@ -3753,7 +3973,7 @@ python &lt;span class="m"&gt;3&lt;/span&gt;.6.3 :: Anaconda, Inc.
 &lt;p&gt;&lt;a href="localhost:8000"&gt;localhost:8000&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Press &lt;code&gt;ctr-c&lt;/code&gt; to stop the server.&lt;/p&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;Modify the &lt;strong&gt;&lt;em&gt;publishconf.py&lt;/em&gt;&lt;/strong&gt; file to use the github pages url&lt;/h3&gt;
+&lt;h3 id="modify-the-publishconfpy-file-to-use-the-github-pages-url"&gt;Modify the &lt;strong&gt;&lt;em&gt;publishconf.py&lt;/em&gt;&lt;/strong&gt; file to use the github pages url&lt;/h3&gt;
 &lt;p&gt;We need to edit the &lt;strong&gt;&lt;em&gt;publishconf.py&lt;/em&gt;&lt;/strong&gt; file to add our github pages url to &lt;code&gt;SITEURL&lt;/code&gt; and set &lt;code&gt;RELATIVE_URLS&lt;/code&gt; to True. The lines to change are:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;#publishconf.py&lt;/span&gt;
 &lt;span class="n"&gt;SITEURL&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;https://username.github.io/staticsite&amp;#39;&lt;/span&gt;
@@ -3763,7 +3983,7 @@ python &lt;span class="m"&gt;3&lt;/span&gt;.6.3 :: Anaconda, Inc.
 
 &lt;p&gt;Make sure to set &lt;code&gt;username&lt;/code&gt; to your github user name. Setting &lt;code&gt;RELATIVE_URLS = True&lt;/code&gt; is necessary for the links on the site to work and for the &lt;em&gt;css&lt;/em&gt; and &lt;em&gt;javascript&lt;/em&gt; files run on github pages. When I initially set &lt;code&gt;RELATIVE_URLS = False&lt;/code&gt;, the site looked terrible, had no formatting or css and none of the links worked. Setting &lt;code&gt;RELATIVE_URLS = True&lt;/code&gt; fixed the problem.&lt;/p&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;Create a published version of the site&lt;/h3&gt;
+&lt;h3 id="create-a-published-version-of-the-site"&gt;Create a published version of the site&lt;/h3&gt;
 &lt;p&gt;Up to this point, we used the &lt;code&gt;make html&lt;/code&gt; command to build a demo version of the site. Now we are ready to &lt;em&gt;publish&lt;/em&gt; the site. We publish the site by running the command:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;pelican content -s publishconf.py
 &lt;/pre&gt;&lt;/div&gt;
@@ -3771,7 +3991,7 @@ python &lt;span class="m"&gt;3&lt;/span&gt;.6.3 :: Anaconda, Inc.
 
 &lt;p&gt;This creates a published version of the site with relative url's in the &lt;strong&gt;output&lt;/strong&gt; directory. &lt;/p&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;Add, commit, push to the master branch on github&lt;/h3&gt;
+&lt;h3 id="add-commit-push-to-the-master-branch-on-github"&gt;Add, commit, push to the master branch on github&lt;/h3&gt;
 &lt;p&gt;Before we can put the published version of the site up on github pages, we need to push the current version of the site up to the master branch.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;staticsite&lt;span class="o"&gt;)&lt;/span&gt; $ git add .
 &lt;span class="o"&gt;(&lt;/span&gt;staticsite&lt;span class="o"&gt;)&lt;/span&gt; $ git commit -m &lt;span class="s2"&gt;&amp;quot;first published version&amp;quot;&lt;/span&gt;
@@ -3780,10 +4000,10 @@ python &lt;span class="m"&gt;3&lt;/span&gt;.6.3 :: Anaconda, Inc.
 
 
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;Create a &lt;strong&gt;gh-pages&lt;/strong&gt; branch in our staticsite repo on github&lt;/h3&gt;
+&lt;h3 id="create-a-gh-pages-branch-in-our-staticsite-repo-on-github"&gt;Create a &lt;strong&gt;gh-pages&lt;/strong&gt; branch in our staticsite repo on github&lt;/h3&gt;
 &lt;p&gt;Up to this point, we saved our work to the &lt;strong&gt;master&lt;/strong&gt; branch of the staticsite repository on github. To host the site on github pages, we need to create a new branch in the &lt;strong&gt;staticsite&lt;/strong&gt; repo called &lt;strong&gt;gh-pages&lt;/strong&gt;. The &lt;strong&gt;master&lt;/strong&gt; branch still houses the code,settings, markup files, notebooks, images, etc. to build the site. However, in the &lt;strong&gt;gh-pages&lt;/strong&gt; branch of the &lt;strong&gt;staticsite&lt;/strong&gt; repo any html, css and javascript files  will be served like a regular website. To create the new branch, go the main &lt;strong&gt;staticsite&lt;/strong&gt; repository page on github and click the [Branch: Master] drop down menu on the upper left hand side. Enter the name of the new branch: &lt;strong&gt;gh-pages&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;Use &lt;code&gt;ghp-import&lt;/code&gt; to post the contents of the &lt;strong&gt;output&lt;/strong&gt; directory to the &lt;strong&gt;gh-pages&lt;/strong&gt; branch&lt;/h3&gt;
+&lt;h3 id="use-ghp-import-to-post-the-contents-of-the-output-directory-to-the-gh-pages-branch"&gt;Use &lt;code&gt;ghp-import&lt;/code&gt; to post the contents of the &lt;strong&gt;output&lt;/strong&gt; directory to the &lt;strong&gt;gh-pages&lt;/strong&gt; branch&lt;/h3&gt;
 &lt;p&gt;As shown in the &lt;a href="http://docs.getpelican.com/en/stable/tips.html"&gt;Pelican documentation&lt;/a&gt;, you can use a Python package called &lt;code&gt;ghp-import&lt;/code&gt; to help posting the contents of the output directory to the gh-pages branch of our repo on github. If &lt;code&gt;ghp-import&lt;/code&gt; isn't installed yet, use &lt;code&gt;pip&lt;/code&gt;. Make sure you are in the &lt;code&gt;(staticsite)&lt;/code&gt; virtual environment when you run &lt;code&gt;pip&lt;/code&gt;.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;staticsite&lt;span class="o"&gt;)&lt;/span&gt; $ pip install ghp-import
 &lt;/pre&gt;&lt;/div&gt;
@@ -3821,13 +4041,13 @@ hint: See the &lt;span class="s1"&gt;&amp;#39;Note about fast-forwards&amp;#39;&
 
 &lt;p&gt;That has worked so far for me.&lt;/p&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;View the site on github pages.&lt;/h3&gt;
+&lt;h3 id="view-the-site-on-github-pages"&gt;View the site on github pages.&lt;/h3&gt;
 &lt;p&gt;Awesome! The site is now hosted for everyone to see on github pages! Pretty cool right? Point a browser to the github pages url and take a look:&lt;/p&gt;
 &lt;p&gt;https://username.github.io/staticsite&lt;/p&gt;
 &lt;p&gt;Change &lt;em&gt;username&lt;/em&gt; to your github user name. My site (the one that you are reading) is hosted here: &lt;/p&gt;
 &lt;p&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite"&gt;https://professorkazarinoff.github.io/staticsite&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Thanks for reading to the end! It was quite a bit of work to get the site up and running, but I am pleased with the results. Now I need to read up on git . . . &lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="blog"></category><category term="git"></category><category term="github"></category><category term="github pages"></category></entry><entry><title>How I Build This Site - Part 6</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-6.html" rel="alternate"></link><published>2017-12-12T18:50:00-08:00</published><updated>2017-12-12T18:50:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-12-12:/staticsite/how-i-built-this-site-6.html</id><summary type="html">&lt;p&gt;This is the sixth part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-5.html"&gt;last post&lt;/a&gt;, we put a search bar at the top right of each page and some css and javascript in order to make tables on the site look better. In this post we are going to add two new &lt;em&gt;pages&lt;/em&gt; to our static site. An &lt;strong&gt;About&lt;/strong&gt; page and a &lt;strong&gt;Book&lt;/strong&gt; page. These new pages will have menu entries at the top of our site.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the sixth part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-5.html"&gt;last post&lt;/a&gt;, we put a search bar at the top right of each page and some css and javascript in order to make tables on the site look better. In this post we are going to add two new &lt;em&gt;pages&lt;/em&gt; to our static site: an &lt;strong&gt;About&lt;/strong&gt; page and a &lt;strong&gt;Book&lt;/strong&gt; page. These new pages will have menu entries at the top of our site.&lt;/p&gt;
-&lt;h3&gt;Steps in this post&lt;/h3&gt;
+&lt;h3 id="steps-in-this-post"&gt;Steps in this post&lt;/h3&gt;
 &lt;p&gt;We are going to accomplish the following in this post. By the end of the post we are going to have a site with two new pages and two new menu items.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Activate our &lt;code&gt;staticsite&lt;/code&gt; virtual environment&lt;/li&gt;
@@ -3838,7 +4058,7 @@ hint: See the &lt;span class="s1"&gt;&amp;#39;Note about fast-forwards&amp;#39;&
 &lt;li&gt;Add, commit and push the changes to github&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Let's get started.&lt;/p&gt;
-&lt;h3&gt;Activate our virtual environment and pull the most recent version of the site down from github&lt;/h3&gt;
+&lt;h3 id="activate-our-virtual-environment-and-pull-the-most-recent-version-of-the-site-down-from-github"&gt;Activate our virtual environment and pull the most recent version of the site down from github&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;cd&lt;/span&gt; ~/Documents/staticsite
 $ &lt;span class="nb"&gt;source&lt;/span&gt; activate staticsite
 &lt;span class="o"&gt;(&lt;/span&gt;staticsite&lt;span class="o"&gt;)&lt;/span&gt; $ git pull origin master
@@ -3879,7 +4099,7 @@ $ &lt;span class="nb"&gt;source&lt;/span&gt; activate staticsite
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;Create two new &lt;em&gt;pages&lt;/em&gt; (&lt;strong&gt;&lt;em&gt;.md&lt;/em&gt;&lt;/strong&gt; files)&lt;/h3&gt;
+&lt;h3 id="create-two-new-pages-md-files"&gt;Create two new &lt;em&gt;pages&lt;/em&gt; (&lt;strong&gt;&lt;em&gt;.md&lt;/em&gt;&lt;/strong&gt; files)&lt;/h3&gt;
 &lt;p&gt;Up to this point, the top of our site has a menu item for [This site], which isn't very useful.  &lt;/p&gt;
 &lt;p&gt;&lt;img alt="pelican-bootstrap3_this_site_menu.png" src="https://professorkazarinoff.github.io/staticsite/images/pelican-bootstrap3_this_site_menu.png"&gt;&lt;/p&gt;
 &lt;p&gt;We are going to add two new menu items that link to two new &lt;em&gt;pages&lt;/em&gt;. These new menu items will be [About] and [Book]. First we'll create a &lt;strong&gt;pages&lt;/strong&gt; folder in the &lt;strong&gt;staticsite/content&lt;/strong&gt; directory&lt;/p&gt;
@@ -3972,7 +4192,7 @@ $ &lt;span class="nb"&gt;source&lt;/span&gt; activate staticsite
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;Modify &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; to include the two new pages.&lt;/h3&gt;
+&lt;h3 id="modify-pelicanconfpy-to-include-the-two-new-pages"&gt;Modify &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; to include the two new pages.&lt;/h3&gt;
 &lt;p&gt;Pelican needs to know about the two "pages" files. Modify the &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; file to include the lines:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;#pelicanconf.py
 
@@ -3987,7 +4207,7 @@ DISPLAY_PAGES_ON_MENU = True
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;Build and preview the site with Pelican&lt;/h3&gt;
+&lt;h3 id="build-and-preview-the-site-with-pelican"&gt;Build and preview the site with Pelican&lt;/h3&gt;
 &lt;p&gt;With the two new page &lt;strong&gt;&lt;em&gt;.md&lt;/em&gt;&lt;/strong&gt; files created and the changes to &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; in place, let's preview the site again.  We build the site and serve up the contents in the &lt;strong&gt;output&lt;/strong&gt; folder with:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;make html
 make serve
@@ -3997,7 +4217,7 @@ make serve
 &lt;p&gt;To view the site, point a browser to &lt;em&gt;localhost:8000&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href="localhost:8000"&gt;localhost:8000&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Use &lt;code&gt;ctrl-c&lt;/code&gt; to stop the server.&lt;/p&gt;
-&lt;h3&gt;Add and commit the changes then push them to github&lt;/h3&gt;
+&lt;h3 id="add-and-commit-the-changes-then-push-them-to-github"&gt;Add and commit the changes then push them to github&lt;/h3&gt;
 &lt;p&gt;When we are done editing the the site, we add &lt;strong&gt;all of the changes&lt;/strong&gt; to our local git repo using &lt;code&gt;git add .&lt;/code&gt;. Commit those changes with &lt;code&gt;git commit&lt;/code&gt; and add the &lt;code&gt;-m "added about and book pages"&lt;/code&gt; flag to supply a commit message (make sure to use double quotes "commit message"). Push the changes up to github with &lt;code&gt;git push origin master&lt;/code&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git add .
 git commit -m &amp;quot;added about and book pages&amp;quot;
@@ -4006,7 +4226,7 @@ git push origin master
 
 
 &lt;p&gt;In the next post we will publish the site to github pages. Once the site is published, it will be live and public. Available to any one with an internet connection. An actual, real, published, live static site!&lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="blog"></category><category term="git"></category><category term="github"></category></entry><entry><title>How I Build This Site - Part 5</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-5.html" rel="alternate"></link><published>2017-12-09T18:50:00-08:00</published><updated>2017-12-09T18:50:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-12-09:/staticsite/how-i-built-this-site-5.html</id><summary type="html">&lt;p&gt;This is the fifth part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-4.html"&gt;last post&lt;/a&gt;, we installed a couple of plugins to add extra functionality to the site. These plugins enabled embedded jupyter notebooks and posts in a series. In this post we'll put a search bar at the top right of each page and add some css and javascript in order to make tables on the site look better.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the fifth part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-4.html"&gt;last post&lt;/a&gt;, we installed a couple of plugins to add extra functionality to the site. These plugins enabled embedded jupyter notebooks and posts in a series. In this post we'll put a search bar at the top right of each page and add some css and javascript in order to make tables on the site look better.&lt;/p&gt;
-&lt;h3&gt;Steps in this post&lt;/h3&gt;
+&lt;h3 id="steps-in-this-post"&gt;Steps in this post&lt;/h3&gt;
 &lt;p&gt;We are going to accomplish the following in this post. By the end of the post we are going to have a site with a working search bar and nice looking tables.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Activate our &lt;code&gt;staticsite&lt;/code&gt; virtual environment&lt;/li&gt;
@@ -4017,7 +4237,7 @@ git push origin master
 &lt;li&gt;Add, commit and push the changes to github&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Let's get started.&lt;/p&gt;
-&lt;h3&gt;Activate our virtual environment and pull the most recent version of the site down from github&lt;/h3&gt;
+&lt;h3 id="activate-our-virtual-environment-and-pull-the-most-recent-version-of-the-site-down-from-github"&gt;Activate our virtual environment and pull the most recent version of the site down from github&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;cd&lt;/span&gt; ~/Documents/staticsite
 $ &lt;span class="nb"&gt;source&lt;/span&gt; activate staticsite
 &lt;span class="o"&gt;(&lt;/span&gt;staticsite&lt;span class="o"&gt;)&lt;/span&gt; $ git pull origin master
@@ -4053,7 +4273,7 @@ $ &lt;span class="nb"&gt;source&lt;/span&gt; activate staticsite
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;Add the &lt;strong&gt;'tipue_search'&lt;/strong&gt; plugin to the &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; file&lt;/h3&gt;
+&lt;h3 id="add-the-tipue_search-plugin-to-the-pelicanconfpy-file"&gt;Add the &lt;strong&gt;'tipue_search'&lt;/strong&gt; plugin to the &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; file&lt;/h3&gt;
 &lt;p&gt;Now we need to modify the &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; file to use the &lt;strong&gt;'tipue_search'&lt;/strong&gt; plugin. This plugin will give us the ability to add a search bar to our site menu at the top right of each page. &lt;/p&gt;
 &lt;p&gt;Add &lt;code&gt;'tipue_search'&lt;/code&gt; to the &lt;code&gt;PLUGINS = [ ]&lt;/code&gt; list in the &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; file. Make sure each plugin is separated with commas and surrounded by quotes .&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;#pelicanconf.py
@@ -4079,7 +4299,7 @@ DIRECT_TEMPLATES = (&amp;#39;index&amp;#39;,&amp;#39;tags&amp;#39;, &amp;#39;cat
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;Add some custom css and javascript to make tables look good.&lt;/h3&gt;
+&lt;h3 id="add-some-custom-css-and-javascript-to-make-tables-look-good"&gt;Add some custom css and javascript to make tables look good.&lt;/h3&gt;
 &lt;p&gt;Even with a great theme like pelican-bootstrap3, there are some changes to make to the look of the site. One of these changes is to make tables look better, like the tables on github readme pages look. &lt;/p&gt;
 &lt;p&gt;Let's make a new post in the &lt;strong&gt;content/posts&lt;/strong&gt; directory. This post will contain a markdown table using the &lt;code&gt;|&lt;/code&gt; (pipe) character and a header row with pipes separated by three dashes &lt;code&gt;---&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;fourth_post.md&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
@@ -4212,7 +4432,7 @@ EXTRA_PATH_METADATA = {
 
 
 &lt;p&gt;When the site is built, Pelican will read in &lt;strong&gt;&lt;em&gt;custom.css&lt;/em&gt;&lt;/strong&gt; and &lt;strong&gt;&lt;em&gt;custom.js&lt;/em&gt;&lt;/strong&gt; siting in the &lt;strong&gt;extra&lt;/strong&gt; folder. Pelican will then copy these two files in the appropriate places in the &lt;strong&gt;output&lt;/strong&gt; directory (static/css/custom.css and static/css/custom.js) for the theme to use. Then the code from the css and javascript files will be used by the &lt;em&gt;.html&lt;/em&gt; pages in the output directory along with the other css and javascript from the bootstrap3 theme. This will make tables look more like tables in github readme pages. &lt;/p&gt;
-&lt;h3&gt;Build and preview the site with Pelican&lt;/h3&gt;
+&lt;h3 id="build-and-preview-the-site-with-pelican"&gt;Build and preview the site with Pelican&lt;/h3&gt;
 &lt;p&gt;With the search plugin configured, a new posts containing a table written, plus our &lt;strong&gt;&lt;em&gt;custom.js&lt;/em&gt;&lt;/strong&gt; and &lt;strong&gt;&lt;em&gt;custom.css&lt;/em&gt;&lt;/strong&gt; in place, let's preview the site again.  We build the site and serve up the contents in the &lt;strong&gt;output&lt;/strong&gt; folder with:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;make html
 make serve
@@ -4222,7 +4442,7 @@ make serve
 &lt;p&gt;To view the site, point a browser to &lt;em&gt;localhost:8000&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href="localhost:8000"&gt;localhost:8000&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;use &lt;code&gt;ctrl-c&lt;/code&gt; to stop the server.&lt;/p&gt;
-&lt;h3&gt;Add and commit the changes then push them to github&lt;/h3&gt;
+&lt;h3 id="add-and-commit-the-changes-then-push-them-to-github"&gt;Add and commit the changes then push them to github&lt;/h3&gt;
 &lt;p&gt;When we are done editing the the site, we add &lt;strong&gt;all of the changes&lt;/strong&gt; to our local git repo using &lt;code&gt;git add .&lt;/code&gt;. Commit those changes with &lt;code&gt;git commit&lt;/code&gt; and add the &lt;code&gt;-m "added search and tables"&lt;/code&gt; flag to supply a commit message (make sure to use double quotes "commit message"). Push the changes up to github with &lt;code&gt;git push origin master&lt;/code&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git add .
 git commit -m &amp;quot;added search and tables&amp;quot;
@@ -4231,7 +4451,7 @@ git push origin master
 
 
 &lt;p&gt;In the next post we will add two new menu items across the top of our site. These new menu items will link to an [About] page and a [Book] page.&lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="blog"></category><category term="css"></category><category term="javascript"></category></entry><entry><title>How I Build This Site - Part 4</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-4.html" rel="alternate"></link><published>2017-12-08T18:50:00-08:00</published><updated>2017-12-08T18:50:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-12-08:/staticsite/how-i-built-this-site-4.html</id><summary type="html">&lt;p&gt;This is the fourth part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-3.html"&gt;last post&lt;/a&gt;, we installed the pelican-bootstrap3 theme and made our site mobile responsive. Now the site looks good on all devices.  In this post we are going to install a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of post that are linked together, create a working search bar, add youtube videos to posts, view LaTeX math and add embedded jupyter notebooks in posts.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the fourth part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-3.html"&gt;last post&lt;/a&gt;, we installed the pelican-bootstrap3 theme and made our site mobile responsive. Now the site looks good on all devices.  In this post we are going to install a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of post that are linked together, create a working search bar, add youtube videos to posts, view LaTeX math and add embedded jupyter notebooks in posts.&lt;/p&gt;
-&lt;h3&gt;Steps in this post&lt;/h3&gt;
+&lt;h3 id="steps-in-this-post"&gt;Steps in this post&lt;/h3&gt;
 &lt;p&gt;We are going to accomplish the following in this post. By the end of the post we are going to have a great looking website that contains a two-part series, a post with an embedded youtube video and a post that contains an embedded jupyter notebook.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Activate our &lt;code&gt;staticsite&lt;/code&gt; virtual environment&lt;/li&gt;
@@ -4243,7 +4463,7 @@ git push origin master
 &lt;li&gt;Add and commit the changes then push those changes to github&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Seems like a lot to do, so let's get started.&lt;/p&gt;
-&lt;h3&gt;Activate our virtual environment and pull the most recent version of the site down from github&lt;/h3&gt;
+&lt;h3 id="activate-our-virtual-environment-and-pull-the-most-recent-version-of-the-site-down-from-github"&gt;Activate our virtual environment and pull the most recent version of the site down from github&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;source&lt;/span&gt; activate staticsite
 &lt;span class="o"&gt;(&lt;/span&gt;staticsite&lt;span class="o"&gt;)&lt;/span&gt; $ &lt;span class="nb"&gt;cd&lt;/span&gt; ~/Documents/staticsite
 &lt;span class="o"&gt;(&lt;/span&gt;staticsite&lt;span class="o"&gt;)&lt;/span&gt; $ &lt;span class="nb"&gt;pwd&lt;/span&gt;
@@ -4251,7 +4471,7 @@ git push origin master
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;Install the &lt;code&gt;jupyter&lt;/code&gt; package in our &lt;code&gt;staticsite&lt;/code&gt; virtual environment.&lt;/h3&gt;
+&lt;h3 id="install-the-jupyter-package-in-our-staticsite-virtual-environment"&gt;Install the &lt;code&gt;jupyter&lt;/code&gt; package in our &lt;code&gt;staticsite&lt;/code&gt; virtual environment.&lt;/h3&gt;
 &lt;p&gt;I like using &lt;strong&gt;jupyter notebooks&lt;/strong&gt; to build code and solve engineering problems with Python. A &lt;strong&gt;jupyter notebook&lt;/strong&gt; can contain Python code, the output produced when this code is run and markup text (used for documentation).  &lt;strong&gt;Jupyter notebooks&lt;/strong&gt; can also easily display &lt;code&gt;matplotlib&lt;/code&gt; plots and &lt;code&gt;pandas&lt;/code&gt; data frames. These two Python packages are very useful for engineers solving problems in teams. As the &lt;code&gt;jupyter&lt;/code&gt; package is in the main conda channel, we can install it into our virtual environment using the &lt;code&gt;conda install&lt;/code&gt; command.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(staticsite) $ conda install jupyter
 &lt;/pre&gt;&lt;/div&gt;
@@ -4313,7 +4533,7 @@ widgetsnbextension==3.0.8
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;Add new plugins to the &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; file&lt;/h3&gt;
+&lt;h3 id="add-new-plugins-to-the-pelicanconfpy-file"&gt;Add new plugins to the &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; file&lt;/h3&gt;
 &lt;p&gt;Now we need to modify the &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; file to use a couple new plugins. The plugins we will add are: &lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;'series'&lt;/li&gt;
@@ -4339,7 +4559,7 @@ PLUGINS = [
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;Build some posts that use the newly installed plugins&lt;/h3&gt;
+&lt;h3 id="build-some-posts-that-use-the-newly-installed-plugins"&gt;Build some posts that use the newly installed plugins&lt;/h3&gt;
 &lt;p&gt;Now we will build a couple of posts which use our newly installed plugins. First we'll modify our content directory with a new folder called &lt;strong&gt;posts&lt;/strong&gt;.  We'll keep all the posts in this directory. Then we'll make a couple of new &lt;strong&gt;&lt;em&gt;.md&lt;/em&gt;&lt;/strong&gt; files. I'll copy our first post to this new directory with the &lt;code&gt;cp&lt;/code&gt; (copy) shell command and then remove the old &lt;strong&gt;&lt;em&gt;.md&lt;/em&gt;&lt;/strong&gt; file with the &lt;code&gt;rm&lt;/code&gt; command.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;pwd
 cd content
@@ -4451,7 +4671,7 @@ cp first_post.md third_post.md
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;Build and preview the site with Pelican&lt;/h3&gt;
+&lt;h3 id="build-and-preview-the-site-with-pelican"&gt;Build and preview the site with Pelican&lt;/h3&gt;
 &lt;p&gt;With a couple new &lt;strong&gt;pelican-plugins&lt;/strong&gt; configured and three new posts written, it is time to preview our site again.  We can build the site and can view it with a web browser using:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;make html
 make serve
@@ -4461,7 +4681,7 @@ make serve
 &lt;p&gt;To view the site, point a browser to &lt;em&gt;localhost:8000&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href="localhost:8000"&gt;localhost:8000&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;use &lt;code&gt;ctrl-c&lt;/code&gt; to stop the server.&lt;/p&gt;
-&lt;h3&gt;Add and commit the changes then push them to github&lt;/h3&gt;
+&lt;h3 id="add-and-commit-the-changes-then-push-them-to-github"&gt;Add and commit the changes then push them to github&lt;/h3&gt;
 &lt;p&gt;When we are done editing the the site, we add &lt;strong&gt;all of the changes&lt;/strong&gt; to our local git repo using &lt;code&gt;git add .&lt;/code&gt;. Then we commit those changes with &lt;code&gt;git commit&lt;/code&gt; and add the &lt;code&gt;-m "added plugins"&lt;/code&gt; flag to give supply a commit message (make sure to use double quotes "commit message"). To push those changes up to github use &lt;code&gt;git push origin master&lt;/code&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git add .
 git commit -m &amp;quot;added plugins&amp;quot;
@@ -4470,7 +4690,7 @@ git push origin master
 
 
 &lt;p&gt;In the next post we will customize the site. We'll add some css in order to make tables on the site look better and put a search bar at the top of the page.&lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="blog"></category><category term="jupyter"></category></entry><entry><title>How I Build This Site - Part 3</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-3.html" rel="alternate"></link><published>2017-12-04T14:15:00-08:00</published><updated>2017-12-04T14:15:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-12-04:/staticsite/how-i-built-this-site-3.html</id><summary type="html">&lt;p&gt;This is the third part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-2.html"&gt;last post&lt;/a&gt;, we used &lt;code&gt;pelican-quickstart&lt;/code&gt; to build the framework of the site and wrote a short first post, then viewed a demo version of the site on localhost:8000. In this post we will add a custom theme to the site called pelican-bootstrap3. The pelican-bootstrap3 theme looks great and is mobile responsive so it will make the site look good on phones and tablets. Then we'll add some custom css to personalize the look of the theme.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the third part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-2.html"&gt;last post&lt;/a&gt;, we used &lt;code&gt;pelican-quickstart&lt;/code&gt; to build the framework of the site and wrote a short first post, then viewed a demo version of the site on localhost:8000. In this post we will add a custom theme to the site called pelican-bootstrap3. The pelican-bootstrap3 theme looks great and is mobile reponsive so it will make the site look good on phones and tablets. Then we'll add some custom css to personalize the look of the theme.&lt;/p&gt;
-&lt;h3&gt;Steps in this post&lt;/h3&gt;
+&lt;h3 id="steps-in-this-post"&gt;Steps in this post&lt;/h3&gt;
 &lt;p&gt;We are going to accomplish the following in this post. By the end of the post we are going to have a a static site with a great looking bootstrap3 theme which is mobile responsive and looks great on desktops, tablets and phones.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Activate our &lt;code&gt;staticsite&lt;/code&gt; virtual environment&lt;/li&gt;
@@ -4482,7 +4702,7 @@ git push origin master
 &lt;li&gt;Add and commit the changes then push those changes to github&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Big steps, it's really going to look like a website when we are done.&lt;/p&gt;
-&lt;h3&gt;Activate our virtual environment and pull from github&lt;/h3&gt;
+&lt;h3 id="activate-our-virtual-environment-and-pull-from-github"&gt;Activate our virtual environment and pull from github&lt;/h3&gt;
 &lt;p&gt;Open the &lt;strong&gt;Anaconda Prompt&lt;/strong&gt; and activate the &lt;code&gt;(staticsite)&lt;/code&gt; virtual environment&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;source&lt;/span&gt; activate staticsite
 &lt;/pre&gt;&lt;/div&gt;
@@ -4495,7 +4715,7 @@ git push origin master
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;Use git submodule add to pull all of the themes into our local &lt;strong&gt;staticsite/pelican-themes&lt;/strong&gt; directory&lt;/h3&gt;
+&lt;h3 id="use-git-submodule-add-to-pull-all-of-the-themes-into-our-local-staticsitepelican-themes-directory"&gt;Use git submodule add to pull all of the themes into our local &lt;strong&gt;staticsite/pelican-themes&lt;/strong&gt; directory&lt;/h3&gt;
 &lt;p&gt;There are a bunch of different themes available for static site built with Pelican. The three I was most interested in were:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -4546,7 +4766,7 @@ $ git submodule update --init --recursive
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;Modify the &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; file, so that we can use a new theme.&lt;/h3&gt;
+&lt;h3 id="modify-the-pelicanconfpy-file-so-that-we-can-use-a-new-theme"&gt;Modify the &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; file, so that we can use a new theme.&lt;/h3&gt;
 &lt;p&gt;So far our &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; file contains only default lines of code that Pelican built for us. In order to use a new theme, we need to edit this configuration file. After we edit the configuration file, the &lt;code&gt;make html&lt;/code&gt; command will produce new .html pages in the &lt;strong&gt;output&lt;/strong&gt; directory. The relevant lines to add and modify in the &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; are:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;#pelicanconf.py
 
@@ -4572,7 +4792,7 @@ I18N_TEMPLATES_LANG = &amp;#39;en&amp;#39;
 &lt;blockquote&gt;
 &lt;p&gt;If you are using i18n_subsites and you are not using English as your default language, make sure to also correctly specify the default language of the theme. Otherwise the translations will not be used on your default site.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h3&gt;Build and preview the site with Pelican&lt;/h3&gt;
+&lt;h3 id="build-and-preview-the-site-with-pelican"&gt;Build and preview the site with Pelican&lt;/h3&gt;
 &lt;p&gt;With the &lt;strong&gt;pelican-plugins&lt;/strong&gt; and &lt;strong&gt;pelican-themes&lt;/strong&gt; repos downloaded and the &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; file edited, we can build the site and take a look at it with a web browser:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;make html
 make serve
@@ -4584,7 +4804,7 @@ make serve
 &lt;p&gt;Now, the site should look something like this:&lt;/p&gt;
 &lt;p&gt;&lt;img alt="pelican-boostrap3-basic-site.png" src="https://professorkazarinoff.github.io/staticsite/images/simple_pelican-bootstrap3_theme.png"&gt;&lt;/p&gt;
 &lt;p&gt;use &lt;code&gt;ctrl-c&lt;/code&gt; to shut down the server.&lt;/p&gt;
-&lt;h3&gt;Add and commit the changes then push those changes to github&lt;/h3&gt;
+&lt;h3 id="add-and-commit-the-changes-then-push-those-changes-to-github"&gt;Add and commit the changes then push those changes to github&lt;/h3&gt;
 &lt;p&gt;When we are done editing the the site, we add &lt;strong&gt;all of the changes&lt;/strong&gt; to our local git repo using &lt;code&gt;git add .&lt;/code&gt;. Then we commit those changes with &lt;code&gt;git commit&lt;/code&gt; and add the &lt;code&gt;-m "added pelican_bootstrap3 theme"&lt;/code&gt; flag to give supply a commit message (make sure to use double quotes "commit message"). To push those changes up to github use &lt;code&gt;git push origin master&lt;/code&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git add .
 git commit -m &amp;quot;added pelican_bootstrap3 theme&amp;quot;
@@ -4593,7 +4813,7 @@ git push origin master
 
 
 &lt;p&gt;In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-4.html"&gt;next post&lt;/a&gt; we will add some additional &lt;em&gt;pelican-plugins&lt;/em&gt; to bring extra functionality to the site and add the ability to include &lt;strong&gt;jupyter notebooks&lt;/strong&gt; in posts.&lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="blog"></category><category term="markdown"></category></entry><entry><title>How I Build This Site - Part 2</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-2.html" rel="alternate"></link><published>2017-11-28T14:15:00-08:00</published><updated>2017-11-28T14:15:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-11-28:/staticsite/how-i-built-this-site-2.html</id><summary type="html">&lt;p&gt;This is the second part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-1.html"&gt;last post&lt;/a&gt;, we set up our development environment including Python, a new virtual environment, installed the pelican and markdown packages and set up git. In this post, we will use the &lt;code&gt;pelican-quickstart&lt;/code&gt; command to get the blog off the ground. We are also going to create a &lt;strong&gt;first_post.md&lt;/strong&gt; file and serve up the website locally so we can take a look at it.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the second part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-1.html"&gt;last post&lt;/a&gt;, we set up our development environment including Python, a new virtual environment, installed the pelican and markdown packages and set up git. In this post, we will use the &lt;code&gt;pelican-quickstart&lt;/code&gt; command to get the blog off the ground. We are also going to create a &lt;strong&gt;first_post.md&lt;/strong&gt; file and serve up the website locally so we can take a look at it.&lt;/p&gt;
-&lt;h3&gt;Steps in this post&lt;/h3&gt;
+&lt;h3 id="steps-in-this-post"&gt;Steps in this post&lt;/h3&gt;
 &lt;p&gt;We are going to accomplish the following in this post. By the end of the post, we will have a working website with one blog post served up locally and an updated github repo with all the changes saved.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Activate our &lt;code&gt;staticsite&lt;/code&gt; virtual environment&lt;/li&gt;
@@ -4605,7 +4825,7 @@ git push origin master
 &lt;li&gt;Add and commit the changes then push those changes to github&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;That's a lot to do, so let's get started.&lt;/p&gt;
-&lt;h3&gt;Activate our &lt;strong&gt;staticsite&lt;/strong&gt; virtual environment&lt;/h3&gt;
+&lt;h3 id="activate-our-staticsite-virtual-environment"&gt;Activate our &lt;strong&gt;staticsite&lt;/strong&gt; virtual environment&lt;/h3&gt;
 &lt;p&gt;I highly recommend installing the Anaconda distribution of python. If you followed along with the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-1.html"&gt;previous post&lt;/a&gt;, you already installed Anaconda and can pull up the Anaconda prompt. Open the Anaconda Prompt and see which virtual environments are available.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ conda info --envs
 &lt;/pre&gt;&lt;/div&gt;
@@ -4623,7 +4843,7 @@ root                     *  C:\Users\user.name\AppData\Local\Continuum\Anaconda3
 
 
 &lt;p&gt;You should now see &lt;code&gt;(staticsite)&lt;/code&gt; before the command prompt. This means we are operating in the &lt;code&gt;staticsite&lt;/code&gt; virtual environment. &lt;/p&gt;
-&lt;h3&gt;View installed packages&lt;/h3&gt;
+&lt;h3 id="view-installed-packages"&gt;View installed packages&lt;/h3&gt;
 &lt;p&gt;We installed pelican, markdown and fabric in the last post. Let's make sure they are installed in our &lt;code&gt;(staticsite)&lt;/code&gt; virtual environment.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(staticsite)$ pip freeze
 &lt;/pre&gt;&lt;/div&gt;
@@ -4639,7 +4859,7 @@ Pygments==2.2.0
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;Pelican Quickstart - make the site!&lt;/h3&gt;
+&lt;h3 id="pelican-quickstart-make-the-site"&gt;Pelican Quickstart - make the site!&lt;/h3&gt;
 &lt;p&gt;We are now going to build the site! Exciting stuff. With the virtual environment and packages in place, we just need to make sure we are in a directory where we want our site to live.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(staticsite)$ cd ~
 (staticsite)$ cd Documents
@@ -4687,7 +4907,7 @@ Pygments==2.2.0
 &lt;p&gt;The site will look something like:&lt;/p&gt;
 &lt;p&gt;&lt;img alt="default pelican site" src="https://professorkazarinoff.github.io/staticsite/images/default_site_no_posts.png"&gt;&lt;/p&gt;
 &lt;p&gt;We can shut down the server by typing &lt;code&gt;ctrl-c&lt;/code&gt;&lt;/p&gt;
-&lt;h3&gt;Write a first post in markup language (.md)&lt;/h3&gt;
+&lt;h3 id="write-a-first-post-in-markup-language-md"&gt;Write a first post in markup language (.md)&lt;/h3&gt;
 &lt;p&gt;Time to write our first post. The contents of the &lt;strong&gt;staticsite&lt;/strong&gt; directory should look something like:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;staticsite/
 │   develop_server.sh
@@ -4745,7 +4965,7 @@ Pygments==2.2.0
 &lt;p&gt;&lt;img alt="default pelican site" src="https://professorkazarinoff.github.io/staticsite/images/default_site_1_post.png"&gt;&lt;/p&gt;
 &lt;p&gt;It works! I can see the first post!&lt;/p&gt;
 &lt;p&gt;We can shut down the server by typing &lt;code&gt;ctrl-c&lt;/code&gt;&lt;/p&gt;
-&lt;h3&gt;Add and commit the changes then push the changes to github&lt;/h3&gt;
+&lt;h3 id="add-and-commit-the-changes-then-push-the-changes-to-github"&gt;Add and commit the changes then push the changes to github&lt;/h3&gt;
 &lt;p&gt;When we are done editing the posts and the site, we &lt;strong&gt;add all&lt;/strong&gt; of the changes to our local git repo using &lt;code&gt;git add .&lt;/code&gt; Then we commit these changes with &lt;code&gt;git commit&lt;/code&gt; and use the &lt;code&gt;-m "created pelcian static site"&lt;/code&gt; flag to supply a commit message (make sure to use double quotes "commit message"). Push those changes up to github with &lt;code&gt;git push origin master&lt;/code&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git add .
 git commit -m &amp;quot;created pelican static site&amp;quot;
@@ -4754,7 +4974,7 @@ git push origin master
 
 
 &lt;p&gt;In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-3.html"&gt;next post&lt;/a&gt;, we will customize the site with a &lt;em&gt;pelican-theme&lt;/em&gt; called &lt;strong&gt;pelican-bootstrap3&lt;/strong&gt;.&lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="blog"></category><category term="markdown"></category></entry><entry><title>How I Build This Site - Part 1</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-1.html" rel="alternate"></link><published>2017-11-22T12:40:00-08:00</published><updated>2017-11-22T12:40:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-11-22:/staticsite/how-i-built-this-site-1.html</id><summary type="html">&lt;p&gt;This is the first part of a multi-part series on how I built this site. In this first post, I'll review the development environment, Python, virtual environments, installing the necessary packages and setting up git.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the first part of a multi-part series on how I built this site. In this first post, we'll review the development environment, installing Python, virtual environments, installing the necessary packages and setting up git.&lt;/p&gt;
-&lt;h3&gt;Setting up the development environment&lt;/h3&gt;
+&lt;h3 id="setting-up-the-development-environment"&gt;Setting up the development environment&lt;/h3&gt;
 &lt;p&gt;What does that even mean? Before I started building this site I needed to make sure the necessary software, packages and settings were in place. This starts with setting up a &lt;em&gt;development environment&lt;/em&gt;. To me, a development environment is simply the software on a computer that allows me to get work done. In this case the development environment means the tools necessary to build this site. A list of the tools and technologies are below:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;An operating system: This website was built on machines running Windows 10, Mac OSX and Linux (Ubuntu 16.04 LTS).&lt;/li&gt;
@@ -4765,7 +4985,7 @@ git push origin master
 &lt;li&gt;Markdown: the posts on this website are written in markdown, or .md format&lt;/li&gt;
 &lt;li&gt;fabric and make: fabric is a Python package to automate builds and tasks. Fabric works on Windows. Make is used on MacOSX and Linux to build the site and serve up a demo version of the site.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3&gt;Installing Python (the Anaconda distribution)&lt;/h3&gt;
+&lt;h3 id="installing-python-the-anaconda-distribution"&gt;Installing Python (the Anaconda distribution)&lt;/h3&gt;
 &lt;p&gt;I highly recommend installing the Anaconda distribution of Python. I have the Anaconda distribution installed on all the computers I used to build this site:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -4785,7 +5005,7 @@ git push origin master
 &lt;p&gt;Download the latest release at:&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://www.anaconda.com/download/"&gt;https://www.anaconda.com/download&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;The Anaconda distribution of Python comes with an up-to-date and stable version of Python (Python 3.6) and the &lt;strong&gt;Anaconda Prompt&lt;/strong&gt;. The &lt;strong&gt;Anaconda Prompt&lt;/strong&gt; is useful because it allows me to run shell commands on my Windows 10 machine at work. These are the same commands I would run in the terminal on my Mac OSX or Linux boxes. The &lt;strong&gt;Anaconda Prompt&lt;/strong&gt; makes creating and logging into virtual environments easy and allows me to use git on Windows 10. Follow this post to &lt;a href="https://professorkazarinoff.github.io/staticsite/installing-anaconda-on-windows.html"&gt;install the Anaconda on Windows 10.&lt;/a&gt;&lt;/p&gt;
-&lt;h3&gt;Create a new virtual environment&lt;/h3&gt;
+&lt;h3 id="create-a-new-virtual-environment"&gt;Create a new virtual environment&lt;/h3&gt;
 &lt;p&gt;Before downloading Pelican, we should create a new virtual environment. The same virtual environment on each of the computers I use means the same packages are installed on each computer. To create a new virtual environment, open up the Anaconda Prompt (on Windows) or a terminal (on Linux or Mac OSX). Let's call our new virtual environment &lt;strong&gt;&lt;em&gt;staticsite&lt;/em&gt;&lt;/strong&gt;. The &lt;code&gt;conda create&lt;/code&gt; command creates the environment and the &lt;code&gt;-n staticsite&lt;/code&gt; flag adds the name.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ conda create -n staticsite
 &lt;/pre&gt;&lt;/div&gt;
@@ -4803,7 +5023,7 @@ git push origin master
 
 
 &lt;p&gt;We should now see &lt;code&gt;(staticsite)&lt;/code&gt; before the terminal prompt. This means we are using the &lt;code&gt;(staticsite)&lt;/code&gt; virtual environment.&lt;/p&gt;
-&lt;h3&gt;Install Pelican&lt;/h3&gt;
+&lt;h3 id="install-pelican"&gt;Install Pelican&lt;/h3&gt;
 &lt;p&gt;Time for some fun! Installing Pelican. Pelican is a Python package that creates static websites. Static sites are websites that only have html, css and javascript. A static site is not connected to a database and there is no code run on the server side. The server just serves static files (html, css, javascript) to the client when the client requests them. In order to install Pelican, we need to install &lt;code&gt;pip&lt;/code&gt; first. On my Linux and Mac OSX machines, the command line tool &lt;strong&gt;git&lt;/strong&gt; is already installed. If using Windows 10, &lt;strong&gt;git&lt;/strong&gt; may not be available. To keep the development environments the same when using Windows 10, you will also need &lt;code&gt;conda&lt;/code&gt; to &lt;code&gt;install git&lt;/code&gt;.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(staticsite)$ conda install pip
 (staticsite)$ conda install git
@@ -4819,7 +5039,7 @@ git push origin master
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;Create a github account and create a new repository&lt;/h3&gt;
+&lt;h3 id="create-a-github-account-and-create-a-new-repository"&gt;Create a github account and create a new repository&lt;/h3&gt;
 &lt;p&gt;While I was making the site, it became clear that I had to keep track of &lt;strong&gt;&lt;em&gt;version control&lt;/em&gt;&lt;/strong&gt;. I would make some changes to the site on my computer at work, then come home and make more changes to the site. Bringing a USB thumb drive back and forth was hard. I would forget the thumb drive at work or home and then could not edit the site. Or worse, I'd edit the site in both places and try to remember which changes were made where and which was the best version. Ah!&lt;/p&gt;
 &lt;p&gt;The solution is to use &lt;strong&gt;git&lt;/strong&gt; and &lt;strong&gt;github&lt;/strong&gt;. Git is a command line utility that assists with version control. Using git means changes made to files on one computer can be synced with the same files on another computer. Github.com is the where the site content and settings are remotely stored and integrates easily with git. &lt;/p&gt;
 &lt;p&gt;To sign up for a github.com account go here:&lt;/p&gt;
@@ -4830,7 +5050,7 @@ git push origin master
 &lt;p&gt;&lt;img alt="new github repo" src="../images/new_github_repo.png"&gt;&lt;/p&gt;
 &lt;p&gt;I named the new repository: &lt;strong&gt;staticsite&lt;/strong&gt; and included both a &lt;strong&gt;README.md&lt;/strong&gt; and a &lt;strong&gt;GNU General Public License v3.0&lt;/strong&gt;. &lt;/p&gt;
 &lt;p&gt;&lt;img alt="new github repo details" src="../images/create_a_new_repo_details.png"&gt;&lt;/p&gt;
-&lt;h3&gt;Make a directory for the site and link it to github&lt;/h3&gt;
+&lt;h3 id="make-a-directory-for-the-site-and-link-it-to-github"&gt;Make a directory for the site and link it to github&lt;/h3&gt;
 &lt;p&gt;Once the github repo (short for repository, basically a folder with files on github.com) is set up, the last step to complete the development environment is to link the remote repo on github to the local version of the site on my computer. &lt;/p&gt;
 &lt;p&gt;The local version is in a folder call &lt;code&gt;staticsite&lt;/code&gt; in the &lt;code&gt;Documents&lt;/code&gt; folder. The &lt;code&gt;staticsite&lt;/code&gt; folder will contain all the files used to build the site and the output files created by Pelican that &lt;em&gt;are&lt;/em&gt; the site.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(staticsite)$ cd ~
@@ -4947,7 +5167,7 @@ root                  *  /home/tribilium/anaconda3
 
 &lt;p&gt;We can spin up the virtual environment again with the &lt;code&gt;activate&lt;/code&gt; command.&lt;/p&gt;
 &lt;p&gt;Want to use &lt;code&gt;pip&lt;/code&gt; and &lt;code&gt;virtualenv&lt;/code&gt; / &lt;code&gt;virtuelenv wrapper&lt;/code&gt; instead? Great. Those will work too. For windows and computers with locked down active directories, I prefer &lt;code&gt;conda&lt;/code&gt;. It just seems to make things easier. For a great post about the differences between &lt;code&gt;conda&lt;/code&gt; and &lt;code&gt;pip&lt;/code&gt; see &lt;a href="http://jakevdp.github.io/blog/2016/08/25/conda-myths-and-misconceptions/"&gt;this post&lt;/a&gt; by Jake VanderPlas.&lt;/p&gt;</content><category term="python"></category><category term="conda"></category><category term="virtualenv"></category><category term="anaconda"></category><category term="anaconda prompt"></category></entry><entry><title>Installing Anaconda on Windows</title><link href="https://professorkazarinoff.github.io/staticsite/installing-anaconda-on-windows.html" rel="alternate"></link><published>2017-11-14T09:20:00-08:00</published><updated>2017-11-14T09:21:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-11-14:/staticsite/installing-anaconda-on-windows.html</id><summary type="html">&lt;p&gt;In this post, we will run through installing the &lt;a href="https://www.anaconda.com/what-is-anaconda/"&gt;Anaconda distribution&lt;/a&gt; of Python on Windows 10. I think the Anaconda distribution of Python is the the best option for undergraduate engineers who want to use Python. Anaconda is free (although the download is large which can take time) and can be installed on school or work computers where you don't have administrator access or the ability to install new programs.&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this post, we will run through installing the Anaconda distribution of Python on Windows 10. I think the Anaconda distribution of Python is the the best option for undergraduate engineers who want to use Python. Anaconda is free (although the download is large which can take time) and can be installed on school or work computers where you don't have administrator access or the ability to install new programs.&lt;/p&gt;
-&lt;h4&gt;Steps:&lt;/h4&gt;
+&lt;h4 id="steps"&gt;Steps:&lt;/h4&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;Visit &lt;a href="https://www.anaconda.com/download/"&gt;Anaconda.com/downloads&lt;/a&gt;&lt;/p&gt;
@@ -4966,16 +5186,16 @@ root                  *  /home/tribilium/anaconda3
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h4&gt;1. Visit the Anaconda downloads page&lt;/h4&gt;
+&lt;h4 id="1-visit-the-anaconda-downloads-page"&gt;1. Visit the Anaconda downloads page&lt;/h4&gt;
 &lt;p&gt;Go to the following link: &lt;a href="https://www.anaconda.com/download/"&gt;Anaconda.com/downloads&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;The Anaconda Downloads Page will look something like this:&lt;/p&gt;
 &lt;p&gt;&lt;img alt="anaconda download page" src="images/anaconda_download_page.png"&gt;&lt;/p&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h4&gt;2. Select the Windows&lt;/h4&gt;
+&lt;h4 id="2-select-the-windows"&gt;2. Select the Windows&lt;/h4&gt;
 &lt;p&gt;Select Windows where the three opperating systems are listed.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="anaconda select Windows" src="images/anaconda_select_windows.png"&gt;&lt;/p&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h4&gt;3. Download&lt;/h4&gt;
+&lt;h4 id="3-download"&gt;3. Download&lt;/h4&gt;
 &lt;p&gt;Download the Python 3.6 distribution. Python 2.7 is legacy Python. For undergraduate engineers, select the Python 3.6 version.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="anaconda select python 3.6" src="images/anaconda_python3_or_python2.png"&gt;&lt;/p&gt;
 &lt;p&gt;You may be prompted to enter your email. You can still download Anaconda if you click &lt;strong&gt;No Thanks&lt;/strong&gt; and don't enter your Work Email address.&lt;/p&gt;
@@ -4983,7 +5203,7 @@ root                  *  /home/tribilium/anaconda3
 &lt;p&gt;The download is quite large (over 500 MB) so it may take a while for the download to complete.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="anaconda downloading" src="images/anaconda_downloading.png"&gt;&lt;/p&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h4&gt;4. Open and run the installer&lt;/h4&gt;
+&lt;h4 id="4-open-and-run-the-installer"&gt;4. Open and run the installer&lt;/h4&gt;
 &lt;p&gt;Once the download completes, open and run the .exe installer&lt;/p&gt;
 &lt;p&gt;&lt;img alt="anaconda installer" src="images/anaconda_run_installer.png"&gt;&lt;/p&gt;
 &lt;p&gt;At the beginning of the install you will need to click &lt;strong&gt;Next&lt;/strong&gt; to confirm the installation&lt;/p&gt;
@@ -4993,7 +5213,7 @@ root                  *  /home/tribilium/anaconda3
 &lt;p&gt;At the Advanced Installation Options screen, I recommend that you &lt;strong&gt;do not check&lt;/strong&gt; "Add Anaconda to my PATH environment variable"&lt;/p&gt;
 &lt;p&gt;&lt;img alt="anaconda path variable" src="images/anaconda_path2.png"&gt;&lt;/p&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h4&gt;5. Open the Conda prompt from the Windows start menu&lt;/h4&gt;
+&lt;h4 id="5-open-the-conda-prompt-from-the-windows-start-menu"&gt;5. Open the Conda prompt from the Windows start menu&lt;/h4&gt;
 &lt;p&gt;After the Anaconda install is complete, you can go to the Windows start menu and select the Anaconda Prompt&lt;/p&gt;
 &lt;p&gt;&lt;img alt="anaconda in start menu" src="images/anaconda_from_start_menu.png"&gt;&lt;/p&gt;
 &lt;p&gt;This will open up the Anaconda prompt, which is often called the &lt;strong&gt;Conda prompt&lt;/strong&gt;. Anaconda is the Python distribution and the Conda prompt is a command line tool (a program where you type in your commands instead of using a mouse). It doesn't look like much, but it is really helpful for an undergraduate engineer using Python.&lt;/p&gt;
@@ -5007,5 +5227,5 @@ root                  *  /home/tribilium/anaconda3
 &lt;p&gt;To close the Python interperater, type &lt;code&gt;exit()&lt;/code&gt; at the interperator prompt &lt;code&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/code&gt;.  Note the double parenthesis at the end of the command. The &lt;code&gt;()&lt;/code&gt; is needed to stop the Python interperator and get back out to the Conda Prompt.&lt;/p&gt;
 &lt;p&gt;To close the Conda prompt, you can either close the window with the mouse, or type &lt;code&gt;exit&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h4&gt;Congratulations! You installed the Anaconda distribution on your Windows computer!&lt;/h4&gt;
+&lt;h4 id="congratulations-you-installed-the-anaconda-distribution-on-your-windows-computer"&gt;Congratulations! You installed the Anaconda distribution on your Windows computer!&lt;/h4&gt;
 &lt;p&gt;When you want to use the Python interperater again, just click the Windows Start button and select the &lt;strong&gt;Anaconda Prompt&lt;/strong&gt; and type &lt;code&gt;python&lt;/code&gt;.&lt;/p&gt;</content><category term="python"></category><category term="anaconda"></category><category term="miniconda"></category><category term="conda"></category><category term="windows"></category></entry></feed>

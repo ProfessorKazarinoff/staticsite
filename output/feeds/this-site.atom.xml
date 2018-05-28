@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"><title>Python for Undergraduate Engineers - This site</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="https://professorkazarinoff.github.io/staticsite/feeds/this-site.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2017-12-14T12:40:00-08:00</updated><entry><title>How I Build This Site - Part 7</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-7.html" rel="alternate"></link><published>2017-12-14T12:40:00-08:00</published><updated>2017-12-14T12:40:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-12-14:/staticsite/how-i-built-this-site-7.html</id><summary type="html">&lt;p&gt;This is the seventh part of a multi-part series on how I built this site. In &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-6.html"&gt;last post&lt;/a&gt;, we added two new &lt;em&gt;pages&lt;/em&gt; to our site. An &lt;strong&gt;About&lt;/strong&gt; page and a &lt;strong&gt;Book&lt;/strong&gt; page.  In this post, we are going to deploy the site to &lt;a href="https://pages.github.com/"&gt;github pages&lt;/a&gt;. Github pages is a place on github were documentation and static sites can be hosted.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the seventh part of a multi-part series on how I built this site. In &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-6.html"&gt;last post&lt;/a&gt;, we added two new &lt;em&gt;pages&lt;/em&gt; to our site. An &lt;strong&gt;About&lt;/strong&gt; page and a &lt;strong&gt;Book&lt;/strong&gt; page.  In this post, we are going to deploy the site to &lt;a href="https://pages.github.com/"&gt;github pages&lt;/a&gt;. Github pages is a place on github were documentation and static sites can be hosted.&lt;/p&gt;
-&lt;h3&gt;Steps in this post&lt;/h3&gt;
+&lt;h3 id="steps-in-this-post"&gt;Steps in this post&lt;/h3&gt;
 &lt;p&gt;By the end of the post we are going to have a working static website hosted on github pages. To accomplish this, we will complete the following steps:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Pull the most recent version of the site from gitub&lt;/li&gt;
@@ -14,7 +14,7 @@
 &lt;/ol&gt;
 &lt;p&gt;OK, let's get started. Can't wait to see the published site live on github pages.&lt;/p&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;Pull to the most recent version of the site from github&lt;/h3&gt;
+&lt;h3 id="pull-to-the-most-recent-version-of-the-site-from-github"&gt;Pull to the most recent version of the site from github&lt;/h3&gt;
 &lt;p&gt;Open a terminal and &lt;code&gt;cd&lt;/code&gt; to the &lt;code&gt;staticsite&lt;/code&gt; directory. Then activate the &lt;code&gt;(staticsite)&lt;/code&gt; virtual environment with &lt;code&gt;source activate staticsite&lt;/code&gt;. Once in the &lt;code&gt;(staticsite)&lt;/code&gt; environment, pull the most recent version of the site down from github with &lt;code&gt;git pull origin master&lt;/code&gt;.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; ~/Documents/staticsite
 &lt;span class="nb"&gt;source&lt;/span&gt; activate staticsite
@@ -52,7 +52,7 @@
 &lt;p&gt;&lt;a href="localhost:8000"&gt;localhost:8000&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Press &lt;code&gt;ctr-c&lt;/code&gt; to stop the server.&lt;/p&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;Modify the &lt;strong&gt;&lt;em&gt;publishconf.py&lt;/em&gt;&lt;/strong&gt; file to use the github pages url&lt;/h3&gt;
+&lt;h3 id="modify-the-publishconfpy-file-to-use-the-github-pages-url"&gt;Modify the &lt;strong&gt;&lt;em&gt;publishconf.py&lt;/em&gt;&lt;/strong&gt; file to use the github pages url&lt;/h3&gt;
 &lt;p&gt;We need to edit the &lt;strong&gt;&lt;em&gt;publishconf.py&lt;/em&gt;&lt;/strong&gt; file to add our github pages url to &lt;code&gt;SITEURL&lt;/code&gt; and set &lt;code&gt;RELATIVE_URLS&lt;/code&gt; to True. The lines to change are:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;#publishconf.py&lt;/span&gt;
 &lt;span class="n"&gt;SITEURL&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;https://username.github.io/staticsite&amp;#39;&lt;/span&gt;
@@ -62,7 +62,7 @@
 
 &lt;p&gt;Make sure to set &lt;code&gt;username&lt;/code&gt; to your github user name. Setting &lt;code&gt;RELATIVE_URLS = True&lt;/code&gt; is necessary for the links on the site to work and for the &lt;em&gt;css&lt;/em&gt; and &lt;em&gt;javascript&lt;/em&gt; files run on github pages. When I initially set &lt;code&gt;RELATIVE_URLS = False&lt;/code&gt;, the site looked terrible, had no formatting or css and none of the links worked. Setting &lt;code&gt;RELATIVE_URLS = True&lt;/code&gt; fixed the problem.&lt;/p&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;Create a published version of the site&lt;/h3&gt;
+&lt;h3 id="create-a-published-version-of-the-site"&gt;Create a published version of the site&lt;/h3&gt;
 &lt;p&gt;Up to this point, we used the &lt;code&gt;make html&lt;/code&gt; command to build a demo version of the site. Now we are ready to &lt;em&gt;publish&lt;/em&gt; the site. We publish the site by running the command:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;pelican content -s publishconf.py
 &lt;/pre&gt;&lt;/div&gt;
@@ -70,7 +70,7 @@
 
 &lt;p&gt;This creates a published version of the site with relative url's in the &lt;strong&gt;output&lt;/strong&gt; directory. &lt;/p&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;Add, commit, push to the master branch on github&lt;/h3&gt;
+&lt;h3 id="add-commit-push-to-the-master-branch-on-github"&gt;Add, commit, push to the master branch on github&lt;/h3&gt;
 &lt;p&gt;Before we can put the published version of the site up on github pages, we need to push the current version of the site up to the master branch.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;staticsite&lt;span class="o"&gt;)&lt;/span&gt; $ git add .
 &lt;span class="o"&gt;(&lt;/span&gt;staticsite&lt;span class="o"&gt;)&lt;/span&gt; $ git commit -m &lt;span class="s2"&gt;&amp;quot;first published version&amp;quot;&lt;/span&gt;
@@ -79,10 +79,10 @@
 
 
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;Create a &lt;strong&gt;gh-pages&lt;/strong&gt; branch in our staticsite repo on github&lt;/h3&gt;
+&lt;h3 id="create-a-gh-pages-branch-in-our-staticsite-repo-on-github"&gt;Create a &lt;strong&gt;gh-pages&lt;/strong&gt; branch in our staticsite repo on github&lt;/h3&gt;
 &lt;p&gt;Up to this point, we saved our work to the &lt;strong&gt;master&lt;/strong&gt; branch of the staticsite repository on github. To host the site on github pages, we need to create a new branch in the &lt;strong&gt;staticsite&lt;/strong&gt; repo called &lt;strong&gt;gh-pages&lt;/strong&gt;. The &lt;strong&gt;master&lt;/strong&gt; branch still houses the code,settings, markup files, notebooks, images, etc. to build the site. However, in the &lt;strong&gt;gh-pages&lt;/strong&gt; branch of the &lt;strong&gt;staticsite&lt;/strong&gt; repo any html, css and javascript files  will be served like a regular website. To create the new branch, go the main &lt;strong&gt;staticsite&lt;/strong&gt; repository page on github and click the [Branch: Master] drop down menu on the upper left hand side. Enter the name of the new branch: &lt;strong&gt;gh-pages&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;Use &lt;code&gt;ghp-import&lt;/code&gt; to post the contents of the &lt;strong&gt;output&lt;/strong&gt; directory to the &lt;strong&gt;gh-pages&lt;/strong&gt; branch&lt;/h3&gt;
+&lt;h3 id="use-ghp-import-to-post-the-contents-of-the-output-directory-to-the-gh-pages-branch"&gt;Use &lt;code&gt;ghp-import&lt;/code&gt; to post the contents of the &lt;strong&gt;output&lt;/strong&gt; directory to the &lt;strong&gt;gh-pages&lt;/strong&gt; branch&lt;/h3&gt;
 &lt;p&gt;As shown in the &lt;a href="http://docs.getpelican.com/en/stable/tips.html"&gt;Pelican documentation&lt;/a&gt;, you can use a Python package called &lt;code&gt;ghp-import&lt;/code&gt; to help posting the contents of the output directory to the gh-pages branch of our repo on github. If &lt;code&gt;ghp-import&lt;/code&gt; isn't installed yet, use &lt;code&gt;pip&lt;/code&gt;. Make sure you are in the &lt;code&gt;(staticsite)&lt;/code&gt; virtual environment when you run &lt;code&gt;pip&lt;/code&gt;.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;staticsite&lt;span class="o"&gt;)&lt;/span&gt; $ pip install ghp-import
 &lt;/pre&gt;&lt;/div&gt;
@@ -120,13 +120,13 @@ hint: See the &lt;span class="s1"&gt;&amp;#39;Note about fast-forwards&amp;#39;&
 
 &lt;p&gt;That has worked so far for me.&lt;/p&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h3&gt;View the site on github pages.&lt;/h3&gt;
+&lt;h3 id="view-the-site-on-github-pages"&gt;View the site on github pages.&lt;/h3&gt;
 &lt;p&gt;Awesome! The site is now hosted for everyone to see on github pages! Pretty cool right? Point a browser to the github pages url and take a look:&lt;/p&gt;
 &lt;p&gt;https://username.github.io/staticsite&lt;/p&gt;
 &lt;p&gt;Change &lt;em&gt;username&lt;/em&gt; to your github user name. My site (the one that you are reading) is hosted here: &lt;/p&gt;
 &lt;p&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite"&gt;https://professorkazarinoff.github.io/staticsite&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Thanks for reading to the end! It was quite a bit of work to get the site up and running, but I am pleased with the results. Now I need to read up on git . . . &lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="blog"></category><category term="git"></category><category term="github"></category><category term="github pages"></category></entry><entry><title>How I Build This Site - Part 6</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-6.html" rel="alternate"></link><published>2017-12-12T18:50:00-08:00</published><updated>2017-12-12T18:50:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-12-12:/staticsite/how-i-built-this-site-6.html</id><summary type="html">&lt;p&gt;This is the sixth part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-5.html"&gt;last post&lt;/a&gt;, we put a search bar at the top right of each page and some css and javascript in order to make tables on the site look better. In this post we are going to add two new &lt;em&gt;pages&lt;/em&gt; to our static site. An &lt;strong&gt;About&lt;/strong&gt; page and a &lt;strong&gt;Book&lt;/strong&gt; page. These new pages will have menu entries at the top of our site.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the sixth part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-5.html"&gt;last post&lt;/a&gt;, we put a search bar at the top right of each page and some css and javascript in order to make tables on the site look better. In this post we are going to add two new &lt;em&gt;pages&lt;/em&gt; to our static site: an &lt;strong&gt;About&lt;/strong&gt; page and a &lt;strong&gt;Book&lt;/strong&gt; page. These new pages will have menu entries at the top of our site.&lt;/p&gt;
-&lt;h3&gt;Steps in this post&lt;/h3&gt;
+&lt;h3 id="steps-in-this-post"&gt;Steps in this post&lt;/h3&gt;
 &lt;p&gt;We are going to accomplish the following in this post. By the end of the post we are going to have a site with two new pages and two new menu items.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Activate our &lt;code&gt;staticsite&lt;/code&gt; virtual environment&lt;/li&gt;
@@ -137,7 +137,7 @@ hint: See the &lt;span class="s1"&gt;&amp;#39;Note about fast-forwards&amp;#39;&
 &lt;li&gt;Add, commit and push the changes to github&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Let's get started.&lt;/p&gt;
-&lt;h3&gt;Activate our virtual environment and pull the most recent version of the site down from github&lt;/h3&gt;
+&lt;h3 id="activate-our-virtual-environment-and-pull-the-most-recent-version-of-the-site-down-from-github"&gt;Activate our virtual environment and pull the most recent version of the site down from github&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;cd&lt;/span&gt; ~/Documents/staticsite
 $ &lt;span class="nb"&gt;source&lt;/span&gt; activate staticsite
 &lt;span class="o"&gt;(&lt;/span&gt;staticsite&lt;span class="o"&gt;)&lt;/span&gt; $ git pull origin master
@@ -178,7 +178,7 @@ $ &lt;span class="nb"&gt;source&lt;/span&gt; activate staticsite
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;Create two new &lt;em&gt;pages&lt;/em&gt; (&lt;strong&gt;&lt;em&gt;.md&lt;/em&gt;&lt;/strong&gt; files)&lt;/h3&gt;
+&lt;h3 id="create-two-new-pages-md-files"&gt;Create two new &lt;em&gt;pages&lt;/em&gt; (&lt;strong&gt;&lt;em&gt;.md&lt;/em&gt;&lt;/strong&gt; files)&lt;/h3&gt;
 &lt;p&gt;Up to this point, the top of our site has a menu item for [This site], which isn't very useful.  &lt;/p&gt;
 &lt;p&gt;&lt;img alt="pelican-bootstrap3_this_site_menu.png" src="https://professorkazarinoff.github.io/staticsite/images/pelican-bootstrap3_this_site_menu.png"&gt;&lt;/p&gt;
 &lt;p&gt;We are going to add two new menu items that link to two new &lt;em&gt;pages&lt;/em&gt;. These new menu items will be [About] and [Book]. First we'll create a &lt;strong&gt;pages&lt;/strong&gt; folder in the &lt;strong&gt;staticsite/content&lt;/strong&gt; directory&lt;/p&gt;
@@ -271,7 +271,7 @@ $ &lt;span class="nb"&gt;source&lt;/span&gt; activate staticsite
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;Modify &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; to include the two new pages.&lt;/h3&gt;
+&lt;h3 id="modify-pelicanconfpy-to-include-the-two-new-pages"&gt;Modify &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; to include the two new pages.&lt;/h3&gt;
 &lt;p&gt;Pelican needs to know about the two "pages" files. Modify the &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; file to include the lines:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;#pelicanconf.py
 
@@ -286,7 +286,7 @@ DISPLAY_PAGES_ON_MENU = True
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;Build and preview the site with Pelican&lt;/h3&gt;
+&lt;h3 id="build-and-preview-the-site-with-pelican"&gt;Build and preview the site with Pelican&lt;/h3&gt;
 &lt;p&gt;With the two new page &lt;strong&gt;&lt;em&gt;.md&lt;/em&gt;&lt;/strong&gt; files created and the changes to &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; in place, let's preview the site again.  We build the site and serve up the contents in the &lt;strong&gt;output&lt;/strong&gt; folder with:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;make html
 make serve
@@ -296,7 +296,7 @@ make serve
 &lt;p&gt;To view the site, point a browser to &lt;em&gt;localhost:8000&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href="localhost:8000"&gt;localhost:8000&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Use &lt;code&gt;ctrl-c&lt;/code&gt; to stop the server.&lt;/p&gt;
-&lt;h3&gt;Add and commit the changes then push them to github&lt;/h3&gt;
+&lt;h3 id="add-and-commit-the-changes-then-push-them-to-github"&gt;Add and commit the changes then push them to github&lt;/h3&gt;
 &lt;p&gt;When we are done editing the the site, we add &lt;strong&gt;all of the changes&lt;/strong&gt; to our local git repo using &lt;code&gt;git add .&lt;/code&gt;. Commit those changes with &lt;code&gt;git commit&lt;/code&gt; and add the &lt;code&gt;-m "added about and book pages"&lt;/code&gt; flag to supply a commit message (make sure to use double quotes "commit message"). Push the changes up to github with &lt;code&gt;git push origin master&lt;/code&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git add .
 git commit -m &amp;quot;added about and book pages&amp;quot;
@@ -305,7 +305,7 @@ git push origin master
 
 
 &lt;p&gt;In the next post we will publish the site to github pages. Once the site is published, it will be live and public. Available to any one with an internet connection. An actual, real, published, live static site!&lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="blog"></category><category term="git"></category><category term="github"></category></entry><entry><title>How I Build This Site - Part 5</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-5.html" rel="alternate"></link><published>2017-12-09T18:50:00-08:00</published><updated>2017-12-09T18:50:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-12-09:/staticsite/how-i-built-this-site-5.html</id><summary type="html">&lt;p&gt;This is the fifth part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-4.html"&gt;last post&lt;/a&gt;, we installed a couple of plugins to add extra functionality to the site. These plugins enabled embedded jupyter notebooks and posts in a series. In this post we'll put a search bar at the top right of each page and add some css and javascript in order to make tables on the site look better.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the fifth part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-4.html"&gt;last post&lt;/a&gt;, we installed a couple of plugins to add extra functionality to the site. These plugins enabled embedded jupyter notebooks and posts in a series. In this post we'll put a search bar at the top right of each page and add some css and javascript in order to make tables on the site look better.&lt;/p&gt;
-&lt;h3&gt;Steps in this post&lt;/h3&gt;
+&lt;h3 id="steps-in-this-post"&gt;Steps in this post&lt;/h3&gt;
 &lt;p&gt;We are going to accomplish the following in this post. By the end of the post we are going to have a site with a working search bar and nice looking tables.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Activate our &lt;code&gt;staticsite&lt;/code&gt; virtual environment&lt;/li&gt;
@@ -316,7 +316,7 @@ git push origin master
 &lt;li&gt;Add, commit and push the changes to github&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Let's get started.&lt;/p&gt;
-&lt;h3&gt;Activate our virtual environment and pull the most recent version of the site down from github&lt;/h3&gt;
+&lt;h3 id="activate-our-virtual-environment-and-pull-the-most-recent-version-of-the-site-down-from-github"&gt;Activate our virtual environment and pull the most recent version of the site down from github&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;cd&lt;/span&gt; ~/Documents/staticsite
 $ &lt;span class="nb"&gt;source&lt;/span&gt; activate staticsite
 &lt;span class="o"&gt;(&lt;/span&gt;staticsite&lt;span class="o"&gt;)&lt;/span&gt; $ git pull origin master
@@ -352,7 +352,7 @@ $ &lt;span class="nb"&gt;source&lt;/span&gt; activate staticsite
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;Add the &lt;strong&gt;'tipue_search'&lt;/strong&gt; plugin to the &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; file&lt;/h3&gt;
+&lt;h3 id="add-the-tipue_search-plugin-to-the-pelicanconfpy-file"&gt;Add the &lt;strong&gt;'tipue_search'&lt;/strong&gt; plugin to the &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; file&lt;/h3&gt;
 &lt;p&gt;Now we need to modify the &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; file to use the &lt;strong&gt;'tipue_search'&lt;/strong&gt; plugin. This plugin will give us the ability to add a search bar to our site menu at the top right of each page. &lt;/p&gt;
 &lt;p&gt;Add &lt;code&gt;'tipue_search'&lt;/code&gt; to the &lt;code&gt;PLUGINS = [ ]&lt;/code&gt; list in the &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; file. Make sure each plugin is separated with commas and surrounded by quotes .&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;#pelicanconf.py
@@ -378,7 +378,7 @@ DIRECT_TEMPLATES = (&amp;#39;index&amp;#39;,&amp;#39;tags&amp;#39;, &amp;#39;cat
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;Add some custom css and javascript to make tables look good.&lt;/h3&gt;
+&lt;h3 id="add-some-custom-css-and-javascript-to-make-tables-look-good"&gt;Add some custom css and javascript to make tables look good.&lt;/h3&gt;
 &lt;p&gt;Even with a great theme like pelican-bootstrap3, there are some changes to make to the look of the site. One of these changes is to make tables look better, like the tables on github readme pages look. &lt;/p&gt;
 &lt;p&gt;Let's make a new post in the &lt;strong&gt;content/posts&lt;/strong&gt; directory. This post will contain a markdown table using the &lt;code&gt;|&lt;/code&gt; (pipe) character and a header row with pipes separated by three dashes &lt;code&gt;---&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;fourth_post.md&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
@@ -511,7 +511,7 @@ EXTRA_PATH_METADATA = {
 
 
 &lt;p&gt;When the site is built, Pelican will read in &lt;strong&gt;&lt;em&gt;custom.css&lt;/em&gt;&lt;/strong&gt; and &lt;strong&gt;&lt;em&gt;custom.js&lt;/em&gt;&lt;/strong&gt; siting in the &lt;strong&gt;extra&lt;/strong&gt; folder. Pelican will then copy these two files in the appropriate places in the &lt;strong&gt;output&lt;/strong&gt; directory (static/css/custom.css and static/css/custom.js) for the theme to use. Then the code from the css and javascript files will be used by the &lt;em&gt;.html&lt;/em&gt; pages in the output directory along with the other css and javascript from the bootstrap3 theme. This will make tables look more like tables in github readme pages. &lt;/p&gt;
-&lt;h3&gt;Build and preview the site with Pelican&lt;/h3&gt;
+&lt;h3 id="build-and-preview-the-site-with-pelican"&gt;Build and preview the site with Pelican&lt;/h3&gt;
 &lt;p&gt;With the search plugin configured, a new posts containing a table written, plus our &lt;strong&gt;&lt;em&gt;custom.js&lt;/em&gt;&lt;/strong&gt; and &lt;strong&gt;&lt;em&gt;custom.css&lt;/em&gt;&lt;/strong&gt; in place, let's preview the site again.  We build the site and serve up the contents in the &lt;strong&gt;output&lt;/strong&gt; folder with:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;make html
 make serve
@@ -521,7 +521,7 @@ make serve
 &lt;p&gt;To view the site, point a browser to &lt;em&gt;localhost:8000&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href="localhost:8000"&gt;localhost:8000&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;use &lt;code&gt;ctrl-c&lt;/code&gt; to stop the server.&lt;/p&gt;
-&lt;h3&gt;Add and commit the changes then push them to github&lt;/h3&gt;
+&lt;h3 id="add-and-commit-the-changes-then-push-them-to-github"&gt;Add and commit the changes then push them to github&lt;/h3&gt;
 &lt;p&gt;When we are done editing the the site, we add &lt;strong&gt;all of the changes&lt;/strong&gt; to our local git repo using &lt;code&gt;git add .&lt;/code&gt;. Commit those changes with &lt;code&gt;git commit&lt;/code&gt; and add the &lt;code&gt;-m "added search and tables"&lt;/code&gt; flag to supply a commit message (make sure to use double quotes "commit message"). Push the changes up to github with &lt;code&gt;git push origin master&lt;/code&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git add .
 git commit -m &amp;quot;added search and tables&amp;quot;
@@ -530,7 +530,7 @@ git push origin master
 
 
 &lt;p&gt;In the next post we will add two new menu items across the top of our site. These new menu items will link to an [About] page and a [Book] page.&lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="blog"></category><category term="css"></category><category term="javascript"></category></entry><entry><title>How I Build This Site - Part 4</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-4.html" rel="alternate"></link><published>2017-12-08T18:50:00-08:00</published><updated>2017-12-08T18:50:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-12-08:/staticsite/how-i-built-this-site-4.html</id><summary type="html">&lt;p&gt;This is the fourth part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-3.html"&gt;last post&lt;/a&gt;, we installed the pelican-bootstrap3 theme and made our site mobile responsive. Now the site looks good on all devices.  In this post we are going to install a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of post that are linked together, create a working search bar, add youtube videos to posts, view LaTeX math and add embedded jupyter notebooks in posts.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the fourth part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-3.html"&gt;last post&lt;/a&gt;, we installed the pelican-bootstrap3 theme and made our site mobile responsive. Now the site looks good on all devices.  In this post we are going to install a couple of plugins to add extra functionality to our site. These plugins will allow our site to have a series of post that are linked together, create a working search bar, add youtube videos to posts, view LaTeX math and add embedded jupyter notebooks in posts.&lt;/p&gt;
-&lt;h3&gt;Steps in this post&lt;/h3&gt;
+&lt;h3 id="steps-in-this-post"&gt;Steps in this post&lt;/h3&gt;
 &lt;p&gt;We are going to accomplish the following in this post. By the end of the post we are going to have a great looking website that contains a two-part series, a post with an embedded youtube video and a post that contains an embedded jupyter notebook.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Activate our &lt;code&gt;staticsite&lt;/code&gt; virtual environment&lt;/li&gt;
@@ -542,7 +542,7 @@ git push origin master
 &lt;li&gt;Add and commit the changes then push those changes to github&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Seems like a lot to do, so let's get started.&lt;/p&gt;
-&lt;h3&gt;Activate our virtual environment and pull the most recent version of the site down from github&lt;/h3&gt;
+&lt;h3 id="activate-our-virtual-environment-and-pull-the-most-recent-version-of-the-site-down-from-github"&gt;Activate our virtual environment and pull the most recent version of the site down from github&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;source&lt;/span&gt; activate staticsite
 &lt;span class="o"&gt;(&lt;/span&gt;staticsite&lt;span class="o"&gt;)&lt;/span&gt; $ &lt;span class="nb"&gt;cd&lt;/span&gt; ~/Documents/staticsite
 &lt;span class="o"&gt;(&lt;/span&gt;staticsite&lt;span class="o"&gt;)&lt;/span&gt; $ &lt;span class="nb"&gt;pwd&lt;/span&gt;
@@ -550,7 +550,7 @@ git push origin master
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;Install the &lt;code&gt;jupyter&lt;/code&gt; package in our &lt;code&gt;staticsite&lt;/code&gt; virtual environment.&lt;/h3&gt;
+&lt;h3 id="install-the-jupyter-package-in-our-staticsite-virtual-environment"&gt;Install the &lt;code&gt;jupyter&lt;/code&gt; package in our &lt;code&gt;staticsite&lt;/code&gt; virtual environment.&lt;/h3&gt;
 &lt;p&gt;I like using &lt;strong&gt;jupyter notebooks&lt;/strong&gt; to build code and solve engineering problems with Python. A &lt;strong&gt;jupyter notebook&lt;/strong&gt; can contain Python code, the output produced when this code is run and markup text (used for documentation).  &lt;strong&gt;Jupyter notebooks&lt;/strong&gt; can also easily display &lt;code&gt;matplotlib&lt;/code&gt; plots and &lt;code&gt;pandas&lt;/code&gt; data frames. These two Python packages are very useful for engineers solving problems in teams. As the &lt;code&gt;jupyter&lt;/code&gt; package is in the main conda channel, we can install it into our virtual environment using the &lt;code&gt;conda install&lt;/code&gt; command.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(staticsite) $ conda install jupyter
 &lt;/pre&gt;&lt;/div&gt;
@@ -612,7 +612,7 @@ widgetsnbextension==3.0.8
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;Add new plugins to the &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; file&lt;/h3&gt;
+&lt;h3 id="add-new-plugins-to-the-pelicanconfpy-file"&gt;Add new plugins to the &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; file&lt;/h3&gt;
 &lt;p&gt;Now we need to modify the &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; file to use a couple new plugins. The plugins we will add are: &lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;'series'&lt;/li&gt;
@@ -638,7 +638,7 @@ PLUGINS = [
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;Build some posts that use the newly installed plugins&lt;/h3&gt;
+&lt;h3 id="build-some-posts-that-use-the-newly-installed-plugins"&gt;Build some posts that use the newly installed plugins&lt;/h3&gt;
 &lt;p&gt;Now we will build a couple of posts which use our newly installed plugins. First we'll modify our content directory with a new folder called &lt;strong&gt;posts&lt;/strong&gt;.  We'll keep all the posts in this directory. Then we'll make a couple of new &lt;strong&gt;&lt;em&gt;.md&lt;/em&gt;&lt;/strong&gt; files. I'll copy our first post to this new directory with the &lt;code&gt;cp&lt;/code&gt; (copy) shell command and then remove the old &lt;strong&gt;&lt;em&gt;.md&lt;/em&gt;&lt;/strong&gt; file with the &lt;code&gt;rm&lt;/code&gt; command.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;pwd
 cd content
@@ -750,7 +750,7 @@ cp first_post.md third_post.md
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;Build and preview the site with Pelican&lt;/h3&gt;
+&lt;h3 id="build-and-preview-the-site-with-pelican"&gt;Build and preview the site with Pelican&lt;/h3&gt;
 &lt;p&gt;With a couple new &lt;strong&gt;pelican-plugins&lt;/strong&gt; configured and three new posts written, it is time to preview our site again.  We can build the site and can view it with a web browser using:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;make html
 make serve
@@ -760,7 +760,7 @@ make serve
 &lt;p&gt;To view the site, point a browser to &lt;em&gt;localhost:8000&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href="localhost:8000"&gt;localhost:8000&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;use &lt;code&gt;ctrl-c&lt;/code&gt; to stop the server.&lt;/p&gt;
-&lt;h3&gt;Add and commit the changes then push them to github&lt;/h3&gt;
+&lt;h3 id="add-and-commit-the-changes-then-push-them-to-github"&gt;Add and commit the changes then push them to github&lt;/h3&gt;
 &lt;p&gt;When we are done editing the the site, we add &lt;strong&gt;all of the changes&lt;/strong&gt; to our local git repo using &lt;code&gt;git add .&lt;/code&gt;. Then we commit those changes with &lt;code&gt;git commit&lt;/code&gt; and add the &lt;code&gt;-m "added plugins"&lt;/code&gt; flag to give supply a commit message (make sure to use double quotes "commit message"). To push those changes up to github use &lt;code&gt;git push origin master&lt;/code&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git add .
 git commit -m &amp;quot;added plugins&amp;quot;
@@ -769,7 +769,7 @@ git push origin master
 
 
 &lt;p&gt;In the next post we will customize the site. We'll add some css in order to make tables on the site look better and put a search bar at the top of the page.&lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="blog"></category><category term="jupyter"></category></entry><entry><title>How I Build This Site - Part 3</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-3.html" rel="alternate"></link><published>2017-12-04T14:15:00-08:00</published><updated>2017-12-04T14:15:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-12-04:/staticsite/how-i-built-this-site-3.html</id><summary type="html">&lt;p&gt;This is the third part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-2.html"&gt;last post&lt;/a&gt;, we used &lt;code&gt;pelican-quickstart&lt;/code&gt; to build the framework of the site and wrote a short first post, then viewed a demo version of the site on localhost:8000. In this post we will add a custom theme to the site called pelican-bootstrap3. The pelican-bootstrap3 theme looks great and is mobile responsive so it will make the site look good on phones and tablets. Then we'll add some custom css to personalize the look of the theme.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the third part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-2.html"&gt;last post&lt;/a&gt;, we used &lt;code&gt;pelican-quickstart&lt;/code&gt; to build the framework of the site and wrote a short first post, then viewed a demo version of the site on localhost:8000. In this post we will add a custom theme to the site called pelican-bootstrap3. The pelican-bootstrap3 theme looks great and is mobile reponsive so it will make the site look good on phones and tablets. Then we'll add some custom css to personalize the look of the theme.&lt;/p&gt;
-&lt;h3&gt;Steps in this post&lt;/h3&gt;
+&lt;h3 id="steps-in-this-post"&gt;Steps in this post&lt;/h3&gt;
 &lt;p&gt;We are going to accomplish the following in this post. By the end of the post we are going to have a a static site with a great looking bootstrap3 theme which is mobile responsive and looks great on desktops, tablets and phones.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Activate our &lt;code&gt;staticsite&lt;/code&gt; virtual environment&lt;/li&gt;
@@ -781,7 +781,7 @@ git push origin master
 &lt;li&gt;Add and commit the changes then push those changes to github&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Big steps, it's really going to look like a website when we are done.&lt;/p&gt;
-&lt;h3&gt;Activate our virtual environment and pull from github&lt;/h3&gt;
+&lt;h3 id="activate-our-virtual-environment-and-pull-from-github"&gt;Activate our virtual environment and pull from github&lt;/h3&gt;
 &lt;p&gt;Open the &lt;strong&gt;Anaconda Prompt&lt;/strong&gt; and activate the &lt;code&gt;(staticsite)&lt;/code&gt; virtual environment&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;source&lt;/span&gt; activate staticsite
 &lt;/pre&gt;&lt;/div&gt;
@@ -794,7 +794,7 @@ git push origin master
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;Use git submodule add to pull all of the themes into our local &lt;strong&gt;staticsite/pelican-themes&lt;/strong&gt; directory&lt;/h3&gt;
+&lt;h3 id="use-git-submodule-add-to-pull-all-of-the-themes-into-our-local-staticsitepelican-themes-directory"&gt;Use git submodule add to pull all of the themes into our local &lt;strong&gt;staticsite/pelican-themes&lt;/strong&gt; directory&lt;/h3&gt;
 &lt;p&gt;There are a bunch of different themes available for static site built with Pelican. The three I was most interested in were:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -845,7 +845,7 @@ $ git submodule update --init --recursive
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;Modify the &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; file, so that we can use a new theme.&lt;/h3&gt;
+&lt;h3 id="modify-the-pelicanconfpy-file-so-that-we-can-use-a-new-theme"&gt;Modify the &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; file, so that we can use a new theme.&lt;/h3&gt;
 &lt;p&gt;So far our &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; file contains only default lines of code that Pelican built for us. In order to use a new theme, we need to edit this configuration file. After we edit the configuration file, the &lt;code&gt;make html&lt;/code&gt; command will produce new .html pages in the &lt;strong&gt;output&lt;/strong&gt; directory. The relevant lines to add and modify in the &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; are:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;#pelicanconf.py
 
@@ -871,7 +871,7 @@ I18N_TEMPLATES_LANG = &amp;#39;en&amp;#39;
 &lt;blockquote&gt;
 &lt;p&gt;If you are using i18n_subsites and you are not using English as your default language, make sure to also correctly specify the default language of the theme. Otherwise the translations will not be used on your default site.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h3&gt;Build and preview the site with Pelican&lt;/h3&gt;
+&lt;h3 id="build-and-preview-the-site-with-pelican"&gt;Build and preview the site with Pelican&lt;/h3&gt;
 &lt;p&gt;With the &lt;strong&gt;pelican-plugins&lt;/strong&gt; and &lt;strong&gt;pelican-themes&lt;/strong&gt; repos downloaded and the &lt;strong&gt;&lt;em&gt;pelicanconf.py&lt;/em&gt;&lt;/strong&gt; file edited, we can build the site and take a look at it with a web browser:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;make html
 make serve
@@ -883,7 +883,7 @@ make serve
 &lt;p&gt;Now, the site should look something like this:&lt;/p&gt;
 &lt;p&gt;&lt;img alt="pelican-boostrap3-basic-site.png" src="https://professorkazarinoff.github.io/staticsite/images/simple_pelican-bootstrap3_theme.png"&gt;&lt;/p&gt;
 &lt;p&gt;use &lt;code&gt;ctrl-c&lt;/code&gt; to shut down the server.&lt;/p&gt;
-&lt;h3&gt;Add and commit the changes then push those changes to github&lt;/h3&gt;
+&lt;h3 id="add-and-commit-the-changes-then-push-those-changes-to-github"&gt;Add and commit the changes then push those changes to github&lt;/h3&gt;
 &lt;p&gt;When we are done editing the the site, we add &lt;strong&gt;all of the changes&lt;/strong&gt; to our local git repo using &lt;code&gt;git add .&lt;/code&gt;. Then we commit those changes with &lt;code&gt;git commit&lt;/code&gt; and add the &lt;code&gt;-m "added pelican_bootstrap3 theme"&lt;/code&gt; flag to give supply a commit message (make sure to use double quotes "commit message"). To push those changes up to github use &lt;code&gt;git push origin master&lt;/code&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git add .
 git commit -m &amp;quot;added pelican_bootstrap3 theme&amp;quot;
@@ -892,7 +892,7 @@ git push origin master
 
 
 &lt;p&gt;In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-4.html"&gt;next post&lt;/a&gt; we will add some additional &lt;em&gt;pelican-plugins&lt;/em&gt; to bring extra functionality to the site and add the ability to include &lt;strong&gt;jupyter notebooks&lt;/strong&gt; in posts.&lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="blog"></category><category term="markdown"></category></entry><entry><title>How I Build This Site - Part 2</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-2.html" rel="alternate"></link><published>2017-11-28T14:15:00-08:00</published><updated>2017-11-28T14:15:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-11-28:/staticsite/how-i-built-this-site-2.html</id><summary type="html">&lt;p&gt;This is the second part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-1.html"&gt;last post&lt;/a&gt;, we set up our development environment including Python, a new virtual environment, installed the pelican and markdown packages and set up git. In this post, we will use the &lt;code&gt;pelican-quickstart&lt;/code&gt; command to get the blog off the ground. We are also going to create a &lt;strong&gt;first_post.md&lt;/strong&gt; file and serve up the website locally so we can take a look at it.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the second part in a multi-part series on how I built this site. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-1.html"&gt;last post&lt;/a&gt;, we set up our development environment including Python, a new virtual environment, installed the pelican and markdown packages and set up git. In this post, we will use the &lt;code&gt;pelican-quickstart&lt;/code&gt; command to get the blog off the ground. We are also going to create a &lt;strong&gt;first_post.md&lt;/strong&gt; file and serve up the website locally so we can take a look at it.&lt;/p&gt;
-&lt;h3&gt;Steps in this post&lt;/h3&gt;
+&lt;h3 id="steps-in-this-post"&gt;Steps in this post&lt;/h3&gt;
 &lt;p&gt;We are going to accomplish the following in this post. By the end of the post, we will have a working website with one blog post served up locally and an updated github repo with all the changes saved.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Activate our &lt;code&gt;staticsite&lt;/code&gt; virtual environment&lt;/li&gt;
@@ -904,7 +904,7 @@ git push origin master
 &lt;li&gt;Add and commit the changes then push those changes to github&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;That's a lot to do, so let's get started.&lt;/p&gt;
-&lt;h3&gt;Activate our &lt;strong&gt;staticsite&lt;/strong&gt; virtual environment&lt;/h3&gt;
+&lt;h3 id="activate-our-staticsite-virtual-environment"&gt;Activate our &lt;strong&gt;staticsite&lt;/strong&gt; virtual environment&lt;/h3&gt;
 &lt;p&gt;I highly recommend installing the Anaconda distribution of python. If you followed along with the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-1.html"&gt;previous post&lt;/a&gt;, you already installed Anaconda and can pull up the Anaconda prompt. Open the Anaconda Prompt and see which virtual environments are available.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ conda info --envs
 &lt;/pre&gt;&lt;/div&gt;
@@ -922,7 +922,7 @@ root                     *  C:\Users\user.name\AppData\Local\Continuum\Anaconda3
 
 
 &lt;p&gt;You should now see &lt;code&gt;(staticsite)&lt;/code&gt; before the command prompt. This means we are operating in the &lt;code&gt;staticsite&lt;/code&gt; virtual environment. &lt;/p&gt;
-&lt;h3&gt;View installed packages&lt;/h3&gt;
+&lt;h3 id="view-installed-packages"&gt;View installed packages&lt;/h3&gt;
 &lt;p&gt;We installed pelican, markdown and fabric in the last post. Let's make sure they are installed in our &lt;code&gt;(staticsite)&lt;/code&gt; virtual environment.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(staticsite)$ pip freeze
 &lt;/pre&gt;&lt;/div&gt;
@@ -938,7 +938,7 @@ Pygments==2.2.0
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;Pelican Quickstart - make the site!&lt;/h3&gt;
+&lt;h3 id="pelican-quickstart-make-the-site"&gt;Pelican Quickstart - make the site!&lt;/h3&gt;
 &lt;p&gt;We are now going to build the site! Exciting stuff. With the virtual environment and packages in place, we just need to make sure we are in a directory where we want our site to live.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(staticsite)$ cd ~
 (staticsite)$ cd Documents
@@ -986,7 +986,7 @@ Pygments==2.2.0
 &lt;p&gt;The site will look something like:&lt;/p&gt;
 &lt;p&gt;&lt;img alt="default pelican site" src="https://professorkazarinoff.github.io/staticsite/images/default_site_no_posts.png"&gt;&lt;/p&gt;
 &lt;p&gt;We can shut down the server by typing &lt;code&gt;ctrl-c&lt;/code&gt;&lt;/p&gt;
-&lt;h3&gt;Write a first post in markup language (.md)&lt;/h3&gt;
+&lt;h3 id="write-a-first-post-in-markup-language-md"&gt;Write a first post in markup language (.md)&lt;/h3&gt;
 &lt;p&gt;Time to write our first post. The contents of the &lt;strong&gt;staticsite&lt;/strong&gt; directory should look something like:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;staticsite/
 │   develop_server.sh
@@ -1044,7 +1044,7 @@ Pygments==2.2.0
 &lt;p&gt;&lt;img alt="default pelican site" src="https://professorkazarinoff.github.io/staticsite/images/default_site_1_post.png"&gt;&lt;/p&gt;
 &lt;p&gt;It works! I can see the first post!&lt;/p&gt;
 &lt;p&gt;We can shut down the server by typing &lt;code&gt;ctrl-c&lt;/code&gt;&lt;/p&gt;
-&lt;h3&gt;Add and commit the changes then push the changes to github&lt;/h3&gt;
+&lt;h3 id="add-and-commit-the-changes-then-push-the-changes-to-github"&gt;Add and commit the changes then push the changes to github&lt;/h3&gt;
 &lt;p&gt;When we are done editing the posts and the site, we &lt;strong&gt;add all&lt;/strong&gt; of the changes to our local git repo using &lt;code&gt;git add .&lt;/code&gt; Then we commit these changes with &lt;code&gt;git commit&lt;/code&gt; and use the &lt;code&gt;-m "created pelcian static site"&lt;/code&gt; flag to supply a commit message (make sure to use double quotes "commit message"). Push those changes up to github with &lt;code&gt;git push origin master&lt;/code&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git add .
 git commit -m &amp;quot;created pelican static site&amp;quot;
@@ -1053,7 +1053,7 @@ git push origin master
 
 
 &lt;p&gt;In the &lt;a href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-3.html"&gt;next post&lt;/a&gt;, we will customize the site with a &lt;em&gt;pelican-theme&lt;/em&gt; called &lt;strong&gt;pelican-bootstrap3&lt;/strong&gt;.&lt;/p&gt;</content><category term="python"></category><category term="pelican"></category><category term="blog"></category><category term="markdown"></category></entry><entry><title>How I Build This Site - Part 1</title><link href="https://professorkazarinoff.github.io/staticsite/how-i-built-this-site-1.html" rel="alternate"></link><published>2017-11-22T12:40:00-08:00</published><updated>2017-11-22T12:40:00-08:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2017-11-22:/staticsite/how-i-built-this-site-1.html</id><summary type="html">&lt;p&gt;This is the first part of a multi-part series on how I built this site. In this first post, I'll review the development environment, Python, virtual environments, installing the necessary packages and setting up git.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the first part of a multi-part series on how I built this site. In this first post, we'll review the development environment, installing Python, virtual environments, installing the necessary packages and setting up git.&lt;/p&gt;
-&lt;h3&gt;Setting up the development environment&lt;/h3&gt;
+&lt;h3 id="setting-up-the-development-environment"&gt;Setting up the development environment&lt;/h3&gt;
 &lt;p&gt;What does that even mean? Before I started building this site I needed to make sure the necessary software, packages and settings were in place. This starts with setting up a &lt;em&gt;development environment&lt;/em&gt;. To me, a development environment is simply the software on a computer that allows me to get work done. In this case the development environment means the tools necessary to build this site. A list of the tools and technologies are below:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;An operating system: This website was built on machines running Windows 10, Mac OSX and Linux (Ubuntu 16.04 LTS).&lt;/li&gt;
@@ -1064,7 +1064,7 @@ git push origin master
 &lt;li&gt;Markdown: the posts on this website are written in markdown, or .md format&lt;/li&gt;
 &lt;li&gt;fabric and make: fabric is a Python package to automate builds and tasks. Fabric works on Windows. Make is used on MacOSX and Linux to build the site and serve up a demo version of the site.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3&gt;Installing Python (the Anaconda distribution)&lt;/h3&gt;
+&lt;h3 id="installing-python-the-anaconda-distribution"&gt;Installing Python (the Anaconda distribution)&lt;/h3&gt;
 &lt;p&gt;I highly recommend installing the Anaconda distribution of Python. I have the Anaconda distribution installed on all the computers I used to build this site:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -1084,7 +1084,7 @@ git push origin master
 &lt;p&gt;Download the latest release at:&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://www.anaconda.com/download/"&gt;https://www.anaconda.com/download&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;The Anaconda distribution of Python comes with an up-to-date and stable version of Python (Python 3.6) and the &lt;strong&gt;Anaconda Prompt&lt;/strong&gt;. The &lt;strong&gt;Anaconda Prompt&lt;/strong&gt; is useful because it allows me to run shell commands on my Windows 10 machine at work. These are the same commands I would run in the terminal on my Mac OSX or Linux boxes. The &lt;strong&gt;Anaconda Prompt&lt;/strong&gt; makes creating and logging into virtual environments easy and allows me to use git on Windows 10. Follow this post to &lt;a href="https://professorkazarinoff.github.io/staticsite/installing-anaconda-on-windows.html"&gt;install the Anaconda on Windows 10.&lt;/a&gt;&lt;/p&gt;
-&lt;h3&gt;Create a new virtual environment&lt;/h3&gt;
+&lt;h3 id="create-a-new-virtual-environment"&gt;Create a new virtual environment&lt;/h3&gt;
 &lt;p&gt;Before downloading Pelican, we should create a new virtual environment. The same virtual environment on each of the computers I use means the same packages are installed on each computer. To create a new virtual environment, open up the Anaconda Prompt (on Windows) or a terminal (on Linux or Mac OSX). Let's call our new virtual environment &lt;strong&gt;&lt;em&gt;staticsite&lt;/em&gt;&lt;/strong&gt;. The &lt;code&gt;conda create&lt;/code&gt; command creates the environment and the &lt;code&gt;-n staticsite&lt;/code&gt; flag adds the name.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ conda create -n staticsite
 &lt;/pre&gt;&lt;/div&gt;
@@ -1102,7 +1102,7 @@ git push origin master
 
 
 &lt;p&gt;We should now see &lt;code&gt;(staticsite)&lt;/code&gt; before the terminal prompt. This means we are using the &lt;code&gt;(staticsite)&lt;/code&gt; virtual environment.&lt;/p&gt;
-&lt;h3&gt;Install Pelican&lt;/h3&gt;
+&lt;h3 id="install-pelican"&gt;Install Pelican&lt;/h3&gt;
 &lt;p&gt;Time for some fun! Installing Pelican. Pelican is a Python package that creates static websites. Static sites are websites that only have html, css and javascript. A static site is not connected to a database and there is no code run on the server side. The server just serves static files (html, css, javascript) to the client when the client requests them. In order to install Pelican, we need to install &lt;code&gt;pip&lt;/code&gt; first. On my Linux and Mac OSX machines, the command line tool &lt;strong&gt;git&lt;/strong&gt; is already installed. If using Windows 10, &lt;strong&gt;git&lt;/strong&gt; may not be available. To keep the development environments the same when using Windows 10, you will also need &lt;code&gt;conda&lt;/code&gt; to &lt;code&gt;install git&lt;/code&gt;.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(staticsite)$ conda install pip
 (staticsite)$ conda install git
@@ -1118,7 +1118,7 @@ git push origin master
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;Create a github account and create a new repository&lt;/h3&gt;
+&lt;h3 id="create-a-github-account-and-create-a-new-repository"&gt;Create a github account and create a new repository&lt;/h3&gt;
 &lt;p&gt;While I was making the site, it became clear that I had to keep track of &lt;strong&gt;&lt;em&gt;version control&lt;/em&gt;&lt;/strong&gt;. I would make some changes to the site on my computer at work, then come home and make more changes to the site. Bringing a USB thumb drive back and forth was hard. I would forget the thumb drive at work or home and then could not edit the site. Or worse, I'd edit the site in both places and try to remember which changes were made where and which was the best version. Ah!&lt;/p&gt;
 &lt;p&gt;The solution is to use &lt;strong&gt;git&lt;/strong&gt; and &lt;strong&gt;github&lt;/strong&gt;. Git is a command line utility that assists with version control. Using git means changes made to files on one computer can be synced with the same files on another computer. Github.com is the where the site content and settings are remotely stored and integrates easily with git. &lt;/p&gt;
 &lt;p&gt;To sign up for a github.com account go here:&lt;/p&gt;
@@ -1129,7 +1129,7 @@ git push origin master
 &lt;p&gt;&lt;img alt="new github repo" src="../images/new_github_repo.png"&gt;&lt;/p&gt;
 &lt;p&gt;I named the new repository: &lt;strong&gt;staticsite&lt;/strong&gt; and included both a &lt;strong&gt;README.md&lt;/strong&gt; and a &lt;strong&gt;GNU General Public License v3.0&lt;/strong&gt;. &lt;/p&gt;
 &lt;p&gt;&lt;img alt="new github repo details" src="../images/create_a_new_repo_details.png"&gt;&lt;/p&gt;
-&lt;h3&gt;Make a directory for the site and link it to github&lt;/h3&gt;
+&lt;h3 id="make-a-directory-for-the-site-and-link-it-to-github"&gt;Make a directory for the site and link it to github&lt;/h3&gt;
 &lt;p&gt;Once the github repo (short for repository, basically a folder with files on github.com) is set up, the last step to complete the development environment is to link the remote repo on github to the local version of the site on my computer. &lt;/p&gt;
 &lt;p&gt;The local version is in a folder call &lt;code&gt;staticsite&lt;/code&gt; in the &lt;code&gt;Documents&lt;/code&gt; folder. The &lt;code&gt;staticsite&lt;/code&gt; folder will contain all the files used to build the site and the output files created by Pelican that &lt;em&gt;are&lt;/em&gt; the site.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(staticsite)$ cd ~

@@ -652,7 +652,7 @@ Next install &lt;code&gt;matplotlib&lt;/code&gt; and &lt;code&gt;numpy&lt;/code&
 
 
 &lt;p&gt;Next we need to read in our data. The chart below shows the measured coefficient of thermal expansion (CTE) of three metals: Aluminum, Copper and Steel. The units for coefficient of thermal expansion is per degrees C ( / &amp;#176;C)&lt;/p&gt;
-&lt;h3&gt;Coefficient of thermal expansion of three metals (units: /  &amp;#176;C)&lt;/h3&gt;
+&lt;h3 id="coefficient-of-thermal-expansion-of-three-metals-units-c"&gt;Coefficient of thermal expansion of three metals (units: /  &amp;#176;C)&lt;/h3&gt;
 &lt;table class="table table-striped table-bordered table-hover"&gt;
 &lt;thead&gt;
 &lt;tr&gt;

@@ -172,9 +172,9 @@ init_mathjax = function() {
 }
 init_mathjax();
 </script>
-    <link href="/extra/favicon.ico" rel="icon">
+    <link href="../extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="/drafts/seaborn-bar-chart.html">
+<link rel="canonical" href="../drafts/seaborn-bar-chart.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
         <meta name="keywords" content="python,matplotlib,engineering,statistics,seaborn,pandas" />
@@ -183,7 +183,7 @@ init_mathjax();
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="Bar plot with error bars using Python, matplotlib and seaborn"/>
-        <meta property="og:url" content="/drafts/seaborn-bar-chart.html"/>
+        <meta property="og:url" content="../drafts/seaborn-bar-chart.html"/>
         <meta property="og:description" content="In this post we will create a bar chart using python, pandas, matplot lib and seaborn. Then style the chart with custom colors, error bars, axis label and title."/>
         <meta property="article:published_time" content="2017-10-19" />
             <meta property="article:section" content="matplotlib" />
@@ -198,17 +198,21 @@ init_mathjax();
 
 
     <!-- Bootstrap -->
-        <link rel="stylesheet" href="/theme/css/bootstrap.flatly.min.css" type="text/css"/>
-    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="../theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="../theme/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="/theme/css/pygments/native.css" rel="stylesheet">
-    <link href="/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
-    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
-        <link href="/static/css/custom.css" rel="stylesheet">
+    <link href="../theme/css/pygments/native.css" rel="stylesheet">
+    <link href="../theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="../theme/css/style.css" type="text/css"/>
+        <link href="../static/css/custom.css" rel="stylesheet">
+
+        <link href="../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Python for Undergraduate Engineers ATOM Feed"/>
 
 
 
-
+        <link href="../feeds/matplotlib.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Python for Undergraduate Engineers matplotlib ATOM Feed"/>
 
 </head>
 <body>
@@ -222,18 +226,18 @@ init_mathjax();
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="/" class="navbar-brand">
+            <a href="../" class="navbar-brand">
 Python for Undergraduate Engineers            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                         <li><a href="/pages/about.html">
+                         <li><a href="../pages/about.html">
                              About
                           </a></li>
-                         <li><a href="/pages/book.html">
+                         <li><a href="../pages/book.html">
                              Book
                           </a></li>
-                         <li><a href="/pages/now.html">
+                         <li><a href="../pages/now.html">
                              Now
                           </a></li>
             </ul>
@@ -243,7 +247,7 @@ Python for Undergraduate Engineers            </a>
                   <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
                 </form></span>
               </li>
-              <li><a href="/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+              <li><a href="../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -255,15 +259,15 @@ Python for Undergraduate Engineers            </a>
     <div class="row">
         <div class="col-sm-9">
             <ol class="breadcrumb">
-                <li><a href="" title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="/category/matplotlib.html" title="matplotlib">matplotlib</a></li>
+                <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="../category/matplotlib.html" title="matplotlib">matplotlib</a></li>
                 <li class="active">Bar plot with error bars using Python, matplotlib and seaborn</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="/drafts/seaborn-bar-chart.html"
+                    <a href="../drafts/seaborn-bar-chart.html"
                        rel="bookmark"
                        title="Permalink to Bar plot with error bars using Python, matplotlib and seaborn">
                         Bar plot with error bars using Python, matplotlib and seaborn
@@ -284,17 +288,17 @@ Python for Undergraduate Engineers            </a>
 
 
 <span class="label label-default">Tags</span>
-	<a href="/tag/python.html">python</a>
+	<a href="../tag/python.html">python</a>
         /
-	<a href="/tag/matplotlib.html">matplotlib</a>
+	<a href="../tag/matplotlib.html">matplotlib</a>
         /
-	<a href="/tag/engineering.html">engineering</a>
+	<a href="../tag/engineering.html">engineering</a>
         /
-	<a href="/tag/statistics.html">statistics</a>
+	<a href="../tag/statistics.html">statistics</a>
         /
-	<a href="/tag/seaborn.html">seaborn</a>
+	<a href="../tag/seaborn.html">seaborn</a>
         /
-	<a href="/tag/pandas.html">pandas</a>
+	<a href="../tag/pandas.html">pandas</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
@@ -787,14 +791,14 @@ Python for Undergraduate Engineers            </a>
 </pre></div>
 
 
-<p><img alt="png" src="/posts/seaborn_bar_plot_files/seaborn_bar_plot_7_1.png"></p>
+<p><img alt="png" src="../posts/seaborn_bar_plot_files/seaborn_bar_plot_7_1.png"></p>
 <p>Now we can do a little more plot customization. First thing we are going to customize is the error bars. Seaborns sns.barplot() function will build a plot with the standard seaborn confidence interval as the length of the error bars. From my point of view, this gives a warped sense of confidence in the data. Instead of seaborns default confidence interval as the error bar length, let's use the standard deviation instead. The ci="sd" argument will set the confidence interval(ci) to the standard deviation(sd). We are also going style the error bars. I like caps on top of error bars. I think it makes it easier to see across and compare bar and error bar height. We'll add error bar caps with the errwidth=1 and capsize=0.1 arguments. errwidth is the line width of the error bars. Setting erridth to 1 will style the error bars to look like the line thickness in the rest of the plot. capsize=0.1 will set the error bar cap size to a good width. You can play around with different capsizes, but I like 0.1 for this plot.</p>
 <div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;pastel&quot;</span> <span class="p">,</span><span class="n">ci</span><span class="o">=</span><span class="s1">&#39;sd&#39;</span><span class="p">,</span> <span class="n">errwidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">capsize</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
 
-<p><img alt="png" src="/posts/seaborn_bar_plot_files/seaborn_bar_plot_9_0.png"></p>
+<p><img alt="png" src="../posts/seaborn_bar_plot_files/seaborn_bar_plot_9_0.png"></p>
 <p>Next we are going to add some labels to the bar plot. We need to add an x-axis label which shows density and the units g/cm3. We are also going to add a title. Seabrons sns.barplot() function outputs standard matplotlib axis objects. If we assign the plot to an axis object variable (ax is a typical varaible name), we can then modify that axis using standard matplotlib methods. We'll use the ax.set_ylabel() method to add the y-axis label, and ax.set_title() to add a title to the plot.</p>
 <div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;pastel&quot;</span> <span class="p">,</span><span class="n">ci</span><span class="o">=</span><span class="s1">&#39;sd&#39;</span><span class="p">,</span> <span class="n">errwidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">capsize</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Density (g/cm3)&#39;</span><span class="p">)</span>
@@ -803,7 +807,7 @@ Python for Undergraduate Engineers            </a>
 </pre></div>
 
 
-<p><img alt="png" src="/posts/seaborn_bar_plot_files/seaborn_bar_plot_11_0.png"></p>
+<p><img alt="png" src="../posts/seaborn_bar_plot_files/seaborn_bar_plot_11_0.png"></p>
 <p>Now the y-axis is included on the plot, but it still looks a little funny. The units g/cm3 don't have the cubed (3) as a super script like it should be. Matplotlib allows LaTeX formatting in text. We'll use LaTeX formatting to make the cubed (3) a super script. To call LaTeX formating we surround the LaTeX expression in dollar signs ($). In LaTeX putting a number in superscript is done with the carrot character (^). </p>
 <div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;pastel&quot;</span> <span class="p">,</span><span class="n">ci</span><span class="o">=</span><span class="s1">&#39;sd&#39;</span><span class="p">,</span> <span class="n">errwidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">capsize</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Density ($g/cm^3$)&#39;</span><span class="p">)</span>
@@ -812,7 +816,7 @@ Python for Undergraduate Engineers            </a>
 </pre></div>
 
 
-<p><img alt="png" src="/posts/seaborn_bar_plot_files/seaborn_bar_plot_13_0.png"></p>
+<p><img alt="png" src="../posts/seaborn_bar_plot_files/seaborn_bar_plot_13_0.png"></p>
 <p>Our final plot looks great! We created a bar chart with seabron and modified some of the plot elements. We took advantage of seaborn plots being matplotlib axis objects which allowed us to modify the plot further. We even added some fancy LaTeX to style a super script. The full code is below. </p>
 <div class="highlight"><pre><span></span><span class="c1"># seaborn bar chart</span>
 
@@ -833,17 +837,17 @@ Python for Undergraduate Engineers            </a>
 </pre></div>
 
 
-<p><img alt="png" src="/posts/seaborn_bar_plot_files/seaborn_bar_plot_15_0.png"></p>
+<p><img alt="png" src="../posts/seaborn_bar_plot_files/seaborn_bar_plot_15_0.png"></p>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">
     <h4>Related Posts:</h4>
     <ul>
-        <li><a href="/bar-plot-with-error-bars-jupyter-matplotlib.html">Bar charts with error bars using Python, jupyter notebooks and matplotlib</a></li>
-        <li><a href="/python-matplotlib-error-bars.html">Bar charts with error bars using Python and matplotlib</a></li>
-        <li><a href="/diffusion-problem-python-pint.html">Diffusion Calculation with Python and Pint</a></li>
-        <li><a href="/plotting-sin-cos-with-matplotlib.html">Plotting sine and cosine with matplotlib and Python</a></li>
-        <li><a href="/unit-conversions-with-pint.html">Unit conversions with Python and Pint</a></li>
+        <li><a href="../bar-plot-with-error-bars-jupyter-matplotlib.html">Bar charts with error bars using Python, jupyter notebooks and matplotlib</a></li>
+        <li><a href="../python-matplotlib-error-bars.html">Bar charts with error bars using Python and matplotlib</a></li>
+        <li><a href="../diffusion-problem-python-pint.html">Diffusion Calculation with Python and Pint</a></li>
+        <li><a href="../plotting-sin-cos-with-matplotlib.html">Plotting sine and cosine with matplotlib and Python</a></li>
+        <li><a href="../unit-conversions-with-pint.html">Unit conversions with Python and Pint</a></li>
     </ul>
 </section>
         </article>
@@ -854,7 +858,7 @@ Python for Undergraduate Engineers            </a>
             <aside>
 <div id="aboutme">
         <p>
-            <img width="100%" class="img-thumbnail" src="/extra/gear-wrench-icon-512-278694.png"/>
+            <img width="100%" class="img-thumbnail" src="../extra/gear-wrench-icon-512-278694.png"/>
         </p>
     <p>
       <strong>About Peter Kazarinoff</strong><br/>
@@ -868,46 +872,46 @@ Python for Undergraduate Engineers            </a>
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
-    <li class="list-group-item"><a href="/add-google-oauth-and-system-service-to-jupyterhub.html">Adding Google OAuth and system service to a Jupyter Hub server</a></li>
-    <li class="list-group-item"><a href="/add-ssl-and-domain-name-to-jupyterhub.html">Adding SSL and a domain name to Jupyter Hub</a></li>
-    <li class="list-group-item"><a href="/installing-jupyter-hub.html">Installing Jupyterhub</a></li>
+    <li class="list-group-item"><a href="../add-google-oauth-and-system-service-to-jupyterhub.html">Adding Google OAuth and system service to a Jupyter Hub server</a></li>
+    <li class="list-group-item"><a href="../add-ssl-and-domain-name-to-jupyterhub.html">Adding SSL and a domain name to Jupyter Hub</a></li>
+    <li class="list-group-item"><a href="../installing-jupyter-hub.html">Installing Jupyterhub</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
 
 <!-- Sidebar/Tag Cloud -->
 <li class="list-group-item">
-  <a href="/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <a href="../"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
   <ul class="list-group list-inline tagcloud" id="tags">
     <li class="list-group-item tag-4">
-      <a href="/tag/anaconda.html">anaconda</a>
+      <a href="../tag/anaconda.html">anaconda</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="/tag/blog.html">blog</a>
+      <a href="../tag/blog.html">blog</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="/tag/engineering.html">engineering</a>
+      <a href="../tag/engineering.html">engineering</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="/tag/esp8266.html">esp8266</a>
+      <a href="../tag/esp8266.html">esp8266</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="/tag/jupyter.html">jupyter</a>
+      <a href="../tag/jupyter.html">jupyter</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="/tag/jupyter-hub.html">jupyter hub</a>
+      <a href="../tag/jupyter-hub.html">jupyter hub</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="/tag/jupyter-notebooks.html">jupyter notebooks</a>
+      <a href="../tag/jupyter-notebooks.html">jupyter notebooks</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="/tag/micropython.html">micropython</a>
+      <a href="../tag/micropython.html">micropython</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="/tag/pelican.html">pelican</a>
+      <a href="../tag/pelican.html">pelican</a>
     </li>
     <li class="list-group-item tag-1">
-      <a href="/tag/python.html">python</a>
+      <a href="../tag/python.html">python</a>
     </li>
   </ul>
 </li>
@@ -940,15 +944,15 @@ Python for Undergraduate Engineers            </a>
       </div>
    </div>
 </footer>
-<script src="/theme/js/jquery.min.js"></script>
+<script src="../theme/js/jquery.min.js"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/theme/js/bootstrap.min.js"></script>
+<script src="../theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="/theme/js/respond.min.js"></script>
+<script src="../theme/js/respond.min.js"></script>
 
-    <script src="/static/js/custom.js"></script>
+    <script src="../static/js/custom.js"></script>
 
 
 <!-- GitHub JS Code -->
@@ -957,7 +961,7 @@ $(document).ready(function () {
   if (!window.jXHR) {
     var jxhr = document.createElement('script');
     jxhr.type = 'text/javascript';
-    jxhr.src = '/theme/js/jXHR.js';
+    jxhr.src = '../theme/js/jXHR.js';
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(jxhr, s);
   }
@@ -970,7 +974,7 @@ $(document).ready(function () {
   });
 });
 </script>
-<script src="/theme/js/github.js" type="text/javascript"></script>
+<script src="../theme/js/github.js" type="text/javascript"></script>
 <!-- End GitHub JS Code -->
     <!-- Google Analytics -->
     <script type="text/javascript">

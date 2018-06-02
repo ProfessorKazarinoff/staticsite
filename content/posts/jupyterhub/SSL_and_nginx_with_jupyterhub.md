@@ -431,7 +431,7 @@ Now we can browse to our domain and see Jupyter Hub running in its full SSL glor
 
 ### 8. Create an new user and restart **jupyterhub**. See if the new user can log in.
 
-OK, it's all well and good that we can log into **jupyterhub**. But the purpose of setting of of this up is for multiple students to be able to log into **jupyterhub**. If **jupyterhub** is still running, it can be stopped with [Ctrl] + [c].  Let's create a new user and see if we can log in as her.
+OK, it's all well and good that we can log into **jupyterhub**. But the purpose of setting of this up is for multiple students to be able to log into **jupyterhub**. If **jupyterhub** is still running, it can be stopped with [Ctrl] + [c].  Let's create a new user and see if we can log in as her.
 
 ```
 $ sudo adduser kendra
@@ -455,7 +455,7 @@ Amazing! right? Jupyter Hub running on our own domain using SSL security and htt
 <br>
 
 ### Summary
-In this post we created an SSL certificate with cetbot. We modified the nginx config to use our SSL certificate and modified jupyterhub_config.py. At the end of all of that we were able to get a working version of **jupyterhub** running on https using SSL security and can log into **jupyterhub** as two different users.
+In this post we created an SSL certificate with certbot. We modified the nginx config to use our SSL certificate and modified jupyterhub_config.py. At the end of all of that we were able to get a working version of **jupyterhub** running on https using SSL security and can log into **jupyterhub** as two different users.
 
 <br>
 

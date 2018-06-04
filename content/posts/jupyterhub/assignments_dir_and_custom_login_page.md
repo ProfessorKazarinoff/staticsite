@@ -72,20 +72,20 @@ $ conda install -c conda-forge gitpython
 Now we need to modify the jupyterhub_config.py file to do a couple things. We need to add a pre-spawn hook that gets called every time a user logs into jupyterhub.  This pre-spawn hook will run before the users jupyter notebook server is created. In the pre-spawn hook, we want to check to see if the user has the assignments already loaded. If the user doesn't have the assignments, then we want to pull the assignments down from github. The basic function we want to add is:
 
 ```
-import git, os, shutil
+import os
+import git
+import shutil
 
-DIR_NAME = "assignments"
-REMOTE_URL = "https://github.com/ProfessorKazarinoff/ENGR101.git"
- 
-if os.path.isdir(DIR_NAME):
-    shutil.rmtree(DIR_NAME)
- 
-os.mkdir(DIR_NAME)
- 
-repo = git.Repo.init(DIR_NAME)
-origin = repo.create_remote('origin',REMOTE_URL)
-origin.fetch()
-origin.pull(origin.refs[0].remote_head)
+def create_dir_hook(username):
+    #username = spawner.user.name
+    DIR_NAME = os.path.join("/home",username,"assignments")
+    REMOTE_URL = "https://github.com/ProfessorKazarinoff/ENGR101.git"
+    if not os.path.isdir(DIR_NAME):
+        os.mkdir(DIR_NAME)
+        repo = git.Repo.init(DIR_NAME)
+        origin = repo.create_remote('origin',REMOTE_URL)
+        origin.fetch()
+        origin.pull(origin.refs[0].remote_head)
 ```
 
 In our jupyterjub_config.py file we build a pre-spawn hook function that will run when the spawner starts:
@@ -96,12 +96,19 @@ make sure the following imports are present:
 import git, os, shutil
 ```
 
-The pre-spawn hook function
+The pre-spawn hook function.
+
+The curnet problem is that when the spawner creates the notebook dir for each user
+The notebook dir has root privalges and all the files inside it also have root privaleges
+I tried changing persions of the folder and loop through the files
+with os.chmod(file, 0o777), and I got the notebooks to save but couldn't rename or download.
+Do we need to have the group ownership be the user?
+How do we do that with chmod?
 
 ```
-def create_dir_hook(spawner)
+def create_dir_hook(spawner):
     username = spawner.user.name
-    DIR_NAME = os.path.join("/home","username","assignments")
+    DIR_NAME = os.path.join("/home",username,"assignments")
     REMOTE_URL = "https://github.com/ProfessorKazarinoff/ENGR101.git"
     if not os.path.isdir(DIR_NAME):
         os.mkdir(DIR_NAME)

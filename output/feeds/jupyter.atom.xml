@@ -1,5 +1,236 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Python for Undergraduate Engineers - jupyter</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="https://professorkazarinoff.github.io/staticsite/feeds/jupyter.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2018-05-27T12:40:00-07:00</updated><entry><title>Adding Google OAuth and system service to a Jupyter Hub server</title><link href="https://professorkazarinoff.github.io/staticsite/add-google-oauth-and-system-service-to-jupyterhub.html" rel="alternate"></link><published>2018-05-27T12:40:00-07:00</published><updated>2018-05-27T12:40:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-05-27:/staticsite/add-google-oauth-and-system-service-to-jupyterhub.html</id><summary type="html">&lt;p&gt;This is the sixth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we will set up &lt;strong&gt;jupyterhub&lt;/strong&gt; to run as a system service in the background which will allow us to work on the server and run &lt;strong&gt;jupyterhub&lt;/strong&gt; at the same time. Then we will add an authentication system so that users can log into our Jupyter Hub server using github usernames and passwords. Finally we will modify the authentication system so that users can log into our Jupyer Hub server using their google usernames and passwords. The same user name and password a student uses to access their college email.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the sixth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we will set up &lt;strong&gt;jupyterhub&lt;/strong&gt; to run as a system service in the background which will allow us to work on the server and run &lt;strong&gt;jupyterhub&lt;/strong&gt; at the same time. Then we will add an authentication system so that users can log into our Jupyter Hub server using github usernames and passwords. Finally we will modify the authentication system so that users can log into our Jupyer Hub server using their google usernames and passwords. The same user name and password a student uses to access their college email.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Python for Undergraduate Engineers - jupyter</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="https://professorkazarinoff.github.io/staticsite/feeds/jupyter.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2018-06-14T10:40:00-07:00</updated><entry><title>Add a custom login page and assignments directory for each user on a Jupyter Hub server</title><link href="https://professorkazarinoff.github.io/staticsite/assignments-dir-and-custom-login-page-to-jupyterhub.html" rel="alternate"></link><published>2018-06-14T10:40:00-07:00</published><updated>2018-06-14T10:40:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-06-14:/staticsite/assignments-dir-and-custom-login-page-to-jupyterhub.html</id><summary type="html">&lt;p&gt;This is the seventh part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we build a pre-spawn hook that creates an "assignments" and "notes" directory with pre-constructed assignments and notes for each &lt;strong&gt;jupyterhub&lt;/strong&gt; user. We also build a custom login pages that looks much more like our college login page and contains helpful links.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the seventh part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we build a pre-spawn hook that creates an "assignments" and "notes" directory with pre-constructed assignments and notes for each &lt;strong&gt;jupyterhub&lt;/strong&gt; user. We also build a custom login pages that looks much more like our college login page and contains helpful links.&lt;/p&gt;
+&lt;h3 id="posts-in-this-series"&gt;Posts in this series&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/why-jupyter-hub.html"&gt;Why Jupyter Hub?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/ssh-keys-with-putty.html"&gt;Create ssh key, save to documents/ssh-keys&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/new-digital-ocean-droplet.html"&gt;Create a new Digital Ocean Droplet with a non-root sudo user&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/installing-jupyter-hub.html"&gt;Install Jupyter Hub on the server&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/add-ssl-and-domain-name-to-jupyterhub.html"&gt;Apply SSL, link a domain name to the server and configure nginx&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/add-google-oauth-and-system-service-to-jupyterhub.html"&gt;Connect OAuth to Jupyter Hub&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Add a custom login page and assignments directory for each user on a Jupyter Hub server&lt;/strong&gt; (this post)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="last-time"&gt;Last time&lt;/h3&gt;
+&lt;p&gt;In the &lt;a href="https://professorkazarinoff.github.io/staticsite/add-google-oauth-and-system-service-to-jupyterhub.html"&gt;last post&lt;/a&gt;, we set &lt;strong&gt;jupyterhub&lt;/strong&gt; to run as a system service in the background on our server. Then we added tried two different login systems: github and google. The github authentication system allowed user to log in with github usernames and passwords. The google authentication system allowed users to log in with their college usernames and passwords. Then we modified the jupyterhub_config.py file to all the creation of new users on the server even if the new usernames contained a dot.&lt;/p&gt;
+&lt;h3 id="steps-in-this-post"&gt;Steps in this post:&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Create a repo on github.com with the assignments and notes&lt;/li&gt;
+&lt;li&gt;Add a pre-spawn hook in jupyterhub_config.py&lt;/li&gt;
+&lt;li&gt;Create a templates directory and populate it with Jinja templates to create a new login page&lt;/li&gt;
+&lt;li&gt;Modify the style.min.css file to apply styling to the login page&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3 id="1-create-a-repo-on-githubcom-with-the-assignments"&gt;1. Create a repo on github.com with the assignments&lt;/h3&gt;
+&lt;p&gt;On github.com, create a new repo with the notes and assignments for the quarter.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="new repo" src="/images/new_github_repo.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="repo details" src="/images/create_a_new_repo_details.png"&gt;&lt;/p&gt;
+&lt;p&gt;On a local computer, not the server, clone the github repo. This allows us to work on the notes and assignments locally.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# local computer
+$ mkdir ENGR101
+$ cd ENGR101
+$ git init
+$ git remote add origin https://github.com/ProfessorKazarinoff/ENGR101.git
+$ git pull origin master
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;On the local computer, not the server, build the assignment and notes for the quarter. I did this using jupyter notebooks. Then add, commit and push the changes up to github.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# local computer
+$ git add .
+$ commit -m &amp;quot;added assignments and notes&amp;quot;
+$ git push origin master
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3 id="2-add-a-pre-spawn-hook-in-jupyterhub_configpy"&gt;2. Add a pre-spawn hook in jupyterhub_config.py&lt;/h3&gt;
+&lt;p&gt;Now we can go to the server and have the notebooks we created (and pushed up to github) pre-populate each users directory tree when they log into &lt;strong&gt;jupyterhub&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;We'll use a Python package called &lt;strong&gt;gitpython&lt;/strong&gt; to help with pulling the notebooks down from github.com. Log into the server and install &lt;strong&gt;gitpython&lt;/strong&gt; using &lt;strong&gt;conda&lt;/strong&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# on the server
+$ sudo apt-get update
+$ conda install -c conda-forge gitpython
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now we need to modify the jupyterhub_config.py file to do a couple things: Run a pre-spawn hook function that runs before each user's jupyter notebook server is started and pull the assignments and notes down from github as part of the pre-spawn hook function.&lt;/p&gt;
+&lt;p&gt;The pre-spawn hook function gets called every time a user logs into jupyterhub.  This pre-spawn hook will run before the user's jupyter notebook server is created. In the pre-spawn hook, we want to check to see if the user has the assignments and notes pulled down from github already loaded. If the user doesn't have the assignments, then we want to pull the assignments down from github and put them in the user's directory tree.&lt;/p&gt;
+&lt;p&gt;So first we need a function that will pull the repo down from github. Note the line &lt;code&gt;uid = getpwnam(user).pw_uid&lt;/code&gt; and &lt;code&gt;gid = getpwnam(user).pw_gid&lt;/code&gt; in the function below. These lines of code get the user's numerical unix user id and group id. The userid and group id are needed to assign the proper permissions to the files we pull down from github.&lt;/p&gt;
+&lt;p&gt;When I first built the function, changing file permissions was not included. I could log onto jupterhub and see the notebooks pulled down from github, but I couldn't run or edit them. The problem was that the notebooks were pulled down from github by a &lt;strong&gt;sudo user&lt;/strong&gt; and the jupyterhub user didn't have the permissions to write or execute any of the files. Building the permissions into the function with &lt;code&gt;shutil.chown()&lt;/code&gt; solved the problem.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# in jupyterhub_config.py&lt;/span&gt;
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;clone_repo&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;git_url&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;repo_dir&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+&lt;span class="sd"&gt;    A function to clone a github repo into a specific directory of a user.&lt;/span&gt;
+&lt;span class="sd"&gt;    &amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+    &lt;span class="n"&gt;Repo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;clone_from&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;git_url&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;repo_dir&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;uid&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;getpwnam&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pw_uid&lt;/span&gt;
+    &lt;span class="n"&gt;gid&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;getpwnam&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pw_gid&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;dirs&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;files&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;walk&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;repo_dir&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;dirs&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="n"&gt;shutil&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;chown&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;join&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;uid&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;group&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;gid&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;files&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="n"&gt;shutil&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;chown&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;join&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;uid&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;group&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;gid&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now we'll build a pre-spawn hook function that will run when the spawner starts. The function will call the &lt;code&gt;clone_repo()&lt;/code&gt; function and pull down the assignments from the github repo the first time a user logs into jupyterhub.  After the assignments and notes are initially created, each subsequent time the user logs into jupyterhub, a new fresh set of assignments and notes are pulled down if &lt;code&gt;ERASE_DIR&lt;/code&gt; is set to &lt;code&gt;True&lt;/code&gt;. If &lt;code&gt;ERASE_DIR&lt;/code&gt; is set to &lt;code&gt;False&lt;/code&gt;, once the assignments and notes are downloaded, they will not be over-written.&lt;/p&gt;
+&lt;p&gt;To run the pre-spawn hook function and the pull repo function, we need to make sure the following imports are present in our jupyterhub_config.py file:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# jupyterhub_config.py&lt;/span&gt;
+
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;git&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nn"&gt;os&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nn"&gt;shutil&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;pwd&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;getpwnam&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The complete pre-spawn hook function is below:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# in jupyterhub_config.py&lt;/span&gt;
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;create_dir_hook&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;spawner&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+&lt;span class="sd"&gt;    A function to clone a github repo into a specific directory of a &lt;/span&gt;
+&lt;span class="sd"&gt;   jupyterhub user when the server spawns a new notebook instance.&lt;/span&gt;
+&lt;span class="sd"&gt;    &amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+    &lt;span class="n"&gt;username&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;spawner&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;
+    &lt;span class="n"&gt;DIR_NAME&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;join&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;/home&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;username&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;git_url&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;https://github.com/ProfessorKazarinoff/ENGR101.git&amp;quot;&lt;/span&gt;
+    &lt;span class="n"&gt;repo_dir&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;join&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;DIR_NAME&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;notebooks&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;ERASE_DIR&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="bp"&gt;True&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;isdir&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;repo_dir&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+            &lt;span class="n"&gt;shutil&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rmtree&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;repo_dir&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;mkdir&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;repo_dir&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;clone_repo&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;username&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;git_url&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;repo_dir&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;ERASE_DIR&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="bp"&gt;False&lt;/span&gt; &lt;span class="ow"&gt;and&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;isdir&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;repo_dir&lt;/span&gt;&lt;span class="p"&gt;)):&lt;/span&gt;
+        &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;mkdir&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;repo_dir&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;clone_repo&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;username&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;git_url&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;repo_dir&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;ERASE_DIR&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="bp"&gt;False&lt;/span&gt; &lt;span class="ow"&gt;and&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;isdir&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;repo_dir&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="k"&gt;pass&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The two functions need to be pasted into the jupyterhub_config.py file. Make sure the imports are present as well as an &lt;code&gt;ERASE_DIR = True&lt;/code&gt; or &lt;code&gt;ERASE_DIR = False&lt;/code&gt; line in the jupyterhub_config.py file too.&lt;/p&gt;
+&lt;p&gt;Next we need to add a pre-spawn hook function to the spawner object in our jupyterhub_config.py file in the form of&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# in jupyterhub_config.py&lt;/span&gt;
+
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Spawner&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pre_spawn_hook&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;create_dir_hook&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;With these changes complete, we can restart jupyterhub using:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo systemctl stop jupyterhub
+$ sudo systemctl start jupyterhub
+$ sudo systemctl status jupyterhub
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;To exit the status screen use [Ctrl] + [c]&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3 id="3-create-a-templates-directory-and-populate-it-with-jinja-templates-to-create-a-new-login-page"&gt;3. Create a templates directory and populate it with Jinja templates to create a new login page&lt;/h3&gt;
+&lt;p&gt;The jupyterhub login page looks like this:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="jupyterhub login page" src="/posts/jupyterhub/login_with_google.PNG"&gt;&lt;/p&gt;
+&lt;p&gt;But our college login page looks lik this:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="jupyterhub login page" src="/posts/jupyterhub/college_login_page.PNG"&gt;&lt;/p&gt;
+&lt;p&gt;For users to feel comfortable with logging into the jupyterhub server, we'll make the jupyterhub login page look more like the college login page.&lt;/p&gt;
+&lt;p&gt;This was a time consuming and fussy task. It involved a lot of messing around with css and html.&lt;/p&gt;
+&lt;p&gt;First a set of custom jinja templates need to be created. When jupyterhub runs, there is a set directory of jinja templates that build the html users see when they go to the site. These jinga templates are burried deep in the jupyterhub package code. For my jupyterhub installation on the server, I found the jinja template files in the &lt;code&gt;/pkgs&lt;/code&gt; directory in &lt;code&gt;anaconda3&lt;/code&gt;. If you are using a virtual environment, the jupyterhub package directory name will likey be different:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;/home/peter/anaconda3/pkgs/jupyterhub-0.8.1-py36_0/share/jupyter/hub/templates/
+├── 404.html
+├── admin.html
+├── error.html
+├── home.html
+├── login.html
+├── logout.html
+├── page.html
+├── spawn.html
+├── spawn_pending.html
+└── token.html
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now we need to copy these templates into our home directory. Once copied, we can modify the templates and create a new jupyterhub login page. The &lt;code&gt;login.html&lt;/code&gt; file is the one that needs to be customized.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ cd /home/peter/anaconda3/pkgs/jupyterhub-0.8.1-py36_0/share/jupyter/hub/
+$ cp -R templates /home/peter/templates/
+$ cd ~
+$ cd templates
+$ ls
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Open up the login.html file and modify it with any html that you want to show up when a user goes to the jupyter hub site.&lt;/p&gt;
+&lt;p&gt;I messed around for WAY to long trying to get my custom login page to look like the college login page. An important piece of html that needs to stay in the login.html file is the &lt;code&gt;&amp;lt;a&amp;gt;&lt;/code&gt; tag that links to the authentication url. The complete tag is detailed below&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;lt;!–– login.html ––&amp;gt;
+
+&amp;lt;a role=&amp;quot;button&amp;quot; class=&amp;quot;btn btn-jupyter btn-lg&amp;quot; href=&amp;quot;/hub/oauth_login?next=&amp;quot;&amp;gt;
+    Sign in with Portland Community College
+&amp;lt;/a&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;I also kept in the jinga tag at the top of the file that brings in all of the formatting from login.html's parent template page.html&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;lt;!–– login.html ––&amp;gt;
+
+{% extends &amp;quot;page.html&amp;quot; %}
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;All the changes I made to the login template were inside the "login" block of login.html. You can find my complete login.html file &lt;a href="https://github.com/ProfessorKazarinoff/jupyterhub-svr/blob/master/templates/login.html"&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;{% block login %}
+
+&amp;lt;!–– make changes here ––&amp;gt;
+
+{% endblock login %}
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now we need to modify the jupyterhub_config.py file so that our new set of custom jinja templates are used instead of the default jinja templates.&lt;/p&gt;
+&lt;p&gt;A problem I initially had was I set the directory path of the custom templates as &lt;code&gt;/home/peter/templates&lt;/code&gt; and the login page didn't work as expected. When I changed the directory path to &lt;code&gt;/home/peter/templates/&lt;/code&gt; the problem was resolved.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# jupyterhub_config.py&lt;/span&gt;
+
+&lt;span class="c1"&gt;# sets a custom html template at the login screen.&lt;/span&gt;
+&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;JupyterHub&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;template_paths&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;/home/peter/templates/&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3 id="4-modify-the-stylemincss-file-to-apply-styling-to-the-login-page"&gt;4. Modify the style.min.css file to apply styling to the login page&lt;/h3&gt;
+&lt;p&gt;Finally the &lt;code&gt;style.min.css&lt;/code&gt; file needs to be modified so that the login page styling looks a little more like the college login page.&lt;/p&gt;
+&lt;p&gt;This is another thing I messed around with for a long time, a WAY to long time. I couldn't figure out a way to get jupyterhub to use a custom .css file. I tried creating a .css file in the new custom templates directory, but jupyterhub wouldn't copy it as a static asset when the server launched. I also tried putting a separate .css file deep inside of the jupyterhub package code. When the server ran, it seemed to copy the custom .css file (I could see the custom .css file using chrome's inspect element tool). But for some reason the custom .css file would be blank when server serve was running, even though the custom .css file contained a whole bunch of css code when viewed deep in the jupyterhub package code.&lt;/p&gt;
+&lt;p&gt;The solution I finally got to work was modifying the &lt;code&gt;style.min.css&lt;/code&gt; file itself that jupyterhub uses. This file is buried deep in the jupyterhub package code:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;home/peter/anaconda3/pkgs/jupyterhub-0.8.1-py36_0/share/jupyter/hub/static/css/
+├── style.min.css
+└── style.min.css.map
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Modify the &lt;code&gt;style.min.css&lt;/code&gt; file to include all the custom css styling desired (find my complete css file &lt;a href="https://github.com/ProfessorKazarinoff/jupyterhub-svr/blob/master/style.min.css"&gt;here&lt;/a&gt;) With changes to the login.html file and style.min.css file complete, we can restart jupyterhub and view the changes rendered on the login page.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo systemctl stop jupyterhub
+$ sudo systemctl start jupyterhub
+$ sudo systemctl status jupyterhub
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Below is the look of my modified login page in all it's custom html and css glory&lt;/p&gt;
+&lt;p&gt;&lt;img alt="login page image" src="/posts/jupyterhub/custom_login_page.PNG"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3 id="summary"&gt;Summary&lt;/h3&gt;
+&lt;p&gt;In this post, we will built a pre-spawn hook that pulls down notes and assignments from github and adds it to each user's directory tree when their jupyter notebook server starts. We also constructed a custom login page by creating a custom jinja template (&lt;code&gt;login.html&lt;/code&gt;) and modified the &lt;code&gt;style.min.css&lt;/code&gt; file inside the jupyterhub package code. The resulting custom login pages looks a lot more like our college login page.&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3 id="conclusion"&gt;Conclusion&lt;/h3&gt;
+&lt;p&gt;This concludes the Jupyter Hub series. We accomplished a lot to get a working version of Jupyter Hub up and running on a Digital Ocean server. Our Jupyter Hub deployment has the following features:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Users don't need to install anything to edit and run Python code. Users just need a web browser and an internet connection.&lt;/li&gt;
+&lt;li&gt;All users have a common set of installed Python packages and don't need to install any extra packages&lt;/li&gt;
+&lt;li&gt;A custom domain name is hooked to jupyterhub instead of a numeric IP address&lt;/li&gt;
+&lt;li&gt;jupyterhub runs on https and has SSL security&lt;/li&gt;
+&lt;li&gt;Users can log into jupyterhub using their college usernames and passwords&lt;/li&gt;
+&lt;li&gt;Each user's directory tree is pre-populated with assignments and notes pulled down from github&lt;/li&gt;
+&lt;li&gt;The pre-populated assignments and notes can be run and modified by users.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;You can find the notes and assignments that pre-poplulate into each user's directory tree &lt;a href="https://github.com/ProfessorKazarinoff/ENGR101"&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;You can find the various files that are part of the jupyterhub deployment &lt;a href="https://github.com/ProfessorKazarinoff/jupyterhub-svr"&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;I Hope this series is helpful to anyone who wants to set up Jupyter Hub for their own class or team. After the course runs, I want to post the results of students using Jupyter Hub. The first course to use Jupyter Hub runs this summer quarter.&lt;/p&gt;</content><category term="jupyter"></category><category term="jupyter hub"></category><category term="jupyter notebooks"></category><category term="python"></category></entry><entry><title>Adding Google OAuth and system service to a Jupyter Hub server</title><link href="https://professorkazarinoff.github.io/staticsite/add-google-oauth-and-system-service-to-jupyterhub.html" rel="alternate"></link><published>2018-05-27T12:40:00-07:00</published><updated>2018-05-27T12:40:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-05-27:/staticsite/add-google-oauth-and-system-service-to-jupyterhub.html</id><summary type="html">&lt;p&gt;This is the sixth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we will set up &lt;strong&gt;jupyterhub&lt;/strong&gt; to run as a system service in the background which will allow us to work on the server and run &lt;strong&gt;jupyterhub&lt;/strong&gt; at the same time. Then we will add an authentication system so that users can log into our Jupyter Hub server using github usernames and passwords. Finally we will modify the authentication system so that users can log into our Jupyer Hub server using their google usernames and passwords. The same user name and password a student uses to access their college email.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the sixth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we will set up &lt;strong&gt;jupyterhub&lt;/strong&gt; to run as a system service in the background which will allow us to work on the server and run &lt;strong&gt;jupyterhub&lt;/strong&gt; at the same time. Then we will add an authentication system so that users can log into our Jupyter Hub server using github usernames and passwords. Finally we will modify the authentication system so that users can log into our Jupyer Hub server using their google usernames and passwords. The same user name and password a student uses to access their college email.&lt;/p&gt;
 &lt;h3 id="posts-in-this-series"&gt;Posts in this series&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/why-jupyter-hub.html"&gt;Why Jupyter Hub?&lt;/a&gt; &lt;/li&gt;

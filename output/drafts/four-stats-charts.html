@@ -172,9 +172,9 @@ init_mathjax = function() {
 }
 init_mathjax();
 </script>
-    <link href="/extra/favicon.ico" rel="icon">
+    <link href="../extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="/drafts/four-stats-charts.html">
+<link rel="canonical" href="../drafts/four-stats-charts.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
         <meta name="keywords" content="python,matplotlib,engineering,statistics,seaborn,pandas" />
@@ -183,7 +183,7 @@ init_mathjax();
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="Four different statistics charts using Python, matplotlib and seaborn"/>
-        <meta property="og:url" content="/drafts/four-stats-charts.html"/>
+        <meta property="og:url" content="../drafts/four-stats-charts.html"/>
         <meta property="og:description" content="Data can be visually represented in a number of ways. In this post we will construct four different plots using python: Bar Graph with error bars, histogram, violin plot and probabiliyt plot. Each of these types of plots shows the confidence or precision in a set of measurements or calculated values. Bar charts without error bars give the illusion that a measured or calculated value is known to a high precision. In this post we will build a bar chart for the coefficient of thermal expansion (CTE) for three different materials based on a small data set. We will then add error bar to this chart based on the standard deviation of the data."/>
         <meta property="article:published_time" content="2017-10-19" />
             <meta property="article:section" content="matplotlib" />
@@ -198,17 +198,21 @@ init_mathjax();
 
 
     <!-- Bootstrap -->
-        <link rel="stylesheet" href="/theme/css/bootstrap.flatly.min.css" type="text/css"/>
-    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="../theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="../theme/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="/theme/css/pygments/native.css" rel="stylesheet">
-    <link href="/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
-    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
-        <link href="/static/css/custom.css" rel="stylesheet">
+    <link href="../theme/css/pygments/native.css" rel="stylesheet">
+    <link href="../theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="../theme/css/style.css" type="text/css"/>
+        <link href="../static/css/custom.css" rel="stylesheet">
+
+        <link href="../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Python for Undergraduate Engineers ATOM Feed"/>
 
 
 
-
+        <link href="../feeds/matplotlib.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Python for Undergraduate Engineers matplotlib ATOM Feed"/>
 
 </head>
 <body>
@@ -222,18 +226,18 @@ init_mathjax();
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="/" class="navbar-brand">
+            <a href="../" class="navbar-brand">
 Python for Undergraduate Engineers            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                         <li><a href="/pages/about.html">
+                         <li><a href="../pages/about.html">
                              About
                           </a></li>
-                         <li><a href="/pages/book.html">
+                         <li><a href="../pages/book.html">
                              Book
                           </a></li>
-                         <li><a href="/pages/now.html">
+                         <li><a href="../pages/now.html">
                              Now
                           </a></li>
             </ul>
@@ -243,7 +247,7 @@ Python for Undergraduate Engineers            </a>
                   <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
                 </form></span>
               </li>
-              <li><a href="/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+              <li><a href="../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -255,15 +259,15 @@ Python for Undergraduate Engineers            </a>
     <div class="row">
         <div class="col-sm-9">
             <ol class="breadcrumb">
-                <li><a href="" title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="/category/matplotlib.html" title="matplotlib">matplotlib</a></li>
+                <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="../category/matplotlib.html" title="matplotlib">matplotlib</a></li>
                 <li class="active">Four different statistics charts using Python, matplotlib and seaborn</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="/drafts/four-stats-charts.html"
+                    <a href="../drafts/four-stats-charts.html"
                        rel="bookmark"
                        title="Permalink to Four different statistics charts using Python, matplotlib and seaborn">
                         Four different statistics charts using Python, matplotlib and seaborn
@@ -284,23 +288,23 @@ Python for Undergraduate Engineers            </a>
 
 
 <span class="label label-default">Tags</span>
-	<a href="/tag/python.html">python</a>
+	<a href="../tag/python.html">python</a>
         /
-	<a href="/tag/matplotlib.html">matplotlib</a>
+	<a href="../tag/matplotlib.html">matplotlib</a>
         /
-	<a href="/tag/engineering.html">engineering</a>
+	<a href="../tag/engineering.html">engineering</a>
         /
-	<a href="/tag/statistics.html">statistics</a>
+	<a href="../tag/statistics.html">statistics</a>
         /
-	<a href="/tag/seaborn.html">seaborn</a>
+	<a href="../tag/seaborn.html">seaborn</a>
         /
-	<a href="/tag/pandas.html">pandas</a>
+	<a href="../tag/pandas.html">pandas</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
                 <p>Error bars are useful in engineering to show the confidence or precision in a set of measurements or calculated values. Bar charts without error bars give the illusion that a measured or calculated value is known to a high precision. In this post we will build four different statistical plots with Python, matplotlib and seaborn. </p>
 <p>The finished compilation of the charts is shown below. The bar graph is on the top followed by the historgram, box plot and violin plot.</p>
-<p><img alt="plot with error bars" src="/images/bar_plot_with_error_bars.png"></p>
+<p><img alt="plot with error bars" src="../images/bar_plot_with_error_bars.png"></p>
 <p>To build these plots, we will use the dataset below. The data is in a .csv file and has three columns. The data represents the density of four different shaped blocks from Ikea. The idea is to see if the density of each shape is different. If the density of each shape is different, one possible theory is that the shapes are made of different types of wood. We will use the statistics plots to help us visualize the problem. Each shape has about 100 density measurements. The first column is for rectangles, the second column is for squares the third column is triagles and the fourth column is squares. All of the density measurements are in units of <span class="math">\(g/cm^3\)</span>.  The .csv file looks something like below:</p>
 <table class="table table-striped table-bordered table-hover">
 <thead>
@@ -354,7 +358,7 @@ Python for Undergraduate Engineers            </a>
 <p>In order to build our first plot, we need to fire up a new virtual environment with numpy, pandas and matplotlib installed. </p>
 <p>To get going, we'll use the <strong>conda prompt</strong> to create a new virtual environment. Select <strong>Anaconda Prompt</strong> from the windows start menu.
 The install the modules using <code>conda install</code>. I like using the Anaconda distribution of Python because it makes creating and managing virtual environments easy on the three major computing platforms</p>
-<p><img alt="conda prompt on windows start menu" src="/images/conda_in_windows_start_menu.png"></p>
+<p><img alt="conda prompt on windows start menu" src="../images/conda_in_windows_start_menu.png"></p>
 <div class="highlight"><pre><span></span>(C:\Users\peter.kazarinoff\AppData\Local\Continuum\Anaconda3) C:\Users\peter.kazarinoff&gt;conda create -n plotenv
 </pre></div>
 
@@ -384,7 +388,7 @@ seaborn
 <h3 id="bar-chart-with-error-bars">Bar Chart with Error Bars</h3>
 <p>The first plot we will create is a bar chart with error bars. 
 Open a new Python script called <strong><em>bar_plot.py</em></strong>. At the top of the script we need to import pandas matplotlib and seaborn. </p>
-<p><img alt="panda_doodle" src="/images/panda_doodle.png"></p>
+<p><img alt="panda_doodle" src="../images/panda_doodle.png"></p>
 <p>We'll use pandas to read in the data from the .csv file, seaborn to build the plot and matplot lib to display it. </p>
 <div class="highlight"><pre><span></span><span class="c1">#bar_plot.py</span>
 
@@ -396,7 +400,7 @@ Open a new Python script called <strong><em>bar_plot.py</em></strong>. At the to
 
 <p>Next we need to read in our data. We will use <code>pandas</code> to do this, specifically the <code>pd.read_csv()</code> function. It is common practice to import <code>pandas</code> as <code>pd</code>. With that as our import line, we only need to call <code>pd</code> before pandas methods and functions.  <code>df</code> is a common variable name to give a pandas dataframe. </p>
 <p>a dada frame?
-<img alt="dada_frame" src="/images/dada_frame.png"></p>
+<img alt="dada_frame" src="../images/dada_frame.png"></p>
 <p>The pandas dataframe is a python object that is a little like a microsoft excel file. Data frames have columns and rows and is the perfect object type to store our data in from our .csv file.</p>
 <div class="highlight"><pre><span></span># Read in the data
 df = pd.read_csv(&#39;data.csv&#39;, header =0)
@@ -420,7 +424,7 @@ df = pd.read_csv(&#39;data.csv&#39;, header =0)
 
 
 <p>The final plot looks like this:</p>
-<p><img alt="plot with error bars" src="/images/seaborn_error_bar_plot.png"></p>
+<p><img alt="plot with error bars" src="../images/seaborn_error_bar_plot.png"></p>
 <p>The full script is shown below:</p>
 <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
@@ -449,7 +453,7 @@ df = pd.read_csv(&#39;data.csv&#39;, header =0)
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
     mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
     mathjaxscript[(window.opera ? "innerHTML" : "text")] =
         "MathJax.Hub.Config({" +
         "    config: ['MMLorHTML.js']," +
@@ -495,11 +499,11 @@ df = pd.read_csv(&#39;data.csv&#39;, header =0)
 <section class="well" id="related-posts">
     <h4>Related Posts:</h4>
     <ul>
-        <li><a href="/bar-plot-with-error-bars-jupyter-matplotlib.html">Bar charts with error bars using Python, jupyter notebooks and matplotlib</a></li>
-        <li><a href="/python-matplotlib-error-bars.html">Bar charts with error bars using Python and matplotlib</a></li>
-        <li><a href="/diffusion-problem-python-pint.html">Diffusion Calculation with Python and Pint</a></li>
-        <li><a href="/plotting-sin-cos-with-matplotlib.html">Plotting sine and cosine with matplotlib and Python</a></li>
-        <li><a href="/unit-conversions-with-pint.html">Unit conversions with Python and Pint</a></li>
+        <li><a href="../bar-plot-with-error-bars-jupyter-matplotlib.html">Bar charts with error bars using Python, jupyter notebooks and matplotlib</a></li>
+        <li><a href="../python-matplotlib-error-bars.html">Bar charts with error bars using Python and matplotlib</a></li>
+        <li><a href="../diffusion-problem-python-pint.html">Diffusion Calculation with Python and Pint</a></li>
+        <li><a href="../plotting-sin-cos-with-matplotlib.html">Plotting sine and cosine with matplotlib and Python</a></li>
+        <li><a href="../unit-conversions-with-pint.html">Unit conversions with Python and Pint</a></li>
     </ul>
 </section>
         </article>
@@ -510,7 +514,7 @@ df = pd.read_csv(&#39;data.csv&#39;, header =0)
             <aside>
 <div id="aboutme">
         <p>
-            <img width="100%" class="img-thumbnail" src="/extra/gear-wrench-icon-512-278694.png"/>
+            <img width="100%" class="img-thumbnail" src="../extra/gear-wrench-icon-512-278694.png"/>
         </p>
     <p>
       <strong>About Peter Kazarinoff</strong><br/>
@@ -524,46 +528,46 @@ df = pd.read_csv(&#39;data.csv&#39;, header =0)
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
-    <li class="list-group-item"><a href="/add-google-oauth-and-system-service-to-jupyterhub.html">Adding Google OAuth and system service to a Jupyter Hub server</a></li>
-    <li class="list-group-item"><a href="/add-ssl-and-domain-name-to-jupyterhub.html">Adding SSL and a domain name to Jupyter Hub</a></li>
-    <li class="list-group-item"><a href="/installing-jupyter-hub.html">Installing Jupyterhub</a></li>
+    <li class="list-group-item"><a href="../assignments-dir-and-custom-login-page-to-jupyterhub.html">Add a custom login page and assignments directory for each user on a Jupyter Hub server</a></li>
+    <li class="list-group-item"><a href="../add-google-oauth-and-system-service-to-jupyterhub.html">Adding Google OAuth and system service to a Jupyter Hub server</a></li>
+    <li class="list-group-item"><a href="../add-ssl-and-domain-name-to-jupyterhub.html">Adding SSL and a domain name to Jupyter Hub</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
 
 <!-- Sidebar/Tag Cloud -->
 <li class="list-group-item">
-  <a href="/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <a href="../"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
   <ul class="list-group list-inline tagcloud" id="tags">
     <li class="list-group-item tag-4">
-      <a href="/tag/anaconda.html">anaconda</a>
+      <a href="../tag/anaconda.html">anaconda</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="/tag/blog.html">blog</a>
+      <a href="../tag/blog.html">blog</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="/tag/engineering.html">engineering</a>
+      <a href="../tag/engineering.html">engineering</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="/tag/esp8266.html">esp8266</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="/tag/jupyter.html">jupyter</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="/tag/jupyter-hub.html">jupyter hub</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="/tag/jupyter-notebooks.html">jupyter notebooks</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="/tag/micropython.html">micropython</a>
-    </li>
-    <li class="list-group-item tag-2">
-      <a href="/tag/pelican.html">pelican</a>
+      <a href="../tag/esp8266.html">esp8266</a>
     </li>
     <li class="list-group-item tag-1">
-      <a href="/tag/python.html">python</a>
+      <a href="../tag/jupyter.html">jupyter</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="../tag/jupyter-hub.html">jupyter hub</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="../tag/jupyter-notebooks.html">jupyter notebooks</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="../tag/micropython.html">micropython</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="../tag/pelican.html">pelican</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="../tag/python.html">python</a>
     </li>
   </ul>
 </li>
@@ -596,15 +600,15 @@ df = pd.read_csv(&#39;data.csv&#39;, header =0)
       </div>
    </div>
 </footer>
-<script src="/theme/js/jquery.min.js"></script>
+<script src="../theme/js/jquery.min.js"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/theme/js/bootstrap.min.js"></script>
+<script src="../theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="/theme/js/respond.min.js"></script>
+<script src="../theme/js/respond.min.js"></script>
 
-    <script src="/static/js/custom.js"></script>
+    <script src="../static/js/custom.js"></script>
 
 
 <!-- GitHub JS Code -->
@@ -613,7 +617,7 @@ $(document).ready(function () {
   if (!window.jXHR) {
     var jxhr = document.createElement('script');
     jxhr.type = 'text/javascript';
-    jxhr.src = '/theme/js/jXHR.js';
+    jxhr.src = '../theme/js/jXHR.js';
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(jxhr, s);
   }
@@ -626,7 +630,7 @@ $(document).ready(function () {
   });
 });
 </script>
-<script src="/theme/js/github.js" type="text/javascript"></script>
+<script src="../theme/js/github.js" type="text/javascript"></script>
 <!-- End GitHub JS Code -->
     <!-- Google Analytics -->
     <script type="text/javascript">

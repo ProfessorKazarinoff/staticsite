@@ -14,7 +14,7 @@ Crank and Rocker motion is one of the classic dynamic types of motion that belon
 
 To start this process, we will set up a virtual environment on python. 
 
-Real Python has a good [introduciton to virtual environments](https://realpython.com/blog/python/python-virtual-environments-a-primer/) and why to use them.
+Real Python has a good [introduction to virtual environments](https://realpython.com/blog/python/python-virtual-environments-a-primer/) and why to use them.
 
 Using the terminal:
 ```bash

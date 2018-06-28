@@ -1,4 +1,4 @@
-Title: Plotting Stress Strain Curves of Two Metals with Python and matplotlib
+Title: Plotting the Stress Strain Curves of Two Metals with Python and matplotlib
 Date: 2018-05-30 09:01
 Modified: 2018-05-30 09:01
 Status: Draft

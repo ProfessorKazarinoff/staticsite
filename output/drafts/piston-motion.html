@@ -291,31 +291,48 @@ Python for Undergraduate Engineers            </a>
                 </div>
                 <p>Piston motion is one of the classic dynamic types of motion that belong to a category of 4-bar motion. Piston motion is the type of motion that the piston in a cylinder of a car engine goes through as the crankshaft rotates. </p>
 <h2 id="set-up-a-python-virtual-environment">Set up a python virtual environment</h2>
-<p>To start this process, we will set up a virtual environment on python. </p>
-<p>Real Python has a good <a href="https://realpython.com/blog/python/python-virtual-environments-a-primer/">introduciton to virtual environments</a> and why to use them.</p>
-<p>Using the terminal:</p>
+<p>To start this process, we will set up a virtual environment in Python.</p>
+<p>Real Python has a good <a href="https://realpython.com/blog/python/python-virtual-environments-a-primer/">introduction to virtual environments</a> and why to use them.</p>
+<p>I recommend undergraduate engineers use the Anaconda distribution of Python which comes with the <strong>Anaconda Prompt</strong>. A new virtual environment can be set up by opening the <strong>Anaconda Prompt</strong> and typing:</p>
+<p>Using the Anaconda Prompt:</p>
+<div class="highlight"><pre><span></span>&gt; mkdir piston_motion
+&gt; cd piston_motion
+&gt; conda create -n piston_motion python=3.6
+</pre></div>
+
+
+<p>Alternatively, a virtual environment can be set up with a terminal prompt and <strong>pip</strong></p>
+<p>Using a terminal:</p>
 <div class="highlight"><pre><span></span>$ mkdir piston_motion
-$ <span class="nb">cd</span> piston_motion
+$ cd piston_motion
 $ mkvirtualenv piston_motion -p python3
 </pre></div>
 
 
-<p>Now that we have the a new clean virtual environment with Python 3 installed, we need to install the necessary packages</p>
-<div class="highlight"><pre><span></span>$ workon piston_motion
-<span class="o">(</span>piston_motion<span class="o">)</span> $ pip install numpy
-<span class="o">(</span>piston_motion<span class="o">)</span> $ pip install matplotlib
-<span class="o">(</span>piston_motion<span class="o">)</span> $ pip freeze
-<span class="nv">cycler</span><span class="o">==</span><span class="m">0</span>.10.0
-<span class="nv">matplotlib</span><span class="o">==</span><span class="m">2</span>.0.2
-<span class="nv">numpy</span><span class="o">==</span><span class="m">1</span>.13.1
-<span class="nv">pyparsing</span><span class="o">==</span><span class="m">2</span>.2.0
-python-dateutil<span class="o">==</span><span class="m">2</span>.6.1
-<span class="nv">pytz</span><span class="o">==</span><span class="m">2017</span>.2
-<span class="nv">six</span><span class="o">==</span><span class="m">1</span>.10.0
+<p>Now that we have a new clean virtual environment with Python 3 installed, we need to install the necessary packages:</p>
+<p>Using the Anaconda Prompt, activate the <code>piston_motion</code> virtual environment and use conda to install the Python Packages:</p>
+<div class="highlight"><pre><span></span>&gt; conda activate piston_motion
+(piston_motion) &gt; conda install numpy
+(piston_motion) &gt; conda install matplotlib
 </pre></div>
 
 
-<p>Open a text editor or IDLE and start a new python file called <code>piston_motion.py</code>
+<p>Alternatively, the packages can be installed with <strong>pip</strong>:</p>
+<div class="highlight"><pre><span></span>$ workon piston_motion
+(piston_motion) $ pip install numpy
+(piston_motion) $ pip install matplotlib
+(piston_motion) $ pip freeze
+cycler==0.10.0
+matplotlib==2.0.2
+numpy==1.13.1
+pyparsing==2.2.0
+python-dateutil==2.6.1
+pytz==2017.2
+six==1.10.0
+</pre></div>
+
+
+<p>Next, open a text editor or IDLE and start a new python file called <code>piston_motion.py</code>
 We will start our script by importing the necessary modules</p>
 <div class="highlight"><pre><span></span><span class="c1">#import necessary packages</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
@@ -330,7 +347,74 @@ We will start our script by importing the necessary modules</p>
 r = 1.0  # crank radius
 l = 4.0  # connecting rod length
 rot_num = 4 # number of crank rotations
-increment = 0.1 # angle incremement
+increment = 0.1 # angle increment
+</pre></div>
+
+
+<p>Next we'll create an array of angles starting from zero radians up to the number of rotations (times 2 pi radians), stepping by our increment amount. Numpy's <code>np.arange()</code> function accepts the arguments <code>(start,stop,step)</code>. Python starts counting at zero and ends counting at n-1. Numpy follows this counting convention, so if we want the final value in angle array to be <code>rot_num*2*pi</code> we need to add the increment amount to it and set the stop argument as <code>rot_num*2*pi+increment</code>.</p>
+<div class="highlight"><pre><span></span>#create the angle array, where the last angle is the number of rotations*2*pi
+angles = np.arange(0,rot_num*2*pi+increment,increment)
+</pre></div>
+
+
+<p>Once we have all the rotation angles in an array, we can set up empty arrays for the points in our animation. These point arrays need to have the same number of entries as the angle array:</p>
+<div class="highlight"><pre><span></span>X1=np.zeros(len(angle)) # array of crank x-positions: Point 1
+Y1=np.zeros(len(angle)) # array of crank y-positions: Point 1
+X2=np.zeros(len(angle)) # array of rod x-positions: Point 2
+Y2=np.zeros(len(angle)) # array of rod y-positions: Point 2
+</pre></div>
+
+
+<p>Now we will populate the point arrays with values according to the geometry of piston motion:</p>
+<div class="highlight"><pre><span></span>#find the crank and connecting rod positions for each angle
+for index, theta in enumerate(angles):
+
+        x1 = r*cos(theta) # x-coordinate of the crank: Point 1
+        y1 = r*sin(theta) # y-coordinate of the crank: Point 1
+        x2 = 0 # x-coordinate of the rod: Point 2
+        # y-coordinate of the rod: Point 2
+        y2 = ((r*cos(theta-pi/2)) + (sqrt((l**2)-(r**2)*((sin(theta-pi/2))**2))))
+
+        X1[index]=x1 #grab the crank x-position
+        Y1[index]=y1 #grab the crank y-position
+        X2[index]=x2 #grab the rod x-position
+        Y2[index]=y2 #grab the rod y-position
+</pre></div>
+
+
+<p>With the point arrays full, we have the values necessary to build the animation, and we can start building the animation using these points. It is important to set <code>aspect='equal'</code> and <code>autoscale_on=False</code> otherwise the x and y axies will not have the same scale the animation will look ovoid instead of circular.</p>
+<div class="highlight"><pre><span></span># set up the figure and subplot
+fig = plt.figure()
+ax = fig.add_subplot(111, aspect=&#39;equal&#39;, autoscale_on=False, xlim=(-4,4), ylim=(-2,6))
+ax.grid()
+line, = ax.plot([], [], &#39;o-&#39;, lw=5, color=&#39;g&#39;)
+</pre></div>
+
+
+<p>The animation requires an initialization function:</p>
+<div class="highlight"><pre><span></span># initialization function
+def init():
+        line.set_data([], [])
+        return line,
+</pre></div>
+
+
+<p>Finally on to building the animation function and showing it.</p>
+<div class="highlight"><pre><span></span># animation function
+def animate(i):
+        thisx = [0, X1[i], X2[i]]
+        thisy = [0, Y1[i], Y2[i]]
+
+        line.set_data(thisx, thisy)
+        return line,
+
+# call the animation
+ani = animation.FuncAnimation(fig, animate, init_func=init, frames=len(X1), interval=20, blit=True, repeat=False)
+## to save animation, uncomment the line below:
+## ani.save(&#39;piston_motion.mp4&#39;, fps=30, extra_args=[&#39;-vcodec&#39;, &#39;libx264&#39;])
+
+#show the animation
+plt.show()
 </pre></div>
             </div>
             <!-- /.entry-content -->

@@ -334,7 +334,7 @@ six==1.10.0
 
 <p>Next, open a text editor or IDLE and start a new python file called <code>piston_motion.py</code>
 We will start our script by importing the necessary modules</p>
-<div class="highlight"><pre><span></span><span class="c1">#import necessary packages</span>
+<div class="highlight"><pre><span></span><span class="c1"># import necessary packages</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">pi</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">sqrt</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
@@ -343,7 +343,7 @@ We will start our script by importing the necessary modules</p>
 
 
 <p>To model piston motion we need to have two moving parts. One is the crankshaft. The crankshaft rotates around a central axis with a constant radius. We will model this with a line of constant length, one end fixed at the origin and the other rotating in a circle like the hand on a clock. To model this line, we just need two points, the origin at x=0 and y=0  and the end of the line at the point <code>x1</code> and <code>x2</code>. We also need to have a crank radius and a connecting rode length. We will define these constants at the top of our code. So that the animation does not run around indefininelty we will set a fixed number of rotations.  The rotation increment defines how fine the 'ticks' are as our crankshaft arm rotates. 0.1 will work to make the animation smooth enough.</p>
-<div class="highlight"><pre><span></span>#input parameters
+<div class="highlight"><pre><span></span># input parameters
 r = 1.0  # crank radius
 l = 4.0  # connecting rod length
 rot_num = 4 # number of crank rotations
@@ -352,7 +352,7 @@ increment = 0.1 # angle increment
 
 
 <p>Next we'll create an array of angles starting from zero radians up to the number of rotations (times 2 pi radians), stepping by our increment amount. Numpy's <code>np.arange()</code> function accepts the arguments <code>(start,stop,step)</code>. Python starts counting at zero and ends counting at n-1. Numpy follows this counting convention, so if we want the final value in angle array to be <code>rot_num*2*pi</code> we need to add the increment amount to it and set the stop argument as <code>rot_num*2*pi+increment</code>.</p>
-<div class="highlight"><pre><span></span>#create the angle array, where the last angle is the number of rotations*2*pi
+<div class="highlight"><pre><span></span># create the angle array, where the last angle is the number of rotations*2*pi
 angles = np.arange(0,rot_num*2*pi+increment,increment)
 </pre></div>
 
@@ -366,7 +366,7 @@ Y2=np.zeros(len(angle)) # array of rod y-positions: Point 2
 
 
 <p>Now we will populate the point arrays with values according to the geometry of piston motion:</p>
-<div class="highlight"><pre><span></span>#find the crank and connecting rod positions for each angle
+<div class="highlight"><pre><span></span># find the crank and connecting rod positions for each angle
 for index, theta in enumerate(angles):
 
         x1 = r*cos(theta) # x-coordinate of the crank: Point 1
@@ -416,6 +416,12 @@ ani = animation.FuncAnimation(fig, animate, init_func=init, frames=len(X1), inte
 #show the animation
 plt.show()
 </pre></div>
+
+
+<p>The resulting animation comes out as:</p>
+<iframe width="560" height="315"
+src="https://www.youtube.com/embed/D6Ac5JpCHmI?" frameborder="0"
+allowfullscreen></iframe>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">

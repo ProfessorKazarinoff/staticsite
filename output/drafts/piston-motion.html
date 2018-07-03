@@ -152,7 +152,7 @@ div.collapseheader {
 
 </style>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
 <script type="text/javascript">
 init_mathjax = function() {
     if (window.MathJax) {
@@ -162,7 +162,7 @@ init_mathjax = function() {
                 inlineMath: [ ['$','$'], ["\\(","\\)"] ],
                 displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
             },
-            displayAlign: 'center', // Change this to 'center' to center equations.
+            displayAlign: 'left', // Change this to 'center' to center equations.
             "HTML-CSS": {
                 styles: {'.MathJax_Display': {"margin": 0}}
             }
@@ -416,12 +416,6 @@ ani = animation.FuncAnimation(fig, animate, init_func=init, frames=len(X1), inte
 #show the animation
 plt.show()
 </pre></div>
-
-
-<p>The resulting animation comes out as:</p>
-<iframe width="560" height="315"
-src="https://www.youtube.com/embed/D6Ac5JpCHmI?" frameborder="0"
-allowfullscreen></iframe>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">

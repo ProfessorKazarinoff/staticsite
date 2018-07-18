@@ -19,6 +19,7 @@ STATIC_PATHS = ['images','extra',
                 'code','code/circuit_diagrams',
                 'posts/jupyter',
                 'posts/jupyterhub',
+                'posts/fairtalk'
                 'posts/matplotlib/images',
                 'posts/schemdraw',]  # removed this, see if any change 'code',
 PLUGIN_PATHS = ['pelican-plugins']

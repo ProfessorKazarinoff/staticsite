@@ -82,6 +82,7 @@ Once the whole Micropython repo is cloned locally, the mpy-cross tool needs to b
 $ cd ~/micropython
 $ make -C mpy-cross
 $ cd ports/esp8266
+# if building firmware for the second time run $ make clean
 $ make axtls
 $ make
 ```

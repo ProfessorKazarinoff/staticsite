@@ -66,7 +66,7 @@ In the Putty Serial Window, we will import the ```machine``` module and then cre
 >>> temp = (value & 0xFFF) / 16.0
 >>> if value & 0x1000:
 ...     temp -= 256.0
-.....   print(temp)
+...     print(temp)
 ```
 
 ## Next steps:

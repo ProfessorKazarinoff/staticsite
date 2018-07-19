@@ -178,14 +178,14 @@ init_mathjax();
 
         <meta name="author" content="Peter D. Kazarinoff" />
         <meta name="keywords" content="python,micropython,esp8266,microcontroller,WiFi" />
-        <meta name="description" content="This is the fifth part of a multipart series on Micropython. In the last post we used the Python REPL (the Python prompt) running on the Adafruit Feather Huzzah ESP8266 board to read the temperature off a temperature sensor. In this post, we are going to connect the Feather board …" />
+        <meta name="description" content="This is the fifth part of a multipart series on Micropython. In the last post we used the Micropython REPL (the Python prompt) running on the Adafruit Feather Huzzah ESP8266 board to read the temperature off a temperature sensor. In this post, we are going to connect the Feather board to WiFi and post the temperature to ThingSpeak.com" />
 
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="Connecting to WiFi using Micropython on an Adadfruit Feather Huzzah ESP8266"/>
         <meta property="og:url" content="/drafts/micropython-wifi.html"/>
-        <meta property="og:description" content="This is the fifth part of a multipart series on Micropython. In the last post we used the Python REPL (the Python prompt) running on the Adafruit Feather Huzzah ESP8266 board to read the temperature off a temperature sensor. In this post, we are going to connect the Feather board …"/>
-        <meta property="article:published_time" content="2018-02-17" />
+        <meta property="og:description" content="This is the fifth part of a multipart series on Micropython. In the last post we used the Micropython REPL (the Python prompt) running on the Adafruit Feather Huzzah ESP8266 board to read the temperature off a temperature sensor. In this post, we are going to connect the Feather board to WiFi and post the temperature to ThingSpeak.com"/>
+        <meta property="article:published_time" content="2018-07-19" />
             <meta property="article:section" content="micropython" />
             <meta property="article:tag" content="python" />
             <meta property="article:tag" content="micropython" />
@@ -275,11 +275,11 @@ Python for Undergraduate Engineers            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2018-02-17T09:01:00-08:00"> Sat 17 February 2018</time>
+        <i class="fa fa-calendar"></i><time datetime="2018-07-19T09:01:00-07:00"> Thu 19 July 2018</time>
     </span>
 
             <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x00000219E233BA30> of 
+            Part <built-in method index of str object at 0x000001F23F6920F0> of 
 
 
 
@@ -297,50 +297,104 @@ Python for Undergraduate Engineers            </a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>This is the fifth part of a multipart series on Micropython. In the last post we used the Python REPL (the Python prompt) running on the Adafruit Feather Huzzah ESP8266 board to read the temperature off a temperature sensor. In this post, we are going to connect the Feather board to WiFi and post the temperature to ThingSpeak.com</p>
-<p>Before we can connect the Adafruit Feather Huzzah to WiFi, micropython needs to be installed on the board and Putty needs to be installed to communicate with the board over serial. See a <a href="/micropython-install.html">previous post</a> to install micropython on your board and Putty on a Windows machine.</p>
+                <p>This is the fifth part of a multipart series on Micropython. In the last post we used the Micropython REPL (the Python prompt) running on the Adafruit Feather Huzzah ESP8266 board to read the temperature off a temperature sensor. In this post, we are going to connect the Feather board to WiFi and post the temperature to ThingSpeak.com</p>
+<p>Before we can connect the Adafruit Feather Huzzah to WiFi, Micropython needs to be installed on the board and Putty needs to be installed to communicate with the board over serial. See a <a href="/micropython-install.html">previous post</a> to see how to install Micropython on an ESP8266 board and how to install Putty on a Windows 10 machine.</p>
 <p>Summary of Steps:</p>
 <ol>
 <li>Wire up the temperature sensor to the Adafruit Feather Huzzah</li>
 <li>Connect the Adafruit Feather Huzzah to the computer, open Putty at 115200 baud</li>
 <li>Run commands at the Micropython REPL to connect the board to WiFi</li>
-<li>Upload a piece of data to ThingSpeak.com</li>
+<li>Upload temperature data to ThingSpeak.com</li>
 </ol>
 <h3 id="1-wire-up-the-temperature-sensor-to-the-adafruit-feather-huzzah">1. Wire up the temperature sensor to the Adafruit Feather Huzzah</h3>
 <p>Wire up the temperature sensor to the Adafruit Feather Huzzah as shown in a <a href="/micropython-temp-sensor.html">previous post</a></p>
 <p><img alt="Fritzing Diagram" src="/posts/micropython/feather_huzzah_temp_sensor_fritzing.png"></p>
-<h3 id="2-connect-the-adafruit-feather-huzzah-esp8266-board-and-open-putty">2. Connect the Adafruit Feather Huzzah ESP8266 board and Open Putty</h3>
+<h3 id="2-connect-the-adafruit-feather-huzzah-esp8266-board-and-open-putty">2. Connect the Adafruit Feather Huzzah ESP8266 board and open Putty</h3>
 <p>Connect the Feather using a USB data cable. Open Putty. Ensure the serial port is set correctly the baud rate is set to 115200.</p>
 <p><img alt="Putty config" src="/posts/micropython/putty_config.PNG"></p>
 <h3 id="3-run-commands-at-the-micropython-repl-to-connect-the-board-to-wifi">3. Run commands at the micropython REPL to connect the board to WiFi</h3>
 <p>To connect the ESP8266 to a WiFi network, we first need to import the <code>network</code> module and create an instance of the <code>WLAN</code> module. Next we use the <code>connect</code> method and our WiFi network's SSID and password to logon. We want to run our ESP8266 in station mode (like a laptop or phone) as opposed to access point mode (like a server). We can print the IP address of the board using the <code>ifconfig()</code> method.</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">network</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">sta_if</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">WLAN</span><span class="p">(</span><span class="n">network</span><span class="o">.</span><span class="n">STA_IF</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">sta_if</span><span class="o">.</span><span class="n">active</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">sta_if</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">SSID</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="s1">&#39;network config:&#39;</span><span class="p">,</span> <span class="n">sta_if</span><span class="o">.</span><span class="n">ifconfig</span><span class="p">())</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; import network
+&gt;&gt;&gt; sta_if = network.WLAN(network.STA_IF)
+&gt;&gt;&gt; sta_if.active(True)
+&gt;&gt;&gt; sta_if.connect(&#39;SSID&#39;, &#39;password&#39;)
+&gt;&gt;&gt; print(&#39;network config:&#39;, sta_if.ifconfig())
 </pre></div>
 
 
-<p>Now that we are connected to the network, it what we really want to do is read a webpage. Micropython does this with <strong>sockets</strong> . A socket is a connection between the ESP8266 and the outside internet. </p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">socket</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://google.com&#39;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">path</span> <span class="o">=</span> <span class="n">url</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">addr</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">getaddrinfo</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="mi">80</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">()</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">addr</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="nb">bytes</span><span class="p">(</span><span class="s1">&#39;GET /</span><span class="si">%s</span><span class="s1"> HTTP/1.0</span><span class="se">\r\n</span><span class="s1">Host: </span><span class="si">%s</span><span class="se">\r\n\r\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">host</span><span class="p">),</span> <span class="s1">&#39;utf8&#39;</span><span class="p">))</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
-<span class="o">....</span>   <span class="n">data</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
-<span class="o">....</span>   <span class="k">if</span> <span class="n">data</span><span class="p">:</span>
-<span class="o">....</span>       <span class="k">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;utf8&#39;</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-<span class="o">....</span>   <span class="k">else</span><span class="p">:</span>
-<span class="o">....</span>       <span class="k">break</span>
+<p>Now that the board is connected to a WiFi network, we can use the Feather board to read a webpage. Micropython does this with <strong>sockets</strong> . A socket is a connection between the ESP8266 and the outside internet.</p>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; import socket
+&gt;&gt;&gt; url = &#39;https://google.com&#39;
+&gt;&gt;&gt; _, _, host, path = url.split(&#39;/&#39;, 3)
+&gt;&gt;&gt; addr = socket.getaddrinfo(host, 80)[0][-1]
+&gt;&gt;&gt; s = socket.socket()
+&gt;&gt;&gt; s.connect(addr)
+&gt;&gt;&gt; s.send(bytes(&#39;GET /%s HTTP/1.0\r\nHost: %s\r\n\r\n&#39; % (path, host), &#39;utf8&#39;))
+&gt;&gt;&gt; while True:
+....   data = s.recv(100)
+....   if data:
+....       print(str(data, &#39;utf8&#39;), end=&#39;&#39;)
+....   else:
+....       break
 </pre></div>
 
 
 <h3 id="4-upload-to-thingspeakcom">4. Upload to ThingSpeak.com</h3>
-<p>Now imagine that our weather station is up and workinging. It has a temperature sensor and the measured temperature is 21*C. We are going to push this temperature data reading up to ThingSpeak.com. We will do this using an http GET request in the format of the ThingSpeak API. Sign up for a ThingSpeak.com account and create a new channel. In the channel create a new field called temperture. Note the ThingSpeak channel number and ThingSpeak write API key. Both of these will be needed to send our temperature up to ThingSpeak.</p>
+<p>Now imagine that our weather station is up and working. It has a temperature sensor and the measured temperature is 21*C. We are going to push this temperature data reading up to ThingSpeak.com. ThingSpeak.com is an internet of things (IoT) cloud provider. We'll  upload the temperature to ThingSpeak.com using an http GET request in the format required by ThingSpeak API.</p>
+<p>Sign up for a ThingSpeak.com account and create a new channel. In the channel create a new field called temperture. Note the ThingSpeak channel number and ThingSpeak write API key. Both of these will be needed to send our temperature up to ThingSpeak.</p>
+<p>At the Micropython prompt, we'll build a new fuction called <code>http_get()</code> which will initiate an http GET action by the Feather Board. We can then feed this <code>http_get()</code> function a specific URL that will activate the ThingSpeak API and post the temperature.</p>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; def http_get(url):
+...    import socket
+...    _, _, host, path = url.split(&#39;/&#39;, 3)
+...    addr = socket.getaddrinfo(host, 80)[0][-1]
+...    s = socket.socket()
+...    s.connect(addr)
+...    s.send(bytes(&#39;GET /%s HTTP/1.0\r\nHost: %s\r\n\r\n&#39; % (path, host), &#39;utf8&#39;))
+...    while True:
+...        data = s.recv(100)
+...        if data:
+...            print(str(data, &#39;utf8&#39;), end=&#39;&#39;)
+...        else:
+...            break
+</pre></div>
+
+
+<p>Now we need to build the URL that will call the ThingSpeak web API. The URL contains four parts: A base domain, an API key, a field number and data. Let's assume our temperature data is 21 (for 21 degrees C). We can build these multiple parts as strings in Micropython and then combine the parts to create one long URL.</p>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; base_url = &#39;https://api.thingspeak.com/update&#39;
+&gt;&gt;&gt; API_key = &#39;?api_key=XXXXXXXXXXXXXX&#39;
+&gt;&gt;&gt; field = &#39;&amp;field1=&#39;
+&gt;&gt;&gt; data = &#39;21&#39;
+&gt;&gt;&gt; url = base_url + API_key + field + data
+</pre></div>
+
+
+<p>Now we can use the http_get function and our URL to send the temperature 21 up to ThingSpeak.com</p>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; http_get(url)
+</pre></div>
+
+
+<p>If you go to ThingSpeak.com/<your channel number>, you should see this temperature point. Now let's read an actual temperature off of the temperature sensor and send that value up to ThingSpeak.</p>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; import machine
+&gt;&gt;&gt; i2c = machine.I2C(scl=machine.Pin(5), sda=machine.Pin(4))
+&gt;&gt;&gt; byte_data = bytearray(2)
+&gt;&gt;&gt; i2c.readfrom_mem_into(24, 5, byte_data)
+&gt;&gt;&gt; value = byte_data[0] &lt;&lt; 8 | byte_data[1]
+&gt;&gt;&gt; temp = (value &amp; 0xFFF) / 16.0
+&gt;&gt;&gt; if value &amp; 0x1000:
+...     temp -= 256.0
+...     print(temp)
+&gt;&gt;&gt; base_url = &#39;https://api.thingspeak.com/update&#39;
+&gt;&gt;&gt; API_key = &#39;?api_key=XXXXXXXXXXXXXX&#39;
+&gt;&gt;&gt; field = &#39;&amp;field1=&#39;
+&gt;&gt;&gt; data = str(temp)
+&gt;&gt;&gt; url = base_url + API_key + field + data
+&gt;&gt;&gt; http_get(url)
+</pre></div>
+
+
+<p>Another data point should now be up on ThingSpeak.com.</p>
+<h3 id="next-steps">Next steps</h3>
+<p>Pretty amazing to have a little piece of hardware like the Feather Huzzah ESP8266 wirelessly upload a temperature measurement. It did require a lot of typing at the Micropython REPL though. In the next post, we'll build a couple of <strong>_.py__</strong> files to save the functions we wrote to read the temperature, build the URL and complete the http GET request.</p>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">
@@ -354,7 +408,7 @@ Python for Undergraduate Engineers            </a>
     </ul>
 </section>
 <section class="well" id="related-posts">
-    <h4>Article <built-in method index of str object at 0x00000219E233BA30> of the  series</h4>
+    <h4>Article <built-in method index of str object at 0x000001F23F6920F0> of the  series</h4>
 </section>
         </article>
     </section>

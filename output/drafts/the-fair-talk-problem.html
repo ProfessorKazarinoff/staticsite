@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>Connecting to WiFi using Micropython on an Adadfruit Feather Huzzah ESP8266 - Python for Undergraduate Engineers</title>
+    <title>The Fair Talk Problem - Python for Undergraduate Engineers</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -174,24 +174,22 @@ init_mathjax();
 </script>
     <link href="/extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="/drafts/micropython-wifi.html">
+<link rel="canonical" href="/drafts/the-fair-talk-problem.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
-        <meta name="keywords" content="python,micropython,esp8266,microcontroller,WiFi" />
-        <meta name="description" content="This is the fifth part of a multipart series on Micropython. In the last post we used the Python REPL (the Python prompt) running on the Adafruit Feather Huzzah ESP8266 board to read the temperature off a temperature sensor. In this post, we are going to connect the Feather board …" />
+        <meta name="keywords" content="python,micropython,ESP8266" />
+        <meta name="description" content="What exactly is the problem that needs to be solved with Fair Talk? Where and when does the problem take place and who does it effect?" />
 
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
-        <meta property="og:title" content="Connecting to WiFi using Micropython on an Adadfruit Feather Huzzah ESP8266"/>
-        <meta property="og:url" content="/drafts/micropython-wifi.html"/>
-        <meta property="og:description" content="This is the fifth part of a multipart series on Micropython. In the last post we used the Python REPL (the Python prompt) running on the Adafruit Feather Huzzah ESP8266 board to read the temperature off a temperature sensor. In this post, we are going to connect the Feather board …"/>
-        <meta property="article:published_time" content="2018-02-17" />
-            <meta property="article:section" content="micropython" />
+        <meta property="og:title" content="The Fair Talk Problem"/>
+        <meta property="og:url" content="/drafts/the-fair-talk-problem.html"/>
+        <meta property="og:description" content="What exactly is the problem that needs to be solved with Fair Talk? Where and when does the problem take place and who does it effect?"/>
+        <meta property="article:published_time" content="2018-07-16" />
+            <meta property="article:section" content="micopython" />
             <meta property="article:tag" content="python" />
             <meta property="article:tag" content="micropython" />
-            <meta property="article:tag" content="esp8266" />
-            <meta property="article:tag" content="microcontroller" />
-            <meta property="article:tag" content="WiFi" />
+            <meta property="article:tag" content="ESP8266" />
             <meta property="article:author" content="Peter D. Kazarinoff" />
 
 
@@ -255,17 +253,17 @@ Python for Undergraduate Engineers            </a>
         <div class="col-sm-9">
             <ol class="breadcrumb">
                 <li><a href="" title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="/category/micropython.html" title="micropython">micropython</a></li>
-                <li class="active">Connecting to WiFi using Micropython on an Adadfruit Feather Huzzah ESP8266</li>
+                <li><a href="/category/micopython.html" title="micopython">micopython</a></li>
+                <li class="active">The Fair Talk Problem</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="/drafts/micropython-wifi.html"
+                    <a href="/drafts/the-fair-talk-problem.html"
                        rel="bookmark"
-                       title="Permalink to Connecting to WiFi using Micropython on an Adadfruit Feather Huzzah ESP8266">
-                        Connecting to WiFi using Micropython on an Adadfruit Feather Huzzah ESP8266
+                       title="Permalink to The Fair Talk Problem">
+                        The Fair Talk Problem
                     </a>
                 </h1>
             </header>
@@ -275,11 +273,9 @@ Python for Undergraduate Engineers            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2018-02-17T09:01:00-08:00"> Sat 17 February 2018</time>
+        <i class="fa fa-calendar"></i><time datetime="2018-07-16T10:15:00-07:00"> Mon 16 July 2018</time>
     </span>
 
-            <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x00000219E233BA30> of 
 
 
 
@@ -289,72 +285,33 @@ Python for Undergraduate Engineers            </a>
         /
 	<a href="/tag/micropython.html">micropython</a>
         /
-	<a href="/tag/esp8266.html">esp8266</a>
-        /
-	<a href="/tag/microcontroller.html">microcontroller</a>
-        /
-	<a href="/tag/wifi.html">WiFi</a>
+	<a href="/tag/esp8266.html">ESP8266</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>This is the fifth part of a multipart series on Micropython. In the last post we used the Python REPL (the Python prompt) running on the Adafruit Feather Huzzah ESP8266 board to read the temperature off a temperature sensor. In this post, we are going to connect the Feather board to WiFi and post the temperature to ThingSpeak.com</p>
-<p>Before we can connect the Adafruit Feather Huzzah to WiFi, micropython needs to be installed on the board and Putty needs to be installed to communicate with the board over serial. See a <a href="/micropython-install.html">previous post</a> to install micropython on your board and Putty on a Windows machine.</p>
-<p>Summary of Steps:</p>
-<ol>
-<li>Wire up the temperature sensor to the Adafruit Feather Huzzah</li>
-<li>Connect the Adafruit Feather Huzzah to the computer, open Putty at 115200 baud</li>
-<li>Run commands at the Micropython REPL to connect the board to WiFi</li>
-<li>Upload a piece of data to ThingSpeak.com</li>
-</ol>
-<h3 id="1-wire-up-the-temperature-sensor-to-the-adafruit-feather-huzzah">1. Wire up the temperature sensor to the Adafruit Feather Huzzah</h3>
-<p>Wire up the temperature sensor to the Adafruit Feather Huzzah as shown in a <a href="/micropython-temp-sensor.html">previous post</a></p>
-<p><img alt="Fritzing Diagram" src="/posts/micropython/feather_huzzah_temp_sensor_fritzing.png"></p>
-<h3 id="2-connect-the-adafruit-feather-huzzah-esp8266-board-and-open-putty">2. Connect the Adafruit Feather Huzzah ESP8266 board and Open Putty</h3>
-<p>Connect the Feather using a USB data cable. Open Putty. Ensure the serial port is set correctly the baud rate is set to 115200.</p>
-<p><img alt="Putty config" src="/posts/micropython/putty_config.PNG"></p>
-<h3 id="3-run-commands-at-the-micropython-repl-to-connect-the-board-to-wifi">3. Run commands at the micropython REPL to connect the board to WiFi</h3>
-<p>To connect the ESP8266 to a WiFi network, we first need to import the <code>network</code> module and create an instance of the <code>WLAN</code> module. Next we use the <code>connect</code> method and our WiFi network's SSID and password to logon. We want to run our ESP8266 in station mode (like a laptop or phone) as opposed to access point mode (like a server). We can print the IP address of the board using the <code>ifconfig()</code> method.</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">network</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">sta_if</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">WLAN</span><span class="p">(</span><span class="n">network</span><span class="o">.</span><span class="n">STA_IF</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">sta_if</span><span class="o">.</span><span class="n">active</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">sta_if</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">SSID</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="s1">&#39;network config:&#39;</span><span class="p">,</span> <span class="n">sta_if</span><span class="o">.</span><span class="n">ifconfig</span><span class="p">())</span>
-</pre></div>
-
-
-<p>Now that we are connected to the network, it what we really want to do is read a webpage. Micropython does this with <strong>sockets</strong> . A socket is a connection between the ESP8266 and the outside internet. </p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">socket</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://google.com&#39;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">path</span> <span class="o">=</span> <span class="n">url</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">addr</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">getaddrinfo</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="mi">80</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">()</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">addr</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="nb">bytes</span><span class="p">(</span><span class="s1">&#39;GET /</span><span class="si">%s</span><span class="s1"> HTTP/1.0</span><span class="se">\r\n</span><span class="s1">Host: </span><span class="si">%s</span><span class="se">\r\n\r\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">host</span><span class="p">),</span> <span class="s1">&#39;utf8&#39;</span><span class="p">))</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
-<span class="o">....</span>   <span class="n">data</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
-<span class="o">....</span>   <span class="k">if</span> <span class="n">data</span><span class="p">:</span>
-<span class="o">....</span>       <span class="k">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;utf8&#39;</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-<span class="o">....</span>   <span class="k">else</span><span class="p">:</span>
-<span class="o">....</span>       <span class="k">break</span>
-</pre></div>
-
-
-<h3 id="4-upload-to-thingspeakcom">4. Upload to ThingSpeak.com</h3>
-<p>Now imagine that our weather station is up and workinging. It has a temperature sensor and the measured temperature is 21*C. We are going to push this temperature data reading up to ThingSpeak.com. We will do this using an http GET request in the format of the ThingSpeak API. Sign up for a ThingSpeak.com account and create a new channel. In the channel create a new field called temperture. Note the ThingSpeak channel number and ThingSpeak write API key. Both of these will be needed to send our temperature up to ThingSpeak.</p>
+                <h2 id="what-is-the-fair">What is The Fair?</h2>
+<p>When I talk about <em>The Fair</em>, I mean <a href="http://www.oregoncountryfair.org/">The Oregon Country Fair</a>. The Oregon Country Fair is an annual event outside Eugene, Oregon that is attended by about 45,000 people each year. It is sort of like a renaissance festival, music festival and craft show all in one. The Fair is in the woods in Veneta, OR just outside the city of Eugene. There are open areas that contain about stages and activities connected with walking paths that are lined with booths on either side. In total there are about 1000 booths and 20 stages. </p>
+<h2 id="what-is-the-fair-talk-problem">What is the Fair Talk Problem?</h2>
+<p>The problem is about 45,000 people all crammed into a one wooded area overwhelm the local cell phone network. If you try to text or call someone inside The Fair, the text is likely to be delayed hours (or even arrive a day late) and the voice call usually don't go through at all. Anything else that requires cell phone connectivity like google maps or browsing the internet doesn't usually work either. </p>
+<h2 id="who-does-the-fair-talk-problem-effect">Who does the Fair Talk Problem Effect?</h2>
+<p>The inability to text or call anyone inside The Fair is a problem for our family. My mother-in-law and two brothers-in-law stay on the fair grounds. My wife and kids stay with my father-in-law near The Fair, but off The Fair grounds. When we decide to meet our family somewhere in The Fair, everyone in the family has to be very specific about the time and meeting place. There is no way to change plans and let people inside The Fair know with a text or call until you see them face to face again. Texting just doesn't work reliably. </p>
+<h2 id="when-is-fair-talk-a-problem">When is Fair Talk a Problem?</h2>
+<p>The cell phone network in Venita Oregon only gets overwhelmed during The Fair. This is just three days in mid-July. Although, in the week leading up to The Fair, the cell network is still often slow too.</p>
+<h2 id="what-are-some-of-the-physical-constraints-to-the-fair-talk-problem">What are some of the Physical Constraints to the Fair Talk Problem?</h2>
+<p>There are a couple of physical constraints in the way of communicating with my extended family during The Fair. One is distance. It is approximately 1 mile between the campground in The Fair, and where my wife and I stay outside of The Fair. Another Physical constraint is trees. The Fair is in a forest and there are large douglas fir trees within The Fair grounds and surrounding the property. These fir trees can be 50 feet tall and spaced very close together. There is no direct line of site between where my wife and I stay outside the fair and the rest of the family stays in the fair. Think about the kind of forest you would find bigfoot in.  Another physical constraint is power. In The Fair, there aren't regular electrical power outlets hanging around. Charging cell phones can be a pain because there isn't anywhere to plug them in. Another constraint has to do with the phones themselves. Some people in the family have iphones and others have android phones. Cost is another limitation. The entire system of communication needs to less than $300. This is a self-imposed limit, but seems reasonable to me. </p>
+<h2 id="what-are-some-resources-available-to-solve-the-fair-talk-problem">What are some resources available to solve the Fair Talk Problem?</h2>
+<p>There are a bunch of Physical constraints, but there are also some resources that can be used. There is power at my father-in-laws house where my wife and I stay. Regular 120V wall power. I can run a fairly long electrical cord to put that power anywhere in about a 50ft radius of my father-in-law;s shop. My father-in-law also has lots of space in his yard. There is about 5 acres of space. I don't think my father-in-law will be overly concerned with a big antenna in the lawn for three days. Inside The Fair, I think that I'll have the ability to mount something within the campgrounds. </p>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">
     <h4>Related Posts:</h4>
     <ul>
         <li><a href="/micropython-temp-sensor.html">Using a Temperature Sensor with Micropython running on an Adadfruit Feather Huzzah ESP8266</a></li>
+        <li><a href="/micropython-REPL.html">Using the Micropython REPL on an Adadfruit Feather Huzzah ESP8266</a></li>
         <li><a href="/micropython-install.html">Installing Micropython on an Adadfruit Feather Huzzah ESP8266</a></li>
         <li><a href="/what-is-micropython.html">What is Micropython?</a></li>
-        <li><a href="/micropython-REPL.html">Using the Micropython REPL on an Adadfruit Feather Huzzah ESP8266</a></li>
         <li><a href="/assignments-dir-and-custom-login-page-to-jupyterhub.html">Add a custom login page and assignments directory for each user on a Jupyter Hub server</a></li>
     </ul>
-</section>
-<section class="well" id="related-posts">
-    <h4>Article <built-in method index of str object at 0x00000219E233BA30> of the  series</h4>
 </section>
         </article>
     </section>
@@ -422,15 +379,6 @@ Python for Undergraduate Engineers            </a>
   </ul>
 </li>
 <!-- End Sidebar/Tag Cloud -->
-
-<!-- Sidebar/Series -->
-<li class="list-group-item">
-  <h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Series</span></h4>
-  <ul class="list-group">
-  </ul>
-</li>
-<!-- End Sidebar/Series -->
-
 
 <!-- Sidebar/Github -->
 <li class="list-group-item">

@@ -178,14 +178,14 @@ init_mathjax();
 
         <meta name="author" content="Peter D. Kazarinoff" />
         <meta name="keywords" content="python,micropython,esp8266,microcontroller,firmware" />
-        <meta name="description" content="This is the eighth part of a multipart series on Micropython. In this last post of the series, we will uploaded micropython on a cheap $2 esp8266-01 board with only 512 kB of flash memory. It was pretty amazing that even these inexpensive boards can run micropython. The problem was …" />
+        <meta name="description" content="This is the eighth part of a multipart series on Micropython. In this last post of the series, we will uploaded Micropython on a cheap $2 esp8266-01 board. In this post we will journey down the rabbit hole of building custom firmware for the ESP-01 boards." />
 
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="Building Micropython Firmware for Two Dollar ESP8266-01 Modules"/>
         <meta property="og:url" content="/drafts/building-mircopython-firmware.html"/>
-        <meta property="og:description" content="This is the eighth part of a multipart series on Micropython. In this last post of the series, we will uploaded micropython on a cheap $2 esp8266-01 board with only 512 kB of flash memory. It was pretty amazing that even these inexpensive boards can run micropython. The problem was …"/>
-        <meta property="article:published_time" content="2018-02-17" />
+        <meta property="og:description" content="This is the eighth part of a multipart series on Micropython. In this last post of the series, we will uploaded Micropython on a cheap $2 esp8266-01 board. In this post we will journey down the rabbit hole of building custom firmware for the ESP-01 boards."/>
+        <meta property="article:published_time" content="2018-07-19" />
             <meta property="article:section" content="micropython" />
             <meta property="article:tag" content="python" />
             <meta property="article:tag" content="micropython" />
@@ -275,11 +275,11 @@ Python for Undergraduate Engineers            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2018-02-17T09:01:00-08:00"> Sat 17 February 2018</time>
+        <i class="fa fa-calendar"></i><time datetime="2018-07-19T09:01:00-07:00"> Thu 19 July 2018</time>
     </span>
 
             <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x000001FCEE1213B0> of 
+            Part <built-in method index of str object at 0x00000219E22F9BB0> of 
 
 
 
@@ -297,8 +297,8 @@ Python for Undergraduate Engineers            </a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>This is the eighth part of a multipart series on Micropython. In this last post of the series, we will uploaded micropython on a cheap $2 esp8266-01 board with only 512 kB of flash memory. It was pretty amazing that even these inexpensive boards can run micropython. The problem was that I wasn't able to load any code on the board. The Python REPL worked, but when the board was restarted all the code typed in was erased. This brought me down the rabbit hole of building custom firmware for the ESP-01 board. </p>
-<p>Getting micropython onto the little ESP-01 board with only 512 kB of flash memory was really cool. It is amazing that such a small, cheap piece of hardware car run Python. The problem was that if I want to turn the ESP-01 into something useful, it has to have a Python program running on it. The REPL worked great. But when I tried to use ampy to upload a .py file onto it, the terminal just spit out an error. After watching a couple YouTube videos on pushing micropython to adafruit boards, I thing the only way to get a .py file on the ESP-01 is to have the .py file baked into the firmware. How hard can that be? Pretty hard actually. Building custom firmware is kind of a daunting task. Here's how I finally got it to work.</p>
+                <p>This is the eighth part of a multipart series on Micropython. In this last post of the series, we will uploaded Micropython on a cheap $2 ESP-01 board with only 512 kB of flash memory. It is pretty amazing that even these inexpensive boards can run Micropython. The problem was that I wasn't able to load any code on the little ESP8-01 board. The Python REPL worked, but when the board was restarted all the code typed in was erased. This brought me down the rabbit hole of building custom firmware for the ESP-01 board. </p>
+<p>Getting Micropython onto the little ESP-01 board with only 512 kB of flash memory was really cool. It is amazing that such a small, cheap piece of hardware car run Python. The problem was that if I want to turn the ESP-01 into something useful, it has to have a Python program running on it. The REPL worked great. But when I tried to use <strong>ampy</strong> to upload a <strong><em>.py</em></strong> file onto it, the terminal just spit out an error. After watching a couple YouTube videos on pushing Micropython to Adafruit boards, I think the only way to get a <strong><em>.py</em></strong> file on the ESP-01 is to have the <strong><em>.py</em></strong> file baked into the firmware. How hard can that be? Pretty hard actually. Building custom firmware is kind of a daunting task. Here's how I finally got it to work.</p>
 <p>Summary of Steps:</p>
 <ol>
 <li>Go to the den and use the Linux Desktop running Ubuntu 16.04</li>
@@ -307,26 +307,104 @@ Python for Undergraduate Engineers            </a>
 <li>Clone the micropython repo and build the firmware</li>
 </ol>
 <h3 id="1-go-to-the-den-and-use-the-linux-desktop-running-ubuntu-1604">1. Go to the den and use the Linux Desktop running Ubuntu 16.04</h3>
-<p>I initially tried to building the micropython firmare for the ESP-01 board in a Virtual Machine running on a Windows 10 laptop. A Virtual Machine is like a computer running inside another computer. The Virtual Machine was created using Vagrant. Getting the VM up and running went fine. Cloning the github repo inside the VM worked great. But building the ESP SDK just wouldn't work. I kept getting errors and the build never completed. I have an actual linux computer in the den, so after messing around with the VM for a couple hours, I decided to just use an actual Ubuntu 16.04 box. </p>
-<h3 id="2-install-lots-of-dependancies">2. Install lots of dependancies</h3>
-<p>In order to build the micropython firmware for the ESP-01, we need toinstall a bunch of dependancies </p>
-<h3 id="3-a-neat-burried-function-in-the-micropython-firmware">3. A neat burried function in the Micropython Firmware</h3>
-<p>I couldn't figure out how much flash memory my little ESP-01 board had. I assumed they had 512 kB of flash memory. After having trouble building the special 512 kB firmware, and having no luck, I accidentally uploaded the full micropython firmware (the firmware designed for 4 MB flash modules like the ESP-12 on the Adafruit Feather Huzzah) on the little ESP-01 board. But the large firware file uploaded fine, and the REPL started and worked. Huh... I though that the full size firmware wouldn't fit on the little ESP-01 board, but it actually did. I was digging through my <code>~/micropython/ports/esp8266/modules</code> directory and tried a couple different module imports</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">ntptime</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">dir</span><span class="p">(</span><span class="n">ntptime</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">dht</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">dir</span><span class="p">(</span><span class="n">dht</span><span class="p">)</span>
+<p>I initially tried to building the Micropython firmware for the ESP-01 board in a Virtual Machine (a VM) running on a Windows 10 laptop. A Virtual Machine is like a computer running inside another computer. The Virtual Machine was created using Vagrant. Getting the VM up and running went fine. Cloning the github repo inside the VM worked great. But building the ESP SDK just wouldn't work. I kept getting errors and the build never completed. I have an actual Linux computer running Ubuntu 16.04 in my den, so after messing around with the VM for a couple hours, I decided to just use an actual Linux box.</p>
+<h3 id="2-install-the-esp-open-sdk">2. Install the ESP Open SDK</h3>
+<p>In order to build the Micropython firmware for the ESP-01. First I needed to build and install the ESP Open SDK. </p>
+<p>According to the <a href="https://github.com/micropython/micropython/tree/master/ports/esp8266">Micropython docs</a>:</p>
+<blockquote>
+<p>The tool chain required for the build is the OpenSource ESP SDK, which can be found at https://github.com/pfalcon/esp-open-sdk. Clone this repository and run make in its directory to build and install the SDK locally. Make sure to add toolchain bin directory to your PATH. Read esp-open-sdk's README for additional important information on toolchain setup.</p>
+</blockquote>
+<p>Over on pfalcon's <a href="https://github.com/micropython/micropython/tree/master/ports/esp8266">esp-open-sdk github repo README</a>, a bunch of dependencies need to be installed first before building the sdk.</p>
+<div class="highlight"><pre><span></span>$ sudo apt-get install make unrar-free autoconf automake libtool gcc g++ gperf <span class="se">\ </span>
+flex bison texinfo gawk ncurses-dev libexpat-dev python-dev python python-serial <span class="se">\</span>
+sed git unzip bash help2man wget bzip2 libtool-bin
 </pre></div>
 
 
-<p>All of the modules imported fine on the little ESP-01 board. There was one .py file in the module folder called <code>port_diag.py</code> The output from the import was pretty interesting:</p>
+<p>Next step was cloning the esp-open-sdk repo and running the make command</p>
+<div class="highlight"><pre><span></span>$ git clone --recursive https://github.com/pfalcon/esp-open-sdk.git
+$ <span class="nb">cd</span> esp-open-sdk
+$ make
+</pre></div>
+
+
+<p>pfalcon notes that the needs to be added to PATH</p>
+<blockquote>
+<p>Once you complete build process as described above, the toolchain (with the Xtensa HAL library) will be available in the xtensa-lx106-elf/ subdirectory. Add xtensa-lx106-elf/bin/ subdirectory to your PATH environment variable to execute xtensa-lx106-elf-gcc and other tools. </p>
+</blockquote>
+<p>Of the differences between Linux and Windows, the one I still have trouble wrapping my head around is messing around with PATH. Each time I need to modify PATH or make something executable from the command line, I have to hit up google and stack overflow. To add the xtensa directory PATH, I used the following commands:</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">export</span> 
+$ <span class="nb">echo</span> <span class="s1">&#39;export PATH=$PATH:~/esp-open-sdk/xtensa-lx106-elf/bin/&#39;</span> &gt;&gt; ~/.bashrc
+$ <span class="nb">source</span> ~/.bashrc
+</pre></div>
+
+
+<h3 id="3-build-micropython-firmware">3. Build Micropython firmware</h3>
+<p>With the esp-open-sdk installed, it's time to clone the main Micropython repo and build the ESP8266 firmware. Some more terminal commands did the trick.</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~
+$ git clone git@github.com:micropython/micropython.git
+$ git submodule update --init
+$ <span class="nb">cd</span> micropython
+</pre></div>
+
+
+<p>Once the whole Micropython repo is cloned locally, the mpy-cross tool needs to be built and then you can jump into the ESP8266 port and build the firmware.</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/micropython
+$ make -C mpy-cross
+$ <span class="nb">cd</span> ports/esp8266
+$ make axtls
+$ make
+</pre></div>
+
+
+<p>According to the Micropython docs, the resulting firmware file will be in the <code>/build</code> directory.</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">pwd</span>
+~/micropython/ports/esp8266
+$ <span class="nb">cd</span> build
+</pre></div>
+
+
+<p>The file to look for is <strong><em>firmware-combined.bin</em></strong>. There will be a lot of files in the build directory, but this is the one we need to upload on the ESP-01 board. </p>
+<h2 id="4-upload-the-firmware-to-the-esp-01">4. Upload the firmware to the ESP-01</h2>
+<p>First the ESP-01 needs to be wired up in bootloader mode. Once connected to USB through and FTDI addapter and wired up in bootloader mode the ESO-01 flash can be erased.</p>
+<div class="highlight"><pre><span></span>$ esptool.py --port /dev/ttyUSB0 erase_flash
+</pre></div>
+
+
+<p>With the flash memory erased, the firmware can be uploaded. You need to be in the same directory as the firmware-combined.bin file for the command to work.</p>
+<div class="highlight"><pre><span></span>$ esptool.py --port /dev/ttyUSB0 --baud <span class="m">460800</span> write_flash --flash_size<span class="o">=</span>detect <span class="m">0</span> firmware-combined.bin
+</pre></div>
+
+
+<h3 id="5-test-out-the-micropython-repl">5. Test out the Micropython REPL</h3>
+<p>After putting the ESP-01 back into regular running mode, connect to the Linux computer with the FTDI cable. Try logging in with screen and running a couple commands. The default baud rate the Micropython uses is 115200.</p>
+<div class="highlight"><pre><span></span>$ screen /dev/ttyUSB0 115200
+# [ctrl-c] to reset
+&gt;&gt;&gt; import sys
+&gt;&gt;&gt; sys.platform
+&#39;esp8266&#39;
+&gt;&gt;&gt; sys.implementation
+(name=&#39;micropython&#39;, version=(1, 9, 3))
+</pre></div>
+
+
+<h3 id="4-a-neat-buried-function-in-the-micropython-firmware">4. A neat buried function in the Micropython Firmware</h3>
+<p>I couldn't figure out how much flash memory my little ESP-01 board had. I assumed it had 512 kB of flash memory. After having trouble building the special 512 kB firmware, and having no luck, I accidentally uploaded the full Micropython firmware (the firmware designed for 4 MB flash modules (like the ESP-12 on the Adafruit Feather Huzzah and nodeMCU boards) onto the little ESP-01. But the large firmware file uploaded fine, and the REPL started and worked!? Huh... I though that the full size firmware wouldn't fit on the little ESP-01 board, but it actually did. I was digging through the <code>~/micropython/ports/esp8266/modules</code> directory and found a couple <strong><em>.py</em></strong> files. The <strong>_.py__</strong> files should be built into the firmware. At the Micropython REPL I tried a couple different module imports.</p>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; import ntptime
+&gt;&gt;&gt; dir(ntptime)
+&gt;&gt;&gt; import dht
+&gt;&gt;&gt; dir(dht)
+</pre></div>
+
+
+<p>All of the modules imported fine on the little ESP-01 board. There was one <strong><em>.py</em></strong> file in the module folder called <strong><em>port_diag.py</em></strong> The output from the import was pretty interesting:</p>
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">port_diag</span>
 <span class="n">All</span> <span class="n">the</span> <span class="n">stuff</span>
 </pre></div>
 
 
-<p>It looks like my little ESP-01 boards actually have 1 MB of flash memory, not 512 kB, as I assumed. Great! This means that the full micropython firmware will fit. THe  <code>import port_diag</code> call also shows how big the firmware file is. For my custom firmware, the total was 578255. I think that means 578225 bytes which is 578 kB or a little over half a MB. With 1 MB of flash memory on my little ESP-01 board, that's over half of the flash memory taken up. But it the full firmware does actually run and upload.</p>
-<p>So now the next task will be paring down the firmware build so that we still have the full micropython firmware, but leave out the modules we don't need (like the temperature sensor or Neopixel modules) and put in some custom modules we do want like a WiFi tools module and a ThingSpeak.com module. I want to make sure there is enough room left for the regular micropython file system, because I want to upload a main.py file using ampy that will run on the little ESP-01 board as soon as it powers up. I'm also going to have to figure out a way to parse the junk that comes out when I do an http GET request from ThingSpeak. There is a lot of header junk that I don't want.</p>
+<p>It looks like my little ESP-01 board actually has 1 MB of flash memory, not 512 kB, as I assumed. Great! This means that the full micropython firmware will fit. The  <code>import port_diag</code> call also shows how big the firmware file is. For my custom firmware, the total was 578255. I think that means 578225 bytes which is 578 kB or a little over half a MB. With 1 MB of flash memory on my little ESP-01 board, that's over half of the flash memory taken up. But it the full firmware does actually run and upload.</p>
+<p>So now the next task will be paring down the firmware build so that we still have the full micropython firmware, but leave out the modules we don't need (like the temperature sensor or Neopixel modules) and put in some custom modules we do want like a WiFi tools module and a ThingSpeak.com module. I want to make sure there is enough room left for the regular Micropython file system, because I want to upload a main.py file using ampy that will run on the little ESP-01 board as soon as it powers up. I'm also going to have to figure out a way to parse the junk that comes out when I do an http GET request from ThingSpeak. There is a lot of header junk that I don't want.</p>
 <p>Save those for next time...</p>
             </div>
             <!-- /.entry-content -->
@@ -341,7 +419,7 @@ Python for Undergraduate Engineers            </a>
     </ul>
 </section>
 <section class="well" id="related-posts">
-    <h4>Article <built-in method index of str object at 0x000001FCEE1213B0> of the  series</h4>
+    <h4>Article <built-in method index of str object at 0x00000219E22F9BB0> of the  series</h4>
 </section>
         </article>
     </section>

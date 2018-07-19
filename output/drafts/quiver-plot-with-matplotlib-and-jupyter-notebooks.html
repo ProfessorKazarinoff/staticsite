@@ -295,7 +295,7 @@ Python for Undergraduate Engineers            </a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p><img alt="bar_plot_with_error_bars" src="/posts/matplotlib/images/3_quiver_plots.png"></p>
+                <p><img alt="bar_plot_with_error_bars" src="{filename}/posts/matplotlib/images/3_quiver_plots.png"></p>
 <p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
@@ -310,7 +310,7 @@ Python for Undergraduate Engineers            </a>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>To create the quiver plots, we'll use Python, <strong>matplotlib</strong>, <strong>numpy</strong> and a <strong>jupyter notebook</strong>.</p>
+<h2 id="Install-matplotlib-and-numpy">Install <strong>matplotlib</strong> and <strong>numpy</strong><a class="anchor-link" href="#Install-matplotlib-and-numpy">&#182;</a></h2><p>To create the quiver plots, we'll use Python, <strong>matplotlib</strong>, <strong>numpy</strong> and a <strong>jupyter notebook</strong>.</p>
 <p>I recommend that undergraduate engineers use the <strong>Anaconda</strong> distribution of Python, which comes with <strong>matplotlib</strong>, <strong>numpy</strong> and <strong>jupyter notebooks</strong> pre-installed installed. If <strong>matplotlib</strong>, <strong>numpy</strong> and <strong>jupyter</strong> are not available, these packages can be installed with <strong>conda</strong> or <strong>pip</strong>. To install, open the <strong>Anaconda Prompt</strong> or a terminal and type:</p>
 
 <pre><code>&gt; conda install matplotlib numpy jupyter</code></pre>
@@ -331,7 +331,7 @@ Python for Undergraduate Engineers            </a>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>At the top of the <strong>jupyter notebook</strong>, we need to import the required packages to build our quiver plots:</p>
+<h2 id="Import-matplotlib-and-numpy">Import <strong>matplotlib</strong> and <strong>numpy</strong><a class="anchor-link" href="#Import-matplotlib-and-numpy">&#182;</a></h2><p>At the top of the <strong>jupyter notebook</strong>, we need to import the required packages to build our quiver plots:</p>
 <ul>
 <li><strong>matplotlib</strong></li>
 <li><strong>numpy</strong></li>
@@ -362,7 +362,7 @@ Python for Undergraduate Engineers            </a>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Let's buid a simple quiver plot that contains one arrow to see how matplotlib's <code>ax.quiver()</code> method works. The <code>ax.quiver()</code> method takes four positional arguments:</p>
+<h2 id="Quiver-plot-with-one-arrow">Quiver plot with one arrow<a class="anchor-link" href="#Quiver-plot-with-one-arrow">&#182;</a></h2><p>Let's buid a simple quiver plot that contains one arrow to see how matplotlib's <code>ax.quiver()</code> method works. The <code>ax.quiver()</code> method takes four positional arguments:</p>
 
 <pre><code>ax.quiver(x_pos, y_pos, x_direct, y_direct)</code></pre>
 <p>Where <code>x_pos</code> and <code>y_pos</code> are the arrow starting positions and <code>x_direct</code>, <code>y_direct</code> are the arrow directions.</p>
@@ -428,7 +428,7 @@ Python for Undergraduate Engineers            </a>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Now let's add a second arrow to the quiver plot by passing in two starting points and two arrow directions.</p>
+<h2 id="Quiver-plot-with-two-arrows">Quiver plot with two arrows<a class="anchor-link" href="#Quiver-plot-with-two-arrows">&#182;</a></h2><p>Now let's add a second arrow to the quiver plot by passing in two starting points and two arrow directions.</p>
 <p>We'll keep our original arrow- starting position at the origin <code>0,0</code> and pointing up and to the right, direction <code>1,1</code>. We'll define a second arrow with a starting position of <code>-0.5,0.5</code> which points straight down (in the <code>0,-1</code> direction).</p>
 <p>An additional keyword argument to add the the <code>ax.quiver()</code> method is <code>scale=5</code>. This will scale the arrow lengths so the arrows show up better on the quiver plot.</p>
 <p>To see the start and end of both arrows, we'll  set the axis limits between <code>-1.5</code> and <code>1.5</code> using the <code>ax.axis()</code> method and passiging in a list of axis limits in the form <code>[xmin, xmax, ymin, ymax]</code>.</p>
@@ -494,7 +494,7 @@ Python for Undergraduate Engineers            </a>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Two arrows is great, but to create a whole 2D surface worth of arrows, we'll utilize <strong>numpy's</strong> <code>meshgrid()</code> function.</p>
+<h2 id="Quiver-plot-using-np.meshgrid()">Quiver plot using <strong>np.meshgrid()</strong><a class="anchor-link" href="#Quiver-plot-using-np.meshgrid()">&#182;</a></h2><p>Two arrows is great, but to create a whole 2D surface worth of arrows, we'll utilize <strong>numpy's</strong> <code>meshgrid()</code> function.</p>
 <p>We need to build a set of arrays that denote the x and y starting positions of each quiver arrow on the plot. We will call our quiver arrow starting position arrays <code>X</code> and <code>Y</code>.</p>
 <p>We can use the x,y arrow starting <em>positions</em> to define the x and y components of each quiver arrow <em>direction</em>. We will call the quiver arrow direction arrays <code>u</code> and <code>v</code>. On this quiver plot, we will define the quiver arrow direction based upon the quiver arrow starting point using:</p>
 <p>$$ x_{direction} = cos(x_{starting \ point}) $$</p>
@@ -642,7 +642,7 @@ Python for Undergraduate Engineers            </a>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Next let's build another quiver plot using the gradient function. The gradient function will have the form:</p>
+<h2 id="Quiver-plot-containing-a-gradient">Quiver plot containing a gradient<a class="anchor-link" href="#Quiver-plot-containing-a-gradient">&#182;</a></h2><p>Next let's build another quiver plot using the gradient function. The gradient function will have the form:</p>
 <p>$$ z = xe^{-x^2-y^2} $$</p>
 <p>We can use <strong>numpy's</strong> <strong>np.gradient()</strong> function to apply the gradient function to every arrow's x,y starting position.</p>
 
@@ -702,7 +702,7 @@ Python for Undergraduate Engineers            </a>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Neow let's build a quiver plot containing four vortices. The function $\vec{F}$ which describes the 2D field is:</p>
+<h2 id="Quiver-plot-with-four-vortices">Quiver plot with four vortices<a class="anchor-link" href="#Quiver-plot-with-four-vortices">&#182;</a></h2><p>Now let's build a quiver plot containing four vortices. The function $\vec{F}$ which describes the 2D field is:</p>
 <p>$$ \vec{F} = sin(x)cos(y) \ \hat{i} -cos(x)sin(y) \ \hat{j} $$</p>
 <p>Again we can build these arrays using <strong>numpy</strong> and plot them with <strong>matplotlib</strong>.</p>
 
@@ -774,7 +774,7 @@ Python for Undergraduate Engineers            </a>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Now let's add some color to the quiver plots. The <code>ax.quiver()</code> method has an optional fifth positional argument that specifies the quiver arrow color. The quiver arrow color argument needs to have the same dimensions as the position and direction arrays.</p>
+<h2 id="Quiver-plots-with-color">Quiver plots with color<a class="anchor-link" href="#Quiver-plots-with-color">&#182;</a></h2><p>Now let's add some color to the quiver plots. The <code>ax.quiver()</code> method has an optional fifth positional argument that specifies the quiver arrow color. The quiver arrow color argument needs to have the same dimensions as the position and direction arrays.</p>
 
 </div>
 </div>

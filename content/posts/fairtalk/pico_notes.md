@@ -179,4 +179,150 @@ Traceback (most recent call last):
 ImportError: no module named 'uasyncio'
 ```
 
-I have to unplug the ESP8266 in order to get out of screen. So now that the regular micropython build process seems to work, it is time to try the specialized pfalcon build. Note that with the regular esp8266 build, the uasyncio module is not available.
+I have to unplug the ESP8266 in order to get out of screen. So now that the regular micropython build process seems to work, it is time to try the specialized pfalcon build. Note that with the regular esp8266 build, the uasyncio module was not available. 
+
+Next I manually moved all the files that upip downloaded when pico-note was installed on the unix port. These files came from the /micropythonover to the /micropython-pfalcon/ports/esp8266/modules directory. These files came from the ~/micropython-pfalcon/ports/unix/app directory where upip downloaded to. The file list includes:
+
+```text
+~/micropython-pfalcon/ports/unix/app/
+├── btreedb.py
+├── logging.py
+├── notes_pico
+│   ├── app.py
+│   ├── config.py
+│   ├── ijson.py
+│   ├── __main__.py
+│   ├── models_btree.py
+│   ├── models_filedb.py
+│   ├── models.py
+│   ├── models_sqlite.py
+│   ├── R.py
+│   ├── static
+│   ├── templates
+│   └── views.py
+├── picoweb
+│   ├── __init__.py
+│   └── utils.py
+├── pkg_resources.py
+├── uasyncio
+│   ├── core.py
+│   └── __init__.py
+└── utemplate
+    ├── compiled.py
+    └── source.py
+```
+
+These were all moved into the /micropython-pfalcon/ports/esp8266/modules directory, so now it's conents looks like:
+
+```text
+.
+├── apa102.py
+├── _boot.py
+├── btreedb.py
+├── dht.py
+├── ds18x20.py
+├── flashbdev.py
+├── inisetup.py
+├── logging.py
+├── neopixel.py
+├── notes_pico
+│   ├── app.py
+│   ├── config.py
+│   ├── ijson.py
+│   ├── __main__.py
+│   ├── models_btree.py
+│   ├── models_filedb.py
+│   ├── models.py
+│   ├── models_sqlite.py
+│   ├── R.py
+│   ├── static
+│   ├── templates
+│   └── views.py
+├── ntptime.py
+├── onewire.py
+├── picoweb
+│   ├── __init__.py
+│   └── utils.py
+├── pkg_resources.py
+├── port_diag.py
+├── uasyncio
+│   ├── core.py
+│   └── __init__.py
+├── upip.py
+├── upip_utarfile.py
+├── utemplate
+│   ├── compiled.py
+│   └── source.py
+├── webrepl.py
+├── webrepl_setup.py
+└── websocket_helper.py
+```
+
+Then I went into the pfalcon esp8266 port and ran make to build the firmware.
+
+```bash
+$ cd ~/micropython-pfalcon
+$ cd ports/esp8266
+$ make
+```
+
+Then I plugged the ESP8266 and ran the esptool erase daily regimen
+
+```bash
+$ esptool.py --port /dev/ttyUSB0 erase_flash
+```
+
+With the flash memory erased, now it's time to upload the newly built firmware. The firmware file ends up in /ports/esp8266/build. Again, since I was using some sort of version of the NodeMCU board, I had to include the extra flag
+
+```bash
+$ cd ~/micropython-pfalcon
+$ cd ports/esp8266/build
+$ esptool.py --port /dev/ttyUSB0 --baud 460800 write_flash --flash_size=detect -fm dio 0 firmware-combined.bin
+esptool.py v1.2
+Connecting...
+Auto-detected Flash size: 32m
+Running Cesanta flasher stub...
+Flash params set to 0x0240
+Writing 581632 @ 0x0... ()1632 (100 %)
+Wrote 581632 bytes at 0x0 in 12.7 seconds (367.5 kbit/s)...
+Leaving...
+```
+
+I had some very limited success getting pico-note to run on the ESP8266 as an access point. This is the defaut state that the ESP8266 starts with when loaded with micropython firmware. I used screen to log into the ESP8226 and start the pico-notes app.
+
+```bash
+$ screen /dev/ttyUS0 115200
+# [ctrl-c] or reset on ESP8266
+>>> import notes_pico.__main__
+>>> notes_pico.__main__.main(host="0.0.0.0")
+```
+
+Connected to the Micropython Wifi network with a laptop, and used the password micropythoN to join the Wifi network. Pointed a web browser to 192.168.4.1:8081 and tried to use the app. It was very slow and the css didn't load. Many times it timed out. Getting the response back after adding a note showed what looked like json instead of the front facing web app.
+
+Connecting the ESP8266 to the house WiFi worked a lot better. At the micropython REPL on the ESP8266, I stopped the pico-notes app and logged into the house Wifi. Note the IP is different when connected to the house Wifi
+
+```text
+# [ctrl-c] to stop process
+# [ctrl-d] to restart board
+>>> import network
+>>> sta_if = network.WLAN(network.STA_IF)
+>>> sta_if.active()
+False
+>>> sta_if.active(True)
+>>> sta_if.connect('SSID', 'password')
+>>> sta_if.isconnected()
+>>> sta_if.ifconfig()
+('10.0.0.26', '255.255.255.0', '192.168.0.1', '8.8.8.8')
+```
+
+After connected to the house WiFi, I started the pico-note app again
+
+```text
+>>> import notes_pico.__main__
+>>> notes_pico.__main__.main(host="0.0.0.0")
+```
+
+Then I brought my house desktop running Ubunutu over to the ESP's IP address of 10.0.0.26:8081
+
+The pico-note app looked great! I tried adding notes from devices all over the house. Pico-note looked good on the Ubunutu desktop, bad on the Mac Laptop, bad on the Windows laptop, good on two iphones and good on a kindle tablet. For some reason, it looked like the css didn't get loaded on the two laptops.
+

@@ -61,7 +61,7 @@ pfalcon notes that the needs to be added to PATH
 Of the differences between Linux and Windows, the one I still have trouble wrapping my head around is messing around with PATH. Each time I need to modify PATH or make something executable from the command line, I have to hit up google and stack overflow. To add the xtensa subdirectory PATH, I used the following commands:
 
 ```bash
-$ echo 'export PATH=$PATH:~/esp-open-sdk/xtensa-lx106-elf/bin/' >> ~/.bashrc
+$ echo 'export PATH=$PATH:/home/peter/esp-open-sdk/xtensa-lx106-elf/bin/' >> ~/.bashrc
 $ source ~/.bashrc
 ```
 

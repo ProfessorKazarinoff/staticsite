@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>Micropython on Two Dollar ESP8266-01 Modules - Python for Undergraduate Engineers</title>
+    <title>Micropython on Three Dollar ESP8266-01 Modules - Python for Undergraduate Engineers</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -178,13 +178,13 @@ init_mathjax();
 
         <meta name="author" content="Peter D. Kazarinoff" />
         <meta name="keywords" content="python,micropython,esp8266,microcontroller" />
-        <meta name="description" content="This is the sixth part of a multipart series on Micropython. In this last post of the series, we will upload our scripts to the Adafruit Feather Huzzah ESP8266 board using Python and a package called ampy. In this post we are going to upload micropython on a cheap $2 …" />
+        <meta name="description" content="In this post we are going to upload Micropython on a cheap $3 esp8266-01 board with only 1 MB of flash memory. It is pretty amazing that even these inexpensive boards can run Micropython. There are a couple tricks I learned along the way that I wanted to share. Before …" />
 
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
-        <meta property="og:title" content="Micropython on Two Dollar ESP8266-01 Modules"/>
+        <meta property="og:title" content="Micropython on Three Dollar ESP8266-01 Modules"/>
         <meta property="og:url" content="/drafts/micropython-on-cheap-modules.html"/>
-        <meta property="og:description" content="This is the sixth part of a multipart series on Micropython. In this last post of the series, we will upload our scripts to the Adafruit Feather Huzzah ESP8266 board using Python and a package called ampy. In this post we are going to upload micropython on a cheap $2 …"/>
+        <meta property="og:description" content="In this post we are going to upload Micropython on a cheap $3 esp8266-01 board with only 1 MB of flash memory. It is pretty amazing that even these inexpensive boards can run Micropython. There are a couple tricks I learned along the way that I wanted to share. Before …"/>
         <meta property="article:published_time" content="2018-02-17" />
             <meta property="article:section" content="micropython" />
             <meta property="article:tag" content="python" />
@@ -255,7 +255,7 @@ Python for Undergraduate Engineers            </a>
             <ol class="breadcrumb">
                 <li><a href="" title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
                 <li><a href="/category/micropython.html" title="micropython">micropython</a></li>
-                <li class="active">Micropython on Two Dollar ESP8266-01 Modules</li>
+                <li class="active">Micropython on Three Dollar ESP8266-01 Modules</li>
             </ol>
     <section id="content">
         <article>
@@ -263,8 +263,8 @@ Python for Undergraduate Engineers            </a>
                 <h1>
                     <a href="/drafts/micropython-on-cheap-modules.html"
                        rel="bookmark"
-                       title="Permalink to Micropython on Two Dollar ESP8266-01 Modules">
-                        Micropython on Two Dollar ESP8266-01 Modules
+                       title="Permalink to Micropython on Three Dollar ESP8266-01 Modules">
+                        Micropython on Three Dollar ESP8266-01 Modules
                     </a>
                 </h1>
             </header>
@@ -278,7 +278,7 @@ Python for Undergraduate Engineers            </a>
     </span>
 
             <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x000001F23F9710F0> of 
+            Part <built-in method index of str object at 0x000001CC593A44F0> of 
 
 
 
@@ -294,42 +294,71 @@ Python for Undergraduate Engineers            </a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>This is the sixth part of a multipart series on Micropython. In this last post of the series, we will upload our scripts to the Adafruit Feather Huzzah ESP8266 board using Python and a package called ampy. In this post we are going to upload micropython on a cheap $2 esp8266-01 board with only 512 kB of flash memory. It is pretty amazing that even these inexpensive boards can run micropython. There are a couple tricks I learned along the way that I wanted to share.</p>
-<p>Before we can use upload micropython to our cheap little board, Python and esptool need to be installed on your laptop. I also used a breadboard an FTDI serial adapter and power supply. A little breadboard adapter was supper helpful and made it easy to break out all of the ESP module's pins which are not breadboard friendly on their own.</p>
+                <p>In this post we are going to upload Micropython on a cheap $3 esp8266-01 board with only 1 MB of flash memory. It is pretty amazing that even these inexpensive boards can run Micropython. There are a couple tricks I learned along the way that I wanted to share.</p>
+<p>Before we can use upload Micropython to our cheap little board, Python and <strong>esptool</strong> need to be installed on your laptop. I also used a breadboard, an FTDI serial adapter and a breadboard power supply. A little breadboard adapter for the little ESP-01 was also supper helpful. The breadboard adapter and made it easy to break out all of the ESP module's pins which are not breadboard friendly on their own.</p>
 <p>Summary of Steps:</p>
 <ol>
 <li>Hook up ESP-01 in regular running mode (GP0,RST--&gt;3.3V) and test, turn off power</li>
 <li>Hook up ESP-01 in bootloader mode(GP0-&gt;&gt;GND), turn on power, touch RST to ground, then unplug RST</li>
-<li>use esptool to flash memory</li>
-<li>use esptool to write to flash memory</li>
-<li>test in putty</li>
-<li>wire up LED, test in putty</li>
+<li>Use esptool to write to flash memory</li>
+<li>Test in putty</li>
+<li>Wire up LED, test in putty</li>
 </ol>
-<h3 id="1-hook-up-esp-01-in-regular-running-mode-gp0rst-33v-and-test-turn-off-power">1. Hook up ESP-01 in regular running mode (GP0,RST--&gt;3.3V) and test, turn off power</h3>
+<h3 id="1-hook-up-esp-01-in-regular-running-mode-gp0rst-33v-and-test">1. Hook up ESP-01 in regular running mode (GP0,RST--&gt;3.3V) and test</h3>
+<p>Start by hooking up the little ESP-01 board in regular <em>running mode</em>. When the ESP-01 is wired up in regular running mode, it can receive commands, run programs, blink LED's etc. This is the way the ESP-01 is usually wired up. Running mode is wired differently than bootloader mode (which we will use later).</p>
 <p>Materials:</p>
-<p>ESP-01 module: http://a.co/iFkFL7e
+<p>ESP-01 module: http://a.co/iFkFL7e (the black AI Tinker modules)
 breakout boards: http://a.co/8ENtenc
 breadboard power supply: http://a.co/6Jxfyfw - wish these had micro usb, not big usb
-FTDI serial to microUSB adaptor: http://a.co/j4WGbT3 - wish this could power ESP-01 on it's own
+FTDI serial to microUSB adaptor: http://a.co/j4WGbT3 - wish this could power ESP-01 on it's own. Make sure it is 3.3V capable
 Breadboard: various
 Jumper Wires: various. Better quality is worth it.</p>
+<p><img alt="ESP-01 Regular Run Mode" src="/posts/micropython/esp8266_pwr_run_mode_fritzing_sketch_bb.png"></p>
 <p>A couple things I learned along the way:</p>
 <p>For regular running mode, pins from the ESP-01 need to be connected to:</p>
-<p>| ESP-01 Pin | 
-| --- | ---|
-| RST | 3.3V |
-| GP0 | 3.3V |
-| VC  | 3.3V |
-| GND | GND  |
-| TX  | TX   |
-| RX  | RX   |</p>
+<h3 id="esp-01-running-mode">ESP-01 Running Mode</h3>
+<table class="table table-striped table-bordered table-hover">
+<thead>
+<tr>
+<th>ESP-01 Pin</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RST</td>
+<td>3.3V</td>
+</tr>
+<tr>
+<td>GP0</td>
+<td>3.3V</td>
+</tr>
+<tr>
+<td>VC</td>
+<td>3.3V</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>GND</td>
+</tr>
+<tr>
+<td>TX</td>
+<td>TX</td>
+</tr>
+<tr>
+<td>RX</td>
+<td>RX</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li>Using a breadboard power supply works better than using power from the FTDI adapter</li>
-<li>The FTDI adapter only has TX, RX and GND connected</li>
-<li>The right angle ESP-01 breakouts are better than the parallel ESP-01 breakouts</li>
-<li>Putty doesn't seem to work. Needed to use the Arduino IDE serial monitor</li>
+<li>Using a breadboard power supply works better than using power from the FTDI adapter. The ESP-01 draws a lot of power</li>
+<li>The FTDI adapter only needs TX, RX and GND connected. Ensure the FTDI adapter is a 3.3V adapter, not a 5V adapter.</li>
+<li>The right angle ESP-01 breakouts are better than the parallel ESP-01 breakouts.</li>
+<li>Putty doesn't seem to work to view AT commands. Needed to use the Arduino IDE serial monitor instead.</li>
 <li>need to get COM Port from the Windows Device Manager</li>
 </ul>
+<p>At the Arduino Serial monitor, the following commands should produce output.</p>
 <div class="highlight"><pre><span></span>AT
 
 AT + GMR
@@ -338,8 +367,144 @@ AT + RST
 </pre></div>
 
 
-<h2 id="next-steps">Next steps:</h2>
-<p>Next we'll see if we can turn the LED on and off using WiFi. </p>
+<h3 id="2-hook-up-esp-01-in-bootloader-modegp0-gnd-turn-on-power-touch-rst-to-ground-then-unplug-rst">2. Hook up ESP-01 in bootloader mode(GP0 --&gt; GND), turn on power, touch RST to ground, then unplug RST</h3>
+<p>Afer confirming the ESP-01 can powered up and AT commands can be sent over the Arduino Serial Monitor, it is time to put the ESP-01 in <em>bootloader mode</em>. When the ESP-01 is wired up in bootloader mode, firmware can be uploaded to it's flash memory. When the ESP-01 is wired in bootloader mode, it will not run regular commands, blink LED's or run scripts. The ESP-01 bootloader mode is only used when new firmware is uploaded to the board. </p>
+<p>To wire the ESP-01 in bootloader mode:</p>
+<ul>
+<li>Connect GP0 --&gt; GND</li>
+<li>Power up the ESP-01</li>
+<li>Touch RST to ground momentarily, then unplug RST.</li>
+</ul>
+<p><img alt="ESP-01 Regular Run Mode" src="/posts/micropython/ESP-01_bootloader_mode_fritzing_sketch_bb.png"></p>
+<h3 id="esp-01-bootloader-mode">ESP-01 Bootloader Mode</h3>
+<table class="table table-striped table-bordered table-hover">
+<thead>
+<tr>
+<th>ESP-01 Pin</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RST</td>
+<td>after power, up touch momentarily to GND</td>
+</tr>
+<tr>
+<td>GP0</td>
+<td>GND</td>
+</tr>
+<tr>
+<td>VC</td>
+<td>3.3V</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>GND</td>
+</tr>
+<tr>
+<td>TX</td>
+<td>TX</td>
+</tr>
+<tr>
+<td>RX</td>
+<td>RX</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3-use-esptool-to-write-to-flash-memory">3. Use esptool to write to flash memory</h3>
+<p>With the ESP-01 in bootloader mode, we can upload firmware to the board. But before uploading new firmware, it is a good idea to erase the flash memory on the board.</p>
+<p>To erase the ESP-01's flash memory, connect the board to the computer through the FTDI breakout. Power up the board and momentarily touch the RST pin to ground to put the ESP-01 into bootloader mode. Ensure <strong>esptool</strong> is installed in the current virtual environment and run following command at a terminal:</p>
+<div class="highlight"><pre><span></span>$ esptool.py --port COM4 erase_flash
+</pre></div>
+
+
+<h3 id="3-use-esptool-to-write-to-flash-memory_1">3. Use esptool to write to flash memory</h3>
+<p>With the ESP-01 in bootloader mode, we can upload firmware to the board. But before uploading new firmware, it is a good idea to erase the flash memory on the board.</p>
+<p>To erase the ESP-01's flash memory, connect the board to the computer through the FTDI breakout. Power up the board and momentarily touch the RST pin to ground to put the ESP-01 into bootloader mode. Ensure <strong>esptool</strong> is installed in the current virtual environment and run following command at a terminal:</p>
+<div class="highlight"><pre><span></span>$ esptool.py --port COM4 erase_flash
+</pre></div>
+
+
+<h3 id="4-upload-micropython-firmware">4. Upload Micropython firmware</h3>
+<h4 id="download-the-latest-micropython-firmware-bin-file">Download the latest micropython firmware .bin file</h4>
+<p>Go to github and <a href="https://micropython.org/download#esp8266">download the latest .bin firmware</a> file. The .bin firmware file is the version of Micropython that will run on an ESP8266 board. I got the regular version of the ESP8266 firmware (the ESP8266 firmware version that runs on the Adafruit Feather Huzzah and NodeMCU boards) to run on an ESP-01. The version of little ESP-01 board I'm using is from AI Tinker. The little boards are black and have 1MB of flash memory. Some ESP-01 boards have 512 kB of memory and others have 1MB of memory.</p>
+<p><img alt=".bin firmware on github" src="/posts/micropython/firmware_download_page.PNG"></p>
+<p>To upload the firmware to the ESP-01 flash memory, connect the board to the computer through the FTDI breakout. Again, power up the board and momentarily touch the RST pin to ground. This puts the ESP-01 into bootloader mode. Run following command at a terminal, ensure the firmware name corresponds to the firmware you downloaded and that the firware.bin file is in the current working directory:</p>
+<div class="highlight"><pre><span></span>$ esptool --port COM4 --baud <span class="m">115200</span> write_flash --flash_size<span class="o">=</span>detect <span class="m">0</span> esp8266-20171101-v1.9.3.bin
+</pre></div>
+
+
+<h3 id="4-test-in-putty">4. Test in putty</h3>
+<p>Next we will check the Micropython firmware upload with Putty. Disconnect the ESP-01 from power and wire it up in regular running mode. </p>
+<h3 id="esp-01-running-mode_1">ESP-01 Running Mode</h3>
+<table class="table table-striped table-bordered table-hover">
+<thead>
+<tr>
+<th>ESP-01 Pin</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RST</td>
+<td>3.3V</td>
+</tr>
+<tr>
+<td>GP0</td>
+<td>3.3V</td>
+</tr>
+<tr>
+<td>VC</td>
+<td>3.3V</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>GND</td>
+</tr>
+<tr>
+<td>TX</td>
+<td>TX</td>
+</tr>
+<tr>
+<td>RX</td>
+<td>RX</td>
+</tr>
+</tbody>
+</table>
+<p>Open a Putty serial terminal session and try the commands:</p>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; import sys
+&gt;&gt;&gt; sys.implementation
+(name=&#39;micropython&#39;, version=(1, 9, 3))
+&gt;&gt;&gt; sys.platform
+&#39;esp8266&#39;
+</pre></div>
+
+
+<h3 id="5-wire-up-led-test-in-putty">5. Wire up LED, test in putty</h3>
+<p>Next, we'll see if we can get an LED to blink using the ESP-01 and Micropython. Unplug the ESP-01 from the computer and power. Wire up and LED to GP0 thru a pull up resistor. </p>
+<p>Connect the ESP-01 to the computer and power. Open Putty and try to blink the LED with the commands:</p>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; import machine
+&gt;&gt;&gt; pin = machine.Pin(0, machine.Pin.OUT)
+&gt;&gt;&gt; pin.on()
+&gt;&gt;&gt; pin.off()
+&gt;&gt;&gt; pin.on()
+&gt;&gt;&gt; pin.off()
+</pre></div>
+
+
+<p>Now let's see if we can blink the LED with a loop:</p>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; import time
+&gt;&gt;&gt; for i in range(10):
+...     pin.on()
+...     time.sleep(1)
+...     pin.off()
+...     time.sleep(1)
+...
+</pre></div>
+
+
+<h3 id="conclusion">Conclusion:</h3>
+<p>It's pretty amazing that Micropython runs on little cheap $3 ESP-01 boards. Although the ESP-01 price is low, there were a couple of pieces of hardware that had to used to get the ESP-01 board to work like a breadboard power supply and an FTDI adapter. If a project used many ESP-01 modules, or size is a big factor in a project,it might make sense to use the cheap little ESP-01 boards. But for my money, I would spend about $5 extra (for a total of only $8) and get one of the ESP8266 NodeMCU boards. These modules have a voltage regulator and FTDI included, plus you get way more GPIO pins to use. It it really cool though to get Micropython running on something so small and cheap as the ESP-01 boards.</p>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">
@@ -353,7 +518,7 @@ AT + RST
     </ul>
 </section>
 <section class="well" id="related-posts">
-    <h4>Article <built-in method index of str object at 0x000001F23F9710F0> of the  series</h4>
+    <h4>Article <built-in method index of str object at 0x000001CC593A44F0> of the  series</h4>
 </section>
         </article>
     </section>

@@ -279,7 +279,7 @@ Python for Undergraduate Engineers            </a>
     </span>
 
             <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x000001F23F90A7F0> of 
+            Part <built-in method index of str object at 0x000001CC597CA1F0> of 
 
 
 
@@ -337,7 +337,7 @@ $ make
 <p>Once you complete build process as described above, the toolchain (with the Xtensa HAL library) will be available in the xtensa-lx106-elf/ subdirectory. Add xtensa-lx106-elf/bin/ subdirectory to your PATH environment variable to execute xtensa-lx106-elf-gcc and other tools. </p>
 </blockquote>
 <p>Of the differences between Linux and Windows, the one I still have trouble wrapping my head around is messing around with PATH. Each time I need to modify PATH or make something executable from the command line, I have to hit up google and stack overflow. To add the xtensa subdirectory PATH, I used the following commands:</p>
-<div class="highlight"><pre><span></span>$ <span class="nb">echo</span> <span class="s1">&#39;export PATH=$PATH:~/esp-open-sdk/xtensa-lx106-elf/bin/&#39;</span> &gt;&gt; ~/.bashrc
+<div class="highlight"><pre><span></span>$ <span class="nb">echo</span> <span class="s1">&#39;export PATH=$PATH:/home/peter/esp-open-sdk/xtensa-lx106-elf/bin/&#39;</span> &gt;&gt; ~/.bashrc
 $ <span class="nb">source</span> ~/.bashrc
 </pre></div>
 
@@ -355,6 +355,7 @@ $ <span class="nb">cd</span> micropython
 <div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/micropython
 $ make -C mpy-cross
 $ <span class="nb">cd</span> ports/esp8266
+<span class="c1"># if building firmware for the second time run $ make clean</span>
 $ make axtls
 $ make
 </pre></div>
@@ -423,7 +424,7 @@ $ esptool.py --port /dev/ttyUSB0 --baud <span class="m">460800</span> write_flas
     </ul>
 </section>
 <section class="well" id="related-posts">
-    <h4>Article <built-in method index of str object at 0x000001F23F90A7F0> of the  series</h4>
+    <h4>Article <built-in method index of str object at 0x000001CC597CA1F0> of the  series</h4>
 </section>
         </article>
     </section>

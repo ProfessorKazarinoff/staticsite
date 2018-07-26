@@ -67,7 +67,9 @@ Now that the Feather board is connected to a WiFi network, we can use the board 
 
 Now imagine our weather station is up and working and reads a temperature of 21 *C. We are going to push this temperature data reading (21 *C) up to ThingSpeak.com. ThingSpeak.com is an Internet of Things (IoT) cloud service provider. We'll  upload the temperature to ThingSpeak.com using an http GET request in the format required by the ThingSpeak API.
 
-Sign up for an account on [ThingSpeak.com](https://thingspeak.com/)  and create a new channel. In the ThingSpeak channel, create a new field called ```temperature```. Note the ThingSpeak channel number and ThingSpeak write API key. Both of these will be needed to send our temperature up to ThingSpeak.com.
+![ThingSpeak.com Homepage]({filename}/posts/micropython/ThingSpeak_homepage.png)
+
+Sign up for an account on [ThingSpeak.com](https://thingspeak.com/)  and create a new channel. In the ThingSpeak channel, create a new field called ```temperature```. Note the ThingSpeak channel number and ThingSpeak write API key. The write API key will be needed to send our temperature up to ThingSpeak.com and the channel number is needed to view the temperature.
 
 At the Micropython REPL, we'll build a new function called ```http_get()``` which will initiate the http GET action by the Feather board. We can then feed this ```http_get()``` function a specific URL that will activate the ThingSpeak web API and post the temperature to the cloud on ThingSpeak.com.
 

@@ -9,21 +9,21 @@ Authors: Peter D. Kazarinoff
 Series: micropython
 series_index: 6
 
-This is the sixth part of a multipart series on Micropython. In this post, we will upload **_.py__** file scripts scripts to an Adafruit Feather Huzzah ESP8266 board using Python and a Python package called **ampy**. At the end of the post we will have a working WiFi weather station that will post the temperature to ThingSpeak.com
+This is the sixth part of a multi-part series on Micropython. In this post, we will upload **_.py__** files to an Adafruit Feather Huzzah ESP8266 board using Python and a Python package called **ampy**. At the end of the post we will have a working WiFi weather station that will post the temperature to ThingSpeak.com
 
-Before we can use the Microython REPL (the Python prompt) running on the Adafruit Feather Huzzah ESP8266, [Micropython](https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/intro.html) needs to be installed on the ESP8266 board and [PuTTY](https://www.putty.org/) needs to be installed on the computer to communicate with the board over a serial connection. See the [previous post]({filename}micropython_install.md) on how to install Micropython on an ESP8266 board and how to install PuTTY on a Windows 10 machine.
+Before we can use the Microython REPL (the Micropython prompt) running on the Adafruit Feather Huzzah ESP8266, [Micropython](https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/intro.html) needs to be installed on the ESP8266 board and [PuTTY](https://www.putty.org/) needs to be installed on the computer to communicate with the board over a serial connection. See a [previous post]({filename}micropython_install.md) on how to install Micropython on an ESP8266 board and how to install PuTTY on a Windows 10 machine.
 
 Summary of Steps:
 
 1. Install **ampy** with **pip**
-2. Write Python code
-3. Upload the **_.py__** files to the board with **ampy**
+2. Write Python code in **_.py_** files
+3. Upload the **_.py_** files to the board with **ampy**
 4. Unplug and power up the Feather Huzzah and watch the data on ThingSpeak.com
 
 
 ### 1. Install **ampy** with **pip**
 
-**Ampy** is a tool written by the good folks at Adafruit. **Ampy** is used to upload files onto the ESP8266. Since I'm using a virtual environment, I need to activate the virtual environment before installing **ampy**. Note that the tool is called **ampy**, but we ```pip install ampy-adafruit```.
+**Ampy** is a tool written by the good folks at Adafruit. **Ampy** is used to upload files onto the ESP8266. Since I'm using a virtual environment, I need to activate the virtual environment first before installing **ampy**. Note that the tool is called **ampy**, but we ```pip install ampy-adafruit```.
 
 ```bash
 $ conda activate micropython
@@ -31,11 +31,11 @@ $ conda activate micropython
 (micropython) $ ampy --help
 ```
 
-### 2. Write Python Code
+### 2. Write Python code in **_.py_** files
 
-Now we need to write the Python code that will run on the ESP8266 board. The board already contains two main Python files: **_boot.py_** and **_main.py_**. We can also add additional files to the board. **_boot.py_** is the file that runs first when the board is powered up. After **_boot.py_** runs, then **_main.py_** will run. We can add other **_.py_** files to the board to provide **_main.py_** some functions and classes to work with. We have two general things to do with our Feather board, reading temperature and posting the temperature to the ThingSpeak.com. So let's use two different **.py** files for each of these general tasks. 
+Now we need to write the Python code in **_.py_** files that will run on the ESP8266 board. The board already contains two main Python files: **_boot.py_** and **_main.py_**. We can also add additional files to the board. **_boot.py_** is the file that runs first when the board is powered up. After **_boot.py_** runs, then **_main.py_** will run. We can add other **_.py_** files to the board to provide **_main.py_** some functions and classes to work with. We have two general things to do with our Feather board: reading temperature and posting the temperature to the ThingSpeak.com. Let's use a different **_.py_** file for each of these two general tasks. 
 
-The first **_MCP9808.py_** file will simplify reading temperature data off of the [Adafruit MCP9808](https://www.adafruit.com/product/1782) temperature sensor breakout. We need a ```readtemp()``` function that parses out the temperature data from the I2C bus and outputs the temperature as a float. The ```readtemp()``` function needs to import the ```machine``` module to use the I2C bus. The machine module allows us to create a new i2c object. When we instantiate the I2C object object, we need to specify the ```scl``` and ```sda``` pins connected to the sensor. ```scl``` is the I2C clock line and ```sda``` is the I2C data line. These are pin 5 and pin 4 on the Adafruit Feather Huzzah. Then a new byte array variable needs to be created, so that we can later write data from the sensor into it.  Next we need to read the sensor data using the ```i2c.readfrom_mem_into()``` function. The first argument is the I2C bus address for the sensor. In this case the sensor is at I2C bus address ```24```. You can use the line ```>>> i2c.scan()``` in the Micropython REPL to see this value.  The next function argument is the register on the MCP9808 temperature sensor where the temperature value is stored, which happens to be register ```5```. If we access register ```5``` on the MCP, we will read in the temperature. The third arguments is the variable that we store the temperature data into. The ```i2c.readfrom_mem_into``` function changes the variable that is a function argument, rather than changing a variable which is the function output as most functions do. This is why we need to first create the ```byte_data``` variable before calling the function. Finally, we need to do some post processing of the byte array to transform it into a temperature in degrees C. ```The complete readtemp()``` function is below:
+The first **_MCP9808.py_** file will simplify reading temperature data off of the [Adafruit MCP9808](https://www.adafruit.com/product/1782) temperature sensor breakout. We need a ```readtemp()``` function that parses out the temperature data from the I2C bus and outputs the temperature as a float. The ```readtemp()``` function needs to import the ```machine``` module to use the I2C bus. The machine module allows us to create a new I2C object. When we instantiate the I2C object object, we need to specify the ```scl``` and ```sda``` pins connected to the sensor. ```scl``` is the I2C clock line and ```sda``` is the I2C data line. These are pin 5 and pin 4 on the Adafruit Feather Huzzah. Then a new byte array variable needs to be created, because a byte array is needed to store the temperature data when it comes over the I2C line from the sensor to the board.  Then we need to read the sensor data using the ```i2c.readfrom_mem_into()``` function. The first argument is the I2C bus address of the sensor. In our case, the sensor is at I2C bus address ```24```. You can use the line ```>>> i2c.scan()``` in the Micropython REPL to see this value.  The next argument passed to the ```i2c.readfrom_mem_into()``` function is the register on the MCP9808 temperature sensor where the temperature value is stored. The temperature is stored on the MCP9808 in register ```5```. When we access register ```5``` on the MCP9808, we read in the temperature. The final argument passed into the  ```i2c.readfrom_mem_into()``` function is the byte array variable that stores the temperature data. The ```i2c.readfrom_mem_into()``` function modifies the variable passed to it as a function argument, rather than producing a variable which is the function output as most functions do. This is why we needed to first create the ```byte_data``` variable before calling the ```i2c.readfrom_mem_into()``` function. Finally, we need to do some post processing of the byte array to transform it into a temperature in degrees C. ```The complete readtemp()``` function is below:
 
 ```python
 # MCP9808.py
@@ -55,7 +55,7 @@ def readtemp():
     return temp
 ```
 
-Now we'll build a Python file for the set of WiFi functions called **_wifitools.py_**. We used this same functionally in a [previous post]({filename}micropython_wifi.md) to connect the ESP8266 to a WiFi network. In addition to the WiFi functions, we also need a function to build the ThingSpeak.com Web API URL. This is the URL we will request in order to get our temperature posted on ThingSpeak.com.
+Now we'll build a Python file that contains a set of WiFi functions called **_wifitools.py_**. We used this same functionally in a [previous post]({filename}micropython_wifi.md) to connect the ESP8266 to a WiFi network. In addition to the WiFi functions, we also need a function to build the ThingSpeak.com Web API URL. This is the URL we will request in order to get our temperature posted on ThingSpeak.com.
 
 ```python
 #wifitools.py
@@ -101,11 +101,11 @@ def thingspeak_post(API_key,data):
     http_get(url)
 ```
 
-Now let's write a script in a file called **_main.py_** which will use the functions in our **_wifitools.py_** and **_MCP9808.py_** files. This **_main.py_** script will import our MCP9808 and wifitools modules and use the ```wifitools.connect()``` function to connect the ESP8266 to a WiFi network. There is a ```time.sleep(5)``` line to allow the board time to connect. Next we'll run a loop for a total of 8 hours (with 60 minutes in each hour). Inside the loop, we'll read in the temperature from the MCP9808 using the ```MCP9808.readtemp()``` function and post the temperature to ThingSpeak.com using the ```wifitools.thingspeak_post()``` function. To read the temperature once a minute, we need to ```time.sleep(60)``` (wait 60 seconds) between each measurement.
+Now let's write a script in a file called **_main.py_** which will use the functions in our **_wifitools.py_** and **_MCP9808.py_** files. This **_main.py_** script will import our MCP9808 and wifitools modules and use the ```wifitools.connect()``` function to connect the ESP8266 to a WiFi network. There is a ```time.sleep(5)``` line to allow the board time to connect to the WiFi network. Next we'll run a loop for a total of 8 hours (with 60 minutes in each hour). Inside the loop, we'll read the temperature off the MCP9808 using the ```MCP9808.readtemp()``` function and post the temperature to ThingSpeak.com using the ```wifitools.thingspeak_post()``` function. To read the temperature once a minute, we need to ```time.sleep(60)``` (wait 60 seconds) between each measurement. I also have one more **_.py_** file called **_config.py_**. This file simply contains three variables: ```SSID```, ```WIFI_PASSWORD``` and ```API_KEY```. By using a config file, we can keep our passwords and API keys out of version control. Like functions and classes, we can import variables defined in **_.py_** files for use in another script.
 
 ```python
 # main.py
-# ESP8266 Feather Huzzah Weather Station
+# Adafruit Feather Huzzah ESP8266 WiFi Weather Station
 
 import wifitools
 import MCP9808
@@ -135,6 +135,7 @@ $ conda activate micropython
 (micropython)$ ampy --port COM4 put MCP9808.py
 (micropython)$ ampy --port COM4 put wifitools.py
 (micropython)$ ampy --port COM4 put main.py
+(micropython)$ ampy --port COM4 put config.py
 (micropython)$ ampy --port COM4 ls
 boot.py
 wifitools.py
@@ -145,8 +146,10 @@ main.py
 
 ### 4. Unplug and power up the Feather Huzzah and watch the data on ThingSpeak.com
 
-The Feather Huzzah needs to be restarted to run the code we just uploaded. To restart the board, unplug and then replug the board's power. Once power is restored, the board will run through the **_boot.py_** script then start the **_main.py_** script. When the board runs the **_main.py_** script, the board will connect to the WiFi network, read the temperature and upload the data to ThingSpeak.com. If we go to ThingSpeak.com, we should see the temperature plotted on our Channel's page.
+The Feather Huzzah needs to be restarted to run the code we just uploaded. To restart the board, unplug and then replug the board's power. Once power is restored, the board will run through the **_boot.py_** script then start the **_main.py_** script. When the board runs the **_main.py_** script, the board will connect to the WiFi network, read the temperature from the sensor then upload the temperature to ThingSpeak.com. If we go to ThingSpeak.com, we should see the temperature plotted on our Channel's page.
+
+![Channel Plot on ThingSpeak]({filename}/posts/micropython/channel_plot_on_ThingSpeak.png)
 
 ### Congrats! You have a working weather station that is part of the Internet of Things.
 
-Now you can read the temperature from anywhere with an internet connection.
+Now you can read the temperature from anywhere in the world with an internet connection.

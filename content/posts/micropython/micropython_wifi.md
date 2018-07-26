@@ -8,34 +8,34 @@ Slug: micropython-wifi
 Authors: Peter D. Kazarinoff
 Series: micropython
 series_index: 5
-Summary: This is the fifth part of a multipart series on Micropython. In the [last post]({filename}micropython_temp_sensor.md) we used the Micropython REPL (the Python prompt) running on the Adafruit Feather Huzzah ESP8266 board to read the temperature off a temperature sensor. In this post, we are going to connect the Feather board to WiFi and post the temperature to ThingSpeak.com
+Summary: This is the fifth part of a multipart series on Micropython. In the [last post]({filename}micropython_temp_sensor.md) we used the Micropython REPL (the Microcpython prompt) running on the Adafruit Feather Huzzah ESP8266 board to read the temperature off a temperature sensor. In this post, we are going to connect the Feather board to WiFi and post the temperature to ThingSpeak.com
 
-This is the fifth part of a multipart series on Micropython. In the [last post]({filename}micropython_temp_sensor.md) we used the Micropython REPL (the Micropython prompt) running on the Adafruit Feather Huzzah ESP8266 board to read the temperature off a temperature sensor. In this post, we are going to connect the Feather board to WiFi and post the temperature to ThingSpeak.com
+This is the fifth part of a multipart series on Micropython. In the [last post]({filename}micropython_temp_sensor.md) we used the Micropython REPL (the Microcpython prompt) running on the Adafruit Feather Huzzah ESP8266 board to read the temperature off a temperature sensor. In this post, we are going to connect the Feather board to WiFi and post the temperature to ThingSpeak.com
 
-Before we can connect the Adafruit Feather Huzzah to WiFi, Micropython needs to be installed on the board and PuTTY needs to be installed to communicate with the board over serial. See a [previous post]({filename}micropython_install.md) to see how to install Micropython on an ESP8266 board and how to install PuTTY on a Windows 10 machine.
+Before we can connect the Adafruit Feather Huzzah to WiFi, Micropython needs to be installed on the board and PuTTY needs to be installed on the computer to communicate with the board over serial. See a [previous post]({filename}micropython_install.md) to see how to install Micropython on an ESP8266 board and how to install PuTTY on a Windows 10 machine.
 
 Summary of Steps:
 
-1. Wire up the temperature sensor to the Adafruit Feather Huzzah
-2. Connect to the Adafruit Feather Huzzah ESP8266 board with PuTTY
-3. Run commands at the Micropython REPL to connect the board to WiFi
+1. Wire up the temperature sensor to the Adafruit Feather Huzzah ESP8266
+2. Use PuTTY to connect to the Adafruit Feather Huzzah ESP8266 board
+3. Run commands at the Micropython REPL to connect the Feather board to WiFi
 4. Upload the temperature to ThingSpeak.com
 
-### 1. Wire up the temperature sensor to the Adafruit Feather Huzzah
+### 1. Wire up the temperature sensor to the Adafruit Feather Huzzah ESP8266
 
-Wire up the temperature sensor to the Adafruit Feather Huzzah as shown in a [previous post]({filename}micropython_temp_sensor.md)
+Wire up the [MCP9808 temperature sensor](https://www.adafruit.com/product/1782) to the Adafruit Feather Huzzah as shown in a [previous post]({filename}micropython_temp_sensor.md)
 
 ![Fritzing Diagram]({filename}/posts/micropython/feather_huzzah_temp_sensor_fritzing.png)
 
-### 2. Connect to the Adafruit Feather Huzzah ESP8266 board with PuTTY
+### 2. Use PuTTY to connect to the Adafruit Feather Huzzah ESP8266 board
 
 Connect the Feather to the computer using a USB data cable. Open PuTTY. Ensure the serial port is set correctly and the baud rate (speed) is set to 115200.
 
 ![Putty config]({filename}/posts/micropython/putty_config.PNG)
 
-### 3. Run commands at the Micropython REPL to connect the board to WiFi
+### 3. Run commands at the Micropython REPL to connect the Feather board to WiFi
 
-To connect the ESP8266 to a WiFi network, we first need to import the ```network``` module and create an instance of the ```WLAN``` class. Next we use the ```connect``` method and our WiFi network's SSID and password to connect. We want to run our ESP8266 in station mode (like a laptop or phone) as opposed to access point mode (like a server). We can print the IP address of the board using the ```ifconfig()``` method.
+To connect the ESP8266 board to a WiFi network, we first need to import the ```network``` module and create an instance of the ```WLAN``` class. Next we use the ```connect``` method and our WiFi network's SSID and password to connect. We want to run our ESP8266 in station mode (like a laptop or phone) as opposed to access point mode (like a server). We can print the IP address of the board using the ```ifconfig()``` method. The commands below should be typed into the Micropython REPL. Note that ```'SSDI'``` and ```'password'``` should be replaced with an actual WiFi SSID and password.
 
 ```text
 >>> import network
@@ -45,7 +45,7 @@ To connect the ESP8266 to a WiFi network, we first need to import the ```network
 >>> print('network config:', sta_if.ifconfig())
 ```
 
-Now that the board is connected to a WiFi network, we can use the Feather board to read a webpage. Micropython does this with _sockets_. A socket is a connection between the ESP8266 and the outside internet.
+Now that the Feather board is connected to a WiFi network, we can use the board to read a webpage. In Micropython, reading webpages is done with _sockets_. A socket is a connection between the ESP8266 and the outside internet.
 
 ```text
 >>> import socket
@@ -65,11 +65,11 @@ Now that the board is connected to a WiFi network, we can use the Feather board 
 
 ### 4. Upload the temperature to ThingSpeak.com
 
-Now imagine our weather station is up and working and reads a temperature of *21 C. We are going to push this temperature data reading up to ThingSpeak.com. ThingSpeak.com is an Internet of Things (IoT) cloud service provider. We'll  upload the temperature to ThingSpeak.com using an http GET request in the format required by ThingSpeak API.
+Now imagine our weather station is up and working and reads a temperature of 21 *C. We are going to push this temperature data reading (21 *C) up to ThingSpeak.com. ThingSpeak.com is an Internet of Things (IoT) cloud service provider. We'll  upload the temperature to ThingSpeak.com using an http GET request in the format required by the ThingSpeak API.
 
-Sign up for a ThingSpeak.com account and create a new channel. In the ThingSpeak channel, create a new field called temperature. Note the ThingSpeak channel number and ThingSpeak write API key. Both of these will be needed to send our temperature up to ThingSpeak.com.
+Sign up for an account on [ThingSpeak.com](https://thingspeak.com/)  and create a new channel. In the ThingSpeak channel, create a new field called ```temperature```. Note the ThingSpeak channel number and ThingSpeak write API key. Both of these will be needed to send our temperature up to ThingSpeak.com.
 
-At the Micropython REPL, we'll build a new fuction called ```http_get()``` which will initiate an http GET action by the Feather board. We can then feed this ```http_get()``` function a specific URL that will activate the ThingSpeak API and post the temperature to the cloud.
+At the Micropython REPL, we'll build a new function called ```http_get()``` which will initiate the http GET action by the Feather board. We can then feed this ```http_get()``` function a specific URL that will activate the ThingSpeak web API and post the temperature to the cloud on ThingSpeak.com.
 
 ```text
 >>> def http_get(url):
@@ -87,7 +87,7 @@ At the Micropython REPL, we'll build a new fuction called ```http_get()``` which
 ...            break
 ```
 
-Now we need to build the URL that will call the ThingSpeak web API. The URL contains four parts: A base domain, an API key, a field number and data. Let's assume our temperature data is 21 (for 21 degrees C). We can build these multiple parts as strings then combine the parts to create one long URL. Note that you should include your actual API key here, not a bunch of XXXXXXX's.
+Now we need to build the URL that will call the ThingSpeak web API. The URL contains four parts: A base domain, an API key, a field number and data. Let's assume our temperature data is 21 (for 21 degrees C). We can build these multiple parts as strings then combine the stings to create one long URL. Note that you should include your actual API key here, not a bunch of XXXXXXX's. Since the entire URL is a string, it is important to assign the string ```'21'``` to the variable ```data``` instead of assigning the integer ```21``` to the variable data. 
 
 ```text
 >>> base_url = 'https://api.thingspeak.com/update'
@@ -97,7 +97,7 @@ Now we need to build the URL that will call the ThingSpeak web API. The URL cont
 >>> url = base_url + API_key + field + data
 ```
 
-Now we can use the ```http_get()``` function and our URL to send the temperature 21 up to ThingSpeak.com
+Now we can use the ```http_get()``` function and our URL to send the temperature ```21``` up to ThingSpeak.com
 
 ```text
 >>> http_get(url)
@@ -105,7 +105,7 @@ Now we can use the ```http_get()``` function and our URL to send the temperature
 
 If you go to ThingSpeak.com/<your channel number>, you should see a new temperature point. 
 
-Now let's read an actual temperature off of the temperature sensor and send that value up to ThingSpeak.com.
+Now let's read an actual temperature off of the MCP9808 temperature sensor and send that value up to ThingSpeak.com.
 
 ```text
 >>> import machine
@@ -129,4 +129,4 @@ Another data point should now be shown on ThingSpeak.com.
 
 ### Next steps
 
-Pretty amazing to have a little piece of hardware like the Feather Huzzah ESP8266 wirelessly upload a temperature measurement. It did require a lot of typing at the Micropython REPL though. In the next post, we'll build a couple of **_.py__** files to save the functions we wrote to read the temperature, build the URL and complete the http GET request.
+Pretty amazing to have a little piece of hardware like the Feather Huzzah ESP8266 wirelessly upload a temperature measurement up to the cloud. It did require a lot of typing at the Micropython REPL though. In the next post, we'll build a couple of **_.py__** files to save the functions we wrote to read the temperature, build the URL and complete the http GET request. Then we will upload these **_.py__** files to the Feather board.

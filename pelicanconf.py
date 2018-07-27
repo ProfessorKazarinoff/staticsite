@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 AUTHOR = 'Peter Kazarinoff'
 SITENAME = 'Python for Undergraduate Engineers'
-SITEURL = ''
+SITEURL = 'http://pythonforundergradengineers.com'
 TIMEZONE = 'America/Los_Angeles'
 DEFAULT_LANG = 'en'
 
@@ -92,6 +92,12 @@ MARKDOWN = {
 }
 #Ignore all files that start with a dot .
 IGNORE_FILES = ['.*','*-checkpoint.ipynb']
+
+# RSS Feed Settings
+FEED_DOMAIN = SITEURL
+FEED_ATOM = 'feed'
+FEED_ALL_ATOM = 'feeds/all.atom.xml'
+FEED_RSS = None
 
 # URL's
 #SLUGIFY_SOURCE = 'title'

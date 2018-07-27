@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>Using Micropython to connect an Adadfruit Feather Huzzah ESP8266 to WiFi - Python for Undergraduate Engineers</title>
+    <title>A single page Flask App to show data from ThingSpeak.com - Python for Undergraduate Engineers</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -174,24 +174,23 @@ init_mathjax();
 </script>
     <link href="../extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="../drafts/micropython-wifi.html">
+<link rel="canonical" href="../drafts/flask-app-show-data-from-thingspeak.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
-        <meta name="keywords" content="python,micropython,esp8266,microcontroller,WiFi" />
-        <meta name="description" content="This is the fifth part of a multipart series on Micropython. In the last post we used the Micropython REPL (the Python prompt) running on the Adafruit Feather Huzzah ESP8266 board to read the temperature off a temperature sensor. In this post, we are going to connect the Feather board to WiFi and post the temperature to ThingSpeak.com" />
+        <meta name="keywords" content="python,flask,thingspeak,mobile" />
+        <meta name="description" content="In this post, I&#39;ll run through how I set up a single page flask app that shows a temperature posted to ThingSpeak.com. I wanted to be able to see the temperature recorded by my WiFi weather station on a phone or tablet. By building a flask app and hosting it on Digital Ocean, I can now view the temperature from anywhere." />
 
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
-        <meta property="og:title" content="Using Micropython to connect an Adadfruit Feather Huzzah ESP8266 to WiFi"/>
-        <meta property="og:url" content="../drafts/micropython-wifi.html"/>
-        <meta property="og:description" content="This is the fifth part of a multipart series on Micropython. In the last post we used the Micropython REPL (the Python prompt) running on the Adafruit Feather Huzzah ESP8266 board to read the temperature off a temperature sensor. In this post, we are going to connect the Feather board to WiFi and post the temperature to ThingSpeak.com"/>
+        <meta property="og:title" content="A single page Flask App to show data from ThingSpeak.com"/>
+        <meta property="og:url" content="../drafts/flask-app-show-data-from-thingspeak.html"/>
+        <meta property="og:description" content="In this post, I&#39;ll run through how I set up a single page flask app that shows a temperature posted to ThingSpeak.com. I wanted to be able to see the temperature recorded by my WiFi weather station on a phone or tablet. By building a flask app and hosting it on Digital Ocean, I can now view the temperature from anywhere."/>
         <meta property="article:published_time" content="2018-07-20" />
-            <meta property="article:section" content="micropython" />
+            <meta property="article:section" content="flask" />
             <meta property="article:tag" content="python" />
-            <meta property="article:tag" content="micropython" />
-            <meta property="article:tag" content="esp8266" />
-            <meta property="article:tag" content="microcontroller" />
-            <meta property="article:tag" content="WiFi" />
+            <meta property="article:tag" content="flask" />
+            <meta property="article:tag" content="thingspeak" />
+            <meta property="article:tag" content="mobile" />
             <meta property="article:author" content="Peter D. Kazarinoff" />
 
 
@@ -210,8 +209,8 @@ init_mathjax();
 
 
 
-        <link href="../feeds/micropython.atom.xml" type="application/atom+xml" rel="alternate"
-              title="Python for Undergraduate Engineers micropython ATOM Feed"/>
+        <link href="../feeds/flask.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Python for Undergraduate Engineers flask ATOM Feed"/>
 
 </head>
 <body>
@@ -259,17 +258,17 @@ Python for Undergraduate Engineers            </a>
         <div class="col-sm-9">
             <ol class="breadcrumb">
                 <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="../category/micropython.html" title="micropython">micropython</a></li>
-                <li class="active">Using Micropython to connect an Adadfruit Feather Huzzah ESP8266 to WiFi</li>
+                <li><a href="../category/flask.html" title="flask">flask</a></li>
+                <li class="active">A single page Flask App to show data from ThingSpeak.com</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="../drafts/micropython-wifi.html"
+                    <a href="../drafts/flask-app-show-data-from-thingspeak.html"
                        rel="bookmark"
-                       title="Permalink to Using Micropython to connect an Adadfruit Feather Huzzah ESP8266 to WiFi">
-                        Using Micropython to connect an Adadfruit Feather Huzzah ESP8266 to WiFi
+                       title="Permalink to A single page Flask App to show data from ThingSpeak.com">
+                        A single page Flask App to show data from ThingSpeak.com
                     </a>
                 </h1>
             </header>
@@ -282,8 +281,6 @@ Python for Undergraduate Engineers            </a>
         <i class="fa fa-calendar"></i><time datetime="2018-07-20T09:01:00-07:00"> Fri 20 July 2018</time>
     </span>
 
-            <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x0000016B9BCB24F0> of 
 
 
 
@@ -291,129 +288,166 @@ Python for Undergraduate Engineers            </a>
 <span class="label label-default">Tags</span>
 	<a href="../tag/python.html">python</a>
         /
-	<a href="../tag/micropython.html">micropython</a>
+	<a href="../tag/flask.html">flask</a>
         /
-	<a href="../tag/esp8266.html">esp8266</a>
+	<a href="../tag/thingspeak.html">thingspeak</a>
         /
-	<a href="../tag/microcontroller.html">microcontroller</a>
-        /
-	<a href="../tag/wifi.html">WiFi</a>
+	<a href="../tag/mobile.html">mobile</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>This is the fifth part of a multipart series on Micropython. In the <a href="../micropython-temp-sensor.html">last post</a> we used the Micropython REPL (the Micropython prompt) running on the Adafruit Feather Huzzah ESP8266 board to read the temperature off a temperature sensor. In this post, we are going to connect the Feather board to WiFi and post the temperature to ThingSpeak.com</p>
-<p>Before we can connect the Adafruit Feather Huzzah to WiFi, Micropython needs to be installed on the board and PuTTY needs to be installed to communicate with the board over serial. See a <a href="../micropython-install.html">previous post</a> to see how to install Micropython on an ESP8266 board and how to install PuTTY on a Windows 10 machine.</p>
-<p>Summary of Steps:</p>
-<ol>
-<li>Wire up the temperature sensor to the Adafruit Feather Huzzah</li>
-<li>Connect to the Adafruit Feather Huzzah ESP8266 board with PuTTY</li>
-<li>Run commands at the Micropython REPL to connect the board to WiFi</li>
-<li>Upload the temperature to ThingSpeak.com</li>
-</ol>
-<h3 id="1-wire-up-the-temperature-sensor-to-the-adafruit-feather-huzzah">1. Wire up the temperature sensor to the Adafruit Feather Huzzah</h3>
-<p>Wire up the temperature sensor to the Adafruit Feather Huzzah as shown in a <a href="../micropython-temp-sensor.html">previous post</a></p>
-<p><img alt="Fritzing Diagram" src="../posts/micropython/feather_huzzah_temp_sensor_fritzing.png"></p>
-<h3 id="2-connect-to-the-adafruit-feather-huzzah-esp8266-board-with-putty">2. Connect to the Adafruit Feather Huzzah ESP8266 board with PuTTY</h3>
-<p>Connect the Feather to the computer using a USB data cable. Open PuTTY. Ensure the serial port is set correctly and the baud rate (speed) is set to 115200.</p>
-<p><img alt="Putty config" src="../posts/micropython/putty_config.PNG"></p>
-<h3 id="3-run-commands-at-the-micropython-repl-to-connect-the-board-to-wifi">3. Run commands at the Micropython REPL to connect the board to WiFi</h3>
-<p>To connect the ESP8266 to a WiFi network, we first need to import the <code>network</code> module and create an instance of the <code>WLAN</code> class. Next we use the <code>connect</code> method and our WiFi network's SSID and password to connect. We want to run our ESP8266 in station mode (like a laptop or phone) as opposed to access point mode (like a server). We can print the IP address of the board using the <code>ifconfig()</code> method.</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; import network
-&gt;&gt;&gt; sta_if = network.WLAN(network.STA_IF)
-&gt;&gt;&gt; sta_if.active(True)
-&gt;&gt;&gt; sta_if.connect(&#39;SSID&#39;, &#39;password&#39;)
-&gt;&gt;&gt; print(&#39;network config:&#39;, sta_if.ifconfig())
+                <p>In this post, I'll run through how I set up a single page flask app that shows a temperature posted to ThingSpeak.com. I wanted to be able to see the temperature recorded by my WiFi weather station on a phone or tablet. By building a flask app and hosting it on Digital Ocean, I can now view the temperature from anywhere.</p>
+<h2 id="aquire-a-domain-name">Aquire a domain name</h2>
+<h3 id="purchase-domain">Purchase Domain</h3>
+<h3 id="point-dns-severs-at-digital-ocean">Point DNS Severs at Digital Ocean</h3>
+<h2 id="setting-up-digital-ocean-droplet">Setting Up Digital Ocean Droplet</h2>
+<h3 id="create-a-new-droplet">Create a New Droplet</h3>
+<h3 id="login-and-create-a-non-root-sudo-user">Login and create a non-root sudo user</h3>
+<h3 id="copy-ssh-keys-to-non-root-sudo-user">Copy SSH keys to non-root sudo user</h3>
+<h2 id="building-the-flask-app">Building the Flask App</h2>
+<h3 id="installing-packages">Installing Packages</h3>
+<p>Before the single page flask app can be built, a number of packages need to be installed on the server.</p>
+<div class="highlight"><pre><span></span>$ sudo apt-get update
+$ sudo apt-get upgrade
+$ sudo apt install python3-pip python3-dev python3-setuptools python3-venv
+$ sudo apt-get install build-essential libssl-dev libffi-dev 
 </pre></div>
 
 
-<p>Now that the board is connected to a WiFi network, we can use the Feather board to read a webpage. Micropython does this with <em>sockets</em>. A socket is a connection between the ESP8266 and the outside internet.</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; import socket
-&gt;&gt;&gt; url = &#39;https://google.com&#39;
-&gt;&gt;&gt; _, _, host, path = url.split(&#39;/&#39;, 3)
-&gt;&gt;&gt; addr = socket.getaddrinfo(host, 80)[0][-1]
-&gt;&gt;&gt; s = socket.socket()
-&gt;&gt;&gt; s.connect(addr)
-&gt;&gt;&gt; s.send(bytes(&#39;GET /%s HTTP/1.0\r\nHost: %s\r\n\r\n&#39; % (path, host), &#39;utf8&#39;))
-&gt;&gt;&gt; while True:
-....   data = s.recv(100)
-....   if data:
-....       print(str(data, &#39;utf8&#39;), end=&#39;&#39;)
-....   else:
-....       break
+<h3 id="create-a-virtual-environment-and-install-flask">Create a Virtual Environment and install <strong>flask</strong></h3>
+<p>Once the necessary libraries are installed, I created a virtual environment to run the flask app. I usually use <strong>conda</strong> to create virtual environment, but since I'm not using the Anaconda distribution of Python, <strong>venv</strong> will have to do instead.</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~
+$ mkdir flaskapp
+$ <span class="nb">cd</span> flaskapp
+$ python3.6 -m venv flaskappenv
+$ <span class="nb">source</span> flaskapp/bin/activate
 </pre></div>
 
 
-<h3 id="4-upload-the-temperature-to-thingspeakcom">4. Upload the temperature to ThingSpeak.com</h3>
-<p>Now imagine our weather station is up and working and reads a temperature of *21 C. We are going to push this temperature data reading up to ThingSpeak.com. ThingSpeak.com is an Internet of Things (IoT) cloud service provider. We'll  upload the temperature to ThingSpeak.com using an http GET request in the format required by ThingSpeak API.</p>
-<p>Sign up for a ThingSpeak.com account and create a new channel. In the ThingSpeak channel, create a new field called temperature. Note the ThingSpeak channel number and ThingSpeak write API key. Both of these will be needed to send our temperature up to ThingSpeak.com.</p>
-<p>At the Micropython REPL, we'll build a new fuction called <code>http_get()</code> which will initiate an http GET action by the Feather board. We can then feed this <code>http_get()</code> function a specific URL that will activate the ThingSpeak API and post the temperature to the cloud.</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; def http_get(url):
-...    import socket
-...    _, _, host, path = url.split(&#39;/&#39;, 3)
-...    addr = socket.getaddrinfo(host, 80)[0][-1]
-...    s = socket.socket()
-...    s.connect(addr)
-...    s.send(bytes(&#39;GET /%s HTTP/1.0\r\nHost: %s\r\n\r\n&#39; % (path, host), &#39;utf8&#39;))
-...    while True:
-...        data = s.recv(100)
-...        if data:
-...            print(str(data, &#39;utf8&#39;), end=&#39;&#39;)
-...        else:
-...            break
+<p>With the virtual environment activated, I installed flask, wheel, uwsgi and requests with <strong>pip</strong></p>
+<div class="highlight"><pre><span></span><span class="o">(</span>flaskappenv<span class="o">)</span>$ pip install wheel
+<span class="o">(</span>flaskappenv<span class="o">)</span>$ pip install flask
+<span class="o">(</span>flaskappenv<span class="o">)</span>$ pip install uwsgi
+<span class="o">(</span>flaskappenv<span class="o">)</span>$ pip install requests
 </pre></div>
 
 
-<p>Now we need to build the URL that will call the ThingSpeak web API. The URL contains four parts: A base domain, an API key, a field number and data. Let's assume our temperature data is 21 (for 21 degrees C). We can build these multiple parts as strings then combine the parts to create one long URL. Note that you should include your actual API key here, not a bunch of XXXXXXX's.</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; base_url = &#39;https://api.thingspeak.com/update&#39;
-&gt;&gt;&gt; API_key = &#39;?api_key=XXXXXXXXXXXXXX&#39;
-&gt;&gt;&gt; field = &#39;&amp;field1=&#39;
-&gt;&gt;&gt; data = &#39;21&#39;
-&gt;&gt;&gt; url = base_url + API_key + field + data
+<h3 id="building-the-first-simple-flask-app">Building the first simple flask app</h3>
+<p>With the Python packages installed, next I build a very simple version of the flask app and viewed it in a web browser using the IP address of the DO droplet.</p>
+<div class="highlight"><pre><span></span><span class="o">(</span>flaskappenv<span class="o">)</span>$ <span class="nb">pwd</span>
+<span class="c1"># ~/flaskapp</span>
+<span class="o">(</span>flaskappenv<span class="o">)</span>$ nano showtemp.py
 </pre></div>
 
 
-<p>Now we can use the <code>http_get()</code> function and our URL to send the temperature 21 up to ThingSpeak.com</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; http_get(url)
+<p>In the <strong><em>showtemp.py</em></strong> file,  I included the bare minimum flask app to see if it works:</p>
+<div class="highlight"><pre><span></span><span class="c1"># showtemp.py</span>
+
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="nd">@app.route</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s2">&quot;&lt;h1&gt;The temperature is 91.2 F&lt;/h1&gt;&quot;</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">&#39;0.0.0.0&#39;</span><span class="p">)</span>
 </pre></div>
 
 
-<p>If you go to ThingSpeak.com/<your channel number>, you should see a new temperature point. </p>
-<p>Now let's read an actual temperature off of the temperature sensor and send that value up to ThingSpeak.com.</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; import machine
-&gt;&gt;&gt; i2c = machine.I2C(scl=machine.Pin(5), sda=machine.Pin(4))
-&gt;&gt;&gt; byte_data = bytearray(2)
-&gt;&gt;&gt; i2c.readfrom_mem_into(24, 5, byte_data)
-&gt;&gt;&gt; value = byte_data[0] &lt;&lt; 8 | byte_data[1]
-&gt;&gt;&gt; temp = (value &amp; 0xFFF) / 16.0
-&gt;&gt;&gt; if value &amp; 0x1000:
-...     temp -= 256.0
-...     print(temp)
-&gt;&gt;&gt; base_url = &#39;https://api.thingspeak.com/update&#39;
-&gt;&gt;&gt; API_key = &#39;?api_key=XXXXXXXXXXXXXX&#39;
-&gt;&gt;&gt; field = &#39;&amp;field1=&#39;
-&gt;&gt;&gt; data = str(temp)
-&gt;&gt;&gt; url = base_url + API_key + field + data
-&gt;&gt;&gt; http_get(url)
+<h3 id="testing-the-first-simple-flask-app">Testing the first simple flask app</h3>
+<p>With the first version of the <strong><em>showtemp.py</em></strong> file complete, I ran the flask app for the first time to see if anything came out. </p>
+<p>To run the flask app, I had to make sure I was in the virtual environment I built earlier. I also needed to allow port 5000 open, becuase that is the default port that flask runs on. </p>
+<div class="highlight"><pre><span></span>(flaskappenv)$ sudo ufw allow 5000
+(flaskappenv)$ python showtemp.py
 </pre></div>
 
 
-<p>Another data point should now be shown on ThingSpeak.com.</p>
-<h3 id="next-steps">Next steps</h3>
-<p>Pretty amazing to have a little piece of hardware like the Feather Huzzah ESP8266 wirelessly upload a temperature measurement. It did require a lot of typing at the Micropython REPL though. In the next post, we'll build a couple of <strong>_.py__</strong> files to save the functions we wrote to read the temperature, build the URL and complete the http GET request.</p>
+<p>It works! By pointing a browser to the droplet IP address followed by <code>:5000</code>, I could see my simple message: "The temperature is 91.2 F".</p>
+<h2 id="setting-up-uwsgi-nginx-and-systemctl">Setting up uWSGI, nginx and systemctl</h2>
+<h3 id="configuring-uwsgi">Configuring uWSGI</h3>
+<div class="highlight"><pre><span></span><span class="o">(</span>flaskappenv<span class="o">)</span>$ <span class="nb">pwd</span>
+<span class="c1"># ~/flaskapp</span>
+<span class="o">(</span>flaskappenv<span class="o">)</span>$ nano wsgi.py
+</pre></div>
+
+
+<p>in <strong><em>wsgi.py</em></strong>, I included</p>
+<div class="highlight"><pre><span></span><span class="c1"># wsgi.py</span>
+
+<span class="kn">from</span> <span class="nn">showtemp</span> <span class="kn">import</span> <span class="n">app</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+
+
+<h3 id="testing-uwsgi">Testing uWSGI</h3>
+<p>uWSGI can be run from the command line with a couple flags</p>
+<div class="highlight"><pre><span></span>flaskappenv<span class="o">)</span>$ uwsgi --socket <span class="m">0</span>.0.0.0:5000 --protocol<span class="o">=</span>http -w wsgi:app
+</pre></div>
+
+
+<p>Still seems to be working! By pointing a browser to the droplet IP address followed by <code>:5000</code>, I could still see The simple message: "The temperature is 91.2 F".</p>
+<h3 id="making-a-uwsgi-configuration-file">Making a uWSGI configuration file</h3>
+<p>Now for another layer of uWSGI goodness- building a uWSGI configuration file</p>
+<div class="highlight"><pre><span></span><span class="o">(</span>flaskappenv<span class="o">)</span>$ deactivate
+$ <span class="nb">pwd</span>
+<span class="c1"># ~/flaskapp</span>
+$ nano flaskapp.ini
+</pre></div>
+
+
+<p>Inside the <strong><em>flaskapp.ini</em></strong> file I included the followingL</p>
+<div class="highlight"><pre><span></span>[uwsgi]
+module = wsgi:app
+
+master = true
+processes = 5
+
+socket = myproject.sock
+chmod-socket = 660
+vacuum = true
+
+die-on-term = true
+</pre></div>
+
+
+<h3 id="making-a-systemd-file">Making a systemd file</h3>
+<p>Because I want to have the flask app running all the time, I created a systemd control file to get the flask app running as a system service.</p>
+<div class="highlight"><pre><span></span>$ sudo nano /etc/systemd/system/flaskapp.service
+</pre></div>
+
+
+<p>In the <strong><em>flaskapp.service</em></strong> file, I included the following</p>
+<div class="highlight"><pre><span></span>[Unit]
+Description=uWSGI instance to serve myproject
+After=network.target
+
+[Service]
+User=sammy
+Group=www-data
+WorkingDirectory=/home/peter/flaskapp
+Environment=&quot;PATH=/home/peter/flaskapp/flaskappenv/bin&quot;
+ExecStart=/home/peter/flaskapp/flaskappenv/bin/uwsgi --ini flaskapp.ini
+
+[Install]
+WantedBy=multi-user.target
+</pre></div>
+
+
+<h2 id="adding-bootstrap-styling">Adding Bootstrap Styling</h2>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">
     <h4>Related Posts:</h4>
     <ul>
-        <li><a href="../micropython-temp-sensor.html">Using a Temperature Sensor with Micropython running on an Adadfruit Feather Huzzah ESP8266</a></li>
-        <li><a href="../micropython-install.html">Installing Micropython on an Adadfruit Feather Huzzah ESP8266</a></li>
-        <li><a href="../what-is-micropython.html">What is Micropython?</a></li>
-        <li><a href="../micropython-REPL.html">Using the Micropython REPL on an Adadfruit Feather Huzzah ESP8266</a></li>
+        <li><a href="../micropython-wifi.html">Using Micropython to connect an Adadfruit Feather Huzzah ESP8266 to WiFi</a></li>
         <li><a href="../assignments-dir-and-custom-login-page-to-jupyterhub.html">Add a custom login page and assignments directory for each user on a Jupyter Hub server</a></li>
+        <li><a href="../add-google-oauth-and-system-service-to-jupyterhub.html">Adding Google OAuth and system service to a Jupyter Hub server</a></li>
+        <li><a href="../add-ssl-and-domain-name-to-jupyterhub.html">Adding SSL and a domain name to Jupyter Hub</a></li>
+        <li><a href="../installing-jupyter-hub.html">Installing Jupyterhub</a></li>
     </ul>
-</section>
-<section class="well" id="related-posts">
-    <h4>Article <built-in method index of str object at 0x0000016B9BCB24F0> of the  series</h4>
 </section>
         </article>
     </section>
@@ -437,9 +471,9 @@ Python for Undergraduate Engineers            </a>
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
+    <li class="list-group-item"><a href="../micropython-wifi.html">Using Micropython to connect an Adadfruit Feather Huzzah ESP8266 to WiFi</a></li>
     <li class="list-group-item"><a href="../assignments-dir-and-custom-login-page-to-jupyterhub.html">Add a custom login page and assignments directory for each user on a Jupyter Hub server</a></li>
     <li class="list-group-item"><a href="../add-google-oauth-and-system-service-to-jupyterhub.html">Adding Google OAuth and system service to a Jupyter Hub server</a></li>
-    <li class="list-group-item"><a href="../add-ssl-and-domain-name-to-jupyterhub.html">Adding SSL and a domain name to Jupyter Hub</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
@@ -448,19 +482,16 @@ Python for Undergraduate Engineers            </a>
 <li class="list-group-item">
   <a href="../"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
   <ul class="list-group list-inline tagcloud" id="tags">
-    <li class="list-group-item tag-4">
-      <a href="../tag/anaconda.html">anaconda</a>
-    </li>
-    <li class="list-group-item tag-2">
+    <li class="list-group-item tag-3">
       <a href="../tag/blog.html">blog</a>
     </li>
     <li class="list-group-item tag-3">
       <a href="../tag/engineering.html">engineering</a>
     </li>
-    <li class="list-group-item tag-4">
+    <li class="list-group-item tag-3">
       <a href="../tag/esp8266.html">esp8266</a>
     </li>
-    <li class="list-group-item tag-1">
+    <li class="list-group-item tag-2">
       <a href="../tag/jupyter.html">jupyter</a>
     </li>
     <li class="list-group-item tag-2">
@@ -470,6 +501,9 @@ Python for Undergraduate Engineers            </a>
       <a href="../tag/jupyter-notebooks.html">jupyter notebooks</a>
     </li>
     <li class="list-group-item tag-4">
+      <a href="../tag/microcontroller.html">microcontroller</a>
+    </li>
+    <li class="list-group-item tag-3">
       <a href="../tag/micropython.html">micropython</a>
     </li>
     <li class="list-group-item tag-2">
@@ -481,15 +515,6 @@ Python for Undergraduate Engineers            </a>
   </ul>
 </li>
 <!-- End Sidebar/Tag Cloud -->
-
-<!-- Sidebar/Series -->
-<li class="list-group-item">
-  <h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Series</span></h4>
-  <ul class="list-group">
-  </ul>
-</li>
-<!-- End Sidebar/Series -->
-
 
 <!-- Sidebar/Github -->
 <li class="list-group-item">

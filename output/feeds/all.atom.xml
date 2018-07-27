@@ -1,5 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Python for Undergraduate Engineers</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="https://professorkazarinoff.github.io/staticsite/feeds/all.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2018-06-14T10:40:00-07:00</updated><entry><title>Add a custom login page and assignments directory for each user on a Jupyter Hub server</title><link href="https://professorkazarinoff.github.io/staticsite/assignments-dir-and-custom-login-page-to-jupyterhub.html" rel="alternate"></link><published>2018-06-14T10:40:00-07:00</published><updated>2018-06-14T10:40:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-06-14:/staticsite/assignments-dir-and-custom-login-page-to-jupyterhub.html</id><summary type="html">&lt;p&gt;This is the seventh part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we build a pre-spawn hook that creates an "assignments" and "notes" directory with pre-constructed assignments and notes for each &lt;strong&gt;jupyterhub&lt;/strong&gt; user. We also build a custom login pages that looks much more like our college login page and contains helpful links.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the seventh part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we build a pre-spawn hook that creates an "assignments" and "notes" directory with pre-constructed assignments and notes for each &lt;strong&gt;jupyterhub&lt;/strong&gt; user. We also build a custom login pages that looks much more like our college login page and contains helpful links.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Python for Undergraduate Engineers</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="https://professorkazarinoff.github.io/staticsite/feeds/all.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2018-07-20T09:01:00-07:00</updated><entry><title>Using Micropython to connect an Adadfruit Feather Huzzah ESP8266 to WiFi</title><link href="https://professorkazarinoff.github.io/staticsite/micropython-wifi.html" rel="alternate"></link><published>2018-07-20T09:01:00-07:00</published><updated>2018-07-20T09:01:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-07-20:/staticsite/micropython-wifi.html</id><summary type="html">&lt;p&gt;This is the fifth part of a multipart series on Micropython. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/micropython-temp-sensor.html"&gt;last post&lt;/a&gt; we used the Micropython REPL (the Microcpython prompt) running on the Adafruit Feather Huzzah ESP8266 board to read the temperature off a temperature sensor. In this post, we are going to connect the Feather board to WiFi and post the temperature to ThingSpeak.com&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the fifth part of a multipart series on Micropython. In the &lt;a href="https://professorkazarinoff.github.io/staticsite/micropython-temp-sensor.html"&gt;last post&lt;/a&gt; we used the Micropython REPL (the Microcpython prompt) running on the Adafruit Feather Huzzah ESP8266 board to read the temperature off a temperature sensor. In this post, we are going to connect the Feather board to WiFi and post the temperature to ThingSpeak.com&lt;/p&gt;
+&lt;p&gt;Before we can connect the Adafruit Feather Huzzah to WiFi, Micropython needs to be installed on the board and PuTTY needs to be installed on the computer to communicate with the board over serial. See a &lt;a href="https://professorkazarinoff.github.io/staticsite/micropython-install.html"&gt;previous post&lt;/a&gt; on how to install Micropython on an ESP8266 board and how to install PuTTY on a Windows 10 machine.&lt;/p&gt;
+&lt;p&gt;Summary of Steps:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Wire up the temperature sensor to the Adafruit Feather Huzzah ESP8266&lt;/li&gt;
+&lt;li&gt;Use PuTTY to connect to the Adafruit Feather Huzzah ESP8266 board&lt;/li&gt;
+&lt;li&gt;Run commands at the Micropython REPL to connect the Feather board to WiFi&lt;/li&gt;
+&lt;li&gt;Upload the temperature to ThingSpeak.com&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="1-wire-up-the-temperature-sensor-to-the-adafruit-feather-huzzah-esp8266"&gt;1. Wire up the temperature sensor to the Adafruit Feather Huzzah ESP8266&lt;/h3&gt;
+&lt;p&gt;Wire up the &lt;a href="https://www.adafruit.com/product/1782"&gt;MCP9808 temperature sensor&lt;/a&gt; to the &lt;a href="https://www.adafruit.com/product/2821"&gt;Adafruit Feather Huzzah ESP8266&lt;/a&gt; as shown in a &lt;a href="https://professorkazarinoff.github.io/staticsite/micropython-temp-sensor.html"&gt;previous post&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Fritzing Diagram" src="https://professorkazarinoff.github.io/staticsite/posts/micropython/feather_huzzah_temp_sensor_fritzing.png"&gt;&lt;/p&gt;
+&lt;h3 id="2-use-putty-to-connect-to-the-adafruit-feather-huzzah-esp8266-board"&gt;2. Use PuTTY to connect to the Adafruit Feather Huzzah ESP8266 board&lt;/h3&gt;
+&lt;p&gt;Connect the Feather to the computer using a USB data cable. Open PuTTY. Ensure the serial port (Serial line) is set correctly and the baud rate (speed) is set to 115200.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Putty config" src="https://professorkazarinoff.github.io/staticsite/posts/micropython/putty_config.PNG"&gt;&lt;/p&gt;
+&lt;h3 id="3-run-commands-at-the-micropython-repl-to-connect-the-feather-board-to-wifi"&gt;3. Run commands at the Micropython REPL to connect the Feather board to WiFi&lt;/h3&gt;
+&lt;p&gt;To connect the ESP8266 board to a WiFi network, we first need to import the &lt;code&gt;network&lt;/code&gt; module and create an instance of the &lt;code&gt;WLAN&lt;/code&gt; class. Next we use the &lt;code&gt;connect&lt;/code&gt; method and our WiFi network's SSID and password to connect. We want to run our ESP8266 in station mode (like a laptop or phone) as opposed to access point mode (like a server). We can print the IP address of the board using the &lt;code&gt;ifconfig()&lt;/code&gt; method. The commands below should be typed into the Micropython REPL. Note that &lt;code&gt;'SSDI'&lt;/code&gt; and &lt;code&gt;'password'&lt;/code&gt; should be replaced with an actual WiFi SSID and password.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;gt;&amp;gt;&amp;gt; import network
+&amp;gt;&amp;gt;&amp;gt; sta_if = network.WLAN(network.STA_IF)
+&amp;gt;&amp;gt;&amp;gt; sta_if.active(True)
+&amp;gt;&amp;gt;&amp;gt; sta_if.connect(&amp;#39;SSID&amp;#39;, &amp;#39;password&amp;#39;)
+&amp;gt;&amp;gt;&amp;gt; print(&amp;#39;network config:&amp;#39;, sta_if.ifconfig())
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now that the Feather board is connected to a WiFi network, we can use the board to read a webpage. In Micropython, reading webpages is done with &lt;em&gt;sockets&lt;/em&gt;. A socket is a connection between the ESP8266 and the outside internet.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;gt;&amp;gt;&amp;gt; import socket
+&amp;gt;&amp;gt;&amp;gt; url = &amp;#39;https://google.com&amp;#39;
+&amp;gt;&amp;gt;&amp;gt; _, _, host, path = url.split(&amp;#39;/&amp;#39;, 3)
+&amp;gt;&amp;gt;&amp;gt; addr = socket.getaddrinfo(host, 80)[0][-1]
+&amp;gt;&amp;gt;&amp;gt; s = socket.socket()
+&amp;gt;&amp;gt;&amp;gt; s.connect(addr)
+&amp;gt;&amp;gt;&amp;gt; s.send(bytes(&amp;#39;GET /%s HTTP/1.0\r\nHost: %s\r\n\r\n&amp;#39; % (path, host), &amp;#39;utf8&amp;#39;))
+&amp;gt;&amp;gt;&amp;gt; while True:
+....   data = s.recv(100)
+....   if data:
+....       print(str(data, &amp;#39;utf8&amp;#39;), end=&amp;#39;&amp;#39;)
+....   else:
+....       break
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3 id="4-upload-the-temperature-to-thingspeakcom"&gt;4. Upload the temperature to ThingSpeak.com&lt;/h3&gt;
+&lt;p&gt;Now imagine our weather station is up and working and reads a temperature of 21 &amp;deg;C. We are going to push this temperature data reading (21 &amp;deg;C) up to &lt;a href="https://thingspeak.com/"&gt;ThingSpeak.com&lt;/a&gt;. ThingSpeak.com is an Internet of Things (IoT) cloud service provider. We'll  upload the temperature to ThingSpeak.com using an http GET request in the format required by the &lt;a href="https://www.mathworks.com/help/thingspeak/rest-api.html"&gt;ThingSpeak web API&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="ThingSpeak.com Homepage" src="https://professorkazarinoff.github.io/staticsite/posts/micropython/ThingSpeak_homepage.png"&gt;&lt;/p&gt;
+&lt;p&gt;Sign up for an account on &lt;a href="https://thingspeak.com/"&gt;ThingSpeak.com&lt;/a&gt;  and create a new channel. In the ThingSpeak channel, create a new field called &lt;code&gt;temperature&lt;/code&gt;. Note the &lt;strong&gt;ThingSpeak channel number&lt;/strong&gt; and &lt;strong&gt;ThingSpeak write API key&lt;/strong&gt;. The write API key will be needed to send our temperature up to ThingSpeak.com and the channel number is needed to view the temperature.&lt;/p&gt;
+&lt;p&gt;At the Micropython REPL, we'll build a new function called &lt;code&gt;http_get()&lt;/code&gt; which will initiate the http GET action by the Feather board. We can then feed this &lt;code&gt;http_get()&lt;/code&gt; function a specific URL that will activate the ThingSpeak web API and post the temperature to the cloud on ThingSpeak.com.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;gt;&amp;gt;&amp;gt; def http_get(url):
+...    import socket
+...    _, _, host, path = url.split(&amp;#39;/&amp;#39;, 3)
+...    addr = socket.getaddrinfo(host, 80)[0][-1]
+...    s = socket.socket()
+...    s.connect(addr)
+...    s.send(bytes(&amp;#39;GET /%s HTTP/1.0\r\nHost: %s\r\n\r\n&amp;#39; % (path, host), &amp;#39;utf8&amp;#39;))
+...    while True:
+...        data = s.recv(100)
+...        if data:
+...            print(str(data, &amp;#39;utf8&amp;#39;), end=&amp;#39;&amp;#39;)
+...        else:
+...            break
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now we need to build the URL that will call the ThingSpeak web API. The URL contains four parts: A base domain, an API key, a field number and data. Let's assume our temperature data is 21 (for 21 &amp;deg;C). We can define these URL parts as strings then combine the stings to create one long URL. Note that you should include your actual API key here, not a bunch of XXXXXXX's. Since the entire URL is a string, it is important to assign the string &lt;code&gt;'21'&lt;/code&gt; to the variable &lt;code&gt;data&lt;/code&gt; instead of assigning the integer &lt;code&gt;21&lt;/code&gt;. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;gt;&amp;gt;&amp;gt; base_url = &amp;#39;https://api.thingspeak.com/update&amp;#39;
+&amp;gt;&amp;gt;&amp;gt; API_key = &amp;#39;?api_key=XXXXXXXXXXXXXX&amp;#39;
+&amp;gt;&amp;gt;&amp;gt; field = &amp;#39;&amp;amp;field1=&amp;#39;
+&amp;gt;&amp;gt;&amp;gt; data = &amp;#39;21&amp;#39;
+&amp;gt;&amp;gt;&amp;gt; url = base_url + API_key + field + data
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now we can use the &lt;code&gt;http_get()&lt;/code&gt; function and our URL to send the temperature &lt;code&gt;21&lt;/code&gt; up to ThingSpeak.com&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;gt;&amp;gt;&amp;gt; http_get(url)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;If you go to &lt;code&gt;https://thingspeak.com/&amp;lt;your channel number&amp;gt;&lt;/code&gt;, you should see a new temperature point. &lt;/p&gt;
+&lt;p&gt;Now let's read an actual temperature off of the MCP9808 temperature sensor and send that value up to ThingSpeak.com.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;gt;&amp;gt;&amp;gt; import machine
+&amp;gt;&amp;gt;&amp;gt; i2c = machine.I2C(scl=machine.Pin(5), sda=machine.Pin(4))
+&amp;gt;&amp;gt;&amp;gt; byte_data = bytearray(2)
+&amp;gt;&amp;gt;&amp;gt; i2c.readfrom_mem_into(24, 5, byte_data)
+&amp;gt;&amp;gt;&amp;gt; value = byte_data[0] &amp;lt;&amp;lt; 8 | byte_data[1]
+&amp;gt;&amp;gt;&amp;gt; temp = (value &amp;amp; 0xFFF) / 16.0
+&amp;gt;&amp;gt;&amp;gt; if value &amp;amp; 0x1000:
+...     temp -= 256.0
+...     print(temp)
+&amp;gt;&amp;gt;&amp;gt; base_url = &amp;#39;https://api.thingspeak.com/update&amp;#39;
+&amp;gt;&amp;gt;&amp;gt; API_key = &amp;#39;?api_key=XXXXXXXXXXXXXX&amp;#39;
+&amp;gt;&amp;gt;&amp;gt; field = &amp;#39;&amp;amp;field1=&amp;#39;
+&amp;gt;&amp;gt;&amp;gt; data = str(temp)
+&amp;gt;&amp;gt;&amp;gt; url = base_url + API_key + field + data
+&amp;gt;&amp;gt;&amp;gt; http_get(url)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Another data point should now be shown on ThingSpeak.com.&lt;/p&gt;
+&lt;h3 id="next-steps"&gt;Next steps&lt;/h3&gt;
+&lt;p&gt;Pretty amazing to have a little piece of hardware like the Feather Huzzah ESP8266 wirelessly upload a temperature measurement up to the cloud. It did require a lot of typing at the Micropython REPL though. In the next post, we'll build a couple of &lt;strong&gt;&lt;em&gt;.py&lt;/em&gt;&lt;/strong&gt; files to save the functions we wrote to read the temperature, build the URL and complete the http GET request. Then we will upload these &lt;strong&gt;&lt;em&gt;.py&lt;/em&gt;&lt;/strong&gt; files to the Feather board.&lt;/p&gt;</content><category term="python"></category><category term="micropython"></category><category term="esp8266"></category><category term="microcontroller"></category><category term="WiFi"></category></entry><entry><title>Add a custom login page and assignments directory for each user on a Jupyter Hub server</title><link href="https://professorkazarinoff.github.io/staticsite/assignments-dir-and-custom-login-page-to-jupyterhub.html" rel="alternate"></link><published>2018-06-14T10:40:00-07:00</published><updated>2018-06-14T10:40:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-06-14:/staticsite/assignments-dir-and-custom-login-page-to-jupyterhub.html</id><summary type="html">&lt;p&gt;This is the seventh part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we build a pre-spawn hook that creates an "assignments" and "notes" directory with pre-constructed assignments and notes for each &lt;strong&gt;jupyterhub&lt;/strong&gt; user. We also build a custom login pages that looks much more like our college login page and contains helpful links.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the seventh part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we build a pre-spawn hook that creates an "assignments" and "notes" directory with pre-constructed assignments and notes for each &lt;strong&gt;jupyterhub&lt;/strong&gt; user. We also build a custom login pages that looks much more like our college login page and contains helpful links.&lt;/p&gt;
 &lt;h3 id="posts-in-this-series"&gt;Posts in this series&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;a href="https://professorkazarinoff.github.io/staticsite/why-jupyter-hub.html"&gt;Why Jupyter Hub?&lt;/a&gt;&lt;/li&gt;

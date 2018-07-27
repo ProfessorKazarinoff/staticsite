@@ -1,4 +1,4 @@
-Title: Using the Micropython REPL on an Adadfruit Feather Huzzah ESP8266
+Title: Using the Micropython REPL on an Adafruit Feather Huzzah ESP8266
 Date: 2018-03-12 09:01
 Modified: 2018-03-12 09:01
 Status: published
@@ -17,9 +17,6 @@ This is the third part of a multipart series on Micropython. In [last post of th
 4. Read the temperature from a MCP9808 breakout board using Micropyton
 5. Use Micropython to connect an Adafruit Feather Huzzah to a WiFi network
 6. Upload Micropython code to turn an Adafruit Feather Huzzah into a WiFi-enabled IoT weather station
-7. Use **pandas** and **matplotlib** to plot the weather data from a WiFi-enabled IoT weather station.
-8. Upload MicroPython to a cheap $3 ESP-01 module
-9. Build custom firmware to turn the $3 ESP-01 into an low-cost WiFi enabled IoT switch.
 
 Before you can use the Micropython REPL (the Microython prompt) running on the Adafruit Feather Huzzah ESP8266, Micropython needs to be installed on the board and Putty needs to be installed to communicate with the board over serial. See the [previous post]({filename}micropython_install.md) on how to install Micropython on the board and install [Putty](https://www.putty.org/) on a Windows 10 machine.
 

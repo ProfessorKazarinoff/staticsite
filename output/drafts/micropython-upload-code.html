@@ -172,20 +172,20 @@ init_mathjax = function() {
 }
 init_mathjax();
 </script>
-    <link href="/extra/favicon.ico" rel="icon">
+    <link href="http://pythonforundergradengineers.com/extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="/drafts/micropython-upload-code.html">
+<link rel="canonical" href="http://pythonforundergradengineers.com/drafts/micropython-upload-code.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
         <meta name="keywords" content="python,micropython,esp8266,microcontroller,sensor" />
-        <meta name="description" content="This is the sixth part of a multi-part series on Micropython. In this post, we will upload _.py__ files to an Adafruit Feather Huzzah ESP8266 board using Python and a Python package called ampy. At the end of the post we will have a working WiFi weather station that …" />
+        <meta name="description" content="This is the sixth part of a multi-part series on Micropython. In this post, we will upload .py files to an Adafruit Feather Huzzah ESP8266 board using Python and a Python package called ampy. At the end of the post we will have a working WiFi weather station that will …" />
 
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="Upload Micropython Code an Adadfruit Feather Huzzah ESP8266"/>
-        <meta property="og:url" content="/drafts/micropython-upload-code.html"/>
-        <meta property="og:description" content="This is the sixth part of a multi-part series on Micropython. In this post, we will upload _.py__ files to an Adafruit Feather Huzzah ESP8266 board using Python and a Python package called ampy. At the end of the post we will have a working WiFi weather station that …"/>
-        <meta property="article:published_time" content="2018-07-20" />
+        <meta property="og:url" content="http://pythonforundergradengineers.com/drafts/micropython-upload-code.html"/>
+        <meta property="og:description" content="This is the sixth part of a multi-part series on Micropython. In this post, we will upload .py files to an Adafruit Feather Huzzah ESP8266 board using Python and a Python package called ampy. At the end of the post we will have a working WiFi weather station that will …"/>
+        <meta property="article:published_time" content="2018-07-27" />
             <meta property="article:section" content="micropython" />
             <meta property="article:tag" content="python" />
             <meta property="article:tag" content="micropython" />
@@ -197,13 +197,13 @@ init_mathjax();
 
 
     <!-- Bootstrap -->
-        <link rel="stylesheet" href="/theme/css/bootstrap.flatly.min.css" type="text/css"/>
-    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="http://pythonforundergradengineers.com/theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="http://pythonforundergradengineers.com/theme/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="/theme/css/pygments/native.css" rel="stylesheet">
-    <link href="/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
-    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
-        <link href="/static/css/custom.css" rel="stylesheet">
+    <link href="http://pythonforundergradengineers.com/theme/css/pygments/native.css" rel="stylesheet">
+    <link href="http://pythonforundergradengineers.com/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://pythonforundergradengineers.com/theme/css/style.css" type="text/css"/>
+        <link href="http://pythonforundergradengineers.com/static/css/custom.css" rel="stylesheet">
 
 
 
@@ -221,18 +221,18 @@ init_mathjax();
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="/" class="navbar-brand">
+            <a href="http://pythonforundergradengineers.com/" class="navbar-brand">
 Python for Undergraduate Engineers            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                         <li><a href="/pages/about.html">
+                         <li><a href="http://pythonforundergradengineers.com/pages/about.html">
                              About
                           </a></li>
-                         <li><a href="/pages/book.html">
+                         <li><a href="http://pythonforundergradengineers.com/pages/book.html">
                              Book
                           </a></li>
-                         <li><a href="/pages/now.html">
+                         <li><a href="http://pythonforundergradengineers.com/pages/now.html">
                              Now
                           </a></li>
             </ul>
@@ -242,7 +242,7 @@ Python for Undergraduate Engineers            </a>
                   <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
                 </form></span>
               </li>
-              <li><a href="/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+              <li><a href="http://pythonforundergradengineers.com/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -254,15 +254,15 @@ Python for Undergraduate Engineers            </a>
     <div class="row">
         <div class="col-sm-9">
             <ol class="breadcrumb">
-                <li><a href="" title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="/category/micropython.html" title="micropython">micropython</a></li>
+                <li><a href="http://pythonforundergradengineers.com" title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="http://pythonforundergradengineers.com/category/micropython.html" title="micropython">micropython</a></li>
                 <li class="active">Upload Micropython Code an Adadfruit Feather Huzzah ESP8266</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="/drafts/micropython-upload-code.html"
+                    <a href="http://pythonforundergradengineers.com/drafts/micropython-upload-code.html"
                        rel="bookmark"
                        title="Permalink to Upload Micropython Code an Adadfruit Feather Huzzah ESP8266">
                         Upload Micropython Code an Adadfruit Feather Huzzah ESP8266
@@ -275,30 +275,30 @@ Python for Undergraduate Engineers            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2018-07-20T09:01:00-07:00"> Fri 20 July 2018</time>
+        <i class="fa fa-calendar"></i><time datetime="2018-07-27T09:01:00-07:00"> Fri 27 July 2018</time>
     </span>
 
             <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x000002A726409F70> of 
+            Part <built-in method index of str object at 0x0000027DD4AB5270> of 
 
 
 
 
 <span class="label label-default">Tags</span>
-	<a href="/tag/python.html">python</a>
+	<a href="http://pythonforundergradengineers.com/tag/python.html">python</a>
         /
-	<a href="/tag/micropython.html">micropython</a>
+	<a href="http://pythonforundergradengineers.com/tag/micropython.html">micropython</a>
         /
-	<a href="/tag/esp8266.html">esp8266</a>
+	<a href="http://pythonforundergradengineers.com/tag/esp8266.html">esp8266</a>
         /
-	<a href="/tag/microcontroller.html">microcontroller</a>
+	<a href="http://pythonforundergradengineers.com/tag/microcontroller.html">microcontroller</a>
         /
-	<a href="/tag/sensor.html">sensor</a>
+	<a href="http://pythonforundergradengineers.com/tag/sensor.html">sensor</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>This is the sixth part of a multi-part series on Micropython. In this post, we will upload <strong>_.py__</strong> files to an Adafruit Feather Huzzah ESP8266 board using Python and a Python package called <strong>ampy</strong>. At the end of the post we will have a working WiFi weather station that will post the temperature to ThingSpeak.com</p>
-<p>Before we can use the Microython REPL (the Micropython prompt) running on the Adafruit Feather Huzzah ESP8266, <a href="https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/intro.html">Micropython</a> needs to be installed on the ESP8266 board and <a href="https://www.putty.org/">PuTTY</a> needs to be installed on the computer to communicate with the board over a serial connection. See a <a href="/micropython-install.html">previous post</a> on how to install Micropython on an ESP8266 board and how to install PuTTY on a Windows 10 machine.</p>
+                <p>This is the sixth part of a multi-part series on Micropython. In this post, we will upload <strong><em>.py</em></strong> files to an Adafruit Feather Huzzah ESP8266 board using Python and a Python package called <strong>ampy</strong>. At the end of the post we will have a working WiFi weather station that will post the temperature to ThingSpeak.com</p>
+<p>Before we can use the Microython REPL (the Micropython prompt) running on the Adafruit Feather Huzzah ESP8266, <a href="https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/intro.html">Micropython</a> needs to be installed on the ESP8266 board and <a href="https://www.putty.org/">PuTTY</a> needs to be installed on the computer to communicate with the board over a serial connection. See a <a href="http://pythonforundergradengineers.com/micropython-install.html">previous post</a> on how to install Micropython on an ESP8266 board and how to install PuTTY on a Windows 10 machine.</p>
 <p>Summary of Steps:</p>
 <ol>
 <li>Install <strong>ampy</strong> with <strong>pip</strong></li>
@@ -307,7 +307,7 @@ Python for Undergraduate Engineers            </a>
 <li>Unplug and power up the Feather Huzzah and watch the data on ThingSpeak.com</li>
 </ol>
 <h3 id="1-install-ampy-with-pip">1. Install <strong>ampy</strong> with <strong>pip</strong></h3>
-<p><strong>Ampy</strong> is a tool written by the good folks at Adafruit. <strong>Ampy</strong> is used to upload files onto the ESP8266. Since I'm using a virtual environment, I need to activate the virtual environment first before installing <strong>ampy</strong>. Note that the tool is called <strong>ampy</strong>, but we <code>pip install ampy-adafruit</code>.</p>
+<p><a href="https://github.com/adafruit/ampy"><strong>Ampy</strong></a> is a tool written by the good folks at Adafruit. <strong>Ampy</strong> is used to upload files onto the ESP8266. Since I'm using a virtual environment, I need to activate the virtual environment first before installing <strong>ampy</strong>. Note that the tool is called <strong>ampy</strong>, but we <code>pip install ampy-adafruit</code>.</p>
 <div class="highlight"><pre><span></span>$ conda activate micropython
 <span class="o">(</span>micropython<span class="o">)</span> $ pip install ampy-adafruit
 <span class="o">(</span>micropython<span class="o">)</span> $ ampy --help
@@ -315,8 +315,8 @@ Python for Undergraduate Engineers            </a>
 
 
 <h3 id="2-write-python-code-in-py-files">2. Write Python code in <strong><em>.py</em></strong> files</h3>
-<p>Now we need to write the Python code in <strong><em>.py</em></strong> files that will run on the ESP8266 board. The board already contains two main Python files: <strong><em>boot.py</em></strong> and <strong><em>main.py</em></strong>. We can also add additional files to the board. <strong><em>boot.py</em></strong> is the file that runs first when the board is powered up. After <strong><em>boot.py</em></strong> runs, then <strong><em>main.py</em></strong> will run. We can add other <strong><em>.py</em></strong> files to the board to provide <strong><em>main.py</em></strong> some functions and classes to work with. We have two general things to do with our Feather board: reading temperature and posting the temperature to the ThingSpeak.com. Let's use a different <strong><em>.py</em></strong> file for each of these two general tasks. </p>
-<p>The first <strong><em>MCP9808.py</em></strong> file will simplify reading temperature data off of the <a href="https://www.adafruit.com/product/1782">Adafruit MCP9808</a> temperature sensor breakout. We need a <code>readtemp()</code> function that parses out the temperature data from the I2C bus and outputs the temperature as a float. The <code>readtemp()</code> function needs to import the <code>machine</code> module to use the I2C bus. The machine module allows us to create a new I2C object. When we instantiate the I2C object object, we need to specify the <code>scl</code> and <code>sda</code> pins connected to the sensor. <code>scl</code> is the I2C clock line and <code>sda</code> is the I2C data line. These are pin 5 and pin 4 on the Adafruit Feather Huzzah. Then a new byte array variable needs to be created, because a byte array is needed to store the temperature data when it comes over the I2C line from the sensor to the board.  Then we need to read the sensor data using the <code>i2c.readfrom_mem_into()</code> function. The first argument is the I2C bus address of the sensor. In our case, the sensor is at I2C bus address <code>24</code>. You can use the line <code>&gt;&gt;&gt; i2c.scan()</code> in the Micropython REPL to see this value.  The next argument passed to the <code>i2c.readfrom_mem_into()</code> function is the register on the MCP9808 temperature sensor where the temperature value is stored. The temperature is stored on the MCP9808 in register <code>5</code>. When we access register <code>5</code> on the MCP9808, we read in the temperature. The final argument passed into the  <code>i2c.readfrom_mem_into()</code> function is the byte array variable that stores the temperature data. The <code>i2c.readfrom_mem_into()</code> function modifies the variable passed to it as a function argument, rather than producing a variable which is the function output as most functions do. This is why we needed to first create the <code>byte_data</code> variable before calling the <code>i2c.readfrom_mem_into()</code> function. Finally, we need to do some post processing of the byte array to transform it into a temperature in degrees C. <code>The complete readtemp()</code> function is below:</p>
+<p>Now we need to write the Python code in <strong><em>.py</em></strong> files that will run on the ESP8266 board. The board already contains two main Python files: <strong><em>boot.py</em></strong> and <strong><em>main.py</em></strong>. We can also add additional files to the board. <strong><em>boot.py</em></strong> is the file that runs first when the board is powered up. After <strong><em>boot.py</em></strong> runs, then <strong><em>main.py</em></strong> runs. We can add other <strong><em>.py</em></strong> files to the board to provide <strong><em>main.py</em></strong> some functions and classes to work with. We have two general things to do with our Feather board: read the temperature and post the temperature to the ThingSpeak.com. We'll use a different <strong><em>.py</em></strong> file for each of these two general tasks. </p>
+<p>The first module, <strong><em>MCP9808.py</em></strong>, file will simplify reading temperature data off of the <a href="https://www.adafruit.com/product/1782">Adafruit MCP9808</a> temperature sensor breakout. We need to write a <code>readtemp()</code> function that parses out the temperature data from the I2C bus and outputs the temperature as a float. The <code>readtemp()</code> function needs to import the <code>machine</code> module to use the I2C bus. The machine module allows us to create a new I2C object. When we instantiate the I2C object object, we need to specify the <code>scl</code> and <code>sda</code> pins connected to the sensor. <code>scl</code> is the I2C clock line and <code>sda</code> is the I2C data line. on the Adafruit Feather Huzzah <code>scl</code> is pin 5 and <code>sda</code> is pin 4 . Then a new byte array variable needs to be created. A byte array is needed to store the temperature data when it comes over the I2C line from the sensor to the board.  Then we need to read the sensor data using the <code>i2c.readfrom_mem_into()</code> function. The first argument is the I2C bus address of the sensor. In our case, the sensor is at I2C bus address <code>24</code>. You can use the line <code>&gt;&gt;&gt; i2c.scan()</code> in the Micropython REPL to see this value.  The next argument passed to the <code>i2c.readfrom_mem_into()</code> function is the register on the MCP9808 temperature sensor where the temperature value is stored. The temperature is stored on the MCP9808 in register <code>5</code>. When we access register <code>5</code> on the MCP9808, we read in the temperature. The final argument passed into the  <code>i2c.readfrom_mem_into()</code> function is the byte array variable that stores the temperature data. The <code>i2c.readfrom_mem_into()</code> function modifies the variable passed to it as a function argument, rather than producing a variable which is the function output as most functions do. This is why we needed to first create the <code>byte_data</code> variable before calling the <code>i2c.readfrom_mem_into()</code> function. Finally, we need to do some post processing of the byte array to transform it into a temperature in degrees C. <code>The complete readtemp()</code> function is below:</p>
 <div class="highlight"><pre><span></span><span class="c1"># MCP9808.py</span>
 
 <span class="c1"># Functions for the  MCP9808 temperature sensor</span>
@@ -335,10 +335,10 @@ Python for Undergraduate Engineers            </a>
 </pre></div>
 
 
-<p>Now we'll build a Python file that contains a set of WiFi functions called <strong><em>wifitools.py</em></strong>. We used this same functionally in a <a href="/micropython-wifi.html">previous post</a> to connect the ESP8266 to a WiFi network. In addition to the WiFi functions, we also need a function to build the ThingSpeak.com Web API URL. This is the URL we will request in order to get our temperature posted on ThingSpeak.com.</p>
+<p>Now we'll build a Python file that contains a set of WiFi functions called <strong><em>wifitools.py</em></strong>. We used this same functionally in a <a href="http://pythonforundergradengineers.com/micropython-wifi.html">previous post</a> to connect the ESP8266 to a WiFi network. In addition to the WiFi functions, we also need a function to build the ThingSpeak.com Web API URL. This is the URL we will request in order to get our temperature posted on ThingSpeak.com.</p>
 <div class="highlight"><pre><span></span><span class="c1">#wifitools.py</span>
 
-<span class="c1"># Wifi connection and post functions for an ESP8266 board running Micropython</span>
+<span class="c1"># Wifi connection and ThingSpeak.com post functions for an ESP8266 board running Micropython</span>
 <span class="c1">#https://docs.micropython.org/en/v1.8.6/esp8266/esp8266/tutorial/network_basics.html</span>
 
 <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="n">SSID</span><span class="p">,</span><span class="n">password</span><span class="p">):</span>
@@ -403,8 +403,8 @@ Python for Undergraduate Engineers            </a>
 </pre></div>
 
 
-<h3 id="3-upload-the-_py__-files-to-the-board-with-ampy">3. Upload the <strong>_.py__</strong> files to the board with <strong>ampy</strong></h3>
-<p>Once all the <strong><strong>.py</strong></strong> files are created, ensure the Adafruit Feather Huzzah ESP8266 board is connected with a USB cable to the computer. You will also need to know what serial port the Feather board is connected to. We'll upload the code files to the board using <strong>ampy</strong>. Make sure you are in the directory with the <strong><em>.py</em></strong> files and that you are working in the <code>(micropython)</code> virtual environment that has <strong>ampy</strong> installed in it.</p>
+<h3 id="3-upload-the-py-files-to-the-board-with-ampy">3. Upload the <strong><em>.py</em></strong> files to the board with <strong>ampy</strong></h3>
+<p>Once all the <strong><em>.py</em></strong> files are created, ensure the Adafruit Feather Huzzah ESP8266 board is connected with a USB cable to the computer. You will also need to know what serial port the Feather board is connected to. We'll upload the code files to the board using <strong>ampy</strong>. Make sure you are in the directory with the <strong><em>.py</em></strong> files and that you are working in the <code>(micropython)</code> virtual environment that has <strong>ampy</strong> installed in it.</p>
 <div class="highlight"><pre><span></span>$ conda activate micropython
 <span class="o">(</span>micropython<span class="o">)</span>$ ampy --port COM4 put MCP9808.py
 <span class="o">(</span>micropython<span class="o">)</span>$ ampy --port COM4 put wifitools.py
@@ -421,23 +421,23 @@ main.py
 
 <h3 id="4-unplug-and-power-up-the-feather-huzzah-and-watch-the-data-on-thingspeakcom">4. Unplug and power up the Feather Huzzah and watch the data on ThingSpeak.com</h3>
 <p>The Feather Huzzah needs to be restarted to run the code we just uploaded. To restart the board, unplug and then replug the board's power. Once power is restored, the board will run through the <strong><em>boot.py</em></strong> script then start the <strong><em>main.py</em></strong> script. When the board runs the <strong><em>main.py</em></strong> script, the board will connect to the WiFi network, read the temperature from the sensor then upload the temperature to ThingSpeak.com. If we go to ThingSpeak.com, we should see the temperature plotted on our Channel's page.</p>
-<p><img alt="Channel Plot on ThingSpeak" src="/posts/micropython/channel_plot_on_ThingSpeak.png"></p>
+<p><img alt="Channel Plot on ThingSpeak" src="http://pythonforundergradengineers.com/posts/micropython/channel_plot_on_ThingSpeak.png"></p>
 <h3 id="congrats-you-have-a-working-weather-station-that-is-part-of-the-internet-of-things">Congrats! You have a working weather station that is part of the Internet of Things.</h3>
-<p>Now you can read the temperature from anywhere in the world with an internet connection.</p>
+<p>Now you can read the temperature from anywhere in the world with an internet connection!</p>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">
     <h4>Related Posts:</h4>
     <ul>
-        <li><a href="/micropython-temp-sensor.html">Using a Temperature Sensor with Micropython running on an Adadfruit Feather Huzzah ESP8266</a></li>
-        <li><a href="/micropython-wifi.html">Using Micropython to connect an Adadfruit Feather Huzzah ESP8266 to WiFi</a></li>
-        <li><a href="/micropython-install.html">Installing Micropython on an Adadfruit Feather Huzzah ESP8266</a></li>
-        <li><a href="/what-is-micropython.html">What is Micropython?</a></li>
-        <li><a href="/micropython-REPL.html">Using the Micropython REPL on an Adadfruit Feather Huzzah ESP8266</a></li>
+        <li><a href="http://pythonforundergradengineers.com/micropython-temp-sensor.html">Using a Temperature Sensor with Micropython running on an Adadfruit Feather Huzzah ESP8266</a></li>
+        <li><a href="http://pythonforundergradengineers.com/micropython-wifi.html">Using Micropython to connect an Adadfruit Feather Huzzah ESP8266 to WiFi</a></li>
+        <li><a href="http://pythonforundergradengineers.com/micropython-install.html">Installing Micropython on an Adadfruit Feather Huzzah ESP8266</a></li>
+        <li><a href="http://pythonforundergradengineers.com/what-is-micropython.html">What is Micropython?</a></li>
+        <li><a href="http://pythonforundergradengineers.com/micropython-REPL.html">Using the Micropython REPL on an Adadfruit Feather Huzzah ESP8266</a></li>
     </ul>
 </section>
 <section class="well" id="related-posts">
-    <h4>Article <built-in method index of str object at 0x000002A726409F70> of the  series</h4>
+    <h4>Article <built-in method index of str object at 0x0000027DD4AB5270> of the  series</h4>
 </section>
         </article>
     </section>
@@ -447,7 +447,7 @@ main.py
             <aside>
 <div id="aboutme">
         <p>
-            <img width="100%" class="img-thumbnail" src="/extra/gear-wrench-icon-512-278694.png"/>
+            <img width="100%" class="img-thumbnail" src="http://pythonforundergradengineers.com/extra/gear-wrench-icon-512-278694.png"/>
         </p>
     <p>
       <strong>About Peter Kazarinoff</strong><br/>
@@ -461,46 +461,46 @@ main.py
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
-    <li class="list-group-item"><a href="/micropython-wifi.html">Using Micropython to connect an Adadfruit Feather Huzzah ESP8266 to WiFi</a></li>
-    <li class="list-group-item"><a href="/assignments-dir-and-custom-login-page-to-jupyterhub.html">Add a custom login page and assignments directory for each user on a Jupyter Hub server</a></li>
-    <li class="list-group-item"><a href="/add-google-oauth-and-system-service-to-jupyterhub.html">Adding Google OAuth and system service to a Jupyter Hub server</a></li>
+    <li class="list-group-item"><a href="http://pythonforundergradengineers.com/micropython-wifi.html">Using Micropython to connect an Adadfruit Feather Huzzah ESP8266 to WiFi</a></li>
+    <li class="list-group-item"><a href="http://pythonforundergradengineers.com/assignments-dir-and-custom-login-page-to-jupyterhub.html">Add a custom login page and assignments directory for each user on a Jupyter Hub server</a></li>
+    <li class="list-group-item"><a href="http://pythonforundergradengineers.com/add-google-oauth-and-system-service-to-jupyterhub.html">Adding Google OAuth and system service to a Jupyter Hub server</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
 
 <!-- Sidebar/Tag Cloud -->
 <li class="list-group-item">
-  <a href="/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <a href="http://pythonforundergradengineers.com/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
   <ul class="list-group list-inline tagcloud" id="tags">
     <li class="list-group-item tag-3">
-      <a href="/tag/blog.html">blog</a>
+      <a href="http://pythonforundergradengineers.com/tag/blog.html">blog</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="/tag/engineering.html">engineering</a>
+      <a href="http://pythonforundergradengineers.com/tag/engineering.html">engineering</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="/tag/esp8266.html">esp8266</a>
+      <a href="http://pythonforundergradengineers.com/tag/esp8266.html">esp8266</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="/tag/jupyter.html">jupyter</a>
+      <a href="http://pythonforundergradengineers.com/tag/jupyter.html">jupyter</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="/tag/jupyter-hub.html">jupyter hub</a>
+      <a href="http://pythonforundergradengineers.com/tag/jupyter-hub.html">jupyter hub</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="/tag/jupyter-notebooks.html">jupyter notebooks</a>
+      <a href="http://pythonforundergradengineers.com/tag/jupyter-notebooks.html">jupyter notebooks</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="/tag/microcontroller.html">microcontroller</a>
+      <a href="http://pythonforundergradengineers.com/tag/microcontroller.html">microcontroller</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="/tag/micropython.html">micropython</a>
+      <a href="http://pythonforundergradengineers.com/tag/micropython.html">micropython</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="/tag/pelican.html">pelican</a>
+      <a href="http://pythonforundergradengineers.com/tag/pelican.html">pelican</a>
     </li>
     <li class="list-group-item tag-1">
-      <a href="/tag/python.html">python</a>
+      <a href="http://pythonforundergradengineers.com/tag/python.html">python</a>
     </li>
   </ul>
 </li>
@@ -542,15 +542,15 @@ main.py
       </div>
    </div>
 </footer>
-<script src="/theme/js/jquery.min.js"></script>
+<script src="http://pythonforundergradengineers.com/theme/js/jquery.min.js"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/theme/js/bootstrap.min.js"></script>
+<script src="http://pythonforundergradengineers.com/theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="/theme/js/respond.min.js"></script>
+<script src="http://pythonforundergradengineers.com/theme/js/respond.min.js"></script>
 
-    <script src="/static/js/custom.js"></script>
+    <script src="http://pythonforundergradengineers.com/static/js/custom.js"></script>
 
 
 <!-- GitHub JS Code -->
@@ -559,7 +559,7 @@ $(document).ready(function () {
   if (!window.jXHR) {
     var jxhr = document.createElement('script');
     jxhr.type = 'text/javascript';
-    jxhr.src = '/theme/js/jXHR.js';
+    jxhr.src = 'http://pythonforundergradengineers.com/theme/js/jXHR.js';
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(jxhr, s);
   }
@@ -572,7 +572,7 @@ $(document).ready(function () {
   });
 });
 </script>
-<script src="/theme/js/github.js" type="text/javascript"></script>
+<script src="http://pythonforundergradengineers.com/theme/js/github.js" type="text/javascript"></script>
 <!-- End GitHub JS Code -->
     <!-- Google Analytics -->
     <script type="text/javascript">

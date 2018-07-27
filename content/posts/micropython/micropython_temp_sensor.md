@@ -1,4 +1,4 @@
-Title: Using a Temperature Sensor with Micropython running on an Adadfruit Feather Huzzah ESP8266
+Title: Using a Temperature Sensor with Micropython running on an Adafruit Feather Huzzah ESP8266
 Date: 2018-03-28 08:40
 Modified: 2018-03-29 08:40
 Status: published

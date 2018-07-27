@@ -1,4 +1,4 @@
-Title: Installing Micropython on an Adadfruit Feather Huzzah ESP8266
+Title: Installing Micropython on an Adafruit Feather Huzzah ESP8266
 Date: 2018-03-01 14:20
 Modified: 2018-03-01 14:20
 Status: published
@@ -17,9 +17,6 @@ This is the second part of a multipart series on Micropython. Micropython is a p
 4. Read the temperature from a MCP9808 breakout board using Micropyton
 5. Use Micropython to connect an Adafruit Feather Huzzah to a WiFi network
 6. Upload Micropython code to turn an Adafruit Feather Huzzah into a WiFi-enabled IoT weather station
-7. Use **pandas** and **matplotlib** to plot the weather data from a WiFi-enabled IoT weather station.
-8. Upload MicroPython to a cheap $3 ESP-01 module
-9. Build custom firmware to turn the $3 ESP-01 into an low-cost WiFi enabled IoT switch.
 
 To install Micropython on a microcontroller, like the Adafruit Feather Huzzah ESP8266, we need the following hardware:
 

@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 AUTHOR = 'Peter Kazarinoff'
 SITENAME = 'Python for Undergraduate Engineers'
-SITEURL = 'http://pythonforundergradengineers.com'
+SITEURL = ''
 TIMEZONE = 'America/Los_Angeles'
 DEFAULT_LANG = 'en'
 

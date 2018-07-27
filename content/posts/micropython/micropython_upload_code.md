@@ -1,4 +1,4 @@
-Title: Upload Micropython Code an Adafruit Feather Huzzah ESP8266
+Title: Upload Micropython Code to an Adafruit Feather Huzzah ESP8266
 Date: 2018-07-27 09:01
 Modified: 2018-07-27 09:01
 Status: published

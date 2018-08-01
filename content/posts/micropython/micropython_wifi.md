@@ -1,4 +1,4 @@
-Title: Using Micropython to connect an Adadfruit Feather Huzzah ESP8266 to WiFi
+Title: Using Micropython to connect an Adafruit Feather Huzzah ESP8266 to WiFi
 Date: 2018-07-20 09:01
 Modified: 2018-07-20 09:01
 Status: published

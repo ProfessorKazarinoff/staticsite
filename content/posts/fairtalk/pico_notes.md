@@ -165,7 +165,7 @@ Leaving...
 
 Now let's try and bring up the Micropython REPL with screen
 
-```bash
+```text
 $ screen /dev/ttyUSBO 115200
 # at first nothing, [ctrl-c] brought up the prompt
 >>> import sys
@@ -266,7 +266,7 @@ $ cd ports/esp8266
 $ make
 ```
 
-Then I plugged the ESP8266 and ran the esptool erase daily regimen
+Then I plugged the ESP8266 and ran **esptool** to erase the ESP's flash memory.
 
 ```bash
 $ esptool.py --port /dev/ttyUSB0 erase_flash
@@ -288,7 +288,7 @@ Wrote 581632 bytes at 0x0 in 12.7 seconds (367.5 kbit/s)...
 Leaving...
 ```
 
-I had some very limited success getting pico-note to run on the ESP8266 as an access point. This is the defaut state that the ESP8266 starts with when loaded with micropython firmware. I used screen to log into the ESP8226 and start the pico-notes app.
+I had some very limited success getting **pico-note** to run on the ESP8266 as an access point. This is the default state that the ESP8266 starts with when loaded with Micropython firmware. I used screen to log into the ESP8226 and start the pico-notes app.
 
 ```bash
 $ screen /dev/ttyUS0 115200

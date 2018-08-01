@@ -417,17 +417,17 @@ Leaving...
 
 
 <p>Now let's try and bring up the Micropython REPL with screen</p>
-<div class="highlight"><pre><span></span>$ screen /dev/ttyUSBO <span class="m">115200</span>
-<span class="c1"># at first nothing, [ctrl-c] brought up the prompt</span>
+<div class="highlight"><pre><span></span>$ screen /dev/ttyUSBO 115200
+# at first nothing, [ctrl-c] brought up the prompt
 &gt;&gt;&gt; import sys
 &gt;&gt;&gt; sys.platform
-<span class="s1">&#39;esp8266&#39;</span>
+&#39;esp8266&#39;
 &gt;&gt;&gt; sys.implementation
-<span class="o">(</span><span class="nv">name</span><span class="o">=</span><span class="s1">&#39;micropython&#39;</span>, <span class="nv">version</span><span class="o">=(</span><span class="m">1</span>, <span class="m">9</span>, <span class="m">3</span><span class="o">))</span>
+(name=&#39;micropython&#39;, version=(1, 9, 3))
 &gt;&gt;&gt; import uasyncio
-Traceback <span class="o">(</span>most recent call last<span class="o">)</span>:
-  File <span class="s2">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in &lt;module&gt;
-ImportError: no module named <span class="s1">&#39;uasyncio&#39;</span>
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+ImportError: no module named &#39;uasyncio&#39;
 </pre></div>
 
 
@@ -514,7 +514,7 @@ $ make
 </pre></div>
 
 
-<p>Then I plugged the ESP8266 and ran the esptool erase daily regimen</p>
+<p>Then I plugged the ESP8266 and ran <strong>esptool</strong> to erase the ESP's flash memory.</p>
 <div class="highlight"><pre><span></span>$ esptool.py --port /dev/ttyUSB0 erase_flash
 </pre></div>
 
@@ -534,7 +534,7 @@ Leaving...
 </pre></div>
 
 
-<p>I had some very limited success getting pico-note to run on the ESP8266 as an access point. This is the defaut state that the ESP8266 starts with when loaded with micropython firmware. I used screen to log into the ESP8226 and start the pico-notes app.</p>
+<p>I had some very limited success getting <strong>pico-note</strong> to run on the ESP8266 as an access point. This is the default state that the ESP8266 starts with when loaded with Micropython firmware. I used screen to log into the ESP8226 and start the pico-notes app.</p>
 <div class="highlight"><pre><span></span>$ screen /dev/ttyUS0 <span class="m">115200</span>
 <span class="c1"># [ctrl-c] or reset on ESP8266</span>
 &gt;&gt;&gt; import notes_pico.__main__

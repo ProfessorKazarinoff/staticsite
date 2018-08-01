@@ -178,13 +178,13 @@ init_mathjax();
 
         <meta name="author" content="Peter D. Kazarinoff" />
         <meta name="keywords" content="python,flask,thingspeak,mobile" />
-        <meta name="description" content="In this post, I&#39;ll run through how I set up a single page flask app that shows a temperature posted to ThingSpeak.com. I wanted to be able to see the temperature recorded by my WiFi weather station on a phone or tablet. By building a flask app and hosting it on Digital Ocean, I can now view the temperature from anywhere." />
+        <meta name="description" content="In this post, I&#39;ll run through how I set up a single page flask app that shows a temperature posted on ThingSpeak.com. ThingSpeak has nice looking graphs, but it is actually kind of hard to see the value of individual data points. I wanted to be able to see the most recent temperature point recorded by my ESP8266 WiFi weather station on a phone or tablet. By building a flask app and hosting it on Digital Ocean, I can now view the current temperature from anywhere." />
 
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="A single page Flask App to show data from ThingSpeak.com"/>
         <meta property="og:url" content="/drafts/flask-app-show-data-from-thingspeak.html"/>
-        <meta property="og:description" content="In this post, I&#39;ll run through how I set up a single page flask app that shows a temperature posted to ThingSpeak.com. I wanted to be able to see the temperature recorded by my WiFi weather station on a phone or tablet. By building a flask app and hosting it on Digital Ocean, I can now view the temperature from anywhere."/>
+        <meta property="og:description" content="In this post, I&#39;ll run through how I set up a single page flask app that shows a temperature posted on ThingSpeak.com. ThingSpeak has nice looking graphs, but it is actually kind of hard to see the value of individual data points. I wanted to be able to see the most recent temperature point recorded by my ESP8266 WiFi weather station on a phone or tablet. By building a flask app and hosting it on Digital Ocean, I can now view the current temperature from anywhere."/>
         <meta property="article:published_time" content="2018-07-20" />
             <meta property="article:section" content="flask" />
             <meta property="article:tag" content="python" />
@@ -292,7 +292,36 @@ Python for Undergraduate Engineers            </a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>In this post, I'll run through how I set up a single page flask app that shows a temperature posted to ThingSpeak.com. I wanted to be able to see the temperature recorded by my WiFi weather station on a phone or tablet. By building a flask app and hosting it on Digital Ocean, I can now view the temperature from anywhere.</p>
+                <p>In this post, I'll run through how I set up a single page flask app that shows a temperature posted on ThingSpeak.com. ThingSpeak has nice looking graphs, but it is actually kind of hard to see the value of individual data points. I wanted to be able to see the most recent temperature point recorded by my <a href="/micropython-upload-code.html">ESP8266 WiFi weather station</a> on a phone or tablet. By building a flask app and hosting it on Digital Ocean, I can now view the current temperature from anywhere.</p>
+<div class="toc"><span class="toctitle">Table of contents:</span><ul>
+<li><a href="#aquire-a-domain-name">Aquire a domain name</a><ul>
+<li><a href="#purchase-domain">Purchase Domain</a></li>
+<li><a href="#point-dns-severs-at-digital-ocean">Point DNS Severs at Digital Ocean</a></li>
+</ul>
+</li>
+<li><a href="#setting-up-digital-ocean-droplet">Setting Up Digital Ocean Droplet</a><ul>
+<li><a href="#create-a-new-droplet">Create a New Droplet</a></li>
+<li><a href="#login-and-create-a-non-root-sudo-user">Login and create a non-root sudo user</a></li>
+<li><a href="#copy-ssh-keys-to-non-root-sudo-user">Copy SSH keys to non-root sudo user</a></li>
+</ul>
+</li>
+<li><a href="#building-the-flask-app">Building the Flask App</a><ul>
+<li><a href="#installing-packages">Installing Packages</a></li>
+<li><a href="#create-a-virtual-environment-and-install-flask">Create a Virtual Environment and install flask</a></li>
+<li><a href="#building-the-first-simple-flask-app">Building the first simple flask app</a></li>
+<li><a href="#testing-the-first-simple-flask-app">Testing the first simple flask app</a></li>
+</ul>
+</li>
+<li><a href="#setting-up-uwsgi-nginx-and-systemctl">Setting up uWSGI, nginx and systemctl</a><ul>
+<li><a href="#configuring-uwsgi">Configuring uWSGI</a></li>
+<li><a href="#testing-uwsgi">Testing uWSGI</a></li>
+<li><a href="#making-a-uwsgi-configuration-file">Making a uWSGI configuration file</a></li>
+<li><a href="#making-a-systemd-file">Making a systemd file</a></li>
+</ul>
+</li>
+<li><a href="#adding-bootstrap-styling">Adding Bootstrap Styling</a></li>
+</ul>
+</div>
 <h2 id="aquire-a-domain-name">Aquire a domain name</h2>
 <h3 id="purchase-domain">Purchase Domain</h3>
 <h3 id="point-dns-severs-at-digital-ocean">Point DNS Severs at Digital Ocean</h3>

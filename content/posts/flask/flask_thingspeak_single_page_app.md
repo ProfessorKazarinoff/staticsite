@@ -6,27 +6,55 @@ Category: flask
 Tags: python, flask, thingspeak, mobile
 Slug: flask-app-show-data-from-thingspeak
 Authors: Peter D. Kazarinoff
-Summary: In this post, I'll run through how I set up a single page flask app that shows a temperature posted to ThingSpeak.com. I wanted to be able to see the temperature recorded by my WiFi weather station on a phone or tablet. By building a flask app and hosting it on Digital Ocean, I can now view the temperature from anywhere.
+Summary: In this post, I'll run through how I set up a single page flask app that shows a temperature posted on ThingSpeak.com. ThingSpeak has nice looking graphs, but it is actually kind of hard to see the value of individual data points. I wanted to be able to see the most recent temperature point recorded by my [ESP8266 WiFi weather station]({filename}/posts/micropython/micropython_upload_code.md) on a phone or tablet. By building a flask app and hosting it on Digital Ocean, I can now view the current temperature from anywhere.
 
-In this post, I'll run through how I set up a single page flask app that shows a temperature posted to ThingSpeak.com. I wanted to be able to see the temperature recorded by my WiFi weather station on a phone or tablet. By building a flask app and hosting it on Digital Ocean, I can now view the temperature from anywhere.
+In this post, I'll run through how I set up a single page flask app that shows a temperature posted on ThingSpeak.com. ThingSpeak has nice looking graphs, but it is actually kind of hard to see the value of individual data points. I wanted to be able to see the most recent temperature point recorded by my [ESP8266 WiFi weather station]({filename}/posts/micropython/micropython_upload_code.md) on a phone or tablet. By building a flask app and hosting it on Digital Ocean, I can now view the current temperature from anywhere.
 
-## Aquire a domain name
+[TOC]
 
-### Purchase Domain
+## Set up a new Digital Ocean Droplet
 
-### Point DNS Severs at Digital Ocean
-
-## Setting Up Digital Ocean Droplet
+The flask app needs a server to run on. I choose Digital Ocean as my cloud server provider. After creating a new server, it is best practice to create a non-root sudo user.
 
 ### Create a New Droplet
 
+The [**flask**](http://flask.pocoo.org/docs/1.0/) single page web app will be hosted on [Digital Ocean](https://www.digitalocean.com/). Digital Ocean is hosts virtual private servers that run in the cloud. Setting up a server on Digital Ocean is pretty cheap ($5/month) and quick. I host [my **Jupyter Hub** server]({filename}//posts/jupyterhub/why_jupyter_hub.md} on Digital Ocean so I am also more familiar with spinning up their servers compared to Linode, AWS or other cloud providers.
+
+Creating a new Digital Ocean cloud server, called a _Droplet_ in Digital Ocean speak involves creating a new account on Digital Ocean, logging in and selecting **Create --> Droplets** in the upper right menu.
+
+![DO create new droplet]({filename}/posts/flask/DO_create_new_droplet.PNG)
+
+For the Droplet options I choose:
+
+ * Ubuntu 18.04.1 x64
+ * Size: Memory 1G, SSD 25 GB, Transfer 1 TB, Price $5/mo
+ * Datacenter Region: San Fransisco 2
+ * Additional Options: None
+ * SSH keys: **Added all of [my saved SSH keys]({filename}/posts/jupyterhub/PuTTYgen_ssh_key.md). You need this to log into the server with PuTTY**
+
+Create the server with the big green **Create** button.
+
+After the Droplet is created, note the IP address of the server. You'll need the IP address for the next step.
+
 ### Login and create a non-root sudo user
+
+Our first interaction with the server is to log in as root. Then we'll create a non-root sudo user to interact with the server from here on out.
+
+Open PuTTY and log onto the server as root. See a [previous post]({filename}/posts/jupyterhub/new_DO_droplet.md}) on how to set up PuTTY to log in as root.
 
 ### Copy SSH keys to non-root sudo user
 
-## Building the Flask App
+## Aquire a domain name
 
-### Installing Packages
+### Purchase a domain name
+
+### Point DNS severs at Digital Ocean
+
+### Point domain name to Digitial Ocean Droplet
+
+## Build the Flask App
+
+### Install Packages
 
 Before the single page flask app can be built, a number of packages need to be installed on the server.
 

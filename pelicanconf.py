@@ -21,7 +21,8 @@ STATIC_PATHS = ['images','extra',
                 'posts/jupyterhub',
                 'posts/fairtalk'
                 'posts/matplotlib/images',
-                'posts/schemdraw',]  # removed this, see if any change 'code',
+                'posts/schemdraw',
+                'posts/flask',]  # removed this, see if any change 'code',
 PLUGIN_PATHS = ['pelican-plugins']
 EXTRA_PATH_METADATA = {
     	'extra/custom.css': {'path': 'static/css/custom.css'},

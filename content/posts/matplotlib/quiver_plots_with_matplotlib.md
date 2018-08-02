@@ -12,7 +12,4 @@ Summary:  A quiver plot is a type of 2D plot that shows vector lines as arrows. 
 
 A quiver plot is a type of 2D plot that shows vector lines as arrows. Quiver plots are useful in electrical engineering to visualize electrical potential or in mechanical engineering to show stress gradients. In this post we will build three quiver plots using Python, matplotlib, numpy and jupyternotebooks.
 
-![3 quiver plots]({filename}/posts/matplotlib/images/3_quiver_plots.png)
-
-
 {% notebook ../code/matplotlib_plots/quiver_plot_with_matplotlib.ipynb %}

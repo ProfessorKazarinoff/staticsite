@@ -401,7 +401,7 @@ c.LocalGoogleOAuthenticator.create_system_users = True
 
 
 <p>Now we need to log into github and create an OAuth App and copy the client id and secret. The short version is:</p>
-<p>github profile --&gt; settings --&gt; Developer Settings --&gt; OAuth Apps --&gt; Register a new application</p>
+<p>github profile &rarr; settings &rarr; Developer Settings &rarr; OAuth Apps &rarr; Register a new application</p>
 <p><img alt="github settings" src="/posts/jupyterhub/github_settings.png"></p>
 <p><img alt="github developer settings" src="/posts/jupyterhub/github_developer_settings.png"></p>
 <p><img alt="github register new applicaiton" src="/posts/jupyterhub/github_register_new_application.png"></p>
@@ -454,7 +454,7 @@ $ sudo systemctl status jupyterhub
 <p>First up we need to set up a google OAuth instance. I did this using my personal gmail account rather than my college gmail account. Some of the part of google suite are not available in my college profile like youtube and developer tabs. </p>
 <p>To obtain the google OAuth credentials, we need to log into the google API console <a href="https://console.developers.google.com/">https://console.developers.google.com/</a> and select [Credentials] on the lefthand menus</p>
 <p><img alt="google oauth credentials" src="/posts/jupyterhub/google_oauth_credentials.png"></p>
-<p>Next we'll create a new OAuth credential under [credentials] --&gt; [create credentials] --&gt; [OAuth Client ID]:</p>
+<p>Next we'll create a new OAuth credential under [credentials] &rarr; [create credentials] &rarr; [OAuth Client ID]:</p>
 <p><img alt="google create credentials" src="/posts/jupyterhub/google_oauth_credentials.png"></p>
 <p>When getting google OAuth credentials you will need to input:</p>
 <ul>

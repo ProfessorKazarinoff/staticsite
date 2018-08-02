@@ -88,9 +88,13 @@ MARKDOWN = {
         'markdown.extensions.meta': {},
 	    'markdown.extensions.tables': {},
         'markdown.extensions.admonition': {},
+        'pymdownx.smartsymbols': {},
     },
     'output_format': 'html5',
 }
+
+# could not get 'pymdownx.superfences': {}, to work.
+
 #Ignore all files that start with a dot .
 IGNORE_FILES = ['.*','*-checkpoint.ipynb']
 

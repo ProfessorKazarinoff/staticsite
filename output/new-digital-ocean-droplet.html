@@ -318,7 +318,7 @@ Python for Undergraduate Engineers            </a>
 <h3 id="1-sign-up-for-a-digital-ocean-account">1. Sign up for a Digital Ocean Account</h3>
 <p>Digital Ocean is a cloud service provider like Amazon Web Services (AWS), Google Cloud, Microsoft Azure and Linode. Digital Ocean provides virtual private servers (called <em>droplets</em> in Digital Ocean-speak) and online storage of static files (called <em>spaces</em> in Digital Ocean-speak). We are going to run the Jupyter Hub server on a Digital Ocean <em>droplet</em>. I like Digital Ocean's prices and web interface. The documentation on Digital Ocean is pretty good too. I already have a Digital Ocean account. I don't remember exactly how I did it, but going to this link:</p>
 <p><a href="https://www.digitalocean.com/">https://www.digitalocean.com/</a></p>
-<p>and selecting [Create Account --&gt;] should work.</p>
+<p>and selecting [Create Account &rarr;] should work.</p>
 <h3 id="2-create-a-new-digital-ocean-droplet">2. Create a new Digital Ocean Droplet</h3>
 <p>To create a new Digtial Ocean Droplet (a new server), log in here:</p>
 <p><a href="https://cloud.digitalocean.com/login">https://cloud.digitalocean.com/login</a></p>
@@ -357,7 +357,7 @@ Python for Undergraduate Engineers            </a>
 <p><img alt="Putty in Windows Start Menu" src="/posts/jupyterhub/digital_ocean_see_new_ssh_key.png"></p>
 <p>OK, I think it's time to actually create the <em>droplet</em>. Click the long green [Create] button at the bottom of the page.</p>
 <p><img alt="Putty in Windows Start Menu" src="/posts/jupyterhub/digital_ocean_droplet_create.png"></p>
-<p>This will bring you back the the Digital Ocean main dashboard and you should see your new droplet under [Resources] --&gt; [Droplets]</p>
+<p>This will bring you back the the Digital Ocean main dashboard and you should see your new droplet under [Resources] &rarr; [Droplets]</p>
 <p><img alt="Putty in Windows Start Menu" src="/posts/jupyterhub/digital_ocean_droplets_1.png"></p>
 <p>Note the IP address of the new droplet. We need to IP address to log into our server with PuTTY.</p>
 <h3 id="3-log-into-the-server-as-root-over-ssh-using-putty">3. Log into the server as root over SSH using PuTTY.</h3>
@@ -379,21 +379,21 @@ Python for Undergraduate Engineers            </a>
 <td>22</td>
 </tr>
 <tr>
-<td>Connection --&gt; SSH --&gt; Auth --&gt; Private key file</td>
+<td>Connection &rarr; SSH &rarr; Auth &rarr; Private key file</td>
 <td>private SSH key</td>
 </tr>
 <tr>
-<td>Connection --&gt; Data --&gt; Auto-login username</td>
+<td>Connection &rarr; Data &rarr; Auto-login username</td>
 <td>root</td>
 </tr>
 </tbody>
 </table>
 <p><img alt="Putty in Windows Start Menu" src="/posts/jupyterhub/putty_in_start_menu.png"></p>
-<p>Under Connect --&gt; SSH --&gt; Auth --&gt; Private key file for authentication:, click [Browse]. </p>
+<p>Under Connect &rarr; SSH &rarr; Auth &rarr; Private key file for authentication:, click [Browse]. </p>
 <p><img alt="PuTTY Auth SSH private key" src="/posts/jupyterhub/putty_Auth_SSH_private_key.png"></p>
 <p>Navigate to the SSH private key in Documents/ssh-keys. The private key ends in a .ppk extension. I had trouble finding the key when I first set up PuTTY. It turned out that when the key was saved in Programfiles/PuTTY. The key was not visible in the Windows file browser because I don't have administrator permissions on my machine at work. I ended up having to create a new SSH key and save the new key in Documents/ssh-key (I can access Documents/ssh-key without administrator privaleges).</p>
 <p><img alt="PuTTY browse to private SSH key" src="/posts/jupyterhub/putty_browse_private_ssh_key.png"></p>
-<p>Under Connection --&gt; Data --&gt; Auto-login username: <code>root</code></p>
+<p>Under Connection &rarr; Data &rarr; Auto-login username: <code>root</code></p>
 <p><img alt="Putty login details" src="/posts/jupyterhub/putty_login_details.png"></p>
 <p>Back in [Sessions] (the top-most menu item or main page), add the IP address and Port = 22, click [Open]</p>
 <p><img alt="Putty IP address and Port" src="/posts/jupyterhub/puTTY_IP_and_Port.png"></p>
@@ -457,7 +457,7 @@ $ nano /home/peter/.ssh/authorized_keys
 </pre></div>
 
 
-<p>Use the right mouse button to paste in the public SSH key from the clipboard into the PuTTY window. If the SSH key is not saved in the clipboard, then you can retrieve it with PuTTYgen --&gt; load or go to Digital Ocean, click in the upper right on the profile picture --&gt; settings --&gt; security --&gt; ssh-key --&gt; edit dropdown --&gt; edit. You can paste into the PuTTY window using the right mouse button. Use [Ctrl-x] and [y] to save and exit. </p>
+<p>Use the right mouse button to paste in the public SSH key from the clipboard into the PuTTY window. If the SSH key is not saved in the clipboard, then you can retrieve it with PuTTYgen &rarr; load or go to Digital Ocean, click in the upper right on the profile picture &rarr; settings &rarr; security &rarr; ssh-key &rarr; edit dropdown &rarr; edit. You can paste into the PuTTY window using the right mouse button. Use [Ctrl-x] and [y] to save and exit. </p>
 <p>I tried to use <code>cp</code> to copy the <code>authorized_keys</code> file from <code>/root/.ssh/</code> to <code>/home/peter/.ssh</code> but there was a problem with permissions and write access to the <code>authorized_keys</code> file. I couldn't get PuTTY to login as <code>peter</code> until I removed the file, recreated an empty one and pasted in the SSH key. This is probably also possible with <code>cat file1 &gt;&gt; file2</code>. Manually copying and pasting with the right mouse button was the way I got it to work. </p>
 <p>Now we can exit out of the <code>peter</code> profile</p>
 <div class="highlight"><pre><span></span>$ <span class="nb">exit</span>
@@ -489,18 +489,18 @@ $ nano /home/peter/.ssh/authorized_keys
 <td>22</td>
 </tr>
 <tr>
-<td>Connection --&gt; SSH --&gt; Auth --&gt; Private key file</td>
+<td>Connection &rarr; SSH &rarr; Auth &rarr; Private key file</td>
 <td>private SSH key</td>
 </tr>
 <tr>
-<td>Connection --&gt; Data --&gt; Auto-login username</td>
+<td>Connection &rarr; Data &rarr; Auto-login username</td>
 <td>peter</td>
 </tr>
 </tbody>
 </table>
 <p>I also saved the PuTTY session details at this point so that I wouldn't have to re-enter all of the parameters each time I want to log into the server. Enter a name into [Saved Sessions] and click [Save]. Once the parameters are saved in PuTTY, you can simply double-click the profile name and you will log into the server.</p>
 <p><img alt="PuTTY save profile" src="/posts/jupyterhub/putty_save_session.PNG"></p>
-<p>Log into the server with Sessions --&gt; [Open]</p>
+<p>Log into the server with Sessions &rarr; [Open]</p>
 <p>You should see the Digital Ocean login screen again. Note the prompt, it should have the new user's name before the <code>@</code> symbol. </p>
 <p><img alt="server terminal as peter" src="/posts/jupyterhub/putty_ssh_window_open_as_peter.png"></p>
 <p>Check to see which directory you land in. It should be <code>/home/&lt;username&gt;</code></p>

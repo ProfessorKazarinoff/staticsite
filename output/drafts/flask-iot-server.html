@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>Plotting a gaussian normal curve with Python and matplotlib - Python for Undergraduate Engineers</title>
+    <title>Building a Flask IoT Server with Python - Python for Undergraduate Engineers</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -174,23 +174,25 @@ init_mathjax();
 </script>
     <link href="/extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="/drafts/plotting-normal-curve-with-python.html">
+<link rel="canonical" href="/drafts/flask-iot-server.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
-        <meta name="keywords" content="python,engineering,statistics,matplotlib" />
-        <meta name="description" content="In the previous post, we calculated the area under the standard normal curve using Python and the erf() function from the math module in the standard library. In this post, we will construct a plot that illustrates the standard normal curve and the area we calculated. To do this we …" />
+        <meta name="keywords" content="python,flask,thingspeak,mobile,IoT,sensor" />
+        <meta name="description" content="In this post, I&#39;ll describe how I set up an IoT (Internet of Things) server using flask and Python. This project builds upon my my ESP8266 WiFi weather station project and my flask app on Digigal Ocean project. In my previous flask app, I pulled a temperature down from ThingSpeak.com. The problem with using ThingSpeak as an IoT platform is there are limits to how often data can be posted and how often data can be accessed on ThingSpeak. Building my own IoT server with flask gets around these problems." />
 
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
-        <meta property="og:title" content="Plotting a gaussian normal curve with Python and matplotlib"/>
-        <meta property="og:url" content="/drafts/plotting-normal-curve-with-python.html"/>
-        <meta property="og:description" content="In the previous post, we calculated the area under the standard normal curve using Python and the erf() function from the math module in the standard library. In this post, we will construct a plot that illustrates the standard normal curve and the area we calculated. To do this we …"/>
-        <meta property="article:published_time" content="2017-12-24" />
-            <meta property="article:section" content="plotting" />
+        <meta property="og:title" content="Building a Flask IoT Server with Python"/>
+        <meta property="og:url" content="/drafts/flask-iot-server.html"/>
+        <meta property="og:description" content="In this post, I&#39;ll describe how I set up an IoT (Internet of Things) server using flask and Python. This project builds upon my my ESP8266 WiFi weather station project and my flask app on Digigal Ocean project. In my previous flask app, I pulled a temperature down from ThingSpeak.com. The problem with using ThingSpeak as an IoT platform is there are limits to how often data can be posted and how often data can be accessed on ThingSpeak. Building my own IoT server with flask gets around these problems."/>
+        <meta property="article:published_time" content="2018-08-02" />
+            <meta property="article:section" content="flask" />
             <meta property="article:tag" content="python" />
-            <meta property="article:tag" content="engineering" />
-            <meta property="article:tag" content="statistics" />
-            <meta property="article:tag" content="matplotlib" />
+            <meta property="article:tag" content="flask" />
+            <meta property="article:tag" content="thingspeak" />
+            <meta property="article:tag" content="mobile" />
+            <meta property="article:tag" content="IoT" />
+            <meta property="article:tag" content="sensor" />
             <meta property="article:author" content="Peter D. Kazarinoff" />
 
 
@@ -254,17 +256,17 @@ Python for Undergraduate Engineers            </a>
         <div class="col-sm-9">
             <ol class="breadcrumb">
                 <li><a href="" title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="/category/plotting.html" title="plotting">plotting</a></li>
-                <li class="active">Plotting a gaussian normal curve with Python and matplotlib</li>
+                <li><a href="/category/flask.html" title="flask">flask</a></li>
+                <li class="active">Building a Flask IoT Server with Python</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="/drafts/plotting-normal-curve-with-python.html"
+                    <a href="/drafts/flask-iot-server.html"
                        rel="bookmark"
-                       title="Permalink to Plotting a gaussian normal curve with Python and matplotlib">
-                        Plotting a gaussian normal curve with Python and matplotlib
+                       title="Permalink to Building a Flask IoT Server with Python">
+                        Building a Flask IoT Server with Python
                     </a>
                 </h1>
             </header>
@@ -274,11 +276,9 @@ Python for Undergraduate Engineers            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2017-12-24T09:01:00-08:00"> Sun 24 December 2017</time>
+        <i class="fa fa-calendar"></i><time datetime="2018-08-02T09:01:00-07:00"> Thu 02 August 2018</time>
     </span>
 
-            <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x000001DE391C4510> of 
 
 
 
@@ -286,61 +286,139 @@ Python for Undergraduate Engineers            </a>
 <span class="label label-default">Tags</span>
 	<a href="/tag/python.html">python</a>
         /
-	<a href="/tag/engineering.html">engineering</a>
+	<a href="/tag/flask.html">flask</a>
         /
-	<a href="/tag/statistics.html">statistics</a>
+	<a href="/tag/thingspeak.html">thingspeak</a>
         /
-	<a href="/tag/matplotlib.html">matplotlib</a>
+	<a href="/tag/mobile.html">mobile</a>
+        /
+	<a href="/tag/iot.html">IoT</a>
+        /
+	<a href="/tag/sensor.html">sensor</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>In the previous post, we calculated the area under the standard normal curve using Python and the <code>erf()</code> function from the <code>math</code> module in the standard library. In this post, we will construct a plot that illustrates the standard normal curve and the area we calculated. To do this we are going to use Python, matplotlib, and a module called seaborn. </p>
-<p>Calculating the probability under a normal curve is useful for engineers. This type of calculation can be useful to predict the likely hood of a part coming of an assembly line being within a given specification when the statistical properties of all the parts that have come of the assembly line previously are known. </p>
-<p>In this post we will calculate the probability under the normal curve to answer a question like the one below:</p>
-<p>Given: In a facility that manufactures electrical resistors, a sample of 35 1-kΩ resistors are randomly pulled from the production line, and their resistances are measured and recorded. A mean resistance of 990 kΩ and a standard deviation of 10 kΩ represents the sample of resistors. The desired resistance tolerance for the resistor is ± 10%, meaning that the acceptable range of resistance is 900Ω to 1100Ω.</p>
-<p>Find: Assuming a standard distribution, determine the probability that a resistor coming off the production line will be within spec.</p>
-<p>To build our script we need to accomplish a couple of things</p>
-<p>Let's take a look at a gaussin curve</p>
-<p><img alt="gaussian_curve" src="/images/normal_gaussian_curve.png"></p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>
+                <p>In this post, I'll describe how I set up an IoT (Internet of Things) server using <strong>flask</strong> and Python. This project builds upon my my <a href="/micropython-upload-code.html">ESP8266 WiFi weather station project</a> and my <a href="/flask-app-on-digital-ocean.html">flask app on Digigal Ocean project</a>. In my previous flask app, I pulled a temperature down from ThingSpeak.com. The problem with using ThingSpeak as an IoT platform is there are limits to how often data can be posted and how often data can be accessed on ThingSpeak. Building my own IoT server with <strong>flask</strong> gets around these problems.</p>
+<div class="toc"><span class="toctitle">Table of contents:</span><ul>
+<li><a href="#prerequisits">Prerequisits</a></li>
+<li><a href="#the-starting-place">The starting place</a></li>
+<li><a href="#add-a-web-api-to-the-flask-app">Add a web API to the flask app</a></li>
+<li><a href="#add-an-sqlite3-databse-to-the-flask-app">Add an sqlite3 databse to the flask app</a></li>
+<li><a href="#upload-new-code-to-the-esp8266-based-wifi-weather-stations">Upload new code to the ESP8266-based WiFi weather stations</a></li>
+<li><a href="#view-the-results">View the results</a></li>
+<li><a href="#summary">Summary</a></li>
+</ul>
+</div>
+<h2 id="prerequisits">Prerequisits</h2>
+<p>I already built a single page flask app hosted on Digital Ocean. The flask app pulls a temperature from ThingSpeak.com and displays it on a webpage. See the <a href="/posts/flask/flask_app_no_template.png">flask app hosted on Digital Ocean</a> if you want to get to where I was when I started building the <strong>flask</strong> IoT server. </p>
+<p>If you are starting from scratch, the prerequisits needed to build an Internet of Things server with <strong>flask</strong> and Python are:</p>
+<ul>
+<li>Digital Ocean cloud server (just called <em>the server</em> from here on out). See <a href="/new-digital-ocean-droplet.html">this post</a> and part of <a href="http://pythonforundergradengineers.com/flask-app-on-digital-ocean.html#create-a-new-droplet">this post.</a> with the following packages <code>apt-get</code> installed: ``python3-pip<code></code>python3-dev<code></code>python3-setuptools<code></code>python3-venv<code></code>build-essential<code></code>libssl-dev<code></code>libffi-dev```</li>
+<li>A domain name hooked up to the cloud server. See part of <a href="http://pythonforundergradengineers.com/flask-app-on-digital-ocean.html#point-dns-severs-at-digital-ocean">this post.</a></li>
+<li>A Python 3.6 virtual environment set up on the sever with <code>flask</code> and <code>uwsgi</code> <code>pip install</code>ed. See part of <a href="http://pythonforundergradengineers.com/flask-app-on-digital-ocean.html#install-packages">this post.</a></li>
+<li><strong>uWSGI</strong>, <strong>NGINX</strong> installed on configured on the server. See part of <a href="http://pythonforundergradengineers.com/flask-app-on-digital-ocean.html#set-up-uwsgi-nginx-ssl-and-systemctl">this post.</a>. The configuration files I used can be found on github: <a href="https://github.com/ProfessorKazarinoff/flask-IoT/blob/master/myproject.ini"><strong><em>myproject.ini</em></strong></a>, <a href="https://github.com/ProfessorKazarinoff/flask-IoT/blob/master/wsgi.py"><strong><em>wsgi.py</em></strong></a>, <a href="https://gist.github.com/ProfessorKazarinoff/633abea34c5ea2420f1278deae61c091">sites-avialable</a> (nginx config)</li>
+<li>The flask app running as a system service. For <a href="https://gist.github.com/ProfessorKazarinoff/51f819f7001b3fc92982413eb9df4ed5">this gist</a> for the systemd <strong><em>.service</em></strong> file.</li>
+<li>SSL attached to the domain name and nginx instance. See part of <a href="http://pythonforundergradengineers.com/flask-app-on-digital-ocean.html#apply-ssl-security">this post</a> and <a href="/add-ssl-and-domain-name-to-jupyterhub.html">this post</a></li>
+<li><a href="https://www.putty.org">PuTTY</a> or a terminal. To SSH into the server</li>
+<li>WiFi weather station hardware: <a href="https://www.adafruit.com/product/2821">Adafruit Feather Huzzah ESP8266</a>, <a href="https://www.adafruit.com/product/758">jumper wires</a>, <a href="https://www.adafruit.com/product/64">breadboard</a>, <a href="https://www.adafruit.com/product/2651">https://www.adafruit.com/product/1782</a> and <a href="https://www.adafruit.com/product/592">microUSB cable</a>. See <a href="/micropython-temp-sensor.html">this post</a> and <a href="/posts/micropython/feather_huzzah_temp_sensor_fritzing.png">fritzing sketch</a> for hardware setup.</li>
+</ul>
+<h2 id="the-starting-place">The starting place</h2>
+<p>The flask app I built was fairly basic and mainly comprised of 2 files. The file structure on the server looked like:</p>
+<div class="highlight"><pre><span></span>~/
+└── flaskapp
+    ├── flaskapp.ini
+    ├── showtemp.py
+    ├── flaskapp.sock
+    ├── flaskappenv
+    ├── templates
+    │   ├── index.html
+    └── wsgi.py
 </pre></div>
 
 
-<p>Now we need to define our constants</p>
-<div class="highlight"><pre><span></span><span class="c1"># define constants</span>
+<p>The main file to run the <strong>flask</strong> app is <strong><em>showtemp.py</em></strong></p>
+<div class="highlight"><pre><span></span><span class="c1"># showtemp.py</span>
 
-<span class="c1"># define constants</span>
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
-<span class="n">mu</span> <span class="o">=</span> <span class="mf">979.8</span>    <span class="c1"># mean = 978.8 kΩ</span>
-<span class="n">sigma</span> <span class="o">=</span> <span class="mf">73.1</span>  <span class="c1"># standard deviation = 73.1 kΩ</span>
-<span class="n">x1</span> <span class="o">=</span> <span class="mi">900</span>      <span class="c1"># lower bound = 900 kΩ</span>
-<span class="n">x2</span> <span class="o">=</span> <span class="mi">1100</span>     <span class="c1"># upper bound = 1100 kΩ</span>
+<span class="nd">@app.route</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://api.thingspeak.com/channels/254616/fields/1/last.txt&#39;</span><span class="p">)</span>
+    <span class="n">temp_c_in</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">text</span>
+    <span class="n">temp_f</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(((</span><span class="mf">9.0</span> <span class="o">/</span> <span class="mf">5.0</span><span class="p">)</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">temp_c_in</span><span class="p">)</span> <span class="o">+</span> <span class="mi">32</span><span class="p">),</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; F&#39;</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;index.html&quot;</span><span class="p">,</span> <span class="n">temp</span><span class="o">=</span><span class="n">temp_f</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">&#39;0.0.0.0&#39;</span><span class="p">)</span>
 </pre></div>
 
 
-<p>Next we calculate the probability build the curve with scipy's <code>scipy.stats.norm.pdf()</code> function</p>
-<div class="highlight"><pre><span></span># plot the data
+<p>The only jinja template used by the flask app was in the <code>/templates</code> directory and named <strong><em>index.html</em></strong>:</p>
+<div class="highlight"><pre><span></span><span class="c">&lt;!-- index.html --&gt;</span>
+<span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;en&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;UTF-8&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">meta</span> <span class="na">http-equiv</span><span class="o">=</span><span class="s">&quot;X-UA-Compatible&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;IE=edge&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1&quot;</span><span class="p">&gt;</span>    
+<span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>show temp<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
 
-plt.plot(data)
-plt.show()
+<span class="c">&lt;!-- Latest compiled and minified CSS --&gt;</span>
+<span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span><span class="p">&gt;</span>
+
+<span class="c">&lt;!-- Optional theme --&gt;</span>
+<span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span><span class="p">&gt;</span>
+
+<span class="c">&lt;!-- Latest compiled and minified JavaScript --&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container-fluid&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;jumbotron&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">hr</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;my-4&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">h1</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;display-4&quot;</span><span class="p">&gt;</span> {{ temp }} <span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;lead&quot;</span><span class="p">&gt;</span>temperature inside<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">hr</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;my-4&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>        
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
 </pre></div>
+
+
+<p>With the <strong>flask</strong> app created and the domain name, <strong>nginx</strong>, <strong>uWSGI</strong>, <strong>systemd</strong>, SSL configured, the app can be started on the server with:</p>
+<div class="highlight"><pre><span></span>$ sudo systemctl start myproject
+$ sudo systemctl status myproject
+<span class="c1"># [ctrl-c] to exit.</span>
+</pre></div>
+
+
+<p>The resulting web page looks like:</p>
+<p><img alt="flask app simple index" src="/posts/flask/simple_index.png"></p>
+<h2 id="add-a-web-api-to-the-flask-app">Add a web API to the flask app</h2>
+<h2 id="add-an-sqlite3-databse-to-the-flask-app">Add an sqlite3 databse to the flask app</h2>
+<h2 id="upload-new-code-to-the-esp8266-based-wifi-weather-stations">Upload new code to the ESP8266-based WiFi weather stations</h2>
+<h2 id="view-the-results">View the results</h2>
+<h2 id="summary">Summary</h2>
+<p>Now we've got a great Internet of Things server that doesn't have any data posting or data drawing limits! So cool!</p>
+<p>I do wonder though- how big can the sqlite databse get? I set the ESP8266's on a loop timer so that each ESP8266 WiFi weather station would stop sending temperatures to the flask IoT server after 8 hours. But that is still about 1000 rows (data points) added to the database each time both WiFi weather stations are powered on. Maybe the next step is writing in a function that purges the oldest rows from the database. Or maybe building a web page in with a <strong>matplotlib</strong> plot that dynamically shows the temperature as new data points arrive into the server... </p>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">
     <h4>Related Posts:</h4>
     <ul>
-        <li><a href="/bar-plot-with-error-bars-jupyter-matplotlib.html">Bar charts with error bars using Python, jupyter notebooks and matplotlib</a></li>
-        <li><a href="/python-matplotlib-error-bars.html">Bar charts with error bars using Python and matplotlib</a></li>
-        <li><a href="/diffusion-problem-python-pint.html">Diffusion Calculation with Python and Pint</a></li>
-        <li><a href="/plotting-sin-cos-with-matplotlib.html">Plotting sine and cosine with matplotlib and Python</a></li>
-        <li><a href="/unit-conversions-with-pint.html">Unit conversions with Python and Pint</a></li>
+        <li><a href="/flask-app-on-digital-ocean.html">Building a single page Flask App on Digital Ocean</a></li>
+        <li><a href="/micropython-upload-code.html">Upload Micropython Code to an Adafruit Feather Huzzah ESP8266</a></li>
+        <li><a href="/micropython-temp-sensor.html">Using a Temperature Sensor with Micropython running on an Adafruit Feather Huzzah ESP8266</a></li>
+        <li><a href="/micropython-wifi.html">Using Micropython to connect an Adafruit Feather Huzzah ESP8266 to WiFi</a></li>
+        <li><a href="/assignments-dir-and-custom-login-page-to-jupyterhub.html">Add a custom login page and assignments directory for each user on a Jupyter Hub server</a></li>
     </ul>
-</section>
-<section class="well" id="related-posts">
-    <h4>Article <built-in method index of str object at 0x000001DE391C4510> of the  series</h4>
 </section>
         </article>
     </section>
@@ -408,15 +486,6 @@ plt.show()
   </ul>
 </li>
 <!-- End Sidebar/Tag Cloud -->
-
-<!-- Sidebar/Series -->
-<li class="list-group-item">
-  <h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Series</span></h4>
-  <ul class="list-group">
-  </ul>
-</li>
-<!-- End Sidebar/Series -->
-
 
 <!-- Sidebar/Github -->
 <li class="list-group-item">

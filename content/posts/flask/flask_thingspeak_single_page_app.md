@@ -244,7 +244,7 @@ vacuum = true
 die-on-term = true
 ```
 
-### Making a systemd file
+### Making a **systemd** file
 
 Because I want to have the flask app running all the time, I created a **systemd** control file to get the flask app running as a system service.
 
@@ -285,5 +285,98 @@ After pointing a web browser to the droplet IP address followed by ```:5000```, 
 
 ## Add Bootstrap Styling
 
+The single page app is pretty basic right now. It also isn't designed to look good on phones or tablets. I plan on using my phone to the most to view the temperature hosted by the flask app, so I decided to use bootstrap styling and the jumbotron component from bootstrap. To keep things simple I used the bootstrap CDN instead of installing the whole bootstrap package to the server.
+
+To add bootstrap styling I created a jinga template called **_index.html_** and placed by styling inside. Note that the CDN is for bootstrap 3 and the newest bootstrap version is bootstrap 4. On the server, we need to create a templates directory for the jinja template. This is the default location for jinga templates when running **flask**.
+
+```bash
+$ cd ~/flaskapp
+$ mkdir templates
+$ cd templates
+$ nano index.html
+```
+
+The **_index.html_** template contains a ```<header>``` with the bootstrap3 CDN and a ```<body>``` which contains the jumbotron component.
+
+```html
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<title>show temp</title>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+<div class="container-fluid">
+    <div class="jumbotron">
+        <hr class="my-4">
+        <h1 class="display-4"> 91.4 F</h1>
+        <p class="lead">temperature outside</p>
+        <hr class="my-4">
+        <h1 class="display-4"> 72.3 F </h1>
+        <p class="lead">temperature inside</p>
+        <hr class="my-4">
+    </div>        
+</div>
+
+</body>
+</html>
+```
+
+Now we need to modify the **_showtemp.py_** file to point to our **_index.html_** template. A new **flask** function, ```render_template()``` is used. ```render_template()``` must be included in the imports and is used as the ```return``` action of the ```@app.route("/")``` ```index()``` function. The revised **_showtemp.py_** file is below.
+
+```python
+# showtemp.py
+
+from flask import Flask, render_template
+app = Flask(__name__)
+
+@app.route("/")
+def index():
+    return render_template("index.html", temp_out=temp, temp_in=temp_in)
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0')
+```
 
 ## Pull the temperature with **requests**
+
+The final step of this project is to dynamically pull the temperature from ThingSpeak.com. Right now the flask app only shows the temperatures ```91.4 F``` and ```72.3```. The whole point of the app is to see the temperatures the WiFi weather station measure.
+
+To grab the temperatures off of ThingSpeak.com, we'll use the **requests** package. According to the [ThingSpeak.com web API documentation](https://www.mathworks.com/help/thingspeak/rest-api.html), the format of our GET request needs to be:
+
+```text
+https://api.thingspeak.com/channels/<channel_id>/fields/<field_id>/last.<format>
+```
+
+The ```<channel_id>``` corresponds to the channel number on ThingSpeak.com. My WiFi weather stations are on a public channel. ```<field_id>``` is the field number held by the ThingSpeak channel. Each channel can have multiple fields. I have two WiFi weather stations each publishing a temperature to a different channel (channels 1 and 2). The ```<format>``` in this case is ```.txt```. We could grab ```.json``` or a ```.csv``` off of ThingSpeak, but since we are only grabbing one temperature reading at a time, ```.txt``` will be the easiest. In the Python REPL we can try out the ThingSpeak web API. Make sure **requests** is installed in the virtual environment before importing it. On the server try:
+
+
+```bash
+$ source flaskapp/bin/activate
+(flaskappenv)$ python
+
+>>> import requests
+>>> r = requests.get('https://api.thingspeak.com/channels/254616/fields/1/last.txt')
+>>> print(r.text)
+'24.34'
+>>> exit()
+
+(flaskappenv)$ deactivate
+$
+```
+

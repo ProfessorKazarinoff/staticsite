@@ -152,7 +152,7 @@ div.collapseheader {
 
 </style>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
 <script type="text/javascript">
 init_mathjax = function() {
     if (window.MathJax) {
@@ -162,7 +162,7 @@ init_mathjax = function() {
                 inlineMath: [ ['$','$'], ["\\(","\\)"] ],
                 displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
             },
-            displayAlign: 'center', // Change this to 'center' to center equations.
+            displayAlign: 'left', // Change this to 'center' to center equations.
             "HTML-CSS": {
                 styles: {'.MathJax_Display': {"margin": 0}}
             }
@@ -185,7 +185,7 @@ init_mathjax();
         <meta property="og:title" content="Building a single page Flask App to show data from ThingSpeak.com"/>
         <meta property="og:url" content="/drafts/flask-app-show-data-from-thingspeak.html"/>
         <meta property="og:description" content="In this post, I&#39;ll run through how I set up a single page flask app that shows a temperature posted on ThingSpeak.com. ThingSpeak has nice looking graphs, but it is actually kind of hard to see the value of individual data points. I wanted to be able to see the most recent temperature point recorded by my ESP8266 WiFi weather station on a phone or tablet. By building a flask app and hosting it on Digital Ocean, I can now view the current temperature from anywhere."/>
-        <meta property="article:published_time" content="2018-08-01" />
+        <meta property="article:published_time" content="2018-08-02" />
             <meta property="article:section" content="flask" />
             <meta property="article:tag" content="python" />
             <meta property="article:tag" content="flask" />
@@ -275,7 +275,7 @@ Python for Undergraduate Engineers            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2018-08-01T09:01:00-07:00"> Wed 01 August 2018</time>
+        <i class="fa fa-calendar"></i><time datetime="2018-08-02T09:01:00-07:00"> Thu 02 August 2018</time>
     </span>
 
 
@@ -331,7 +331,7 @@ Python for Undergraduate Engineers            </a>
 </li>
 <li><a href="#add-bootstrap-styling">Add Bootstrap Styling</a></li>
 <li><a href="#pull-the-temperature-from-thingspeakcom-with-requests">Pull the temperature from ThingSpeak.com with requests</a></li>
-<li><a href="#view-the-final-flask-app-in-a-browser">View the final flask app in a browser</a></li>
+<li><a href="#view-the-final-flask-app-in-a-browser">View the Final flask app in a Browser</a></li>
 <li><a href="#summary">Summary</a></li>
 </ul>
 </div>
@@ -468,6 +468,7 @@ $ <span class="nb">source</span> flaskapp/bin/activate
 
 
 <p>It works! By pointing a browser to the droplet IP address followed by <code>:5000</code>, I could see my simple message: "The temperature is 91.2 F".</p>
+<p><img alt="flask app no styling" src="/posts/flask/flask_app_no_template.png"></p>
 <h2 id="set-up-uwsgi-nginx-ssl-and-systemctl">Set up uWSGI, nginx, SSL and systemctl</h2>
 <p>There are going to be two layers between the flask app and the outside internet. The requests will first come into <strong>NGINX</strong> then go to <strong>uWSGI</strong>. </p>
 <h3 id="configuring-uwsgi">Configuring uWSGI</h3>
@@ -495,6 +496,7 @@ $ <span class="nb">source</span> flaskapp/bin/activate
 
 
 <p>By pointing a browser to the droplet IP address followed by <code>:5000</code>, I could still see The simple message: "The temperature is 91.2 F". Still seems to be working!</p>
+<p><img alt="flask app no styling" src="/posts/flask/flask_app_no_template.png"></p>
 <h4 id="construct-the-uwsgi-configuration-file">Construct the uWSGI configuration file</h4>
 <p>Now for another layer of <strong>uWSGI</strong> goodness- building a uWSGI <strong><em>.ini</em></strong> configuration file</p>
 <div class="highlight"><pre><span></span><span class="o">(</span>flaskappenv<span class="o">)</span>$ deactivate
@@ -580,11 +582,11 @@ change by editing your web server&#39;s configuration.
 
 <p>In the <strong><em>flaskapp.service</em></strong> file, I included the following. Note that the username <code>peter</code> should be replaced with your non-root sudo user.</p>
 <div class="highlight"><pre><span></span>[Unit]
-Description=uWSGI instance to serve myproject
+Description=uWSGI instance to serve flaskapp
 After=network.target
 
 [Service]
-User=sammy
+User=peter
 Group=www-data
 WorkingDirectory=/home/peter/flaskapp
 Environment=&quot;PATH=/home/peter/flaskapp/flaskappenv/bin&quot;
@@ -604,9 +606,11 @@ $ sudo systemctl status myproject
 
 <p>The <code>status</code> call should show the service as <code>active (running)</code>. Use [ctrl]-[c] to exit the status screen. This will not stop the service.</p>
 <p>After pointing a web browser to the droplet IP address followed by <code>:5000</code>, I could still see The simple message: "The temperature is 91.2 F". Looks like the <strong>NGINX</strong>-<strong>uWSGI</strong>-<strong>flask</strong> stack is working properly.</p>
+<p><img alt="flask app no styling" src="/posts/flask/flask_app_no_template.png"></p>
 <h2 id="add-bootstrap-styling">Add Bootstrap Styling</h2>
-<p>The single page app is pretty basic right now. It also isn't designed to look good on phones or tablets. I plan on using my phone to the most to view the temperature hosted by the flask app, so I decided to use bootstrap styling and the jumbotron component from bootstrap. To keep things simple I used the bootstrap CDN instead of installing the whole bootstrap package to the server.</p>
-<p>To add bootstrap styling I created a jinga template called <strong><em>index.html</em></strong> and placed by styling inside. Note that the CDN is for bootstrap 3 and the newest bootstrap version is bootstrap 4. On the server, we need to create a templates directory for the jinja template. This is the default location for jinga templates when running <strong>flask</strong>.</p>
+<p>The single page app is pretty basic right now. It also isn't designed to look good on phones or tablets. I plan on using my phone the most to view the flask app, so I decided to use bootstrap styling and the jumbotron component from bootstrap. </p>
+<p>To keep things simple I used the bootstrap CDN instead of installing the whole bootstrap package to the server. On the <a href="https://getbootstrap.com/docs/3.3/getting-started/">bootstrap3 install page</a> is the content we need to add to the top of our <strong><em>.html</em></strong> template. I choose to use the CDN instead of installing all of the bootstrap static files on the server. To make the temperature display look nicer, I utilized the <a href="https://github.com/heimrichhannot/bootstrap/blob/master/docs/4.0/examples/jumbotron/index.html">jumbotron component of bootstrap</a>. If you follow the link, you will also see the that need to be included first in the header of the template.</p>
+<p>To add the bootstrap styling I created a jinga template called <strong><em>index.html</em></strong> and placed a modified version of the html for the jumbotron component and bootstrap CDN inside. Note the CDN is for bootstrap3 and the newest bootstrap version is bootstrap4. On the server, we need to create a templates directory for the jinja template. This is the default location for jinga templates when running <strong>flask</strong>.</p>
 <div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/flaskapp
 $ mkdir templates
 $ <span class="nb">cd</span> templates
@@ -615,42 +619,44 @@ $ nano index.html
 
 
 <p>The <strong><em>index.html</em></strong> template contains a <code>&lt;header&gt;</code> with the bootstrap3 CDN and a <code>&lt;body&gt;</code> which contains the jumbotron component.</p>
-<p>```html tab=
-<!-- index.html -->
-&lt;!DOCTYPE html&gt;
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">  <br>
-<title>show temp</title></p>
-<!-- Latest compiled and minified CSS -->
+<div class="highlight"><pre><span></span><span class="c">&lt;!-- index.html --&gt;</span>
+<span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;en&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;UTF-8&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">meta</span> <span class="na">http-equiv</span><span class="o">=</span><span class="s">&quot;X-UA-Compatible&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;IE=edge&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1&quot;</span><span class="p">&gt;</span>    
+<span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>show temp<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
 
-<p><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"></p>
-<!-- Optional theme -->
+<span class="c">&lt;!-- Latest compiled and minified CSS --&gt;</span>
+<span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span><span class="p">&gt;</span>
 
-<p><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"></p>
-<!-- Latest compiled and minified JavaScript -->
+<span class="c">&lt;!-- Optional theme --&gt;</span>
+<span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span><span class="p">&gt;</span>
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<span class="c">&lt;!-- Latest compiled and minified JavaScript --&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 
-<p></head></p>
-<p><body></p>
-<div class="container-fluid">
-    <div class="jumbotron">
-        <hr class="my-4">
-        <h1 class="display-4"> 91.4 F</h1>
-        <p class="lead">temperature inside</p>
-        <hr class="my-4">
-    </div>        
-</div>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
 
-<p></body>
-</html></p>
-<div class="highlight"><pre><span></span><span class="n">Now</span> <span class="n">we</span> <span class="n">need</span> <span class="n">to</span> <span class="n">modify</span> <span class="n">the</span> <span class="o">**</span><span class="n">_showtemp</span><span class="o">.</span><span class="n">py_</span><span class="o">**</span> <span class="nb">file</span> <span class="n">to</span> <span class="n">point</span> <span class="n">to</span> <span class="n">our</span> <span class="o">**</span><span class="n">_index</span><span class="o">.</span><span class="n">html_</span><span class="o">**</span> <span class="n">template</span><span class="o">.</span> <span class="n">A</span> <span class="n">new</span> <span class="o">**</span><span class="n">flask</span><span class="o">**</span> <span class="n">function</span><span class="p">,</span> <span class="sb">```render_template()```</span> <span class="ow">is</span> <span class="n">used</span><span class="o">.</span> <span class="sb">```render_template()```</span> <span class="n">must</span> <span class="n">be</span> <span class="n">included</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">imports</span> <span class="ow">and</span> <span class="ow">is</span> <span class="n">used</span> <span class="k">as</span> <span class="n">the</span> <span class="sb">```return```</span> <span class="n">action</span> <span class="n">of</span> <span class="n">the</span> <span class="sb">```@app.route(&quot;/&quot;)```</span> <span class="sb">```index()```</span> <span class="n">function</span><span class="o">.</span> <span class="n">The</span> <span class="n">revised</span> <span class="o">**</span><span class="n">_showtemp</span><span class="o">.</span><span class="n">py_</span><span class="o">**</span> <span class="nb">file</span> <span class="ow">is</span> <span class="n">below</span><span class="o">.</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
 
-<span class="sb">``</span><span class="err">`</span><span class="n">python</span>
-<span class="c1"># showtemp.py</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container-fluid&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;jumbotron&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">hr</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;my-4&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">h1</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;display-4&quot;</span><span class="p">&gt;</span> 91.4 F<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;lead&quot;</span><span class="p">&gt;</span>temperature inside<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">hr</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;my-4&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>        
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+
+
+<p>Now we need to modify the <strong><em>showtemp.py</em></strong> file to point to our <strong><em>index.html</em></strong> template. A new <strong>flask</strong> function, <code>render_template()</code> is used. <code>render_template()</code> must be included in the imports and is used as the <code>return</code> action of the <code>@app.route("/")</code> <code>index()</code> function. The revised <strong><em>showtemp.py</em></strong> file is below.</p>
+<div class="highlight"><pre><span></span><span class="c1"># showtemp.py</span>
 
 <span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span>
 <span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
@@ -665,13 +671,13 @@ $ nano index.html
 
 
 <h2 id="pull-the-temperature-from-thingspeakcom-with-requests">Pull the temperature from ThingSpeak.com with <strong>requests</strong></h2>
-<p>The final step of this project is to dynamically pull the temperature from ThingSpeak.com. Right now the flask app only shows static temperatures <code>91.4 F</code> and <code>72.3</code>. The whole point of the app is to see the temperatures the WiFi weather stations measure.</p>
+<p>The final step of this project is to dynamically pull the temperature from ThingSpeak.com and show it on our single page flask app. Right now the flask app only shows the static temperature <code>91.4 F</code> and <code>72.3</code>. The whole point of the app is to see the temperatures the WiFi weather stations measure.</p>
 <p>To grab the temperatures off of ThingSpeak.com, we'll use the <strong>requests</strong> package. According to the <a href="https://www.mathworks.com/help/thingspeak/rest-api.html">ThingSpeak.com web API documentation</a>, the format of our GET request needs to be:</p>
 <div class="highlight"><pre><span></span>https://api.thingspeak.com/channels/&lt;channel_id&gt;/fields/&lt;field_id&gt;/last.&lt;format&gt;
 </pre></div>
 
 
-<p>The <code>&lt;channel_id&gt;</code> corresponds to the channel number on ThingSpeak.com. My WiFi weather stations are on a public channel. <code>&lt;field_id&gt;</code> is the field number held by the ThingSpeak channel. Each channel can have multiple fields. I have two WiFi weather stations each publishing a temperature to a different channel (channels 1 and 2). The <code>&lt;format&gt;</code> in this case is <code>.txt</code>. We could grab <code>.json</code> or a <code>.csv</code> off of ThingSpeak, but since we are only grabbing one temperature reading at a time, <code>.txt</code> will be the easiest. In the Python REPL we can try out the ThingSpeak web API. Make sure <strong>requests</strong> is installed in the virtual environment before importing it. On the server try:</p>
+<p><code>&lt;channel_id&gt;</code> corresponds to the channel number on ThingSpeak.com. My WiFi weather stations are on a public channel. <code>&lt;field_id&gt;</code> is the field number held by the ThingSpeak channel. Each ThingSpeak channel can have multiple fields. The temperature we care about is in field <code>1</code>. The <code>&lt;format&gt;</code> we want is <code>.txt</code>. We could grab <code>.json</code> or a <code>.csv</code> off of ThingSpeak, but since we are only grabbing one temperature reading at a time, <code>.txt</code> is the easiest. In the Python REPL we can try out the ThingSpeak web API. Make sure <strong>requests</strong> is installed in the virtual environment before importing it. On the server try:</p>
 <div class="highlight"><pre><span></span>$ <span class="nb">source</span> flaskapp/bin/activate
 <span class="o">(</span>flaskappenv<span class="o">)</span>$ python
 
@@ -686,7 +692,7 @@ $
 </pre></div>
 
 
-<p>Now we need to use this same web API call into the flask app. Modify <strong><em>showtemp.py</em></strong> to include the <strong>requests</strong> package and include the web API request as a line the <code>index()</code> function. I also included a line to convert the temperature from F to C. When the temp comes in from ThingSpeak, it is a string. The temp needs to be converted from a string to a float before the C to F conversion can be accomplished. After the conversion, the temperature in F need to be converted back to a string. A string is neede because the temperature in F is passed to the template function as the parameter <code>temp</code> which will get used in a revised version of our jinja template <strong><em>index.html</em></strong>. The extra argument in the <code>render_template()</code> function transfers the variable <code>temp_f</code> from the <strong><em>showtemp.py</em></strong> file to the template <strong><em>index.html</em></strong>.</p>
+<p>Now we need to use this same web API call in the flask app. Modify <strong><em>showtemp.py</em></strong> to include the <strong>requests</strong> package and include the web API request as a line the <code>index()</code> function. I also included a line to convert the temperature from &deg;F to &deg;C. When the temperature value comes in from ThingSpeak, it is a string. The temperature value needs to be converted to a float before the &deg;C to &deg;F conversion can be accomplished. After the conversion, the temperature in &deg;F needs to be converted back to a string. A string is needed because the temperature in &deg;F is passed to the <code>render_template()</code> as the parameter <code>temp</code> which will be used in a revised version of our jinja template <strong><em>index.html</em></strong>. The extra argument in the <code>render_template()</code> function transfers the variable <code>temp_f</code> from the <strong><em>showtemp.py</em></strong> file to the template <strong><em>index.html</em></strong>.</p>
 <div class="highlight"><pre><span></span><span class="c1"># showtemp.py</span>
 
 <span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span>
@@ -705,7 +711,7 @@ $
 </pre></div>
 
 
-<p>Finally, we need to modify the <strong><em>index.html</em></strong> template and test the whole flask app. We passed a parameter <code>temp</code> from <strong><em>showtemp.py</em></strong>. This parameter can be used as part of the jinja template. The value stored in <code>temp</code> will end up displayed on the working webpage. Jinja templates use blocks that start and end with double curley brackets <code>{{ }}</code>. Our <code>temp</code> parameter goes into one of these blocks.</p>
+<p>Finally, we need to modify the <strong><em>index.html</em></strong> template and test the whole flask app. We passed a parameter <code>temp</code> from <strong><em>showtemp.py</em></strong> to this template. The <code>temp</code> parameter can be used programmatically in the jinja <strong><em>index.html</em></strong> template. The value stored in <code>temp</code> will end up displayed on the working web page. Jinja templates use code blocks that start and end with double curly brackets <code>{{ }}</code>. Our <code>temp</code> parameter goes into one of these blocks.</p>
 <div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/flaskapp/templates
 $ nano index.html
 </pre></div>
@@ -748,8 +754,8 @@ $ nano index.html
 </pre></div>
 
 
-<h2 id="view-the-final-flask-app-in-a-browser">View the final flask app in a browser</h2>
-<p>With the changes to <strong><em>readtemp.py</em></strong> and <strong><em>index.html</em></strong> complete, we can restart the system service and view our app with a browser. The final single page flask web app is complete!</p>
+<h2 id="view-the-final-flask-app-in-a-browser">View the Final flask app in a Browser</h2>
+<p>With the changes to <strong><em>readtemp.py</em></strong> and <strong><em>index.html</em></strong> complete, we can restart the system service and view our app with a web browser. The final single page flask web app is complete!</p>
 <div class="highlight"><pre><span></span>$ sudo systemctl start myproject
 $ sudo systemctl status myproject
 <span class="c1"># ctrl-c to exit</span>
@@ -775,8 +781,9 @@ $ sudo systemctl status myproject
 <li>Flask</li>
 <li>jinja templates</li>
 <li>html</li>
+<li>bootstrap</li>
 </ul>
-<p>That's a lot of stuff to go in one project. The next thing I'm thinking about is building a flask IoT server that accepts GET requests from my ESP8266 weather stations. ThingSpeak.com works great as an IoT sever, but there are limits to how often data can be posted and how often data can be accessed. I think writing my own IoT server in flask would be fun too!</p>
+<p>That's a lot of stuff to go in one project. The next thing I'm thinking about is building a <strong>flask</strong> IoT (internet of things) server that accepts GET requests from my ESP8266 weather stations. ThingSpeak.com works great as an IoT sever, but there are limits to how often data can be posted and how often data can be accessed. I think writing my own IoT server in <strong>flask</strong> would be fun too!</p>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">

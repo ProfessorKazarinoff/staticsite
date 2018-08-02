@@ -322,7 +322,7 @@ $ &lt;span class="nb"&gt;kill&lt;/span&gt; &lt;span class="c1"&gt;#### &lt;/span
 
 
 &lt;p&gt;Now we need to log into github and create an OAuth App and copy the Client ID and Client Secret. The short version is:&lt;/p&gt;
-&lt;p&gt;github profile --&amp;gt; settings --&amp;gt; Developer Settings --&amp;gt; OAuth Apps --&amp;gt; Register a new application&lt;/p&gt;
+&lt;p&gt;github profile &amp;rarr; settings &amp;rarr; Developer Settings &amp;rarr; OAuth Apps &amp;rarr; Register a new application&lt;/p&gt;
 &lt;p&gt;&lt;img alt="github settings" src="/posts/jupyterhub/github_settings.png"&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="github developer settings" src="/posts/jupyterhub/github_developer_settings.png"&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="github register new applicaiton" src="/posts/jupyterhub/github_register_new_application.png"&gt;&lt;/p&gt;
@@ -377,7 +377,7 @@ $ sudo systemctl status jupyterhub
 &lt;p&gt;First up we need to set up a google OAuth instance. I did this using my personal gmail account rather than my college gmail account. Some parts of google suite are not available in my college profile like youtube and developer tabs. &lt;/p&gt;
 &lt;p&gt;To obtain the google OAuth credentials, we need to log into the google API console &lt;a href="https://console.developers.google.com/"&gt;https://console.developers.google.com/&lt;/a&gt; and select [Credentials] on the lefthand menu.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="google oauth credentials" src="/posts/jupyterhub/google_oauth_credentials.png"&gt;&lt;/p&gt;
-&lt;p&gt;Next we'll create a new OAuth credential under [Credentials] --&amp;gt; [Create Credentials] --&amp;gt; [OAuth client ID]:&lt;/p&gt;
+&lt;p&gt;Next we'll create a new OAuth credential under [Credentials] &amp;rarr; [Create Credentials] &amp;rarr; [OAuth client ID]:&lt;/p&gt;
 &lt;p&gt;&lt;img alt="google create credentials" src="/posts/jupyterhub/google_oauth_create_credentials.png"&gt;&lt;/p&gt;
 &lt;p&gt;To create a set of google OAuth credentials you will need to input:&lt;/p&gt;
 &lt;ul&gt;
@@ -484,7 +484,7 @@ ns3.digitalocean.com
 &lt;p&gt;&lt;img alt="Google Domains Dashboard" src="/posts/jupyterhub/google_domains_dns_routing.png"&gt;&lt;/p&gt;
 &lt;p&gt;Make sure to click the radio button [Use custom name servers] and click [save].&lt;/p&gt;
 &lt;h4 id="digital-ocean-dns"&gt;Digital Ocean DNS&lt;/h4&gt;
-&lt;p&gt;Now we are going to set our domain &lt;em&gt;problemsolvingwithpython.com&lt;/em&gt; to link to the IP address of our server on Digital Ocean. Log into Digital Ocean and in the upper right select [Create] --&amp;gt; [Domains/DNS]&lt;/p&gt;
+&lt;p&gt;Now we are going to set our domain &lt;em&gt;problemsolvingwithpython.com&lt;/em&gt; to link to the IP address of our server on Digital Ocean. Log into Digital Ocean and in the upper right select [Create] &amp;rarr; [Domains/DNS]&lt;/p&gt;
 &lt;p&gt;&lt;img alt="DO Domains/DNS" src="/posts/jupyterhub/DO_manage_domains.png"&gt;&lt;/p&gt;
 &lt;p&gt;In the [Add a domain] field, type in the domain name without http, but including .com (or .edu/.org/.net) then click [Add Domain].&lt;/p&gt;
 &lt;p&gt;&lt;img alt="DO Domains/DNS" src="/posts/jupyterhub/DO_add_domain.png"&gt;&lt;/p&gt;
@@ -953,7 +953,7 @@ $ jupyterhub --no-ssl
 &lt;h3 id="1-sign-up-for-a-digital-ocean-account"&gt;1. Sign up for a Digital Ocean Account&lt;/h3&gt;
 &lt;p&gt;Digital Ocean is a cloud service provider like Amazon Web Services (AWS), Google Cloud, Microsoft Azure and Linode. Digital Ocean provides virtual private servers (called &lt;em&gt;droplets&lt;/em&gt; in Digital Ocean-speak) and online storage of static files (called &lt;em&gt;spaces&lt;/em&gt; in Digital Ocean-speak). We are going to run the Jupyter Hub server on a Digital Ocean &lt;em&gt;droplet&lt;/em&gt;. I like Digital Ocean's prices and web interface. The documentation on Digital Ocean is pretty good too. I already have a Digital Ocean account. I don't remember exactly how I did it, but going to this link:&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://www.digitalocean.com/"&gt;https://www.digitalocean.com/&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;and selecting [Create Account --&amp;gt;] should work.&lt;/p&gt;
+&lt;p&gt;and selecting [Create Account &amp;rarr;] should work.&lt;/p&gt;
 &lt;h3 id="2-create-a-new-digital-ocean-droplet"&gt;2. Create a new Digital Ocean Droplet&lt;/h3&gt;
 &lt;p&gt;To create a new Digtial Ocean Droplet (a new server), log in here:&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://cloud.digitalocean.com/login"&gt;https://cloud.digitalocean.com/login&lt;/a&gt;&lt;/p&gt;
@@ -992,7 +992,7 @@ $ jupyterhub --no-ssl
 &lt;p&gt;&lt;img alt="Putty in Windows Start Menu" src="/posts/jupyterhub/digital_ocean_see_new_ssh_key.png"&gt;&lt;/p&gt;
 &lt;p&gt;OK, I think it's time to actually create the &lt;em&gt;droplet&lt;/em&gt;. Click the long green [Create] button at the bottom of the page.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Putty in Windows Start Menu" src="/posts/jupyterhub/digital_ocean_droplet_create.png"&gt;&lt;/p&gt;
-&lt;p&gt;This will bring you back the the Digital Ocean main dashboard and you should see your new droplet under [Resources] --&amp;gt; [Droplets]&lt;/p&gt;
+&lt;p&gt;This will bring you back the the Digital Ocean main dashboard and you should see your new droplet under [Resources] &amp;rarr; [Droplets]&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Putty in Windows Start Menu" src="/posts/jupyterhub/digital_ocean_droplets_1.png"&gt;&lt;/p&gt;
 &lt;p&gt;Note the IP address of the new droplet. We need to IP address to log into our server with PuTTY.&lt;/p&gt;
 &lt;h3 id="3-log-into-the-server-as-root-over-ssh-using-putty"&gt;3. Log into the server as root over SSH using PuTTY.&lt;/h3&gt;
@@ -1014,21 +1014,21 @@ $ jupyterhub --no-ssl
 &lt;td&gt;22&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td&gt;Connection --&amp;gt; SSH --&amp;gt; Auth --&amp;gt; Private key file&lt;/td&gt;
+&lt;td&gt;Connection &amp;rarr; SSH &amp;rarr; Auth &amp;rarr; Private key file&lt;/td&gt;
 &lt;td&gt;private SSH key&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td&gt;Connection --&amp;gt; Data --&amp;gt; Auto-login username&lt;/td&gt;
+&lt;td&gt;Connection &amp;rarr; Data &amp;rarr; Auto-login username&lt;/td&gt;
 &lt;td&gt;root&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;&lt;img alt="Putty in Windows Start Menu" src="/posts/jupyterhub/putty_in_start_menu.png"&gt;&lt;/p&gt;
-&lt;p&gt;Under Connect --&amp;gt; SSH --&amp;gt; Auth --&amp;gt; Private key file for authentication:, click [Browse]. &lt;/p&gt;
+&lt;p&gt;Under Connect &amp;rarr; SSH &amp;rarr; Auth &amp;rarr; Private key file for authentication:, click [Browse]. &lt;/p&gt;
 &lt;p&gt;&lt;img alt="PuTTY Auth SSH private key" src="/posts/jupyterhub/putty_Auth_SSH_private_key.png"&gt;&lt;/p&gt;
 &lt;p&gt;Navigate to the SSH private key in Documents/ssh-keys. The private key ends in a .ppk extension. I had trouble finding the key when I first set up PuTTY. It turned out that when the key was saved in Programfiles/PuTTY. The key was not visible in the Windows file browser because I don't have administrator permissions on my machine at work. I ended up having to create a new SSH key and save the new key in Documents/ssh-key (I can access Documents/ssh-key without administrator privaleges).&lt;/p&gt;
 &lt;p&gt;&lt;img alt="PuTTY browse to private SSH key" src="/posts/jupyterhub/putty_browse_private_ssh_key.png"&gt;&lt;/p&gt;
-&lt;p&gt;Under Connection --&amp;gt; Data --&amp;gt; Auto-login username: &lt;code&gt;root&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Under Connection &amp;rarr; Data &amp;rarr; Auto-login username: &lt;code&gt;root&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Putty login details" src="/posts/jupyterhub/putty_login_details.png"&gt;&lt;/p&gt;
 &lt;p&gt;Back in [Sessions] (the top-most menu item or main page), add the IP address and Port = 22, click [Open]&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Putty IP address and Port" src="/posts/jupyterhub/puTTY_IP_and_Port.png"&gt;&lt;/p&gt;
@@ -1092,7 +1092,7 @@ $ nano /home/peter/.ssh/authorized_keys
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Use the right mouse button to paste in the public SSH key from the clipboard into the PuTTY window. If the SSH key is not saved in the clipboard, then you can retrieve it with PuTTYgen --&amp;gt; load or go to Digital Ocean, click in the upper right on the profile picture --&amp;gt; settings --&amp;gt; security --&amp;gt; ssh-key --&amp;gt; edit dropdown --&amp;gt; edit. You can paste into the PuTTY window using the right mouse button. Use [Ctrl-x] and [y] to save and exit. &lt;/p&gt;
+&lt;p&gt;Use the right mouse button to paste in the public SSH key from the clipboard into the PuTTY window. If the SSH key is not saved in the clipboard, then you can retrieve it with PuTTYgen &amp;rarr; load or go to Digital Ocean, click in the upper right on the profile picture &amp;rarr; settings &amp;rarr; security &amp;rarr; ssh-key &amp;rarr; edit dropdown &amp;rarr; edit. You can paste into the PuTTY window using the right mouse button. Use [Ctrl-x] and [y] to save and exit. &lt;/p&gt;
 &lt;p&gt;I tried to use &lt;code&gt;cp&lt;/code&gt; to copy the &lt;code&gt;authorized_keys&lt;/code&gt; file from &lt;code&gt;/root/.ssh/&lt;/code&gt; to &lt;code&gt;/home/peter/.ssh&lt;/code&gt; but there was a problem with permissions and write access to the &lt;code&gt;authorized_keys&lt;/code&gt; file. I couldn't get PuTTY to login as &lt;code&gt;peter&lt;/code&gt; until I removed the file, recreated an empty one and pasted in the SSH key. This is probably also possible with &lt;code&gt;cat file1 &amp;gt;&amp;gt; file2&lt;/code&gt;. Manually copying and pasting with the right mouse button was the way I got it to work. &lt;/p&gt;
 &lt;p&gt;Now we can exit out of the &lt;code&gt;peter&lt;/code&gt; profile&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;exit&lt;/span&gt;
@@ -1124,18 +1124,18 @@ $ nano /home/peter/.ssh/authorized_keys
 &lt;td&gt;22&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td&gt;Connection --&amp;gt; SSH --&amp;gt; Auth --&amp;gt; Private key file&lt;/td&gt;
+&lt;td&gt;Connection &amp;rarr; SSH &amp;rarr; Auth &amp;rarr; Private key file&lt;/td&gt;
 &lt;td&gt;private SSH key&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td&gt;Connection --&amp;gt; Data --&amp;gt; Auto-login username&lt;/td&gt;
+&lt;td&gt;Connection &amp;rarr; Data &amp;rarr; Auto-login username&lt;/td&gt;
 &lt;td&gt;peter&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;I also saved the PuTTY session details at this point so that I wouldn't have to re-enter all of the parameters each time I want to log into the server. Enter a name into [Saved Sessions] and click [Save]. Once the parameters are saved in PuTTY, you can simply double-click the profile name and you will log into the server.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="PuTTY save profile" src="/posts/jupyterhub/putty_save_session.PNG"&gt;&lt;/p&gt;
-&lt;p&gt;Log into the server with Sessions --&amp;gt; [Open]&lt;/p&gt;
+&lt;p&gt;Log into the server with Sessions &amp;rarr; [Open]&lt;/p&gt;
 &lt;p&gt;You should see the Digital Ocean login screen again. Note the prompt, it should have the new user's name before the &lt;code&gt;@&lt;/code&gt; symbol. &lt;/p&gt;
 &lt;p&gt;&lt;img alt="server terminal as peter" src="/posts/jupyterhub/putty_ssh_window_open_as_peter.png"&gt;&lt;/p&gt;
 &lt;p&gt;Check to see which directory you land in. It should be &lt;code&gt;/home/&amp;lt;username&amp;gt;&lt;/code&gt;&lt;/p&gt;

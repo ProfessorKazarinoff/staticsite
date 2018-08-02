@@ -1,15 +1,14 @@
 Title: Building a single page Flask App on Digital Ocean
 Date: 2018-08-02 09:01
 Modified: 2018-08-02 09:01
-Status: Draft
+Status: published
 Category: flask
 Tags: python, flask, thingspeak, mobile, IoT
-Slug: flask-app-show-data-from-thingspeak
+Slug: flask-app-on-digital-ocean
 Authors: Peter D. Kazarinoff
-Summary: In this post, I'll run through how I set up a single page flask app that shows a temperature pulled from ThingSpeak.com. ThingSpeak has nice looking graphs, but it is actually kind of hard to see the value of an individual data point. I wanted to be able to see the most recent temperature point recorded by my [ESP8266 WiFi weather station]({filename}/posts/micropython/micropython_upload_code.md) on a phone or tablet. By building a flask app and hosting it on Digital Ocean, I can now view the current temperature from anywhere.
+Summary: In this post, I'll run through how I set up a single page flask app that shows a temperature pulled from [ThingSpeak.com](https://thingspeak.com/). ThingSpeak has nice looking graphs, but it is actually kind of hard to see the value of an individual data point. I wanted to be able to see the most recent temperature point recorded by my [ESP8266 WiFi weather station project]({filename}/posts/micropython/micropython_upload_code.md) on a phone or tablet. By building a flask app and hosting it on Digital Ocean, I can now view the current temperature from anywhere.
 
-
-In this post, I'll run through how I set up a single page flask app that shows a temperature pulled from ThingSpeak.com. ThingSpeak has nice looking graphs, but it is actually kind of hard to see the value of an individual data point. I wanted to be able to see the most recent temperature point recorded by my [ESP8266 WiFi weather station]({filename}/posts/micropython/micropython_upload_code.md) on a phone or tablet. By building a flask app and hosting it on Digital Ocean, I can now view the current temperature from anywhere.
+In this post, I'll run through how I set up a single page flask app that shows a temperature pulled from [ThingSpeak.com](https://thingspeak.com/). ThingSpeak has nice looking graphs, but it is actually kind of hard to see the value of an individual data point. I wanted to be able to see the most recent temperature point recorded by my [ESP8266 WiFi weather station project]({filename}/posts/micropython/micropython_upload_code.md) on a phone or tablet. By building a flask app and hosting it on Digital Ocean, I can now view the current temperature from anywhere.
 
 [TOC]
 

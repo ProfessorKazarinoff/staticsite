@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>jupyter - Python for Undergraduate Engineers</title>
+    <title>flask - Python for Undergraduate Engineers</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -176,7 +176,7 @@ init_mathjax();
 
 
     <meta name="author" content="Peter Kazarinoff" />
-    <meta name="keywords" content="jupyter" />
+    <meta name="keywords" content="flask" />
 
     <!-- Open Graph tags -->
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
@@ -201,6 +201,8 @@ init_mathjax();
 
 
 
+        <link href="../feeds/flask.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Python for Undergraduate Engineers flask ATOM Feed"/>
 
 </head>
 <body>
@@ -248,171 +250,40 @@ Python for Undergraduate Engineers            </a>
         <div class="col-sm-9">
     <ol class="breadcrumb">
         <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-        <li><a href="../" title="Tags">Tags</a></li>
-        <li class="active">jupyter</li>
+        <li><a href="../" title="Python for Undergraduate Engineers Categories">Categories</a></li>
+        <li class="active">flask</li>
     </ol>
             <article>
-                <h2><a href="../assignments-dir-and-custom-login-page-to-jupyterhub.html">Add a custom login page and assignments directory for each user on a Jupyter Hub server</a></h2>
+                <h2><a href="../flask-app-on-digital-ocean.html">Building a single page Flask App on Digital Ocean</a></h2>
                     <div class="well well-sm">
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2018-06-14T10:40:00-07:00"> Thu 14 June 2018</time>
+        <i class="fa fa-calendar"></i><time datetime="2018-08-02T09:01:00-07:00"> Thu 02 August 2018</time>
     </span>
 
-            <span class="label label-default">Series</span>
-            Part 7 of Jupyter Hub
 
 
 
 
 <span class="label label-default">Tags</span>
-	<a href="../tag/jupyter.html">jupyter</a>
-        /
-	<a href="../tag/jupyter-hub.html">jupyter hub</a>
-        /
-	<a href="../tag/jupyter-notebooks.html">jupyter notebooks</a>
-        /
 	<a href="../tag/python.html">python</a>
+        /
+	<a href="../tag/flask.html">flask</a>
+        /
+	<a href="../tag/thingspeak.html">thingspeak</a>
+        /
+	<a href="../tag/mobile.html">mobile</a>
+        /
+	<a href="../tag/iot.html">IoT</a>
     
 </footer><!-- /.post-info -->                    </div>
-                <div class="summary"><p>This is the seventh part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we build a pre-spawn hook that creates an "assignments" and "notes" directory with pre-constructed assignments and notes for each <strong>jupyterhub</strong> user. We also build a custom login pages that looks much more like our college login page and contains helpful links.</p>
-                    <a class="btn btn-default btn-xs" href="../assignments-dir-and-custom-login-page-to-jupyterhub.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="../add-google-oauth-and-system-service-to-jupyterhub.html">Adding Google OAuth and system service to a Jupyter Hub server</a></h2>
-                    <div class="well well-sm">
-<footer class="post-info">
-    <span class="label label-default">Date</span>
-    <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2018-05-27T12:40:00-07:00"> Sun 27 May 2018</time>
-    </span>
-
-            <span class="label label-default">Series</span>
-            Part 6 of Jupyter Hub
-
-
-
-
-<span class="label label-default">Tags</span>
-	<a href="../tag/jupyter.html">jupyter</a>
-        /
-	<a href="../tag/jupyter-hub.html">jupyter hub</a>
-        /
-	<a href="../tag/jupyter-notebooks.html">jupyter notebooks</a>
-        /
-	<a href="../tag/python.html">python</a>
-    
-</footer><!-- /.post-info -->                    </div>
-                <div class="summary"><p>This is the sixth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we will set up <strong>jupyterhub</strong> to run as a system service in the background which will allow us to work on the server and run <strong>jupyterhub</strong> at the same time. Then we will add an authentication system so that users can log into our Jupyter Hub server using github usernames and passwords. Finally we will modify the authentication system so that users can log into our Jupyer Hub server using their google usernames and passwords. The same user name and password a student uses to access their college email.</p>
-                    <a class="btn btn-default btn-xs" href="../add-google-oauth-and-system-service-to-jupyterhub.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="../add-ssl-and-domain-name-to-jupyterhub.html">Adding SSL and a domain name to Jupyter Hub</a></h2>
-                    <div class="well well-sm">
-<footer class="post-info">
-    <span class="label label-default">Date</span>
-    <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2018-05-25T12:40:00-07:00"> Fri 25 May 2018</time>
-    </span>
-
-            <span class="label label-default">Series</span>
-            Part 5 of Jupyter Hub
-
-
-
-
-<span class="label label-default">Tags</span>
-	<a href="../tag/jupyter.html">jupyter</a>
-        /
-	<a href="../tag/jupyter-hub.html">jupyter hub</a>
-        /
-	<a href="../tag/jupyter-notebooks.html">jupyter notebooks</a>
-        /
-	<a href="../tag/python.html">python</a>
-    
-</footer><!-- /.post-info -->                    </div>
-                <div class="summary"><p>This is the fifth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to link a domain name to our server IP address, add SSL security and configure nginx to run as a proxy in between users and <strong>jupyterhub</strong>. Then we'll run <strong>jupyterhub</strong> over https using the SSL security we created.</p>
-                    <a class="btn btn-default btn-xs" href="../add-ssl-and-domain-name-to-jupyterhub.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="../installing-jupyter-hub.html">Installing Jupyterhub</a></h2>
-                    <div class="well well-sm">
-<footer class="post-info">
-    <span class="label label-default">Date</span>
-    <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2018-05-24T12:40:00-07:00"> Thu 24 May 2018</time>
-    </span>
-
-            <span class="label label-default">Series</span>
-            Part 4 of Jupyter Hub
-
-
-
-
-<span class="label label-default">Tags</span>
-	<a href="../tag/jupyter.html">jupyter</a>
-        /
-	<a href="../tag/jupyter-hub.html">jupyter hub</a>
-        /
-	<a href="../tag/jupyter-notebooks.html">jupyter notebooks</a>
-        /
-	<a href="../tag/python.html">python</a>
-    
-</footer><!-- /.post-info -->                    </div>
-                <div class="summary"><p>This is the fourth part of a multi-part series that shows how to set up Jupyter Hub for a college class. The goal is to have a running version of Jupyter Hub that students in the class can log into when given a simple web link. In this post, we'll get to the fun stuff: installing <strong>jupyterhub</strong> on the server, installing <strong>Python</strong> packages and spinning up Jupyter Hub for the first time.</p>
-                    <a class="btn btn-default btn-xs" href="../installing-jupyter-hub.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="../new-digital-ocean-droplet.html">Creating a new Digital Ocean Droplet</a></h2>
-                    <div class="well well-sm">
-<footer class="post-info">
-    <span class="label label-default">Date</span>
-    <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2018-05-20T12:40:00-07:00"> Sun 20 May 2018</time>
-    </span>
-
-            <span class="label label-default">Series</span>
-            Part 3 of Jupyter Hub
-
-
-
-
-<span class="label label-default">Tags</span>
-	<a href="../tag/jupyter.html">jupyter</a>
-        /
-	<a href="../tag/jupyter-hub.html">jupyter hub</a>
-        /
-	<a href="../tag/jupyter-notebooks.html">jupyter notebooks</a>
-        /
-	<a href="../tag/python.html">python</a>
-    
-</footer><!-- /.post-info -->                    </div>
-                <div class="summary"><p>This is the third part of a multi-part series on how to set up Jupyter Hub for a class.  My goal is to have a running version of Jupyter Hub that students can access using a simple web link. I am primarily writing to my future self as I may need to set up Jupyter Hub again for a future class. In this post, we are going to create a new Digital Ocean server (called a <em>droplet</em>) and create a non-root user with sudo privileges. Then we'll SSH into the droplet with PuTTY as the non-root user.</p>
-                    <a class="btn btn-default btn-xs" href="../new-digital-ocean-droplet.html">more ...</a>
+                <div class="summary"><p>In this post, I'll run through how I set up a single page flask app that shows a temperature pulled from <a href="https://thingspeak.com/">ThingSpeak.com</a>. ThingSpeak has nice looking graphs, but it is actually kind of hard to see the value of an individual data point. I wanted to be able to see the most recent temperature point recorded by my <a href="../micropython-upload-code.html">ESP8266 WiFi weather station project</a> on a phone or tablet. By building a flask app and hosting it on Digital Ocean, I can now view the current temperature from anywhere.</p>
+                    <a class="btn btn-default btn-xs" href="../flask-app-on-digital-ocean.html">more ...</a>
                 </div>
             </article>
             <hr/>
 
-        <ul class="pagination">
-                <li class="prev disabled"><a href="#">&laquo;</a></li>
-                    <li class="active"><a
-                            href="../tag/jupyter.html">1</a></li>
-                    <li class=""><a
-                            href="../tag/jupyter2.html">2</a></li>
-                    <li class=""><a
-                            href="../tag/jupyter3.html">3</a></li>
-                <li class="next"><a
-                        href="../tag/jupyter2.html">&raquo;</a></li>
-        </ul>
         </div>
         <div class="col-sm-3" id="sidebar">
             <aside>
@@ -432,9 +303,7 @@ Python for Undergraduate Engineers            </a>
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
-    <li class="list-group-item"><a href="../assignments-dir-and-custom-login-page-to-jupyterhub.html">Add a custom login page and assignments directory for each user on a Jupyter Hub server</a></li>
-    <li class="list-group-item"><a href="../add-google-oauth-and-system-service-to-jupyterhub.html">Adding Google OAuth and system service to a Jupyter Hub server</a></li>
-    <li class="list-group-item"><a href="../add-ssl-and-domain-name-to-jupyterhub.html">Adding SSL and a domain name to Jupyter Hub</a></li>
+    <li class="list-group-item"><a href="../flask-app-on-digital-ocean.html">Building a single page Flask App on Digital Ocean</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->

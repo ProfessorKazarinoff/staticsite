@@ -34,7 +34,7 @@
 
 &lt;p&gt;A web browser should open and you should be able to see the &lt;strong&gt;jupyter file browser&lt;/strong&gt;:&lt;/p&gt;
 &lt;p&gt;&lt;img alt="jupyter file browswer" src="/posts/jupyter/new_notebook_from_browser.png"&gt;&lt;/p&gt;
-&lt;p&gt;In the upper right select &lt;strong&gt;[New]&lt;/strong&gt; --&amp;gt; &lt;strong&gt;[Python 3]&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;In the upper right select &lt;strong&gt;[New]&lt;/strong&gt; &amp;rarr; &lt;strong&gt;[Python 3]&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;You will see a new tab open in your web browser. This new page is a &lt;strong&gt;jupyter notebook&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="jupyter file browswer" src="/posts/jupyter/new_notebook.png"&gt;&lt;/p&gt;
 &lt;p&gt;To rename the &lt;strong&gt;jupyter notebook&lt;/strong&gt;, click the file name at the top of the page to the right of the jupyter icon.&lt;/p&gt;
@@ -50,20 +50,20 @@
 &lt;p&gt;&lt;img alt="jupyter file browswer" src="/posts/jupyter/run_import_this.png"&gt;&lt;/p&gt;
 &lt;h3 id="2-windows-start-menu"&gt;2. Windows Start Menu&lt;/h3&gt;
 &lt;p&gt;Another way to open a &lt;strong&gt;jupyter notebook&lt;/strong&gt; is to use the Windows start menu. &lt;/p&gt;
-&lt;p&gt;Open the Windows start menu and select &lt;strong&gt;[Anaconda3(64 bit)]&lt;/strong&gt; --&amp;gt; &lt;strong&gt;[Jupyter Notebook]&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Open the Windows start menu and select &lt;strong&gt;[Anaconda3(64 bit)]&lt;/strong&gt; &amp;rarr; &lt;strong&gt;[Jupyter Notebook]&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="jupyter file browswer" src="/posts/jupyter/windows_start_jupyter_notebook.png"&gt;&lt;/p&gt;
 &lt;p&gt;This will open the &lt;strong&gt;jupyter file browser&lt;/strong&gt; in a web browser tab. &lt;/p&gt;
-&lt;p&gt;In the upper right select &lt;strong&gt;[New]&lt;/strong&gt; --&amp;gt; &lt;strong&gt;[Python 3]&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;In the upper right select &lt;strong&gt;[New]&lt;/strong&gt; &amp;rarr; &lt;strong&gt;[Python 3]&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="jupyter file browswer" src="/posts/jupyter/new_notebook_from_browser.png"&gt;&lt;/p&gt;
 &lt;p&gt;A new &lt;strong&gt;notebook&lt;/strong&gt; will open as a new tab in your web browser&lt;/p&gt;
 &lt;p&gt;&lt;img alt="jupyter file browswer" src="/posts/jupyter/new_notebook.png"&gt;&lt;/p&gt;
 &lt;h3 id="3-anaconda-navigator"&gt;3. &lt;strong&gt;Anaconda Navigator&lt;/strong&gt;&lt;/h3&gt;
-&lt;p&gt;The last way we'll review how to open a &lt;strong&gt;jupyter notebook&lt;/strong&gt; is by using the &lt;strong&gt;Anaconda Navigator&lt;/strong&gt;. You can open the &lt;strong&gt;Anaconda Navigator&lt;/strong&gt; using the Windows start menu and selecting &lt;strong&gt;[Anaconda3(64-bit)]&lt;/strong&gt; --&amp;gt; [Anaconda Navigator]&lt;/p&gt;
+&lt;p&gt;The last way we'll review how to open a &lt;strong&gt;jupyter notebook&lt;/strong&gt; is by using the &lt;strong&gt;Anaconda Navigator&lt;/strong&gt;. You can open the &lt;strong&gt;Anaconda Navigator&lt;/strong&gt; using the Windows start menu and selecting &lt;strong&gt;[Anaconda3(64-bit)]&lt;/strong&gt; &amp;rarr; [Anaconda Navigator]&lt;/p&gt;
 &lt;p&gt;&lt;img alt="jupyter file browswer" src="/posts/jupyter/windows_start_anaconda_navigator.png"&gt;&lt;/p&gt;
 &lt;p&gt;This will open the &lt;strong&gt;Anaconda Navigator&lt;/strong&gt;.  In the middle of the page, in the &lt;strong&gt;jupyter notebook&lt;/strong&gt; tile, click &lt;strong&gt;[Launch]&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="jupyter file browswer" src="/posts/jupyter/anaconda_navigator_jupyter_notebook_launch.png"&gt;&lt;/p&gt;
 &lt;p&gt;This will open the &lt;strong&gt;jupyter file browser&lt;/strong&gt; in a web browser tab. &lt;/p&gt;
-&lt;p&gt;In the upper right select &lt;strong&gt;[New]&lt;/strong&gt; --&amp;gt; &lt;strong&gt;[Python 3]&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;In the upper right select &lt;strong&gt;[New]&lt;/strong&gt; &amp;rarr; &lt;strong&gt;[Python 3]&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="jupyter file browswer" src="/posts/jupyter/new_notebook_from_browser.png"&gt;&lt;/p&gt;
 &lt;p&gt;A new &lt;strong&gt;notebook&lt;/strong&gt; will open as a new tab in your web browser&lt;/p&gt;
 &lt;p&gt;&lt;img alt="jupyter file browswer" src="/posts/jupyter/new_notebook.png"&gt;&lt;/p&gt;

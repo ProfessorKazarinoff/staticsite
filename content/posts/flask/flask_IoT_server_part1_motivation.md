@@ -21,7 +21,7 @@ I have two ESP8266-based WiFi weather stations. These little devices are part of
 
 ### IoT servers
 
-Servers that interact with Internet-of-Things devices (like my ESP8266-based WiFi weather stations) are called _Internet-of-Things servers_ or IoT servers. IoT servers communicate with _IoT devices_.  Right now, my ESP8266-based WiFi weather stations are IoT devices which communicate with ThingSpeak.com IoT servers. The WiFi weather stations send temperature measurements up to ThingSpeak.com servers where the data is saved. In a [previous post]({filename}/posts/flask/flask_single_page_app.md) I detailed how to build a **flask** single page web app that pulls temperature data from ThingSpeak.com
+Servers that interact with Internet-of-Things devices (like my ESP8266-based WiFi weather stations) are called _Internet-of-Things servers_ or IoT servers. IoT servers communicate with _IoT devices_.  Right now, my ESP8266-based WiFi weather stations are IoT devices which communicate with ThingSpeak.com IoT servers. The WiFi weather stations send temperature measurements up to ThingSpeak.com servers where the data is saved. In a [previous post]({filename}/posts/flask/flask_single_page_app.md) I described how to build a **flask** single page web app that pulls temperature data from ThingSpeak.com
 
 ## The Problem 
 
@@ -29,7 +29,7 @@ There are two problems I am trying to solve with this project. One is the proble
 
 ### The Heat Problem
 
-I live in Portland, OR and it was **HOT** last week. During the day the temperature climbed to 98 degrees one day. I know if you live in Ft. Worth, TX- 98 degrees isn't too bad. However, for us in the Pacific Northwest, 98 is hot.
+I live in Portland, OR and it was **HOT** last week. During one day last week, the temperature climbed to 98 degrees. I know if you live in Ft. Worth, TX- 98 degrees isn't too severe. However, for us in the Pacific Northwest, 98 is hot.
 
 One way to keep our house cool during the heat is to open windows at night and use fans to blow cold outside air into the hot, stuffy house. The question is: When should I open the windows and turn on the fans? 
 
@@ -43,7 +43,7 @@ Last week, the solution to the temperature inside/temperature outside problem wa
 
 The WiFi weather stations connected to ThingSpeak.com worked pretty well. However, there were a couple of issues. One issue is the 15 second limit between data point uploads on ThingSpeak. With two weather stations publishing a data point every 60 seconds, it seems like the data points would be 30 seconds apart. On _average_ every 30 seconds, one of the two weather stations publishes a temperature to ThingSpeak. A 30-second interval between posts to ThingSpeak is dependant upon the two weather stations synched up so that the two stations measure and send temperatures 30 seconds apart. 
 
-In practice when I plug in both ESP8266-based WiFi weather stations, it is hard to get one plugged in- then precisely 30 seconds later plug the other one in. Also if I only unplug only _one_ of the weather stations, it isn't practically possible to know when exactly to plug it back in. Maybe when it is plugged back in, one weather station takes a temperature at 0:02 minutes past the minute mark and the other weather station takes the temperature at 0:10 seconds past the minute mark. If that's the case, then the two measurements are sent within a 15-second window, and ThingSpeak only records the first data from the first weather station.
+In practice, when I plug in both ESP8266-based WiFi weather stations, it is hard to get one plugged in- then precisely 30 seconds later plug the other one in. Plus if I unplug only _one_ of the weather stations, it isn't practically possible to know when exactly to plug it back in. Maybe when it is plugged back in, one weather station takes a temperature at 0:02 minutes past the minute mark and the other weather station takes the temperature at 0:10 seconds past the minute mark. If that's the case, then the two temperature measurements are sent within one 15-second interval.  Within one 15-second interval, ThingSpeak only records the data from one of weather stations.
 
 ## Proposed solution
 
@@ -72,4 +72,6 @@ Building an IoT server with **flask** and Python is a multi-part problem. We can
 ## Next steps
 
 In the next post, we will complete the initial setup of our server and hardware. The server setup includes starting a new Droplet (new server) on Digital Ocean. The hardware setup includes connecting two ESP8266 microcontrollers to temperature sensors.
+
+
 

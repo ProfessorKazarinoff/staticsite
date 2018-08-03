@@ -1,34 +1,37 @@
-Title: Building a Flask IoT Server with Python - Part 2 Set Up
-Date: 2018-08-02 09:01
-Modified: 2018-08-02 09:01
+Title: Building an IoT Server with flask and Python - Part 2 Set Up
+Date: 2018-08-03 09:01
+Modified: 2018-08-03 09:01
 Status: draft
 Category: flask
 Tags: python, flask, thingspeak, mobile, IoT, sensor
 Slug: flask-iot-server-setup
 Authors: Peter D. Kazarinoff
-Summary: In this post, I'll describe how I set up an IoT (Internet of Things) server using **flask** and Python. This project builds upon my my [ESP8266 WiFi weather station project]({filename}/posts/micropython/micropython_upload_code.md) and my [flask app on Digigal Ocean project]({filename}flask_single_page_app.md). In my previous flask app, I pulled a temperature down from ThingSpeak.com. The problem with using ThingSpeak as an IoT platform is there are limits to how often data can be posted and how often data can be accessed on ThingSpeak. Building my own IoT server with **flask** gets around these problems.
 
-This is the second part of a series of posts about building an Internet of Things (IoT) server with **flask**, Python and ESP8266 microcontrollers. In this post, I'll describe the sever, software and microcontroller hardware for the project. This IoT server project builds upon my my [ESP8266 WiFi weather station project]({filename}/posts/micropython/micropython_upload_code.md) and my [flask app on Digigal Ocean project]({filename}flask_single_page_app.md). In my previous flask app, I pulled a temperature down from ThingSpeak.com. And previously with ESP8266 microcontrollers I have posted a temperature up to ThingSpeak.com. The problem with using ThingSpeak as an IoT platform is there are limits to how often data can be posted and how often data can be accessed on ThingSpeak. Building my own IoT server with **flask** is an exciting and interesting project and gets around the limitations of using ThingSpeak problems.
+This is the second part of a series of posts which detail building an Internet-of-Things (IoT) server with **flask**, Python and ESP8266 microcontrollers. In this post, I'll describe the sever, software and microcontroller hardware used in the project.
 
 [TOC]
 
+## Introduction
+
+This IoT server built with **flask** and Python project builds upon my [ESP8266 WiFi weather station project]({filename}/posts/micropython/micropython_upload_code.md) and my [flask app on Digigal Ocean project]({filename}/posts/flask/flask_single_page_app.md). In the flask app on Digigal Ocean project, I pulled a measurement temperature down from ThingSpeak.com and displayed the termperature on a webpage. In the ESP8266 WiFi weather station project, an ESP8266 microcontroller posted a temperature up on ThingSpeak.com. The problem with using ThingSpeak.com as an IoT platform is there are limits to how often data can be posted. Building my own IoT server with **flask** is an exciting and interesting project and solves the data post only once every 15 seconds limitation imposed by ThingSpeak.
+
+
 ## Prerequisits
 
+I previously built a single page flask app that show the temperature measured by WiFi weather stations. That single page flask app is running on Digital Ocean a cloud server. The flask app pulls a temperature data point from the ThingSpeak.com web API and displays it using **flask** and a jinja template. See the [flask app hosted on Digital Ocean]({filename}/posts/flask/flask_app_no_template.png) post to see the starting point for this project's **flask** IoT server. 
 
-I already built a single page flask app that shows temperature from WiFi weather stations. The flask app is running on  Digital Ocean a cloud server. The single page flask app pulls a temperature data point from ThingSpeak.com web API and displays it using **flask** and a jinja template. See the [flask app hosted on Digital Ocean]({filename}/posts/flask/flask_app_no_template.png) post if you want to get to where I was when I started building this **flask** IoT server. 
-
-If you are starting from scratch, the prerequisits needed to build an Internet of Things server with **flask** and Python and ESP8266 microcontrollers are:
+If you are starting from scratch, the prerequisits needed to build an Internet-of-Things server with **flask** and Python and ESP8266 microcontrollers are:
 
 ### Server
 
- * Digital Ocean cloud server (just called _the server_ from here on out). See [this post]({filename}/posts/jupyterhub/new_DO_droplet.md) and part of [this post.](http://pythonforundergradengineers.com/flask-app-on-digital-ocean.html#create-a-new-droplet)
-  * The following packages ```apt-get``` installed on the server: ```python3-pip``` ```python3-dev``` ```python3-setuptools``` ```python3-venv``` ```build-essential``` ```libssl-dev``` ```libffi-dev```
-  * [PuTTY](https://www.putty.org) or a terminal that can SSH into the server
-  * A domain name hooked up to the cloud server. See part of [this post.](http://pythonforundergradengineers.com/flask-app-on-digital-ocean.html#point-dns-severs-at-digital-ocean)
+ * A Digital Ocean cloud server (just called _the server_ from here on out). See [this post]({filename}/posts/jupyterhub/new_DO_droplet.md) and part of [this post.](http://pythonforundergradengineers.com/flask-app-on-digital-ocean.html#create-a-new-droplet)
+ * A domain name hooked up to the server. See part of [this post.](http://pythonforundergradengineers.com/flask-app-on-digital-ocean.html#point-dns-severs-at-digital-ocean)
+ * [PuTTY](https://www.putty.org) or a terminal that can SSH into the server
+ * The following packages ```apt-get``` installed on the server: ```python3-pip``` ```python3-dev``` ```python3-setuptools``` ```python3-venv``` ```build-essential``` ```libssl-dev``` ```libffi-dev```
   * A Python 3.6 virtual environment set up on the sever with ```flask``` and ```uwsgi``` ```pip install```ed. See part of [this post.](http://pythonforundergradengineers.com/flask-app-on-digital-ocean.html#install-packages)
-  *  **uWSGI**, **NGINX** installed on configured on the server. See part of [this post.](http://pythonforundergradengineers.com/flask-app-on-digital-ocean.html#set-up-uwsgi-nginx-ssl-and-systemctl). The configuration files I used can be found on github: [**_myproject.ini_**](https://github.com/ProfessorKazarinoff/flask-IoT/blob/master/myproject.ini), [**_wsgi.py_**](https://github.com/ProfessorKazarinoff/flask-IoT/blob/master/wsgi.py), [**_sites-avialable_**](https://gist.github.com/ProfessorKazarinoff/633abea34c5ea2420f1278deae61c091) (nginx config)
-  * The flask app running as a system service. For [this gist](https://gist.github.com/ProfessorKazarinoff/51f819f7001b3fc92982413eb9df4ed5) for the systemd [**_flaskapp.service_**](https://gist.github.com/ProfessorKazarinoff/51f819f7001b3fc92982413eb9df4ed5) file.
-  * SSL attached to the domain name and nginx instance. See part of [this post](http://pythonforundergradengineers.com/flask-app-on-digital-ocean.html#apply-ssl-security) and [this post.]({filename}/posts/jupyterhub/SSL_and_nginx_with_jupyterhub.md)
+  *  **uWSGI** and **NGINX** installed on configured on the server. See part of [this post.](http://pythonforundergradengineers.com/flask-app-on-digital-ocean.html#set-up-uwsgi-nginx-ssl-and-systemctl). The configuration files I used can be found on github: [**_myproject.ini_**](https://github.com/ProfessorKazarinoff/flask-IoT/blob/master/myproject.ini), [**_wsgi.py_**](https://github.com/ProfessorKazarinoff/flask-IoT/blob/master/wsgi.py), [**_sites-avialable_**](https://gist.github.com/ProfessorKazarinoff/633abea34c5ea2420f1278deae61c091) (nginx config)
+  * The flask app running as a system service. See [this gist](https://gist.github.com/ProfessorKazarinoff/51f819f7001b3fc92982413eb9df4ed5) for the systemd [**_flaskapp.service_**](https://gist.github.com/ProfessorKazarinoff/51f819f7001b3fc92982413eb9df4ed5) file.
+  * SSL attached to the domain name and **NGINX** instance. See part of [this post](http://pythonforundergradengineers.com/flask-app-on-digital-ocean.html#apply-ssl-security) and [this post.]({filename}/posts/jupyterhub/SSL_and_nginx_with_jupyterhub.md)
 
 ### Hardware
 
@@ -41,11 +44,13 @@ If you are starting from scratch, the prerequisits needed to build an Internet o
  * [Micropython firmware for the ESP8266](http://micropython.org/download#esp8266) loaded on the ESP8266 board. See [this post]({filename}/posts/micropython/micropython_install.md)
  * The following **_.py_** files (available on github) loaded onto the board with **ampy**. [BMP280.py](https://github.com/ProfessorKazarinoff/MATLAB-Arduino-ESP8266-IoT/blob/master/BMP280.py), [MCP9808](https://github.com/ProfessorKazarinoff/MATLAB-Arduino-ESP8266-IoT/blob/master/MCP9808.py), [wifitools.py](https://github.com/ProfessorKazarinoff/MATLAB-Arduino-ESP8266-IoT/blob/master/wifitools.py). See [this post](content/posts/micropython/micropython_upload_code.md)
  
-![fritzing sketch]({filename}/posts/micropython/feather_huzzah_temp_sensor_fritzing.png) 
+![fritzing sketch]({filename}/posts/micropython/feather_huzzah_temp_sensor_fritzing.png)
+
+![ESP8266-based WiFi weather station]({filename}/posts/flask/esp8266-based_wifi_weather_station.jpg)
 
 ## The starting place
 
-The flask app I built was fairly basic and mainly comprised of 2 files. The file structure on the server looks like this:
+The flask app I built was fairly basic and mainly comprised of 2 files. The file structure on the Digital Ocean server looks like this:
 
 ```text
 ~/
@@ -79,7 +84,7 @@ if __name__ == "__main__":
     app.run(host='0.0.0.0')
 ```
 
-The only **jinja** template used by the flask app was in the ```/templates``` directory and named **_index.html_**:
+The only **jinja** template used by the flask app to build web pages was in the ```/templates``` directory and named **_index.html_**:
 
 ```html
 <!-- index.html -->
@@ -125,15 +130,13 @@ $ sudo systemctl status myproject
 # [ctrl-c] to exit.
 ```
 
-The resulting web page looks like:
+The resulting web page looks like like this:
 
 ![flask app simple index]({filename}/posts/flask/simple_index.png)
 
 ## Summary
 
-Now we've got a great Internet of Things server that doesn't have any data posting or data drawing limits! So cool!
- 
- I do wonder though- how big can the sqlite databse get? I set the ESP8266's on a loop timer so that each ESP8266 WiFi weather station would stop sending temperatures to the flask IoT server after 8 hours. But that is still about 1000 rows (data points) added to the database each time both WiFi weather stations are powered on. Maybe the next step is writing in a function that purges the oldest rows from the database. Or maybe building a web page in with a **matplotlib** plot that dynamically shows the temperature as new data points arrive into the server... 
+This post detailed the server setup and microcontroller hardware used in the IoT server with **flask** and Python project. The server running on Digital Ocean has a domain name connected to it and is running an **NGINX** --> uWSGI --> flask web stack. The flask app currently returns a webpage with a temperature pulled from ThingSpeak.com. The hardware includes Adafruit Feather Huzzah ESP8266 microcontrollers connected to temperature sensors. 
  
  ## Next steps
  

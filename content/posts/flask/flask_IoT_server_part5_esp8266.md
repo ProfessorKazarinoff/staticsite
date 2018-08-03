@@ -1,4 +1,4 @@
-Title: Building a Flask IoT Server with Python - Part 5 Posting Data with an ESP8266
+Title: Building an IoT Server with flask and Python - Part 5 Posting Data with an ESP8266
 Date: 2018-08-02 09:01
 Modified: 2018-08-02 09:01
 Status: draft

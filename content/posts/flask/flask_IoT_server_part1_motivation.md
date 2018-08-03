@@ -1,4 +1,4 @@
-Title: Building a Flask IoT Server with Python - Part 1 Motivation
+Title: Building an IoT Server with flask and Python - Part 1 Motivation
 Date: 2018-08-02 09:01
 Modified: 2018-08-02 09:01
 Status: draft
@@ -13,31 +13,37 @@ This post is the first part of a series of blog posts about building an Internet
 
 ## Introduction
 
-In the next couple of posts, I'm going to show how I built an Internet of Things server with **flask** and Python. The Internet-of-Things (IoT) is a network of computers, phones, tablets and physical devices like thermostats, garage door openers, light bulbs, doorbell cameras, weather stations connected to each other. When we talk about the _internet_ we are usually referring to computers, tablets, phones and servers communicating with web pages, programs and apps. The Internet of Things builds on the internet by including devices other than computers, phones, tablets and servers. 
+In the next couple of posts, I'm going to demonstrate how I built an Internet-of-Things server with [**flask**](http://flask.pocoo.org/docs/1.0/) and Python. The Internet-of-Things (IoT) is a network of computers, phones, tablets and physical devices like thermostats, garage door openers, light bulbs, doorbell cameras, weather stations connected to each other. When we talk about the _Internet_ we are usually referring to computers, tablets, phones and servers communicating with web pages, programs and apps. The Internet-of-Things builds on the Internet by including devices other than computers, phones, tablets and servers. 
 
-### IoT devices
+### IoT Devices
 
-I have two ESP8266-based WiFi weather stations. These little devices are part of the Internet of Things. The little WiFi weather stations cost about $20 each and run on very little power. The ESP8266-based WiFi weather stations beam temperature measurements up to servers in the cloud. My ESP8266-based WiFi weather stations are part of the Internet of Things. My WiFi weather stations are called IoT devices.
+I have two ESP8266-based WiFi weather stations. These little devices are part of the Internet-of-Things. The little WiFi weather stations cost about $20 each and run on very little power. The weather stations are made up of an ESP8266 microcontroller and a temperature sensor connected with jumper wires and a bread board. The ESP8266-based WiFi weather stations beam temperature measurements up to servers in the cloud. These WiFi weather stations are _IoT devices_.
 
-### IoT servers
+![ESP8266-based WiFi weather station]({filename}/posts/flask/esp8266-based_wifi_weather_station.jpg)
 
-Servers that interact with Internet-of-Things devices (like my ESP8266-based WiFi weather stations) are called _Internet-of-Things servers_ or IoT servers. IoT servers communicate with _IoT devices_.  Right now, my ESP8266-based WiFi weather stations are IoT devices which communicate with ThingSpeak.com IoT servers. The WiFi weather stations send temperature measurements up to ThingSpeak.com servers where the data is saved. In a [previous post]({filename}/posts/flask/flask_single_page_app.md) I described how to build a **flask** single page web app that pulls temperature data from ThingSpeak.com
+### IoT Servers
+
+Servers that interact with Internet-of-Things devices (like my ESP8266-based WiFi weather stations) are called Internet-of-Things servers or _IoT servers_. IoT servers communicate with _IoT devices_.  At the start of this project, the ESP8266-based WiFi weather stations communicate with ThingSpeak.com IoT servers. The WiFi weather stations send temperature measurements up to the ThingSpeak.com IoT servers where the data is saved. In a [previous post]({filename}/posts/flask/flask_single_page_app.md) I described how to build a **flask** single page web app that pulls temperature data from the ThingSpeak.com IoT servers using a web API.
+
+![flask app simple index]({filename}/posts/flask/simple_index.png)
 
 ## The Problem 
 
-There are two problems I am trying to solve with this project. One is the problem of summer heat, and the other is the problem with ThingSpeak.
+There are two problems I am trying to solve with this project. One problem is keeping the house cool in the summer heat. The other problem is ThingSpeak.com posting limits.
 
 ### The Heat Problem
 
-I live in Portland, OR and it was **HOT** last week. During one day last week, the temperature climbed to 98 degrees. I know if you live in Ft. Worth, TX- 98 degrees isn't too severe. However, for us in the Pacific Northwest, 98 is hot.
+I live in Portland, OR and it was **HOT** last week. One day last week, the temperature outside climbed to 98 &deg;F. I know if you live in Ft. Worth, TX- 98 &deg;F isn't too severe. However, for us in the Pacific Northwest, 98 &deg;F is **HOT**.
 
-One way to keep our house cool during the heat is to open windows at night and use fans to blow cold outside air into the hot, stuffy house. The question is: When should I open the windows and turn on the fans? 
+One way to keep our house cool is to open windows at night and use fans to blow cold outside air into the hot, stuffy house. The question is: 
 
-During the day, it is hotter outside than inside, so I keep the windows closed. However, it has been so hot that the even after the sun goes down, it is still hotter outside than inside. 
+<div class="alert alert-info" role="alert"><i class="fa fa-question-circle"></i> <b>Question: </b> "When should I open windows and turn on fans to keep the house cool?"</div>
 
-What I want to know is when does the temperature outside go lower than the temperature inside. When that I happens I'll open the windows and blow cold, fresh air inside. I also want to know when the temperature outside gets hotter than the temperature inside. When that happens, I close the windows and turn off the fans.
+During the day, it is hotter outside than inside, so I keep the windows closed. However, it has been so hot- the even after the sun goes down, it is still hotter outside than inside. 
 
-### The ThingSpeak.com problem
+What I want to know is when does the temperature outside go lower than the temperature inside. When that I happens, I'll open the windows and blow cold, fresh air inside. I also want to know when the temperature outside gets hotter than the temperature inside. When that happens, I'll close the windows and turn off the fans.
+
+### The ThingSpeak.com Problem
 
 Last week, the solution to the temperature inside/temperature outside problem was tackled with ESP8266-based WiFi weather stations. One WiFi weather station is taped to a window outside my kids' room, and another WiFi weather station sat on top of my daughter's dresser. These WiFi weather stations measured temperature once every 60 seconds and posted the temperature to ThingSpeak.com
 
@@ -45,33 +51,35 @@ The WiFi weather stations connected to ThingSpeak.com worked pretty well. Howeve
 
 In practice, when I plug in both ESP8266-based WiFi weather stations, it is hard to get one plugged in- then precisely 30 seconds later plug the other one in. Plus if I unplug only _one_ of the weather stations, it isn't practically possible to know when exactly to plug it back in. Maybe when it is plugged back in, one weather station takes a temperature at 0:02 minutes past the minute mark and the other weather station takes the temperature at 0:10 seconds past the minute mark. If that's the case, then the two temperature measurements are sent within one 15-second interval.  Within one 15-second interval, ThingSpeak only records the data from one of weather stations.
 
-## Proposed solution
+## Proposed Solution
 
-What I propose to do to solve this problem is to build my own Internet-of-Things server with **flask** and Python. With my own IoT server, I can set the limit of how often devices (WiFi weather stations) can post data points. Since I only have two weather stations, the server can accept data points at a faster rate than every 15 seconds. 
+I propose to solve this problem by building my own Internet-of-Things server with **flask** and Python. With my own IoT server, _I_ can set the limit of how often devices (WiFi weather stations) can post data points. Since I only have two weather stations, the IoT server can accept data points at a faster rate than every 15 seconds. 
 
 In addition to solving a problem, this project also interests me. I already built a [single page web app with **flask** and Python]({filename}/posts/flask/flask_single_page_app.md). How can this project be taken further? Turning the single page web app into an IoT server is one way of extending the previous project.
 
 ### IoT Server Requirements
 
-So what must our IoT server running **flask** and Python be able to do? It needs to be able to do two primary functions:
+So what must our IoT server running **flask** and Python be able to do? 
 
- * accept and store temperature measurements from two ESP8266-base WiFi weather stations
- * publish the temperature measured by two ESP8266-base WiFi weather stations as a webpage
+The IoT server needs to be able to provide two primary functions:
+
+ * accept and store temperature measurements from two ESP8266-based WiFi weather stations
+ * publish the temperature measured by two ESP8266-base WiFi weather stations to a webpage
 
 ### Project steps
 
-Building an IoT server with **flask** and Python is a multi-part problem. We can segment the problem into steps:
+Building an IoT server with **flask** and Python is a multi-part problem. We can break the problem down into steps:
 
 1. Setup
-  1. get a **flask**-based server running in the cloud (Digital Ocean)
-  2. assemble the hardware for the WiFi weather stations
+  - get a **flask**-based server running in the cloud (Digital Ocean)
+  - assemble the hardware for the WiFi weather stations
 2. Built a web API with **flask** and Python that accepts requests from web browsers and saves data points
-3. Add a database to the server to save the data points that come in from the weather stations
-4. Upload code on the ESP8266-based weather stations to send temperature measurements to our web API 
+3. Add a database to the server to save the data points that come in from the WiFi weather stations
+4. Upload code on the ESP8266-based WiFi weather stations to send temperature measurements to our server's web API 
 
 ## Next steps
 
-In the next post, we will complete the initial setup of our server and hardware. The server setup includes starting a new Droplet (new server) on Digital Ocean. The hardware setup includes connecting two ESP8266 microcontrollers to temperature sensors.
+In the next post, we will complete the initial setup of the server and hardware. The server setup includes starting a new Droplet (a server) on Digital Ocean. The hardware setup includes connecting two ESP8266 microcontrollers to temperature sensors.
 
 
 

@@ -1,4 +1,4 @@
-Title: Building a Flask IoT Server with Python - Part 4 Adding a Database
+Title: Building an IoT Server with flask and Python - Part 4 Adding a Database
 Date: 2018-08-02 09:01
 Modified: 2018-08-02 09:01
 Status: draft

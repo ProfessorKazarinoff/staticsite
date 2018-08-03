@@ -152,7 +152,7 @@ div.collapseheader {
 
 </style>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
 <script type="text/javascript">
 init_mathjax = function() {
     if (window.MathJax) {
@@ -162,7 +162,7 @@ init_mathjax = function() {
                 inlineMath: [ ['$','$'], ["\\(","\\)"] ],
                 displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
             },
-            displayAlign: 'center', // Change this to 'center' to center equations.
+            displayAlign: 'left', // Change this to 'center' to center equations.
             "HTML-CSS": {
                 styles: {'.MathJax_Display': {"margin": 0}}
             }
@@ -172,19 +172,19 @@ init_mathjax = function() {
 }
 init_mathjax();
 </script>
-    <link href="/extra/favicon.ico" rel="icon">
+    <link href="../extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="/drafts/flask-iot-server-setup.html">
+<link rel="canonical" href="../drafts/flask-iot-server-setup.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
         <meta name="keywords" content="python,flask,thingspeak,mobile,IoT,sensor" />
-        <meta name="description" content="This is the second part of a series of posts which detail building an Internet-of-Things (IoT) server with flask, Python and ESP8266 microcontrollers. In this post, I&#39;ll describe the sever, software and microcontroller hardware used in the project. Table of contents: Introduction Prerequisits Server Hardware The starting place Summary Introduction …" />
+        <meta name="description" content="This is the second part of a series of posts which detail building an Internet-of-Things (IoT) server with flask, Python and ESP8266 microcontrollers. In this post, we&#39;ll describe server setup and microcontroller hardware used in the project. Table of contents: Introduction Prerequisites Server Hardware The starting place Summary Introduction The …" />
 
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="Building an IoT Server with flask and Python - Part 2 Set Up"/>
-        <meta property="og:url" content="/drafts/flask-iot-server-setup.html"/>
-        <meta property="og:description" content="This is the second part of a series of posts which detail building an Internet-of-Things (IoT) server with flask, Python and ESP8266 microcontrollers. In this post, I&#39;ll describe the sever, software and microcontroller hardware used in the project. Table of contents: Introduction Prerequisits Server Hardware The starting place Summary Introduction …"/>
+        <meta property="og:url" content="../drafts/flask-iot-server-setup.html"/>
+        <meta property="og:description" content="This is the second part of a series of posts which detail building an Internet-of-Things (IoT) server with flask, Python and ESP8266 microcontrollers. In this post, we&#39;ll describe server setup and microcontroller hardware used in the project. Table of contents: Introduction Prerequisites Server Hardware The starting place Summary Introduction The …"/>
         <meta property="article:published_time" content="2018-08-03" />
             <meta property="article:section" content="flask" />
             <meta property="article:tag" content="python" />
@@ -198,13 +198,13 @@ init_mathjax();
 
 
     <!-- Bootstrap -->
-        <link rel="stylesheet" href="/theme/css/bootstrap.flatly.min.css" type="text/css"/>
-    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="../theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="../theme/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="/theme/css/pygments/native.css" rel="stylesheet">
-    <link href="/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
-    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
-        <link href="/static/css/custom.css" rel="stylesheet">
+    <link href="../theme/css/pygments/native.css" rel="stylesheet">
+    <link href="../theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="../theme/css/style.css" type="text/css"/>
+        <link href="../static/css/custom.css" rel="stylesheet">
 
 
 
@@ -222,18 +222,18 @@ init_mathjax();
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="/" class="navbar-brand">
+            <a href="../" class="navbar-brand">
 Python for Undergraduate Engineers            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                         <li><a href="/pages/about.html">
+                         <li><a href="../pages/about.html">
                              About
                           </a></li>
-                         <li><a href="/pages/book.html">
+                         <li><a href="../pages/book.html">
                              Book
                           </a></li>
-                         <li><a href="/pages/now.html">
+                         <li><a href="../pages/now.html">
                              Now
                           </a></li>
             </ul>
@@ -243,7 +243,7 @@ Python for Undergraduate Engineers            </a>
                   <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
                 </form></span>
               </li>
-              <li><a href="/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+              <li><a href="../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -255,15 +255,15 @@ Python for Undergraduate Engineers            </a>
     <div class="row">
         <div class="col-sm-9">
             <ol class="breadcrumb">
-                <li><a href="" title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="/category/flask.html" title="flask">flask</a></li>
+                <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="../category/flask.html" title="flask">flask</a></li>
                 <li class="active">Building an IoT Server with flask and Python - Part 2 Set Up</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="/drafts/flask-iot-server-setup.html"
+                    <a href="../drafts/flask-iot-server-setup.html"
                        rel="bookmark"
                        title="Permalink to Building an IoT Server with flask and Python - Part 2 Set Up">
                         Building an IoT Server with flask and Python - Part 2 Set Up
@@ -284,24 +284,24 @@ Python for Undergraduate Engineers            </a>
 
 
 <span class="label label-default">Tags</span>
-	<a href="/tag/python.html">python</a>
+	<a href="../tag/python.html">python</a>
         /
-	<a href="/tag/flask.html">flask</a>
+	<a href="../tag/flask.html">flask</a>
         /
-	<a href="/tag/thingspeak.html">thingspeak</a>
+	<a href="../tag/thingspeak.html">thingspeak</a>
         /
-	<a href="/tag/mobile.html">mobile</a>
+	<a href="../tag/mobile.html">mobile</a>
         /
-	<a href="/tag/iot.html">IoT</a>
+	<a href="../tag/iot.html">IoT</a>
         /
-	<a href="/tag/sensor.html">sensor</a>
+	<a href="../tag/sensor.html">sensor</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>This is the second part of a series of posts which detail building an Internet-of-Things (IoT) server with <strong>flask</strong>, Python and ESP8266 microcontrollers. In this post, I'll describe the sever, software and microcontroller hardware used in the project.</p>
+                <p>This is the second part of a series of posts which detail building an Internet-of-Things (IoT) server with <strong>flask</strong>, Python and ESP8266 microcontrollers. In this post, we'll describe server setup and microcontroller hardware used in the project.</p>
 <div class="toc"><span class="toctitle">Table of contents:</span><ul>
 <li><a href="#introduction">Introduction</a></li>
-<li><a href="#prerequisits">Prerequisits</a><ul>
+<li><a href="#prerequisites">Prerequisites</a><ul>
 <li><a href="#server">Server</a></li>
 <li><a href="#hardware">Hardware</a></li>
 </ul>
@@ -311,33 +311,35 @@ Python for Undergraduate Engineers            </a>
 </ul>
 </div>
 <h2 id="introduction">Introduction</h2>
-<p>This IoT server built with <strong>flask</strong> and Python project builds upon my <a href="/micropython-upload-code.html">ESP8266 WiFi weather station project</a> and my <a href="/flask-app-on-digital-ocean.html">flask app on Digigal Ocean project</a>. In the flask app on Digigal Ocean project, I pulled a measurement temperature down from ThingSpeak.com and displayed the termperature on a webpage. In the ESP8266 WiFi weather station project, an ESP8266 microcontroller posted a temperature up on ThingSpeak.com. The problem with using ThingSpeak.com as an IoT platform is there are limits to how often data can be posted. Building my own IoT server with <strong>flask</strong> is an exciting and interesting project and solves the data post only once every 15 seconds limitation imposed by ThingSpeak.</p>
-<h2 id="prerequisits">Prerequisits</h2>
-<p>I previously built a single page flask app that show the temperature measured by WiFi weather stations. That single page flask app is running on Digital Ocean a cloud server. The flask app pulls a temperature data point from the ThingSpeak.com web API and displays it using <strong>flask</strong> and a jinja template. See the <a href="/posts/flask/flask_app_no_template.png">flask app hosted on Digital Ocean</a> post to see the starting point for this project's <strong>flask</strong> IoT server. </p>
+<p>The IoT server project builds upon the <a href="../micropython-upload-code.html">ESP8266 WiFi weather station project</a> and the <a href="../flask-app-on-digital-ocean.html">flask app on Digigal Ocean project</a>. In the flask app on Digital Ocean project, a flask app pulled a measurement temperature down from ThingSpeak.com and displayed the termperature on a webpage. In the ESP8266 WiFi weather station project, an ESP8266 microcontroller (connected to a temperature sensor) posted a temperature up on ThingSpeak.com. The problem with using ThingSpeak.com as an IoT platform is there are limits to how often data can be posted. Building my own IoT server with <strong>flask</strong> is an exciting and interesting project and solves the only "one data post only once every 15 seconds" limitation imposed by ThingSpeak.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>I previously built a single page flask app that show the temperature measured by WiFi weather stations. That single page flask app is running on a Digital Ocea cloud server. The flask app pulls a temperature data point from the ThingSpeak.com web API and displays it using <strong>flask</strong> and a jinja template. See the <a href="../posts/flask/flask_app_no_template.png">flask app hosted on Digital Ocean</a> post to see the starting point for this project's <strong>flask</strong> IoT server. </p>
 <p>If you are starting from scratch, the prerequisits needed to build an Internet-of-Things server with <strong>flask</strong> and Python and ESP8266 microcontrollers are:</p>
 <h3 id="server">Server</h3>
 <ul>
-<li>A Digital Ocean cloud server (just called <em>the server</em> from here on out). See <a href="/new-digital-ocean-droplet.html">this post</a> and part of <a href="http://pythonforundergradengineers.com/flask-app-on-digital-ocean.html#create-a-new-droplet">this post.</a></li>
+<li>A Digital Ocean cloud server (just called <em>the server</em> from here on out). See <a href="../new-digital-ocean-droplet.html">this post</a> and part of <a href="http://pythonforundergradengineers.com/flask-app-on-digital-ocean.html#create-a-new-droplet">this post.</a></li>
 <li>A domain name hooked up to the server. See part of <a href="http://pythonforundergradengineers.com/flask-app-on-digital-ocean.html#point-dns-severs-at-digital-ocean">this post.</a></li>
 <li><a href="https://www.putty.org">PuTTY</a> or a terminal that can SSH into the server</li>
 <li>The following packages <code>apt-get</code> installed on the server: <code>python3-pip</code> <code>python3-dev</code> <code>python3-setuptools</code> <code>python3-venv</code> <code>build-essential</code> <code>libssl-dev</code> <code>libffi-dev</code></li>
 <li>A Python 3.6 virtual environment set up on the sever with <code>flask</code> and <code>uwsgi</code> <code>pip install</code>ed. See part of <a href="http://pythonforundergradengineers.com/flask-app-on-digital-ocean.html#install-packages">this post.</a></li>
 <li><strong>uWSGI</strong> and <strong>NGINX</strong> installed on configured on the server. See part of <a href="http://pythonforundergradengineers.com/flask-app-on-digital-ocean.html#set-up-uwsgi-nginx-ssl-and-systemctl">this post.</a>. The configuration files I used can be found on github: <a href="https://github.com/ProfessorKazarinoff/flask-IoT/blob/master/myproject.ini"><strong><em>myproject.ini</em></strong></a>, <a href="https://github.com/ProfessorKazarinoff/flask-IoT/blob/master/wsgi.py"><strong><em>wsgi.py</em></strong></a>, <a href="https://gist.github.com/ProfessorKazarinoff/633abea34c5ea2420f1278deae61c091"><strong><em>sites-avialable</em></strong></a> (nginx config)</li>
 <li>The flask app running as a system service. See <a href="https://gist.github.com/ProfessorKazarinoff/51f819f7001b3fc92982413eb9df4ed5">this gist</a> for the systemd <a href="https://gist.github.com/ProfessorKazarinoff/51f819f7001b3fc92982413eb9df4ed5"><strong><em>flaskapp.service</em></strong></a> file.</li>
-<li>SSL attached to the domain name and <strong>NGINX</strong> instance. See part of <a href="http://pythonforundergradengineers.com/flask-app-on-digital-ocean.html#apply-ssl-security">this post</a> and <a href="/add-ssl-and-domain-name-to-jupyterhub.html">this post.</a></li>
+<li>SSL attached to the domain name and <strong>NGINX</strong> instance. See part of <a href="http://pythonforundergradengineers.com/flask-app-on-digital-ocean.html#apply-ssl-security">this post</a> and <a href="../add-ssl-and-domain-name-to-jupyterhub.html">this post.</a></li>
 </ul>
+<p>The webpage produced by the flask app is below:</p>
+<p><img alt="flask app simple index" src="../posts/flask/simple_index.png"></p>
 <h3 id="hardware">Hardware</h3>
-<p>The following is WiFi weather station hardware I started with. See <a href="/micropython-temp-sensor.html">this post</a> and the fritzing sketch below for hardware setup.</p>
+<p>The below is a list of hardware used to build the ESP8266-based WiFi weather stations. See <a href="../micropython-temp-sensor.html">this post</a> and the fritzing sketch below for hardware setup.</p>
 <ul>
 <li><a href="https://www.adafruit.com/product/2821">Adafruit Feather Huzzah ESP8266</a></li>
 <li><a href="https://www.adafruit.com/product/1782">MCP9808 temperature sensor</a>,<a href="https://www.adafruit.com/product/2651">BMP280 temperature sensor</a></li>
 <li><a href="https://www.adafruit.com/product/758">jumper wires</a>, <a href="https://www.adafruit.com/product/64">breadboard</a></li>
 <li><a href="https://www.adafruit.com/product/592">microUSB cable</a>.</li>
-<li><a href="http://micropython.org/download#esp8266">Micropython firmware for the ESP8266</a> loaded on the ESP8266 board. See <a href="/micropython-install.html">this post</a></li>
-<li>The following <strong><em>.py</em></strong> files (available on github) loaded onto the board with <strong>ampy</strong>. <a href="https://github.com/ProfessorKazarinoff/MATLAB-Arduino-ESP8266-IoT/blob/master/BMP280.py">BMP280.py</a>, <a href="https://github.com/ProfessorKazarinoff/MATLAB-Arduino-ESP8266-IoT/blob/master/MCP9808.py">MCP9808</a>, <a href="https://github.com/ProfessorKazarinoff/MATLAB-Arduino-ESP8266-IoT/blob/master/wifitools.py">wifitools.py</a>. See <a href="content/posts/micropython/micropython_upload_code.md">this post</a></li>
+<li><a href="http://micropython.org/download#esp8266">Micropython firmware for the ESP8266</a> loaded on the ESP8266 board. See <a href="../micropython-install.html">this post</a></li>
+<li>The following <strong><em>.py</em></strong> files (available on github) were loaded onto the board with <strong>ampy</strong>. <a href="https://github.com/ProfessorKazarinoff/MATLAB-Arduino-ESP8266-IoT/blob/master/BMP280.py">BMP280.py</a>, <a href="https://github.com/ProfessorKazarinoff/MATLAB-Arduino-ESP8266-IoT/blob/master/MCP9808.py">MCP9808</a>, <a href="https://github.com/ProfessorKazarinoff/MATLAB-Arduino-ESP8266-IoT/blob/master/wifitools.py">wifitools.py</a>. See <a href="content/posts/micropython/micropython_upload_code.md">this post</a></li>
 </ul>
-<p><img alt="fritzing sketch" src="/posts/micropython/feather_huzzah_temp_sensor_fritzing.png"></p>
-<p><img alt="ESP8266-based WiFi weather station" src="{filename}/posts/flask/esp8266-based_wifi_weather_station.png"></p>
+<p><img alt="fritzing sketch" src="../posts/micropython/feather_huzzah_temp_sensor_fritzing.png"></p>
+<p><img alt="ESP8266-based WiFi weather station" src="../posts/flask/esp8266-based_wifi_weather_station.png"></p>
 <h2 id="the-starting-place">The starting place</h2>
 <p>The flask app I built was fairly basic and mainly comprised of 2 files. The file structure on the Digital Ocean server looks like this:</p>
 <div class="highlight"><pre><span></span>~/
@@ -416,7 +418,7 @@ $ sudo systemctl status myproject
 
 
 <p>The resulting web page looks like like this:</p>
-<p><img alt="flask app simple index" src="/posts/flask/simple_index.png"></p>
+<p><img alt="flask app simple index" src="../posts/flask/simple_index.png"></p>
 <h2 id="summary">Summary</h2>
 <p>This post detailed the server setup and microcontroller hardware used in the IoT server with <strong>flask</strong> and Python project. The server running on Digital Ocean has a domain name connected to it and is running an <strong>NGINX</strong> &rarr; uWSGI &rarr; flask web stack. The flask app currently returns a webpage with a temperature pulled from ThingSpeak.com. The hardware includes Adafruit Feather Huzzah ESP8266 microcontrollers connected to temperature sensors. </p>
 <p>## Next steps</p>
@@ -426,11 +428,11 @@ $ sudo systemctl status myproject
 <section class="well" id="related-posts">
     <h4>Related Posts:</h4>
     <ul>
-        <li><a href="/flask-app-on-digital-ocean.html">Building a single page Flask App on Digital Ocean</a></li>
-        <li><a href="/micropython-upload-code.html">Upload Micropython Code to an Adafruit Feather Huzzah ESP8266</a></li>
-        <li><a href="/micropython-temp-sensor.html">Using a Temperature Sensor with Micropython running on an Adafruit Feather Huzzah ESP8266</a></li>
-        <li><a href="/micropython-wifi.html">Using Micropython to connect an Adafruit Feather Huzzah ESP8266 to WiFi</a></li>
-        <li><a href="/assignments-dir-and-custom-login-page-to-jupyterhub.html">Add a custom login page and assignments directory for each user on a Jupyter Hub server</a></li>
+        <li><a href="../flask-app-on-digital-ocean.html">Building a single page Flask App on Digital Ocean</a></li>
+        <li><a href="../micropython-upload-code.html">Upload Micropython Code to an Adafruit Feather Huzzah ESP8266</a></li>
+        <li><a href="../micropython-temp-sensor.html">Using a Temperature Sensor with Micropython running on an Adafruit Feather Huzzah ESP8266</a></li>
+        <li><a href="../micropython-wifi.html">Using Micropython to connect an Adafruit Feather Huzzah ESP8266 to WiFi</a></li>
+        <li><a href="../assignments-dir-and-custom-login-page-to-jupyterhub.html">Add a custom login page and assignments directory for each user on a Jupyter Hub server</a></li>
     </ul>
 </section>
         </article>
@@ -441,7 +443,7 @@ $ sudo systemctl status myproject
             <aside>
 <div id="aboutme">
         <p>
-            <img width="100%" class="img-thumbnail" src="/extra/gear-wrench-icon-512-278694.png"/>
+            <img width="100%" class="img-thumbnail" src="../extra/gear-wrench-icon-512-278694.png"/>
         </p>
     <p>
       <strong>About Peter Kazarinoff</strong><br/>
@@ -455,46 +457,46 @@ $ sudo systemctl status myproject
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
-    <li class="list-group-item"><a href="/flask-app-on-digital-ocean.html">Building a single page Flask App on Digital Ocean</a></li>
-    <li class="list-group-item"><a href="/micropython-upload-code.html">Upload Micropython Code to an Adafruit Feather Huzzah ESP8266</a></li>
-    <li class="list-group-item"><a href="/micropython-wifi.html">Using Micropython to connect an Adafruit Feather Huzzah ESP8266 to WiFi</a></li>
+    <li class="list-group-item"><a href="../flask-app-on-digital-ocean.html">Building a single page Flask App on Digital Ocean</a></li>
+    <li class="list-group-item"><a href="../micropython-upload-code.html">Upload Micropython Code to an Adafruit Feather Huzzah ESP8266</a></li>
+    <li class="list-group-item"><a href="../micropython-wifi.html">Using Micropython to connect an Adafruit Feather Huzzah ESP8266 to WiFi</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
 
 <!-- Sidebar/Tag Cloud -->
 <li class="list-group-item">
-  <a href="/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <a href="../"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
   <ul class="list-group list-inline tagcloud" id="tags">
     <li class="list-group-item tag-3">
-      <a href="/tag/blog.html">blog</a>
+      <a href="../tag/blog.html">blog</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="/tag/engineering.html">engineering</a>
+      <a href="../tag/engineering.html">engineering</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="/tag/esp8266.html">esp8266</a>
+      <a href="../tag/esp8266.html">esp8266</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="/tag/jupyter.html">jupyter</a>
+      <a href="../tag/jupyter.html">jupyter</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="/tag/jupyter-hub.html">jupyter hub</a>
+      <a href="../tag/jupyter-hub.html">jupyter hub</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="/tag/jupyter-notebooks.html">jupyter notebooks</a>
+      <a href="../tag/jupyter-notebooks.html">jupyter notebooks</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="/tag/microcontroller.html">microcontroller</a>
+      <a href="../tag/microcontroller.html">microcontroller</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="/tag/micropython.html">micropython</a>
+      <a href="../tag/micropython.html">micropython</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="/tag/pelican.html">pelican</a>
+      <a href="../tag/pelican.html">pelican</a>
     </li>
     <li class="list-group-item tag-1">
-      <a href="/tag/python.html">python</a>
+      <a href="../tag/python.html">python</a>
     </li>
   </ul>
 </li>
@@ -527,15 +529,15 @@ $ sudo systemctl status myproject
       </div>
    </div>
 </footer>
-<script src="/theme/js/jquery.min.js"></script>
+<script src="../theme/js/jquery.min.js"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/theme/js/bootstrap.min.js"></script>
+<script src="../theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="/theme/js/respond.min.js"></script>
+<script src="../theme/js/respond.min.js"></script>
 
-    <script src="/static/js/custom.js"></script>
+    <script src="../static/js/custom.js"></script>
 
 
 <!-- GitHub JS Code -->
@@ -544,7 +546,7 @@ $(document).ready(function () {
   if (!window.jXHR) {
     var jxhr = document.createElement('script');
     jxhr.type = 'text/javascript';
-    jxhr.src = '/theme/js/jXHR.js';
+    jxhr.src = '../theme/js/jXHR.js';
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(jxhr, s);
   }
@@ -557,7 +559,7 @@ $(document).ready(function () {
   });
 });
 </script>
-<script src="/theme/js/github.js" type="text/javascript"></script>
+<script src="../theme/js/github.js" type="text/javascript"></script>
 <!-- End GitHub JS Code -->
     <!-- Google Analytics -->
     <script type="text/javascript">

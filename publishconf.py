@@ -10,15 +10,27 @@ import sys
 sys.path.append(os.curdir)
 from pelicanconf import *
 
-SITEURL = 'https://professorkazarinoff.github.io/staticsite'
+SITEURL = 'http://pythonforundergradengineers.com'
 RELATIVE_URLS = True
 
-FEED_ALL_ATOM = 'feeds/all.atom.xml'
-CATEGORY_FEED_ATOM = 'feeds/%s.atom.xml'
+# RSS Feed Settings
+FEED_DOMAIN = SITEURL
+FEED_ATOM = None
+FEED_RSS = 'rss'
+FEED_ALL_ATOM = None
+FEED_ALL_RSS = None
+CATEGORY_FEED_ATOM = None
+CATEGORY_FEED_RSS = None
+AUTHOR_FEED_ATOM = None
+AUTHOR_FEED_RSS = None
+TAG_FEED_ATOM = None
+TAG_FEED_RSS = None
+RSS_FEED_SUMMARY_ONLY = True
 
 DELETE_OUTPUT_DIRECTORY = True
 
 # Following items are often useful when publishing
 
 #DISQUS_SITENAME = ""
-#GOOGLE_ANALYTICS = ""
+# for Google Analytics
+GOOGLE_ANALYTICS = 'UA-116330557-1'

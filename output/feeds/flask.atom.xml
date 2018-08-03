@@ -126,7 +126,7 @@ $ sudo apt-get install build-essential libssl-dev libffi-dev
 
 
 &lt;h3 id="create-a-virtual-environment-and-install-flask"&gt;Create a Virtual Environment and install &lt;strong&gt;flask&lt;/strong&gt;&lt;/h3&gt;
-&lt;p&gt;Once the necessary libraries are installed, I created a virtual environment to run the flask app. I usually use &lt;strong&gt;conda&lt;/strong&gt; to create virtual environments (see &lt;a href="{filename}\posts\new_virtualenv_conda.md"&gt;this post&lt;/a&gt;), but since I'm not using the Anaconda distribution of Python for this flask app, &lt;strong&gt;venv&lt;/strong&gt; will have to do instead.&lt;/p&gt;
+&lt;p&gt;Once the necessary libraries are installed, I created a virtual environment to run the flask app. I usually use &lt;strong&gt;conda&lt;/strong&gt; to create virtual environments (see &lt;a href="https://professorkazarinoff.github.io/staticsite/new-virtual-environment-with-conda.html"&gt;this post&lt;/a&gt;), but since I'm not using the Anaconda distribution of Python for this flask app, &lt;strong&gt;venv&lt;/strong&gt; will have to do instead.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;cd&lt;/span&gt; ~
 $ mkdir flaskapp
 $ &lt;span class="nb"&gt;cd&lt;/span&gt; flaskapp
@@ -497,4 +497,4 @@ $ sudo systemctl status myproject
 &lt;li&gt;bootstrap&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;That's a lot of stuff to go in one project. &lt;/p&gt;
-&lt;p&gt;The next thing I'm thinking about is building a &lt;strong&gt;flask&lt;/strong&gt; IoT (internet of things) server that accepts GET requests from &lt;a href="{filename}\staticsite\content\posts\flask\flask_single_page_app.md"&gt;ESP8266 weather stations&lt;/a&gt;. ThingSpeak.com works great as an IoT sever, but there are limits to how often data can be posted and how often data can be accessed. I think writing my own IoT server in &lt;strong&gt;flask&lt;/strong&gt; would be fun too!&lt;/p&gt;</content><category term="python"></category><category term="flask"></category><category term="thingspeak"></category><category term="mobile"></category><category term="IoT"></category></entry></feed>
+&lt;p&gt;The next thing I'm thinking about is building a &lt;strong&gt;flask&lt;/strong&gt; IoT (internet of things) server that accepts GET requests from &lt;a href="https://professorkazarinoff.github.io/staticsite/micropython-upload-code.html"&gt;ESP8266 weather stations&lt;/a&gt;. ThingSpeak.com works great as an IoT sever, but there are limits to how often data can be posted and how often data can be accessed. I think writing my own IoT server in &lt;strong&gt;flask&lt;/strong&gt; would be fun too!&lt;/p&gt;</content><category term="python"></category><category term="flask"></category><category term="thingspeak"></category><category term="mobile"></category><category term="IoT"></category></entry></feed>

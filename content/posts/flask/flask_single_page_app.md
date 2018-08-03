@@ -133,7 +133,7 @@ $ sudo apt-get install build-essential libssl-dev libffi-dev
 
 ### Create a Virtual Environment and install **flask**
 
-Once the necessary libraries are installed, I created a virtual environment to run the flask app. I usually use **conda** to create virtual environments (see [this post]({filename}\posts\new_virtualenv_conda.md)), but since I'm not using the Anaconda distribution of Python for this flask app, **venv** will have to do instead.
+Once the necessary libraries are installed, I created a virtual environment to run the flask app. I usually use **conda** to create virtual environments (see [this post]({filename}/posts/new_virtualenv_conda.md)), but since I'm not using the Anaconda distribution of Python for this flask app, **venv** will have to do instead.
 
 ```bash
 $ cd ~
@@ -568,4 +568,4 @@ An incomplete list is below:
  
  That's a lot of stuff to go in one project. 
  
- The next thing I'm thinking about is building a **flask** IoT (internet of things) server that accepts GET requests from [ESP8266 weather stations]({filename}\staticsite\content\posts\flask\flask_single_page_app.md). ThingSpeak.com works great as an IoT sever, but there are limits to how often data can be posted and how often data can be accessed. I think writing my own IoT server in **flask** would be fun too!
+ The next thing I'm thinking about is building a **flask** IoT (internet of things) server that accepts GET requests from [ESP8266 weather stations]({filename}/posts/micropython/micropython_upload_code.md). ThingSpeak.com works great as an IoT sever, but there are limits to how often data can be posted and how often data can be accessed. I think writing my own IoT server in **flask** would be fun too!

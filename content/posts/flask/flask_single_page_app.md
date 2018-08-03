@@ -191,17 +191,17 @@ To run the **flask** app, I had to make sure I was in the virtual environment bu
 (flaskappenv)$ python showtemp.py
 ```
 
-It works! By pointing a browser to the droplet IP address followed by ```:5000```, I could see my simple message: "The temperature is 91.2 F".
+It works! By pointing a browser to the droplet IP address followed by ```:5000```, I can see the simple message: "The temperature is 91.2 F".
 
 ![flask app no styling]({filename}/posts/flask/flask_app_no_template.png)
 
 ## Set up uWSGI, nginx, SSL and systemctl
 
-There are going to be two layers between the flask app and the outside internet. The requests will first come into **NGINX** then go to **uWSGI**. 
+There are going to be two layers between the flask app and the outside internet. Get requests from web browsers will first come into **NGINX** then go to **uWSGI** before being passed to **flask**. 
 
 ### Configuring uWSGI
 
-I installed **uWSGI** earlier when I ```pip``` installed **flask**. Now **uWSGI** needs to be configured and tested. I followed the [Digital Ocean tutorial](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04) closely for this step.
+We installed **uWSGI** earlier when we ```pip``` installed **flask**. Now **uWSGI** needs to be configured and tested. I followed the [Digital Ocean tutorial](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04) closely for this step.
 
 ```bash
 (flaskappenv)$ pwd
@@ -209,7 +209,7 @@ I installed **uWSGI** earlier when I ```pip``` installed **flask**. Now **uWSGI*
 (flaskappenv)$ nano wsgi.py
 ```
 
-In the **_wsgi.py_** file, I included:
+In the **_wsgi.py_** file, include:
 
 ```python
 # wsgi.py
@@ -222,13 +222,13 @@ if __name__ == "__main__":
 
 #### Testing uWSGI
 
-Next I tested the configuration. **uWSGI** can be run from the command line with a couple flags:
+Next let's tested the configuration. **uWSGI** can be run from the command line with a couple flags:
 
 ```bash
 (flaskappenv)$ uwsgi --socket 0.0.0.0:5000 --protocol=http -w wsgi:app
 ```
 
-By pointing a browser to the droplet IP address followed by ```:5000```, I could still see the simple message: "The temperature is 91.2 F". The flask app still seems to be working!
+By pointing a browser to the droplet IP address followed by ```:5000```, I see the simple message  again: "The temperature is 91.2 F". The flask app still seems to be working!
 
 ![flask app no styling]({filename}/posts/flask/flask_app_no_template.png)
 
@@ -243,7 +243,7 @@ $ pwd
 $ nano flaskapp.ini
 ```
 
-Inside the **_flaskapp.ini_** file I included the following:
+Inside the **_flaskapp.ini_** file, include the following:
 
 ```text
 [uwsgi]
@@ -267,9 +267,9 @@ To use NGINX as part of the web stack, we need to create a configuration file in
 $ sudo nano /etc/nginx/sites-available/flaskapp
 ```
 
-Edit the NGINX config file **_flaskapp_** the ```/sites-available``` directory to include the following. Make sure to change the ```your_domain``` and ```www.your_domain``` fields:
+Edit the **_flaskapp_** NGINX config file the ```/sites-available``` directory to include the following. Make sure to change the ```your_domain``` and ```www.your_domain``` fields:
 
-```
+```text
 server {
     listen 80;
     server_name your_domain wwww.your_domain;
@@ -281,7 +281,7 @@ server {
 }
 ```
 
-Now we have to link the NGINX config file to the ```/etc/nginx/sites-enabled``` directory and restart NGINX with the new configuration. If something doesn't look right on the systemctl status screen, you can check for problems with the command ```sudo nginx -t```. 
+Now we'll link the NGINX config file to the ```/etc/nginx/sites-enabled``` directory and restart NGINX with the new configuration. If something doesn't look right on the systemctl status screen, you can check for problems with the command ```sudo nginx -t```. 
 
 ```bash
 $ sudo ln -s /etc/nginx/sites-available/flaskapp /etc/nginx/sites-enabled
@@ -290,7 +290,7 @@ $ sudo systemctl status nginx
 #ctrl-c to exit
 ```
 
-Let's also shut off the ```5000``` development port now that NGINX and uWSGI are running.
+now that NGINX and uWSGI are running, let's also shut off the ```:5000``` development port .
 
 ```bash
 sudo ufw delete allow 5000
@@ -299,7 +299,7 @@ sudo ufw allow 'Nginx Full'
 
 ### Apply SSL Security
 
-One of the reasons for getting a real domain name is so the server can run with SSL and https. Adding SSL can be done with **certbot**, a Python program that assists with generating SSL certificates. I followed the [Digital Ocean tutorial](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04) steps to acquire the certificate. Make sure to replace ```your_domain``` with your actual domain name.
+One of the reasons for getting a real domain name is so the server can run with SSL security and https. Adding SSL can be done with **certbot**, a Python program that assists with generating SSL certificates. I followed the [Digital Ocean tutorial](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04) steps to acquire the certificate. Make sure to replace ```your_domain``` with your actual domain name.
 
 ```bash
 $ sudo add-apt-repository ppa:certbot/certbot
@@ -307,7 +307,7 @@ $ sudo apt install python-certbot-nginx
 $ sudo certbot --nginx -d your_domain -d www.your_domain
 ```
 
-As part of the **certbot** setup I selected option ``2.``
+As part of the **certbot** setup, I selected option ``2.``
 
 ```text
 2: Redirect - Make all requests redirect to secure HTTPS access. Choose this for
@@ -323,7 +323,7 @@ $ sudo ufw delete allow 'Nginx HTTP'
 
 ### Construct a **systemd** file
 
-Because I want to have the flask app running all the time, I created a **systemd** control file to get the flask app running as a system service.
+Because we want to have the flask app running all the time, let's created a **systemd** control file to get the flask app running as a system service on the server.
 
 ```bash
 $ sudo nano /etc/systemd/system/flaskapp.service
@@ -358,7 +358,7 @@ $ sudo systemctl status myproject
 
 The ```status``` call should show the service as ```active (running)```. Use [ctrl-c] to exit the status screen. This will not stop the service.
 
-After pointing a web browser to the droplet IP address followed by ```:5000```, I can still see the simple message: "The temperature is 91.2 F". It looks like the **NGINX**-->**uWSGI**-->**flask** stack is working properly.
+Pointing a web browser to the droplet IP address followed by ```:5000```. Yup, can still see the simple message: "The temperature is 91.2 F". It looks like the **NGINX**-->**uWSGI**-->**flask** stack is working properly.
 
 ![flask app no styling]({filename}/posts/flask/flask_app_no_template.png)
 
@@ -366,9 +366,11 @@ After pointing a web browser to the droplet IP address followed by ```:5000```, 
 
 The single page app is pretty basic right now. It also isn't designed to look good on phones or tablets. I plan on using my phone the most to view the flask app, so I decided to use bootstrap styling and the jumbotron component from bootstrap in the web app. 
 
-To keep things simple I used the bootstrap CDN instead of installing the whole bootstrap package to the server. On the [bootstrap3 install page](https://getbootstrap.com/docs/3.3/getting-started/) is the content we need to add to the top of our **_.html_** template. I choose to use the CDN instead of installing all of the bootstrap static files on the server. To make the temperature display look nicer, I utilized the [jumbotron component of bootstrap](https://github.com/heimrichhannot/bootstrap/blob/master/docs/4.0/examples/jumbotron/index.html). If you follow the link, you will see a couple lines of html that need to be included first in the ```<header>``` portion of the template.
+To keep things simple, I used the bootstrap CDN instead of installing the whole bootstrap package to the server. On the [bootstrap3 install page](https://getbootstrap.com/docs/3.3/getting-started/) is the content we need to add to the top of our **_.html_** template. I choose to use the CDN instead of installing all of the bootstrap static files on the server. 
 
-To add the bootstrap styling I created a jinga template called **_index.html_** and placed a modified version of the html for the jumbotron component and bootstrap CDN inside. On the server, we need to create a templates directory for the jinja template. This is the default location for jinga templates when running **flask**.
+To make the temperature display look nicer, I utilized the [jumbotron component of bootstrap](https://github.com/heimrichhannot/bootstrap/blob/master/docs/4.0/examples/jumbotron/index.html). If you follow the link, you will see a couple lines of html that need to be included first in the ```<header>``` portion of the template.
+
+To add the bootstrap styling I created a jinga template called **_index.html_** and placed a modified version of the html for the jumbotron component and bootstrap CDN inside. On the server, we need to create a ```templates``` directory to store the jinja template. ```main_app/templates``` is the default location for jinga templates when running **flask**.
 
 ```bash
 $ cd ~/flaskapp
@@ -415,7 +417,9 @@ The **_index.html_** template contains a ```<header>``` with the bootstrap3 CDN 
 </html>
 ```
 
-Now we need to modify the **_showtemp.py_** file to point to our **_index.html_** template. A new **flask** function, ```render_template()``` is used. ```render_template()``` must be included in the imports and is used as the ```return``` action of the ```@app.route("/")``` ```index()``` function. The revised **_showtemp.py_** file is below.
+Now we need to modify the **_showtemp.py_** file to point to our **_index.html_** template. A new **flask** function, ```render_template()``` is used. ```render_template()``` must be included in the imports and is used as the ```return``` action of the ```@app.route("/")``` ```index()``` function. 
+
+The revised **_showtemp.py_** file is below.
 
 ```python
 # showtemp.py
@@ -433,7 +437,7 @@ if __name__ == "__main__":
 
 ## Pull the temperature from ThingSpeak.com with **requests**
 
-The final step of this project is to dynamically pull the temperature from ThingSpeak.com and show it on our single page flask app. Right now the flask app only shows the static temperature ```91.4 F```.  The whole point of the app is to see the current temperatures the WiFi weather stations measure.
+The final step of this flask single page app project is to dynamically pull the temperature from ThingSpeak.com and show it as a webpage. Right now the flask app only shows the static temperature ```91.4 F```.  However, the whole point of the app is to see the current temperatures the WiFi weather stations measure.
 
 To grab the temperatures off of ThingSpeak.com, we'll use the **requests** package. According to the [ThingSpeak.com web API documentation](https://www.mathworks.com/help/thingspeak/rest-api.html), the format of our GET request needs to be:
 
@@ -441,7 +445,9 @@ To grab the temperatures off of ThingSpeak.com, we'll use the **requests** packa
 https://api.thingspeak.com/channels/<channel_id>/fields/<field_id>/last.<format>
 ```
 
-```<channel_id>``` corresponds to the channel number on ThingSpeak.com. My WiFi weather stations are on a public channel. ```<field_id>``` is the field number held by the ThingSpeak channel. Each ThingSpeak channel can have multiple fields. The temperature we care about is in field ```1```. The ```<format>``` we want is ```.txt```. We could grab ```.json``` or a ```.csv``` off of ThingSpeak, but since we are only grabbing one temperature reading at a time, ```.txt``` is the easiest. In the Python REPL we can try out the ThingSpeak web API. Make sure **requests** is installed in the virtual environment before importing it. On the server try:
+```<channel_id>``` corresponds to the channel number on ThingSpeak.com. My WiFi weather stations are on a public channel. ```<field_id>``` is the field number held by the ThingSpeak channel. Each ThingSpeak channel can have multiple fields. The temperature we care about is in field ```1```. The ```<format>``` we want is ```.txt```. We could grab ```.json``` or a ```.csv``` off of ThingSpeak, but since we only need one temperature reading at a time, ```.txt``` is the easiest. 
+
+ Let's try out the ThingSpeak web API using the Python REPL. Make sure **requests** is installed in the virtual environment before importing it. On the server try:
 
 ```bash
 $ source flaskapp/bin/activate
@@ -457,7 +463,7 @@ $ source flaskapp/bin/activate
 $
 ```
 
-Now we need to use this same web API call in the flask app. Modify **_showtemp.py_** to include the **requests** package and include the web API request as a line the ```index()``` function. I also included a line to convert the temperature from &deg;F to &deg;C. When the temperature value comes in from ThingSpeak, it is a string. The temperature value needs to be converted to a float before the &deg;C to &deg;F conversion can be accomplished. After the conversion, the temperature in &deg;F needs to be converted back to a string. A string is needed because the temperature in &deg;F is passed to the ```render_template()``` as the parameter ```temp``` which will be used in a revised version of our jinja template **_index.html_**. The extra argument in the ```render_template()``` function transfers the variable ```temp_f``` from the **_showtemp.py_** file to the template **_index.html_**.
+Now we need to use this same web API call in the flask app. Modify **_showtemp.py_** to include the **requests** package and include the web API request as a line the ```index()``` function. I also included a line to convert the temperature from &deg;F to &deg;C. When the temperature value comes in from ThingSpeak, it is a string. The temperature value needs to be converted to a float before the &deg;C to &deg;F conversion can be accomplished. After the conversion, the temperature in &deg;F needs to be converted back to a string. A string is needed because the temperature in &deg;F is passed to the ```render_template()``` as the parameter ```temp``` will be used in a revised version of our jinja template **_index.html_**. The extra argument in the ```render_template()``` function transfers the variable ```temp_f``` from the **_showtemp.py_** file to the jinja template **_index.html_**.
 
 ```python
 # showtemp.py
@@ -522,10 +528,11 @@ The revised **_index.html_** file is below:
 </html>
 ```
 
-## View the Final flask app in a Browser
+## View the final flask app in a browser
 
-With the changes to **_readtemp.py_** and **_index.html_** complete, we can restart the system service and view our app with a web browser. The final single page flask web app is complete!
+With the changes to **_readtemp.py_** and **_index.html_** complete, we can restart the system service and view our app with a web browser. 
 
+The final single page flask web app is complete!
 
 ```bash
 $ sudo systemctl start myproject
@@ -533,28 +540,32 @@ $ sudo systemctl status myproject
 # ctrl-c to exit
 ```
 
-If everything is working correctly, you should see the working app running on your domain.
+If everything is working correctly, you should see the working app running on your domain looks like this.
 
 ![flask app running]({filename}/posts/flask/simple_index.png)
 
 ## Summary
 
-It was a long process setting up this **flask** single page webapp. A lot for technologies and languages were used. An incomplete list is below:
+It was a long process setting up this **flask** single page webapp project. A lot for technologies and languages were used. 
+
+An incomplete list is below:
 
  * cloud servers
+ * DNS Servers
  * Linux
- * systemd
  * SSH and SSH keys
  * PuTTY
- * SSL
- * DNS Servers
- * NGINX
- * uWSGI
  * Python
- * web API
  * Flask
+ * systemd
+ * uWSGI
+ * NGINX
+ * SSL and certbot
+ * web API's
  * jinja templates
  * html
  * bootstrap
  
- That's a lot of stuff to go in one project. The next thing I'm thinking about is building a **flask** IoT (internet of things) server that accepts GET requests from my ESP8266 weather stations. ThingSpeak.com works great as an IoT sever, but there are limits to how often data can be posted and how often data can be accessed. I think writing my own IoT server in **flask** would be fun too!
+ That's a lot of stuff to go in one project. 
+ 
+ The next thing I'm thinking about is building a **flask** IoT (internet of things) server that accepts GET requests from [ESP8266 weather stations]({filename}\staticsite\content\posts\flask\flask_single_page_app.md). ThingSpeak.com works great as an IoT sever, but there are limits to how often data can be posted and how often data can be accessed. I think writing my own IoT server in **flask** would be fun too!

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Python for Undergraduate Engineers</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="/feeds/all.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2018-08-02T09:01:00-07:00</updated><entry><title>Building a single page Flask App on Digital Ocean</title><link href="https://professorkazarinoff.github.io/staticsite/flask-app-on-digital-ocean.html" rel="alternate"></link><published>2018-08-02T09:01:00-07:00</published><updated>2018-08-02T09:01:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-08-02:/staticsite/flask-app-on-digital-ocean.html</id><summary type="html">&lt;p&gt;In this post, I'll run through how I set up a single page flask app that shows a temperature pulled from &lt;a href="https://thingspeak.com/"&gt;ThingSpeak.com&lt;/a&gt;. ThingSpeak has nice looking graphs, but it is actually kind of hard to see the value of an individual data point. I wanted to be able to see the most recent temperature point recorded by my &lt;a href="https://professorkazarinoff.github.io/staticsite/micropython-upload-code.html"&gt;ESP8266 WiFi weather station project&lt;/a&gt; on a phone or tablet. By building a flask app and hosting it on Digital Ocean, I can now view the current temperature from anywhere.&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this post, I'll run through how I set up a single page flask app that shows a temperature pulled from &lt;a href="https://thingspeak.com/"&gt;ThingSpeak.com&lt;/a&gt;. ThingSpeak has nice looking graphs, but it is actually kind of hard to see the value of an individual data point. I wanted to be able to see the most recent temperature point recorded by my &lt;a href="https://professorkazarinoff.github.io/staticsite/micropython-upload-code.html"&gt;ESP8266 WiFi weather station project&lt;/a&gt; on a phone or tablet. By building a flask app and hosting it on Digital Ocean, I can now view the current temperature from anywhere.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Python for Undergraduate Engineers</title><link href="https://professorkazarinoff.github.io/staticsite/" rel="alternate"></link><link href="/feeds/all.atom.xml" rel="self"></link><id>https://professorkazarinoff.github.io/staticsite/</id><updated>2018-08-02T09:01:00-07:00</updated><entry><title>Building a single page Flask App on Digital Ocean</title><link href="https://professorkazarinoff.github.io/staticsite/flask-app-on-digital-ocean.html" rel="alternate"></link><published>2018-08-02T09:01:00-07:00</published><updated>2018-08-02T09:01:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-08-02:/staticsite/flask-app-on-digital-ocean.html</id><summary type="html">&lt;p&gt;In this post, I'll run through how I set up a single page flask app that shows a temperature pulled from &lt;a href="https://thingspeak.com/"&gt;ThingSpeak.com&lt;/a&gt;. ThingSpeak has nice looking graphs, but it is actually kind of hard to see the value of an individual data point. I wanted to be able to see the most recent temperature point recorded by my &lt;a href="https://professorkazarinoff.github.io/staticsite/micropython-upload-code.html"&gt;ESP8266 WiFi weather station project&lt;/a&gt; on a phone or tablet. By building a flask app and hosting it on Digital Ocean, I can now view the current temperature in a nice big font from anywhere.&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this post, I'll run through how I set up a single page flask app that shows a temperature pulled from &lt;a href="https://thingspeak.com/"&gt;ThingSpeak.com&lt;/a&gt;. ThingSpeak has nice looking graphs, but it is actually kind of hard to see the value of an individual data point. I wanted to be able to see the most recent temperature point recorded by my &lt;a href="https://professorkazarinoff.github.io/staticsite/micropython-upload-code.html"&gt;ESP8266 WiFi weather station project&lt;/a&gt; on a phone or tablet. By building a flask app and hosting it on Digital Ocean, I can now view the current temperature in a nice big font from anywhere.&lt;/p&gt;
 &lt;div class="toc"&gt;&lt;span class="toctitle"&gt;Table of contents:&lt;/span&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a href="#set-up-a-new-digital-ocean-droplet"&gt;Set up a new Digital Ocean Droplet&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href="#create-a-new-droplet"&gt;Create a New Droplet&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#create-a-new-droplet"&gt;Create a new Droplet&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#login-to-server-with-putty"&gt;Login to Server with PuTTY&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#create-a-non-root-sudo-user"&gt;Create a non-root sudo user&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#copy-ssh-keys-to-the-non-root-sudo-user"&gt;Copy SSH keys to the non-root sudo user&lt;/a&gt;&lt;/li&gt;
@@ -35,17 +35,18 @@
 &lt;/li&gt;
 &lt;li&gt;&lt;a href="#add-bootstrap-styling"&gt;Add Bootstrap Styling&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#pull-the-temperature-from-thingspeakcom-with-requests"&gt;Pull the temperature from ThingSpeak.com with requests&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="#view-the-final-flask-app-in-a-browser"&gt;View the Final flask app in a Browser&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#view-the-final-flask-app-in-a-browser"&gt;View the final flask app in a browser&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#summary"&gt;Summary&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;h2 id="set-up-a-new-digital-ocean-droplet"&gt;Set up a new Digital Ocean Droplet&lt;/h2&gt;
-&lt;p&gt;The flask app needs a server to run on. I choose Digital Ocean as my cloud server provider. After creating a new server, it is best practice to create a non-root sudo user.&lt;/p&gt;
-&lt;h3 id="create-a-new-droplet"&gt;Create a New Droplet&lt;/h3&gt;
-&lt;p&gt;The &lt;a href="http://flask.pocoo.org/docs/1.0/"&gt;&lt;strong&gt;flask&lt;/strong&gt;&lt;/a&gt; single page web app will be hosted on &lt;a href="https://www.digitalocean.com/"&gt;Digital Ocean&lt;/a&gt;. Digital Ocean hosts virtual private servers that run in the cloud. Setting up a server on Digital Ocean is pretty cheap ($5/month) and quick. I host &lt;a href="https://professorkazarinoff.github.io/staticsite/why-jupyter-hub.html"&gt;my &lt;strong&gt;Jupyter Hub&lt;/strong&gt; server&lt;/a&gt; on Digital Ocean, so I am also more familiar with spinning up their servers compared to other cloud providers like Linode or AWS.&lt;/p&gt;
-&lt;p&gt;Creating a new cloud server, called a &lt;em&gt;Droplet&lt;/em&gt; in DigitalOcean-speak, involves creating an account on Digital Ocean, logging in and selecting Create &amp;rarr; Droplets in the upper right menu.&lt;/p&gt;
+&lt;p&gt;The flask app needs a server to run on. I choose &lt;a href="https://www.digitalocean.com/"&gt;Digital Ocean&lt;/a&gt; as my cloud server provider. Digital Ocean hosts virtual private servers that run in the cloud. Setting up a server on Digital Ocean is pretty cheap ($5/month) and quick. I host &lt;a href="https://professorkazarinoff.github.io/staticsite/why-jupyter-hub.html"&gt;my &lt;strong&gt;Jupyter Hub&lt;/strong&gt; server&lt;/a&gt; on Digital Ocean, so I am also more familiar with spinning up their servers compared to other cloud providers like Linode or AWS. I like their documentation. It is clear, concise and easy to follow. &lt;/p&gt;
+&lt;p&gt;To set up the server for the flask app, I created a new Droplet on Digital Ocean. After creating a new server, it is best practice to create a non-root sudo user.&lt;/p&gt;
+&lt;h3 id="create-a-new-droplet"&gt;Create a new Droplet&lt;/h3&gt;
+&lt;p&gt;Our &lt;a href="http://flask.pocoo.org/docs/1.0/"&gt;&lt;strong&gt;flask&lt;/strong&gt;&lt;/a&gt; single page web app built with Python will be hosted on &lt;a href="https://www.digitalocean.com/"&gt;Digital Ocean&lt;/a&gt;. &lt;/p&gt;
+&lt;p&gt;To create a new cloud server, called a &lt;em&gt;Droplet&lt;/em&gt; in DigitalOcean-speak, create an account on Digital Ocean. Once logged in select Create &amp;rarr; Droplets in the upper right menu.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="DO create new droplet" src="https://professorkazarinoff.github.io/staticsite/posts/flask/DO_create_new_droplet.PNG"&gt;&lt;/p&gt;
-&lt;p&gt;For the new Digital Ocean Droplet options I choose:&lt;/p&gt;
+&lt;p&gt;The Digital Ocean Droplet options I choose were:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Ubuntu 18.04.1 x64&lt;/li&gt;
 &lt;li&gt;Size: Memory 1G, SSD 25 GB, Transfer 1 TB, Price $5/mo&lt;/li&gt;
@@ -54,9 +55,9 @@
 &lt;li&gt;SSH keys: &lt;strong&gt;Added all of &lt;a href="https://professorkazarinoff.github.io/staticsite/ssh-keys-with-putty.html"&gt;my saved SSH keys&lt;/a&gt;. You need this to log into the server with PuTTY!&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Create the server with the big green [&lt;strong&gt;Create&lt;/strong&gt;] button.&lt;/p&gt;
-&lt;p&gt;After the Droplet is created, note the IP address of the server. You'll need the IP address of the droplet for the next step.&lt;/p&gt;
+&lt;p&gt;After the Droplet is created, note the IP address of the server. We'll need the IP address of the droplet for the next step.&lt;/p&gt;
 &lt;h3 id="login-to-server-with-putty"&gt;Login to Server with PuTTY&lt;/h3&gt;
-&lt;p&gt;Our first interaction with the server is to log in as root. Then we'll create a non-root sudo user to interact with the server from here on out.&lt;/p&gt;
+&lt;p&gt;Our first interaction with the server is to log in as root. Then we'll create a non-root sudo user to interact with the server from then on out.&lt;/p&gt;
 &lt;p&gt;Open PuTTY and log onto the server as root. See a &lt;a href="https://professorkazarinoff.github.io/staticsite/new-digital-ocean-droplet.html"&gt;previous post&lt;/a&gt; on how to set up PuTTY on Windows 10. To log into the server as root, set the following in PuTYY:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Hostname (or IP Address): The IP address of the server&lt;/li&gt;
@@ -78,7 +79,7 @@
 &lt;p&gt;&lt;img alt="PuTTY IP Login name" src="https://professorkazarinoff.github.io/staticsite/posts/jupyterhub/putty_login_details.png"&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="PuTTY IP Login name" src="https://professorkazarinoff.github.io/staticsite/posts/jupyterhub/putty_Auth_SSH_private_key.png"&gt;&lt;/p&gt;
 &lt;h3 id="create-a-non-root-sudo-user"&gt;Create a non-root sudo user&lt;/h3&gt;
-&lt;p&gt;I followed along with the &lt;a href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04"&gt;Digital Ocean Initial Server Setup Tutorial&lt;/a&gt; to create a non-root sudo user. The commands entered into the PuTTY SSH terminal are below. Note you should change the username to something other than &lt;code&gt;peter&lt;/code&gt;. Here and in the &lt;a href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04"&gt;Digital Ocean tutorial&lt;/a&gt;, a hash symbol &lt;code&gt;#&lt;/code&gt; is shown before these commands. The hash &lt;code&gt;#&lt;/code&gt; symbol should not be typed, it just represents the fact you are operating as root.&lt;/p&gt;
+&lt;p&gt;I followed the &lt;a href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04"&gt;Digital Ocean Initial Server Setup Tutorial&lt;/a&gt; to create a non-root sudo user. The commands entered into the PuTTY SSH terminal are below. Note you should change the username to something other than &lt;code&gt;peter&lt;/code&gt;. Here and in the &lt;a href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04"&gt;Digital Ocean tutorial&lt;/a&gt;, a hash symbol &lt;code&gt;#&lt;/code&gt; is shown before the commands. The hash &lt;code&gt;#&lt;/code&gt; symbol should not be typed, it just represents the fact we are operating as root.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# adduser peter
 # usermod -aG sudo peter
 # ufw allow OpenSSH
@@ -87,34 +88,36 @@
 
 
 &lt;h3 id="copy-ssh-keys-to-the-non-root-sudo-user"&gt;Copy SSH keys to the non-root sudo user&lt;/h3&gt;
-&lt;p&gt;Next we'll to move over the SSH keys stored in the root user's profile to the new sudo user's profile (in my case &lt;code&gt;peter&lt;/code&gt;). I've had trouble with moving these files and setting the permissions correctly in Linux. A &lt;a href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04"&gt;Digital Ocean tutorial&lt;/a&gt; has a great line that copies the SSH Keys and sets the permissions correctly in one step. If you skip this step, you won't be able to log into the server as the new sudo user you just created. Note that you should probably change the user name to something other than &lt;code&gt;peter&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Next we'll to move the SSH keys stored in the root user's profile to the new sudo user's profile (in my case &lt;code&gt;peter&lt;/code&gt;). I've had trouble with moving SSH key files and setting permissions correctly in Linux. A &lt;a href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04"&gt;Digital Ocean tutorial&lt;/a&gt; has a great line that copies the SSH Keys and sets the permissions correctly in one step. If you skip this step, you won't be able to log into the server as the new sudo user you just created. Note you should change the user name from &lt;code&gt;peter&lt;/code&gt; to whatever username you picked in the previous step.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# rsync --archive --chown=peter:peter ~/.ssh /home/peter
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Now to check everything works, exit the PuTTY window by typing &lt;code&gt;exit&lt;/code&gt; at the prompt. Open up a new SSH session in PuTTY setting Connection &amp;rarr; Data &amp;rarr; Auto-login username as your non-root sudo user. (I put &lt;code&gt;peter&lt;/code&gt; in the Auto-login username box). When the terminal window opens, you should see your username listed before the prompt. At the prompt, try the following command. Note the dollar sign &lt;code&gt;$&lt;/code&gt; does not need to be typed. The dollar sign &lt;code&gt;$&lt;/code&gt; is there to indicate the command prompt.&lt;/p&gt;
+&lt;p&gt;Now check logging into the server as the new user. Exit the PuTTY window by typing &lt;code&gt;exit&lt;/code&gt; at the prompt. Open up a new SSH session in PuTTY. Set Connection &amp;rarr; Data &amp;rarr; Auto-login username as the non-root sudo user. (I put &lt;code&gt;peter&lt;/code&gt; in the Auto-login username box). &lt;/p&gt;
+&lt;p&gt;When the terminal window opens, you should see your username listed before the prompt. At the prompt, try the following command. Note the dollar sign &lt;code&gt;$&lt;/code&gt; does not need to be typed. The dollar sign &lt;code&gt;$&lt;/code&gt; is there to indicate the command prompt.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo -l
 User peter may run the following commands on flask-app-server:
     &lt;span class="o"&gt;(&lt;/span&gt;ALL : ALL&lt;span class="o"&gt;)&lt;/span&gt; ALL
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;You can type the command &lt;code&gt;exit&lt;/code&gt; to close the terminal.&lt;/p&gt;
+&lt;p&gt;You can type the command &lt;code&gt;exit&lt;/code&gt; to close the PuTTY terminal.&lt;/p&gt;
 &lt;h2 id="acquire-and-configure-domain-name"&gt;Acquire and configure domain name&lt;/h2&gt;
-&lt;p&gt;To use secure SSL connections and https with the flask single page app, we need a real domain name.&lt;/p&gt;
+&lt;p&gt;To use secure SSL connections and https with our flask single page app, we need a real domain name.&lt;/p&gt;
 &lt;h3 id="purchase-a-domain-name"&gt;Purchase a domain name&lt;/h3&gt;
-&lt;p&gt;I bought my domain name at &lt;a href="https://domains.google/"&gt;Google Domains&lt;/a&gt; for $12/year. The price seems reasonable and Digital Ocean has a tutorial that shows how to connect a google domain's purchased domain name and hook it up to Digital Ocean DNS servers.&lt;/p&gt;
+&lt;p&gt;I bought my domain name at &lt;a href="https://domains.google/"&gt;Google Domains&lt;/a&gt; for $12/year. The price seems reasonable and Digital Ocean has a tutorial that shows how to connect a google domains to Digital Ocean DNS servers.&lt;/p&gt;
 &lt;h3 id="point-dns-severs-at-digital-ocean"&gt;Point DNS severs at Digital Ocean&lt;/h3&gt;
 &lt;p&gt;Once the domain is purchased, the domain's Name Server needs to be pointed at Digital Ocean.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Google Domains DNS Routing" src="https://professorkazarinoff.github.io/staticsite/posts/jupyterhub/google_domains_dns_routing.png"&gt;&lt;/p&gt;
 &lt;h3 id="link-the-domain-name-to-the-server-ip-address"&gt;Link the domain name to the server IP address&lt;/h3&gt;
 &lt;p&gt;On Digital Ocean, login and click [Create] &amp;rarr; [Domains/DNS]. Type in the newly purchased domain name in the box and click [Add Domain]. &lt;/p&gt;
-&lt;p&gt;Link the new Domain to the Digital Ocean Droplet by typing in the &lt;code&gt;@&lt;/code&gt; symbol in the [HOSTNAME] box and selecting the new Droplet name in the [WILL DIRECT TO] drop down box. Click [Create Record] to link the domain name to the server. You can also link &lt;code&gt;www&lt;/code&gt; in the [HOSTNAME] box and select the new Droplet in the [WILL DIRECT TO] dropdown box to link &lt;code&gt;www.yourdomain.com&lt;/code&gt; to the server.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Digital Ocean Domains-DNS" src="https://professorkazarinoff.github.io/staticsite/posts/jupyterhub/DO_manage_domains.png"&gt;&lt;/p&gt;
+&lt;p&gt;Link the new Domain to the Digital Ocean Droplet by typing in the &lt;code&gt;@&lt;/code&gt; symbol in the [HOSTNAME] box and selecting the new Droplet name in the [WILL DIRECT TO] drop down box. Click [Create Record] to link the domain name to the server. You can also link &lt;code&gt;www&lt;/code&gt; in the [HOSTNAME] box and select the new Droplet in the [WILL DIRECT TO] dropdown box to link &lt;code&gt;www.yourdomain.com&lt;/code&gt; to the server.&lt;/p&gt;
 &lt;h2 id="build-the-flask-app"&gt;Build the Flask App&lt;/h2&gt;
-&lt;p&gt;Now that the server is set up and the domain name routed to the server, it's time to actually build the &lt;strong&gt;flask&lt;/strong&gt; single page web app.&lt;/p&gt;
+&lt;p&gt;Now that the server is set up and the domain name routed to the server, it's time to actually build the flask single page web app.&lt;/p&gt;
 &lt;h3 id="install-packages"&gt;Install Packages&lt;/h3&gt;
-&lt;p&gt;Before the single page flask app can be built, a number of packages need to be installed on the server. I followed along with &lt;a href="https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-uswgi-and-nginx-on-ubuntu-18-04"&gt;this tutorial&lt;/a&gt; from Digital Ocean. Log onto the server with PuTTY and type the following commands:&lt;/p&gt;
+&lt;p&gt;Before the single page flask app can be built, a number of packages need to be installed on the server. I followed along with &lt;a href="https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-uswgi-and-nginx-on-ubuntu-18-04"&gt;this tutorial&lt;/a&gt; from Digital Ocean. &lt;/p&gt;
+&lt;p&gt;Log onto the server with PuTTY and type the following commands:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo apt-get update
 $ sudo apt-get upgrade
 $ sudo apt-get install python3-pip python3-dev python3-setuptools python3-venv
@@ -123,7 +126,7 @@ $ sudo apt-get install build-essential libssl-dev libffi-dev
 
 
 &lt;h3 id="create-a-virtual-environment-and-install-flask"&gt;Create a Virtual Environment and install &lt;strong&gt;flask&lt;/strong&gt;&lt;/h3&gt;
-&lt;p&gt;Once the necessary libraries are installed, I created a virtual environment to run the flask app. I usually use &lt;strong&gt;conda&lt;/strong&gt; to create virtual environments, but since I'm not using the Anaconda distribution of Python for this &lt;strong&gt;flask&lt;/strong&gt; app, &lt;strong&gt;venv&lt;/strong&gt; will have to do instead.&lt;/p&gt;
+&lt;p&gt;Once the necessary libraries are installed, I created a virtual environment to run the flask app. I usually use &lt;strong&gt;conda&lt;/strong&gt; to create virtual environments (see &lt;a href="{filename}\posts\new_virtualenv_conda.md"&gt;this post&lt;/a&gt;), but since I'm not using the Anaconda distribution of Python for this flask app, &lt;strong&gt;venv&lt;/strong&gt; will have to do instead.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;cd&lt;/span&gt; ~
 $ mkdir flaskapp
 $ &lt;span class="nb"&gt;cd&lt;/span&gt; flaskapp
@@ -132,7 +135,7 @@ $ &lt;span class="nb"&gt;source&lt;/span&gt; flaskapp/bin/activate
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;With the virtual environment created and activated, I installed &lt;strong&gt;flask&lt;/strong&gt;, &lt;strong&gt;wheel&lt;/strong&gt;, &lt;strong&gt;uwsgi&lt;/strong&gt; and &lt;strong&gt;requests&lt;/strong&gt; with &lt;strong&gt;pip&lt;/strong&gt;. We'll use &lt;strong&gt;requests&lt;/strong&gt; a little later to pull down temperature data from ThingSpeak.com. Note &lt;code&gt;(flaskappenv)&lt;/code&gt; is shown before the command prompt when the virtual environment is active. Make sure to only &lt;code&gt;pip install&lt;/code&gt; in the &lt;code&gt;(flaskappenv)&lt;/code&gt; virtual environment.&lt;/p&gt;
+&lt;p&gt;With the virtual environment created and activated, install &lt;strong&gt;flask&lt;/strong&gt;, &lt;strong&gt;wheel&lt;/strong&gt;, &lt;strong&gt;uwsgi&lt;/strong&gt; and &lt;strong&gt;requests&lt;/strong&gt; with &lt;strong&gt;pip&lt;/strong&gt;. We'll use &lt;strong&gt;requests&lt;/strong&gt; a little later to pull down temperature data from ThingSpeak.com. Note that &lt;code&gt;(flaskappenv)&lt;/code&gt; is shown before the command prompt when the virtual environment is active. Make sure to only &lt;code&gt;pip install&lt;/code&gt; in the &lt;code&gt;(flaskappenv)&lt;/code&gt; virtual environment.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;flaskappenv&lt;span class="o"&gt;)&lt;/span&gt;$ pip install wheel
 &lt;span class="o"&gt;(&lt;/span&gt;flaskappenv&lt;span class="o"&gt;)&lt;/span&gt;$ pip install flask
 &lt;span class="o"&gt;(&lt;/span&gt;flaskappenv&lt;span class="o"&gt;)&lt;/span&gt;$ pip install uwsgi
@@ -141,7 +144,7 @@ $ &lt;span class="nb"&gt;source&lt;/span&gt; flaskapp/bin/activate
 
 
 &lt;h3 id="build-the-first-simple-flask-app"&gt;Build the first simple &lt;strong&gt;flask&lt;/strong&gt; app&lt;/h3&gt;
-&lt;p&gt;With the Python packages installed, next I built a very simple version of the flask app and viewed it in a web browser.&lt;/p&gt;
+&lt;p&gt;With the Python packages installed, next we'll build a very simple version of the flask app and viewed it in a web browser.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;flaskappenv&lt;span class="o"&gt;)&lt;/span&gt;$ &lt;span class="nb"&gt;pwd&lt;/span&gt;
 &lt;span class="c1"&gt;# ~/flaskapp&lt;/span&gt;
 &lt;span class="o"&gt;(&lt;/span&gt;flaskappenv&lt;span class="o"&gt;)&lt;/span&gt;$ nano showtemp.py
@@ -163,28 +166,28 @@ $ &lt;span class="nb"&gt;source&lt;/span&gt; flaskapp/bin/activate
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;You can paste into PuTTY using the right mouse button. Selecting text in PuTTY copies the text to the clip board. Don't use [ctrl-c] or [ctrl-v] to copy and paste. To exit the nano text editor use [ctrl-x].&lt;/p&gt;
+&lt;p&gt;Some note about editing code in the &lt;strong&gt;nano&lt;/strong&gt; text editor thru PuTTY. You can paste into PuTTY using the right mouse button. Selecting text in PuTTY copies the text to the clip board. Don't use [ctrl-c] or [ctrl-v] to copy and paste in PuTTY. Exit the nano text editor with [ctrl-x].&lt;/p&gt;
 &lt;h3 id="testing-the-first-simple-flask-app"&gt;Testing the first simple flask app&lt;/h3&gt;
-&lt;p&gt;With the first version of &lt;strong&gt;&lt;em&gt;showtemp.py&lt;/em&gt;&lt;/strong&gt; complete, I ran the &lt;strong&gt;flask&lt;/strong&gt; app for the first time to test that everything is working so properly.&lt;/p&gt;
+&lt;p&gt;With the first version of &lt;strong&gt;&lt;em&gt;showtemp.py&lt;/em&gt;&lt;/strong&gt; complete, Let's run the &lt;strong&gt;flask&lt;/strong&gt; app for the first time to test that everything is working properly.&lt;/p&gt;
 &lt;p&gt;To run the &lt;strong&gt;flask&lt;/strong&gt; app, I had to make sure I was in the virtual environment built earlier. I also needed to allow port 5000 open on the &lt;strong&gt;ufw&lt;/strong&gt; firewall. Port 5000 is the default port &lt;strong&gt;flask&lt;/strong&gt; runs on.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(flaskappenv)$ sudo ufw allow 5000
 (flaskappenv)$ python showtemp.py
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;It works! By pointing a browser to the droplet IP address followed by &lt;code&gt;:5000&lt;/code&gt;, I could see my simple message: "The temperature is 91.2 F".&lt;/p&gt;
+&lt;p&gt;It works! By pointing a browser to the droplet IP address followed by &lt;code&gt;:5000&lt;/code&gt;, I can see the simple message: "The temperature is 91.2 F".&lt;/p&gt;
 &lt;p&gt;&lt;img alt="flask app no styling" src="https://professorkazarinoff.github.io/staticsite/posts/flask/flask_app_no_template.png"&gt;&lt;/p&gt;
 &lt;h2 id="set-up-uwsgi-nginx-ssl-and-systemctl"&gt;Set up uWSGI, nginx, SSL and systemctl&lt;/h2&gt;
-&lt;p&gt;There are going to be two layers between the flask app and the outside internet. The requests will first come into &lt;strong&gt;NGINX&lt;/strong&gt; then go to &lt;strong&gt;uWSGI&lt;/strong&gt;. &lt;/p&gt;
+&lt;p&gt;There are going to be two layers between the flask app and the outside internet. Get requests from web browsers will first come into &lt;strong&gt;NGINX&lt;/strong&gt; then go to &lt;strong&gt;uWSGI&lt;/strong&gt; before being passed to &lt;strong&gt;flask&lt;/strong&gt;. &lt;/p&gt;
 &lt;h3 id="configuring-uwsgi"&gt;Configuring uWSGI&lt;/h3&gt;
-&lt;p&gt;I installed &lt;strong&gt;uWSGI&lt;/strong&gt; earlier when I &lt;code&gt;pip&lt;/code&gt; installed &lt;strong&gt;flask&lt;/strong&gt;. Now &lt;strong&gt;uWSGI&lt;/strong&gt; needs to be configured and tested. I followed the &lt;a href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04"&gt;Digital Ocean tutorial&lt;/a&gt; closely for this step.&lt;/p&gt;
+&lt;p&gt;We installed &lt;strong&gt;uWSGI&lt;/strong&gt; earlier when we &lt;code&gt;pip&lt;/code&gt; installed &lt;strong&gt;flask&lt;/strong&gt;. Now &lt;strong&gt;uWSGI&lt;/strong&gt; needs to be configured and tested. I followed the &lt;a href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04"&gt;Digital Ocean tutorial&lt;/a&gt; closely for this step.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;flaskappenv&lt;span class="o"&gt;)&lt;/span&gt;$ &lt;span class="nb"&gt;pwd&lt;/span&gt;
 &lt;span class="c1"&gt;# ~/flaskapp&lt;/span&gt;
 &lt;span class="o"&gt;(&lt;/span&gt;flaskappenv&lt;span class="o"&gt;)&lt;/span&gt;$ nano wsgi.py
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;In the &lt;strong&gt;&lt;em&gt;wsgi.py&lt;/em&gt;&lt;/strong&gt; file, I included:&lt;/p&gt;
+&lt;p&gt;In the &lt;strong&gt;&lt;em&gt;wsgi.py&lt;/em&gt;&lt;/strong&gt; file, include:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# wsgi.py&lt;/span&gt;
 
 &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;showtemp&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;app&lt;/span&gt;
@@ -195,12 +198,12 @@ $ &lt;span class="nb"&gt;source&lt;/span&gt; flaskapp/bin/activate
 
 
 &lt;h4 id="testing-uwsgi"&gt;Testing uWSGI&lt;/h4&gt;
-&lt;p&gt;Next I tested the configuration. &lt;strong&gt;uWSGI&lt;/strong&gt; can be run from the command line with a couple flags:&lt;/p&gt;
+&lt;p&gt;Next let's tested the configuration. &lt;strong&gt;uWSGI&lt;/strong&gt; can be run from the command line with a couple flags:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;flaskappenv&lt;span class="o"&gt;)&lt;/span&gt;$ uwsgi --socket &lt;span class="m"&gt;0&lt;/span&gt;.0.0.0:5000 --protocol&lt;span class="o"&gt;=&lt;/span&gt;http -w wsgi:app
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;By pointing a browser to the droplet IP address followed by &lt;code&gt;:5000&lt;/code&gt;, I could still see the simple message: "The temperature is 91.2 F". The flask app still seems to be working!&lt;/p&gt;
+&lt;p&gt;By pointing a browser to the droplet IP address followed by &lt;code&gt;:5000&lt;/code&gt;, I see the simple message  again: "The temperature is 91.2 F". The flask app still seems to be working!&lt;/p&gt;
 &lt;p&gt;&lt;img alt="flask app no styling" src="https://professorkazarinoff.github.io/staticsite/posts/flask/flask_app_no_template.png"&gt;&lt;/p&gt;
 &lt;h4 id="construct-the-uwsgi-configuration-file"&gt;Construct the uWSGI configuration file&lt;/h4&gt;
 &lt;p&gt;Now for another layer of &lt;strong&gt;uWSGI&lt;/strong&gt; goodness- building a uWSGI &lt;strong&gt;&lt;em&gt;.ini&lt;/em&gt;&lt;/strong&gt; configuration file.&lt;/p&gt;
@@ -211,7 +214,7 @@ $ nano flaskapp.ini
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Inside the &lt;strong&gt;&lt;em&gt;flaskapp.ini&lt;/em&gt;&lt;/strong&gt; file I included the following:&lt;/p&gt;
+&lt;p&gt;Inside the &lt;strong&gt;&lt;em&gt;flaskapp.ini&lt;/em&gt;&lt;/strong&gt; file, include the following:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;[uwsgi]
 module = wsgi:app
 
@@ -232,20 +235,20 @@ die-on-term = true
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Edit the NGINX config file &lt;strong&gt;&lt;em&gt;flaskapp&lt;/em&gt;&lt;/strong&gt; the &lt;code&gt;/sites-available&lt;/code&gt; directory to include the following. Make sure to change the &lt;code&gt;your_domain&lt;/code&gt; and &lt;code&gt;www.your_domain&lt;/code&gt; fields:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nt"&gt;server&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="err"&gt;listen&lt;/span&gt; &lt;span class="err"&gt;80&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="err"&gt;server_name&lt;/span&gt; &lt;span class="err"&gt;your_domain&lt;/span&gt; &lt;span class="err"&gt;wwww.your_domain&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;p&gt;Edit the &lt;strong&gt;&lt;em&gt;flaskapp&lt;/em&gt;&lt;/strong&gt; NGINX config file the &lt;code&gt;/sites-available&lt;/code&gt; directory to include the following. Make sure to change the &lt;code&gt;your_domain&lt;/code&gt; and &lt;code&gt;www.your_domain&lt;/code&gt; fields:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;server {
+    listen 80;
+    server_name your_domain wwww.your_domain;
 
-    &lt;span class="err"&gt;location&lt;/span&gt; &lt;span class="err"&gt;/&lt;/span&gt; &lt;span class="err"&gt;{&lt;/span&gt;
-        &lt;span class="err"&gt;include&lt;/span&gt; &lt;span class="err"&gt;uwsgi_params&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-        &lt;span class="err"&gt;uwsgi_pass&lt;/span&gt; &lt;span class="n"&gt;unix&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;home&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;peter&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;flaskapp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;flaskapp&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sock&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;span class="err"&gt;}&lt;/span&gt;
+    location / {
+        include uwsgi_params;
+        uwsgi_pass unix:/home/peter/flaskapp/flaskapp.sock;
+    }
+}
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Now we have to link the NGINX config file to the &lt;code&gt;/etc/nginx/sites-enabled&lt;/code&gt; directory and restart NGINX with the new configuration. If something doesn't look right on the systemctl status screen, you can check for problems with the command &lt;code&gt;sudo nginx -t&lt;/code&gt;. &lt;/p&gt;
+&lt;p&gt;Now we'll link the NGINX config file to the &lt;code&gt;/etc/nginx/sites-enabled&lt;/code&gt; directory and restart NGINX with the new configuration. If something doesn't look right on the systemctl status screen, you can check for problems with the command &lt;code&gt;sudo nginx -t&lt;/code&gt;. &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo ln -s /etc/nginx/sites-available/flaskapp /etc/nginx/sites-enabled
 $ sudo systemctl restart nginx
 $ sudo systemctl status nginx
@@ -253,21 +256,21 @@ $ sudo systemctl status nginx
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Let's also shut off the &lt;code&gt;5000&lt;/code&gt; development port now that NGINX and uWSGI are running.&lt;/p&gt;
+&lt;p&gt;now that NGINX and uWSGI are running, let's also shut off the &lt;code&gt;:5000&lt;/code&gt; development port .&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo ufw delete allow &lt;span class="m"&gt;5000&lt;/span&gt;
 sudo ufw allow &lt;span class="s1"&gt;&amp;#39;Nginx Full&amp;#39;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h3 id="apply-ssl-security"&gt;Apply SSL Security&lt;/h3&gt;
-&lt;p&gt;One of the reasons for getting a real domain name is so the server can run with SSL and https. Adding SSL can be done with &lt;strong&gt;certbot&lt;/strong&gt;, a Python program that assists with generating SSL certificates. I followed the &lt;a href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04"&gt;Digital Ocean tutorial&lt;/a&gt; steps to acquire the certificate. Make sure to replace &lt;code&gt;your_domain&lt;/code&gt; with your actual domain name.&lt;/p&gt;
+&lt;p&gt;One of the reasons for getting a real domain name is so the server can run with SSL security and https. Adding SSL can be done with &lt;strong&gt;certbot&lt;/strong&gt;, a Python program that assists with generating SSL certificates. I followed the &lt;a href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04"&gt;Digital Ocean tutorial&lt;/a&gt; steps to acquire the certificate. Make sure to replace &lt;code&gt;your_domain&lt;/code&gt; with your actual domain name.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo add-apt-repository ppa:certbot/certbot
 $ sudo apt install python-certbot-nginx
 $ sudo certbot --nginx -d your_domain -d www.your_domain
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;As part of the &lt;strong&gt;certbot&lt;/strong&gt; setup I selected option &lt;code&gt;2.&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;As part of the &lt;strong&gt;certbot&lt;/strong&gt; setup, I selected option &lt;code&gt;2.&lt;/code&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;2: Redirect - Make all requests redirect to secure HTTPS access. Choose this for
 new sites, or if you&amp;#39;re confident your site works on HTTPS. You can undo this
 change by editing your web server&amp;#39;s configuration.
@@ -280,7 +283,7 @@ change by editing your web server&amp;#39;s configuration.
 
 
 &lt;h3 id="construct-a-systemd-file"&gt;Construct a &lt;strong&gt;systemd&lt;/strong&gt; file&lt;/h3&gt;
-&lt;p&gt;Because I want to have the flask app running all the time, I created a &lt;strong&gt;systemd&lt;/strong&gt; control file to get the flask app running as a system service.&lt;/p&gt;
+&lt;p&gt;Because we want to have the flask app running all the time, let's created a &lt;strong&gt;systemd&lt;/strong&gt; control file to get the flask app running as a system service on the server.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo nano /etc/systemd/system/flaskapp.service
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -310,12 +313,13 @@ $ sudo systemctl status myproject
 
 
 &lt;p&gt;The &lt;code&gt;status&lt;/code&gt; call should show the service as &lt;code&gt;active (running)&lt;/code&gt;. Use [ctrl-c] to exit the status screen. This will not stop the service.&lt;/p&gt;
-&lt;p&gt;After pointing a web browser to the droplet IP address followed by &lt;code&gt;:5000&lt;/code&gt;, I can still see the simple message: "The temperature is 91.2 F". It looks like the &lt;strong&gt;NGINX&lt;/strong&gt;&amp;rarr;&lt;strong&gt;uWSGI&lt;/strong&gt;&amp;rarr;&lt;strong&gt;flask&lt;/strong&gt; stack is working properly.&lt;/p&gt;
+&lt;p&gt;Pointing a web browser to the droplet IP address followed by &lt;code&gt;:5000&lt;/code&gt;. Yup, can still see the simple message: "The temperature is 91.2 F". It looks like the &lt;strong&gt;NGINX&lt;/strong&gt;&amp;rarr;&lt;strong&gt;uWSGI&lt;/strong&gt;&amp;rarr;&lt;strong&gt;flask&lt;/strong&gt; stack is working properly.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="flask app no styling" src="https://professorkazarinoff.github.io/staticsite/posts/flask/flask_app_no_template.png"&gt;&lt;/p&gt;
 &lt;h2 id="add-bootstrap-styling"&gt;Add Bootstrap Styling&lt;/h2&gt;
 &lt;p&gt;The single page app is pretty basic right now. It also isn't designed to look good on phones or tablets. I plan on using my phone the most to view the flask app, so I decided to use bootstrap styling and the jumbotron component from bootstrap in the web app. &lt;/p&gt;
-&lt;p&gt;To keep things simple I used the bootstrap CDN instead of installing the whole bootstrap package to the server. On the &lt;a href="https://getbootstrap.com/docs/3.3/getting-started/"&gt;bootstrap3 install page&lt;/a&gt; is the content we need to add to the top of our &lt;strong&gt;&lt;em&gt;.html&lt;/em&gt;&lt;/strong&gt; template. I choose to use the CDN instead of installing all of the bootstrap static files on the server. To make the temperature display look nicer, I utilized the &lt;a href="https://github.com/heimrichhannot/bootstrap/blob/master/docs/4.0/examples/jumbotron/index.html"&gt;jumbotron component of bootstrap&lt;/a&gt;. If you follow the link, you will see a couple lines of html that need to be included first in the &lt;code&gt;&amp;lt;header&amp;gt;&lt;/code&gt; portion of the template.&lt;/p&gt;
-&lt;p&gt;To add the bootstrap styling I created a jinga template called &lt;strong&gt;&lt;em&gt;index.html&lt;/em&gt;&lt;/strong&gt; and placed a modified version of the html for the jumbotron component and bootstrap CDN inside. On the server, we need to create a templates directory for the jinja template. This is the default location for jinga templates when running &lt;strong&gt;flask&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;To keep things simple, I used the bootstrap CDN instead of installing the whole bootstrap package to the server. On the &lt;a href="https://getbootstrap.com/docs/3.3/getting-started/"&gt;bootstrap3 install page&lt;/a&gt; is the content we need to add to the top of our &lt;strong&gt;&lt;em&gt;.html&lt;/em&gt;&lt;/strong&gt; template. I choose to use the CDN instead of installing all of the bootstrap static files on the server. &lt;/p&gt;
+&lt;p&gt;To make the temperature display look nicer, I utilized the &lt;a href="https://github.com/heimrichhannot/bootstrap/blob/master/docs/4.0/examples/jumbotron/index.html"&gt;jumbotron component of bootstrap&lt;/a&gt;. If you follow the link, you will see a couple lines of html that need to be included first in the &lt;code&gt;&amp;lt;header&amp;gt;&lt;/code&gt; portion of the template.&lt;/p&gt;
+&lt;p&gt;To add the bootstrap styling I created a jinga template called &lt;strong&gt;&lt;em&gt;index.html&lt;/em&gt;&lt;/strong&gt; and placed a modified version of the html for the jumbotron component and bootstrap CDN inside. On the server, we need to create a &lt;code&gt;templates&lt;/code&gt; directory to store the jinja template. &lt;code&gt;main_app/templates&lt;/code&gt; is the default location for jinga templates when running &lt;strong&gt;flask&lt;/strong&gt;.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;cd&lt;/span&gt; ~/flaskapp
 $ mkdir templates
 $ &lt;span class="nb"&gt;cd&lt;/span&gt; templates
@@ -360,7 +364,8 @@ $ nano index.html
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Now we need to modify the &lt;strong&gt;&lt;em&gt;showtemp.py&lt;/em&gt;&lt;/strong&gt; file to point to our &lt;strong&gt;&lt;em&gt;index.html&lt;/em&gt;&lt;/strong&gt; template. A new &lt;strong&gt;flask&lt;/strong&gt; function, &lt;code&gt;render_template()&lt;/code&gt; is used. &lt;code&gt;render_template()&lt;/code&gt; must be included in the imports and is used as the &lt;code&gt;return&lt;/code&gt; action of the &lt;code&gt;@app.route("/")&lt;/code&gt; &lt;code&gt;index()&lt;/code&gt; function. The revised &lt;strong&gt;&lt;em&gt;showtemp.py&lt;/em&gt;&lt;/strong&gt; file is below.&lt;/p&gt;
+&lt;p&gt;Now we need to modify the &lt;strong&gt;&lt;em&gt;showtemp.py&lt;/em&gt;&lt;/strong&gt; file to point to our &lt;strong&gt;&lt;em&gt;index.html&lt;/em&gt;&lt;/strong&gt; template. A new &lt;strong&gt;flask&lt;/strong&gt; function, &lt;code&gt;render_template()&lt;/code&gt; is used. &lt;code&gt;render_template()&lt;/code&gt; must be included in the imports and is used as the &lt;code&gt;return&lt;/code&gt; action of the &lt;code&gt;@app.route("/")&lt;/code&gt; &lt;code&gt;index()&lt;/code&gt; function. &lt;/p&gt;
+&lt;p&gt;The revised &lt;strong&gt;&lt;em&gt;showtemp.py&lt;/em&gt;&lt;/strong&gt; file is below.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# showtemp.py&lt;/span&gt;
 
 &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;flask&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Flask&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;render_template&lt;/span&gt;
@@ -376,13 +381,14 @@ $ nano index.html
 
 
 &lt;h2 id="pull-the-temperature-from-thingspeakcom-with-requests"&gt;Pull the temperature from ThingSpeak.com with &lt;strong&gt;requests&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;The final step of this project is to dynamically pull the temperature from ThingSpeak.com and show it on our single page flask app. Right now the flask app only shows the static temperature &lt;code&gt;91.4 F&lt;/code&gt;.  The whole point of the app is to see the current temperatures the WiFi weather stations measure.&lt;/p&gt;
+&lt;p&gt;The final step of this flask single page app project is to dynamically pull the temperature from ThingSpeak.com and show it as a webpage. Right now the flask app only shows the static temperature &lt;code&gt;91.4 F&lt;/code&gt;.  However, the whole point of the app is to see the current temperatures the WiFi weather stations measure.&lt;/p&gt;
 &lt;p&gt;To grab the temperatures off of ThingSpeak.com, we'll use the &lt;strong&gt;requests&lt;/strong&gt; package. According to the &lt;a href="https://www.mathworks.com/help/thingspeak/rest-api.html"&gt;ThingSpeak.com web API documentation&lt;/a&gt;, the format of our GET request needs to be:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;https://api.thingspeak.com/channels/&amp;lt;channel_id&amp;gt;/fields/&amp;lt;field_id&amp;gt;/last.&amp;lt;format&amp;gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;&lt;code&gt;&amp;lt;channel_id&amp;gt;&lt;/code&gt; corresponds to the channel number on ThingSpeak.com. My WiFi weather stations are on a public channel. &lt;code&gt;&amp;lt;field_id&amp;gt;&lt;/code&gt; is the field number held by the ThingSpeak channel. Each ThingSpeak channel can have multiple fields. The temperature we care about is in field &lt;code&gt;1&lt;/code&gt;. The &lt;code&gt;&amp;lt;format&amp;gt;&lt;/code&gt; we want is &lt;code&gt;.txt&lt;/code&gt;. We could grab &lt;code&gt;.json&lt;/code&gt; or a &lt;code&gt;.csv&lt;/code&gt; off of ThingSpeak, but since we are only grabbing one temperature reading at a time, &lt;code&gt;.txt&lt;/code&gt; is the easiest. In the Python REPL we can try out the ThingSpeak web API. Make sure &lt;strong&gt;requests&lt;/strong&gt; is installed in the virtual environment before importing it. On the server try:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;channel_id&amp;gt;&lt;/code&gt; corresponds to the channel number on ThingSpeak.com. My WiFi weather stations are on a public channel. &lt;code&gt;&amp;lt;field_id&amp;gt;&lt;/code&gt; is the field number held by the ThingSpeak channel. Each ThingSpeak channel can have multiple fields. The temperature we care about is in field &lt;code&gt;1&lt;/code&gt;. The &lt;code&gt;&amp;lt;format&amp;gt;&lt;/code&gt; we want is &lt;code&gt;.txt&lt;/code&gt;. We could grab &lt;code&gt;.json&lt;/code&gt; or a &lt;code&gt;.csv&lt;/code&gt; off of ThingSpeak, but since we only need one temperature reading at a time, &lt;code&gt;.txt&lt;/code&gt; is the easiest. &lt;/p&gt;
+&lt;p&gt;Let's try out the ThingSpeak web API using the Python REPL. Make sure &lt;strong&gt;requests&lt;/strong&gt; is installed in the virtual environment before importing it. On the server try:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;source&lt;/span&gt; flaskapp/bin/activate
 &lt;span class="o"&gt;(&lt;/span&gt;flaskappenv&lt;span class="o"&gt;)&lt;/span&gt;$ python
 
@@ -397,7 +403,7 @@ $
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Now we need to use this same web API call in the flask app. Modify &lt;strong&gt;&lt;em&gt;showtemp.py&lt;/em&gt;&lt;/strong&gt; to include the &lt;strong&gt;requests&lt;/strong&gt; package and include the web API request as a line the &lt;code&gt;index()&lt;/code&gt; function. I also included a line to convert the temperature from &amp;deg;F to &amp;deg;C. When the temperature value comes in from ThingSpeak, it is a string. The temperature value needs to be converted to a float before the &amp;deg;C to &amp;deg;F conversion can be accomplished. After the conversion, the temperature in &amp;deg;F needs to be converted back to a string. A string is needed because the temperature in &amp;deg;F is passed to the &lt;code&gt;render_template()&lt;/code&gt; as the parameter &lt;code&gt;temp&lt;/code&gt; which will be used in a revised version of our jinja template &lt;strong&gt;&lt;em&gt;index.html&lt;/em&gt;&lt;/strong&gt;. The extra argument in the &lt;code&gt;render_template()&lt;/code&gt; function transfers the variable &lt;code&gt;temp_f&lt;/code&gt; from the &lt;strong&gt;&lt;em&gt;showtemp.py&lt;/em&gt;&lt;/strong&gt; file to the template &lt;strong&gt;&lt;em&gt;index.html&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Now we need to use this same web API call in the flask app. Modify &lt;strong&gt;&lt;em&gt;showtemp.py&lt;/em&gt;&lt;/strong&gt; to include the &lt;strong&gt;requests&lt;/strong&gt; package and include the web API request as a line the &lt;code&gt;index()&lt;/code&gt; function. I also included a line to convert the temperature from &amp;deg;F to &amp;deg;C. When the temperature value comes in from ThingSpeak, it is a string. The temperature value needs to be converted to a float before the &amp;deg;C to &amp;deg;F conversion can be accomplished. After the conversion, the temperature in &amp;deg;F needs to be converted back to a string. A string is needed because the temperature in &amp;deg;F is passed to the &lt;code&gt;render_template()&lt;/code&gt; as the parameter &lt;code&gt;temp&lt;/code&gt; will be used in a revised version of our jinja template &lt;strong&gt;&lt;em&gt;index.html&lt;/em&gt;&lt;/strong&gt;. The extra argument in the &lt;code&gt;render_template()&lt;/code&gt; function transfers the variable &lt;code&gt;temp_f&lt;/code&gt; from the &lt;strong&gt;&lt;em&gt;showtemp.py&lt;/em&gt;&lt;/strong&gt; file to the jinja template &lt;strong&gt;&lt;em&gt;index.html&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# showtemp.py&lt;/span&gt;
 
 &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;flask&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Flask&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;render_template&lt;/span&gt;
@@ -459,36 +465,39 @@ $ nano index.html
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h2 id="view-the-final-flask-app-in-a-browser"&gt;View the Final flask app in a Browser&lt;/h2&gt;
-&lt;p&gt;With the changes to &lt;strong&gt;&lt;em&gt;readtemp.py&lt;/em&gt;&lt;/strong&gt; and &lt;strong&gt;&lt;em&gt;index.html&lt;/em&gt;&lt;/strong&gt; complete, we can restart the system service and view our app with a web browser. The final single page flask web app is complete!&lt;/p&gt;
+&lt;h2 id="view-the-final-flask-app-in-a-browser"&gt;View the final flask app in a browser&lt;/h2&gt;
+&lt;p&gt;With the changes to &lt;strong&gt;&lt;em&gt;readtemp.py&lt;/em&gt;&lt;/strong&gt; and &lt;strong&gt;&lt;em&gt;index.html&lt;/em&gt;&lt;/strong&gt; complete, we can restart the system service and view our app with a web browser. &lt;/p&gt;
+&lt;p&gt;The final single page flask web app is complete!&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo systemctl start myproject
 $ sudo systemctl status myproject
 &lt;span class="c1"&gt;# ctrl-c to exit&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;If everything is working correctly, you should see the working app running on your domain.&lt;/p&gt;
+&lt;p&gt;If everything is working correctly, you should see the working app running on your domain looks like this.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="flask app running" src="https://professorkazarinoff.github.io/staticsite/posts/flask/simple_index.png"&gt;&lt;/p&gt;
 &lt;h2 id="summary"&gt;Summary&lt;/h2&gt;
-&lt;p&gt;It was a long process setting up this &lt;strong&gt;flask&lt;/strong&gt; single page webapp. A lot for technologies and languages were used. An incomplete list is below:&lt;/p&gt;
+&lt;p&gt;It was a long process setting up this &lt;strong&gt;flask&lt;/strong&gt; single page webapp project. A lot for technologies and languages were used. &lt;/p&gt;
+&lt;p&gt;An incomplete list is below:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;cloud servers&lt;/li&gt;
+&lt;li&gt;DNS Servers&lt;/li&gt;
 &lt;li&gt;Linux&lt;/li&gt;
-&lt;li&gt;systemd&lt;/li&gt;
 &lt;li&gt;SSH and SSH keys&lt;/li&gt;
 &lt;li&gt;PuTTY&lt;/li&gt;
-&lt;li&gt;SSL&lt;/li&gt;
-&lt;li&gt;DNS Servers&lt;/li&gt;
-&lt;li&gt;NGINX&lt;/li&gt;
-&lt;li&gt;uWSGI&lt;/li&gt;
 &lt;li&gt;Python&lt;/li&gt;
-&lt;li&gt;web API&lt;/li&gt;
 &lt;li&gt;Flask&lt;/li&gt;
+&lt;li&gt;systemd&lt;/li&gt;
+&lt;li&gt;uWSGI&lt;/li&gt;
+&lt;li&gt;NGINX&lt;/li&gt;
+&lt;li&gt;SSL and certbot&lt;/li&gt;
+&lt;li&gt;web API's&lt;/li&gt;
 &lt;li&gt;jinja templates&lt;/li&gt;
 &lt;li&gt;html&lt;/li&gt;
 &lt;li&gt;bootstrap&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;That's a lot of stuff to go in one project. The next thing I'm thinking about is building a &lt;strong&gt;flask&lt;/strong&gt; IoT (internet of things) server that accepts GET requests from my ESP8266 weather stations. ThingSpeak.com works great as an IoT sever, but there are limits to how often data can be posted and how often data can be accessed. I think writing my own IoT server in &lt;strong&gt;flask&lt;/strong&gt; would be fun too!&lt;/p&gt;</content><category term="python"></category><category term="flask"></category><category term="thingspeak"></category><category term="mobile"></category><category term="IoT"></category></entry><entry><title>Upload Micropython Code to an Adafruit Feather Huzzah ESP8266</title><link href="https://professorkazarinoff.github.io/staticsite/micropython-upload-code.html" rel="alternate"></link><published>2018-07-27T09:01:00-07:00</published><updated>2018-07-27T09:01:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-07-27:/staticsite/micropython-upload-code.html</id><summary type="html">&lt;p&gt;This is the sixth part of a multi-part series on Micropython. In this post, we will upload &lt;strong&gt;&lt;em&gt;.py&lt;/em&gt;&lt;/strong&gt; files to an Adafruit Feather Huzzah ESP8266 board using Python and a Python package called &lt;strong&gt;ampy&lt;/strong&gt;. At the end of the post we will have a working WiFi weather station that will …&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the sixth part of a multi-part series on Micropython. In this post, we will upload &lt;strong&gt;&lt;em&gt;.py&lt;/em&gt;&lt;/strong&gt; files to an Adafruit Feather Huzzah ESP8266 board using Python and a Python package called &lt;strong&gt;ampy&lt;/strong&gt;. At the end of the post we will have a working WiFi weather station that will post the temperature to ThingSpeak.com&lt;/p&gt;
+&lt;p&gt;That's a lot of stuff to go in one project. &lt;/p&gt;
+&lt;p&gt;The next thing I'm thinking about is building a &lt;strong&gt;flask&lt;/strong&gt; IoT (internet of things) server that accepts GET requests from &lt;a href="{filename}\staticsite\content\posts\flask\flask_single_page_app.md"&gt;ESP8266 weather stations&lt;/a&gt;. ThingSpeak.com works great as an IoT sever, but there are limits to how often data can be posted and how often data can be accessed. I think writing my own IoT server in &lt;strong&gt;flask&lt;/strong&gt; would be fun too!&lt;/p&gt;</content><category term="python"></category><category term="flask"></category><category term="thingspeak"></category><category term="mobile"></category><category term="IoT"></category></entry><entry><title>Upload Micropython Code to an Adafruit Feather Huzzah ESP8266</title><link href="https://professorkazarinoff.github.io/staticsite/micropython-upload-code.html" rel="alternate"></link><published>2018-07-27T09:01:00-07:00</published><updated>2018-07-27T09:01:00-07:00</updated><author><name>Peter D. Kazarinoff</name></author><id>tag:professorkazarinoff.github.io,2018-07-27:/staticsite/micropython-upload-code.html</id><summary type="html">&lt;p&gt;This is the sixth part of a multi-part series on Micropython. In this post, we will upload &lt;strong&gt;&lt;em&gt;.py&lt;/em&gt;&lt;/strong&gt; files to an Adafruit Feather Huzzah ESP8266 board using Python and a Python package called &lt;strong&gt;ampy&lt;/strong&gt;. At the end of the post we will have a working WiFi weather station that will …&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the sixth part of a multi-part series on Micropython. In this post, we will upload &lt;strong&gt;&lt;em&gt;.py&lt;/em&gt;&lt;/strong&gt; files to an Adafruit Feather Huzzah ESP8266 board using Python and a Python package called &lt;strong&gt;ampy&lt;/strong&gt;. At the end of the post we will have a working WiFi weather station that will post the temperature to ThingSpeak.com&lt;/p&gt;
 &lt;p&gt;Before we can use the Microython REPL (the Micropython prompt) running on the Adafruit Feather Huzzah ESP8266, &lt;a href="https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/intro.html"&gt;Micropython&lt;/a&gt; needs to be installed on the ESP8266 board and &lt;a href="https://www.putty.org/"&gt;PuTTY&lt;/a&gt; needs to be installed on the computer to communicate with the board over a serial connection. See a &lt;a href="https://professorkazarinoff.github.io/staticsite/micropython-install.html"&gt;previous post&lt;/a&gt; on how to install Micropython on an ESP8266 board and how to install PuTTY on a Windows 10 machine.&lt;/p&gt;
 &lt;p&gt;Summary of Steps:&lt;/p&gt;
 &lt;ol&gt;

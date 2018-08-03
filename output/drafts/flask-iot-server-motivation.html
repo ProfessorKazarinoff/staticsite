@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>First Post - Part 1 - Python for Undergraduate Engineers</title>
+    <title>Building a Flask IoT Server with Python - Part 1 Motivation - Python for Undergraduate Engineers</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -174,22 +174,25 @@ init_mathjax();
 </script>
     <link href="../extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="../drafts/first-post.html">
+<link rel="canonical" href="../drafts/flask-iot-server-motivation.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
-        <meta name="keywords" content="python,pelican,blog" />
-        <meta name="description" content="This is the first post of a series of demonstration posts." />
+        <meta name="keywords" content="python,flask,thingspeak,mobile,IoT,sensor" />
+        <meta name="description" content="This is the first part of a series of posts about building an Internet of Things (IoT) server with flask, Python and ESP8266 microcontrollers. In this post we&#39;ll add a sqlite3 database to our IoT server so that we can store all the temperature data points that come in from …" />
 
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
-        <meta property="og:title" content="First Post - Part 1"/>
-        <meta property="og:url" content="../drafts/first-post.html"/>
-        <meta property="og:description" content="This is the first post of a series of demonstration posts."/>
-        <meta property="article:published_time" content="2017-11-30" />
-            <meta property="article:section" content="example posts" />
+        <meta property="og:title" content="Building a Flask IoT Server with Python - Part 1 Motivation"/>
+        <meta property="og:url" content="../drafts/flask-iot-server-motivation.html"/>
+        <meta property="og:description" content="This is the first part of a series of posts about building an Internet of Things (IoT) server with flask, Python and ESP8266 microcontrollers. In this post we&#39;ll add a sqlite3 database to our IoT server so that we can store all the temperature data points that come in from …"/>
+        <meta property="article:published_time" content="2018-08-02" />
+            <meta property="article:section" content="flask" />
             <meta property="article:tag" content="python" />
-            <meta property="article:tag" content="pelican" />
-            <meta property="article:tag" content="blog" />
+            <meta property="article:tag" content="flask" />
+            <meta property="article:tag" content="thingspeak" />
+            <meta property="article:tag" content="mobile" />
+            <meta property="article:tag" content="IoT" />
+            <meta property="article:tag" content="sensor" />
             <meta property="article:author" content="Peter D. Kazarinoff" />
 
 
@@ -208,8 +211,8 @@ init_mathjax();
 
 
 
-        <link href="../feeds/example-posts.atom.xml" type="application/atom+xml" rel="alternate"
-              title="Python for Undergraduate Engineers example posts ATOM Feed"/>
+        <link href="../feeds/flask.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Python for Undergraduate Engineers flask ATOM Feed"/>
 
 </head>
 <body>
@@ -257,17 +260,17 @@ Python for Undergraduate Engineers            </a>
         <div class="col-sm-9">
             <ol class="breadcrumb">
                 <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="../category/example-posts.html" title="example posts">example posts</a></li>
-                <li class="active">First Post - Part 1</li>
+                <li><a href="../category/flask.html" title="flask">flask</a></li>
+                <li class="active">Building a Flask IoT Server with Python - Part 1 Motivation</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="../drafts/first-post.html"
+                    <a href="../drafts/flask-iot-server-motivation.html"
                        rel="bookmark"
-                       title="Permalink to First Post - Part 1">
-                        First Post - Part 1
+                       title="Permalink to Building a Flask IoT Server with Python - Part 1 Motivation">
+                        Building a Flask IoT Server with Python - Part 1 Motivation
                     </a>
                 </h1>
             </header>
@@ -277,11 +280,9 @@ Python for Undergraduate Engineers            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2017-11-30T12:40:00-08:00"> Thu 30 November 2017</time>
+        <i class="fa fa-calendar"></i><time datetime="2018-08-02T09:01:00-07:00"> Thu 02 August 2018</time>
     </span>
 
-            <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x000002726B716E40> of 
 
 
 
@@ -289,27 +290,43 @@ Python for Undergraduate Engineers            </a>
 <span class="label label-default">Tags</span>
 	<a href="../tag/python.html">python</a>
         /
-	<a href="../tag/pelican.html">pelican</a>
+	<a href="../tag/flask.html">flask</a>
         /
-	<a href="../tag/blog.html">blog</a>
+	<a href="../tag/thingspeak.html">thingspeak</a>
+        /
+	<a href="../tag/mobile.html">mobile</a>
+        /
+	<a href="../tag/iot.html">IoT</a>
+        /
+	<a href="../tag/sensor.html">sensor</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>This is the first post of a series of demonstration posts.</p>
+                <p>This is the first part of a series of posts about building an Internet of Things (IoT) server with <strong>flask</strong>, Python and ESP8266 microcontrollers. In this post we'll add a sqlite3 database to our IoT server so that we can store all the temperature data points that come in from our ESP8266-based WiFi weather stations. We will also use Python's <strong>datetime</strong> library to mark each datapoint with a time when it is stored.</p>
+<div class="toc"><span class="toctitle">Table of contents:</span><ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#the-problem">The Problem</a></li>
+<li><a href="#current-solution">Current solution</a></li>
+<li><a href="#proposed-solution">Proposed solution</a></li>
+<li><a href="#next-steps">Next steps</a></li>
+</ul>
+</div>
+<h2 id="introduction">Introduction</h2>
+<h2 id="the-problem">The Problem</h2>
+<h2 id="current-solution">Current solution</h2>
+<h2 id="proposed-solution">Proposed solution</h2>
+<h2 id="next-steps">Next steps</h2>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">
     <h4>Related Posts:</h4>
     <ul>
-        <li><a href="../how-i-built-this-site-7.html">How I Build This Site - Part 7</a></li>
-        <li><a href="../how-i-built-this-site-6.html">How I Build This Site - Part 6</a></li>
-        <li><a href="../how-i-built-this-site-5.html">How I Build This Site - Part 5</a></li>
-        <li><a href="../how-i-built-this-site-4.html">How I Build This Site - Part 4</a></li>
-        <li><a href="../how-i-built-this-site-3.html">How I Build This Site - Part 3</a></li>
+        <li><a href="../flask-app-on-digital-ocean.html">Building a single page Flask App on Digital Ocean</a></li>
+        <li><a href="../micropython-upload-code.html">Upload Micropython Code to an Adafruit Feather Huzzah ESP8266</a></li>
+        <li><a href="../micropython-temp-sensor.html">Using a Temperature Sensor with Micropython running on an Adafruit Feather Huzzah ESP8266</a></li>
+        <li><a href="../micropython-wifi.html">Using Micropython to connect an Adafruit Feather Huzzah ESP8266 to WiFi</a></li>
+        <li><a href="../assignments-dir-and-custom-login-page-to-jupyterhub.html">Add a custom login page and assignments directory for each user on a Jupyter Hub server</a></li>
     </ul>
-</section>
-<section class="well" id="related-posts">
-    <h4>Article <built-in method index of str object at 0x000002726B716E40> of the  series</h4>
 </section>
         </article>
     </section>
@@ -377,15 +394,6 @@ Python for Undergraduate Engineers            </a>
   </ul>
 </li>
 <!-- End Sidebar/Tag Cloud -->
-
-<!-- Sidebar/Series -->
-<li class="list-group-item">
-  <h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Series</span></h4>
-  <ul class="list-group">
-  </ul>
-</li>
-<!-- End Sidebar/Series -->
-
 
 <!-- Sidebar/Github -->
 <li class="list-group-item">

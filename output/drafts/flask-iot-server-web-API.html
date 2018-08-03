@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>First Post - Part 1 - Python for Undergraduate Engineers</title>
+    <title>Building a Flask IoT Server with Python - Part 3 Web API - Python for Undergraduate Engineers</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -174,22 +174,25 @@ init_mathjax();
 </script>
     <link href="../extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="../drafts/first-post.html">
+<link rel="canonical" href="../drafts/flask-iot-server-web-API.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
-        <meta name="keywords" content="python,pelican,blog" />
-        <meta name="description" content="This is the first post of a series of demonstration posts." />
+        <meta name="keywords" content="python,flask,thingspeak,mobile,IoT,sensor" />
+        <meta name="description" content="This is the third part of a series of posts about building an Internet of Things (IoT) server with flask, Python and ESP8266 microcontrollers. In the last post we reviewed the server and hardware setup. In this post we&#39;ll build a web API with flask and push temperature data to …" />
 
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
-        <meta property="og:title" content="First Post - Part 1"/>
-        <meta property="og:url" content="../drafts/first-post.html"/>
-        <meta property="og:description" content="This is the first post of a series of demonstration posts."/>
-        <meta property="article:published_time" content="2017-11-30" />
-            <meta property="article:section" content="example posts" />
+        <meta property="og:title" content="Building a Flask IoT Server with Python - Part 3 Web API"/>
+        <meta property="og:url" content="../drafts/flask-iot-server-web-API.html"/>
+        <meta property="og:description" content="This is the third part of a series of posts about building an Internet of Things (IoT) server with flask, Python and ESP8266 microcontrollers. In the last post we reviewed the server and hardware setup. In this post we&#39;ll build a web API with flask and push temperature data to …"/>
+        <meta property="article:published_time" content="2018-08-02" />
+            <meta property="article:section" content="flask" />
             <meta property="article:tag" content="python" />
-            <meta property="article:tag" content="pelican" />
-            <meta property="article:tag" content="blog" />
+            <meta property="article:tag" content="flask" />
+            <meta property="article:tag" content="thingspeak" />
+            <meta property="article:tag" content="mobile" />
+            <meta property="article:tag" content="IoT" />
+            <meta property="article:tag" content="sensor" />
             <meta property="article:author" content="Peter D. Kazarinoff" />
 
 
@@ -208,8 +211,8 @@ init_mathjax();
 
 
 
-        <link href="../feeds/example-posts.atom.xml" type="application/atom+xml" rel="alternate"
-              title="Python for Undergraduate Engineers example posts ATOM Feed"/>
+        <link href="../feeds/flask.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Python for Undergraduate Engineers flask ATOM Feed"/>
 
 </head>
 <body>
@@ -257,17 +260,17 @@ Python for Undergraduate Engineers            </a>
         <div class="col-sm-9">
             <ol class="breadcrumb">
                 <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="../category/example-posts.html" title="example posts">example posts</a></li>
-                <li class="active">First Post - Part 1</li>
+                <li><a href="../category/flask.html" title="flask">flask</a></li>
+                <li class="active">Building a Flask IoT Server with Python - Part 3 Web API</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="../drafts/first-post.html"
+                    <a href="../drafts/flask-iot-server-web-API.html"
                        rel="bookmark"
-                       title="Permalink to First Post - Part 1">
-                        First Post - Part 1
+                       title="Permalink to Building a Flask IoT Server with Python - Part 3 Web API">
+                        Building a Flask IoT Server with Python - Part 3 Web API
                     </a>
                 </h1>
             </header>
@@ -277,11 +280,9 @@ Python for Undergraduate Engineers            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2017-11-30T12:40:00-08:00"> Thu 30 November 2017</time>
+        <i class="fa fa-calendar"></i><time datetime="2018-08-02T09:01:00-07:00"> Thu 02 August 2018</time>
     </span>
 
-            <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x000002726B716E40> of 
 
 
 
@@ -289,27 +290,115 @@ Python for Undergraduate Engineers            </a>
 <span class="label label-default">Tags</span>
 	<a href="../tag/python.html">python</a>
         /
-	<a href="../tag/pelican.html">pelican</a>
+	<a href="../tag/flask.html">flask</a>
         /
-	<a href="../tag/blog.html">blog</a>
+	<a href="../tag/thingspeak.html">thingspeak</a>
+        /
+	<a href="../tag/mobile.html">mobile</a>
+        /
+	<a href="../tag/iot.html">IoT</a>
+        /
+	<a href="../tag/sensor.html">sensor</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>This is the first post of a series of demonstration posts.</p>
+                <p>This is the third part of a series of posts about building an Internet of Things (IoT) server with <strong>flask</strong>, Python and ESP8266 microcontrollers. In the last post we reviewed the server and hardware setup. In this post we'll build a web API with <strong>flask</strong> and push temperature data to our web API with a web browser.</p>
+<div class="toc"><span class="toctitle">Table of contents:</span><ul>
+<li><a href="#introduction">Introduction</a><ul>
+<li><a href="#what-is-a-web-api">What is a web API?</a></li>
+</ul>
+</li>
+<li><a href="#construct-a-flask-web-api">Construct a flask web API</a><ul>
+<li><a href="#create-a-new-route">Create a new route</a></li>
+<li><a href="#create-a-new-template">Create a new template</a></li>
+</ul>
+</li>
+<li><a href="#test-the-web-api">Test the web API</a></li>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#next-steps">Next steps</a></li>
+</ul>
+</div>
+<h2 id="introduction">Introduction</h2>
+<p>We already have a working flask app on Digital Ocean. Now we need to add a web API to it's functionality</p>
+<h3 id="what-is-a-web-api">What is a web API?</h3>
+<p>A <em>web API</em> is a web-based Application Programming Interface. That's a fancy way of saying a server that saves input or produces output based on a URL. An example of a web API is the ThingSpeak web API. When a web browser like chrome is pointed to the followoing URL:</p>
+<blockquote>
+<p>https://api.thingspeak.com/channels/266256/fields/2/last.txt</p>
+</blockquote>
+<p>The response will be the last data entry that ThingSpeak.com has stored in:</p>
+<ul>
+<li>channel 266256</li>
+<li>field 2</li>
+<li>last entry</li>
+<li>.txt format</li>
+</ul>
+<p>If the URL pasted into the web browser is different, ThingSpeak's response will also be different</p>
+<blockquote>
+<p>https://api.thingspeak.com/channels/9/fields/1/last.json</p>
+</blockquote>
+<p>The response will be the last data entry that ThingSpeak.com has stored in:</p>
+<ul>
+<li>channel 9</li>
+<li>field 1</li>
+<li>last entry</li>
+<li>.json format</li>
+</ul>
+<p>Most web API's allow you to <em>pull</em> data off of their sites, but many web API's also give you the ability to <em>put</em> data up on their site.</p>
+<p>If the URL pasted into the web browser is constructed like below, ThingSpeak will store a new data point.</p>
+<blockquote>
+<p>https://api.thingspeak.com/update?api_key=THECLASSAPIKEY&amp;field1=87</p>
+</blockquote>
+<p>The datapoint ThingSpeak stores when it recieves the GET request is:</p>
+<ul>
+<li>user with an API Key = THECLASSAPIKEY</li>
+<li>field 1</li>
+<li>data = 87</li>
+</ul>
+<p>The web API we are going to build with <strong>flask</strong> needs to be able to do the same two functions that the ThingSpeak web API does: </p>
+<ol>
+<li>Output a particular data point based on a the URL it receives</li>
+<li>Store a data point based on a URL receives</li>
+</ol>
+<p>## Web API Design</p>
+<p>We are going to mimic part of the ThingSpeak.com web API for our <strong>flask</strong> IoT server. In order to store a data point based on the URL our server recieves, we need to specify how the URL must be structured in order for the data point to be store. The data will go into our IoT server from ESP8266-based WiFi weather stations. There are a couple unique aspects to each of the ESP8266-based WiFi weather stations.</p>
+<ul>
+<li>A user: Each WiFi weather station has a user. In this case the user is me</li>
+<li>A mac address: A mac address is a unique address assigned to each piece of hardware. Each of the ESP8266-based WiFi weather stations has a different mac address</li>
+<li>field: The ESP8266-based WiFi weather stations have the capability to output temperature and humidity. Right now we are just going to deal with temperature, but is will be nice to have an extra field available for multiple data outputs from the same device.</li>
+<li>data: The temperature that comes out of each ESP8266-based WiFi weather station.</li>
+</ul>
+<p>If we put these 4 identifiers as part of our URL, our IoT server will provide the functionality the WiFi weather stations need. </p>
+<p>Below is the general form of our web API url:</p>
+<blockquote>
+<p>https://mydomain.com/update/API_key=ASCIISTR/mac=6c:rf:7f:2b:0e:g8/field=1/data=72.3</p>
+</blockquote>
+<p>In the URL above we've provided:
+ * update (to tell the IoT server to save the data point, not just serve a webpage)
+ * API_key = ASCIISTR (to identify the user)
+ * mac = 6c:rf:7f:2b:0e:g8 (to identify the ESP8255-based WiFi weather station)
+ * fieled = 1 (to specify this is a temperature data point)
+ * data = 72.3 (to specify the temperature is 72.3 degrees)</p>
+<p>Now we need to make our flask app store a data point when a URL like the one we specified above comes in.</p>
+<h2 id="construct-a-flask-web-api">Construct a <strong>flask</strong> web API</h2>
+<h3 id="create-a-new-route">Create a new route</h3>
+<h3 id="create-a-new-template">Create a new template</h3>
+<h2 id="test-the-web-api">Test the web API</h2>
+<p>Now we can restart</p>
+<h2 id="summary">Summary</h2>
+<p>It works! When we put a specific URL into a web browser, it causes the temperature we see on the web to change.</p>
+<h2 id="next-steps">Next steps</h2>
+<p>In the next post, we'll add an sqlite database to our flask IoT server so that all the data points which come into the server can be saved.</p>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">
     <h4>Related Posts:</h4>
     <ul>
-        <li><a href="../how-i-built-this-site-7.html">How I Build This Site - Part 7</a></li>
-        <li><a href="../how-i-built-this-site-6.html">How I Build This Site - Part 6</a></li>
-        <li><a href="../how-i-built-this-site-5.html">How I Build This Site - Part 5</a></li>
-        <li><a href="../how-i-built-this-site-4.html">How I Build This Site - Part 4</a></li>
-        <li><a href="../how-i-built-this-site-3.html">How I Build This Site - Part 3</a></li>
+        <li><a href="../flask-app-on-digital-ocean.html">Building a single page Flask App on Digital Ocean</a></li>
+        <li><a href="../micropython-upload-code.html">Upload Micropython Code to an Adafruit Feather Huzzah ESP8266</a></li>
+        <li><a href="../micropython-temp-sensor.html">Using a Temperature Sensor with Micropython running on an Adafruit Feather Huzzah ESP8266</a></li>
+        <li><a href="../micropython-wifi.html">Using Micropython to connect an Adafruit Feather Huzzah ESP8266 to WiFi</a></li>
+        <li><a href="../assignments-dir-and-custom-login-page-to-jupyterhub.html">Add a custom login page and assignments directory for each user on a Jupyter Hub server</a></li>
     </ul>
-</section>
-<section class="well" id="related-posts">
-    <h4>Article <built-in method index of str object at 0x000002726B716E40> of the  series</h4>
 </section>
         </article>
     </section>
@@ -377,15 +466,6 @@ Python for Undergraduate Engineers            </a>
   </ul>
 </li>
 <!-- End Sidebar/Tag Cloud -->
-
-<!-- Sidebar/Series -->
-<li class="list-group-item">
-  <h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Series</span></h4>
-  <ul class="list-group">
-  </ul>
-</li>
-<!-- End Sidebar/Series -->
-
 
 <!-- Sidebar/Github -->
 <li class="list-group-item">

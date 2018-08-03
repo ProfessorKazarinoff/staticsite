@@ -352,8 +352,8 @@ WantedBy=multi-user.target
 After the **_flaskapp.service_** file is complete and saved, we can test our service using:
 
 ```bash
-$ sudo systemctl start myproject
-$ sudo systemctl status myproject
+$ sudo systemctl start flaskapp
+$ sudo systemctl status flaskapp
 ```
 
 The ```status``` call should show the service as ```active (running)```. Use [ctrl-c] to exit the status screen. This will not stop the service.
@@ -535,8 +535,8 @@ With the changes to **_readtemp.py_** and **_index.html_** complete, we can rest
 The final single page flask web app is complete!
 
 ```bash
-$ sudo systemctl start myproject
-$ sudo systemctl status myproject
+$ sudo systemctl start flaskapp
+$ sudo systemctl status flaskapp
 # ctrl-c to exit
 ```
 

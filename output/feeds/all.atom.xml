@@ -307,8 +307,8 @@ WantedBy=multi-user.target
 
 &lt;h3 id="test-with-systemctl"&gt;Test with systemctl&lt;/h3&gt;
 &lt;p&gt;After the &lt;strong&gt;&lt;em&gt;flaskapp.service&lt;/em&gt;&lt;/strong&gt; file is complete and saved, we can test our service using:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo systemctl start myproject
-$ sudo systemctl status myproject
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo systemctl start flaskapp
+$ sudo systemctl status flaskapp
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -468,8 +468,8 @@ $ nano index.html
 &lt;h2 id="view-the-final-flask-app-in-a-browser"&gt;View the final flask app in a browser&lt;/h2&gt;
 &lt;p&gt;With the changes to &lt;strong&gt;&lt;em&gt;readtemp.py&lt;/em&gt;&lt;/strong&gt; and &lt;strong&gt;&lt;em&gt;index.html&lt;/em&gt;&lt;/strong&gt; complete, we can restart the system service and view our app with a web browser. &lt;/p&gt;
 &lt;p&gt;The final single page flask web app is complete!&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo systemctl start myproject
-$ sudo systemctl status myproject
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo systemctl start flaskapp
+$ sudo systemctl status flaskapp
 &lt;span class="c1"&gt;# ctrl-c to exit&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 

@@ -607,8 +607,8 @@ WantedBy=multi-user.target
 
 <h3 id="test-with-systemctl">Test with systemctl</h3>
 <p>After the <strong><em>flaskapp.service</em></strong> file is complete and saved, we can test our service using:</p>
-<div class="highlight"><pre><span></span>$ sudo systemctl start myproject
-$ sudo systemctl status myproject
+<div class="highlight"><pre><span></span>$ sudo systemctl start flaskapp
+$ sudo systemctl status flaskapp
 </pre></div>
 
 
@@ -768,8 +768,8 @@ $ nano index.html
 <h2 id="view-the-final-flask-app-in-a-browser">View the final flask app in a browser</h2>
 <p>With the changes to <strong><em>readtemp.py</em></strong> and <strong><em>index.html</em></strong> complete, we can restart the system service and view our app with a web browser. </p>
 <p>The final single page flask web app is complete!</p>
-<div class="highlight"><pre><span></span>$ sudo systemctl start myproject
-$ sudo systemctl status myproject
+<div class="highlight"><pre><span></span>$ sudo systemctl start flaskapp
+$ sudo systemctl status flaskapp
 <span class="c1"># ctrl-c to exit</span>
 </pre></div>
 

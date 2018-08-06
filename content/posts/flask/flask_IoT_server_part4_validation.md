@@ -1,21 +1,21 @@
-Title: Building an IoT Server with flask and Python - Part 3 Web API
+Title: Building an IoT Server with flask and Python - Part 4 Validation and Timestamps
 Date: 2018-08-02 09:01
 Modified: 2018-08-02 09:01
 Status: draft
 Category: flask
 Tags: python, flask, thingspeak, mobile, IoT, sensor
-Slug: flask-iot-server-web-API
+Slug: flask-iot-server-validation-time-stamps
 Authors: Peter D. Kazarinoff
 
-This is the third part of a series of posts about building an Internet of Things (IoT) server with **flask**, Python and ESP8266 microcontrollers. In the last post we reviewed the server and hardware setup. In this post we'll build a web API with **flask** and push temperature data to our web API with a web browser.
+This is the fourth part of a series of posts about building an Internet of Things (IoT) server with **flask**, Python and ESP8266 microcontrollers. In the last post we reviewed how to build a web API with flask that accepts temperature measurements. In this post we'll build in some validation to our web API so that only certain API keys and mac addresses are allowed. We will also use Python's datetime module to time stamp each data point as it comes in.
 
 [TOC]
 
 ## Introduction
 
-We already have a working flask app on Digital Ocean. Now we need to add a web API to the flask app's functionality.
+Now that we have a web API, we can make ```GET``` requests using a web browser and see the output in the webpage flask sends back. What's not to like? Well right now any string added to the URL specified by our web API will get through. We don't want just any WiFi weather station to upload data. What we need is some data validation.
 
-### What is a web API?
+### Why data validation?
 
 A _web API_ is a web-based Application Programming Interface. That's a fancy way of saying a server that saves input or produces output based on the URL someone types into their web browser. An example of a web API is the ThingSpeak.com web API. When a web browser, like chrome, is pointed to the followoing URL:
 
@@ -56,7 +56,7 @@ The web API we are going to build with **flask** needs to be able to do the same
  1. Output a particular data point based on a the URL it receives
  2. Store a data point based on a URL it receives
  
- ## Web API Design
+ ## Validating incoming URLS
  
  We are going to mimic part of the ThingSpeak.com web API for our **flask** IoT server web API. In order to store a data point based on the URL our server recieves, we need to specify how the URL must be structured in order for the data point to be stored. 
  
@@ -111,7 +111,7 @@ The complete ```@pp.route()``` URL for our web API looks like:
 "/update/API_key=<api_key>/mac=<mac>/field=<int:field>/data=<data>"
 ```
 
-We can now build a new ```@app.rout()```-function pair for this URL. Note that we return a new template called **_update.html_**
+We can now build a new ```@app.route()```-function pair for this URL. Note that we return a new template called **_update.html_**
 
 ```python
 @app.route("/update/API_key=<api_key>/mac=<mac>/field=<int:field>/data=<data>", methods=['GET'])

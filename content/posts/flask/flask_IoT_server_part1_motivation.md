@@ -6,6 +6,8 @@ Category: flask
 Tags: python, flask, thingspeak, mobile, IoT, sensor
 Slug: flask-iot-server-motivation
 Authors: Peter D. Kazarinoff
+Series: Building an IoT Server with Flask and Python
+Series_index: 1
 
 This post is the first part of a series of blog posts about building an Internet-of-Things (IoT) server with **flask**, Python and ESP8266 microcontrollers. In this post we'll I'll discuss the problem I'm trying to solve and the issues I have with the current solution. We'll also review what the Internet-of-Things (IoT) is, and what an IoT server does.
 

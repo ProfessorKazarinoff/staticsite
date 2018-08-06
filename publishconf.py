@@ -10,7 +10,7 @@ import sys
 sys.path.append(os.curdir)
 from pelicanconf import *
 
-SITEURL = 'http://pythonforundergradengineers.com'
+SITEURL = 'https://pythonforundergradengineers.com'
 RELATIVE_URLS = True
 
 # RSS Feed Settings

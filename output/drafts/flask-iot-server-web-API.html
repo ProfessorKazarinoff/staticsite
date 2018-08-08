@@ -315,9 +315,9 @@ Python for Undergraduate Engineers            </a>
 </ul>
 </div>
 <h2 id="introduction">Introduction</h2>
-<p>We already have a working flask app on Digital Ocean. Now we need to add a web API to it's functionality</p>
+<p>We already have a working flask app on Digital Ocean. Now we need to add a web API to the flask app's functionality.</p>
 <h3 id="what-is-a-web-api">What is a web API?</h3>
-<p>A <em>web API</em> is a web-based Application Programming Interface. That's a fancy way of saying a server that saves input or produces output based on a URL. An example of a web API is the ThingSpeak web API. When a web browser like chrome is pointed to the followoing URL:</p>
+<p>A <em>web API</em> is a web-based Application Programming Interface. That's a fancy way of saying a server that saves input or produces output based on the URL someone types into their web browser. An example of a web API is the ThingSpeak.com web API. When a web browser, like chrome, is pointed to the followoing URL:</p>
 <blockquote>
 <p>https://api.thingspeak.com/channels/266256/fields/2/last.txt</p>
 </blockquote>
@@ -340,7 +340,7 @@ Python for Undergraduate Engineers            </a>
 <li>.json format</li>
 </ul>
 <p>Most web API's allow you to <em>pull</em> data off of their sites, but many web API's also give you the ability to <em>put</em> data up on their site.</p>
-<p>If the URL pasted into the web browser is constructed like below, ThingSpeak will store a new data point.</p>
+<p>If the URL pasted into the web browser is constructed in the format below, ThingSpeak will store a new data point.</p>
 <blockquote>
 <p>https://api.thingspeak.com/update?api_key=THECLASSAPIKEY&amp;field1=87</p>
 </blockquote>
@@ -353,15 +353,16 @@ Python for Undergraduate Engineers            </a>
 <p>The web API we are going to build with <strong>flask</strong> needs to be able to do the same two functions that the ThingSpeak web API does: </p>
 <ol>
 <li>Output a particular data point based on a the URL it receives</li>
-<li>Store a data point based on a URL receives</li>
+<li>Store a data point based on a URL it receives</li>
 </ol>
 <p>## Web API Design</p>
-<p>We are going to mimic part of the ThingSpeak.com web API for our <strong>flask</strong> IoT server. In order to store a data point based on the URL our server recieves, we need to specify how the URL must be structured in order for the data point to be store. The data will go into our IoT server from ESP8266-based WiFi weather stations. There are a couple unique aspects to each of the ESP8266-based WiFi weather stations.</p>
+<p>We are going to mimic part of the ThingSpeak.com web API for our <strong>flask</strong> IoT server web API. In order to store a data point based on the URL our server recieves, we need to specify how the URL must be structured in order for the data point to be stored. </p>
+<p>The data will go into our IoT server from ESP8266-based WiFi weather stations. There are a couple unique aspects to each of the ESP8266-based WiFi weather stations.</p>
 <ul>
 <li>A user: Each WiFi weather station has a user. In this case the user is me</li>
 <li>A mac address: A mac address is a unique address assigned to each piece of hardware. Each of the ESP8266-based WiFi weather stations has a different mac address</li>
 <li>field: The ESP8266-based WiFi weather stations have the capability to output temperature and humidity. Right now we are just going to deal with temperature, but is will be nice to have an extra field available for multiple data outputs from the same device.</li>
-<li>data: The temperature that comes out of each ESP8266-based WiFi weather station.</li>
+<li>data: The temperature data that comes out of each ESP8266-based WiFi weather station.</li>
 </ul>
 <p>If we put these 4 identifiers as part of our URL, our IoT server will provide the functionality the WiFi weather stations need. </p>
 <p>Below is the general form of our web API url:</p>
@@ -372,18 +373,104 @@ Python for Undergraduate Engineers            </a>
  * update (to tell the IoT server to save the data point, not just serve a webpage)
  * API_key = ASCIISTR (to identify the user)
  * mac = 6c:rf:7f:2b:0e:g8 (to identify the ESP8255-based WiFi weather station)
- * fieled = 1 (to specify this is a temperature data point)
+ * fielded = 1 (to specify this is a temperature data point, not a humidity data point)
  * data = 72.3 (to specify the temperature is 72.3 degrees)</p>
 <p>Now we need to make our flask app store a data point when a URL like the one we specified above comes in.</p>
 <h2 id="construct-a-flask-web-api">Construct a <strong>flask</strong> web API</h2>
+<p>Building web API's in <strong>flask</strong> is pretty easy due to <strong>flask's</strong> variable in a route passed to a function functionality. The general syntax is below:</p>
+<div class="highlight"><pre><span></span><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&quot;/update/key=&lt;route_var&gt;&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="n">route_var</span><span class="p">):</span>
+  <span class="c1"># code to run</span>
+  <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;index.html&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>In the code above, our route <code>"/update/key=&lt;route_var&gt;"</code> has a variable contained in it, the variable <code>&lt;route_var&gt;</code>. The greater than/less than symboles <code>&lt; &gt;</code> tell flask there is a variable in the route. In the next line, the variable <code>route_var</code> that came in from the <code>@app.route()</code> line is passed as an argument to the <code>update()</code> function. Then code is run in the body of the function to save the data point, or write a line in a database, or validate the data etc. Finally, the <code>update()</code> function returns a tempate called <code>index.html</code>. </p>
 <h3 id="create-a-new-route">Create a new route</h3>
+<p>There are four variables to assign in the <code>@pp.route()</code> URL of our flask web API:</p>
+<p>| parameter | purpose | route variable |
+| API key | uniqly identigy each user | <code>&lt;api_key&gt;</code> |
+| mac address | unique identifier for each ESP8266 device | <code>&lt;mac&gt;</code> |
+| field | temperature or humidity | <code>&lt;field&gt;</code> |
+| data | data point to save on the server | <code>&lt;data&gt;</code> |</p>
+<p>The complete <code>@pp.route()</code> URL for our web API looks like:</p>
+<div class="highlight"><pre><span></span>&quot;/update/API_key=&lt;api_key&gt;/mac=&lt;mac&gt;/field=&lt;int:field&gt;/data=&lt;data&gt;&quot;
+</pre></div>
+
+
+<p>We can now build a new <code>@app.rout()</code>-function pair for this URL. Note that we return a new template called <strong><em>update.html</em></strong></p>
+<div class="highlight"><pre><span></span><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&quot;/update/API_key=&lt;api_key&gt;/mac=&lt;mac&gt;/field=&lt;int:field&gt;/data=&lt;data&gt;&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="n">api_key</span><span class="p">,</span> <span class="n">mac</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;update.html&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+
+
 <h3 id="create-a-new-template">Create a new template</h3>
+<p>Since we are calling a new template, we need to construct a new template. The template <strong><em>update.html</em></strong> can have the same form as <strong><em>index.html</em></strong>. Let's create a new file and copy in the following html code and jinja fields.</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~
+$ <span class="nb">cd</span> flaskapp
+$ <span class="nb">cd</span> templates
+$ nano update.html
+</pre></div>
+
+
+<p>The code for the new <strong><em>update.html</em></strong> template is below:</p>
+<div class="highlight"><pre><span></span><span class="c">&lt;!-- update.html --&gt;</span>
+<span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;en&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;UTF-8&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">meta</span> <span class="na">http-equiv</span><span class="o">=</span><span class="s">&quot;X-UA-Compatible&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;IE=edge&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1&quot;</span><span class="p">&gt;</span>    
+<span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>show temp<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+
+<span class="c">&lt;!-- Latest compiled and minified CSS --&gt;</span>
+<span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span><span class="p">&gt;</span>
+
+<span class="c">&lt;!-- Optional theme --&gt;</span>
+<span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span><span class="p">&gt;</span>
+
+<span class="c">&lt;!-- Latest compiled and minified JavaScript --&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container-fluid&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;jumbotron&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">hr</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;my-4&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">h1</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;display-4&quot;</span><span class="p">&gt;</span> {{ temp }} <span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;lead&quot;</span><span class="p">&gt;</span>last temperature uploaded<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">hr</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;my-4&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>        
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+
+
 <h2 id="test-the-web-api">Test the web API</h2>
-<p>Now we can restart</p>
+<p>Now we can restart the flask app and see if our web API works.</p>
+<div class="highlight"><pre><span></span><span class="sb">```</span>bash
+$ sudo systemctl start flaskapp
+$ sudo systemctl status flaskapp
+<span class="c1"># [ctrl-c] to exit.</span>
+</pre></div>
+
+
+<p>If we browse to the web address of the server, we should still see the same index template rendered</p>
+<p><img alt="flask app running" src="../posts/flask/simple_index.png"></p>
+<p>But now if we go to the web address:</p>
+<blockquote>
+<p>https://yourdomain.com//update/API_key=APGLMD/mac=a3:45:b5:c9/field=1/data=98.6</p>
+</blockquote>
+<p>You should see the update tempate rendered with a temperature of <code>98.6</code> shown.</p>
 <h2 id="summary">Summary</h2>
 <p>It works! When we put a specific URL into a web browser, it causes the temperature we see on the web to change.</p>
 <h2 id="next-steps">Next steps</h2>
-<p>In the next post, we'll add an sqlite database to our flask IoT server so that all the data points which come into the server can be saved.</p>
+<p>In the next post, we'll modify our flask IoT server to do some validation of the input from the web API. We don't want just any person to bang away at the API and upload data points. We are also going to delve into Python's datetime module and add a datetime to each data point uploaded to the web API.</p>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">
@@ -418,9 +505,9 @@ Python for Undergraduate Engineers            </a>
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
+    <li class="list-group-item"><a href="../first-live-results-running-jupyter-hub.html">First Live Results Running Jupyter Hub in a College Class</a></li>
     <li class="list-group-item"><a href="../flask-iot-server-setup.html">Building an IoT Server with flask and Python - Part 2 Set Up</a></li>
     <li class="list-group-item"><a href="../flask-iot-server-motivation.html">Building an IoT Server with Flask and Python - Part 1 Motivation</a></li>
-    <li class="list-group-item"><a href="../flask-app-on-digital-ocean.html">Building a single page Flask App on Digital Ocean</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
@@ -441,10 +528,10 @@ Python for Undergraduate Engineers            </a>
     <li class="list-group-item tag-2">
       <a href="../tag/jupyter.html">jupyter</a>
     </li>
-    <li class="list-group-item tag-3">
+    <li class="list-group-item tag-2">
       <a href="../tag/jupyter-hub.html">jupyter hub</a>
     </li>
-    <li class="list-group-item tag-3">
+    <li class="list-group-item tag-2">
       <a href="../tag/jupyter-notebooks.html">jupyter notebooks</a>
     </li>
     <li class="list-group-item tag-4">
@@ -456,7 +543,7 @@ Python for Undergraduate Engineers            </a>
     <li class="list-group-item tag-3">
       <a href="../tag/pelican.html">pelican</a>
     </li>
-    <li class="list-group-item tag-1">
+    <li class="list-group-item tag-0">
       <a href="../tag/python.html">python</a>
     </li>
   </ul>

@@ -13,7 +13,7 @@ This is the third part of a series of posts about building an Internet of Things
 
 ## Introduction
 
-We already have a working flask app on Digital Ocean. Now we need to add a web API to the flask app's functionality.
+We already have a working flask app on [Digital Ocean](https://www.digitalocean.com/). Now we need to add a web API to the flask app's functionality.
 
 ### What is a web API?
 
@@ -21,7 +21,7 @@ A _web API_ is a web-based Application Programming Interface. That's a fancy way
 
 > https://api.thingspeak.com/channels/266256/fields/2/last.txt
 
-The response will be the last data entry that ThingSpeak.com has stored in:
+The response will be the last data entry that ThingSpeak.com stored:
 
  * channel 266256
  * field 2
@@ -32,14 +32,14 @@ If the URL pasted into the web browser is different, ThingSpeak's response will 
 
 > https://api.thingspeak.com/channels/9/fields/1/last.json
 
-The response will be the last data entry that ThingSpeak.com has stored in:
+The response will be the last data entry that ThingSpeak.com:
 
  * channel 9
  * field 1
  * last entry
  * .json format
 
-Most web API's allow you to _pull_ data off of their sites, but many web API's also give you the ability to _put_ data up on their site.
+Most web API's allow you to _pull_ data off of their servers, but many web API's also give you the ability to _put_ data up on their servers.
 
 If the URL pasted into the web browser is constructed in the format below, ThingSpeak will store a new data point.
 
@@ -48,26 +48,26 @@ If the URL pasted into the web browser is constructed in the format below, Thing
 The datapoint ThingSpeak stores when it recieves the GET request is:
 
  * user with an API Key = THECLASSAPIKEY
- * field 1
+ * field = 1
  * data = 87
 
-The web API we are going to build with **flask** needs to be able to do the same two functions that the ThingSpeak web API does: 
+The web API we'll build with **flask** needs to be able to do the same two basic functions that the ThingSpeak.com web API does: 
 
- 1. Output a particular data point based on a the URL it receives
- 2. Store a data point based on a URL it receives
+ 1. Output a data point based on the particular URL the server receives
+ 2. Store a data point based on the particular URL the server receives
  
  ## Web API Design
  
- We are going to mimic part of the ThingSpeak.com web API for our **flask** IoT server web API. In order to store a data point based on the URL our server recieves, we need to specify how the URL must be structured in order for the data point to be stored. 
+ We are going to mimic part of the ThingSpeak.com web API for our **flask** IoT server web API. In order to store a data point based on the URL the server recieves, we need to specify how the URL must be structured. Our ESP8266-based WiFi weather stations need to know the URL format in order to post data points on the **flask** server. 
  
- The data will go into our IoT server from ESP8266-based WiFi weather stations. There are a couple unique aspects to each of the ESP8266-based WiFi weather stations.
+ Data will be stored on our IoT server based on the URL the server recieves from ESP8266-based WiFi weather stations. There are a couple unique aspects to each of the ESP8266-based WiFi weather stations.
  
-  * A user: Each WiFi weather station has a user. In this case the user is me
-  * A mac address: A mac address is a unique address assigned to each piece of hardware. Each of the ESP8266-based WiFi weather stations has a different mac address
-  * field: The ESP8266-based WiFi weather stations have the capability to output temperature and humidity. Right now we are just going to deal with temperature, but is will be nice to have an extra field available for multiple data outputs from the same device.
+  * a user: Each WiFi weather station has a user. In this case the user is me
+  * a mac address: A mac address is a unique address assigned to each piece of hardware. Each of the ESP8266-based WiFi weather stations has a different mac address
+  * field: The ESP8266-based WiFi weather stations have the capability to output temperature and humidity. Right now we are just going to deal with temperature, but it would be nice to have an extra field available for multiple data outputs (like temperature and humidity) from the same device.
   * data: The temperature data that comes out of each ESP8266-based WiFi weather station.
   
-If we put these 4 identifiers as part of our URL, our IoT server will provide the functionality the WiFi weather stations need. 
+If we put these 4 identifiers as part of our web API URL, our IoT server will provide the functionality the WiFi weather stations need. 
 
 Below is the general form of our web API url:
 
@@ -77,14 +77,14 @@ In the URL above we've provided:
  * update (to tell the IoT server to save the data point, not just serve a webpage)
  * API_key = ASCIISTR (to identify the user)
  * mac = 6c:rf:7f:2b:0e:g8 (to identify the ESP8255-based WiFi weather station)
- * fielded = 1 (to specify this is a temperature data point, not a humidity data point)
+ * fielded = 1 (to specify the data is a temperature data, not humidity)
  * data = 72.3 (to specify the temperature is 72.3 degrees)
 
 Now we need to make our flask app store a data point when a URL like the one we specified above comes in.
 
 ## Construct a **flask** web API
 
-Building web API's in **flask** is pretty easy due to **flask's** variable in a route passed to a function functionality. The general syntax is below:
+Building web API's in **flask** is pretty easy due to **flask's** option of including a variable in a route. The general syntax is below:
 
 ```python
 @app.route("/update/key=<route_var>", methods=['GET'])
@@ -93,11 +93,11 @@ def update(route_var):
   return render_template("index.html")
 ```
 
-In the code above, our route ```"/update/key=<route_var>"``` has a variable contained in it, the variable ```<route_var>```. The greater than/less than symboles ```< >``` tell flask there is a variable in the route. In the next line, the variable ```route_var``` that came in from the ```@app.route()``` line is passed as an argument to the ```update()``` function. Then code is run in the body of the function to save the data point, or write a line in a database, or validate the data etc. Finally, the ```update()``` function returns a tempate called ```index.html```. 
+In the code above, our route ```"/update/key=<route_var>"``` has a the variable ```<route_var>``` contained in it. The greater than/less than symbols ```< >``` tell **flask** there is a variable in the route. In the next line, the variable ```route_var``` that came in from the ```@app.route()``` line is passed as an argument to the ```update()``` function. Finally, the ```update()``` function returns a tempate called ```index.html```. 
 
 ### Create a new route
 
-There are four variables to assign in the ```@pp.route()``` URL of our flask web API:
+There are four variables to assign in the ```@pp.route()``` URL of our **flask** web API:
 
 | parameter | purpose | route variable |
 | API key | uniqly identigy each user | ```<api_key>``` |
@@ -111,7 +111,7 @@ The complete ```@pp.route()``` URL for our web API looks like:
 "/update/API_key=<api_key>/mac=<mac>/field=<int:field>/data=<data>"
 ```
 
-We can now build a new ```@app.rout()```-function pair for this URL. Note that we return a new template called **_update.html_**
+We can now build a new ```@app.route()```-function pair for this URL. Note we return a new template called **_update.html_**
 
 ```python
 @app.route("/update/API_key=<api_key>/mac=<mac>/field=<int:field>/data=<data>", methods=['GET'])
@@ -174,13 +174,12 @@ The code for the new **_update.html_** template is below:
 Now we can restart the flask app and see if our web API works.
 
 ```bash
-```bash
 $ sudo systemctl start flaskapp
 $ sudo systemctl status flaskapp
 # [ctrl-c] to exit.
 ```
 
-If we browse to the web address of the server, we should still see the same index template rendered
+If we browse to the web address of the server, we should still see the same index template rendered.
 
 ![flask app running]({filename}/posts/flask/simple_index.png)
 
@@ -192,7 +191,7 @@ But now if we go to the web address:
 
 ## Summary 
 
-It works! When we put a specific URL into a web browser, it causes the temperature we see on the web to change.
+It works! When we put a specific URL into our web browser, it causes the temperature we see on the web to change.
 
 ## Next steps 
- In the next post, we'll modify our flask IoT server to do some validation of the input from the web API. We don't want just any person to bang away at the API and upload data points. We are also going to delve into Python's datetime module and add a datetime to each data point uploaded to the web API.
+ In the next post, we'll modify our flask IoT server to do some validation of the input from the web API. We don't want just any person to bang away at the API and upload data points. We are also going to delve into Python's datetime module and add a datetime to each data point uploaded to our **flask** IoT server.

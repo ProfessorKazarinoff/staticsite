@@ -1,4 +1,4 @@
-Title: Solving a Circuit Diagram Problem with SchemDraw
+Title: Solving a Circuit Diagram Problem with Python and SchemDraw
 Slug: circuit-diagram-problem-with-schemdraw
 Date: 2018-06-02 10:30
 Modified: 2018-06-02 10:30

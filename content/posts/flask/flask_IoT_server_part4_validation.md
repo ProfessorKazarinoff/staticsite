@@ -1,7 +1,7 @@
 Title: Building an IoT Server with flask and Python - Part 4 Validation and Timestamps
 Date: 2018-08-27 09:01
 Modified: 2018-08-27 09:01
-Status: draft
+Status: published
 Category: flask
 Tags: python, flask, thingspeak, mobile, IoT, sensor
 Slug: flask-iot-server-validation-time-stamps
@@ -252,7 +252,7 @@ Now if we go to the web address:
 
 ![flask app running]({filename}/posts/flask/showrecent.png)
 
-## Summary 
+## Summary
 
 It works! When we browse to a URL without the correct API key or mac address, we're returned the 403 error page. If we browse to a valid URL, with the right API key and mac address, our **flask** IoT server shows the data point we uploaded with a time stamp included.
 

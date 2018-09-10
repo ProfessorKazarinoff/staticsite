@@ -28,18 +28,18 @@ There are a couple of ways we could store the temperature data that comes in fro
 
 ## Why an sqlite3 database?
 
-Why use an sqlite3 database? One of the key reasons is that sqlite3 is part of the Python Standard Library. We don't have to install any external packages to use sqlite3. Sqlite3 is also light weight and won't take up a lot of space on our system. But the real reason I choose to use sqlite3 is that the library has good documentation and I could build off the sqlite3 examples of others. 
+Why use an sqlite3 database? One of the key reasons is that sqlite3 is part of the Python Standard Library. We don't have to install any external packages to use sqlite3. Sqlite3 is also light-weight and won't take up a lot of space on our system. But the real reason I choose to use sqlite3 is that the library has good documentation and I could build off the sqlite3 examples of others. 
 
 ## Database design
  
-Before adding any data to the database, we need to think a little bit about database design. Our sqlite3 database is going to be a a pretty simple database. We will only employ one table (what I kind of think of as a sheet or tab in Microsoft Excel), and each data point from the WiFi weather stations will represent one record in the database (what I kind of think of as one row a Microsoft Excel). The web API we built brings in a couple of identifiers for each datapoint. Based on an a valid URL such as
+Before adding any data to the database, we need to think a little bit about database design. Our sqlite3 database is going to be a a pretty simple database. The database itself I sort of think of as a Microsoft Excel workbook, the whole Microsoft Excel file. We will only employ one _table_ in our sqlite3 database. I think a database table is kind of like a sheet or tab in Microsoft Excel file. Each data point from the WiFi weather stations will represent one _record_ in the database. I kind of think of a record as one row a Microsoft Excel file. The web API we built brings in a couple of identifiers for each datapoint. Based on an a valid URL such as:
 
-> https://mydomain.com/update/API_key=ASCIISTR/mac=6c:rf:7f:2b:0e:g8/field=1/data=72.3
+> https://mydomain.com/update/API_key=PHDNGI2345/mac=6c:rf:7f:2b:0e:g8/field=1/data=72.3
  
 In the URL above we've provided:
 
  * ```update``` (to tell the IoT server to save the data point, not just serve a webpage)
- * ```API_key = ASCIISTR``` (to identify the user)
+ * ```API_key = PHDNGI2345``` (to identify the user)
  * ```mac = 6c:rf:7f:2b:0e:g8``` (to identify the ESP8255-based WiFi weather station)
  * ```field = 1``` (to specify this is a temperature data point, not a humidity data point)
  * ```data = 72.3``` (to specify the temperature is 72.3 degrees)
@@ -51,7 +51,7 @@ In the URL above we've provided:
  * ```field```
  * ```data```
 
-As well as:
+As well as the fields:
 
  * ```date``` and ```time```
  * some sort of primary key that uniquley identifies each record
@@ -61,22 +61,29 @@ Two example records on our database might look like:
 | primary_key | API_key | mac | field | data | data_time |
 | --- | --- | --- | --- | --- | --- | --- |
 | 1 | PHDNGI2345 | 6c:rf:7f:2b:0e:g8 | 1 | 72.3 | 2018-09-10 08:23:45 PM |
+| 1 | PHDNGI2345 | 6c:rf:7f:2b:0e:g8 | 1 | 83.2 | 2018-09-11 09:45:01 AM |
 
 ## Prototype the sqlite3 database
 
-I didn't have very much experience building or using databases before this **flask** IoT server project. Before I started coding, I tried out a couple of commands in a jupyter notebook.
+I didn't have very much experience building or using databases before this **flask** IoT server project. So before I started coding, I tried out a couple of sqlite3 commands in a jupyter notebook.
 
-
+{% notebook ../posts/flask/sqlite3_play.ipynb %}
 
 ## Add the sqlite database to the server
 
+
+
 ## Add time stamps to each datapoint
+
+
 
 ## Update the webpage with the newest database entry
 
+
+
 ## Summary 
 
-It works! We have a working sqlite3 database.
+It works! We have a working sqlite3 database. Each time the web API is hit with a web browswer, the data point is saved as a record in the database.
 
 ## Next steps 
- In the next post, we'll upload new **_.py_** files to our ESP8266-based WiFi weather stations. This will give the WiFi weather stations the ability to post temperature data to our IoT server.
+ In the next post, we'll upload new **_.py_** files to our ESP8266-based WiFi weather stations. This will give the WiFi weather stations the ability to post temperature data to our **flask** IoT server.

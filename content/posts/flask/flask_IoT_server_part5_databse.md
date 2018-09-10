@@ -59,7 +59,7 @@ As well as the fields:
 Two example records on our database might look like:
 
 | primary_key | API_key | mac | field | data | data_time |
-| --- | --- | --- | --- | --- | --- | --- |
+| --- | --- | --- | --- | --- | --- |
 | 1 | PHDNGI2345 | 6c:rf:7f:2b:0e:g8 | 1 | 72.3 | 2018-09-10 08:23:45 PM |
 | 1 | PHDNGI2345 | 6c:rf:7f:2b:0e:g8 | 1 | 83.2 | 2018-09-11 09:45:01 AM |
 
@@ -67,7 +67,7 @@ Two example records on our database might look like:
 
 I didn't have very much experience building or using databases before this **flask** IoT server project. So before I started coding, I tried out a couple of sqlite3 commands in a jupyter notebook.
 
-{% notebook ../posts/flask/sqlite3_play.ipynb %}
+{% notebook ../code/flask/sqlite_play.ipynb %}
 
 ## Add the sqlite database to the server
 

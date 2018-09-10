@@ -1,10 +1,10 @@
 Title: Results from Running Jupyter Hub in a College Class
 Date: 2018-09-07 10:40
 Modified: 2018-09-07 10:40
-Status: published
+Status: draft
 Category: jupyter
 Tags: jupyter, jupyter hub, jupyter notebooks, python
-Slug: first-live-results-running-jupyter-hub
+Slug: results-from-running-jupyter-hub-for-a-quarter
 Authors: Peter D. Kazarinoff
 Series: Jupyter Hub
 Series_index: 9

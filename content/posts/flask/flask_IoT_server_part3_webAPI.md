@@ -6,6 +6,8 @@ Category: flask
 Tags: python, flask, webapi, IoT, sensor, micropython, microcontroller
 Slug: flask-iot-server-web-API
 Authors: Peter D. Kazarinoff
+Series: Building an IoT Server with Flask and Python
+Series_index: 3
 
 This is the third part of a series of posts about building an Internet of Things (IoT) server with **flask**, Python and ESP8266 microcontrollers. In the last post, we reviewed server and hardware setup. In this post, we'll build a web API with **flask** and push temperature data to our web API with a web browser.
 

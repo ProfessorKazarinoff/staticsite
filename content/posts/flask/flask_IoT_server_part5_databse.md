@@ -6,6 +6,8 @@ Category: flask
 Tags: python, flask, thingspeak, mobile, IoT, sensor
 Slug: flask-iot-server-database
 Authors: Peter D. Kazarinoff
+Series: Building an IoT Server with Flask and Python
+Series_index: 5
 
 This is the fifth part of a series of posts about building an Internet of Things (IoT) server with **flask**, Python and ESP8266 microcontrollers. In this post we'll add a sqlite3 database to our **flask** IoT server to store all the temperature data points that come in from our ESP8266-based WiFi weather stations. We will also build out the main page of the **flask** IoT server site to display the most recent data points pull from the database.
 

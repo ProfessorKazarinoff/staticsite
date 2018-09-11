@@ -6,6 +6,8 @@ Category: flask
 Tags: python, flask, thingspeak, mobile, IoT, sensor
 Slug: flask-iot-server-esp8266
 Authors: Peter D. Kazarinoff
+Series: Building an IoT Server with Flask and Python
+Series_index: 6
 
 This is the sixth part of a series of posts about building an Internet of Things (IoT) server with **flask**, Python and ESP8266 microcontrollers. In this post we'll add some code to our ESP8266-based weather stations. The code we upload to the ESP8266's will cause the temperature to be measured. After the ESP8266 measures the temperature it will execute a GET request to our **flask** IoT server web API.
 

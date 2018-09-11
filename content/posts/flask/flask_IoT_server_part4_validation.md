@@ -6,6 +6,8 @@ Category: flask
 Tags: python, flask, thingspeak, mobile, IoT, sensor
 Slug: flask-iot-server-validation-time-stamps
 Authors: Peter D. Kazarinoff
+Series: Building an IoT Server with Flask and Python
+Series_index: 4
 
 This is the fourth part of a series of posts about building an Internet of Things (IoT) server with **flask**, Python and ESP8266 microcontrollers. In the last post of the series, we reviewed how to build a web API with **flask** which accepts temperature measurements. In this post, we'll build in some validation to our web API so that only certain API keys and mac addresses are allowed. We will also use Python's **datetime** module to time stamp each data point as it comes in.
 

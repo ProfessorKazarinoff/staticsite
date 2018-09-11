@@ -38,7 +38,7 @@ Create the server with the big green [**Create**] button.
 
 After the Droplet is created, note the IP address of the server. We'll need the IP address of the droplet for the next step.
 
-### Login to Server with PuTTY
+### Login to server with PuTTY
 
 Our first interaction with the server is to log in as root. Then we'll create a non-root sudo user to interact with the server from then on out.
 
@@ -92,7 +92,7 @@ User peter may run the following commands on flask-app-server:
 
 You can type the command ```exit``` to close the PuTTY terminal.
 
-## Acquire and configure domain name
+## Acquire and configure a domain name
 
 To use secure SSL connections and https with our flask single page app, we need a real domain name.
 
@@ -118,7 +118,7 @@ Link the new Domain to the Digital Ocean Droplet by typing in the ```@``` symbol
 
 Now that the server is set up and the domain name routed to the server, it's time to actually build the flask single page web app.
 
-### Install Packages
+### Install packages
 
 Before the single page flask app can be built, a number of packages need to be installed on the server. I followed along with [this tutorial](https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-uswgi-and-nginx-on-ubuntu-18-04) from Digital Ocean. 
 
@@ -131,7 +131,7 @@ $ sudo apt-get install python3-pip python3-dev python3-setuptools python3-venv
 $ sudo apt-get install build-essential libssl-dev libffi-dev 
 ```
 
-### Create a Virtual Environment and install **flask**
+### Create a virtual environment and install **flask**
 
 Once the necessary libraries are installed, I created a virtual environment to run the flask app. I usually use **conda** to create virtual environments (see [this post]({filename}/posts/new_virtualenv_conda.md)), but since I'm not using the Anaconda distribution of Python for this flask app, **venv** will have to do instead.
 
@@ -259,7 +259,17 @@ vacuum = true
 die-on-term = true
 ```
 
-### NGINX Configuration
+### NGINX configuration
+
+### Install NGINX
+
+Before we can use NGINX, NGINX needs to be installed on the server. This is a simple ```apt-get``` command. Note that NGINX starts running as soon as it is installed.
+
+```bash
+$ sudo apt-get install nginx
+```
+
+### Configure NGINX
 
 To use NGINX as part of the web stack, we need to create a configuration file in the ```/etc/nginx/sites-available/``` directory. The [Digital Ocean tutorial](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04) was really helpful for this step. NGINX configuration was something I struggled with when I built [my **Jupyter Hub** server]({filename}/posts/jupyterhub/why_jupyter_hub.md) .
 
@@ -290,12 +300,14 @@ $ sudo systemctl status nginx
 #ctrl-c to exit
 ```
 
-now that NGINX and uWSGI are running, let's also shut off the ```:5000``` development port .
+Now that NGINX and uWSGI are running, let's also shut off the ```:5000``` development port.
 
 ```bash
 sudo ufw delete allow 5000
 sudo ufw allow 'Nginx Full'
 ```
+
+Browse to the IP address of the server. You should see a message from NGINX that it is running successfully.
 
 ### Apply SSL Security
 
@@ -318,7 +330,8 @@ change by editing your web server's configuration.
 Now we no longer need to run NGINX with HTTP, since we can now run NGINX with HTTPS and all the traffic will get forwarded to https.
 
 ```bash
-$ sudo ufw delete allow 'Nginx HTTP'
+$ sudo ufw delete allow 'Nginx Full'
+$ sudo ufw allow 'Nginx HTTPS'
 ```
 
 ### Construct a **systemd** file
@@ -349,14 +362,15 @@ WantedBy=multi-user.target
 
 ### Test with systemctl
 
-After the **_flaskapp.service_** file is complete and saved, we can test our service using:
+After the **_flaskapp.service_** file is created, we need to reload the systemctl daemon before starting the ```flaskapp``` service.
 
 ```bash
+$ sudo systemctl daemon-reload
 $ sudo systemctl start flaskapp
 $ sudo systemctl status flaskapp
 ```
 
-The ```status``` call should show the service as ```active (running)```. Use [ctrl-c] to exit the status screen. This will not stop the service.
+The ```status``` call should show the service as ```active (running)```. Use [ctrl-c] to exit the status screen. [ctrl-c] will not stop the service.
 
 Pointing a web browser to the droplet IP address followed by ```:5000```. Yup, can still see the simple message: "The temperature is 91.2 F". It looks like the **NGINX**-->**uWSGI**-->**flask** stack is working properly.
 
@@ -569,3 +583,4 @@ An incomplete list is below:
  That's a lot of stuff to go in one project. 
  
  The next thing I'm thinking about is building a **flask** IoT (internet of things) server that accepts GET requests from [ESP8266 weather stations]({filename}/posts/micropython/micropython_upload_code.md). ThingSpeak.com works great as an IoT sever, but there are limits to how often data can be posted and how often data can be accessed. I think writing my own IoT server in **flask** would be fun too!
+ 

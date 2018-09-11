@@ -206,41 +206,45 @@ $ sudo ls -la /root
 
 If you can see the contents of ```/root``` then the new user is set up with sudo access.
 
-#### Add SSH keys to new user's profile
-
-Before we log off, we need to add our SSH keys to our new user's profile on the server. The second time I set up JupyterHub, I had trouble logging in as the non-root user using PuTTY. I could log in as ```root``` just fine, but I couldn't log in as the newly created user ```peter```. When Digital Ocean created the server, the SSH keys (specified on the creation page) were added to the ```root``` profile. The new user ```peter``` didn't exist when the server was created. The only user was ```root``` at creation time. Therefore no SSH keys were added to the ```peter``` profile at server creation time, because the user ```peter``` didn't exist yet. Since we want to log into our server as the new non-root user ```peter```, we need to add the same SSH keys saved in the ```root``` profile to the ```peter``` profile. The SSH keys belong in a file located at ```/home/peter/.ssh/authorized_keys```. 
-
-I followed [this tutorial](https://www.digitalocean.com/community/tutorials/how-to-create-ssh-keys-with-putty-to-connect-to-a-vps) from Digital Ocean.
-
-```
-$ mkdir ~/.ssh
-$ chmod 0700 ~/.ssh
-$ touch ~/.ssh/authorized_keys
-$ chmod 0644 ~/.ssh/authorized_keys
-$ nano /home/peter/.ssh/authorized_keys
-```
-
-Use the right mouse button to paste in the public SSH key from the clipboard into the PuTTY window. If the SSH key is not saved in the clipboard, then you can retrieve it with PuTTYgen --> load or go to Digital Ocean, click in the upper right on the profile picture --> settings --> security --> ssh-key --> edit dropdown --> edit. You can paste into the PuTTY window using the right mouse button. Use [Ctrl-x] and [y] to save and exit. 
-
-I tried to use ```cp``` to copy the ```authorized_keys``` file from ```/root/.ssh/``` to ```/home/peter/.ssh``` but there was a problem with permissions and write access to the ```authorized_keys``` file. I couldn't get PuTTY to login as ```peter``` until I removed the file, recreated an empty one and pasted in the SSH key. This is probably also possible with ```cat file1 >> file2```. Manually copying and pasting with the right mouse button was the way I got it to work. 
-
-Now we can exit out of the ```peter``` profile
+To exit out of the the new sudo user, and get back to using the root profile, type ```exit``` at the prompt
 
 ```
 $ exit
 ```
 
-This should bring us back to the ```root``` user. Restart the server to enact the changes with:
+#### Add SSH keys to new user's profile
+
+Before we log off, we need to add our SSH keys to our new user's profile on the server. The second time I set up JupyterHub, I had trouble logging in as the non-root user using PuTTY. I could log in as ```root``` just fine, but I couldn't log in as the newly created user ```peter```.
+
+ When Digital Ocean created the server, the SSH keys (specified on the creation page) were added to the ```root``` profile. The new user ```peter``` didn't exist when the server was created. The only user on the server at creation time was ```root```. Therefore, no SSH keys were added to the ```peter``` profile at server creation time- because the user ```peter``` didn't exist yet. 
+ 
+ Since we want to log into our server as the new non-root user ```peter```, we need to add the same SSH keys saved in the ```root``` profile to the ```peter``` profile. The SSH keys belong in a file located at ```/home/peter/.ssh/authorized_keys```. 
+
+This little line will copy the ssh keys from the root profile to the new user's profile. The line comes from [this tutorial](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04) by Digital Ocean.
 
 ```
-$ sudo shutdown -r now
+$ rsync --archive --chown=peter:peter ~/.ssh /home/peter
 ```
 
-You might need to wait a minute or two for the server to restart.
+Next, we need to open the ufw firewall to OpenSSH trafic. We will communicate with the server over SSH and need the firewall to allow this type of communication through.
+
+```
+$ ufw allow OpenSSH
+$ ufw enable
+$ ufw status
+```
+
+Now we can exit out of the ```root``` profile. This will terminate the PuTTY session.
+
+```
+$ exit
+```
 
 ### 4. Connect to the server as the non-root sudo user using PuTTY
 
-Now that the non-root sudo user is set up and our ssh keys are in /home/<user>/.ssh/authorized_keys, let's start a new PuTTY session and log into the server as the new user. Like before, open PuTTY from the Windows Start menu and add the following settings, but this time the Auto-login user name is the name of our new non-root sudo user:
+Now that the non-root sudo user is set up and our ssh keys are in /home/<user>/.ssh/authorized_keys, let's start a new PuTTY session and log into the server as the new user. 
+
+Like before, open PuTTY from the Windows Start menu and add the following settings, but this time the Auto-login user name is the name of our new non-root sudo user:
 
 | parameter | value |
 | --- | --- |
@@ -255,7 +259,7 @@ I also saved the PuTTY session details at this point so that I wouldn't have to 
 
 Log into the server with Sessions --> [Open]
   
-You should see the Digital Ocean login screen again. Note the prompt, it should have the new user's name before the ```@``` symbol. 
+You should see the Digital Ocean login screen again. Note the command prompt will have the new user's name before the ```@``` symbol. 
 
 ![server terminal as peter](/posts/jupyterhub/putty_ssh_window_open_as_peter.png)
 
@@ -279,7 +283,6 @@ To log out of the server simply type ```exit```. This should close the PuTTY ses
 $ exit
 ```
 
- 
 
 ### Summary
 
@@ -288,5 +291,4 @@ In this post we created a new Digital Ocean server (called a _droplet_) and made
 
 ### Next Steps
 
-In the next post, we will get to the fun stuff: installing **Anaconda and jupyterhub** on our new server and starting Jupyter Hub for the first time! (but only keep it open for a couple seconds because we don't have SSL set up yet).
-
+In the next post, we will get to the fun stuff: installing **Anaconda** and **jupyterhub** on our new server. Plus we'll start Jupyter Hub for the first time! (but only keep it open for a couple seconds because we don't have SSL set up yet).

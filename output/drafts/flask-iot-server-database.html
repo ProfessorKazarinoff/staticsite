@@ -298,15 +298,15 @@ Python for Undergraduate Engineers            </a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>This is the fifth part of a series of posts about building an Internet of Things (IoT) server with <strong>flask</strong>, Python and ESP8266 microcontrollers. In this post we'll add a sqlite3 database to our IoT server so that we can store all the temperature data points that come in from our ESP8266-based WiFi weather stations. We will also use Python's <strong>datetime</strong> library to mark each datapoint with the time when it is stored.</p>
+                <p>This is the fifth part of a series of posts about building an Internet of Things (IoT) server with <strong>flask</strong>, Python and ESP8266 microcontrollers. In this post we'll add a sqlite3 database to our IoT server so that we can store all the temperature data points that come in from our ESP8266-based WiFi weather stations. We will also build out the main page of the <strong>flask</strong> IoT server site to display the most recent data points pull from the database.</p>
 <div class="toc"><span class="toctitle">Table of contents:</span><ul>
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#why-an-sqlite3-database">Why an sqlite3 database?</a></li>
 <li><a href="#database-design">Database design</a></li>
 <li><a href="#prototype-the-sqlite3-database">Prototype the sqlite3 database</a></li>
 <li><a href="#add-the-sqlite-database-to-the-server">Add the sqlite database to the server</a></li>
-<li><a href="#add-time-stamps-to-each-datapoint">Add time stamps to each datapoint</a></li>
-<li><a href="#update-the-webpage-with-the-newest-database-entry">Update the webpage with the newest database entry</a></li>
+<li><a href="#update-the-main-webpage-with-the-newest-database-entry">Update the main webpage with the newest database entry</a></li>
+<li><a href="#restart-the-server">Restart the server</a></li>
 <li><a href="#summary">Summary</a></li>
 <li><a href="#next-steps">Next steps</a></li>
 </ul>
@@ -394,7 +394,7 @@ Python for Undergraduate Engineers            </a>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">sqlite3</span>
@@ -417,7 +417,7 @@ Python for Undergraduate Engineers            </a>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># create a database called name_database.db</span>
@@ -462,7 +462,7 @@ Python for Undergraduate Engineers            </a>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;name_database.db&#39;</span><span class="p">)</span>
@@ -494,14 +494,14 @@ Python for Undergraduate Engineers            </a>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;name_database.db&#39;</span><span class="p">)</span>
 <span class="n">cur</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
 <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT first_name, last_name, age, MAX(rowid) FROM names_table&quot;</span><span class="p">)</span>
-<span class="n">row</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+<span class="n">record</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
 <span class="n">cur</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
@@ -540,7 +540,7 @@ Python for Undergraduate Engineers            </a>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;name_database.db&#39;</span><span class="p">)</span>
@@ -572,14 +572,14 @@ Python for Undergraduate Engineers            </a>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;name_database.db&#39;</span><span class="p">)</span>
 <span class="n">cur</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
 <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT first_name, last_name, age, MAX(rowid) FROM names_table&quot;</span><span class="p">)</span>
-<span class="n">row</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+<span class="n">record</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
 <span class="n">cur</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
@@ -611,10 +611,85 @@ Python for Undergraduate Engineers            </a>
 
 </p>
 <h2 id="add-the-sqlite-database-to-the-server">Add the sqlite database to the server</h2>
-<h2 id="add-time-stamps-to-each-datapoint">Add time stamps to each datapoint</h2>
-<h2 id="update-the-webpage-with-the-newest-database-entry">Update the webpage with the newest database entry</h2>
+<p>OK- after playing around with <strong>sqlite3</strong>, we can add some code to our web API to include the database connection, cursor and record execution. This is part of the <code>update</code> route.</p>
+<div class="highlight"><pre><span></span><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&quot;/update/API_key=&lt;api_key&gt;/mac=&lt;mac&gt;/field=&lt;int:field&gt;/data=&lt;data&gt;&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">write_data_point</span><span class="p">(</span><span class="n">api_key</span><span class="p">,</span> <span class="n">mac</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">api_key</span> <span class="o">==</span> <span class="n">API_KEY</span> <span class="ow">and</span> <span class="n">mac</span> <span class="o">==</span> <span class="n">MAC_ADDRESS</span><span class="p">):</span>
+        <span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;data.db&#39;</span><span class="p">)</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">tz</span><span class="o">=</span><span class="n">pytz</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span>
+        <span class="n">date_time_str</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;INSERT INTO data VALUES(:Id, :API_key, :date_time, :mac, :field, :data)&quot;</span><span class="p">,</span>
+              <span class="p">{</span><span class="s1">&#39;Id&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+              <span class="s1">&#39;API_key&#39;</span><span class="p">:</span> <span class="n">api_key</span><span class="p">,</span>
+              <span class="s1">&#39;date_time&#39;</span><span class="p">:</span> <span class="n">date_time_str</span><span class="p">,</span>
+              <span class="s1">&#39;mac&#39;</span><span class="p">:</span> <span class="n">mac</span><span class="p">,</span>
+              <span class="s1">&#39;field&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">field</span><span class="p">),</span>
+              <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="mi">4</span><span class="p">)})</span>
+        <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;showrecent.html&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">time_stamp</span><span class="o">=</span><span class="n">date_time_str</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;403.html&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>At the top of this main script, we will also include a couple of lines to create the database when the <strong>flask</strong> app starts:</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="s1">&#39;data.db&#39;</span><span class="p">):</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;data.db&#39;</span><span class="p">)</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;CREATE TABLE data (</span>
+<span class="s2">        Id INTEGER PRIMARY KEY AUTOINCREMENT, </span>
+<span class="s2">        API_key text,</span>
+<span class="s2">        date_time text,</span>
+<span class="s2">        mac text,</span>
+<span class="s2">        field integer,</span>
+<span class="s2">        data real</span>
+<span class="s2">        )&quot;&quot;&quot;</span><span class="p">)</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+
+
+<h2 id="update-the-main-webpage-with-the-newest-database-entry">Update the main webpage with the newest database entry</h2>
+<p>Next, we'll update the main page of the <strong>flask</strong> IoT server.</p>
+<div class="highlight"><pre><span></span><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;data.db&#39;</span><span class="p">)</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT data, date_time, MAX(rowid) FROM data WHERE field=?&quot;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">,))</span>
+    <span class="n">row1</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT data, date_time, MAX(rowid) FROM data WHERE field=?&quot;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">,))</span>
+    <span class="n">row2</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">data1</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">((</span><span class="nb">float</span><span class="p">(</span><span class="n">row1</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="mf">1.8</span><span class="p">)</span> <span class="o">+</span> <span class="mi">32</span><span class="p">))</span>
+    <span class="n">data2</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">((</span><span class="nb">float</span><span class="p">(</span><span class="n">row2</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="mf">1.8</span><span class="p">)</span> <span class="o">+</span> <span class="mi">32</span><span class="p">))</span>
+    <span class="n">time_str1</span> <span class="o">=</span> <span class="n">row1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">t1</span> <span class="o">=</span> <span class="n">dateutil</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">time_str1</span><span class="p">)</span>
+    <span class="n">t_pst1</span> <span class="o">=</span> <span class="n">t1</span><span class="o">.</span><span class="n">astimezone</span><span class="p">(</span><span class="n">pytz</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="s1">&#39;US/Pacific&#39;</span><span class="p">))</span>
+    <span class="n">time_stamp1</span> <span class="o">=</span> <span class="n">t_pst1</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%I:%M:%S %p   %b </span><span class="si">%d</span><span class="s1">, %Y&#39;</span><span class="p">)</span>
+    <span class="n">time_str2</span> <span class="o">=</span> <span class="n">row2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">t2</span> <span class="o">=</span> <span class="n">dateutil</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">time_str2</span><span class="p">)</span>
+    <span class="n">t_pst2</span> <span class="o">=</span> <span class="n">t2</span><span class="o">.</span><span class="n">astimezone</span><span class="p">(</span><span class="n">pytz</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="s1">&#39;US/Pacific&#39;</span><span class="p">))</span>
+    <span class="n">time_stamp2</span> <span class="o">=</span> <span class="n">t_pst2</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%I:%M:%S %p   %b </span><span class="si">%d</span><span class="s1">, %Y&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;showdoubletemp.html&quot;</span><span class="p">,</span> <span class="n">data1</span><span class="o">=</span><span class="n">data1</span><span class="p">,</span> <span class="n">time_stamp1</span><span class="o">=</span><span class="n">time_stamp1</span><span class="p">,</span> <span class="n">data2</span><span class="o">=</span><span class="n">data2</span><span class="p">,</span><span class="n">time_stamp2</span><span class="o">=</span><span class="n">time_stamp2</span><span class="p">)</span>
+</pre></div>
+
+
+<h2 id="restart-the-server">Restart the server</h2>
+<p>Restart the <strong>flask</strong> IoT server with the following command:</p>
+<div class="highlight"><pre><span></span>$ sudo systemctl start flaskapp
+$ sudo systemctl status flaskapp
+<span class="c1"># ctrl-c to exit</span>
+</pre></div>
+
+
 <h2 id="summary">Summary</h2>
-<p>It works! We have a working sqlite3 database. Each time the web API is hit with a web browswer, the data point is saved as a record in the database.</p>
+<p>It works! We have a working sqlite3 database. Each time the web API is hit with a web browswer, the data point is saved as a record in the database. Each time we got to the main page of the <strong>flask</strong> IoT server site, we see the most recent temperature posted.</p>
 <h2 id="next-steps">Next steps</h2>
 <p>In the next post, we'll upload new <strong><em>.py</em></strong> files to our ESP8266-based WiFi weather stations. This will give the WiFi weather stations the ability to post temperature data to our <strong>flask</strong> IoT server.</p>
             </div>
@@ -651,9 +726,9 @@ Python for Undergraduate Engineers            </a>
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
-    <li class="list-group-item"><a href="/results-from-running-jupyter-hub-for-a-quarter.html">Results from Running Jupyter Hub in a College Class</a></li>
     <li class="list-group-item"><a href="/flask-iot-server-validation-time-stamps.html">Building an IoT Server with flask and Python - Part 4 Validation and Timestamps</a></li>
     <li class="list-group-item"><a href="/circuit-diagram-problem-with-schemdraw.html">Solving a Circuit Diagram Problem with Python and SchemDraw</a></li>
+    <li class="list-group-item"><a href="/flask-iot-server-web-API.html">Building an IoT Server with flask and Python - Part 3 Web API</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
@@ -671,10 +746,10 @@ Python for Undergraduate Engineers            </a>
     <li class="list-group-item tag-2">
       <a href="/tag/jupyter.html">jupyter</a>
     </li>
-    <li class="list-group-item tag-2">
+    <li class="list-group-item tag-3">
       <a href="/tag/jupyter-hub.html">jupyter hub</a>
     </li>
-    <li class="list-group-item tag-2">
+    <li class="list-group-item tag-3">
       <a href="/tag/jupyter-notebooks.html">jupyter notebooks</a>
     </li>
     <li class="list-group-item tag-4">

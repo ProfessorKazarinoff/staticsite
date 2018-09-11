@@ -154,6 +154,7 @@ Digital Ocean recommends that the servers are run by non-root user that have sud
 
 ```
 $ sudo apt-get update
+$ sudo apt-get dist-upgrade
 ```
 
 I followed [this tutorial](https://www.digitalocean.com/community/tutorials/how-to-create-a-sudo-user-on-ubuntu-quickstart) at Digital Ocean to create a non-root sudo user.

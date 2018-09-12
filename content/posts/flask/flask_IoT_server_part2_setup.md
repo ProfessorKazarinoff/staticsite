@@ -32,11 +32,11 @@ If you are starting from scratch, the prerequisites needed to build an Internet-
  * A non-root sudo user on the server. See part of [this post.](https://pythonforundergradengineers.com/flask-app-on-digital-ocean.html#create-a-non-root-sudo-user)
  * The following packages ```apt-get``` installed on the server: ```python3-pip``` ```python3-dev``` ```python3-setuptools``` ```python3-venv``` ```build-essential``` ```libssl-dev``` ```libffi-dev``` ```nginx```
   * A Python 3.6 virtual environment set up on the sever with ```flask``` and ```uwsgi``` ```pip install```ed. See part of [this post.](http://pythonforundergradengineers.com/flask-app-on-digital-ocean.html#install-packages)
-  *  **uWSGI** and **NGINX** installed on configured on the server. See part of [this post.](http://pythonforundergradengineers.com/flask-app-on-digital-ocean.html#set-up-uwsgi-nginx-ssl-and-systemctl). The configuration files I used can be found on github: [**_myproject.ini_**](https://github.com/ProfessorKazarinoff/flask-IoT/blob/master/myproject.ini), [**_wsgi.py_**](https://github.com/ProfessorKazarinoff/flask-IoT/blob/master/wsgi.py), [**_sites-avialable_**](https://gist.github.com/ProfessorKazarinoff/633abea34c5ea2420f1278deae61c091) (nginx config)
+  *  **uWSGI** and **NGINX** installed on configured on the server. See part of [this post.](https://pythonforundergradengineers.com/flask-app-on-digital-ocean.html#set-up-uwsgi-and-systemctl). The configuration files I used can be found on github: [**_myproject.ini_**](https://github.com/ProfessorKazarinoff/flask-IoT/blob/master/myproject.ini), [**_wsgi.py_**](https://github.com/ProfessorKazarinoff/flask-IoT/blob/master/wsgi.py), [**_sites-avialable_**](https://gist.github.com/ProfessorKazarinoff/633abea34c5ea2420f1278deae61c091) (nginx config)
   * The flask app running as a system service. See [this gist](https://gist.github.com/ProfessorKazarinoff/51f819f7001b3fc92982413eb9df4ed5) for the systemd [**_flaskapp.service_**](https://gist.github.com/ProfessorKazarinoff/51f819f7001b3fc92982413eb9df4ed5) file.
   * SSL attached to the domain name and **NGINX** instance. See part of [this post](http://pythonforundergradengineers.com/flask-app-on-digital-ocean.html#apply-ssl-security) and [this post.]({filename}/posts/jupyterhub/SSL_and_nginx_with_jupyterhub.md)
 
-The webpage produced by the flask app is below:
+The final web page produced by the flask app is below:
 
 ![flask app simple index]({filename}/posts/flask/simple_index.png)
 

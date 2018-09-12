@@ -76,7 +76,6 @@ PLUGINS = [
     'neighbors',
     'bootswatch_markdown_css',] #'pelican_javascript','pelican-ipynb.markup', 'pelican-bootstrapify'
 
-#
 
 NOTEBOOK_DIR = 'posts'
 

@@ -494,7 +494,7 @@ $ sudo systemctl start flaskapp
 $ sudo systemctl status flaskapp
 # [ctrl-c] to exit
 ```
-![temp inside]({filename}/posts/jupyterhub/temp_inside.png)
+![temp inside]({filename}/posts/flask/temp_inside.png)
 
 
 ## Pull the temperature from ThingSpeak.com with **requests**

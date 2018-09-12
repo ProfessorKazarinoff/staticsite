@@ -317,23 +317,27 @@ Python for Undergraduate Engineers            </a>
 <li><a href="#testing-the-first-simple-flask-app">Testing the first simple flask app</a></li>
 </ul>
 </li>
-<li><a href="#set-up-uwsgi-nginx-ssl-and-systemctl">Set up uWSGI, nginx, SSL and systemctl</a><ul>
+<li><a href="#set-up-uwsgi-and-systemctl">Set up uWSGI and systemctl</a><ul>
 <li><a href="#configuring-uwsgi">Configuring uWSGI</a><ul>
 <li><a href="#testing-uwsgi">Testing uWSGI</a></li>
 <li><a href="#construct-the-uwsgi-configuration-file">Construct the uWSGI configuration file</a></li>
 </ul>
 </li>
-<li><a href="#nginx-configuration">NGINX configuration</a></li>
-<li><a href="#install-nginx">Install NGINX</a></li>
-<li><a href="#configure-nginx">Configure NGINX</a></li>
-<li><a href="#apply-ssl-security">Apply SSL Security</a></li>
-<li><a href="#construct-a-systemd-file">Construct a systemd file</a></li>
+<li><a href="#construct-a-systemd-file">Construct a systemd file</a><ul>
 <li><a href="#test-with-systemctl">Test with systemctl</a></li>
 </ul>
 </li>
-<li><a href="#add-bootstrap-styling">Add Bootstrap Styling</a></li>
+</ul>
+</li>
+<li><a href="#configure-nginx-and-apply-ssl-security">Configure NGINX and apply SSL security</a><ul>
+<li><a href="#install-nginx">Install NGINX</a></li>
+<li><a href="#configure-nginx">Configure NGINX</a></li>
+<li><a href="#apply-ssl-security">Apply SSL Security</a></li>
+</ul>
+</li>
+<li><a href="#add-bootstrap-styling">Add Bootstrap styling</a></li>
 <li><a href="#pull-the-temperature-from-thingspeakcom-with-requests">Pull the temperature from ThingSpeak.com with requests</a></li>
-<li><a href="#view-the-final-flask-app-in-a-browser">View the final flask app in a browser</a></li>
+<li><a href="#view-the-final-flask-app-online">View the final flask app online</a></li>
 <li><a href="#summary">Summary</a></li>
 </ul>
 </div>
@@ -386,12 +390,14 @@ Python for Undergraduate Engineers            </a>
 
 
 <h3 id="copy-ssh-keys-to-the-non-root-sudo-user">Copy SSH keys to the non-root sudo user</h3>
-<p>Next we'll to move the SSH keys stored in the root user's profile to the new sudo user's profile (in my case <code>peter</code>). I've had trouble with moving SSH key files and setting permissions correctly in Linux. A <a href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04">Digital Ocean tutorial</a> has a great line that copies the SSH Keys and sets the permissions correctly in one step. If you skip this step, you won't be able to log into the server as the new sudo user you just created. Note you should change the user name from <code>peter</code> to whatever username you picked in the previous step.</p>
+<p>Next we'll move the SSH keys stored in the root user's profile to the new sudo user's profile (in my case <code>peter</code>). I've had trouble moving SSH key files and setting permissions correctly in Linux. A <a href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04">Digital Ocean tutorial</a> has a great line that copies the SSH Keys and sets the permissions correctly in one step. If you skip this step, you won't be able to log into the server as the new non-root sudo user you just created. Note you should change the user name from <code>peter</code> to whatever username you picked in the previous step.</p>
 <div class="highlight"><pre><span></span># rsync --archive --chown=peter:peter ~/.ssh /home/peter
 </pre></div>
 
 
-<p>Now check logging into the server as the new user. Exit the PuTTY window by typing <code>exit</code> at the prompt. Open up a new SSH session in PuTTY. Set Connection &rarr; Data &rarr; Auto-login username as the non-root sudo user. (I put <code>peter</code> in the Auto-login username box). </p>
+<p>Now let's check if we can log into the server as the new user.</p>
+<p>Exit the PuTTY window by typing <code>exit</code> at the prompt. Open up a new SSH session in PuTTY. Set Connection &rarr; Data &rarr; Auto-login username as the non-root sudo user. (I put <code>peter</code> in the Auto-login username box).</p>
+<p><img alt="PuTTY IP Login name" src="./posts/flask/peter_as_auto_login_username.png"></p>
 <p>When the terminal window opens, you should see your username listed before the prompt. At the prompt, try the following command. Note the dollar sign <code>$</code> does not need to be typed. The dollar sign <code>$</code> is there to indicate the command prompt.</p>
 <div class="highlight"><pre><span></span>$ sudo -l
 User peter may run the following commands on flask-app-server:
@@ -412,13 +418,16 @@ User peter may run the following commands on flask-app-server:
 <p><img alt="Digital Ocean Domains-DNS" src="./posts/jupyterhub/DO_manage_domains.png"></p>
 <p>Link the new Domain to the Digital Ocean Droplet by typing in the <code>@</code> symbol in the [HOSTNAME] box and selecting the new Droplet name in the [WILL DIRECT TO] drop down box. Click [Create Record] to link the domain name to the server. You can also link <code>www</code> in the [HOSTNAME] box and select the new Droplet in the [WILL DIRECT TO] dropdown box to link <code>www.yourdomain.com</code> to the server.</p>
 <h2 id="build-the-flask-app">Build the Flask App</h2>
-<p>Now that the server is set up and the domain name routed to the server, it's time to actually build the flask single page web app.</p>
+<p>Now that the server is set up and the domain name is routed to the server, it's time to actually build the flask single page web app.</p>
 <h3 id="install-packages">Install packages</h3>
 <p>Before the single page flask app can be built, a number of packages need to be installed on the server. I followed along with <a href="https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-uswgi-and-nginx-on-ubuntu-18-04">this tutorial</a> from Digital Ocean. </p>
 <p>Log onto the server with PuTTY and type the following commands:</p>
 <div class="highlight"><pre><span></span>$ sudo apt-get update
 $ sudo apt-get upgrade
-$ sudo apt-get install python3-pip python3-dev python3-setuptools python3-venv
+$ sudo apt-get install python3-pip
+$ sudo apt-get install python3-dev
+$ sudo apt-get install python3-setuptools
+$ sudo apt-get install python3-venv
 $ sudo apt-get install build-essential libssl-dev libffi-dev 
 </pre></div>
 
@@ -433,7 +442,7 @@ $ <span class="nb">source</span> flaskappenv/bin/activate
 </pre></div>
 
 
-<p>With the virtual environment created and activated, install <strong>flask</strong>, <strong>wheel</strong>, <strong>uwsgi</strong> and <strong>requests</strong> with <strong>pip</strong>. We'll use <strong>requests</strong> a little later to pull down temperature data from ThingSpeak.com. Note that <code>(flaskappenv)</code> is shown before the command prompt when the virtual environment is active. Make sure to only <code>pip install</code> in the <code>(flaskappenv)</code> virtual environment.</p>
+<p>With the virtual environment created and activated, install <strong>wheel</strong>, <strong>flask</strong>, <strong>uwsgi</strong> and <strong>requests</strong> with <strong>pip</strong>. We'll use <strong>requests</strong> a little later to pull down temperature data from ThingSpeak.com. Note that <code>(flaskappenv)</code> is shown before the command prompt when the virtual environment is active. Make sure to only <code>pip install</code> within the <code>(flaskappenv)</code> virtual environment.</p>
 <div class="highlight"><pre><span></span><span class="o">(</span>flaskappenv<span class="o">)</span>$ pip install wheel
 <span class="o">(</span>flaskappenv<span class="o">)</span>$ pip install flask
 <span class="o">(</span>flaskappenv<span class="o">)</span>$ pip install uwsgi
@@ -449,7 +458,7 @@ $ <span class="nb">source</span> flaskappenv/bin/activate
 </pre></div>
 
 
-<p>In the <strong><em>flaskapp.py</em></strong> file,  I included the bare minimum flask app to see if it works:</p>
+<p>In the <strong><em>flaskapp.py</em></strong> file,  I included the bare minimum flask app to test the server:</p>
 <div class="highlight"><pre><span></span><span class="c1"># flaskapp.py</span>
 
 <span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
@@ -464,7 +473,7 @@ $ <span class="nb">source</span> flaskappenv/bin/activate
 </pre></div>
 
 
-<p>Some note about editing code in the <strong>nano</strong> text editor thru PuTTY. You can paste into PuTTY using the right mouse button. Selecting text in PuTTY copies the text to the clip board. Don't use [ctrl-c] or [ctrl-v] to copy and paste in PuTTY. Exit the nano text editor with [ctrl-x].</p>
+<p>A note about editing code in the <strong>nano</strong> text editor thru PuTTY: You can paste into a PuTTY terminal window using the right mouse button. Selecting text in PuTTY copies the text to the clip board. Don't use [ctrl-c] or [ctrl-v] to copy and paste in PuTTY. Exit the nano text editor with [ctrl-x].</p>
 <h3 id="testing-the-first-simple-flask-app">Testing the first simple flask app</h3>
 <p>With the first version of <strong><em>flaskapp.py</em></strong> complete, Let's run the <strong>flask</strong> app for the first time to test that everything is working properly.</p>
 <p>To run the <strong>flask</strong> app, I had to make sure I was in the virtual environment built earlier. I also needed to allow port 5000 open on the <strong>ufw</strong> firewall. Port 5000 is the default port <strong>flask</strong> runs on.</p>
@@ -473,9 +482,12 @@ $ <span class="nb">source</span> flaskappenv/bin/activate
 </pre></div>
 
 
-<p>It works! By pointing a browser to the droplet IP address followed by <code>:5000</code>, I can see the simple message: "The temperature is 91.2 F".</p>
+<p>It works! By pointing a browser to the Droplet IP address followed by <code>:5000</code>, I can see the simple message: "The temperature is 91.2 F".</p>
+<blockquote>
+<p>124.822.76.209:5000</p>
+</blockquote>
 <p><img alt="flask app no styling" src="./posts/flask/flask_app_no_template.png"></p>
-<h2 id="set-up-uwsgi-nginx-ssl-and-systemctl">Set up uWSGI, nginx, SSL and systemctl</h2>
+<h2 id="set-up-uwsgi-and-systemctl">Set up uWSGI and systemctl</h2>
 <p>There are going to be two layers between the flask app and the outside internet. Get requests from web browsers will first come into <strong>NGINX</strong> then go to <strong>uWSGI</strong> before being passed to <strong>flask</strong>. </p>
 <h3 id="configuring-uwsgi">Configuring uWSGI</h3>
 <p>We installed <strong>uWSGI</strong> earlier when we <code>pip</code> installed <strong>flask</strong>. Now <strong>uWSGI</strong> needs to be configured and tested. I followed the <a href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04">Digital Ocean tutorial</a> closely for this step.</p>
@@ -488,7 +500,7 @@ $ <span class="nb">source</span> flaskappenv/bin/activate
 <p>In the <strong><em>wsgi.py</em></strong> file, include:</p>
 <div class="highlight"><pre><span></span><span class="c1"># wsgi.py</span>
 
-<span class="kn">from</span> <span class="nn">showtemp</span> <span class="kn">import</span> <span class="n">app</span>
+<span class="kn">from</span> <span class="nn">flaskapp</span> <span class="kn">import</span> <span class="n">app</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
@@ -496,12 +508,12 @@ $ <span class="nb">source</span> flaskappenv/bin/activate
 
 
 <h4 id="testing-uwsgi">Testing uWSGI</h4>
-<p>Next let's tested the configuration. <strong>uWSGI</strong> can be run from the command line with a couple flags:</p>
+<p>Next, let's test the configuration. <strong>uWSGI</strong> can be run from the command line with a couple flags:</p>
 <div class="highlight"><pre><span></span><span class="o">(</span>flaskappenv<span class="o">)</span>$ uwsgi --socket <span class="m">0</span>.0.0.0:5000 --protocol<span class="o">=</span>http -w wsgi:app
 </pre></div>
 
 
-<p>By pointing a browser to the droplet IP address followed by <code>:5000</code>, I see the simple message  again: "The temperature is 91.2 F". The flask app still seems to be working!</p>
+<p>When I point a browser to the droplet IP address followed by <code>:5000</code>, I see the simple message  again: "The temperature is 91.2 F". The flask app still seems to be working!</p>
 <p><img alt="flask app no styling" src="./posts/flask/flask_app_no_template.png"></p>
 <h4 id="construct-the-uwsgi-configuration-file">Construct the uWSGI configuration file</h4>
 <p>Now for another layer of <strong>uWSGI</strong> goodness- building a uWSGI <strong><em>.ini</em></strong> configuration file.</p>
@@ -527,9 +539,50 @@ die-on-term = true
 </pre></div>
 
 
-<h3 id="nginx-configuration">NGINX configuration</h3>
+<h3 id="construct-a-systemd-file">Construct a <strong>systemd</strong> file</h3>
+<p>Because we want to have the flask app running all the time, let's create a <strong>systemd</strong> control file to get the flask app running as a system service on the server.</p>
+<div class="highlight"><pre><span></span>$ sudo nano /etc/systemd/system/flaskapp.service
+</pre></div>
+
+
+<p>In the <strong><em>flaskapp.service</em></strong> file, I included the following as described in the <a href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04">Digital Ocean tutorial</a>. Note the username <code>peter</code> should be replaced with your non-root sudo user.</p>
+<div class="highlight"><pre><span></span>[Unit]
+Description=uWSGI instance to serve flaskapp
+After=network.target
+
+[Service]
+User=peter
+Group=www-data
+WorkingDirectory=/home/peter/flaskapp
+Environment=&quot;PATH=/home/peter/flaskapp/flaskappenv/bin&quot;
+ExecStart=/home/peter/flaskapp/flaskappenv/bin/uwsgi --ini flaskapp.ini
+
+[Install]
+WantedBy=multi-user.target
+</pre></div>
+
+
+<h4 id="test-with-systemctl">Test with systemctl</h4>
+<p>After the <strong><em>flaskapp.service</em></strong> file is created, we need to reload the systemctl daemon before starting the <code>flaskapp</code> service.</p>
+<div class="highlight"><pre><span></span>$ sudo systemctl daemon-reload
+$ sudo systemctl start flaskapp
+$ sudo systemctl status flaskapp
+</pre></div>
+
+
+<p>The <code>status</code> call should show the service as <code>active (running)</code>. Something like the message below.</p>
+<div class="highlight"><pre><span></span>flaskapp.service - uWSGI instance to serve flaskapp
+   Loaded: loaded (/etc/systemd/system/flaskapp.service; disabled; vendor preset
+   Active: active (running) since Wed 2018-09-12 18:09:15 UTC; 7s ago
+</pre></div>
+
+
+<p>Use [ctrl-c] to exit the status screen. [ctrl-c] will not stop the service.</p>
+<h2 id="configure-nginx-and-apply-ssl-security">Configure NGINX and apply SSL security</h2>
+<p>We'll use NGINX as a proxy server to work with uWSGI and the flask app. The general control flow resulting from GET request will be:</p>
+<p>GET request &rarr; NGINX &rarr; uWSGI &rarr; flaskapp</p>
 <h3 id="install-nginx">Install NGINX</h3>
-<p>Before we can use NGINX, NGINX needs to be installed on the server. This is a simple <code>apt-get</code> command. Note that NGINX starts running as soon as it is installed.</p>
+<p>Before we can use NGINX, NGINX needs to be installed on the server. Installation is a simple <code>apt-get</code> command. Note that NGINX starts running as soon as it is installed.</p>
 <div class="highlight"><pre><span></span>$ sudo apt-get install nginx
 </pre></div>
 
@@ -562,17 +615,21 @@ $ sudo systemctl status nginx
 
 
 <p>Now that NGINX and uWSGI are running, let's also shut off the <code>:5000</code> development port.</p>
-<div class="highlight"><pre><span></span>sudo ufw delete allow <span class="m">5000</span>
-sudo ufw allow <span class="s1">&#39;Nginx Full&#39;</span>
+<div class="highlight"><pre><span></span>$ sudo ufw delete allow <span class="m">5000</span>
+$ sudo ufw allow <span class="s1">&#39;Nginx Full&#39;</span>
 </pre></div>
 
 
-<p>Browse to the IP address of the server. You should see a message from NGINX that it is running successfully.</p>
+<p>Browse to the web address of the server. This time you won't need to append the address with <code>:5000</code>. Also the web address can be your domain name, not just the server IP address You should see the message: "The temperature is 91.2 F".</p>
+<blockquote>
+<p>http://mydomain.com/</p>
+</blockquote>
+<p><img alt="flask app no styling" src="./posts/flask/flask_app_no_template.png"></p>
 <h3 id="apply-ssl-security">Apply SSL Security</h3>
 <p>One of the reasons for getting a real domain name is so the server can run with SSL security and https. Adding SSL can be done with <strong>certbot</strong>, a Python program that assists with generating SSL certificates. I followed the <a href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04">Digital Ocean tutorial</a> steps to acquire the certificate. Make sure to replace <code>your_domain</code> with your actual domain name.</p>
 <div class="highlight"><pre><span></span>$ sudo add-apt-repository ppa:certbot/certbot
 $ sudo apt install python-certbot-nginx
-$ sudo certbot --nginx -d your_domain -d www.your_domain
+$ sudo certbot --nginx -d mydomain.com -d www.mydomain.com
 </pre></div>
 
 
@@ -583,51 +640,27 @@ change by editing your web server&#39;s configuration.
 </pre></div>
 
 
-<p>Now we no longer need to run NGINX with HTTP, since we can now run NGINX with HTTPS and all the traffic will get forwarded to https.</p>
-<div class="highlight"><pre><span></span>$ sudo ufw delete allow <span class="s1">&#39;Nginx Full&#39;</span>
-$ sudo ufw allow <span class="s1">&#39;Nginx HTTPS&#39;</span>
+<p>If certbot is successful, you will see a message similar to this:</p>
+<div class="highlight"><pre><span></span>IMPORTANT NOTES:
+ - Congratulations! Your certificate and chain have been saved at:
+   /etc/letsencrypt/live/mydomain.com/fullchain.pem
+   Your key file has been saved at:
+   /etc/letsencrypt/live/mydomain.com/privkey.pem
+ ```
+
+Now we no longer need to run NGINX with HTTP, since we can now run NGINX with HTTPS. All the HTTP traffic will be forwarded to HTTPS.
+
+```bash
+$ sudo ufw delete allow &#39;Nginx Full&#39;
+$ sudo ufw allow &#39;Nginx HTTPS&#39;
 </pre></div>
 
 
-<h3 id="construct-a-systemd-file">Construct a <strong>systemd</strong> file</h3>
-<p>Because we want to have the flask app running all the time, let's created a <strong>systemd</strong> control file to get the flask app running as a system service on the server.</p>
-<div class="highlight"><pre><span></span>$ sudo nano /etc/systemd/system/flaskapp.service
-</pre></div>
-
-
-<p>In the <strong><em>flaskapp.service</em></strong> file, I included the following as described in the <a href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04">Digital Ocean tutorial</a>. Note the username <code>peter</code> should be replaced with your non-root sudo user.</p>
-<div class="highlight"><pre><span></span>[Unit]
-Description=uWSGI instance to serve flaskapp
-After=network.target
-
-[Service]
-User=peter
-Group=www-data
-WorkingDirectory=/home/peter/flaskapp
-Environment=&quot;PATH=/home/peter/flaskapp/flaskappenv/bin&quot;
-ExecStart=/home/peter/flaskapp/flaskappenv/bin/uwsgi --ini flaskapp.ini
-
-[Install]
-WantedBy=multi-user.target
-</pre></div>
-
-
-<h3 id="test-with-systemctl">Test with systemctl</h3>
-<p>After the <strong><em>flaskapp.service</em></strong> file is created, we need to reload the systemctl daemon before starting the <code>flaskapp</code> service.</p>
-<div class="highlight"><pre><span></span>$ sudo systemctl daemon-reload
-$ sudo systemctl start flaskapp
-$ sudo systemctl status flaskapp
-</pre></div>
-
-
-<p>The <code>status</code> call should show the service as <code>active (running)</code>. Use [ctrl-c] to exit the status screen. [ctrl-c] will not stop the service.</p>
-<p>Pointing a web browser to the droplet IP address followed by <code>:5000</code>. Yup, can still see the simple message: "The temperature is 91.2 F". It looks like the <strong>NGINX</strong>&rarr;<strong>uWSGI</strong>&rarr;<strong>flask</strong> stack is working properly.</p>
-<p><img alt="flask app no styling" src="./posts/flask/flask_app_no_template.png"></p>
-<h2 id="add-bootstrap-styling">Add Bootstrap Styling</h2>
-<p>The single page app is pretty basic right now. It also isn't designed to look good on phones or tablets. I plan on using my phone the most to view the flask app, so I decided to use bootstrap styling and the jumbotron component from bootstrap in the web app. </p>
-<p>To keep things simple, I used the bootstrap CDN instead of installing the whole bootstrap package to the server. On the <a href="https://getbootstrap.com/docs/3.3/getting-started/">bootstrap3 install page</a> is the content we need to add to the top of our <strong><em>.html</em></strong> template. I choose to use the CDN instead of installing all of the bootstrap static files on the server. </p>
-<p>To make the temperature display look nicer, I utilized the <a href="https://github.com/heimrichhannot/bootstrap/blob/master/docs/4.0/examples/jumbotron/index.html">jumbotron component of bootstrap</a>. If you follow the link, you will see a couple lines of html that need to be included first in the <code>&lt;header&gt;</code> portion of the template.</p>
-<p>To add the bootstrap styling I created a jinga template called <strong><em>index.html</em></strong> and placed a modified version of the html for the jumbotron component and bootstrap CDN inside. On the server, we need to create a <code>templates</code> directory to store the jinja template. <code>main_app/templates</code> is the default location for jinga templates when running <strong>flask</strong>.</p>
+<h2 id="add-bootstrap-styling">Add Bootstrap styling</h2>
+<p>The single page app is pretty basic right now. It also isn't designed to look good on phones or tablets. I plan on using my phone to view the flask app most of the time, so I decided to use bootstrap styling and the jumbotron component from bootstrap in the flask app.</p>
+<p>To keep things simple, I used the bootstrap CDN instead of installing the whole bootstrap package to the server. On the <a href="https://getbootstrap.com/docs/3.3/getting-started/">bootstrap3 install page</a> is the content we need to add to the top of our <strong><em>.html</em></strong> template.</p>
+<p>To make the temperature display look nicer, I utilized the <a href="https://github.com/heimrichhannot/bootstrap/blob/master/docs/4.0/examples/jumbotron/index.html">bootstrap jumbotron component</a>. If you follow the link, you will see a couple lines of html that need to be included first in the <code>&lt;header&gt;</code> portion of the template.</p>
+<p>To add the bootstrap styling I created a jinga template called <strong><em>index.html</em></strong> and placed a modified version of the html for the jumbotron component and bootstrap CDN inside. On the server, we need to create a <code>templates</code> directory to store the jinja template. <code>&lt;main_app&gt;/templates</code> is the default location for jinga templates when running <strong>flask</strong>.</p>
 <div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/flaskapp
 $ mkdir templates
 $ <span class="nb">cd</span> templates
@@ -672,7 +705,11 @@ $ nano index.html
 </pre></div>
 
 
-<p>Now we need to modify the <strong><em>flaskapp.py</em></strong> file to point to our <strong><em>index.html</em></strong> template. A new <strong>flask</strong> function, <code>render_template()</code> is used. <code>render_template()</code> must be included in the imports and is used as the <code>return</code> action of the <code>@app.route("/")</code> <code>index()</code> function. </p>
+<p>Now we need to modify the <strong><em>flaskapp.py</em></strong> file to point to our <strong><em>index.html</em></strong> template. A new <strong>flask</strong> function, <code>render_template()</code> is used. <code>render_template</code> must be included in the imports and is used as the <code>return</code> action of the <code>@app.route("/")</code> <code>index()</code> function.</p>
+<div class="highlight"><pre><span></span>$ nano ~/flaskapp/flaskapp.py
+</pre></div>
+
+
 <p>The revised <strong><em>flaskapp.py</em></strong> file is below.</p>
 <div class="highlight"><pre><span></span><span class="c1"># flaskapp.py</span>
 
@@ -688,8 +725,18 @@ $ nano index.html
 </pre></div>
 
 
+<p>We can view our changes by reloading the flaskapp system service and browsing to the server domain's main page.</p>
+<div class="highlight"><pre><span></span>$ sudo systemctl stop flaskapp
+$ sudo systemctl start flaskapp
+$ sudo systemctl status flaskapp
+<span class="c1"># [ctrl-c] to exit</span>
+</pre></div>
+
+
+<p><img alt="temp inside" src="{filename}/posts/jupyterhub/temp_inside.png"></p>
 <h2 id="pull-the-temperature-from-thingspeakcom-with-requests">Pull the temperature from ThingSpeak.com with <strong>requests</strong></h2>
-<p>The final step of this flask single page app project is to dynamically pull the temperature from ThingSpeak.com and show it as a webpage. Right now the flask app only shows the static temperature <code>91.4 F</code>.  However, the whole point of the app is to see the current temperatures the WiFi weather stations measure.</p>
+<p>The final step of this flask single page app project is to dynamically pull the temperature from ThingSpeak.com and show it as a web page.</p>
+<p>Right now the flask app only shows the static temperature <code>91.4 F</code>.  However, the whole point of the app is to see the current temperatures the WiFi weather stations measure.</p>
 <p>To grab the temperatures off of ThingSpeak.com, we'll use the <strong>requests</strong> package. According to the <a href="https://www.mathworks.com/help/thingspeak/rest-api.html">ThingSpeak.com web API documentation</a>, the format of our GET request needs to be:</p>
 <div class="highlight"><pre><span></span>https://api.thingspeak.com/channels/&lt;channel_id&gt;/fields/&lt;field_id&gt;/last.&lt;format&gt;
 </pre></div>
@@ -697,7 +744,7 @@ $ nano index.html
 
 <p><code>&lt;channel_id&gt;</code> corresponds to the channel number on ThingSpeak.com. My WiFi weather stations are on a public channel. <code>&lt;field_id&gt;</code> is the field number held by the ThingSpeak channel. Each ThingSpeak channel can have multiple fields. The temperature we care about is in field <code>1</code>. The <code>&lt;format&gt;</code> we want is <code>.txt</code>. We could grab <code>.json</code> or a <code>.csv</code> off of ThingSpeak, but since we only need one temperature reading at a time, <code>.txt</code> is the easiest. </p>
 <p>Let's try out the ThingSpeak web API using the Python REPL. Make sure <strong>requests</strong> is installed in the virtual environment before importing it. On the server try:</p>
-<div class="highlight"><pre><span></span>$ <span class="nb">source</span> flaskapp/bin/activate
+<div class="highlight"><pre><span></span>$ <span class="nb">source</span> ~/flaskapp/flaskappenv/bin/activate
 <span class="o">(</span>flaskappenv<span class="o">)</span>$ python
 
 &gt;&gt;&gt; import requests
@@ -711,7 +758,12 @@ $
 </pre></div>
 
 
-<p>Now we need to use this same web API call in the flask app. Modify <strong><em>flaskapp.py</em></strong> to include the <strong>requests</strong> package and include the web API request as a line the <code>index()</code> function. I also included a line to convert the temperature from &deg;F to &deg;C. When the temperature value comes in from ThingSpeak, it is a string. The temperature value needs to be converted to a float before the &deg;C to &deg;F conversion can be accomplished. After the conversion, the temperature in &deg;F needs to be converted back to a string. A string is needed because the temperature in &deg;F is passed to the <code>render_template()</code> as the parameter <code>temp</code> will be used in a revised version of our jinja template <strong><em>index.html</em></strong>. The extra argument in the <code>render_template()</code> function transfers the variable <code>temp_f</code> from the <strong><em>flaskapp.py</em></strong> file to the jinja template <strong><em>index.html</em></strong>.</p>
+<p>Now we need to use this same web API call shown above in the flask app. Modify <strong><em>flaskapp.py</em></strong> to include the <strong>requests</strong> package and include the web API request as a line the <code>index()</code> function. I also included a line to convert the temperature from &deg;F to &deg;C. When the temperature value comes in from ThingSpeak, it is a string. The temperature value needs to be converted to a float before the &deg;C to &deg;F conversion can be accomplished. After the conversion, the temperature in &deg;F needs to be converted back to a string. A string is needed because the temperature in &deg;F is passed to the <code>render_template()</code> function as the parameter <code>temp</code> will be used in a revised version of our jinja template <strong><em>index.html</em></strong>. The extra argument in the <code>render_template()</code> function transfers the variable <code>temp_f</code> from the <strong><em>flaskapp.py</em></strong> file to the jinja template <strong><em>index.html</em></strong>.</p>
+<div class="highlight"><pre><span></span>$ nano ~/flaskapp/flaskapp.py
+</pre></div>
+
+
+<p>The modified <strong><em>flaskapp.py</em></strong> script is below:</p>
 <div class="highlight"><pre><span></span><span class="c1"># flaskapp.py</span>
 
 <span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span>
@@ -773,19 +825,20 @@ $ nano index.html
 </pre></div>
 
 
-<h2 id="view-the-final-flask-app-in-a-browser">View the final flask app in a browser</h2>
-<p>With the changes to <strong><em>readtemp.py</em></strong> and <strong><em>index.html</em></strong> complete, we can restart the system service and view our app with a web browser. </p>
-<p>The final single page flask web app is complete!</p>
-<div class="highlight"><pre><span></span>$ sudo systemctl start flaskapp
+<h2 id="view-the-final-flask-app-online">View the final flask app online</h2>
+<p>With the changes to <strong><em>readtemp.py</em></strong> and <strong><em>index.html</em></strong> complete, we can restart the flask app system service and view our app with a web browser.</p>
+<div class="highlight"><pre><span></span>$ sudo systemctl stop flaskapp
+$ sudo systemctl start flaskapp
 $ sudo systemctl status flaskapp
-<span class="c1"># ctrl-c to exit</span>
+<span class="c1"># [ctrl-c] to exit</span>
 </pre></div>
 
 
+<p>The final single page flask web app is complete!</p>
 <p>If everything is working correctly, you should see the working app running on your domain looks like this.</p>
 <p><img alt="flask app running" src="./posts/flask/simple_index.png"></p>
 <h2 id="summary">Summary</h2>
-<p>It was a long process setting up this <strong>flask</strong> single page webapp project. A lot for technologies and languages were used. </p>
+<p>It was a long process to construct this <strong>flask</strong> single page webapp project. A lot for technologies and languages were used.</p>
 <p>An incomplete list is below:</p>
 <ul>
 <li>cloud servers</li>

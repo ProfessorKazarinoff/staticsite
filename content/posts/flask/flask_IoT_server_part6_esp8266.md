@@ -9,7 +9,7 @@ Authors: Peter D. Kazarinoff
 Series: Building an IoT Server with Flask and Python
 Series_index: 6
 
-This is the sixth part of a series of posts about building an Internet of Things (IoT) server with **flask**, Python and ESP8266 microcontrollers. In this post we'll add some code to our ESP8266-based weather stations. The code we upload to the ESP8266's will cause the temperature to be measured. After the ESP8266 measures the temperature it will execute a GET request to our **flask** IoT server web API.
+This is the sixth part of a series of posts about building an Internet of Things (IoT) server with **flask**, Python and ESP8266 microcontrollers. In this post we'll add some code to our ESP8266-based weather stations. The code we upload to the ESP8266 microcontrollers will program the WiFi weather stations to measure the temperature. After the ESP8266-based weather stations measures the temperature, the microcontroller will execute a GET request to our **flask** IoT server web API.
 
 [TOC]
 
@@ -27,11 +27,11 @@ Before we upload any new code to the ESP8266-based weather stations, let's revie
 
 ## Upload firmware
 
-If you are following along with this series, you might remember the ESP8266-based WiFi weather station hardware and software setup in the first post of the series. In case the Feather Huzzah ESP8266 microcontroller doesn't have an up-to-date version of Micropython on it, below are instructions detailing how to upload the Micropython firmware to the board.
+If you are following along with this series, you might remember the ESP8266-based WiFi weather station hardware and software setup in the [first post of the series]({filename}/posts/flask/flask_IoT_server_part1_motivation.md). In case the Feather Huzzah ESP8266 microcontroller doesn't have an up-to-date version of Micropython on it, below are instructions detailing how to upload the Micropython firmware to the board.
 
 ### Download the latest micropython firmware .bin file
 
-Go to github and [download the latest .bin firmware](https://micropython.org/download#esp8266) file. Move the .bin firmware file to a new **micropython** directory. The .bin firmware file is the version of Micropython that will run on the Adafruit Feather Huzzah ESP8266. 
+Go to github and [download the latest .bin firmware](https://micropython.org/download#esp8266) file. Move the **_.bin_** firmware file to a new **micropython** directory. The **_.bin_** firmware file is the version of Micropython that will run on the Adafruit Feather Huzzah ESP8266. 
 
 ![.bin firmware on github]({filename}/posts/micropython/firmware_download_page.PNG)
 
@@ -43,11 +43,11 @@ Before we can connect the Adafruit Feather Huzzah to the computer, we need a spe
 
 ### 5. Connect the Adafruit Feather Huzzah ESP8266 board to the laptop
 
-Use a microUSB cable (the same kind of cable that charges many mobile phones) to connect the Feather Huzzah to the computer. Make sure that the microUSB cable is a full USB __data cable__ and not just a simple power cable. I had trouble getting the Feather Huzzah to work, and it turned out the reason was the micoUSB cable was only a charging cable and could not transfer data. 
+Use a microUSB cable (the same kind of cable that charges many mobile phones) to connect the Feather Huzzah to the computer. Make sure that the microUSB cable is a full USB _data cable_ and not just a simple power cable. I had trouble getting the Feather Huzzah to work, and it turned out the reason was the microUSB cable was only a charging cable. Charge-only cables can not transfer data. 
 
 ### Determine which serial port the Feather Huzzah is connected to
 
-Use Windows Device Manager to determine which serial port the Feather Huzzah board is connected to. We will need the serial port as one of the parameters when we upload the .bin firmware file on the board. Look for something like **Silicon Labs CP210x USB to UART Bridge (COM4)** in the **Ports (COM & LPT)** menu. The USB to UART bridge is actually the Feather Huzzah ESP8266 microcontroller board. CP210x refers to the chip that handles serial communication on the Feather Huzzah, not the esp8266 chip itself. Make note of the number after **(COM )**. It often comes up as **(COM4)** but it may be different on your computer. 
+Use Windows Device Manager to determine which serial port the Feather Huzzah board is connected to. We'll need the serial port as one of the parameters when we upload the **_.bin_** firmware file on the board. Look for something like **Silicon Labs CP210x USB to UART Bridge (COM4)** in the **Ports (COM & LPT)** menu. The USB to UART bridge is actually the Feather Huzzah ESP8266 microcontroller board. CP210x refers to the chip that handles serial communication on the Feather Huzzah, not the ESP8266 chip itself. Make note of the number after **(COM )**. It often comes up as **(COM4)** but it may be different on your computer. 
 
 ![Find Device Manager]({filename}/posts/micropython/find_device_manager.png)
 
@@ -55,7 +55,7 @@ Use Windows Device Manager to determine which serial port the Feather Huzzah boa
 
 ### Run esptool to upload the .bin file to the Feather Huzzah
 
-Open the Anaconda Prompt and ```cd``` into the  directory with the **_.bin_** firmware file. The **_.bin_** firmware file will be called something like ```esp8266-20171101-v1.9.3.bin```. Activate a new conda virtual environment and install **esptool** into the environment.
+On a local computer (not the server), open the Anaconda Prompt and ```cd``` into the  directory with the **_.bin_** firmware file. The **_.bin_** firmware file will be called something like ```esp8266-20171101-v1.9.3.bin```. Create and activate a new conda virtual environment and install **esptool** into the environment.
 
 ```text
 > conda create -n micropython python=3.7
@@ -71,7 +71,7 @@ Before we write the **_.bin_** firmware file to the ESP8266, we'll first erase t
 
 ![esptool erase flash]({filename}/posts/micropython/esptool_erase_flash.PNG)
 
-Now it's time to write the **_.bin_** firmware file to the flash memory on the ESP8266 board using the ```esptool write_flash``` command. Make sure to use the exact **_.bin_** firmware file name. The **_.bin_** firmare filename is easy to mistype. ```--port``` has to be set as the port you found in the Windows Device Manager. ```---baud``` is the baud rate (upload speed). I found that ```--baud 460800``` worked, but you could also specify ```--baud 115200``` which is slower. The upload time was a matter of seconds with either baud rate. The ```0``` after ```--flash_size=dectect``` means we want the firmware to be written at the start of the flash memory (the 0th position) on the board. 
+Now it's time to write the **_.bin_** firmware file to the flash memory on the ESP8266 board using the ```esptool write_flash``` command. Make sure to use the exact **_.bin_** firmware file name. The **_.bin_** firmare filename is easy to mistype. ```--port``` has to be set as the port you found in the Windows Device Manager. ```---baud``` is the baud rate (upload speed). I found that ```--baud 460800``` worked, but you could also specify ```--baud 115200```, which is slower. The upload time was a matter of seconds with either baud rate. The ```0``` after ```--flash_size=detect``` means we want the firmware to be written at the start of the flash memory (the 0th position) on the board. 
 
 An issue I ran into was that I tried to use the command ```esptool.py``` instead of ```esptool``` as shown on the [Micropython docs](https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/intro.html#deploying-the-firmware). The documentation for [Micropython on the ESP8266](https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/intro.html#deploying-the-firmware) specifies the command ```esptool.py``` (including the **.py** file extension). This did work on my Windows 10 machine. Omitting the **.py** file extension, and running ```esptool``` worked instead. 
 
@@ -81,9 +81,11 @@ An issue I ran into was that I tried to use the command ```esptool.py``` instead
 
 ![esptool write flash]({filename}/posts/micropython/esptool_write_flash.PNG)
 
+
 ## Construct **_run.py_** files
 
 Now that Micropython is loaded on the board, we'll construct a couple of **_.py_** files to load onto the microcontroller.
+
 
 ## Upload the **_.py_** files
 

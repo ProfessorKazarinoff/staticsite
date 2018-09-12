@@ -178,13 +178,13 @@ $ sudo systemctl status flaskapp
 
 Let's try uploading a datapoint to the server using a valid URL. This GET request from a web browser will save a temperature data point in the database.
 
-> https://mydomain.com/update/API_key=A7LZ3IEY/mac=5c:cf:7f:3b:0d:e8/field=1/data=30
+> https://mydomain.com/update/API_key=DTLZ3LBY/mac=5m:ct:7f:3b:0d:a8/field=1/data=30
 
 ![two temps shown]({filename}/posts/flask/temp_upload_30.png)
 
 Now let's upload another data point, this time using ```field=2``` and ```data=15.2```.
 
-> https://mydomain/update/API_key=A7LZ3IEY/mac=5c:cf:7f:3b:0d:e8/field=2/data=15.2
+> https://mydomain/update/API_key=DTLZ3LBY/mac=5m:ct:7f:3b:0d:a8/field=2/data=15.2
 
 ![two temps shown]({filename}/posts/flask/temp_upload_152.png)
 

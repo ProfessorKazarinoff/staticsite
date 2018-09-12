@@ -82,12 +82,129 @@ An issue I ran into was that I tried to use the command ```esptool.py``` instead
 ![esptool write flash]({filename}/posts/micropython/esptool_write_flash.PNG)
 
 
-## Construct **_run.py_** files
+## Construct **_.py_** files
 
-Now that Micropython is loaded on the board, we'll construct a couple of **_.py_** files to load onto the microcontroller.
+Now that Micropython is loaded on the ESP8266 microcontroller, we'll construct a couple of **_.py_** files to load onto the board. 
+
+The first file is **_wifitools.py_**. This module contains a couple helper functions that allow the ESP8266 to connect to a WiFi network and make GET requests.
+
+```python
+# wifitools.py
+
+import urequests
+
+#https://docs.micropython.org/en/v1.8.6/esp8266/esp8266/tutorial/network_basics.html
+def connect(SSID,password):
+    import network
+    sta_if = network.WLAN(network.STA_IF)
+    if not sta_if.isconnected():
+        print('connecting to network...')
+        sta_if.active(True)
+        sta_if.connect(SSID, password)
+        while not sta_if.isconnected():
+            pass
+    print('network config:', sta_if.ifconfig())
+
+def getmac():
+    import network
+    import ubinascii
+    return ubinascii.hexlify(network.WLAN().config('mac'),':').decode()
+
+def flaskiot_post(API_key,mac_address,field, data):
+    if not isinstance(data, str):
+        data = str(data)
+    if not isinstance(field, str):
+        field = str(field)
+    # https://freetemp.org/update/API_key=ASCIISTR/mac=6c:rf:7f:2b:0e:g8/field=1/data=72.3
+    base_url = 'https://freetemp.org/update'
+    api_key_url = '/API_key=' + API_key
+    mac_url = '/mac=' + mac_address
+    field_url = '/field=' + field
+    data_url = '/data=' + str(data)
+    url = base_url + api_key_url + mac_url + field_url + data_url
+    print(url)
+    response = urequests.get(url)
+    print(response.text)
+```
+
+The second file **_MCP9808.py_** contains a function to read the temperature off of the MCP9808 temperature sensor. 
+
+```python
+# MCP9808.py
+
+# Functions for the  MCP9808 temperature sensor
+# https://learn.adafruit.com/micropython-hardware-i2c-devices/i2c-master
+
+def readtemp():
+    import machine
+    i2c = machine.I2C(scl=machine.Pin(5), sda=machine.Pin(4))
+    byte_data = bytearray(2)
+    i2c.readfrom_mem_into(24, 5, byte_data)
+    value = byte_data[0] << 8 | byte_data[1]
+    temp = (value & 0xFFF) / 16.0
+    if value & 0x1000:
+        temp -= 256.0
+    return temp
+```
+
+The third file **_config.py_**, contains the API key and mac address the ESP8266 will use in the GET requests to send a valid URL to our flask IoT server. **_config.py_** also contains the SSID and WiFi password of the wireless network. The constants ```API_key``` and ```mac``` should be set to the values used in the server script ```flaskapp.py```. Make sure to add this file to **_.gitignore_** in order to keep it out of version control.
+
+```python
+# config.py
+
+# API keys, passwords, mac address
+# keep out of version control
+
+#api_key = config.API_KEY
+API_KEY = 'TGS894F'
+
+#ssid = config.SSID
+SSID = 'My WiFi Network'
+
+#password = config.WIFI_PASSWORD
+WIFI_PASSWORD = 'my_wifi_password'
+
+MAC_ADDRESS = '6c:ef:7r:3b:9d:e8'
+```
+
+The four file **_run.py_**, is a script with one main function that programs the ESP8266 to:
+
+ * connect to the WiFi network
+ * read the temperature off of the MCP9808 temperature sensor
+ * try to post the temperture to our flask IoT server
+ * wait 1 minute
+
+```python
+# run.py
+
+# ESP8266 Feather Huzzah Weather Station, connected to flask IoT server
+
+import wifitools
+import MCP9808
+import time
+import config
+
+def main():
+    ssid = config.SSID
+    password = config.WIFI_PASSWORD
+    api_key = config.API_KEY
+    mac_address = config.MAC_ADDRESS
+    field = '1'
+
+    wifitools.connect(ssid,password)
+    time.sleep(5)
+
+    for i in range(60*8):
+        data = MCP9808.readtemp()
+        try:
+            wifitools.flaskiot_post(api_key,mac_address,field,data)
+        except:
+            pass
+        time.sleep(60)
+```
 
 
-## Upload the **_.py_** files
+## Upload **_.py_** files
 
 We'll use a tool called **ampy** to upload the **_.py_** files to the board. Make sure **ampy** is installed in the virtual environment you're using.
 
@@ -103,24 +220,51 @@ To upload the **_.py_** files, make sure the board is plugged into the computer 
 > (micropython)$ ampy --port COM4 put wifitools.py
 
 > (micropython)$ ampy --port COM4 put config.py
+> (micropython)$ ampy --port COM4 put run.py
 > (micropython)$ ampy --port COM4 ls
 > boot.py
 wifitools.py
 MCP9808.py
 config.py
+run.py
 ```
 
 ## Test ESP8266-based weather stations
 
-Use PuTTY to open up the Micropython REPL
+Connect the ESP8266 to the local computer with a microUSB cable. Use PuTTY to open up the Micropython REPL and try to run the main script in **_run.py_**
 
 ```text
->>>
+>>> import run
+>>> run.main()
+
 ```
 
-## Upload **_main.py_** files
+The temperature will be measured once a minute and posted to our flask IoT server. Open up a web browswer to the server's main page and view the most recient data point.
+
+ > https://mydomain.com
+
+ ![show recent datapoint]({filename}/posts/flask/showrecent.png)
+
+## Upload **_main.py_**
 
 Now that we know our ESP8266-based WiFi weather stations are working correctly, we'll upload a **_main.py_** file to the board that will automatically start recording temperatures and sending the temperature to our flask IoT server web API.
+
+The **_main.py_** script will run automatically when the ESP8266 is powered up. The simple script just contains and import and a line of code to run the ```main()``` function in **_run.py_**.
+
+```python
+# main.py
+
+# runs after boot.py
+
+import run
+
+try:
+    run.main()
+except:
+    pass
+```
+
+After the **_main.py_** script is constructed, it can be uploaded onto the ESP8266 with **ampy**
 
 ```text
 > (micropython) ampy --port COM4 put main.py
@@ -129,8 +273,13 @@ wifitools.py
 MCP9808.py
 config.py
 main.py
+run.py
 ```
+
+Now for the big payoff. Plug the ESP8266 into power, but disconnected from the local computer. Go to the main page on the flask-IoT server and see the temperature measured once a minute.
+
+> https:mydomain.com
 
 ## Summary 
 
-It works! We have a working Internet of Things (IoT) server that has a working web API that ESP8266-based WiFi weather stations can post to.
+It works! We have a working Internet of Things (IoT) server that has a working web API that ESP8266-based WiFi weather stations can post to. This was a big project. It is great to have a set of WiFi weather stations that post the temperature to a server. I can view the temperature on my phone from anywhere with a cell phone connection. The ESP8266-based WiFi weather stations can be plugged in anywhere with power (or run on a battery) within my WiFi network. Using two of the stations, I can see the temperature outside the house and the temperature inside the house from anywhere.

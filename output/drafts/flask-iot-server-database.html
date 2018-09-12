@@ -280,7 +280,7 @@ Python for Undergraduate Engineers            </a>
     </span>
 
             <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x0000025C64AF1390> of 
+            Part <built-in method index of str object at 0x00000288816A1ED0> of 
 
 
 
@@ -300,7 +300,8 @@ Python for Undergraduate Engineers            </a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>This is the fifth part of a series of posts about building an Internet of Things (IoT) server with <strong>flask</strong>, Python and ESP8266 microcontrollers. In this post we'll add a sqlite3 database to our <strong>flask</strong> IoT server to store all the temperature data points that come in from our ESP8266-based WiFi weather stations. We will also build out the main page of the <strong>flask</strong> IoT server site to display the most recent data points pull from the database.</p>
+                <p><img alt="two temps shown" src="/posts/flask/updated_double_temp.png"></p>
+<p>This is the fifth part of a series of posts about building an Internet of Things (IoT) server with <strong>flask</strong>, Python and ESP8266 microcontrollers. In this post we'll add a sqlite3 database to our <strong>flask</strong> IoT server to store all the temperature data points that come in from our ESP8266-based WiFi weather stations. We will also build out the main page of the <strong>flask</strong> IoT server site to display the most recent data points pull from the database.</p>
 <div class="toc"><span class="toctitle">Table of contents:</span><ul>
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#why-an-sqlite3-database">Why an sqlite3 database?</a></li>
@@ -314,31 +315,31 @@ Python for Undergraduate Engineers            </a>
 </ul>
 </div>
 <h2 id="introduction">Introduction</h2>
-<p>In the last post, we built in some validation to our web API so that only certain API keys and mac addresses are allowed. We also used Python's <strong>datetime</strong> module to add a time stamp to each data point as it comes in. </p>
+<p>In the last post, we built in some validation to our web API so that only certain API keys and mac addresses are allowed. We also used Python's <strong>datetime</strong> module to add a time stamp to each data point as it comes in to our flask IoT server. </p>
 <p>This is great, but it would be really nice to <em>save</em> every datapoint that comes in. Right now, when a new data point comes into our server, the previous data point is erased.  </p>
 <p>There are a couple of ways we could store the temperature data that comes in from our ESP8266-baed WiFi weather stations:</p>
 <ul>
-<li>Save the data in a text file. Append new a line to the text file for each new data point.</li>
-<li>Save the data in a .csv file. Add a new line for each data point, seperate fields on one line with a comma or tab.</li>
-<li>Save the data in a pandas dataframe. Store the data points as rows in the dataframe. </li>
-<li>Use a database to store the data points. Each data point saved as a record in the database. </li>
+<li>Save the data in a text file. Append a new line to the text file for each new data point.</li>
+<li>Save the data in a .csv file. Add a new line for each data point, seperate fields on each line with a comma or tab.</li>
+<li>Save the data in a <strong>pandas</strong> dataframe. Store each data points as a row in the dataframe. </li>
+<li>Use a database to store the data. Each data point saved as a record in the database. </li>
 </ul>
 <p>Of the four options above, I decided to use a sqlite3 database to store the data coming in from the <strong>flask</strong> IoT server web API.</p>
 <h2 id="why-an-sqlite3-database">Why an sqlite3 database?</h2>
-<p>Why use an sqlite3 database? One of the key reasons is that the <strong>sqlite3</strong> module is part of the Python Standard Library. We don't have to install any external packages to use <strong>sqlite3</strong>. A sqlite3 database is also light-weight and won't take up a lot of space on our server. But the real reason I choose to use <strong>sqlite3</strong> is that the library has good documentation and I can build off the sqlite3 examples of others. </p>
+<p>Why use an sqlite3 database? One of the key reasons is that the <strong>sqlite3</strong> module is part of the Python Standard Library. We don't have to install any external packages to use <strong>sqlite3</strong>. A sqlite3 database is also light-weight and won't take up a lot of space on our server. But the real reason I choose to use <strong>sqlite3</strong> is that the library has good documentation and I can build off the <strong>sqlite3</strong> examples of others. </p>
 <h2 id="database-design">Database design</h2>
 <p>Before adding any data to the database, we need to think a little bit about database design. </p>
-<p>Our sqlite3 database is going to be a a pretty simple database. I sort of think of the database itself as a Microsoft Excel workbook, a whole Microsoft Excel <strong><em>.xlsx</em></strong> file. We will only employ one <em>table</em> in our sqlite3 database. I think a database table is kind of like a sheet or tab in Microsoft Excel file. Each data point from the WiFi weather stations will represent one <em>record</em> in the database. I kind of think of a record as one row in a Microsoft Excel file. </p>
-<p>The web API we built brings in a couple of identifiers for each datapoint. Based on an a valid URL such as:</p>
+<p>Our sqlite3 database is going to be a a pretty simple database. I think of the database itself as a Microsoft Excel workbook, the whole Microsoft Excel <strong><em>.xlsx</em></strong> file. We will only employ one <em>table</em> in our sqlite3 database. I think a database table is like a sheet or tab in Microsoft Excel file. Each data point from the WiFi weather stations will represent one <em>record</em> in the database. I think of a record as one row in a Microsoft Excel file. </p>
+<p>The web API we built brings in a couple of identifiers with each datapoint. Based on an a valid URL such as:</p>
 <blockquote>
 <p>https://mydomain.com/update/API_key=PHDNGI2345/mac=6c:rf:7f:2b:0e:g8/field=1/data=72.3</p>
 </blockquote>
 <p>In the URL above we've provided:</p>
 <ul>
-<li><code>update</code> (to tell the IoT server to save the data point, not just serve a webpage)</li>
+<li><code>update</code> (to tell the flask IoT server to save the data point, not just serve a webpage)</li>
 <li><code>API_key = PHDNGI2345</code> (to identify the user)</li>
 <li><code>mac = 6c:rf:7f:2b:0e:g8</code> (to identify the ESP8266-based WiFi weather station)</li>
-<li><code>field = 1</code> (to specify this is a temperature data point, not a humidity data point)</li>
+<li><code>field = 1</code> (to specify a temperature data point, not a humidity data point)</li>
 <li><code>data = 72.3</code> (to specify the temperature is 72.3 degrees)</li>
 </ul>
 <p>Our database needs to be able to save these four fields:</p>
@@ -351,7 +352,7 @@ Python for Undergraduate Engineers            </a>
 <p>As well as these two additional fields:</p>
 <ul>
 <li><code>date</code> and <code>time</code></li>
-<li>some sort of primary key that uniquley identifies each record</li>
+<li>some sort of <em>primary key</em> that uniquley identifies each record</li>
 </ul>
 <p>Two example records on our database might look like:</p>
 <table class="table table-striped table-bordered table-hover">
@@ -362,7 +363,7 @@ Python for Undergraduate Engineers            </a>
 <th>mac</th>
 <th>field</th>
 <th>data</th>
-<th>data_time</th>
+<th>date_time</th>
 </tr>
 </thead>
 <tbody>
@@ -615,8 +616,17 @@ Python for Undergraduate Engineers            </a>
 
 </p>
 <h2 id="add-the-sqlite-database-to-the-server">Add the sqlite database to the server</h2>
-<p>OK- after playing around with <strong>sqlite3</strong>, we can now add some code to our flask IoT server web API. Let's code in a database connection, cursor object creation and record execution. This code belongs in the <code>/update/...</code> route.</p>
-<div class="highlight"><pre><span></span><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&quot;/update/API_key=&lt;api_key&gt;/mac=&lt;mac&gt;/field=&lt;int:field&gt;/data=&lt;data&gt;&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<p>OK- after playing around with <strong>sqlite3</strong>, let's add some code to our flask IoT server web API. Let's code in a database connection, cursor object creation and record execution. This code belongs in the <code>"/update/..."</code> route of the <strong><em>flaskapp.py</em></strong> file.</p>
+<div class="highlight"><pre><span></span>$ cd ~
+$ cd flaskapp
+$ nano flaskapp.py
+</pre></div>
+
+
+<p>Within the <strong><em>flaskapp.py</em></strong> file, we'll add the database code. </p>
+<div class="highlight"><pre><span></span><span class="c1"># flaskapp.py</span>
+
+<span class="nd">@app.route</span><span class="p">(</span><span class="s2">&quot;/update/API_key=&lt;api_key&gt;/mac=&lt;mac&gt;/field=&lt;int:field&gt;/data=&lt;data&gt;&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
 <span class="k">def</span> <span class="nf">write_data_point</span><span class="p">(</span><span class="n">api_key</span><span class="p">,</span> <span class="n">mac</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">api_key</span> <span class="o">==</span> <span class="n">API_KEY</span> <span class="ow">and</span> <span class="n">mac</span> <span class="o">==</span> <span class="n">MAC_ADDRESS</span><span class="p">):</span>
         <span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;data.db&#39;</span><span class="p">)</span>
@@ -624,12 +634,8 @@ Python for Undergraduate Engineers            </a>
         <span class="n">t</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">tz</span><span class="o">=</span><span class="n">pytz</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span>
         <span class="n">date_time_str</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
         <span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;INSERT INTO data VALUES(:Id, :API_key, :date_time, :mac, :field, :data)&quot;</span><span class="p">,</span>
-              <span class="p">{</span><span class="s1">&#39;Id&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
-              <span class="s1">&#39;API_key&#39;</span><span class="p">:</span> <span class="n">api_key</span><span class="p">,</span>
-              <span class="s1">&#39;date_time&#39;</span><span class="p">:</span> <span class="n">date_time_str</span><span class="p">,</span>
-              <span class="s1">&#39;mac&#39;</span><span class="p">:</span> <span class="n">mac</span><span class="p">,</span>
-              <span class="s1">&#39;field&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">field</span><span class="p">),</span>
-              <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="mi">4</span><span class="p">)})</span>
+              <span class="p">{</span><span class="s1">&#39;Id&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span> <span class="s1">&#39;API_key&#39;</span><span class="p">:</span> <span class="n">api_key</span><span class="p">,</span> <span class="s1">&#39;date_time&#39;</span><span class="p">:</span> <span class="n">date_time_str</span><span class="p">,</span> <span class="s1">&#39;mac&#39;</span><span class="p">:</span> <span class="n">mac</span><span class="p">,</span> <span class="s1">&#39;field&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">field</span><span class="p">),</span>
+               <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="mi">4</span><span class="p">)})</span>
         <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
         <span class="n">c</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
@@ -641,12 +647,14 @@ Python for Undergraduate Engineers            </a>
 </pre></div>
 
 
-<p>At the top of this main script, we'll also include a couple of lines to create the database when the <strong>flask</strong> app starts:</p>
-<div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="s1">&#39;data.db&#39;</span><span class="p">):</span>
+<p>At the top of this main <strong><em>flaskapp.py</em></strong> script, we'll also include a couple of lines to create the database when the <strong>flask</strong> app starts:</p>
+<div class="highlight"><pre><span></span><span class="c1"># flaskapp.py</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="s1">&#39;data.db&#39;</span><span class="p">):</span>
     <span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;data.db&#39;</span><span class="p">)</span>
     <span class="n">c</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
     <span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;CREATE TABLE data (</span>
-<span class="s2">        Id INTEGER PRIMARY KEY AUTOINCREMENT, </span>
+<span class="s2">        Id INTEGER PRIMARY KEY AUTOINCREMENT,</span>
 <span class="s2">        API_key text,</span>
 <span class="s2">        date_time text,</span>
 <span class="s2">        mac text,</span>
@@ -659,8 +667,10 @@ Python for Undergraduate Engineers            </a>
 
 
 <h2 id="update-the-main-webpage-with-the-newest-database-entry">Update the main webpage with the newest database entry</h2>
-<p>Next, we'll update the main page of the <strong>flask</strong> IoT server, the home or <code>/</code> route.</p>
-<div class="highlight"><pre><span></span><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+<p>Next, we'll update the main page of the <strong>flask</strong> IoT server, the home or <code>"/"</code> route.</p>
+<div class="highlight"><pre><span></span><span class="c1">#flaskapp.py</span>
+
+<span class="nd">@app.route</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
     <span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;data.db&#39;</span><span class="p">)</span>
     <span class="n">c</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
@@ -680,6 +690,7 @@ Python for Undergraduate Engineers            </a>
     <span class="n">t2</span> <span class="o">=</span> <span class="n">dateutil</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">time_str2</span><span class="p">)</span>
     <span class="n">t_pst2</span> <span class="o">=</span> <span class="n">t2</span><span class="o">.</span><span class="n">astimezone</span><span class="p">(</span><span class="n">pytz</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="s1">&#39;US/Pacific&#39;</span><span class="p">))</span>
     <span class="n">time_stamp2</span> <span class="o">=</span> <span class="n">t_pst2</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%I:%M:%S %p   %b </span><span class="si">%d</span><span class="s1">, %Y&#39;</span><span class="p">)</span>
+
     <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;showdoubletemp.html&quot;</span><span class="p">,</span> <span class="n">data1</span><span class="o">=</span><span class="n">data1</span><span class="p">,</span> <span class="n">time_stamp1</span><span class="o">=</span><span class="n">time_stamp1</span><span class="p">,</span> <span class="n">data2</span><span class="o">=</span><span class="n">data2</span><span class="p">,</span><span class="n">time_stamp2</span><span class="o">=</span><span class="n">time_stamp2</span><span class="p">)</span>
 </pre></div>
 
@@ -693,10 +704,25 @@ $ sudo systemctl status flaskapp
 </pre></div>
 
 
+<p>Let's try uploading a datapoint to the server using a valid URL. This will save a temperature measurement in the database.</p>
+<blockquote>
+<p>https://freetemp.org/update/API_key=A7LZ3IEY/mac=5c:cf:7f:3b:0d:e8/field=1/data=30</p>
+</blockquote>
+<p><img alt="two temps shown" src="/posts/flask/temp_upload_30.png"></p>
+<p>Now let's upload another data point, this time using <code>field=2</code>.</p>
+<blockquote>
+<p>https://freetemp.org/update/API_key=A7LZ3IEY/mac=5c:cf:7f:3b:0d:e8/field=2/data=15.2</p>
+</blockquote>
+<p><img alt="two temps shown" src="/posts/flask/temp_upload_152.png"></p>
+<p>Now let's browse to the home page of the server and view the temperatures which were saved to the database.</p>
+<blockquote>
+<p>https://mydomain.com</p>
+</blockquote>
+<p><img alt="two temps shown" src="/posts/flask/updated_double_temp.png"></p>
 <h2 id="summary">Summary</h2>
 <p>It works! We have a working sqlite3 database. Each time the web API is hit with a web browser, the data point is saved as a record in the database. Each time we go to the main page of the <strong>flask</strong> IoT server site, we see the most recent temperature posted.</p>
 <h2 id="next-steps">Next steps</h2>
-<p>In the next post, we'll upload new <strong><em>.py</em></strong> files to our ESP8266-based WiFi weather stations. This will give the WiFi weather stations the ability to post temperature data to our <strong>flask</strong> IoT server web API.</p>
+<p>In the next post, we'll upload new <strong><em>.py</em></strong> files to our ESP8266-based WiFi weather stations. This will give the ESP8266-based WiFi weather stations the ability to post temperature data to our <strong>flask</strong> IoT server.</p>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">
@@ -710,7 +736,7 @@ $ sudo systemctl status flaskapp
     </ul>
 </section>
 <section class="well" id="related-posts">
-    <h4>Article <built-in method index of str object at 0x0000025C64AF1390> of the  series</h4>
+    <h4>Article <built-in method index of str object at 0x00000288816A1ED0> of the  series</h4>
 </section>
         </article>
     </section>

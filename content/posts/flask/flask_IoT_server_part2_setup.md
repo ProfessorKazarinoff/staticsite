@@ -61,13 +61,13 @@ One ESP8266-tempsensor combo is used to measure the temperature outside, the oth
 
 ## The starting place
 
-The flask app I built was relatively basic and mainly comprised of 2 files: **_showtemp.py_** and **_index.html_**. The file structure on the Digital Ocean server looks like this:
+The flask app I built was relatively basic and mainly comprised of 2 files: **_flaskapp.py_** and **_index.html_**. The file structure on the Digital Ocean server looks like this:
 
 ```text
 ~/
 └── flaskapp
     ├── flaskapp.ini
-    ├── showtemp.py
+    ├── flaskapp.py
     ├── flaskapp.sock
     ├── flaskappenv
     ├── templates
@@ -75,10 +75,10 @@ The flask app I built was relatively basic and mainly comprised of 2 files: **_s
     └── wsgi.py
 ```
 
-The main file to run the **flask** app is **_showtemp.py_**
+The main file to run the **flask** app is **_flaskapp.py_**
 
 ```python
-# showtemp.py
+# flaskapp.py
 
 from flask import Flask, render_template
 import requests

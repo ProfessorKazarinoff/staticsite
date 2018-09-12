@@ -67,15 +67,15 @@ API_key = GTW89NF3
 mac = mac=6c:rf:7f:2b:0e:g8
 ```
 
-Now, on the server, we'll modify the **_showtemp.py_** file's imports section to import the API key and mac address strings from **_config.py_**. We can import variables as well as functions and classes from separate **_.py_** files.
+Now, on the server, we'll modify the **_flaskapp.py_** file's imports section to import the API key and mac address strings from **_config.py_**. We can import variables as well as functions and classes from separate **_.py_** files.
 
 ```python
-#showtemp.py
+#flaskapp.py
 from flask import Flask, render_template, request
 from config import API_KEY, MAC_ADDRESS
 ```
 
-Now we'll modify the ```@app.route``` section of **_showtemp.py_**:
+Now we'll modify the ```@app.route``` section of **_flaskapp.py_**:
 
 ```python
 @app.route("/update/API_key=<api_key>/mac=<mac>/field=<int:field>/data=<data>", methods=['GET'])
@@ -155,10 +155,10 @@ $ source flaskapp/bin/activate
 $
 ```
 
-Now, the **_showtemp.py_** file can be modified to include **pytz** and Python's **datetime** and **dateutil** libraries in the imports:
+Now, the **_flaskapp.py_** file can be modified to include **pytz** and Python's **datetime** and **dateutil** libraries in the imports:
 
 ```python
-#showtemp.py
+#flaskapp.py
 from flask import Flask, render_template, request
 import datetime
 import os

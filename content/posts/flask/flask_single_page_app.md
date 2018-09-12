@@ -159,13 +159,13 @@ With the Python packages installed, next we'll build a very simple version of th
 ```bash
 (flaskappenv)$ pwd
 # ~/flaskapp
-(flaskappenv)$ nano showtemp.py
+(flaskappenv)$ nano flaskapp.py
 ```
 
-In the **_showtemp.py_** file,  I included the bare minimum flask app to see if it works:
+In the **_flaskapp.py_** file,  I included the bare minimum flask app to see if it works:
 
 ```python
-# showtemp.py
+# flaskapp.py
 
 from flask import Flask
 app = Flask(__name__)
@@ -182,13 +182,13 @@ Some note about editing code in the **nano** text editor thru PuTTY. You can pas
 
 ### Testing the first simple flask app
 
-With the first version of **_showtemp.py_** complete, Let's run the **flask** app for the first time to test that everything is working properly.
+With the first version of **_flaskapp.py_** complete, Let's run the **flask** app for the first time to test that everything is working properly.
 
 To run the **flask** app, I had to make sure I was in the virtual environment built earlier. I also needed to allow port 5000 open on the **ufw** firewall. Port 5000 is the default port **flask** runs on.
 
 ```text
 (flaskappenv)$ sudo ufw allow 5000
-(flaskappenv)$ python showtemp.py
+(flaskappenv)$ python flaskapp.py
 ```
 
 It works! By pointing a browser to the droplet IP address followed by ```:5000```, I can see the simple message: "The temperature is 91.2 F".
@@ -431,12 +431,12 @@ The **_index.html_** template contains a ```<header>``` with the bootstrap3 CDN 
 </html>
 ```
 
-Now we need to modify the **_showtemp.py_** file to point to our **_index.html_** template. A new **flask** function, ```render_template()``` is used. ```render_template()``` must be included in the imports and is used as the ```return``` action of the ```@app.route("/")``` ```index()``` function. 
+Now we need to modify the **_flaskapp.py_** file to point to our **_index.html_** template. A new **flask** function, ```render_template()``` is used. ```render_template()``` must be included in the imports and is used as the ```return``` action of the ```@app.route("/")``` ```index()``` function. 
 
-The revised **_showtemp.py_** file is below.
+The revised **_flaskapp.py_** file is below.
 
 ```python
-# showtemp.py
+# flaskapp.py
 
 from flask import Flask, render_template
 app = Flask(__name__)
@@ -477,10 +477,10 @@ $ source flaskapp/bin/activate
 $
 ```
 
-Now we need to use this same web API call in the flask app. Modify **_showtemp.py_** to include the **requests** package and include the web API request as a line the ```index()``` function. I also included a line to convert the temperature from &deg;F to &deg;C. When the temperature value comes in from ThingSpeak, it is a string. The temperature value needs to be converted to a float before the &deg;C to &deg;F conversion can be accomplished. After the conversion, the temperature in &deg;F needs to be converted back to a string. A string is needed because the temperature in &deg;F is passed to the ```render_template()``` as the parameter ```temp``` will be used in a revised version of our jinja template **_index.html_**. The extra argument in the ```render_template()``` function transfers the variable ```temp_f``` from the **_showtemp.py_** file to the jinja template **_index.html_**.
+Now we need to use this same web API call in the flask app. Modify **_flaskapp.py_** to include the **requests** package and include the web API request as a line the ```index()``` function. I also included a line to convert the temperature from &deg;F to &deg;C. When the temperature value comes in from ThingSpeak, it is a string. The temperature value needs to be converted to a float before the &deg;C to &deg;F conversion can be accomplished. After the conversion, the temperature in &deg;F needs to be converted back to a string. A string is needed because the temperature in &deg;F is passed to the ```render_template()``` as the parameter ```temp``` will be used in a revised version of our jinja template **_index.html_**. The extra argument in the ```render_template()``` function transfers the variable ```temp_f``` from the **_flaskapp.py_** file to the jinja template **_index.html_**.
 
 ```python
-# showtemp.py
+# flaskapp.py
 
 from flask import Flask, render_template
 import requests
@@ -497,7 +497,7 @@ if __name__ == "__main__":
     app.run(host='0.0.0.0')
 ```
 
-Finally, we need to modify the **_index.html_** template and test the whole flask app. We passed a parameter ```temp``` from **_showtemp.py_** to this template. The ```temp``` parameter can be used programmatically in the jinja **_index.html_** template. The value stored in ```temp``` will end up displayed on the working web page. Jinja templates use code blocks that start and end with double curly brackets ```{{ }}```. Our ```temp``` parameter goes into one of these blocks.
+Finally, we need to modify the **_index.html_** template and test the whole flask app. We passed a parameter ```temp``` from **_flaskapp.py_** to this template. The ```temp``` parameter can be used programmatically in the jinja **_index.html_** template. The value stored in ```temp``` will end up displayed on the working web page. Jinja templates use code blocks that start and end with double curly brackets ```{{ }}```. Our ```temp``` parameter goes into one of these blocks.
 
 ```bash
 $ cd ~/flaskapp/templates

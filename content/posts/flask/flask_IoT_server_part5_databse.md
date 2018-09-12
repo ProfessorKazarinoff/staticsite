@@ -1,7 +1,7 @@
 Title: Building an IoT Server with flask and Python - Part 5 Adding a Database
-Date: 2018-09-10 09:01
-Modified: 2018-09-10 09:01
-Status: draft
+Date: 2018-09-12 09:01
+Modified: 2018-09-12 09:01
+Status: published
 Category: flask
 Tags: python, flask, web API, IoT, sensor, esp8266
 Slug: flask-iot-server-database

@@ -140,7 +140,7 @@ $ cd ~
 $ mkdir flaskapp
 $ cd flaskapp
 $ python3.6 -m venv flaskappenv
-$ source flaskapp/bin/activate
+$ source flaskappenv/bin/activate
 ```
 
 With the virtual environment created and activated, install **flask**, **wheel**, **uwsgi** and **requests** with **pip**. We'll use **requests** a little later to pull down temperature data from ThingSpeak.com. Note that ```(flaskappenv)``` is shown before the command prompt when the virtual environment is active. Make sure to only ```pip install``` in the ```(flaskappenv)``` virtual environment.

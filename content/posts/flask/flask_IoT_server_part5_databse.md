@@ -22,7 +22,7 @@ This is great, but it would be really nice to _save_ every datapoint that comes 
 There are a couple of ways we could store the temperature data that comes in from our ESP8266-baed WiFi weather stations:
 
  * Save the data in a text file. Append a new line to the text file for each new data point.
- * Save the data in a .csv file. Add a new line for each data point, seperate fields on one line with a comma or tab.
+ * Save the data in a .csv file. Add a new line for each data point, seperate fields on each line with a comma or tab.
  * Save the data in a **pandas** dataframe. Store each data points as a row in the dataframe. 
  * Use a database to store the data. Each data point saved as a record in the database. 
  
@@ -38,7 +38,7 @@ Before adding any data to the database, we need to think a little bit about data
 
 Our sqlite3 database is going to be a a pretty simple database. I think of the database itself as a Microsoft Excel workbook, the whole Microsoft Excel **_.xlsx_** file. We will only employ one _table_ in our sqlite3 database. I think a database table is like a sheet or tab in Microsoft Excel file. Each data point from the WiFi weather stations will represent one _record_ in the database. I think of a record as one row in a Microsoft Excel file. 
 
-The web API we built brings in a couple of identifiers for each datapoint. Based on an a valid URL such as:
+The web API we built brings in a couple of identifiers with each datapoint. Based on an a valid URL such as:
 
 > https://mydomain.com/update/API_key=PHDNGI2345/mac=6c:rf:7f:2b:0e:g8/field=1/data=72.3
  
@@ -114,7 +114,7 @@ def write_data_point(api_key, mac, field, data):
         return render_template("403.html")
 ```
 
-At the top of this main script, we'll also include a couple of lines to create the database when the **flask** app starts:
+At the top of this main **_showtemp.py_** script, we'll also include a couple of lines to create the database when the **flask** app starts:
 
 ```python
 # showtemp.py
@@ -139,6 +139,8 @@ if not os.path.isfile('data.db'):
 Next, we'll update the main page of the **flask** IoT server, the home or ```"/"``` route.
 
 ```python
+#showtemp.py
+
 @app.route("/")
 def index():
     conn = sqlite3.connect('data.db')
@@ -176,9 +178,9 @@ $ sudo systemctl status flaskapp
 
 Let's try uploading a datapoint to the server using a valid URL
 
-> https:myserver.com/update/API_key=<api_key>/mac=<mac>/field=<int:field>/data=<data>
+> https://mydomain.com/update/API_key=PHDNGI2345/mac=6c:rf:7f:2b:0e:g8/field=1/data=72.3
 
-> https:myserver.com/update/API_key=<api_key>/mac=<mac>/field=<int:field>/data=<data>
+> https://mydomain.com/update/API_key=PHDNGI2345/mac=6c:rf:7f:2b:0e:g8/field=2/data=89.2
 
 Now let's browse to the home page of the server and view the temperatures.
 
@@ -189,4 +191,4 @@ Now let's browse to the home page of the server and view the temperatures.
 It works! We have a working sqlite3 database. Each time the web API is hit with a web browser, the data point is saved as a record in the database. Each time we go to the main page of the **flask** IoT server site, we see the most recent temperature posted.
 
 ## Next steps 
- In the next post, we'll upload new **_.py_** files to our ESP8266-based WiFi weather stations. This will give the WiFi weather stations the ability to post temperature data to our **flask** IoT server web API.
+ In the next post, we'll upload new **_.py_** files to our ESP8266-based WiFi weather stations. This will give the ESP8266-based WiFi weather stations the ability to post temperature data to our **flask** IoT server.

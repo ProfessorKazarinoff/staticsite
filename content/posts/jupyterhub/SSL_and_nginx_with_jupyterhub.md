@@ -153,7 +153,7 @@ Nginx will start running as soon at it is installed. We can see the status with:
 $ sudo systemctl status nginx
 ```
 
-In the output, we should see something like below. This mean nginx is running.
+In the output, we should see something like below. This mean nginx is running. Key in [ctrl-c] to exit the status dashboard.
 
 ```text
 Active: active (running) since Thu 2018-05-17 04:51:16 UTC; 15min ago
@@ -227,10 +227,17 @@ In addition to the SSL certificate, the [Jupyter Hub docs on security basics](ht
 
 ```
 $ cd /srv
-$ cd jupyterhub            #if not present, mkdir it
-$ openssl rand -hex 32 > /srv/jupyterhub/jupyterhub_cookie_secret
+$ mkdir jupyterhub
+$ cd jupyterhub
+$ sudo touch jupyterhub_cookie_secret
+$ sudo chown :sudo jupyterhub_cookie_secret
+$ sudo chmod sudo chmod g+rw jupyterhub_cookie_secret
+$ sudo openssl rand -hex 32 > jupyterhub_cookie_secret
 $ ls
+jupyterhub_cookie_secret
 $ sudo chmod 600 jupyterhub_cookie_secret
+$ ls -l
+-rw------- 1 root sudo 65 Sep 14 17:41 jupyterhub_cookie_secret
 ```
 
 I had trouble with the cookie secret file because I missed where the [jupyterhub docs](http://jupyterhub.readthedocs.io/en/latest/getting-started/security-basics.html#generating-and-storing-as-a-cookie-secret-file) show:
@@ -239,15 +246,21 @@ I had trouble with the cookie secret file because I missed where the [jupyterhub
 
 Now we have a cookie secret file. We need to make note of the location because we'll add this location to the jupyterhub_config.py file later.
 
-To generate the proxy auth token, we can use the same command, but point to a different file. 
+To generate the proxy auth token, we can use the same set of commands, but point to a different file. 
 
 ```
 $ pwd
 # should be in /srv/jupyterhub
-$ openssl rand -hex 32 > proxy_auth_token
-$ sudo chmod 600 proxy_auth_token
+$ sudo touch proxy_auth_token
+$ sudo chown :sudo proxy_auth_token
+$ sudo chmod sudo chmod g+rw proxy_auth_token
+$ sudo openssl rand -hex 32 > proxy_auth_token
 $ ls
-cookie_secret  proxy_auth_token
+jupyterhub_cookie_secret  proxy_auth_token
+$ sudo chmod 600 proxy_auth_token
+$ ls -l
+-rw------- 1 root sudo 65 Sep 14 17:41 jupyterhub_cookie_secret
+-rw------- 1 root sudo 65 Sep 14 17:47 proxy_auth_token
 ```
 
 Now if we list the contents of ```~/srv/jupyterhub``` we should see:
@@ -258,21 +271,28 @@ Now if we list the contents of ```~/srv/jupyterhub``` we should see:
 └── proxy_auth_token
 ```
 
-Also we can generate a dhparam.pem file. I'm not exactly sure what the dhparam.pem file is, but I think it's good for security. First we need to ```cd``` into ```/etc/nginx``` and create a new ```ssl``` directory. Next give the ```ssl``` directory 777 permissions and ```touch``` a new file called dhparam.pem. After that we can use openssl to generate the dhparams.pem file. Note the location of this file as we will add it to the nginx config file.
+Also we can generate a dhparam.pem file. I'm not exactly sure what the dhparam.pem file is, but I think it's good for security. First we need to ```cd``` into the ```/srv/jupyterhub``` directory. Next  ```touch``` a new file called dhparam.pem. After that we can use ```chown``` and ```chmod``` to be able to write to the dhparams.pem file. The ```openssl dhparam``` command is used to generate the .pem file. Finally we modify the permissions again to ```600``` (owner-only rw). Note the location of this file as we will add it to the nginx config file.
 
 ```
-cd /etc/nginx
-sudo mkdir ssl
-sudo chmod 777 -R ssl/
-touch ssl/dhparam.pem
-sudo openssl dhparam -out /etc/nginx/ssl/dhparam.pem 2048
+$ cd /srv/jupyterhub
+$ sudo touch dhparam.pem
+$ sudo chown :sudo dhparam.pem
+$ sudo chmod g+rw dhparam.pem
+$ sudo openssl dhparam -out /srv/jupyterhub/dhparam.pem 2048
+$ sudo chmod 600 dhparam.pem
+$ ls -l
+-rw------- 1 root sudo 424 Sep 14 17:59 dhparam.pem
+-rw------- 1 root sudo  65 Sep 14 17:41 jupyterhub_cookie_secret
+-rw------- 1 root sudo  65 Sep 14 17:47 proxy_auth_token
 ```
 
 <br>
 
 ### 5. Modify nginx config
 
-The next step is to modify the nginx config file so that nginx uses our SSL certificates and routes requests on to **jupyterhub**. This was the hardest part for me when I set up the first server. The nginx config file isn't Python code or bash script. I went through many different configurations until I got one that worked. The big initial problem that I copied the sample nginx config that's up on the Jupyter Hub docs. But the nginx config posted on the **jupyterhub** docs is not a complete nginx config, it contains just the server portion. I didn't know that the whole server portion needed to be enclosed in another frame.
+The next step is to modify the nginx config file so that nginx uses our SSL certificates and routes requests on to **jupyterhub**. This was the hardest part for me when I set up the first server. The nginx config file isn't Python code or a bash script. I went through many different configurations until I got one that worked. 
+
+The big initial problem was that I copied the sample nginx config that's up on the Jupyter Hub docs. But the nginx config posted on the **jupyterhub** docs is not a complete nginx config, it contains just the server portion. I didn't know that the whole server portion needed to be enclosed in another frame.
  
 To modify ```nginx.conf```, ```cd``` into the ```/etc/nginx``` directory. The nginx.conf file should be there along with a couple other files and directories.
 
@@ -318,7 +338,7 @@ http {
     # All regular http requests on port 80 become SSL/HTTPS requests on port 32
     server {
         listen 80;
-        server_name notebooks.problemsolvingwithpython.com;
+        server_name notebooks.problemsolving101withpython.com;
 
         # Tell all requests to port 80 to be 302 redirected to HTTPS
         return 302 https://$host$request_uri;
@@ -328,15 +348,15 @@ http {
         #listen 443 ssl default_server;
         listen 443;
         ssl on;
-        server_name notebooks.problemsovlingwithpython.com;
+        server_name notebooks.problemsovling101withpython.com;
 
         ## SSL Protocals
-        ssl_certificate /etc/letsencrypt/live/notebooks.problemsolvingwithpython.com/fullchain.pem;
-        ssl_certificate_key /etc/letsencrypt/live/notebooks.problemsolvingwithpython.com/privkey.pem;
+        ssl_certificate /etc/letsencrypt/live/notebooks.problemsolving101withpython.com/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/notebooks.problemsolving101withpython.com/privkey.pem;
 
         ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
         ssl_prefer_server_ciphers on;
-        ssl_dhparam /etc/nginx/ssl/dhparam.pem;
+        ssl_dhparam /srv/jupyterhub/dhparam.pem;
 
         # Make site accessible from http://localhost/
         #server_name localhost;
@@ -420,12 +440,18 @@ Now we'll restart nginx and start jupyterhub. Not that this time when we start j
 ```
 $ sudo systemctl stop nginx
 $ sudo systemctl start nginx
+$ sudo systemctl status nginx
+# [ctrl-c] to exit
+```
 
+Restart the jupyterhub without the ```--no-ssl``` flag.
+
+```
 $ cd ~
 $ jupyterhub
 ```
 
-Now we can browse to our domain and see Jupyter Hub running in its full SSL glory. Log in with the non-root sudo username and password (same user that's running the PuTTY session).
+Log in with the non-root sudo username and password (same user that's running the PuTTY session). Now we can browse to our domain and see Jupyter Hub running in its full SSL glory.
 
 <br>
 

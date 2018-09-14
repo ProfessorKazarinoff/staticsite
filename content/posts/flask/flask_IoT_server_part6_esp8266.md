@@ -167,7 +167,7 @@ WIFI_PASSWORD = 'my_wifi_password'
 MAC_ADDRESS = '6c:ef:7r:3b:9d:e8'
 ```
 
-The four file **_run.py_**, is a script with one main function that programs the ESP8266 to:
+The fourth file **_run.py_**, is a script with one main function that programs the ESP8266 to:
 
  * connect to the WiFi network
  * read the temperature off of the MCP9808 temperature sensor
@@ -261,7 +261,7 @@ import run
 try:
     run.main()
 except:
-    pass
+    print("main() function in run.py could not be executed")
 ```
 
 After the **_main.py_** script is constructed, it can be uploaded onto the ESP8266 with **ampy**

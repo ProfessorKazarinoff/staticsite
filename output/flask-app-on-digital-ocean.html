@@ -433,7 +433,7 @@ $ sudo apt-get install build-essential libssl-dev libffi-dev
 
 
 <h3 id="create-a-virtual-environment-and-install-flask">Create a virtual environment and install <strong>flask</strong></h3>
-<p>Once the necessary libraries are installed, I created a virtual environment to run the flask app. I usually use <strong>conda</strong> to create virtual environments (see <a href="./new-virtual-environment-with-conda.html">this post</a>), but since I'm not using the Anaconda distribution of Python for this flask app, <strong>venv</strong> will have to do instead.</p>
+<p>Once the necessary libraries are installed, I created a virtual environment to run the flask app. I usually use <strong>conda</strong> to create virtual environments (see <a href="{filename}/posts/new_virtualenv_conda.md">this post</a>), but since I'm not using the Anaconda distribution of Python for this flask app, <strong>venv</strong> will have to do instead.</p>
 <div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~
 $ mkdir flaskapp
 $ <span class="nb">cd</span> flaskapp
@@ -733,7 +733,7 @@ $ sudo systemctl status flaskapp
 </pre></div>
 
 
-<p><img alt="temp inside" src="{filename}/posts/jupyterhub/temp_inside.png"></p>
+<p><img alt="temp inside" src="./posts/flask/temp_inside.png"></p>
 <h2 id="pull-the-temperature-from-thingspeakcom-with-requests">Pull the temperature from ThingSpeak.com with <strong>requests</strong></h2>
 <p>The final step of this flask single page app project is to dynamically pull the temperature from ThingSpeak.com and show it as a web page.</p>
 <p>Right now the flask app only shows the static temperature <code>91.4 F</code>.  However, the whole point of the app is to see the current temperatures the WiFi weather stations measure.</p>
@@ -867,8 +867,8 @@ $ sudo systemctl status flaskapp
         <li><a href="./flask-iot-server-validation-time-stamps.html">Building an IoT Server with flask and Python - Part 4 Validation and Timestamps</a></li>
         <li><a href="./flask-iot-server-setup.html">Building an IoT Server with flask and Python - Part 2 Set Up</a></li>
         <li><a href="./flask-iot-server-motivation.html">Building an IoT Server with Flask and Python - Part 1 Motivation</a></li>
+        <li><a href="./flask-iot-server-upload-code-to-esp8266.html">Building an IoT Server with flask and Python - Part 6 - upload code to ESP8266-based WiFi weather stations</a></li>
         <li><a href="./flask-iot-server-database.html">Building an IoT Server with flask and Python - Part 5 Adding a Database</a></li>
-        <li><a href="./flask-iot-server-web-API.html">Building an IoT Server with flask and Python - Part 3 Web API</a></li>
     </ul>
 </section>
         </article>
@@ -893,9 +893,9 @@ $ sudo systemctl status flaskapp
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
+    <li class="list-group-item"><a href="./flask-iot-server-upload-code-to-esp8266.html">Building an IoT Server with flask and Python - Part 6 - upload code to ESP8266-based WiFi weather stations</a></li>
     <li class="list-group-item"><a href="./flask-iot-server-database.html">Building an IoT Server with flask and Python - Part 5 Adding a Database</a></li>
     <li class="list-group-item"><a href="./flask-iot-server-validation-time-stamps.html">Building an IoT Server with flask and Python - Part 4 Validation and Timestamps</a></li>
-    <li class="list-group-item"><a href="./circuit-diagram-problem-with-schemdraw.html">Solving a Circuit Diagram Problem with Python and SchemDraw</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
@@ -904,7 +904,7 @@ $ sudo systemctl status flaskapp
 <li class="list-group-item">
   <a href="./"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
   <ul class="list-group list-inline tagcloud" id="tags">
-    <li class="list-group-item tag-3">
+    <li class="list-group-item tag-4">
       <a href="./tag/esp8266.html">esp8266</a>
     </li>
     <li class="list-group-item tag-4">
@@ -922,10 +922,10 @@ $ sudo systemctl status flaskapp
     <li class="list-group-item tag-3">
       <a href="./tag/jupyter-notebooks.html">jupyter notebooks</a>
     </li>
-    <li class="list-group-item tag-3">
+    <li class="list-group-item tag-4">
       <a href="./tag/micropython.html">micropython</a>
     </li>
-    <li class="list-group-item tag-3">
+    <li class="list-group-item tag-4">
       <a href="./tag/pelican.html">pelican</a>
     </li>
     <li class="list-group-item tag-1">

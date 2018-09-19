@@ -1,7 +1,7 @@
 Title: Building an IoT Server with flask and Python - Part 6 - upload code to ESP8266-based WiFi weather stations
-Date: 2018-09-11 09:01
-Modified: 2018-09-11 09:01
-Status: draft
+Date: 2018-09-19 09:01
+Modified: 2018-09-19 09:01
+Status: published
 Category: flask
 Tags: python, flask, IoT, sensor
 Slug: flask-iot-server-upload-code-to-esp8266
@@ -9,19 +9,21 @@ Authors: Peter D. Kazarinoff
 Series: Building an IoT Server with Flask and Python
 Series_index: 6
 
+![ESP8266 with sensor]({filename}/posts/flask/esp8266-based_wifi_weather_station.png)
+
 This is the sixth part of a series of posts about building an Internet of Things (IoT) server with **flask**, Python and ESP8266 microcontrollers. In this post, we'll add some code to our ESP8266-based weather stations. The code we upload to the ESP8266 microcontrollers programs the WiFi weather stations to measure the temperature. After the ESP8266-based weather stations measure the temperature, the microcontroller executes a GET request to our **flask** IoT server web API.
 
 [TOC]
 
 ## Introduction
 
-In the last post, we added a database to our **flask** IoT server. Each time our flask IoT server web API is hit with a valid URL, the data contained in the URL is saved as a record in a sqlite3 database on the server. Each time we browse to the main page of the **flask** IoT server site, we see the most recent temperature posted. The posted temperature is pulled from the sqlite3 database. 
+In the last post, we added a database to our **flask** IoT server. Each time our **flask** IoT server web API is hit with a valid URL, the data contained in the URL is saved as a record in a sqlite3 database on the server. Each time we browse to the main page of the **flask** IoT server site, we see the most recent temperature posted. The posted temperature is pulled from the sqlite3 database. 
 
-In this post, we are going to create a couple new **_.py_** files and upload the **_.py_** files to the ESP8266-based WiFi weather stations. These **_.py_** files enable the ESP8266-based WiFi weather stations to measure the temperature, then post the temperature to our flask IoT server.
+In this post, we are going to create a couple new **_.py_** files and upload the **_.py_** files to the ESP8266-based WiFi weather stations. These **_.py_** files enable the ESP8266-based WiFi weather stations to measure the temperature, then post the temperature to our **flask** IoT server.
 
 ## Hardware Setup
 
-Before we upload any new code to the ESP8266-based weather stations, let's review the hardware setup. Below is a schematic of the ESP8266-based weather stations. The schematic shows an ESP8266 microcontroller (an Adafruit Feather Huzzah ESP8266) connected to a temperature sensor (MCP9808) with jumper wires.
+Before we upload any new code to the ESP8266-based weather stations, let's review the hardware setup. Below is a schematic of the ESP8266-based weather stations. The schematic shows an ESP8266 microcontroller (an [Adafruit Feather Huzzah ESP8266](https://www.adafruit.com/product/2821)) connected to a temperature sensor ([MCP9808](https://www.adafruit.com/product/1782)) with jumper wires.
 
 ![fritzing sketch]({filename}/posts/micropython/feather_huzzah_temp_sensor_fritzing.png)
 
@@ -41,9 +43,9 @@ Before we can connect the Adafruit Feather Huzzah to the computer, we need a spe
 
 ![SiLabs Driver]({filename}/posts/micropython/download_silabs_driver.PNG)
 
-### 5. Connect the Adafruit Feather Huzzah ESP8266 board to the laptop
+### Connect the Adafruit Feather Huzzah ESP8266 board to the laptop
 
-Use a micro-USB cable (the same kind of cable that charges many mobile phones) to connect the Feather Huzzah to the computer. Make sure that the micro-USB cable is a full USB _data cable_ and not just a simple power cable. I had trouble getting the Feather Huzzah to work, and it turned out the reason was the micro-USB cable was only a charging cable. Charge-only cables cannot transfer data. 
+Use a micro-USB cable (the same kind of cable that charges many mobile phones) to connect the Feather Huzzah to the computer. Make sure that the micro-USB cable is a full USB _data cable_ and not just a simple power cable. I had trouble getting the Feather Huzzah to work, and it turned out the reason was my micro-USB cable was only a charging cable. Charge-only cables cannot transfer data. 
 
 ### Determine which serial port the Feather Huzzah is connected to
 
@@ -55,7 +57,7 @@ Use Windows Device Manager to determine which serial port the Feather Huzzah boa
 
 ### Run esptool to upload the .bin file to the Feather Huzzah
 
-On a local computer (not the server), open the Anaconda Prompt and ```cd``` into the directory with the **_.bin_** firmware file. The **_.bin_** firmware file is called something like ```esp8266-20171101-v1.9.3.bin```. Create and activate a new conda virtual environment and install **esptool** into the environment.
+On a local computer (not the server), open the Anaconda Prompt or a terminal and ```cd``` into the directory with the **_.bin_** firmware file. The **_.bin_** firmware file is called something like ```esp8266-20171101-v1.9.3.bin```. Create and activate a new conda virtual environment and install **esptool** into the environment.
 
 ```text
 > conda create -n micropython python=3.7
@@ -127,7 +129,7 @@ def flaskiot_post(API_key,mac_address,field, data):
     print(response.text)
 ```
 
-The second file **_MCP9808.py_** contains a function to read the temperature off of the MCP9808 temperature sensor. 
+The second file **_MCP9808.py_**, contains a function to read the temperature off of the MCP9808 temperature sensor. 
 
 ```python
 # MCP9808.py
@@ -147,7 +149,7 @@ def readtemp():
     return temp
 ```
 
-The third file **_config.py_**, contains the API key and mac address the ESP8266 uses in the GET requests to send a valid URL to our flask IoT server. **_config.py_** also contains the SSID and WiFi password of the wireless network. The constants ```API_key``` and ```mac``` should be set to the values used in the server script ```flaskapp.py```. Make sure to add this file to **_.gitignore_** to keep it out of version control.
+The third file, **_config.py_**, contains the API key and mac address the ESP8266 uses in the GET requests to send a valid URL to our flask IoT server. **_config.py_** also contains the SSID and WiFi password of the wireless network. The constants ```API_key``` and ```mac``` should be set to the values used in the server script ```flaskapp.py```. Make sure to add this file to **_.gitignore_** to keep it out of version control.
 
 ```python
 # config.py
@@ -167,7 +169,7 @@ WIFI_PASSWORD = 'my_wifi_password'
 MAC_ADDRESS = '6c:ef:7r:3b:9d:e8'
 ```
 
-The fourth file **_run.py_**, is a script with one primary function that programs the ESP8266 to:
+The fourth file - **_run.py_**, is a script with one primary function. The function programs the ESP8266 to:
 
  * connect to the WiFi network
  * read the temperature off of the MCP9808 temperature sensor

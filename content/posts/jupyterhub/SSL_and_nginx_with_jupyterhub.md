@@ -231,7 +231,7 @@ $ mkdir jupyterhub
 $ cd jupyterhub
 $ sudo touch jupyterhub_cookie_secret
 $ sudo chown :sudo jupyterhub_cookie_secret
-$ sudo chmod sudo chmod g+rw jupyterhub_cookie_secret
+$ sudo chmod g+rw jupyterhub_cookie_secret
 $ sudo openssl rand -hex 32 > jupyterhub_cookie_secret
 $ ls
 jupyterhub_cookie_secret
@@ -253,7 +253,7 @@ $ pwd
 # should be in /srv/jupyterhub
 $ sudo touch proxy_auth_token
 $ sudo chown :sudo proxy_auth_token
-$ sudo chmod sudo chmod g+rw proxy_auth_token
+$ sudo chmod g+rw proxy_auth_token
 $ sudo openssl rand -hex 32 > proxy_auth_token
 $ ls
 jupyterhub_cookie_secret  proxy_auth_token

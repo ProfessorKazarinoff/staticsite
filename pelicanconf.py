@@ -19,6 +19,7 @@ STATIC_PATHS = ['images','extra',
                 'code',
                 'code/circuit_diagrams',
                 'code/flask',
+                'code/sympy',
                 'posts/jupyter',
                 'posts/jupyterhub',
                 'posts/fairtalk'

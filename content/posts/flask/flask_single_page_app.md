@@ -140,7 +140,7 @@ $ sudo apt-get install build-essential libssl-dev libffi-dev
 
 ### Create a virtual environment and install **flask**
 
-Once the necessary libraries are installed, I created a virtual environment to run the flask app. I usually use **conda** to create virtual environments (see [this post]({filename}/posts/new_virtualenv_conda.md)), but since I'm not using the Anaconda distribution of Python for this flask app, **venv** will have to do instead.
+Once the necessary libraries are installed, I created a virtual environment to run the flask app. I usually use **conda** to create virtual environments (see [this post]({filename}/posts/virtual_environments/new_virtualenv_conda.md)), but since I'm not using the Anaconda distribution of Python for this flask app, **venv** will have to do instead.
 
 ```bash
 $ cd ~

@@ -7,4 +7,4 @@ Tags: python, statistics
 Slug: statistics-in-python-using-the-statistics-module
 Authors: Peter D. Kazarinoff
 
-{% notebook ../code/statistics/mean_med_mode_std.ipynb %}
+{% notebook ../code/statistics/mean_median_mode_stdev_statistics_module.ipynb %}

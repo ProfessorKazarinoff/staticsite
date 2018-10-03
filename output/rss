@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0"><channel><title>Python for Undergraduate Engineers</title><link>https://pythonforundergradengineers.com/</link><description></description><lastBuildDate>Wed, 03 Oct 2018 09:01:00 -0700</lastBuildDate><item><title>Solving Equations and Writing Expressions with SymPy and Python</title><link>https://pythonforundergradengineers.com/sympy-expressions-and-equations.html</link><description>&lt;p&gt;
+<rss version="2.0"><channel><title>Python for Undergraduate Engineers</title><link>https://pythonforundergradengineers.com/</link><description></description><lastBuildDate>Wed, 03 Oct 2018 10:30:00 -0700</lastBuildDate><item><title>Solving Two Equations for Two Unknowns and a Statics Problem with SymPy and Python</title><link>https://pythonforundergradengineers.com/sympy-two-equations-for-two-unknows-and-statics-problem.html</link><description>&lt;p&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;&lt;strong&gt;SymPy&lt;/strong&gt; &lt;a href="http://www.sympy.org"&gt;(http://www.sympy.org)&lt;/a&gt; is a Python library for &lt;strong&gt;symbolic math&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;In symbolic math, symbols represent mathematical expressions. In a &lt;em&gt;numerical calculation&lt;/em&gt;, the value of &lt;code&gt;pi&lt;/code&gt; is stored as an estimate of &lt;code&gt;pi&lt;/code&gt;, a floating point number close to &lt;code&gt;3.14...&lt;/code&gt;. In a &lt;em&gt;symbolic math expression&lt;/em&gt;, the value of …&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Peter D. Kazarinoff</dc:creator><pubDate>Wed, 03 Oct 2018 10:30:00 -0700</pubDate><guid isPermaLink="false">tag:pythonforundergradengineers.com,2018-10-03:/sympy-two-equations-for-two-unknows-and-statics-problem.html</guid><category>python</category><category>sympy</category><category>symbolic math</category></item><item><title>Solving Equations and Writing Expressions with SymPy and Python</title><link>https://pythonforundergradengineers.com/sympy-expressions-and-equations.html</link><description>&lt;p&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;

@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0"><channel><title>Python for Undergraduate Engineers</title><link>https://pythonforundergradengineers.com/</link><description></description><lastBuildDate>Wed, 03 Oct 2018 10:30:00 -0700</lastBuildDate><item><title>Solving Two Equations for Two Unknowns and a Statics Problem with SymPy and Python</title><link>https://pythonforundergradengineers.com/sympy-two-equations-for-two-unknows-and-statics-problem.html</link><description>&lt;p&gt;
+<rss version="2.0"><channel><title>Python for Undergraduate Engineers</title><link>https://pythonforundergradengineers.com/</link><description></description><lastBuildDate>Fri, 05 Oct 2018 06:01:00 -0700</lastBuildDate><item><title>Statistics in Python using the statistics module</title><link>https://pythonforundergradengineers.com/statistics-in-python-using-the-statistics-module.html</link><description>&lt;p&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;In this post, we'll look at a couple of statistics functions in Python. These statistics functions are part of the Python Standard Library in the &lt;strong&gt;statistics&lt;/strong&gt; module. The four functions we'll use in this post are common in statistics:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;mean - average value&lt;/li&gt;
+&lt;li&gt;median - middle value&lt;/li&gt;
+&lt;li&gt;mode - most often value&lt;/li&gt;
+&lt;li&gt;standard …&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Peter D. Kazarinoff</dc:creator><pubDate>Fri, 05 Oct 2018 06:01:00 -0700</pubDate><guid isPermaLink="false">tag:pythonforundergradengineers.com,2018-10-05:/statistics-in-python-using-the-statistics-module.html</guid><category>python</category><category>statistics</category></item><item><title>Solving Two Equations for Two Unknowns and a Statics Problem with SymPy and Python</title><link>https://pythonforundergradengineers.com/sympy-two-equations-for-two-unknows-and-statics-problem.html</link><description>&lt;p&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;

@@ -1,7 +1,7 @@
 Title: Statistics in Python using the statistics module
-Date: 2018-10-01 09:01
-Modified: 2018-10-01 09:01
-Status: draft
+Date: 2018-10-05 06:01
+Modified: 2018-10-05 06:01
+Status: published
 Category: statistics
 Tags: python, statistics
 Slug: statistics-in-python-using-the-statistics-module

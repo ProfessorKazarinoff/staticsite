@@ -25,6 +25,7 @@ STATIC_PATHS = ['images','extra',
                 'posts/jupyterhub',
                 'posts/fairtalk'
                 'posts/matplotlib/images',
+                'posts/matplotlib',
                 'posts/schemdraw',
                 'posts/flask',]  # removed this, see if any change 'code',
 PLUGIN_PATHS = ['pelican-plugins']

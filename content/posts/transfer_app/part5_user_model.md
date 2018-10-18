@@ -199,6 +199,8 @@ The thing that eventually worked was deleting the db.sqlite3 file in the base pr
 (transfer)> python manage.py migrate
 ```
 
+Running makemigrations and migtrate created a new db.sqlite3 file and seems to work. Once users are created, this is obviously a poor solution. We don't want to erase the entire database each time we make a change to the app, but erasing the database worked to solve the problem right now. 
+
 
 ## Create a super user at the command line
 
@@ -208,18 +210,73 @@ We need to create a super user at the command line so that we can log into the D
 (transfer) > python manage.py createsuperuser
 ```
 
+You'll be asked for a username, email address and password. Note that the email address we use has to be different from the email address that will eventually be used with the email service.
+
+# Start the local server and log into the Django Admin
+
+Now let's see if our user model worked. Run the Django project locally with:
+
+```text
+(transfer)> python manage.py runserver
+```
+
+Open up a web browser and browse to:
+
+ > http://localhost:8000/admin
+
+The Django admin looks something like below. Log in with the new superuser username and password that we just set up.
+
+![Django admin login]({filename}/posts/transfer_app/images/djano_admin_login.png)
+
+After logging in with the superuser credentials, the Django admin dashboard pops up.
+
+![Django admin dashboard]({filename}/posts/transfer_app/images/django_admin_dashboard.png)
+
+
 ## Create users with the django admin
 
-## Make sign-up page
+Using the Django admin dashboard, create a new user by clicking the [+user] button.
 
-## Make login page
+![Django admin create new user]({filename}/posts/transfer_app/django_admin_create_new_user)
 
-## Make logout page
+## Mondify the user app admin.py to include the fields 'job' and 'university'
 
-## Test user functionality
+We can only see USERNAME, EMAIL ADDRESS, FIRST NAME, LAST NAME, and STAFF STATUS when we look at the Django admin pannel. Our custom fields 'university' and 'job' are not shown. To make these show up, we need to modify the /users/admin.py file and include a list_disply of all the fields we want shown.
+
+```python
+# users/admin.py
+
+from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
+
+from .forms import CustomUserCreationForm, CustomUserChangeForm
+from .models import CustomUser
+
+
+class CustomUserAdmin(UserAdmin):
+    add_form = CustomUserCreationForm
+    form = CustomUserChangeForm
+    model = CustomUser
+    list_display = ['username','email','university','job','is_staff']
+
+
+admin.site.register(CustomUser,CustomUserAdmin)
+```
+
+Restart the server with
+
+```text
+(transfer)> python manage.py runserver
+```
+
+Browse to the user dashboard and see the new fields presented.
+
+![django admin]({filename}\posts\transfer_app\images\django_admin_custom_fields_added.png)
 
 ## Summary
 
+That was a ton of work, but we got the new user model working. We created the users app, added a user model to the users app and then incorporated the user model into the Django admin. Then we ran the Django admin and created a new user. Finally we modified the users/admin.py file so that we could see our custom fields 'university' and 'job' listed on the Django admin users pannel
+
 ## Future Work
 
-Next, we'll provide a way for users to change their passwords. We will also build a way for users to get an email if they forget thier password.
+Next, we'll incorporate a way for users to log in. We have the ability to create new users through the Django admin pannel. Now we need a way for those users to log in and out of the site. 

@@ -159,6 +159,35 @@ If will click [Profile] from the drop down menu, we are brought to the profile p
 
 ![Profile Page Logged in as Peter]({filename}/posts/transfer_app/images/profile_page_logged_in_as_peter.png)
 
+## Build tests for profile page
+
+Since we have a new page, we need to write some new tests. We already have a couple tests. There is a test for the homepage, about page, login page and logoutpage. We can improve our test coverage by adding tests for the new profile page.
+
+```python
+# pages/tests.py
+
+...
+
+class ProfilePageTests(TestCase):
+        def test_profile_page_status_code(self):
+        response = self.client.get('/users/profile/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_profile_view_uses_correct_template(self):
+        response = self.client.get(reverse('users/profile')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, '/users/profile.html')
+
+```
+
+Now let's run our tests and see if they all pass. At the Anaconda Prompt, type:
+
+```text
+(transfer) > python manage.py test
+```
+
+The tests passed! Now our Django app has a working profile page.
+
 ## Summary
 
 In this post we created a user profile page that shows the users username, email, university and position.

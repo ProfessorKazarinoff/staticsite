@@ -56,7 +56,7 @@ INSTALLED_APPS = [
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-```
+...
 
 ```
 
@@ -175,7 +175,7 @@ We have a login template, a login url and a login view. What we need now is a li
 
 Start the local server with:
 
-```
+```text
 (transfer) > python manage.py runserver
 ```
 
@@ -203,6 +203,59 @@ LOGIN_URL = 'login'
 Now go back to the login page, log in again and see we are directed back to the homepage.
 
 ![Login Page Login Link]({filename}/posts/transfer_app/images/home_page_after_login.png)
+
+## Build tests for login page
+
+Since we have two new pages, we need to write some new tests. We already have a couple tests. There is a test for the homepage and a test for the about page. We can improve these tests by adding an ```assertTemplateUsed()``` test for both pages.
+
+```python
+# pages/tests.py
+
+from django.test import SimpleTestCase, TestCase
+
+class HomePageTests(SimpleTestCase):
+
+    def test_home_page_status_code(self):
+        response = self.client.get('/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_home_view_uses_correct_template(self):
+        response = self.client.get(reverse('home')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'home.html')
+
+
+class AboutPageTests(SimpleTestCase):
+
+    def test_about_page_status_code(self):
+        response = self.client.get('/about/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_about_view_uses_correct_template(self):
+        response = self.client.get(reverse('about')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'about.html')
+
+class LoginPageTests(SimpleTestCase):
+
+        def test_login_page_status_code(self):
+        response = self.client.get('/logout/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_login_view_uses_correct_template(self):
+        response = self.client.get(reverse('logout')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, '/users/login.html')
+
+```
+
+Now let's run our tests and see if they all pass. At the Anaconda Prompt, type:
+
+```text
+(transfer) > python manage.py test
+```
+
+Everything passes! Great. Another part of the Django project down.
 
 ## Summary
 

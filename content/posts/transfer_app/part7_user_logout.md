@@ -265,6 +265,33 @@ If will click [logout] from the drop down menu, we are brought back to log out s
 
 ![Home Page Logged in as Peter]({filename}/posts/transfer_app/images/logout_page_showing_login_button.png)
 
+## Build tests for logout pages
+
+Since we have a new page, we need to write some new tests. We already have a couple tests. There is a test for the homepage, about page and login page. We can improve our test coverage by adding tests for the logout page.
+
+```python
+# pages/tests.py
+
+...
+
+class LogoutPageTests(SimpleTestCase):
+        def test_logout_page_status_code(self):
+        response = self.client.get('/logout/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_about_view_uses_correct_template(self):
+        response = self.client.get(reverse('logout')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, '/users/logout.html')
+
+```
+
+Now let's run our tests and see if they all pass. At the Anaconda Prompt, type:
+
+```text
+(transfer) > python manage.py test
+```
+
 ## Summary
 
 In this post we created a logout template and and view. We changed the functionality of the nav bar to show different items depending on if we are logged out or logged in. We see a login button if we are logged out, and we see our username with a drop down menu if we are logged in.

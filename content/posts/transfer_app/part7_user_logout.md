@@ -148,7 +148,7 @@ Browse to http://localhost:8000 and select the [Administrators] dropdown from th
 
 The login page should look something like this:
 
-![Login Page Login Link]({filename}/posts/transfer_app/images/home_page_login_menu.png)
+![Login Page Login Link]({filename}/posts/transfer_app/images/login_page.png)
 
 Login with the superuser username and password we created earlier.  After we login, we are directed back to the homepage. Now that we are logged in, if we click the [Administrators] nav menu item, we see an option to logout (where as before we saw an option to login). Cool!
 

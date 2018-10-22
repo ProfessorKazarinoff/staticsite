@@ -35,14 +35,15 @@ OK, let's get started. Can't wait to see the published site live on github pages
 
 Open a terminal and ```cd``` to the ```staticsite``` directory. Then activate the ```(staticsite)``` virtual environment with ```source activate staticsite```. Once in the ```(staticsite)``` environment, pull the most recent version of the site down from github with ```git pull origin master```.
 
-```bash
-cd ~/Documents/staticsite
-source activate staticsite
+```text
+$ cd ~/Documents/staticsite
+$ conda activate staticsite
 (staticsite) $ git pull origin master
 ```
 
 The **staticsite directory** should look something like this:
-```
+
+```text
 staticsite
 ├── LICENSE
 ├── Makefile
@@ -64,9 +65,18 @@ staticsite
 
 Now we use the ```make html``` command to build a demo version of the site. This will place the static files (_html_, _css_, _javascript_) that forms the site in the **output** folder.  We preview the site with ```make serve```.
 
-```bash
+On MacOS and Linux:
+
+```text
 (staticsite) $ make html
 (staticsite) $ make serve
+```
+
+On Windows:
+
+```text
+(staticsite) $ fab build
+(staticsite) $ fab serve
 ```
 
 The demo version of our site can now be viewed by pointing a browser to:
@@ -81,7 +91,7 @@ Press ```ctr-c``` to stop the server.
 
 We need to edit the **_publishconf.py_** file to add our github pages url to ```SITEURL``` and set ```RELATIVE_URLS``` to True. The lines to change are:
 
-```python
+```text
 #publishconf.py
 SITEURL = 'https://username.github.io/staticsite'
 RELATIVE_URLS = True
@@ -95,8 +105,8 @@ Make sure to set ```username``` to your github user name. Setting ```RELATIVE_UR
 
 Up to this point, we used the ```make html``` command to build a demo version of the site. Now we are ready to _publish_ the site. We publish the site by running the command:
 
-```bash
-pelican content -s publishconf.py
+```text
+(staticsite) $ pelican content -s publishconf.py
 ```
 
 This creates a published version of the site with relative url's in the **output** directory. 
@@ -107,7 +117,7 @@ This creates a published version of the site with relative url's in the **output
 
 Before we can put the published version of the site up on github pages, we need to push the current version of the site up to the master branch.
 
-```bash
+```text
 (staticsite) $ git add .
 (staticsite) $ git commit -m "first published version"
 (staticsite) $ git push origin master
@@ -125,20 +135,20 @@ Up to this point, we saved our work to the **master** branch of the staticsite r
 
 As shown in the [Pelican documentation](http://docs.getpelican.com/en/stable/tips.html), you can use a Python package called ```ghp-import``` to help posting the contents of the output directory to the gh-pages branch of our repo on github. If ```ghp-import``` isn't installed yet, use ```pip```. Make sure you are in the ```(staticsite)``` virtual environment when you run ```pip```.
 
-```bash
+```text
 (staticsite) $ pip install ghp-import
 ```
 
 Now we'll use the ghp-import package to help us post the site. The command ```ghp-import output``` will assign the contents of the **output** directory to the **gh-pages** branch of our local git repository. The we ```push``` the contents of the local **gh-pages** branch up to the remote **gh-pages** branch on github.
 
-```bash
+```text
 (staticsite) $ ghp-import output
 (staticsite) $ git push origin gh-pages
 ```
 
 I had trouble with this set of commands. Depending on which computer I was using, I would get the following error:
 
-```bash
+```text
  ! [rejected]        gh-pages -> gh-pages (fetch first)
 error: failed to push some refs to 'https://github.com/professorkazarinoff/staticsite.git'
 hint: Updates were rejected because the remote contains work that you do
@@ -152,16 +162,17 @@ I tried ```git stash``` and that didn't work.  I also tried ```git pull origin g
 
 The way I got around it was to use the ```-f``` (force) flag. I don't think this is the most elegant or preferred way to get the contents of the **output** directory up to the **gh-pages** branch. I just don't really understand how ```git``` works well enough to know how to get around the problem without a _forced_ commit. If you get the error above try:
 
-```
-pelican content -s publishconf.py
+```text
+(staticsite) $ pelican content -s publishconf.py
 
-git add .
-git commit -m "published"
-git push origin master
+(staticsite) $ git add .
+(staticsite) $ git commit -m "published"
+(staticsite) $ git push origin master
 
-ghp-import output
-git push -f origin gh-pages
+(staticsite) $ghp-import output
+(staticsite) $ git push -f origin gh-pages
 ```
+
 That has worked so far for me.
 
 <br>

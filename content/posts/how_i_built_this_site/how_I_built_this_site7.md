@@ -15,25 +15,25 @@ This is the seventh part of a multi-part series on how I built this site. In [la
 
 ### Steps in this post
 
-By the end of the post we are going to have a working static website hosted on github pages. To accomplish this, we will complete the following steps:
+By the end of the post we are going to have a working static website hosted on GitHub pages. To accomplish this, we will complete the following steps:
 
 1. Pull the most recent version of the site from gitub
 2. Run pelican's ```make html``` command to build the site and preview it with ```make serve```
-3. Modify the **_publishconf.py_** file to include our github pages url and relative links
+3. Modify the **_publishconf.py_** file to include our GitHub pages url and relative links
 4. Use ```pelican content -s publishconf.py``` to build a published version of the site in the **output** directory
-5. Add, commit and push the published contents to our **master** branch on github
-6. Make a **gh-pages** branch in our **staticsite** repo on github
+5. Add, commit and push the published contents to our **master** branch on GitHub
+6. Make a **gh-pages** branch in our **staticsite** repo on GitHub
 7. Use ```ghp-import output``` and ```git push origin gh-pages``` to push the **output** directory to the **gh-pages** branch
 8. View the freshly published site! 
 
 
-OK, let's get started. Can't wait to see the published site live on github pages.
+OK, let's get started. Can't wait to see the published site live on GitHub pages.
 
 <br>
 
-### Pull to the most recent version of the site from github
+### Pull to the most recent version of the site from GitHub.com
 
-Open a terminal and ```cd``` to the ```staticsite``` directory. Then activate the ```(staticsite)``` virtual environment with ```source activate staticsite```. Once in the ```(staticsite)``` environment, pull the most recent version of the site down from github with ```git pull origin master```.
+Open a terminal and ```cd``` to the ```staticsite``` directory. Then activate the ```(staticsite)``` virtual environment with ```source activate staticsite```. Once in the ```(staticsite)``` environment, pull the most recent version of the site down from GitHub.com with ```git pull origin master```.
 
 ```text
 $ cd ~/Documents/staticsite

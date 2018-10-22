@@ -112,11 +112,19 @@ Pelican will ask us a bunch of questions at the start. The initial settings I us
 > Is this your personal page (username.github.io)? (y/N) N
 ```
 
-Now we can create and view the site. The command ```make html``` will create the site and the command ```make serve``` will spin up a local webserver that allows us to view the site.
+Now we can create and view the site. The command ```make html``` will create the site and the command ```make serve``` will spin up a local webserver that allows us to view the site. If you are using windows, ```make``` commands may not work. Try ```fab build``` and ```fab serve``` instead.
 
-```
+On MacOS and Linux:
+
+```text
 (staticsite)$ make html
 (staticsite)$ make serve
+```
+
+On Windows:
+```text
+(staticsite)$ fab build
+(staticsite)$ fab serve
 ```
 
 Point a web browser to: [localhost:8000](localhost:8000)

@@ -31,9 +31,8 @@ Seems like a lot to do, so let's get started.
 
 ### Activate our virtual environment and pull the most recent version of the site down from github
 
-
-```
-$ source activate staticsite
+```text
+$ conda activate staticsite
 (staticsite) $ cd ~/Documents/staticsite
 (staticsite) $ pwd
 (staticsite) $ git pull origin master
@@ -43,19 +42,19 @@ $ source activate staticsite
 
 I like using **jupyter notebooks** to build code and solve engineering problems with Python. A **jupyter notebook** can contain Python code, the output produced when this code is run and markup text (used for documentation).  **Jupyter notebooks** can also easily display ```matplotlib``` plots and ```pandas``` data frames. These two Python packages are very useful for engineers solving problems in teams. As the ```jupyter``` package is in the main conda channel, we can install it into our virtual environment using the ```conda install``` command.
 
-```
+```text
 (staticsite) $ conda install jupyter
 ```
 
 We can see all of the modules installed in our ```(staticsite)``` environment with:
 
-```
+```text
 (staticsite) $ pip freeze
 ```
 
 The output should look something like:
 
-```
+```text
 appnope==0.1.0
 bleach==2.1.1
 blinker==1.4
@@ -119,7 +118,7 @@ Now we need to modify the **_pelicanconf.py_** file to use a couple new plugins.
 
 We add these to the ```PLUGINS = [ ]``` list in the **_pelicanconf.py_** file and separate them with commas.
 
-```
+```text
 #pelicanconf.py
 
 PLUGINS = [
@@ -137,18 +136,18 @@ PLUGINS = [
 
 Now we will build a couple of posts which use our newly installed plugins. First we'll modify our content directory with a new folder called **posts**.  We'll keep all the posts in this directory. Then we'll make a couple of new **_.md_** files. I'll copy our first post to this new directory with the ```cp``` (copy) shell command and then remove the old **_.md_** file with the ```rm``` command.
  
-```
-pwd
-cd content
-mkdir posts
-cp first_post.md posts/first_post.md
-rm first_post.md
+```text
+(staticsite) $ pwd
+(staticsite) $ cd content
+(staticsite) $ mkdir posts
+(staticsite) $ cp first_post.md posts/first_post.md
+(staticsite) $ rm first_post.md
 ```
 
 Now let's modify the **_first_post.md_** file with a couple new lines in the header.  The ```Series: ``` and ```Series_index: ``` lines will put this first post in series of posts using the **series** plugin. 
 
 **_first_post.md_**
-```
+```text
 Title: First Post - Part 1
 Date: 2017-11-30 12:40
 Modified: 2017-11-30 12:40
@@ -166,7 +165,7 @@ This is the first post of a series of demonstration posts.
 
 After the post is saved, we can go back to the terminal and copy it to create our second post. The contents of our **staticsite directory** should look something like this:
 
-```
+```text
 staticsite/
 ├── LICENSE
 ├── Makefile
@@ -194,16 +193,16 @@ staticsite/
 Let's make two new posts in the **content/posts** directory.
 
 
-```
-cd ~/Documents/staticsite/content/posts
-cp first_post.md second_post.md
-cp first_post.md third_post.md
+```text
+(staticsite) $ cd ~/Documents/staticsite/content/posts
+(staticsite) $ cp first_post.md second_post.md
+(staticsite) $ cp first_post.md third_post.md
 ```
 
 Now we'll edit **_second_post.md_** so it's part of a series and contains an embedded YouTube video.
 
 **_second_post.md_**
-```
+```text
 Title: Second Post - Part 2
 Date: 2017-11-30 12:40
 Modified: 2017-11-30 12:40
@@ -223,7 +222,7 @@ This is the second post of a series of posts. It will show series and an embedde
 
 We'll create a sample **jupyter notebook** in a new folder called **code** in our **content** folder. The **jupyter notebook** will go in our third post. To create the **code** folder and bring up a new **jupyter notebook** in our web browser use:
 
-```
+```text
 (staticsite) $ pwd
 (staticsite) $ mkdir content/code
 (staticsite) $ cd content/code
@@ -237,7 +236,7 @@ Let's put one markdown cell, one code cell and produce one output cell in our **
 Now we will put our **_example_notebook.ipynb_** into our third post. Including a **juypter notebook** requires the use of the line ```notebook path/to/notebook.ipynb``` surrounded with a ```{``` ```%```   ```%``` ```}```.  
 
 **_third_post.md_**
-```
+```text
 Title: Third Post - Part 3
 Date: 2017-11-30 12:40
 Modified: 2017-11-30 12:40
@@ -261,9 +260,18 @@ This post contains a jupyter notebook.
 
 With a couple new **pelican-plugins** configured and three new posts written, it is time to preview our site again.  We can build the site and can view it with a web browser using:
 
+On MacOS and Linux:
+
+```text
+(staticsite) $ make html
+(staticsite) $ make serve
 ```
-make html
-make serve
+
+On Windows:
+
+```text
+(staticsite) $ fab build
+(staticsite) $ fab serve
 ```
 
 To view the site, point a browser to _localhost:8000_
@@ -276,10 +284,10 @@ use ```ctrl-c``` to stop the server.
 
 When we are done editing the the site, we add **all of the changes** to our local git repo using ```git add .```. Then we commit those changes with ```git commit``` and add the ``` -m "added plugins" ``` flag to give supply a commit message (make sure to use double quotes "commit message"). To push those changes up to github use ```git push origin master```
 
-```
-git add .
-git commit -m "added plugins"
-git push origin master
+```text
+$ git add .
+$ git commit -m "added plugins"
+$ git push origin master
 ```
 
 In the next post we will customize the site. We'll add some css in order to make tables on the site look better and put a search bar at the top of the page.

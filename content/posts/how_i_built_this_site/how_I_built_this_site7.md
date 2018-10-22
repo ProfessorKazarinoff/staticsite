@@ -179,11 +179,11 @@ That has worked so far for me.
 
 ### View the site on github pages.
 
-Awesome! The site is now hosted for everyone to see on github pages! Pretty cool right? Point a browser to the github pages url and take a look:
+Awesome! The site is now hosted for everyone to see on GitHub pages! Pretty cool right? Point a browser to the github pages url and take a look:
 
 https://username.github.io/staticsite
 
-Change _username_ to your github user name. My site (the one that you are reading) is hosted here: 
+Change _username_ to your GitHub user name. My site (the one that you are reading) is hosted here: 
 
 [https://professorkazarinoff.github.io/staticsite](https://professorkazarinoff.github.io/staticsite)
 

@@ -169,7 +169,7 @@ The way I got around it was to use the ```-f``` (force) flag. I don't think this
 (staticsite) $ git commit -m "published"
 (staticsite) $ git push origin master
 
-(staticsite) $ghp-import output
+(staticsite) $ ghp-import output
 (staticsite) $ git push -f origin gh-pages
 ```
 

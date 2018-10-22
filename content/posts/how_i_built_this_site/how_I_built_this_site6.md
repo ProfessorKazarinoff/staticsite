@@ -31,15 +31,15 @@ Let's get started.
 ### Activate our virtual environment and pull the most recent version of the site down from github
 
 
-```
+```text
 $ cd ~/Documents/staticsite
-$ source activate staticsite
+$ conda activate staticsite
 (staticsite) $ git pull origin master
 ```
 
 The **staticsite** directory should look something like this:
 
-```
+```text
 staticsite/
 ├── LICENSE
 ├── Makefile
@@ -80,7 +80,7 @@ Up to this point, the top of our site has a menu item for [This site], which isn
 
 We are going to add two new menu items that link to two new _pages_. These new menu items will be [About] and [Book]. First we'll create a **pages** folder in the **staticsite/content** directory
 
-```
+```text
 (staticsite) $ cd ~/Documents/staticsite/content
 (staticsite) $ mkdir pages
 (staticsite) $ cd pages
@@ -89,7 +89,7 @@ We are going to add two new menu items that link to two new _pages_. These new m
 Now we create two new **_.md_** files. Note that the header in this file is different from the other posts we've written. It has a very simple header; just one line: Title. We don't need to put in a date or a slug in the header of _pages_, just in the header of _posts_. The first markdown file is the **about** page
 
 **_about.md_**
-```
+```text
 Title: About
 
 Why I started this blog
@@ -106,8 +106,8 @@ My hobbies
 
 The second page is for the book I am writing, **Python Programming for Undergraduate Engineers**. The text for the page is going to look something like:
 
-book.md
-```
+**_book.md_**
+```text
 Title: Book
 
 ### Coming in Fall 2018
@@ -132,9 +132,10 @@ This books is for undergraduate engineers learning programming. It is focused on
 
 ### Pre-order will be available soon
 ```
+
 After the pages are saved, our **staticsite directory** should look something like this:
 
-```
+```text
 staticsite/
 ├── LICENSE
 ├── Makefile
@@ -175,7 +176,7 @@ staticsite/
 
 Pelican needs to know about the two "pages" files. Modify the **_pelicanconf.py_** file to include the lines:
 
-```
+```text
 #pelicanconf.py
 
 # Paths
@@ -192,9 +193,18 @@ DISPLAY_PAGES_ON_MENU = True
 
 With the two new page **_.md_** files created and the changes to **_pelicanconf.py_** in place, let's preview the site again.  We build the site and serve up the contents in the **output** folder with:
 
+On MacOS and Linux:
+
+```text
+(staticsite) $ make html
+(staticsite) $ make serve
 ```
-make html
-make serve
+
+On Windows:
+
+```text
+(staticsite) $ fab build
+(staticsite) $ fab serve
 ```
 
 To view the site, point a browser to _localhost:8000_
@@ -207,10 +217,10 @@ Use ```ctrl-c``` to stop the server.
 
 When we are done editing the the site, we add **all of the changes** to our local git repo using ```git add .```. Commit those changes with ```git commit``` and add the ``` -m "added about and book pages" ``` flag to supply a commit message (make sure to use double quotes "commit message"). Push the changes up to github with ```git push origin master```
 
-```
-git add .
-git commit -m "added about and book pages"
-git push origin master
+```text
+$ git add .
+$ git commit -m "added about and book pages"
+$ git push origin master
 ```
 
 In the next post we will publish the site to github pages. Once the site is published, it will be live and public. Available to any one with an internet connection. An actual, real, published, live static site!

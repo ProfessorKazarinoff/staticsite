@@ -18,7 +18,7 @@ This is the sixth part in a multi-part series on how I built this site. In the [
 We are going to accomplish the following in this post. By the end of the post we are going to have a site with two new pages and two new menu items.
 
 1. Activate our ```staticsite``` virtual environment
-2. Pull the most recent version of our site from github
+2. Pull the most recent version of our site from GitHub
 3. Add two new _pages_  (**_.md_** files) to our **content** folder
 4. Modify the **_pelicanconf.py_** file to use the new pages
 5. Build and preview the site with Pelican
@@ -28,7 +28,7 @@ We are going to accomplish the following in this post. By the end of the post we
 Let's get started.
 
 
-### Activate our virtual environment and pull the most recent version of the site down from github
+### Activate our virtual environment and pull the most recent version of the site down from GitHub
 
 
 ```text

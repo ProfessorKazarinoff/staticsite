@@ -31,17 +31,18 @@ Big steps, it's really going to look like a website when we are done.
 
 Open the **Anaconda Prompt** and activate the ```(staticsite)``` virtual environment
 
-```
-$ source activate staticsite
+```text
+$ conda activate staticsite
 ```
 
 Then cd into the **staticsite** directory and bring in the most up to date version of the site stored on github.
 
-```
+```text
 (staticsite) $ cd ~
 (staticsite) $ cd Documents/staticsite
 (staticsite) $ git pull origin master
 ```
+
 ### Use git submodule add to pull all of the themes into our local **staticsite/pelican-themes** directory
 
 There are a bunch of different themes available for static site built with Pelican. The three I was most interested in were:
@@ -56,7 +57,7 @@ We can bring in all of the Pelican themes stored on github by creating a _git su
 
 To create the folder for our pelican-themes git submodule, ensure you are in the staticsite folder, then call:
 
-```
+```text
 $ pwd
 
 $ git submodule add https://github.com/getpelican/pelican-themes.git
@@ -66,16 +67,17 @@ $ git submodule update --init --recursive
 
 Ensure that we are still in the **staticsite** directory and pull down the pelican-plugins repo form github.
 
-```
+```text
 $ pwd
 
 $ git submodule add https://github.com/getpelican/pelican-plugins.git
 $ git submodule init
 $ git submodule update --init --recursive
 ```
+
 Now the contents of the **staticsite** folder should look something like:
 
-```
+```text
 staticsite/
 ├── LICENSE
 ├── Makefile
@@ -97,7 +99,7 @@ staticsite/
 
 So far our **_pelicanconf.py_** file contains only default lines of code that Pelican built for us. In order to use a new theme, we need to edit this configuration file. After we edit the configuration file, the ```make html``` command will produce new .html pages in the **output** directory. The relevant lines to add and modify in the **_pelicanconf.py_** are:
 
-```
+```text
 #pelicanconf.py
 
 PLUGIN_PATHS = ['pelican-plugins']
@@ -125,9 +127,18 @@ So we need to make sure to include the **i18n** plugin in our **_pelicanonf.py_*
 
 With the **pelican-plugins** and **pelican-themes** repos downloaded and the **_pelicanconf.py_** file edited, we can build the site and take a look at it with a web browser:
 
+On MacOS and Linux:
+
+```text
+(staticsite) $ make html
+(staticsite) $ make serve
 ```
-make html
-make serve
+
+On Windows
+
+```text
+(staticsite) $ fab build
+(staticsite) $ fab serve
 ```
 
 To view the site, point a brower to _localhost:8000_
@@ -144,7 +155,7 @@ use ```ctrl-c``` to shut down the server.
 
 When we are done editing the the site, we add **all of the changes** to our local git repo using ```git add .```. Then we commit those changes with ```git commit``` and add the ```-m "added pelican_bootstrap3 theme"``` flag to give supply a commit message (make sure to use double quotes "commit message"). To push those changes up to github use ```git push origin master```
 
-```
+```text
 git add .
 git commit -m "added pelican_bootstrap3 theme"
 git push origin master

@@ -31,21 +31,21 @@ That's a lot to do, so let's get started.
 
 I highly recommend installing the Anaconda distribution of python. If you followed along with the [previous post]({filename}how_I_built_this_site1.md), you already installed Anaconda and can pull up the Anaconda Prompt. Open the Anaconda Prompt and see which virtual environments are available.
 
-```
+```text
 $ conda info --envs
 ```
 
 You should see a list of all the virtual environments conda has created on your machine. It should look something like:
 
-```
+```text
 staticsite                  C:\Users\user.name\AppData\Local\Continuum\Anaconda3\envs\staticsite
 root                     *  C:\Users\user.name\AppData\Local\Continuum\Anaconda3
 ```
 
 The ```staticsite``` virtual environment is the one we set up to create our site. Activate it with:
 
-```
-$ source activate staticsite
+```text
+$ conda activate staticsite
 ```
 
 You should now see ```(staticsite)``` before the command prompt. This means we are operating in the ```staticsite``` virtual environment. 
@@ -54,13 +54,13 @@ You should now see ```(staticsite)``` before the command prompt. This means we a
 
 We installed pelican, markdown and fabric in the last post. Let's make sure they are installed in our ```(staticsite)``` virtual environment.
 
-```
+```text
 (staticsite)$ pip freeze
 ```
 
 Make sure you see the following modules are installed: 
 
-```
+```text
 beautifulsoup4==4.6.0
 Jinja2==2.9.6
 Fabric==1.14.0
@@ -73,7 +73,7 @@ Pygments==2.2.0
 
 We are now going to build the site! Exciting stuff. With the virtual environment and packages in place, we just need to make sure we are in a directory where we want our site to live.
 
-```
+```text
 (staticsite)$ cd ~
 (staticsite)$ cd Documents
 (staticsite)$ cd staticsite
@@ -81,11 +81,13 @@ We are now going to build the site! Exciting stuff. With the virtual environment
 
 You can confirm you are working in the staticsite directory by typing ```pwd``` which stands for _print working directory_:
 
-```(staticsite)$ pwd```
+```text
+(staticsite)$ pwd
+```
 
 Now we can spin up the settings and structure of our pelican build. Start the process with the command:
 
-```
+```text
 (staticsite)$ pelican-quickstart
 ```
 
@@ -122,6 +124,7 @@ On MacOS and Linux:
 ```
 
 On Windows:
+
 ```text
 (staticsite)$ fab build
 (staticsite)$ fab serve
@@ -141,7 +144,7 @@ We can shut down the server by typing ```ctrl-c```
 
 Time to write our first post. The contents of the **staticsite** directory should look something like:
 
-```
+```text
 staticsite/
 │   develop_server.sh
 │   fabfile.py
@@ -156,7 +159,7 @@ staticsite/
 
 To make a new post, we need to add a markup file (.md file) to the **content** folder. Let's call our first post **_first_post.md_**. Depending on the computer I'm using, I create .md files with different programs. One Windows 10, I have been using Code Writer. On Mac OSX and Linux, I use [PyCharm](https://www.jetbrains.com/pycharm/). The **_first_post.md_** file saved in the content folder needs to have the form:
 
-```
+```text
 Title: First Post
 Date: 2017-10-13 12:40
 Modified: 2017-10-13 12:40
@@ -172,7 +175,7 @@ This is the very first post!
 
 After saving the file **_first_post.md_** in the **content** folder, the static site folder should look something like:
 
-```
+```text
 staticsite/
 │   develop_server.sh
 │   fabfile.py
@@ -187,11 +190,20 @@ staticsite/
 └───__pycache__
 ```
 
-Let's build the site again and take a look at our new post
+Let's build the site again and take a look at our new post.
 
-```
+On MacOS and Linux:
+
+```text
 (staticsite)$ make html
 (staticsite)$ make serve
+```
+
+On Windows:
+
+```text
+(staticsite)$ fab build
+(staticsite)$ fab serve
 ```
 
 Again, point a web browser to: [localhost:8000](localhost:8000)
@@ -211,9 +223,10 @@ We can shut down the server by typing ```ctrl-c```
 
 When we are done editing the posts and the site, we **add all** of the changes to our local git repo using ```git add .``` Then we commit these changes with ```git commit``` and use the ```-m "created pelcian static site"``` flag to supply a commit message (make sure to use double quotes "commit message"). Push those changes up to github with ```git push origin master```
 
+```text
+$ git add .
+$ git commit -m "created pelican static site"
+$ git push origin master
 ```
-git add .
-git commit -m "created pelican static site"
-git push origin master
-```
+
 In the [next post]({filename}how_I_built_this_site3.md), we will customize the site with a _pelican-theme_ called **pelican-bootstrap3**.

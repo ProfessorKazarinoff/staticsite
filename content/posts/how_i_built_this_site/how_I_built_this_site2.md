@@ -29,7 +29,7 @@ That's a lot to do, so let's get started.
 
 ### Activate our **staticsite** virtual environment
 
-I highly recommend installing the Anaconda distribution of python. If you followed along with the [previous post]({filename}how_I_built_this_site1.md), you already installed Anaconda and can pull up the Anaconda prompt. Open the Anaconda Prompt and see which virtual environments are available.
+I highly recommend installing the Anaconda distribution of python. If you followed along with the [previous post]({filename}how_I_built_this_site1.md), you already installed Anaconda and can pull up the Anaconda Prompt. Open the Anaconda Prompt and see which virtual environments are available.
 
 ```
 $ conda info --envs

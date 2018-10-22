@@ -1,7 +1,7 @@
 Title: Plotting a stress-strain curve with four libraries: matplotlib, pandas, altair and bokeh
 Slug: stress-strain-curve-with-4-libraries
 Date: 2018-10-21 10:30
-Status: published
+Status: draft
 Category: matplotlib
 Tags: python, matplotlib, engineering, jupyter, notebook, bokeh, altair, pandas
 Author: Peter D. Kazarinoff

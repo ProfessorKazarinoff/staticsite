@@ -158,4 +158,4 @@ git push origin master
 These commands ensures all my computers and the GitHub.com repo contain the same version of the site.
 
 
-In the [next post]({filename}how_I_built_this_site2.md) we will use the ```pelican-quickstart``` command to get the blog off the ground, write our first post and view a demo version of the site.
+In the [next post]({filename}/posts/how_i_built_this_site/how_I_built_this_site2.md) we will use the ```pelican-quickstart``` command to get the blog off the ground, write our first post and view a demo version of the site.

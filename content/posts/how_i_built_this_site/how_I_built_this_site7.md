@@ -8,9 +8,9 @@ Slug: how-i-built-this-site-7
 Authors: Peter D. Kazarinoff
 Series: How I built this site
 Series_index: 7
-Summary: This is the seventh part of a multi-part series on how I built this site. In [last post]({filename}how_I_built_this_site6.md), we added two new _pages_ to our site. An **About** page and a **Book** page.  In this post, we are going to deploy the site to [github pages](https://pages.github.com/). Github pages is a place on github were documentation and static sites can be hosted.
+Summary: This is the seventh part of a multi-part series on how I built this site. In [last post]({filename}how_I_built_this_site6.md), we added two new _pages_ to our site. An **About** page and a **Book** page.  In this post, we are going to deploy the site to [github pages](https://pages.github.com/). Github pages is a place on GitHub.com were documentation and static sites can be hosted.
 
-This is the seventh part of a multi-part series on how I built this site. In [last post]({filename}how_I_built_this_site6.md), we added two new _pages_ to our site. An **About** page and a **Book** page.  In this post, we are going to deploy the site to [github pages](https://pages.github.com/). Github pages is a place on github were documentation and static sites can be hosted.
+This is the seventh part of a multi-part series on how I built this site. In [last post]({filename}how_I_built_this_site6.md), we added two new _pages_ to our site. An **About** page and a **Book** page.  In this post, we are going to deploy the site to [github pages](https://pages.github.com/). Github pages is a place on GitHub.com were documentation and static sites can be hosted.
 
 
 ### Steps in this post

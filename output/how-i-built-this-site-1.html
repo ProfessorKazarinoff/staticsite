@@ -172,19 +172,19 @@ init_mathjax = function() {
 }
 init_mathjax();
 </script>
-    <link href="/extra/favicon.ico" rel="icon">
+    <link href="./extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="/how-i-built-this-site-1.html">
+<link rel="canonical" href="./how-i-built-this-site-1.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
         <meta name="keywords" content="python,pelican,staticsite" />
-        <meta name="description" content="This is the first part of a multi-part series on how I built this site. In this first post, I&#39;ll review the development environment, Python, virtual environments, installing the necessary packages and setting up git." />
+        <meta name="description" content="This is the first part of a multi-part series on how I built this site. In this first post, we&#39;ll review the development environments, Python, virtual environments, installing Python packages and set up git." />
 
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="How I Build This Site - Part 1"/>
-        <meta property="og:url" content="/how-i-built-this-site-1.html"/>
-        <meta property="og:description" content="This is the first part of a multi-part series on how I built this site. In this first post, I&#39;ll review the development environment, Python, virtual environments, installing the necessary packages and setting up git."/>
+        <meta property="og:url" content="./how-i-built-this-site-1.html"/>
+        <meta property="og:description" content="This is the first part of a multi-part series on how I built this site. In this first post, we&#39;ll review the development environments, Python, virtual environments, installing Python packages and set up git."/>
         <meta property="article:published_time" content="2017-11-22" />
             <meta property="article:section" content="this site" />
             <meta property="article:tag" content="python" />
@@ -195,13 +195,13 @@ init_mathjax();
 
 
     <!-- Bootstrap -->
-        <link rel="stylesheet" href="/theme/css/bootstrap.flatly.min.css" type="text/css"/>
-    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="./theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="./theme/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="/theme/css/pygments/native.css" rel="stylesheet">
-    <link href="/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
-    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
-        <link href="/static/css/custom.css" rel="stylesheet">
+    <link href="./theme/css/pygments/native.css" rel="stylesheet">
+    <link href="./theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="./theme/css/style.css" type="text/css"/>
+        <link href="./static/css/custom.css" rel="stylesheet">
 
 
 
@@ -219,18 +219,18 @@ init_mathjax();
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="/" class="navbar-brand">
+            <a href="./" class="navbar-brand">
 Python for Undergraduate Engineers            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                         <li><a href="/pages/about.html">
+                         <li><a href="./pages/about.html">
                              About
                           </a></li>
-                         <li><a href="/pages/book.html">
+                         <li><a href="./pages/book.html">
                              Book
                           </a></li>
-                         <li><a href="/pages/now.html">
+                         <li><a href="./pages/now.html">
                              Now
                           </a></li>
             </ul>
@@ -240,7 +240,7 @@ Python for Undergraduate Engineers            </a>
                   <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
                 </form></span>
               </li>
-              <li><a href="/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+              <li><a href="./archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -252,15 +252,15 @@ Python for Undergraduate Engineers            </a>
     <div class="row">
         <div class="col-sm-9">
             <ol class="breadcrumb">
-                <li><a href="" title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="/category/this-site.html" title="this site">this site</a></li>
+                <li><a href="." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="./category/this-site.html" title="this site">this site</a></li>
                 <li class="active">How I Build This Site - Part 1</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="/how-i-built-this-site-1.html"
+                    <a href="./how-i-built-this-site-1.html"
                        rel="bookmark"
                        title="Permalink to How I Build This Site - Part 1">
                         How I Build This Site - Part 1
@@ -283,72 +283,66 @@ Python for Undergraduate Engineers            </a>
 
 
 <span class="label label-default">Tags</span>
-	<a href="/tag/python.html">python</a>
+	<a href="./tag/python.html">python</a>
         /
-	<a href="/tag/pelican.html">pelican</a>
+	<a href="./tag/pelican.html">pelican</a>
         /
-	<a href="/tag/staticsite.html">staticsite</a>
+	<a href="./tag/staticsite.html">staticsite</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>This is the first part of a multi-part series on how I built this site. In this first post, we'll review the development environment, installing Python, virtual environments, installing the necessary packages and setting up git.</p>
-<h3 id="setting-up-the-development-environment">Setting up the development environment</h3>
-<p>What does that even mean? Before I started building this site I needed to make sure the necessary software, packages and settings were in place. This starts with setting up a <em>development environment</em>. To me, a development environment is simply the software on a computer that allows me to get work done. In this case the development environment means the tools necessary to build this site. A list of the tools and technologies are below:</p>
+                <p>This is the first part of a multi-part series on how I built this site. In this first post, we'll review the development environments, Python, virtual environments, installing Python packages and set up git.</p>
+<h3 id="set-up-the-development-environment">Set up the development environment</h3>
+<p>What does <em>development environment</em> even mean? Before I started building this site, I needed to make sure the necessary software, packages, and settings were in place. This starts with setting up a development environment. To me, a development environment is simply the software on a computer that allows me to get work done. In this case, the development environment means the tools necessary to build this site. A list of the tools and technologies are below:</p>
 <ol>
-<li>An operating system: This website was built on machines running Windows 10, Mac OSX and Linux (Ubuntu 16.04 LTS).</li>
+<li>An operating system: This website was built on machines running Windows 10, MacOS and Linux (Ubuntu 16.04 LTS).</li>
 <li>Python: Python 3.6 (legacy Python is version 2.7)</li>
-<li>Anaconda: The Anaconda Prompt and the Anaconda Python distribution</li>
-<li>Github.com and git: Four different computers were used build the site. Github is the central place where the most up-to-date version of the site is kept. </li>
-<li>Pelican: A static site generator written in Python. Pelican will build the site from a settings file (pelicanconf.py) and posts written in markdown (.md files)</li>
+<li>Anaconda: The Anaconda Prompt and the Anaconda distribution of Python</li>
+<li>GitHub.com and git: Four different computers were used to build the site. GitHub is the central place where the most up-to-date version of the site is kept. Git is the command-line tool used to update GitHub.com. </li>
+<li>Pelican: A static site generator written in Python. Pelican builds websites from posts written in markdown (.md files) and a file settings file (pelicanconf.py). </li>
 <li>Markdown: the posts on this website are written in markdown, or .md format</li>
-<li>fabric and make: fabric is a Python package to automate builds and tasks. Fabric works on Windows. Make is used on MacOSX and Linux to build the site and serve up a demo version of the site.</li>
+<li>fabric and make: fabric is a Python package to automate builds and tasks. Fabric works on Windows. Make is used on MacOS and Linux to build the site and serve up a demo version of the site.</li>
 </ol>
 <h3 id="installing-python-the-anaconda-distribution">Installing Python (the Anaconda distribution)</h3>
-<p>I highly recommend installing the Anaconda distribution of Python. I have the Anaconda distribution installed on all the computers I used to build this site:</p>
+<p>I highly recommend installing the Anaconda distribution of Python, rather than downloading Python from Python.org. I have the Anaconda distribution of Python installed on all the computers I used to build this site:</p>
 <ul>
 <li>
 <p>Windows 10 Desktop at work</p>
 </li>
 <li>
-<p>Mac OSX laptop at work</p>
+<p>MacOS laptop at work</p>
 </li>
 <li>
-<p>Mac OSX laptop at home</p>
+<p>MacOS laptop at home</p>
 </li>
 <li>
 <p>Linux (Ubuntu 16.04 LTS) Desktop at home. </p>
 </li>
 </ul>
-<p>An advantage of using the Anaconda distribution of Python is that each of these four computers will have the same stable version of Python. </p>
-<p>Download the latest release at:</p>
+<p>An advantage of using the Anaconda distribution of Python (compared to "regular" Python) is that each of the four computers will have the same stable version of Python and I can keep the same Python packages installed on each machine using the <strong>conda</strong> package manager. </p>
+<p>Download the latest Anaconda distribution of Python release at:</p>
 <p><a href="https://www.anaconda.com/download/">https://www.anaconda.com/download</a></p>
-<p>The Anaconda distribution of Python comes with an up-to-date and stable version of Python (Python 3.6) and the <strong>Anaconda Prompt</strong>. The <strong>Anaconda Prompt</strong> is useful because it allows me to run shell commands on my Windows 10 machine at work. These are the same commands I would run in the terminal on my Mac OSX or Linux boxes. The <strong>Anaconda Prompt</strong> makes creating and logging into virtual environments easy and allows me to use git on Windows 10. Follow this post to <a href="/installing-anaconda-on-windows.html">install the Anaconda on Windows 10.</a></p>
+<p>The Anaconda distribution of Python comes with an up-to-date and stable version of Python (Python 3.6) and the <strong>Anaconda Prompt</strong>. The <strong>Anaconda Prompt</strong> is useful because it allows me to run shell commands on my Windows 10 machine at work. These shell commands are the same commands I run in the terminal on my MacOS or Linux boxes. The <strong>Anaconda Prompt</strong> makes creating and logging into virtual environments easy and allows me to use git on Windows 10. Follow this post to <a href="./installing-anaconda-on-windows.html">install the Anaconda on Windows 10.</a></p>
 <h3 id="create-a-new-virtual-environment">Create a new virtual environment</h3>
-<p>Before downloading Pelican, we should create a new virtual environment. The same virtual environment on each of the computers I use means the same packages are installed on each computer. To create a new virtual environment, open up the Anaconda Prompt (on Windows) or a terminal (on Linux or Mac OSX). Let's call our new virtual environment <strong><em>staticsite</em></strong>. The <code>conda create</code> command creates the environment and the <code>-n staticsite</code> flag adds the name.</p>
+<p>Before downloading Pelican, we should create a new virtual environment. The same virtual environment on each of the computers I use means the same packages are installed on each computer. To create a new virtual environment, open up the Anaconda Prompt (on Windows) or a terminal (on Linux or MacOS). Let's call our new virtual environment <strong><em>staticsite</em></strong>. The <code>conda create</code> command creates the environment and the <code>-n staticsite</code> flag adds the name.</p>
 <div class="highlight"><pre><span></span>$ conda create -n staticsite
 </pre></div>
 
 
-<p>This creates a new virtual environment called <strong><em>staticsite</em></strong>. Becuase I use four different computers to work on the site, I need to make sure the same Python packages are installed on each computer. Using a virtual environment ensures this consistency. Once the virtual environment <strong><em>staticsite</em></strong> is created, we need to activate it and start using it with the command:</p>
-<p>On Mac OSX or Linux</p>
-<div class="highlight"><pre><span></span>$ <span class="nb">source</span> activate staticsite
-</pre></div>
-
-
-<p>or on Windows 10</p>
-<div class="highlight"><pre><span></span>activate staticsite
+<p>The <code>conda create -n staticsite</code> command creates a new virtual environment called <strong><em>staticsite</em></strong>. Becuase I use four different computers to work on the site, I need to make sure the same Python packages are installed on each computer. Using a virtual environment ensures this consistency. Once the virtual environment <strong><em>staticsite</em></strong> is created, we need to activate it and start using it with the command:</p>
+<div class="highlight"><pre><span></span>$ conda activate staticsite
 </pre></div>
 
 
 <p>We should now see <code>(staticsite)</code> before the terminal prompt. This means we are using the <code>(staticsite)</code> virtual environment.</p>
 <h3 id="install-pelican">Install Pelican</h3>
-<p>Time for some fun! Installing Pelican. Pelican is a Python package that creates static websites. Static sites are websites that only have html, css and javascript. A static site is not connected to a database and there is no code run on the server side. The server just serves static files (html, css, javascript) to the client when the client requests them. In order to install Pelican, we need to install <code>pip</code> first. On my Linux and Mac OSX machines, the command line tool <strong>git</strong> is already installed. If using Windows 10, <strong>git</strong> may not be available. To keep the development environments the same when using Windows 10, you will also need <code>conda</code> to <code>install git</code>.</p>
+<p>Time for some fun! Installing Pelican. Pelican is a Python package that creates static websites. Static sites are websites that only have html, css and javascript. A static site is not connected to a database and there is no code run on the server side. The server just serves static files (html, css, javascript) to the client when the client requests them. In order to install Pelican, we need to install <code>pip</code> first. On my Linux and MacOS machines, the command line tool <strong>git</strong> is already installed. If using Windows 10, <strong>git</strong> may not be available. To keep the development environments the same when using Windows 10, you may also need <code>conda</code> to <code>install git</code>. The commands to install both <code>pip</code> and <code>git</code> are below.</p>
 <div class="highlight"><pre><span></span>(staticsite)$ conda install pip
 (staticsite)$ conda install git
 </pre></div>
 
 
-<p>Once <code>pip</code> is installed, we can install <code>pelican</code> and <code>markdown</code>. These are two of the core pieces we need to build the website. <code>fabric3</code> is also installed because we'll use it to build and demo the site on Windows. <code>bs4</code> is the beautiful soup package. Some of the pelican plugins to be installed later will depend on <code>bs4</code> to function properly.</p>
+<p>Once <code>pip</code> is installed, we can install <code>pelican</code> and <code>markdown</code>. These are two of the core packages we need to build the website. <code>fabric3</code> is also installed because we'll use it to build and demo the site on Windows. <code>bs4</code> is the beautiful soup package. Some of the pelican plugins installed later will depend on <code>bs4</code> to function properly. Note the <code>(staticsite)</code> virtual environment is active when the packages are installed.     </p>
 <div class="highlight"><pre><span></span>(staticsite)$ pip install pelican
 (staticsite)$ pip install markdown
 (staticsite)$ pip install fabric3
@@ -357,20 +351,20 @@ Python for Undergraduate Engineers            </a>
 </pre></div>
 
 
-<h3 id="create-a-github-account-and-create-a-new-repository">Create a github account and create a new repository</h3>
-<p>While I was making the site, it became clear that I had to keep track of <strong><em>version control</em></strong>. I would make some changes to the site on my computer at work, then come home and make more changes to the site. Bringing a USB thumb drive back and forth was hard. I would forget the thumb drive at work or home and then could not edit the site. Or worse, I'd edit the site in both places and try to remember which changes were made where and which was the best version. Ah!</p>
-<p>The solution is to use <strong>git</strong> and <strong>github</strong>. Git is a command line utility that assists with version control. Using git means changes made to files on one computer can be synced with the same files on another computer. Github.com is the where the site content and settings are remotely stored and integrates easily with git. </p>
+<h3 id="create-a-githubcom-account-and-create-a-new-repository">Create a GitHub.com account and create a new repository</h3>
+<p>While I was making the site, it became clear that I had to keep track of <strong><em>version control</em></strong>. I would make some changes to the site on my computer at work, then come home and make more changes to the site. Carrying a USB thumb drive back and forth from work to home was hard. If I forgot the thumb drive at work,  (or left it at home) and then could not edit the site. Or worse, I'd edit the site in both places and try to remember which changes were made where and which was the best version. Ah!</p>
+<p>The solution is to use <strong>git</strong> and <strong>GitHub</strong>. Git is a command-line utility that assists with version control. Using git means changes made to files on one computer can be synced with the same files on another computer. GitHub.com is the where the site content and settings are remotely stored and integrates easily with git. </p>
 <p>To sign up for a github.com account go here:</p>
 <p><a href="https://github.com/join">https://github.com/join</a></p>
 <p>The account activation screen looks something like:</p>
-<p><img alt="Github.com Join" src="../images/join_github.png"></p>
-<p>Once the account is set up, log in and create a new repository. Use the + button on the upper right-hand menu:</p>
-<p><img alt="new github repo" src="../images/new_github_repo.png"></p>
-<p>I named the new repository: <strong>staticsite</strong> and included both a <strong>README.md</strong> and a <strong>GNU General Public License v3.0</strong>. </p>
+<p><img alt="GitHub.com Join" src="../images/join_github.png"></p>
+<p>Once the GitHub.com account is set up, log in and create a new repository. Use the + button on the upper right-hand menu:</p>
+<p><img alt="new GitHub repo" src="../images/new_github_repo.png"></p>
+<p>I named the new repository: <strong>staticsite</strong> and included both a <strong>README.md</strong> and a <strong>GNU General Public License v3.0</strong>. I also recommend including a .gitignore file and selecting Python among the language options. </p>
 <p><img alt="new github repo details" src="../images/create_a_new_repo_details.png"></p>
 <h3 id="make-a-directory-for-the-site-and-link-it-to-github">Make a directory for the site and link it to github</h3>
-<p>Once the github repo (short for repository, basically a folder with files on github.com) is set up, the last step to complete the development environment is to link the remote repo on github to the local version of the site on my computer. </p>
-<p>The local version is in a folder call <code>staticsite</code> in the <code>Documents</code> folder. The <code>staticsite</code> folder will contain all the files used to build the site and the output files created by Pelican that <em>are</em> the site.</p>
+<p>Once the GitHub repo (short for repository, basically a folder with files on github.com) is set up, the last step to complete the development environment is to link the remote repo on GitHub.com to the local version of the site (the version of the site on a laptop or desktop). </p>
+<p>The local version of the site is in a folder call <code>staticsite</code> in the <code>Documents</code> folder. The <code>staticsite</code> folder will contain all the files used to build the site and the output files created by Pelican that <em>are</em> the site. The <code>staticsite</code> folder can be created using a terminal, or the Anaconda Prompt.</p>
 <div class="highlight"><pre><span></span>(staticsite)$ cd ~
 (staticsite)$ cd Documents
 (staticsite)$ mkdir staticsite
@@ -378,61 +372,62 @@ Python for Undergraduate Engineers            </a>
 </pre></div>
 
 
-<p>We can set up git to keep the contents of the local staticsite folder in sync with the contents of the staticsite repo on github.com. The command <code>git init</code> will initiate or create the local repository. The command <code>git remote add origin</code> followed by the url of our github repo links local folder to the remote repo on github. Note the web address ends in <code>.git</code>. If you are following along and want to build your own static site, make sure to change <code>username</code> to your github username and <code>reponame</code> to your github repo name.</p>
-<div class="highlight"><pre><span></span>git init
-git remote add origin https://github.com/username/reponame.git
+<p>Now, we can set up git to keep the contents of the <em>local</em> staticsite folder in sync with the <em>remote</em> repo on GitHub.com. The command <code>git init</code> creates the local repository. The command <code>git remote add origin</code> followed by the url of our GitHub repo links local folder on our computer to the remote repo on GitHub.com. Note the web address ends in <code>.git</code>. If you are following along and want to build your own static site, make sure to change <code>username</code> to your GitHub username and <code>reponame</code> to your github repo name.</p>
+<div class="highlight"><pre><span></span>(staticsite)$ git init
+(staticsite)$ git remote add origin https://github.com/username/reponame.git
 </pre></div>
 
 
-<p>Now for the git magic. On github.com we have a README.md file and a licence. But the local staticsite folder on the computer is empty. So the two folders aren't in sync. To make the contents of each folder identical, we <strong><em>pull</em></strong> the files from github onto the local computer. A <strong><em>pull</em></strong> "pulls" or gets the files from github and copies them to the local staticsite folder.</p>
+<p>Now for the git magic. On GitHub.com, we have a README.md file and a licence. But the local staticsite folder on the computer is empty. So the two folders aren't in sync. To make the contents of each folder identical, we <strong><em>pull</em></strong> the files from GitHub onto the local computer. A <strong><em>pull</em></strong> "pulls" or gets the files from github and copies them to the local staticsite folder.</p>
 <div class="highlight"><pre><span></span>(staticsite)$ git pull origin master
 </pre></div>
 
 
-<p>If you look in the local staticsite folder you should now see the following two files:</p>
+<p>If we look in the local staticsite folder we now see the following two files:</p>
 <div class="highlight"><pre><span></span>staticsite
 ├── LICENSE
+├── .gitignore
 ├── README.md
 </pre></div>
 
 
 <p>The development environment is set! On to building the site!</p>
 <p>Now each time I work on the site, I navigate to the <strong>staticsite</strong> folder on whatever computer I am using. Before any editing, I key in the command:</p>
-<div class="highlight"><pre><span></span>git pull origin master
+<div class="highlight"><pre><span></span>$ git pull origin master
 </pre></div>
 
 
-<p>After the <em>pull</em>, the staticsite folder is up-to-date with the newest version of all the files on github. Then I go about editing files, writing posts, changing settings, etc. After the edits, the last thing I do before shutting down the computer for the day is add all the changes to git with <code>git add .</code> (note there is a space between the <code>add</code> and the period <code>.</code>). Then commit those changes locally with the line <code>git commit -m "commit message"</code> (note there are double quotes <code>"commit message"</code> used around the commit message), and finally push the changes up to github.com with <code>git push origin master</code>. Now the version of the site up on github.com is the same as the version of the site on my local machine.</p>
+<p>After the <em>pull</em>, the staticsite folder is up-to-date with the newest version of all the files on GitHub. Then I go about editing files, writing posts, changing settings, etc. After the edits, the last thing I do before shutting down the computer for the day is add all the changes to git with <code>git add .</code> (note there is a space between the <code>add</code> and the period <code>.</code>). Then I commit those changes locally with the line <code>git commit -m "commit message"</code> (note there are double quotes <code>"commit message"</code> used around the commit message), and finally push the changes up to github.com with <code>git push origin master</code>. Using this workflow, the version of the site up on GitHub.com is the same as the version of the site on my local computer.</p>
 <div class="highlight"><pre><span></span>git add .
 git commit -m &quot;commit message&quot;
 git push origin master
 </pre></div>
 
 
-<p>This ensures all of my computers and the github repo contain the same version of the site.</p>
-<p>In the <a href="/how-i-built-this-site-2.html">next post</a> we will use the <code>pelican-quickstart</code> command to get the blog off the ground, write our first post and view a demo version of the site.</p>
+<p>These commands ensures all my computers and the GitHub.com repo contain the same version of the site.</p>
+<p>In the <a href="./how-i-built-this-site-2.html">next post</a> we will use the <code>pelican-quickstart</code> command to get the blog off the ground, write our first post and view a demo version of the site.</p>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">
     <h4>Related Posts:</h4>
     <ul>
-        <li><a href="/how-i-built-this-site-7.html">How I Build This Site - Part 7</a></li>
-        <li><a href="/how-i-built-this-site-6.html">How I Build This Site - Part 6</a></li>
-        <li><a href="/how-i-built-this-site-5.html">How I Build This Site - Part 5</a></li>
-        <li><a href="/how-i-built-this-site-4.html">How I Build This Site - Part 4</a></li>
-        <li><a href="/how-i-built-this-site-3.html">How I Build This Site - Part 3</a></li>
+        <li><a href="./how-i-built-this-site-7.html">How I Build This Site - Part 7</a></li>
+        <li><a href="./how-i-built-this-site-6.html">How I Build This Site - Part 6</a></li>
+        <li><a href="./how-i-built-this-site-5.html">How I Build This Site - Part 5</a></li>
+        <li><a href="./how-i-built-this-site-4.html">How I Build This Site - Part 4</a></li>
+        <li><a href="./how-i-built-this-site-3.html">How I Build This Site - Part 3</a></li>
     </ul>
 </section>
 <section class="well" id="related-posts">
     <h4>Article 1 of the How I built this site series</h4>
        <h5>Next articles</h5>
        <ul>
-           <li><a href="/how-i-built-this-site-2.html">How I Build This Site - Part 2</a></li>
-           <li><a href="/how-i-built-this-site-3.html">How I Build This Site - Part 3</a></li>
-           <li><a href="/how-i-built-this-site-4.html">How I Build This Site - Part 4</a></li>
-           <li><a href="/how-i-built-this-site-5.html">How I Build This Site - Part 5</a></li>
-           <li><a href="/how-i-built-this-site-6.html">How I Build This Site - Part 6</a></li>
-           <li><a href="/how-i-built-this-site-7.html">How I Build This Site - Part 7</a></li>
+           <li><a href="./how-i-built-this-site-2.html">How I Build This Site - Part 2</a></li>
+           <li><a href="./how-i-built-this-site-3.html">How I Build This Site - Part 3</a></li>
+           <li><a href="./how-i-built-this-site-4.html">How I Build This Site - Part 4</a></li>
+           <li><a href="./how-i-built-this-site-5.html">How I Build This Site - Part 5</a></li>
+           <li><a href="./how-i-built-this-site-6.html">How I Build This Site - Part 6</a></li>
+           <li><a href="./how-i-built-this-site-7.html">How I Build This Site - Part 7</a></li>
        </ul>
 </section>
         </article>
@@ -443,7 +438,7 @@ git push origin master
             <aside>
 <div id="aboutme">
         <p>
-            <img width="100%" class="img-thumbnail" src="/extra/gear-wrench-icon-512-278694.png"/>
+            <img width="100%" class="img-thumbnail" src="./extra/gear-wrench-icon-512-278694.png"/>
         </p>
     <p>
       <strong>About Peter Kazarinoff</strong><br/>
@@ -457,46 +452,46 @@ git push origin master
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
-    <li class="list-group-item"><a href="/histogram-plots-with-matplotlib-and-python.html">Plotting Histograms with matplotlib and Python</a></li>
-    <li class="list-group-item"><a href="/statistics-in-python-using-the-statistics-module.html">Statistics in Python using the statistics module</a></li>
-    <li class="list-group-item"><a href="/sympy-two-equations-for-two-unknows-and-statics-problem.html">Solving Two Equations for Two Unknowns and a Statics Problem with SymPy and Python</a></li>
+    <li class="list-group-item"><a href="./stress-strain-curve-with-4-libraries.html">Plotting a stress-strain curve with four libraries: matplotlib, pandas, altair and bokeh</a></li>
+    <li class="list-group-item"><a href="./histogram-plots-with-matplotlib-and-python.html">Plotting Histograms with matplotlib and Python</a></li>
+    <li class="list-group-item"><a href="./statistics-in-python-using-the-statistics-module.html">Statistics in Python using the statistics module</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
 
 <!-- Sidebar/Tag Cloud -->
 <li class="list-group-item">
-  <a href="/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <a href="./"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
   <ul class="list-group list-inline tagcloud" id="tags">
-    <li class="list-group-item tag-4">
-      <a href="/tag/engineering.html">engineering</a>
+    <li class="list-group-item tag-3">
+      <a href="./tag/engineering.html">engineering</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="/tag/esp8266.html">esp8266</a>
+      <a href="./tag/esp8266.html">esp8266</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="/tag/flask.html">flask</a>
+      <a href="./tag/flask.html">flask</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="/tag/iot.html">IoT</a>
+      <a href="./tag/iot.html">IoT</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="/tag/jupyter.html">jupyter</a>
+      <a href="./tag/jupyter.html">jupyter</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="/tag/jupyter-hub.html">jupyter hub</a>
+      <a href="./tag/jupyter-hub.html">jupyter hub</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="/tag/jupyter-notebooks.html">jupyter notebooks</a>
+      <a href="./tag/jupyter-notebooks.html">jupyter notebooks</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="/tag/micropython.html">micropython</a>
+      <a href="./tag/micropython.html">micropython</a>
     </li>
     <li class="list-group-item tag-1">
-      <a href="/tag/python.html">python</a>
+      <a href="./tag/python.html">python</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="/tag/sensor.html">sensor</a>
+      <a href="./tag/sensor.html">sensor</a>
     </li>
   </ul>
 </li>
@@ -508,7 +503,7 @@ git push origin master
   <ul class="list-group">
     <li class="list-group-item">
       <h5>Next article</h5>
-      <a href="/how-i-built-this-site-2.html">How I Build This Site - Part 2</a>
+      <a href="./how-i-built-this-site-2.html">How I Build This Site - Part 2</a>
     </li>
   </ul>
 </li>
@@ -542,15 +537,15 @@ git push origin master
       </div>
    </div>
 </footer>
-<script src="/theme/js/jquery.min.js"></script>
+<script src="./theme/js/jquery.min.js"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/theme/js/bootstrap.min.js"></script>
+<script src="./theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="/theme/js/respond.min.js"></script>
+<script src="./theme/js/respond.min.js"></script>
 
-    <script src="/static/js/custom.js"></script>
+    <script src="./static/js/custom.js"></script>
 
 
 <!-- GitHub JS Code -->
@@ -559,7 +554,7 @@ $(document).ready(function () {
   if (!window.jXHR) {
     var jxhr = document.createElement('script');
     jxhr.type = 'text/javascript';
-    jxhr.src = '/theme/js/jXHR.js';
+    jxhr.src = './theme/js/jXHR.js';
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(jxhr, s);
   }
@@ -572,7 +567,7 @@ $(document).ready(function () {
   });
 });
 </script>
-<script src="/theme/js/github.js" type="text/javascript"></script>
+<script src="./theme/js/github.js" type="text/javascript"></script>
 <!-- End GitHub JS Code -->
     <!-- Google Analytics -->
     <script type="text/javascript">

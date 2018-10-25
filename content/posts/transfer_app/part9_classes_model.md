@@ -172,58 +172,140 @@ Afer we save the course, we can see the course in the list of courses on the Dja
 
 ![Django Admin add course details]({filename}/posts/transfer_app/images/django_admin_add_course_details.png)
 
-
+Now that the courses model is running and we have a course added, let's add one more course through the Django admin. With two courses added we will be able to see what a course page looks like with more than one course and how we can iterated over the courses to build the courses page. Up next is creating a url route so we have a destination for our course page.
 
 
 ## Create a courses URL
 
-## Create a courses View
+We want to create a url for our courses page. This needs to be accomplished in two steps. First we need to add a url to the over-all project urls, second we need to add a url to the courses app urls
 
-## Create a courses template
+### Add a courses URL to the project urls
 
-```html
-<!-- templates/logged_in_nav_dropdown.html -->
+We'll add the sub-url ```/courses``` to proceed any url's that display course pages. In the project url's, we'll add a url route to go to our courses app url's
 
-<ul class="nav justify-content-end">
-    <li class="nav-item dropdown">
-        <a class="btn btn-secondary dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Logged in as: {{ user.username }}</a>
-        <div class="dropdown-menu" aria-labelledby="dropdown01">
-            <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
-            <a class="dropdown-item" href="#">Administrator Dashboard</a>
-            <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
-            <a class="dropdown-item" href="#">Change Password</a>
-        </div>
-    </li>
-</ul>
+```python
+# transfer_project/urls.py
+
+from django.contrib import admin
+from django.contrib.auth import views as auth_views
+from django.urls import path, include
+
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path(
+        "login/",
+        auth_views.LoginView.as_view(template_name="users/login.html"),
+        name="login",
+    ),
+    path(
+        "logout/",
+        auth_views.LogoutView.as_view(template_name="users/logout.html"),
+        name="logout",
+    ),
+    path('courses/', include('courses.urls')),
+    path("", include("pages.urls")),
+]
 
 ```
 
+Any url that starts with ```/courses``` is now routed to the courses app urls. So now we need to modify the courses app urls. Create a new url.py file in the courses app directory.
+
+```python
+# courses/urls.py
+
+from django.urls import path
+
+from .views import CourseListView
+
+urlpatterns = [
+    path('', CourseListView.as_view(), name='course_list'),
+]
+```
+
+We named the ```CourseListView``` as the view called when the ```/courses``` url is requested. This view needs to be constructed.
+
+## Create a courses View
+
+To create the ```CourseListView```, we'll create a custom class-based view from Django's generic ```ListView``` class. We'll assign the view to use the course_list.html template, which we'll put in the tempates/courses directory
+
+```python
+# courses/views.py
+
+from django.shortcuts import render
+from django.views.generic import ListView
+
+from .models import Course
+
+
+class CourseListView(ListView):
+    model = Course
+    template_name = 'courses/course_list.html'
+
+```
+
+## Create a courses template
+
+Our course list view is pointing to the template ```ourses/course_list.html``` so that's the template we'll construct next. We'll use bootstrap cards for each course in the template. Django's generic ListView class provides an object called object_list. Since our CourseListView is daughter class of the ListView class, our CourseListView also provides an object called object_list. When we iterate over object_list, we'll iterate over the two courses we created in the Django admin.
+
+```html
+<!-- templates/courses/course_list.html -->
+
+{% extends 'bootstrap_base.html' %}
+
+{% block content %}
+    
+    <div class="card-deck">
+    {% for course in object_list %}
+        <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
+            <div class="card-header"> {{ course.college }}</div>
+            <div class="card-body">
+                <h5 class="card-title">{{ course.course_number }} {{ course.course_name }}</h5>
+                <p class="card-text">{{ course.course_description }}</p>
+            </div>
+            <div class="card-footer bg-transparent text-center text-muted text-white-50">
+                <a href="#" class="badge badge-secondary">Edit</a> | <a href="#" class="badge badge-secondary">Delete</a>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+
+{% endblock content %}
+
+```
+
+
 ## Run the local server to see the results
 
-OK. We should be able to see the profile page now. Let's start the local server, login and browse to the profile page using the dropdown menu on the righthand side of the nav bar.
+OK. We should be able to see the course page list now. Let's run the local server and browse to the /courses page.
 
 ```text
 (transfer) > python manage.py runserver
 ``` 
 
+ > localhost:8000/courses
+
+ ![courses list page]({filename}/posts/transfer_app/images/courses_list_page.png)
+
+It works! We see the two courses we added to the Django admin.
+
 ## Build tests for courses page
 
-Since we have a new page, we need to write some new tests. We already have a couple tests. There is a test for the homepage, about page, login page and logoutpage. We can improve our test coverage by adding tests for the new profile page.
+Since we have a courses list page, we need to write a new test. We already have a couple tests. We can continue to improve our test coverage by adding tests for the new courses list page.
 
 ```python
 # courses/tests.py
 
 ...
 
-class ProfilePageTests(TestCase):
-        def test_profile_page_status_code(self):
-        response = self.client.get('/users/profile/')
+class CoursesListPageTests(TestCase):
+        def test_courses_list_page_status_code(self):
+        response = self.client.get('/courses/')
         self.assertEqual(response.status_code, 200)
 
-    def test_profile_view_uses_correct_template(self):
-        response = self.client.get(reverse('users/profile')
+    def test_courses_view_uses_correct_template(self):
+        response = self.client.get(reverse('/courses/')
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, '/users/profile.html')
+        self.assertTemplateUsed(response, '/courses/course_list.html')
 
 ```
 
@@ -241,4 +323,4 @@ In this post we created a courses model and added a course using the Django admi
 
 ## Future Work
 
-Next, we'll build some authorization into the courses pages so that only 4-year University Administrators can add classes and access the course pages for their University.
+Next, we'll build some authorization into the courses pages so that only 4-year University Administrators can add classes and access the course pages for their University. We also need to build in functionality for courses to be added using the site, instead of courses added using the Django admin.

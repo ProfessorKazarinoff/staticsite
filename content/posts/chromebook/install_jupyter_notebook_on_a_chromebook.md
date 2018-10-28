@@ -13,6 +13,10 @@ Authors: Peter D. Kazarinoff
 
 ## Install Numpy, matplotlib, and pandas
 
+```text
+$ LDFLAGS="-lm -lcompiler_rt" pip install matplotlib
+```
+
 need to also install xlrd library for excel to import .xls and .xlsx data files.
 
 ## Install Jupyter

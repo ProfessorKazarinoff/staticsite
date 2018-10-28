@@ -13,6 +13,12 @@ Authors: Peter D. Kazarinoff
 
 ## Install Numpy, matplotlib, and pandas
 
+We'll start off installing numpy first. This is going to take a while. It took my little chromebook over 10 minutes and I wasn't sure that it was still working during the process. For me numpy 1.12 did not install, but numpy 1.15 (the current version as of writing this post) did install.
+
+```text
+$ LDFLAGS="-lm -lcompiler_rt" pip install numpy==1.15
+```
+
 ```text
 $ LDFLAGS="-lm -lcompiler_rt" pip install matplotlib
 ```

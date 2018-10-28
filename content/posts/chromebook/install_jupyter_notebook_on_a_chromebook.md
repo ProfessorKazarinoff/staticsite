@@ -11,6 +11,10 @@ Authors: Peter D. Kazarinoff
 
 ## Open Termux
 
+## Install Numpy, matplotlib, and pandas
+
+need to also install xlrd library for excel to import .xls and .xlsx data files.
+
 ## Install Jupyter
 
 ## Open a Jupyter notebook

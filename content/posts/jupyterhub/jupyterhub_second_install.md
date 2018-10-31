@@ -116,7 +116,21 @@ See if it will work for just a second. Don't run anything import in the ```--no-
 (jupyterhub)$ jupyterhub --no-ssl
  ```
 
-##  
+Install nginix
+
+```
+$ sudo apt-get install nginx
+```
+
+Next install certbot and run it to obtain an SSL cirt
+
+```
+$ cd ~
+$ mkdir cirtbot
+$ 
+```
+
+After installing certbot we need to let nginx use the SSL cirts.
 
 ## Summary
 

@@ -172,9 +172,9 @@ init_mathjax = function() {
 }
 init_mathjax();
 </script>
-    <link href="/extra/favicon.ico" rel="icon">
+    <link href="../extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="/drafts/plotting-normal-curve-with-python.html">
+<link rel="canonical" href="../drafts/plotting-normal-curve-with-python.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
         <meta name="keywords" content="python,engineering,statistics,matplotlib" />
@@ -183,7 +183,7 @@ init_mathjax();
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="Plotting a gaussian normal curve with Python and matplotlib"/>
-        <meta property="og:url" content="/drafts/plotting-normal-curve-with-python.html"/>
+        <meta property="og:url" content="../drafts/plotting-normal-curve-with-python.html"/>
         <meta property="og:description" content="In the previous post, we calculated the area under the standard normal curve using Python and the erf() function from the math module in the standard library. In this post, we will construct a plot that illustrates the standard normal curve and the area we calculated. To do this we …"/>
         <meta property="article:published_time" content="2017-12-24" />
             <meta property="article:section" content="plotting" />
@@ -196,13 +196,13 @@ init_mathjax();
 
 
     <!-- Bootstrap -->
-        <link rel="stylesheet" href="/theme/css/bootstrap.flatly.min.css" type="text/css"/>
-    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="../theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="../theme/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="/theme/css/pygments/native.css" rel="stylesheet">
-    <link href="/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
-    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
-        <link href="/static/css/custom.css" rel="stylesheet">
+    <link href="../theme/css/pygments/native.css" rel="stylesheet">
+    <link href="../theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="../theme/css/style.css" type="text/css"/>
+        <link href="../static/css/custom.css" rel="stylesheet">
 
 
 
@@ -220,18 +220,18 @@ init_mathjax();
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="/" class="navbar-brand">
+            <a href="../" class="navbar-brand">
 Python for Undergraduate Engineers            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                         <li><a href="/pages/about.html">
+                         <li><a href="../pages/about.html">
                              About
                           </a></li>
-                         <li><a href="/pages/book.html">
+                         <li><a href="../pages/book.html">
                              Book
                           </a></li>
-                         <li><a href="/pages/now.html">
+                         <li><a href="../pages/now.html">
                              Now
                           </a></li>
             </ul>
@@ -241,7 +241,7 @@ Python for Undergraduate Engineers            </a>
                   <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
                 </form></span>
               </li>
-              <li><a href="/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+              <li><a href="../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -253,15 +253,15 @@ Python for Undergraduate Engineers            </a>
     <div class="row">
         <div class="col-sm-9">
             <ol class="breadcrumb">
-                <li><a href="" title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="/category/plotting.html" title="plotting">plotting</a></li>
+                <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="../category/plotting.html" title="plotting">plotting</a></li>
                 <li class="active">Plotting a gaussian normal curve with Python and matplotlib</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="/drafts/plotting-normal-curve-with-python.html"
+                    <a href="../drafts/plotting-normal-curve-with-python.html"
                        rel="bookmark"
                        title="Permalink to Plotting a gaussian normal curve with Python and matplotlib">
                         Plotting a gaussian normal curve with Python and matplotlib
@@ -278,19 +278,19 @@ Python for Undergraduate Engineers            </a>
     </span>
 
             <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x0000025E8732BAC0> of 
+            Part <built-in method index of str object at 0x0000027EC95F7AC0> of 
 
 
 
 
 <span class="label label-default">Tags</span>
-	<a href="/tag/python.html">python</a>
+	<a href="../tag/python.html">python</a>
         /
-	<a href="/tag/engineering.html">engineering</a>
+	<a href="../tag/engineering.html">engineering</a>
         /
-	<a href="/tag/statistics.html">statistics</a>
+	<a href="../tag/statistics.html">statistics</a>
         /
-	<a href="/tag/matplotlib.html">matplotlib</a>
+	<a href="../tag/matplotlib.html">matplotlib</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
@@ -301,7 +301,7 @@ Python for Undergraduate Engineers            </a>
 <p>Find: Assuming a standard distribution, determine the probability that a resistor coming off the production line will be within spec.</p>
 <p>To build our script we need to accomplish a couple of things</p>
 <p>Let's take a look at a gaussin curve</p>
-<p><img alt="gaussian_curve" src="/images/normal_gaussian_curve.png"></p>
+<p><img alt="gaussian_curve" src="../images/normal_gaussian_curve.png"></p>
 <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
@@ -332,15 +332,15 @@ plt.show()
 <section class="well" id="related-posts">
     <h4>Related Posts:</h4>
     <ul>
-        <li><a href="/histogram-plots-with-matplotlib-and-python.html">Plotting Histograms with matplotlib and Python</a></li>
-        <li><a href="/bar-plot-with-error-bars-jupyter-matplotlib.html">Bar charts with error bars using Python, jupyter notebooks and matplotlib</a></li>
-        <li><a href="/python-matplotlib-error-bars.html">Bar charts with error bars using Python and matplotlib</a></li>
-        <li><a href="/quiver-plot-with-matplotlib-and-jupyter-notebooks.html">Quiver plots with using Python, matplotlib and Jupyter notebooks</a></li>
-        <li><a href="/stress-strain-curve-with-4-libraries.html">Plotting a stress-strain curve with four libraries: matplotlib, pandas, altair and bokeh</a></li>
+        <li><a href="../histogram-plots-with-matplotlib-and-python.html">Plotting Histograms with matplotlib and Python</a></li>
+        <li><a href="../bar-plot-with-error-bars-jupyter-matplotlib.html">Bar charts with error bars using Python, jupyter notebooks and matplotlib</a></li>
+        <li><a href="../python-matplotlib-error-bars.html">Bar charts with error bars using Python and matplotlib</a></li>
+        <li><a href="../quiver-plot-with-matplotlib-and-jupyter-notebooks.html">Quiver plots with using Python, matplotlib and Jupyter notebooks</a></li>
+        <li><a href="../stress-strain-curve-with-4-libraries.html">Plotting a stress-strain curve with four libraries: matplotlib, pandas, altair and bokeh</a></li>
     </ul>
 </section>
 <section class="well" id="related-posts">
-    <h4>Article <built-in method index of str object at 0x0000025E8732BAC0> of the  series</h4>
+    <h4>Article <built-in method index of str object at 0x0000027EC95F7AC0> of the  series</h4>
 </section>
         </article>
     </section>
@@ -350,7 +350,7 @@ plt.show()
             <aside>
 <div id="aboutme">
         <p>
-            <img width="100%" class="img-thumbnail" src="/extra/gear-wrench-icon-512-278694.png"/>
+            <img width="100%" class="img-thumbnail" src="../extra/gear-wrench-icon-512-278694.png"/>
         </p>
     <p>
       <strong>About Peter Kazarinoff</strong><br/>
@@ -364,46 +364,46 @@ plt.show()
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
-    <li class="list-group-item"><a href="/quiver-plot-with-matplotlib-and-jupyter-notebooks.html">Quiver plots with using Python, matplotlib and Jupyter notebooks</a></li>
-    <li class="list-group-item"><a href="/stress-strain-curve-with-4-libraries.html">Plotting a stress-strain curve with four libraries: matplotlib, pandas, altair and bokeh</a></li>
-    <li class="list-group-item"><a href="/histogram-plots-with-matplotlib-and-python.html">Plotting Histograms with matplotlib and Python</a></li>
+    <li class="list-group-item"><a href="../quiver-plot-with-matplotlib-and-jupyter-notebooks.html">Quiver plots with using Python, matplotlib and Jupyter notebooks</a></li>
+    <li class="list-group-item"><a href="../stress-strain-curve-with-4-libraries.html">Plotting a stress-strain curve with four libraries: matplotlib, pandas, altair and bokeh</a></li>
+    <li class="list-group-item"><a href="../histogram-plots-with-matplotlib-and-python.html">Plotting Histograms with matplotlib and Python</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
 
 <!-- Sidebar/Tag Cloud -->
 <li class="list-group-item">
-  <a href="/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <a href="../"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
   <ul class="list-group list-inline tagcloud" id="tags">
     <li class="list-group-item tag-3">
-      <a href="/tag/engineering.html">engineering</a>
+      <a href="../tag/engineering.html">engineering</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="/tag/esp8266.html">esp8266</a>
+      <a href="../tag/esp8266.html">esp8266</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="/tag/flask.html">flask</a>
+      <a href="../tag/flask.html">flask</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="/tag/iot.html">IoT</a>
+      <a href="../tag/iot.html">IoT</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="/tag/jupyter.html">jupyter</a>
+      <a href="../tag/jupyter.html">jupyter</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="/tag/jupyter-hub.html">jupyter hub</a>
+      <a href="../tag/jupyter-hub.html">jupyter hub</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="/tag/jupyter-notebooks.html">jupyter notebooks</a>
+      <a href="../tag/jupyter-notebooks.html">jupyter notebooks</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="/tag/matplotlib.html">matplotlib</a>
+      <a href="../tag/matplotlib.html">matplotlib</a>
     </li>
     <li class="list-group-item tag-1">
-      <a href="/tag/python.html">python</a>
+      <a href="../tag/python.html">python</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="/tag/sensor.html">sensor</a>
+      <a href="../tag/sensor.html">sensor</a>
     </li>
   </ul>
 </li>
@@ -445,15 +445,15 @@ plt.show()
       </div>
    </div>
 </footer>
-<script src="/theme/js/jquery.min.js"></script>
+<script src="../theme/js/jquery.min.js"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/theme/js/bootstrap.min.js"></script>
+<script src="../theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="/theme/js/respond.min.js"></script>
+<script src="../theme/js/respond.min.js"></script>
 
-    <script src="/static/js/custom.js"></script>
+    <script src="../static/js/custom.js"></script>
 
 
 <!-- GitHub JS Code -->
@@ -462,7 +462,7 @@ $(document).ready(function () {
   if (!window.jXHR) {
     var jxhr = document.createElement('script');
     jxhr.type = 'text/javascript';
-    jxhr.src = '/theme/js/jXHR.js';
+    jxhr.src = '../theme/js/jXHR.js';
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(jxhr, s);
   }
@@ -475,7 +475,7 @@ $(document).ready(function () {
   });
 });
 </script>
-<script src="/theme/js/github.js" type="text/javascript"></script>
+<script src="../theme/js/github.js" type="text/javascript"></script>
 <!-- End GitHub JS Code -->
     <!-- Google Analytics -->
     <script type="text/javascript">

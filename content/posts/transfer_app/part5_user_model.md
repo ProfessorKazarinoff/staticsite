@@ -226,7 +226,7 @@ Open up a web browser and browse to:
 
 The Django admin looks something like below. Log in with the new superuser username and password that we just set up.
 
-![Django admin login]({filename}/posts/transfer_app/images/djano_admin_login.png)
+![Django admin login]({filename}/posts/transfer_app/images/django_admin_login.png)
 
 After logging in with the superuser credentials, the Django admin dashboard pops up.
 
@@ -236,8 +236,6 @@ After logging in with the superuser credentials, the Django admin dashboard pops
 ## Create users with the django admin
 
 Using the Django admin dashboard, create a new user by clicking the [+user] button.
-
-![Django admin create new user]({filename}/posts/transfer_app/django_admin_create_new_user)
 
 ## Mondify the user app admin.py to include the fields 'job' and 'university'
 
@@ -271,7 +269,7 @@ Restart the server with
 
 Browse to the user dashboard and see the new fields presented.
 
-![django admin]({filename}\posts\transfer_app\images\django_admin_custom_fields_added.png)
+![django admin]({filename}/posts/transfer_app/images/django_admin_custom_fields_added.png)
 
 ## Summary
 

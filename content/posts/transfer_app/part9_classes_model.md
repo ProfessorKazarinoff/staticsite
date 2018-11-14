@@ -4,7 +4,7 @@ Modified: 2018-10-24 12:40
 Status: draft
 Category: django
 Tags: python, django, web app
-Slug: oregon-engineering-college-transfer-app-part-8-user-profile
+Slug: oregon-engineering-college-transfer-app-part-9-classes-model
 Authors: Peter D. Kazarinoff
 Series: Oregon Engineering College Transfer App
 Series_index: 9

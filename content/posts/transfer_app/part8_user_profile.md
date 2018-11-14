@@ -157,8 +157,6 @@ After we log in, we are taken back to the homepage, but now the menu in the uppe
 
 If will click [Profile] from the drop down menu, we are brought to the profile page. Awesome!
 
-![Profile Page Logged in as Peter]({filename}/posts/transfer_app/images/profile_page_logged_in_as_peter.png)
-
 ## Build tests for profile page
 
 Since we have a new page, we need to write some new tests. We already have a couple tests. There is a test for the homepage, about page, login page and logoutpage. We can improve our test coverage by adding tests for the new profile page.

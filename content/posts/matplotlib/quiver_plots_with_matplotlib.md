@@ -1,4 +1,4 @@
-Title: Quiver plots with using Python, matplotlib and Jupyter notebooks
+Title: Quiver plots using Python, matplotlib and Jupyter notebooks
 Date: 2018-11-14 08:11
 Modified: 2018-11-14 08:11
 Status: published

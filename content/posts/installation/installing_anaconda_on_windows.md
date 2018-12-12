@@ -37,16 +37,16 @@ The Anaconda Downloads Page will look something like this:
 
 #### 2. Select the Windows
 
-Select Windows where the three opperating systems are listed.
+Select Windows where the three operating systems are listed.
 
 ![anaconda select Windows](images/anaconda_select_windows.png)
 
 
- <br />
+ <br/>
 
 #### 3. Download
 
-Download the Python 3.6 distribution. Python 2.7 is legacy Python. For undergraduate engineers, select the Python 3.6 version. If you are unsure about a 32-bit version vs a 64-bit version, most Windows installations are 64-bit. 
+Download the Python 3.7 version. Python 2.7 is legacy Python. For undergraduate engineers, select the Python 3.7 version. If you are unsure about installing the 32-bit version vs the 64-bit version, most Windows installations are 64-bit. 
 
 ![anaconda select python 3.6](images/anaconda_python3_or_python2.png)
 
@@ -67,7 +67,7 @@ Once the download completes, open and run the **_.exe_** installer
 
 ![anaconda installer](images/anaconda_run_installer.png)
 
-At the beginning of the install you will need to click **[Next]** to confirm the installation,
+At the beginning of the install, you will need to click **[Next]** to confirm the installation,
 
 ![anaconda installer click next](images/anaconda_installer_click_next.png)
 
@@ -75,28 +75,32 @@ and agree to the license.
 
 ![anaconda license](images/anaconda_agree_to_license.png)
 
-At the Advanced Installation Options screen, I recommend that you **do not check** "Add Anaconda to my PATH environment variable"
+At the Advanced Installation Options screen, I recommend:
+
+ * **do not check** "Add Anaconda to my PATH environment variable"
+
+ * Keep "Register Anaconda as my default Python" 3.7 checked
 
 ![anaconda path variable](images/anaconda_path2.png)
 
 
- <br />
+ <br/>
 
 #### 5. Open the Anaconda Prompt from the Windows start menu
 
-After the Anaconda install is complete, you can go to the Windows start menu and select the Anaconda Prompt
+After the Anaconda install is complete, you can go to the Windows start menu and select the Anaconda Prompt.
 
 ![anaconda in start menu](images/anaconda_from_start_menu.png)
 
-This will open up the Anaconda Prompt, which is often called the **Conda prompt**. Anaconda is the Python distribution and the Conda prompt is a command line tool (a program where you type in your commands instead of using a mouse). It doesn't look like much, but it is really helpful for an undergraduate engineer using Python.
+This will open up the Anaconda Prompt. Anaconda is the Python distribution and the Anaconda Prompt is a command line tool (a program where you type in your commands instead of using a mouse). It doesn't look like much, but it is really helpful for an undergraduate engineer using Python.
 
 ![anaconda prompt](images/anaconda_window.png)
 
-At the Anaconda Prompt, type ```python```. This will start the Python interperater. 
+At the Anaconda Prompt, type ```python```. The ```python``` command starts the Python interpreter. 
 
 ![conda prompt type python](images/conda_prompt_type_python.png)
 
-Note the Python version. You should see something like ```Python 3.6.1```.  With the interperter running, you will see a set of greater-than symbols ```>>>``` before the cursor. 
+Note the Python version. You should see something like ```Python 3.7.0```.  With the interperter running, you will see a set of greater-than symbols ```>>>``` before the cursor. 
 
 ![anaconda prompt](images/conda_type_python.png)
 
@@ -104,13 +108,12 @@ Now you can type Python commands. Try typing ```import this```. You should see t
 
 ![anaconda_import_this](images/conda_import_this_output.png)
 
-To close the Python interperater, type ```exit()``` at the interperator prompt ```>>>```.  Note the double parenthesis at the end of the command. The ```()``` is needed to stop the Python interperator and get back out to the Conda prompt.
+To close the Python interpreter, type ```exit()``` at the interpreter prompt ```>>>```.  Note the double parenthesis at the end of the command. The ```()``` is needed to stop the Python interpreter and get back out to the Anaconda Prompt.
 
-To close the Conda prompt, you can either close the window with the mouse, or type ```exit```.
-
+To close the Anaconda Prompt, you can either close the window with the mouse, or type ```exit```.
 
  <br />
  
 #### Congratulations! You installed the Anaconda distribution on your Windows computer!
 
-When you want to use the Python interperater again, just click the Windows Start button and select the **Anaconda Prompt** and type ```python```.
+When you want to use the Python interpreter again, just click the Windows Start button and select the **Anaconda Prompt** and type ```python```.

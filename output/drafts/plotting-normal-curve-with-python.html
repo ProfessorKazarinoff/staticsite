@@ -172,9 +172,9 @@ init_mathjax = function() {
 }
 init_mathjax();
 </script>
-    <link href="../extra/favicon.ico" rel="icon">
+    <link href="/extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="../drafts/plotting-normal-curve-with-python.html">
+<link rel="canonical" href="/drafts/plotting-normal-curve-with-python.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
         <meta name="keywords" content="python,engineering,statistics,matplotlib" />
@@ -183,7 +183,7 @@ init_mathjax();
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="Plotting a gaussian normal curve with Python and matplotlib"/>
-        <meta property="og:url" content="../drafts/plotting-normal-curve-with-python.html"/>
+        <meta property="og:url" content="/drafts/plotting-normal-curve-with-python.html"/>
         <meta property="og:description" content="In the previous post, we calculated the area under the standard normal curve using Python and the erf() function from the math module in the standard library. In this post, we will construct a plot that illustrates the standard normal curve and the area we calculated. To do this we …"/>
         <meta property="article:published_time" content="2017-12-24" />
             <meta property="article:section" content="plotting" />
@@ -196,13 +196,13 @@ init_mathjax();
 
 
     <!-- Bootstrap -->
-        <link rel="stylesheet" href="../theme/css/bootstrap.flatly.min.css" type="text/css"/>
-    <link href="../theme/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="/theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="../theme/css/pygments/native.css" rel="stylesheet">
-    <link href="../theme/tipuesearch/tipuesearch.css" rel="stylesheet">
-    <link rel="stylesheet" href="../theme/css/style.css" type="text/css"/>
-        <link href="../static/css/custom.css" rel="stylesheet">
+    <link href="/theme/css/pygments/native.css" rel="stylesheet">
+    <link href="/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+        <link href="/static/css/custom.css" rel="stylesheet">
 
 
 
@@ -220,18 +220,18 @@ init_mathjax();
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="../" class="navbar-brand">
+            <a href="/" class="navbar-brand">
 Python for Undergraduate Engineers            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                         <li><a href="../pages/about.html">
+                         <li><a href="/pages/about.html">
                              About
                           </a></li>
-                         <li><a href="../pages/book.html">
+                         <li><a href="/pages/book.html">
                              Book
                           </a></li>
-                         <li><a href="../pages/now.html">
+                         <li><a href="/pages/now.html">
                              Now
                           </a></li>
             </ul>
@@ -241,7 +241,7 @@ Python for Undergraduate Engineers            </a>
                   <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
                 </form></span>
               </li>
-              <li><a href="../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+              <li><a href="/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -253,15 +253,15 @@ Python for Undergraduate Engineers            </a>
     <div class="row">
         <div class="col-sm-9">
             <ol class="breadcrumb">
-                <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="../category/plotting.html" title="plotting">plotting</a></li>
+                <li><a href="" title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="/category/plotting.html" title="plotting">plotting</a></li>
                 <li class="active">Plotting a gaussian normal curve with Python and matplotlib</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="../drafts/plotting-normal-curve-with-python.html"
+                    <a href="/drafts/plotting-normal-curve-with-python.html"
                        rel="bookmark"
                        title="Permalink to Plotting a gaussian normal curve with Python and matplotlib">
                         Plotting a gaussian normal curve with Python and matplotlib
@@ -278,19 +278,19 @@ Python for Undergraduate Engineers            </a>
     </span>
 
             <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x0000027EC95F7AC0> of 
+            Part <built-in method index of str object at 0x0000021A8CB66E68> of 
 
 
 
 
 <span class="label label-default">Tags</span>
-	<a href="../tag/python.html">python</a>
+	<a href="/tag/python.html">python</a>
         /
-	<a href="../tag/engineering.html">engineering</a>
+	<a href="/tag/engineering.html">engineering</a>
         /
-	<a href="../tag/statistics.html">statistics</a>
+	<a href="/tag/statistics.html">statistics</a>
         /
-	<a href="../tag/matplotlib.html">matplotlib</a>
+	<a href="/tag/matplotlib.html">matplotlib</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
@@ -301,46 +301,74 @@ Python for Undergraduate Engineers            </a>
 <p>Find: Assuming a standard distribution, determine the probability that a resistor coming off the production line will be within spec.</p>
 <p>To build our script we need to accomplish a couple of things</p>
 <p>Let's take a look at a gaussin curve</p>
-<p><img alt="gaussian_curve" src="../images/normal_gaussian_curve.png"></p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<p><img alt="gaussian_curve" src="/images/normal_gaussian_curve.png"></p>
+<div class="highlight"><pre><span></span><span class="c1"># normal_curve.py</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="kn">as</span> <span class="nn">mpl</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;savefig.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">80</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">9</span><span class="p">)</span>
 </pre></div>
 
 
 <p>Now we need to define our constants</p>
 <div class="highlight"><pre><span></span><span class="c1"># define constants</span>
-
-<span class="c1"># define constants</span>
-
-<span class="n">mu</span> <span class="o">=</span> <span class="mf">979.8</span>    <span class="c1"># mean = 978.8 kΩ</span>
-<span class="n">sigma</span> <span class="o">=</span> <span class="mf">73.1</span>  <span class="c1"># standard deviation = 73.1 kΩ</span>
-<span class="n">x1</span> <span class="o">=</span> <span class="mi">900</span>      <span class="c1"># lower bound = 900 kΩ</span>
-<span class="n">x2</span> <span class="o">=</span> <span class="mi">1100</span>     <span class="c1"># upper bound = 1100 kΩ</span>
+<span class="n">mu</span> <span class="o">=</span> <span class="mf">998.8</span> 
+<span class="n">sigma</span> <span class="o">=</span> <span class="mf">72.1</span>
+<span class="n">x1</span> <span class="o">=</span> <span class="mi">990</span>
+<span class="n">x2</span> <span class="o">=</span> <span class="mi">1100</span>
 </pre></div>
 
 
-<p>Next we calculate the probability build the curve with scipy's <code>scipy.stats.norm.pdf()</code> function</p>
-<div class="highlight"><pre><span></span># plot the data
-
-plt.plot(data)
-plt.show()
+<p>We can calculate the z-transform of each of the <code>x1</code> and <code>x2</code>.</p>
+<div class="highlight"><pre><span></span><span class="c1"># calculate the z-transform</span>
+<span class="n">z1</span> <span class="o">=</span> <span class="p">(</span> <span class="n">x1</span> <span class="o">-</span> <span class="n">mu</span> <span class="p">)</span> <span class="o">/</span> <span class="n">sigma</span>
+<span class="n">z2</span> <span class="o">=</span> <span class="p">(</span> <span class="n">x2</span> <span class="o">-</span> <span class="n">mu</span> <span class="p">)</span> <span class="o">/</span> <span class="n">sigma</span>
 </pre></div>
+
+
+<p>Next we calculate the probability build the curve with scipy's <code>scipy.stats.norm.pdf()</code> function.</p>
+<div class="highlight"><pre><span></span><span class="c1"># change the range to cut off one end or other of the curve</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">)</span>
+<span class="n">x_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">)</span>
+<span class="c1"># Mean = 0, SD = 1.</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y2</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x_all</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Finally, we'll build the plot</p>
+<div class="highlight"><pre><span></span><span class="c1"># build the plot</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_all</span><span class="p">,</span><span class="n">y2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x_all</span><span class="p">,</span><span class="n">y2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;# of standard deviations outside the mean&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Normal Gaussian Curve&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p>The finished plot is below. Notice how the area corresponding to resistors in given specification are shaded.</p>
+<p><img alt="Area Under Normal Curve Plot" src="/images/area_under_normal_curve_plot.png"></p>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">
     <h4>Related Posts:</h4>
     <ul>
-        <li><a href="../histogram-plots-with-matplotlib-and-python.html">Plotting Histograms with matplotlib and Python</a></li>
-        <li><a href="../bar-plot-with-error-bars-jupyter-matplotlib.html">Bar charts with error bars using Python, jupyter notebooks and matplotlib</a></li>
-        <li><a href="../python-matplotlib-error-bars.html">Bar charts with error bars using Python and matplotlib</a></li>
-        <li><a href="../quiver-plot-with-matplotlib-and-jupyter-notebooks.html">Quiver plots with using Python, matplotlib and Jupyter notebooks</a></li>
-        <li><a href="../stress-strain-curve-with-4-libraries.html">Plotting a stress-strain curve with four libraries: matplotlib, pandas, altair and bokeh</a></li>
+        <li><a href="/histogram-plots-with-matplotlib-and-python.html">Plotting Histograms with matplotlib and Python</a></li>
+        <li><a href="/bar-plot-with-error-bars-jupyter-matplotlib.html">Bar charts with error bars using Python, jupyter notebooks and matplotlib</a></li>
+        <li><a href="/python-matplotlib-error-bars.html">Bar charts with error bars using Python and matplotlib</a></li>
+        <li><a href="/quiver-plot-with-matplotlib-and-jupyter-notebooks.html">Quiver plots using Python, matplotlib and Jupyter notebooks</a></li>
+        <li><a href="/stress-strain-curve-with-4-libraries.html">Plotting a stress-strain curve with four libraries: matplotlib, pandas, altair and bokeh</a></li>
     </ul>
 </section>
 <section class="well" id="related-posts">
-    <h4>Article <built-in method index of str object at 0x0000027EC95F7AC0> of the  series</h4>
+    <h4>Article <built-in method index of str object at 0x0000021A8CB66E68> of the  series</h4>
 </section>
         </article>
     </section>
@@ -350,7 +378,7 @@ plt.show()
             <aside>
 <div id="aboutme">
         <p>
-            <img width="100%" class="img-thumbnail" src="../extra/gear-wrench-icon-512-278694.png"/>
+            <img width="100%" class="img-thumbnail" src="/extra/gear-wrench-icon-512-278694.png"/>
         </p>
     <p>
       <strong>About Peter Kazarinoff</strong><br/>
@@ -364,46 +392,46 @@ plt.show()
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
-    <li class="list-group-item"><a href="../quiver-plot-with-matplotlib-and-jupyter-notebooks.html">Quiver plots with using Python, matplotlib and Jupyter notebooks</a></li>
-    <li class="list-group-item"><a href="../stress-strain-curve-with-4-libraries.html">Plotting a stress-strain curve with four libraries: matplotlib, pandas, altair and bokeh</a></li>
-    <li class="list-group-item"><a href="../histogram-plots-with-matplotlib-and-python.html">Plotting Histograms with matplotlib and Python</a></li>
+    <li class="list-group-item"><a href="/quiver-plot-with-matplotlib-and-jupyter-notebooks.html">Quiver plots using Python, matplotlib and Jupyter notebooks</a></li>
+    <li class="list-group-item"><a href="/stress-strain-curve-with-4-libraries.html">Plotting a stress-strain curve with four libraries: matplotlib, pandas, altair and bokeh</a></li>
+    <li class="list-group-item"><a href="/histogram-plots-with-matplotlib-and-python.html">Plotting Histograms with matplotlib and Python</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
 
 <!-- Sidebar/Tag Cloud -->
 <li class="list-group-item">
-  <a href="../"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <a href="/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
   <ul class="list-group list-inline tagcloud" id="tags">
     <li class="list-group-item tag-3">
-      <a href="../tag/engineering.html">engineering</a>
+      <a href="/tag/engineering.html">engineering</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="../tag/esp8266.html">esp8266</a>
+      <a href="/tag/esp8266.html">esp8266</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="../tag/flask.html">flask</a>
+      <a href="/tag/flask.html">flask</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="../tag/iot.html">IoT</a>
+      <a href="/tag/iot.html">IoT</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="../tag/jupyter.html">jupyter</a>
+      <a href="/tag/jupyter.html">jupyter</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="../tag/jupyter-hub.html">jupyter hub</a>
+      <a href="/tag/jupyter-hub.html">jupyter hub</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="../tag/jupyter-notebooks.html">jupyter notebooks</a>
+      <a href="/tag/jupyter-notebooks.html">jupyter notebooks</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="../tag/matplotlib.html">matplotlib</a>
+      <a href="/tag/matplotlib.html">matplotlib</a>
     </li>
     <li class="list-group-item tag-1">
-      <a href="../tag/python.html">python</a>
+      <a href="/tag/python.html">python</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="../tag/sensor.html">sensor</a>
+      <a href="/tag/sensor.html">sensor</a>
     </li>
   </ul>
 </li>
@@ -445,15 +473,15 @@ plt.show()
       </div>
    </div>
 </footer>
-<script src="../theme/js/jquery.min.js"></script>
+<script src="/theme/js/jquery.min.js"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="../theme/js/bootstrap.min.js"></script>
+<script src="/theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="../theme/js/respond.min.js"></script>
+<script src="/theme/js/respond.min.js"></script>
 
-    <script src="../static/js/custom.js"></script>
+    <script src="/static/js/custom.js"></script>
 
 
 <!-- GitHub JS Code -->
@@ -462,7 +490,7 @@ $(document).ready(function () {
   if (!window.jXHR) {
     var jxhr = document.createElement('script');
     jxhr.type = 'text/javascript';
-    jxhr.src = '../theme/js/jXHR.js';
+    jxhr.src = '/theme/js/jXHR.js';
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(jxhr, s);
   }
@@ -475,7 +503,7 @@ $(document).ready(function () {
   });
 });
 </script>
-<script src="../theme/js/github.js" type="text/javascript"></script>
+<script src="/theme/js/github.js" type="text/javascript"></script>
 <!-- End GitHub JS Code -->
     <!-- Google Analytics -->
     <script type="text/javascript">

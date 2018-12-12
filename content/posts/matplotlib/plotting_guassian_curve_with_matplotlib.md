@@ -25,37 +25,61 @@ Let's take a look at a gaussin curve
 
 ![gaussian_curve]({filename}/images/normal_gaussian_curve.png)
 
-
-
 ```python
+# normal_curve.py
 
 import numpy as np
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 from scipy.stats import norm
-import seaborn as sns
-
+%matplotlib inline
+mpl.rcParams['savefig.dpi'] = 80
+mpl.rcParams['figure.figsize'] = (6,9)
 ```
 
 Now we need to define our constants
 
 ```python
-
 # define constants
-
-# define constants
-
-mu = 979.8    # mean = 978.8 kΩ
-sigma = 73.1  # standard deviation = 73.1 kΩ
-x1 = 900      # lower bound = 900 kΩ
-x2 = 1100     # upper bound = 1100 kΩ
-
+mu = 998.8 
+sigma = 72.1
+x1 = 990
+x2 = 1100
 ```
 
-Next we calculate the probability build the curve with scipy's ```scipy.stats.norm.pdf()``` function
+We can calculate the z-transform of each of the ```x1``` and ```x2```.
 
+```python
+# calculate the z-transform
+z1 = ( x1 - mu ) / sigma
+z2 = ( x2 - mu ) / sigma
 ```
-# plot the data
 
-plt.plot(data)
+Next we calculate the probability build the curve with scipy's ```scipy.stats.norm.pdf()``` function.
+
+```python
+# change the range to cut off one end or other of the curve
+x = np.arange(z1, z2, 0.001)
+x_all = np.arange(-10, 10, 0.001)
+# Mean = 0, SD = 1.
+y = norm.pdf(x,0,1)
+y2 = norm.pdf(x_all,0,1)
+```
+
+Finally, we'll build the plot
+
+```python
+# build the plot
+fig, ax = plt.subplots()
+ax.plot(x_all,y2)
+ax.fill_between(x,y,0, alpha=0.5)
+ax.fill_between(x_all,y2,0, alpha=0.2)
+plt.xlim([-4,4])
+plt.xlabel('# of standard deviations outside the mean')
+plt.title('Normal Gaussian Curve')
 plt.show()
 ```
+
+The finished plot is below. Notice how the area corresponding to resistors in given specification are shaded.
+
+![Area Under Normal Curve Plot]({filename}/images/area_under_normal_curve_plot.png)

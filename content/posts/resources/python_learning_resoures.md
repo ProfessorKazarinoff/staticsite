@@ -41,6 +41,8 @@ The Real Python Blog: [https://realpython.com/](https://realpython.com/)
 
 The PyImageSearch blog by Adrian Rosebrock: [https://www.pyimagesearch.com/](https://www.pyimagesearch.com/)
 
+Practical Business Python by Chris Moffitt: [http://pbpython.com/](http://pbpython.com/)
+
 A running listing of Python blogs. I usually read PlanetPython a couple of times a week: [https://planetpython.org/titles_only.html](https://planetpython.org/titles_only.html)
 
 ## Podcasts

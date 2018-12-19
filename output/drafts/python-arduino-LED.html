@@ -178,13 +178,13 @@ init_mathjax();
 
         <meta name="author" content="Peter D. Kazarinoff" />
         <meta name="keywords" content="python,arduino,serial,hardware,anaconda prompt" />
-        <meta name="description" content="Python is used in many applications including data science, machine learning and web development. Another area where we can use Python is external hardware control. What do I mean by external hardware? A piece of external hardware could be a light or a sensor. External hardware includes multimeters or spectral …" />
+        <meta name="description" content="Python is used in many applications including data science, machine learning, and web development. Another area where we can use Python is external hardware control. What do I mean by external hardware? A piece of external hardware could be a light or a sensor. External hardware includes multimeters or spectral …" />
 
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="Using Python to control an Arduino LED"/>
         <meta property="og:url" content="/drafts/python-arduino-LED.html"/>
-        <meta property="og:description" content="Python is used in many applications including data science, machine learning and web development. Another area where we can use Python is external hardware control. What do I mean by external hardware? A piece of external hardware could be a light or a sensor. External hardware includes multimeters or spectral …"/>
+        <meta property="og:description" content="Python is used in many applications including data science, machine learning, and web development. Another area where we can use Python is external hardware control. What do I mean by external hardware? A piece of external hardware could be a light or a sensor. External hardware includes multimeters or spectral …"/>
         <meta property="article:published_time" content="2018-03-13" />
             <meta property="article:section" content="python and arduino" />
             <meta property="article:tag" content="python" />
@@ -295,17 +295,31 @@ Python for Undergraduate Engineers            </a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>Python is used in many applications including data science, machine learning and web development. Another area where we can use Python is external hardware control. What do I mean by external hardware? A piece of external hardware could be a light or a sensor. External hardware includes multimeters or spectral analyzers. I consider anything connected to a computer that isn't typically connected to a computer as external hardware. So not a keyboard, mouse, headphones, webcams, USB drives, but things like motors, light arrays, solenoids, linear actuators, pressure sensors etc.  In this post, we review over how to use Python to control an LED that is conneted to an Arduino. Python running on a computer will turn the Arduino LED on and off.</p>
-<h2 id="install-pyserial">Install pyserial</h2>
-<p>To start a new Python project, it is best practice to create a new virtual environment. I have the <strong>Anaconda</strong> distribution of Python installed on my Windows 10 machine. When you <a href="/installing-anaconda-on-windows.html">install <strong>Anaconda</strong></a>, it comes with the very useful <strong>Anaconda Prompt</strong>. Using the <strong>Anaconda Prompt</strong> is a bit like using the terminal on a MacOS or Linux. To start the <strong>Anaconda Prompt</strong> on Windows 10, go to the Windows start button on the lower left and select <strong>Anaconda Prompt</strong>.</p>
-<p><img alt="anaconda in start menu" src="images/anaconda_from_start_menu.png"></p>
-<p>Let's create a new virtual environment for our Arduino LED project using the Anaconda Prompt:</p>
+                <p>Python is used in many applications including data science, machine learning, and web development. Another area where we can use Python is external hardware control. What do I mean by external hardware? A piece of external hardware could be a light or a sensor. External hardware includes multimeters or spectral analyzers. I consider anything connected to a computer that isn't typically connected to a computer as external hardware. So not a keyboard, mouse, headphones, webcams, USB drives, but things like motors, light arrays, solenoids, linear actuators, pressure sensors, etc.  In this post, we'll review over how to use Python to control an LED that is connected to an Arduino. Python running on a computer will turn the Arduino LED on and off.</p>
+<div class="toc"><span class="toctitle">Table of contents:</span><ul>
+<li><a href="#install-pyserial">Install PySerial</a></li>
+<li><a href="#download-the-arduino-ide">Download the Arduino IDE</a></li>
+<li><a href="#wire-an-led-and-a-resistor-to-the-arduino">Wire an LED and a resistor to the Arduino</a></li>
+<li><a href="#connect-the-arduino-to-the-computer-and-check-the-com-port">Connect the Arduino to the computer and check the COM port</a></li>
+<li><a href="#load-the-arduino-example-sketch-blinkino-onto-the-arduino-confirm-the-arduino-and-led-blinks">Load the Arduino example sketch Blink.ino onto the Arduino. Confirm the Arduino and LED blinks</a></li>
+<li><a href="#load-the-arduino-example-sketch-physicalpixelino">Load the Arduino example sketch PhysicalPixel.ino</a></li>
+<li><a href="#use-the-arduino-serial-monitor-to-turn-the-arduino-led-on-and-off">Use the Arduino Serial Monitor to turn the Arduino LED on and off</a></li>
+<li><a href="#use-the-python-repl-to-turn-the-arduino-led-on-and-off">Use the Python REPL to turn the Arduino LED on and off.</a></li>
+<li><a href="#write-a-python-script-to-turn-the-led-on-and-off">Write a Python Script to turn the LED on and off</a></li>
+<li><a href="#write-a-python-script-to-prompt-a-user-to-turn-the-led-on-and-off">Write a Python script to prompt a user to turn the LED on and off</a></li>
+<li><a href="#summary">Summary</a></li>
+</ul>
+</div>
+<h2 id="install-pyserial">Install PySerial</h2>
+<p>To start a new Python project, it is best practice to create a new virtual environment. I have the <strong>Anaconda distribution of Python</strong> installed on my Windows 10 machine. When you <a href="/installing-anaconda-on-windows.html">install <strong>Anaconda</strong></a>, it comes with the very useful <strong>Anaconda Prompt</strong>. Using the <strong>Anaconda Prompt</strong> is a bit like using the terminal on a MacOS or Linux. To start the <strong>Anaconda Prompt</strong> on Windows 10, go to the Windows Start Button on the lower left and select <strong>Anaconda Prompt</strong>.</p>
+<p><img alt="anaconda in start menu" src="/images/anaconda_from_start_menu.png"></p>
+<p>Now using the <strong>Anaconda Prompt</strong>, let's create a new virtual environment for our Arduino LED project:</p>
 <div class="highlight"><pre><span></span>&gt; conda create --name arduino python=3.7
 </pre></div>
 
 
 <p>The <code>conda create</code> command builds the new virtual environment. The <code>--name arduino</code> flag gives our new virtual environment the name <code>arduino</code>.  I like to name my virtual environments the same name as the project that uses the virtual environment.  Including <code>python=3.7</code> ensures that the new virtual environment has an up to date version of Python.</p>
-<p>Type <code>y</code> to confirm and create the new virtual environment. To use the new virtual environment <code>arduino</code> you need to <em>activate</em> it by typing:</p>
+<p>Type <code>y</code> to confirm and create the new virtual environment. To use the new virtual environment <code>arduino</code>, you need to first <em>activate</em> it by typing:</p>
 <div class="highlight"><pre><span></span>&gt; conda activate arduino
 </pre></div>
 
@@ -315,12 +329,12 @@ Python for Undergraduate Engineers            </a>
 </pre></div>
 
 
-<p>To communicate with the Arudino using Python, you need to install the <strong>pyserial</strong> package. You can do this at the <strong>Anaconda Prompt</strong> using the command <code>conda install pyserial</code>. Note the <code>(arduino)</code> virtual environment needs to be active when you run the <code>conda install</code> command.</p>
+<p>To communicate with the Arduino using Python, we need to install the <strong>PySerial</strong> package. You can install the <strong>PySerial</strong> package at the <strong>Anaconda Prompt</strong> using the command <code>conda install pyserial</code>. Note the <code>(arduino)</code> virtual environment should be active when you run the <code>conda install</code> command.</p>
 <div class="highlight"><pre><span></span>(arduino) &gt; conda install pyserial
 </pre></div>
 
 
-<p>To confirm that <strong>pyserial</strong> is installed, open the Python REPL while the <code>(arduio)</code> virtual environment is activate. At the <code>&gt;&gt;&gt;</code> REPL prompt, import <strong>pyserial</strong> with the command <code>import serial</code>. Note that although we installed <strong>pyserial</strong> with the command <code>conda install pyserial</code>, we import <strong>pyserial</strong> using the line <code>import serial</code>. </p>
+<p>To confirm <strong>PySerial</strong> is installed, open the Python REPL while the <code>(arduio)</code> virtual environment is active. At the <code>&gt;&gt;&gt;</code> REPL prompt, import <strong>PySerial</strong> with the command <code>import serial</code>. Note that although we installed <strong>PySerial</strong> with the command <code>conda install pyserial</code>, we import <strong>PySerial</strong> using the line <code>import serial</code>. </p>
 <div class="highlight"><pre><span></span><span class="p">(</span><span class="n">arduino</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">python</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">serial</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">serial</span><span class="o">.</span><span class="n">__version__</span>
@@ -331,9 +345,123 @@ Python for Undergraduate Engineers            </a>
 
 <h2 id="download-the-arduino-ide">Download the Arduino IDE</h2>
 <p>Download the Arduino IDE using the following link: 
-<a href="https://www.arduino.cc/en/Main/Software">https://www.arduino.cc/en/Main/Software</a> 
-Scroll down the page to the Download the Arduino IDE section. Be sure to select: <strong>Windows ZIP file for non-admin install</strong> as new software can not be installed on lab computers without administrator privileges. You can select <strong>JUST DOWNLOAD</strong> from the donation screen. Extract the downloaded .zip folder to your thumb drive or the desktop.</p>
-<p><a href="/posts/arduino/images/arduino_download_page.png">Arduino Download Page</a></p>
+<a href="https://www.arduino.cc/en/Main/Software">https://www.arduino.cc/en/Main/Software</a> </p>
+<p>Scroll down the page to the Download the Arduino IDE section. Be sure to select: <strong>Windows ZIP file for non-admin install</strong> as new software can not be installed on lab computers without administrator privileges. You can choose<strong>JUST DOWNLOAD</strong> from the donation screen. Extract the downloaded .zip folder to your thumb drive or the desktop.</p>
+<p><img alt="Arduino Download Page" src="/posts/arduino/images/arduino_download_page.png"></p>
+<h2 id="wire-an-led-and-a-resistor-to-the-arduino">Wire an LED and a resistor to the Arduino</h2>
+<p>Take out an LED (any color), a 330 Ohm resistor, three jumper wires (red, yellow and black), the Arduino, and a white breadboard. Connect the LED, resistor, and wires as shown below. Note the LED has two different sized "legs." Ensure the LED is wired in the correct orientation. </p>
+<ul>
+<li>short LED leg &rarr; resistor &rarr; ground</li>
+<li>long LED leg &rarr; Pin 13 on Arduino. </li>
+</ul>
+<p>Also see the SIK GUIDE page 19 and the SparkFun Inventor’s kit online guide: </p>
+<blockquote>
+<p><a href="https://learn.sparkfun.com/tutorials/sik-experiment-guide-for-arduino—v33/experiment-1-blinking-an-led">https://learn.sparkfun.com/tutorials/sik-experiment-guide-for-arduino—v33/experiment-1-blinking-an-led</a></p>
+</blockquote>
+<p><img alt="Redboard LED Fritzing" src="/posts/arduino/images/redboard_LED_bb.png"></p>
+<h2 id="connect-the-arduino-to-the-computer-and-check-the-com-port">Connect the Arduino to the computer and check the <strong>COM</strong> port</h2>
+<p>Connect the Arduino to the computer using a USB cable. On SparkFun Redboards (a type of Arduino), the cable needs to be a USB 2.0 type A to Mini-B 5-pin cable. One end of the cable looks like a regular USB cable. Connect that end to the computer. The other end of the cable has a small connector that sort of looks like a phone charging cable, but a little different. Connect this smaller end of the cable to the Arduino.</p>
+<p>Now we need to determine which <strong>COM Port</strong> the Arduino is connected to. You will need to know which <strong>COM Port</strong> the Arduino is connected to when you try to upload code to the Arduino or attempt to communicate with the Arduino.</p>
+<p>You can use the Windows Device Manager to determine which serial port the Arduino is connected to. On my Windows 10 laptop, the port the Arduino is connected to usually comes up as <code>COM4</code>. You can find the serial port by looking in the <strong>Ports (COM &amp; LPT)</strong> category of the Windows Device Manager. Look for something like <strong>USB Serial Port (COM4)</strong> in the <strong>Ports (COM &amp; LPT)</strong> menu. It is the <strong>COM#</strong> that you are looking for.</p>
+<p><img alt="Find Device Manager" src="/posts/micropython/find_device_manager.png"></p>
+<p><img alt="Device Manager Menu" src="/posts/arduino/images/device_manager_USB_Serial_Port_COM15.png"></p>
+<h2 id="load-the-arduino-example-sketch-blinkino-onto-the-arduino-confirm-the-arduino-and-led-blinks">Load the Arduino example sketch <strong>Blink.ino</strong> onto the Arduino. Confirm the Arduino and LED blinks</h2>
+<p>Open the extracted Arduino IDE folder and double-click the <strong>Arduino.exe</strong> program. Open the Arduino <strong>Blink.ino</strong> sketch by going to: File &rarr; Examples &rarr; 01.Basics &rarr; Blink. </p>
+<p><img alt="blink.ino in examples menu" src="/posts/arduino/images/blink_in_examples_menu.png"></p>
+<p>Now ensure that the <strong>Port</strong> and the <strong>Board</strong> type are set correctly in the Arduino IDE. In the Arduino IDE Tools menu, select the following:</p>
+<ul>
+<li>Tools &rarr; Port &rarr; COM4 (or whichever port the Arduino is connected to, found with the Windows Device Manager)</li>
+<li>Tools &rarr; Board &rarr; Arduino / Genuino Uno</li>
+</ul>
+<p>In the Arduino IDE Window that contains the <strong>Blink.ino</strong> sketch, click the check mark to Verify then click the arrow to Upload. </p>
+<p><img alt="check to verify" src="/posts/arduino/images/Check_to_Verify.png"></p>
+<p><img alt="arrow to upload" src="/posts/arduino/images/Arrow_to_Upload.png"></p>
+<p>Once the upload is complete, the Arduino and LED should blink on and off. If you don't see the Arduino and LED blinking, you need to do some troubleshooting. Check the <strong>COM Port</strong> or try unplugging and re-plugging in the Arduino. </p>
+<h2 id="load-the-arduino-example-sketch-physicalpixelino">Load the Arduino example sketch <strong>PhysicalPixel.ino</strong></h2>
+<p>Open the Arduino sketch <strong>PhysicalPixel.ino</strong> by going to File &rarr; Examples &rarr; 04.Communication &rarr; PhysicalPixel. </p>
+<p><img alt="image name" src="/posts/arduino/images/physicalpixel_in_examples_menu.png"></p>
+<p>Once again, click the check mark to Verify then click the arrow to Upload. </p>
+<p><img alt="image name" src="/posts/arduino/images/Check_to_Verify.png"></p>
+<p><img alt="image name" src="/posts/arduino/images/Arrow_to_Upload.png"></p>
+<h2 id="use-the-arduino-serial-monitor-to-turn-the-arduino-led-on-and-off">Use the Arduino Serial Monitor to turn the Arduino LED on and off</h2>
+<p>In the Arduino IDE Window that contains the <strong>PhysicalPixel.ino</strong> sketch, open the <strong>Arduino Serial Monitor</strong> by going to Tools &rarr; Serial Monitor.</p>
+<p><img alt="image name" src="/posts/arduino/images/Tools_SerialMonitor.png"></p>
+<p>In the Arduino Serial Monitor type: <code>H</code> and click Send (or press ENTER). Then type: <code>L</code> and click Send (or press ENTER). You should see the Arduino LED turn on and off. If you are having trouble, make sure the <strong>Port</strong> is set correctly in Tools &rarr; Port and make sure the Serial Monitor is set to 9600 baud. </p>
+<p><img alt="image name" src="/posts/arduino/images/SerialMonitor_H.png"></p>
+<h2 id="use-the-python-repl-to-turn-the-arduino-led-on-and-off">Use the Python REPL to turn the Arduino LED on and off.</h2>
+<p>Open the Anaconda Prompt and activate the <code>(arduino)</code> virtual environment. Then start the Python REPL by typing <code>python</code> at the prompt. T</p>
+<p>Type the following commands to turn the Arduino LED on and off. Note the arrow symbols <code>&gt;</code> and <code>&gt;&gt;&gt;</code> should not be typed. <code>&gt;</code> and <code>&gt;&gt;&gt;</code> are just shown to indicate the prompt.</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">conda</span> <span class="n">activate</span> <span class="n">arduino</span>
+<span class="p">(</span><span class="n">arduino</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">python</span>
+
+<span class="n">Python</span> <span class="mf">3.7</span><span class="o">.</span><span class="mi">1</span> <span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="n">Dec</span> <span class="mi">10</span> <span class="mi">2018</span><span class="p">,</span> <span class="mi">22</span><span class="p">:</span><span class="mi">54</span><span class="p">:</span><span class="mi">23</span><span class="p">)</span> <span class="p">[</span><span class="n">MSC</span> <span class="n">v</span><span class="o">.</span><span class="mi">1915</span> <span class="mi">64</span> <span class="n">bit</span> <span class="p">(</span><span class="n">AMD64</span><span class="p">)]</span> <span class="p">::</span> <span class="n">Anaconda</span><span class="p">,</span> <span class="n">Inc</span><span class="o">.</span> <span class="n">on</span> <span class="n">win32</span>
+<span class="n">Type</span> <span class="s2">&quot;help&quot;</span><span class="p">,</span> <span class="s2">&quot;copyright&quot;</span><span class="p">,</span> <span class="s2">&quot;credits&quot;</span> <span class="ow">or</span> <span class="s2">&quot;license&quot;</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span><span class="o">.</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">serial</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ser</span> <span class="o">=</span> <span class="n">serial</span><span class="o">.</span><span class="n">Serial</span><span class="p">(</span><span class="s1">&#39;COM4&#39;</span><span class="p">,</span> <span class="mi">9800</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ser</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;H&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ser</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;L&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ser</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;H&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ser</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;L&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ser</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">exit</span><span class="p">()</span>
+<span class="o">&gt;</span>
+</pre></div>
+
+
+<p>You should see the Arduino LED turn on and off when you type the commands <code>ser.writelines(b'H')</code> and <code>ser.writelines(b'L')</code>. These commands send the characters <code>H</code> and <code>L</code> over the serial line to the Arduino. The Arduino reads these characters and turns the LED on and off. Make sure you run the <code>ser.close()</code> command. If the serial line is not closed, you may have trouble opening the serial line again and running these same commands a second time.</p>
+<h2 id="write-a-python-script-to-turn-the-led-on-and-off">Write a Python Script to turn the LED on and off</h2>
+<p>After the LED turns on and off based on sending <code>H</code> and <code>L</code> with the Python REPL, let's write a Python script to turn the LED on and off. Again, the serial communication between the Python script and the Arduino is facilitated by the PySerial package. Ensure PySerial is installed before running the Python script.</p>
+<p>At the top of the Python script, import the PySerial package. Note that even though the package is called PySerial, the line <code>import serial</code> is used. Python's built-in time module is also imported as the <code>time.sleep()</code> function will be used in the script. Open a new script called <strong>Arduino_blink.py</strong>. Include the following code:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">serial</span>
+<span class="kn">import</span> <span class="nn">time</span>
+</pre></div>
+
+
+<p>In the next part of <strong>Arduino_blink.py</strong>, create a loop that blinks the LED on and off for about 5 seconds. Note the byte string <code>b'H'</code> is sent to the Arduino, not the unicode string <code>'H'</code>. The unicode string <code>'H'</code> is pre-pended with the letter <code>b</code> in the line <code>ser.writelines(b'H')</code>.</p>
+<div class="highlight"><pre><span></span><span class="c1"># Arduino_blink.py</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">serial</span><span class="o">.</span><span class="n">Serial</span><span class="p">(</span><span class="s1">&#39;COM4&#39;</span><span class="p">,</span> <span class="mi">9800</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">as</span> <span class="n">ser</span><span class="p">:</span>
+        <span class="n">ser</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;H&#39;</span><span class="p">)</span>   <span class="c1"># send a byte</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>        <span class="c1"># wait 0.5 seconds before reading the next line</span>
+        <span class="n">ser</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;L&#39;</span><span class="p">)</span>   <span class="c1"># send a byte</span>
+</pre></div>
+
+
+<p>When the script is run, you should see the Arduino LED blink on and off 10 times.</p>
+<h2 id="write-a-python-script-to-prompt-a-user-to-turn-the-led-on-and-off">Write a Python script to prompt a user to turn the LED on and off</h2>
+<p>Once the LED blinks on and off successfully using a <strong>for loop</strong> in a Python script, we can write a new Python script called <strong>Arduino_LED_user.py</strong> that allows a user to turn the LED on and off. At the top of the <strong>Arduino_LED_user.py</strong> script import the <strong>PySerial</strong> package and built-in <code>time</code> module.</p>
+<div class="highlight"><pre><span></span><span class="c1"># Arduino_LED_user.py</span>
+
+<span class="kn">import</span> <span class="nn">serial</span>
+<span class="kn">import</span> <span class="nn">time</span>
+</pre></div>
+
+
+<p>Next, give the user instructions. If the user types <code>H</code>, the LED turns on. If the user types <code>L</code> the LED turns off. If the user types <code>q</code>, the program terminates.</p>
+<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;This is a program that allows a user to turn an LED on and off&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;type H to turn the LED on&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;type L to turn the LED off&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;type q to quit&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Finally, the script needs a <em>while loop</em> to ask the user to enter the letter <code>H</code>, <code>L</code> or <code>q</code>. Once the user enters the letter, the letter is converted to a byte string. Next, the byte string is sent over the serial line to the Arduino. A delay is added so that the Arduino can process the command before reading the next command.</p>
+<div class="highlight"><pre><span></span><span class="n">user_input</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;H = on, L = off, q = quit&#39;</span> <span class="p">:</span> <span class="p">)</span>
+<span class="k">while</span> <span class="n">user_input</span> <span class="o">!=</span> <span class="s1">&#39;q&#39;</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">serial</span><span class="o">.</span><span class="n">Serial</span><span class="p">(</span><span class="s1">&#39;COM4&#39;</span><span class="p">,</span> <span class="mi">9800</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">as</span> <span class="n">ser</span><span class="p">:</span>
+        <span class="n">byte_command</span> <span class="o">=</span> <span class="n">encode</span><span class="p">(</span><span class="n">user_input</span><span class="p">)</span>
+        <span class="n">ser</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">byte_command</span><span class="p">)</span>   <span class="c1"># send a byte</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span> <span class="c1"># wait 0.5 seconds before reading the next line</span>
+        <span class="n">user_input</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;H = on, L = off, q = quit&#39;</span> <span class="p">:</span> <span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;q entered. Exiting the program&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Run the Python script. Type <code>H</code> and <code>L</code> and observe the Arduino LED turn on and off. Type <code>q</code> to end the program.</p>
+<h2 id="summary">Summary</h2>
+<p>In this post, we reviewed how to control an Arduino LED with Python. Accomplishing this task took a couple steps. First, we created a virtual environment and install the PySerial package into it. Next, we downloaded the Arduino IDE. Then we wired up the LED to the Arduino and uploaded the blink.ino sketch to the Arduino. This ensured the Arduino was working correctly. After that, we uploaded the PhysicalPixel.ino sketch to the Arduino and turned the Arduino LED on and off with the Arduino Serial Monitor. Once that was successful, we used the Python REPL and PySerial to turn the LED on and off. Finally, we constructed a Python script to turn the Arduino LED on and off based on user input.</p>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">

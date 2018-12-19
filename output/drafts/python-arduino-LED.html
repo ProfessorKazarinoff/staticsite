@@ -295,28 +295,45 @@ Python for Undergraduate Engineers            </a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>Python is used in many applications including data science, machine learning and web development. Another area where we can use Python is external hardware control. What do I mean by external hardware? A piece of external hardware could be a light or a sensor. External hardware includes multimeters or spectral analyzers. I consider anything connected to a computer that isn't typically connected to a computer as external hardware. So not a keyboard, mouse, headphones, webcams, USB drives, but things like motors, light arrays, solenoids, linear actuators, pressure sensors etc.  In this post we review over how to use Python to control an LED that is conneted to an Arduino. Python running on our computer will turn the Arduino LED on and off.</p>
-<p>To start a new Python project, it is best practice to create a new virtual environment. I have the <strong>Anaconda</strong> distribution of Python installed on my Windows 10 machine. When you <a href="/installing-anaconda-on-windows.html">install <strong>Anaconda</strong></a>, it comes with the very useful <strong>Anaconda Prompt</strong>. Using the <strong>Anaconda Prompt</strong> is a bit like using the terminal on a Mac OSX or Linux. To start the <strong>Anaconda Prompt</strong> on Windows 10, go to the Windows start button on the lower left and select <strong>Anaconda Prompt</strong>.</p>
+                <p>Python is used in many applications including data science, machine learning and web development. Another area where we can use Python is external hardware control. What do I mean by external hardware? A piece of external hardware could be a light or a sensor. External hardware includes multimeters or spectral analyzers. I consider anything connected to a computer that isn't typically connected to a computer as external hardware. So not a keyboard, mouse, headphones, webcams, USB drives, but things like motors, light arrays, solenoids, linear actuators, pressure sensors etc.  In this post, we review over how to use Python to control an LED that is conneted to an Arduino. Python running on a computer will turn the Arduino LED on and off.</p>
+<h2 id="install-pyserial">Install pyserial</h2>
+<p>To start a new Python project, it is best practice to create a new virtual environment. I have the <strong>Anaconda</strong> distribution of Python installed on my Windows 10 machine. When you <a href="/installing-anaconda-on-windows.html">install <strong>Anaconda</strong></a>, it comes with the very useful <strong>Anaconda Prompt</strong>. Using the <strong>Anaconda Prompt</strong> is a bit like using the terminal on a MacOS or Linux. To start the <strong>Anaconda Prompt</strong> on Windows 10, go to the Windows start button on the lower left and select <strong>Anaconda Prompt</strong>.</p>
 <p><img alt="anaconda in start menu" src="images/anaconda_from_start_menu.png"></p>
 <p>Let's create a new virtual environment for our Arduino LED project using the Anaconda Prompt:</p>
-<div class="highlight"><pre><span></span>conda create --name arduino python=3.6
+<div class="highlight"><pre><span></span>&gt; conda create --name arduino python=3.7
 </pre></div>
 
 
-<p>The <code>conda create</code> command builds the new virtual environment. The <code>--name arduino</code> flag gives our new virtual environment the name <code>arduino</code>.  I like to name my virtual environments the same name as the project that I will use that environment for, or after the name of the package that will be used the most.  Including <code>python=3.6</code> ensures that your virtual environment has an up to date version of python.</p>
-<p>Type <code>y</code> to confirm that you want to create the new virtual environment. To use the new virtual environment <code>arduino</code> you need to <em>activate</em> it by typing:</p>
-<div class="highlight"><pre><span></span>conda activate arduino
+<p>The <code>conda create</code> command builds the new virtual environment. The <code>--name arduino</code> flag gives our new virtual environment the name <code>arduino</code>.  I like to name my virtual environments the same name as the project that uses the virtual environment.  Including <code>python=3.7</code> ensures that the new virtual environment has an up to date version of Python.</p>
+<p>Type <code>y</code> to confirm and create the new virtual environment. To use the new virtual environment <code>arduino</code> you need to <em>activate</em> it by typing:</p>
+<div class="highlight"><pre><span></span>&gt; conda activate arduino
 </pre></div>
 
 
-<p>You know you are in the <code>arduino</code> virtual environment when <code>(arduino)</code> is in parenthesis at the start of the prompt:</p>
+<p>You know you are in the <code>arduino</code> virtual environment when <code>(arduino)</code> is in parenthesis at the start of the <strong>Anaconda Prompt</strong>:</p>
 <div class="highlight"><pre><span></span>(arduino) &gt;
 </pre></div>
 
 
-<p>To communicate with the Arudino using Python we need to install the <strong>pyserial</strong> package. We can do this at the <strong>Anaconda Prompt</strong> using the <code>conda install</code> command.</p>
+<p>To communicate with the Arudino using Python, you need to install the <strong>pyserial</strong> package. You can do this at the <strong>Anaconda Prompt</strong> using the command <code>conda install pyserial</code>. Note the <code>(arduino)</code> virtual environment needs to be active when you run the <code>conda install</code> command.</p>
 <div class="highlight"><pre><span></span>(arduino) &gt; conda install pyserial
 </pre></div>
+
+
+<p>To confirm that <strong>pyserial</strong> is installed, open the Python REPL while the <code>(arduio)</code> virtual environment is activate. At the <code>&gt;&gt;&gt;</code> REPL prompt, import <strong>pyserial</strong> with the command <code>import serial</code>. Note that although we installed <strong>pyserial</strong> with the command <code>conda install pyserial</code>, we import <strong>pyserial</strong> using the line <code>import serial</code>. </p>
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">arduino</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">python</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">serial</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">serial</span><span class="o">.</span><span class="n">__version__</span>
+<span class="s1">&#39;3.4&#39;</span>
+<span class="o">&gt;&gt;&gt;</span>
+</pre></div>
+
+
+<h2 id="download-the-arduino-ide">Download the Arduino IDE</h2>
+<p>Download the Arduino IDE using the following link: 
+<a href="https://www.arduino.cc/en/Main/Software">https://www.arduino.cc/en/Main/Software</a> 
+Scroll down the page to the Download the Arduino IDE section. Be sure to select: <strong>Windows ZIP file for non-admin install</strong> as new software can not be installed on lab computers without administrator privileges. You can select <strong>JUST DOWNLOAD</strong> from the donation screen. Extract the downloaded .zip folder to your thumb drive or the desktop.</p>
+<p><a href="/posts/arduino/images/arduino_download_page.png">Arduino Download Page</a></p>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">

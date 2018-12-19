@@ -29,6 +29,7 @@ STATIC_PATHS = ['images','extra',
                 'posts/resources/images',
                 'posts/schemdraw',
                 'posts/transfer_app/images',
+                'posts/arduino/images',
                 'posts/flask',]  # removed this, see if any change 'code',
 PLUGIN_PATHS = ['pelican-plugins']
 EXTRA_PATH_METADATA = {

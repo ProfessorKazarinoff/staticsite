@@ -1,15 +1,30 @@
-Title: Using Python to control an Arduino LED
-Date: 2018-03-13 20:20
-Modified: 2018-03-13 20:20
-Status: draft
+Title: Using Python to control an Arduino
+Date: 2018-12-20 13:07
+Modified: 2018-12-20 13:07
+Status: published
 Category: python and arduino
 Tags: python, arduino, serial, hardware, anaconda prompt
 Slug: python-arduino-LED
 Authors: Peter D. Kazarinoff
 
+![Python Logo and Arduino]({filename}/posts/arduino/images/python_logo_and_redboard_bb.png)
+
 Python is used in many applications including data science, machine learning, and web development. Another area where we can use Python is external hardware control. What do I mean by external hardware? A piece of external hardware could be a light or a sensor. External hardware includes multimeters or spectral analyzers. I consider anything connected to a computer that isn't typically connected to a computer as external hardware. So not a keyboard, mouse, headphones, webcams, USB drives, but things like motors, light arrays, solenoids, linear actuators, pressure sensors, etc.  In this post, we'll review over how to use Python to control an LED that is connected to an Arduino. Python running on a computer will turn the Arduino LED on and off.
 
 [TOC]
+
+## Collect the hardware
+
+In this project, we are going to use a couple pieces of hardware. Below is the list of harware we need to complete the project:
+
+| Component | Item and Link
+| | |
+| Arduino | [SparkFun RedBoard - Programmed with Arduino]((https://www.sparkfun.com/products/13975)) |
+| Jumper Wires | [Jumper Wires Premium 6" M/M Pack of 10]((https://www.sparkfun.com/products/8431)) |
+| LED | [LED Rainbow Pack - 5mm PTH](https://www.sparkfun.com/products/12903) |
+| 330 Ohm Resistor | [Resistor 330 Ohm 1/6 Watt PTH - 20 pack](https://www.sparkfun.com/products/11507) |
+| Breadboard | [Breadboard - Self-Adhesive (White)](https://www.sparkfun.com/products/12002) |
+| USB cable | [SparkFun USB Mini-B Cable - 6 Foot](https://www.sparkfun.com/products/11301) |
 
 ## Install PySerial
 

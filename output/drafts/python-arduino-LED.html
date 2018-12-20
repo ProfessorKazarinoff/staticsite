@@ -399,63 +399,75 @@ Python for Undergraduate Engineers            </a>
 
 <span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">serial</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">ser</span> <span class="o">=</span> <span class="n">serial</span><span class="o">.</span><span class="n">Serial</span><span class="p">(</span><span class="s1">&#39;COM4&#39;</span><span class="p">,</span> <span class="mi">9800</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">ser</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;H&#39;</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">ser</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;L&#39;</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">ser</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;H&#39;</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">ser</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;L&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ser</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;H&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ser</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;L&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ser</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;H&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ser</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;L&#39;</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">ser</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="nb">exit</span><span class="p">()</span>
 <span class="o">&gt;</span>
 </pre></div>
 
 
-<p>You should see the Arduino LED turn on and off when you type the commands <code>ser.writelines(b'H')</code> and <code>ser.writelines(b'L')</code>. These commands send the characters <code>H</code> and <code>L</code> over the serial line to the Arduino. The Arduino reads these characters and turns the LED on and off. Make sure you run the <code>ser.close()</code> command. If the serial line is not closed, you may have trouble opening the serial line again and running these same commands a second time.</p>
+<p>You should see the Arduino LED turn on and off when you type the commands <code>ser.write(b'H')</code> and <code>ser.write(b'L')</code>. These commands send the characters <code>H</code> and <code>L</code> over the serial line to the Arduino. The Arduino reads these characters and turns the LED on and off. Make sure you run the <code>ser.close()</code> command. If the serial line is not closed, you may have trouble opening the serial line again and running these same commands a second time.</p>
 <h2 id="write-a-python-script-to-turn-the-led-on-and-off">Write a Python Script to turn the LED on and off</h2>
 <p>After the LED turns on and off based on sending <code>H</code> and <code>L</code> with the Python REPL, let's write a Python script to turn the LED on and off. Again, the serial communication between the Python script and the Arduino is facilitated by the PySerial package. Ensure PySerial is installed before running the Python script.</p>
 <p>At the top of the Python script, import the PySerial package. Note that even though the package is called PySerial, the line <code>import serial</code> is used. Python's built-in time module is also imported as the <code>time.sleep()</code> function will be used in the script. Open a new script called <strong>Arduino_blink.py</strong>. Include the following code:</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">serial</span>
-<span class="kn">import</span> <span class="nn">time</span>
-</pre></div>
-
-
-<p>In the next part of <strong>Arduino_blink.py</strong>, create a loop that blinks the LED on and off for about 5 seconds. Note the byte string <code>b'H'</code> is sent to the Arduino, not the unicode string <code>'H'</code>. The unicode string <code>'H'</code> is pre-pended with the letter <code>b</code> in the line <code>ser.writelines(b'H')</code>.</p>
 <div class="highlight"><pre><span></span><span class="c1"># Arduino_blink.py</span>
-
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
-    <span class="k">with</span> <span class="n">serial</span><span class="o">.</span><span class="n">Serial</span><span class="p">(</span><span class="s1">&#39;COM4&#39;</span><span class="p">,</span> <span class="mi">9800</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">as</span> <span class="n">ser</span><span class="p">:</span>
-        <span class="n">ser</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;H&#39;</span><span class="p">)</span>   <span class="c1"># send a byte</span>
-        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>        <span class="c1"># wait 0.5 seconds before reading the next line</span>
-        <span class="n">ser</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;L&#39;</span><span class="p">)</span>   <span class="c1"># send a byte</span>
-</pre></div>
-
-
-<p>When the script is run, you should see the Arduino LED blink on and off 10 times.</p>
-<h2 id="write-a-python-script-to-prompt-a-user-to-turn-the-led-on-and-off">Write a Python script to prompt a user to turn the LED on and off</h2>
-<p>Once the LED blinks on and off successfully using a <strong>for loop</strong> in a Python script, we can write a new Python script called <strong>Arduino_LED_user.py</strong> that allows a user to turn the LED on and off. At the top of the <strong>Arduino_LED_user.py</strong> script import the <strong>PySerial</strong> package and built-in <code>time</code> module.</p>
-<div class="highlight"><pre><span></span><span class="c1"># Arduino_LED_user.py</span>
 
 <span class="kn">import</span> <span class="nn">serial</span>
 <span class="kn">import</span> <span class="nn">time</span>
 </pre></div>
 
 
-<p>Next, give the user instructions. If the user types <code>H</code>, the LED turns on. If the user types <code>L</code> the LED turns off. If the user types <code>q</code>, the program terminates.</p>
-<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;This is a program that allows a user to turn an LED on and off&#39;</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s1">&#39;type H to turn the LED on&#39;</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s1">&#39;type L to turn the LED off&#39;</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s1">&#39;type q to quit&#39;</span><span class="p">)</span>
+<p>In the next part of <strong>Arduino_blink.py</strong>, create a loop that blinks the LED on and off for about 5 seconds. Note the byte string <code>b'H'</code> is sent to the Arduino, not the unicode string <code>'H'</code>. The unicode string <code>'H'</code> is pre-pended with the letter <code>b</code> in the line <code>ser.write(b'H')</code>.</p>
+<div class="highlight"><pre><span></span><span class="c1"># Arduino_blink.py</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">serial</span><span class="o">.</span><span class="n">Serial</span><span class="p">(</span><span class="s1">&#39;COM15&#39;</span><span class="p">,</span> <span class="mi">9800</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">as</span> <span class="n">ser</span><span class="p">:</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">ser</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;H&#39;</span><span class="p">)</span>   <span class="c1"># send a byte</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>   <span class="c1"># wait 0.5 seconds</span>
+        <span class="n">ser</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;L&#39;</span><span class="p">)</span>   <span class="c1"># send a byte</span>
 </pre></div>
 
 
-<p>Finally, the script needs a <em>while loop</em> to ask the user to enter the letter <code>H</code>, <code>L</code> or <code>q</code>. Once the user enters the letter, the letter is converted to a byte string. Next, the byte string is sent over the serial line to the Arduino. A delay is added so that the Arduino can process the command before reading the next command.</p>
-<div class="highlight"><pre><span></span><span class="n">user_input</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;H = on, L = off, q = quit&#39;</span> <span class="p">:</span> <span class="p">)</span>
-<span class="k">while</span> <span class="n">user_input</span> <span class="o">!=</span> <span class="s1">&#39;q&#39;</span><span class="p">:</span>
-    <span class="k">with</span> <span class="n">serial</span><span class="o">.</span><span class="n">Serial</span><span class="p">(</span><span class="s1">&#39;COM4&#39;</span><span class="p">,</span> <span class="mi">9800</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">as</span> <span class="n">ser</span><span class="p">:</span>
-        <span class="n">byte_command</span> <span class="o">=</span> <span class="n">encode</span><span class="p">(</span><span class="n">user_input</span><span class="p">)</span>
-        <span class="n">ser</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">byte_command</span><span class="p">)</span>   <span class="c1"># send a byte</span>
-        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span> <span class="c1"># wait 0.5 seconds before reading the next line</span>
-        <span class="n">user_input</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;H = on, L = off, q = quit&#39;</span> <span class="p">:</span> <span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s1">&#39;q entered. Exiting the program&#39;</span><span class="p">)</span>
+<p>When the script is run, you should see the Arduino LED blink on and off 10 times.</p>
+<h2 id="write-a-python-script-to-prompt-a-user-to-turn-the-led-on-and-off">Write a Python script to prompt a user to turn the LED on and off</h2>
+<p>Once the LED blinks on and off successfully using a <strong>for loop</strong> in a Python script, we can write a new Python script called <strong>Arduino_LED_user.py</strong> that allows a user to turn the LED on and off. At the top of the <strong>Arduino_LED_user.py</strong> script import the <strong>PySerial</strong> package and built-in <code>time</code> module. Then define the serial port. Make sure to include the correct <code>'COM#'</code>. Use the <code>'COM#'</code> you found in the Windows Device Manager. If the <code>'COM#'</code> is not set correctly, the script will not run.</p>
+<div class="highlight"><pre><span></span><span class="c1"># Arduino_LED_user.py</span>
+
+<span class="kn">import</span> <span class="nn">serial</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="c1"># Define the serial port and baud rate.</span>
+<span class="c1"># Ensure the &#39;COM#&#39; corresponds to what was seen in the Windows Device Manager</span>
+<span class="n">ser</span> <span class="o">=</span> <span class="n">serial</span><span class="o">.</span><span class="n">Serial</span><span class="p">(</span><span class="s1">&#39;COM4&#39;</span><span class="p">,</span> <span class="mi">9600</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">led_on_off</span><span class="p">():</span>
+    <span class="n">user_input</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> Type on / off / quit : &quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">user_input</span> <span class="o">==</span><span class="s2">&quot;on&quot;</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;LED is on...&quot;</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span> 
+        <span class="n">ser</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;H&#39;</span><span class="p">)</span> 
+        <span class="n">led_on_off</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">user_input</span> <span class="o">==</span><span class="s2">&quot;off&quot;</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;LED is off...&quot;</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+        <span class="n">ser</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;L&#39;</span><span class="p">)</span>
+        <span class="n">led_on_off</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">user_input</span> <span class="o">==</span><span class="s2">&quot;quit&quot;</span> <span class="ow">or</span> <span class="n">user_input</span> <span class="o">==</span> <span class="s2">&quot;q&quot;</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Program Exiting&quot;</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+        <span class="n">ser</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;L&#39;</span><span class="p">)</span>
+        <span class="n">ser</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Invalid input. Type on / off / quit.&quot;</span><span class="p">)</span>
+        <span class="n">led_on_off</span><span class="p">()</span>
+
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># wait for the serial connection to initialize</span>
+
+<span class="n">led_on_off</span><span class="p">()</span>
 </pre></div>
 
 

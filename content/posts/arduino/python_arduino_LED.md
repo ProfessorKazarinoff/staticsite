@@ -147,16 +147,16 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 >>> import serial
 >>> ser = serial.Serial('COM4', 9800, timeout=1)
->>> ser.writelines(b'H')
->>> ser.writelines(b'L')
->>> ser.writelines(b'H')
->>> ser.writelines(b'L')
+>>> ser.write(b'H')
+>>> ser.write(b'L')
+>>> ser.write(b'H')
+>>> ser.write(b'L')
 >>> ser.close()
 >>> exit()
 >
 ```
 
-You should see the Arduino LED turn on and off when you type the commands ```ser.writelines(b'H')``` and ```ser.writelines(b'L')```. These commands send the characters ```H``` and ```L``` over the serial line to the Arduino. The Arduino reads these characters and turns the LED on and off. Make sure you run the ```ser.close()``` command. If the serial line is not closed, you may have trouble opening the serial line again and running these same commands a second time.
+You should see the Arduino LED turn on and off when you type the commands ```ser.write(b'H')``` and ```ser.write(b'L')```. These commands send the characters ```H``` and ```L``` over the serial line to the Arduino. The Arduino reads these characters and turns the LED on and off. Make sure you run the ```ser.close()``` command. If the serial line is not closed, you may have trouble opening the serial line again and running these same commands a second time.
 
 ## Write a Python Script to turn the LED on and off
 
@@ -165,57 +165,65 @@ After the LED turns on and off based on sending ```H``` and ```L``` with the Pyt
 At the top of the Python script, import the PySerial package. Note that even though the package is called PySerial, the line ```import serial``` is used. Python's built-in time module is also imported as the ```time.sleep()``` function will be used in the script. Open a new script called **Arduino_blink.py**. Include the following code:
 
 ```python
+# Arduino_blink.py
+
 import serial
 import time
 ```
 
-In the next part of **Arduino_blink.py**, create a loop that blinks the LED on and off for about 5 seconds. Note the byte string ```b'H'``` is sent to the Arduino, not the unicode string ```'H'```. The unicode string ```'H'``` is pre-pended with the letter ```b``` in the line ```ser.writelines(b'H')```.
+In the next part of **Arduino_blink.py**, create a loop that blinks the LED on and off for about 5 seconds. Note the byte string ```b'H'``` is sent to the Arduino, not the unicode string ```'H'```. The unicode string ```'H'``` is pre-pended with the letter ```b``` in the line ```ser.write(b'H')```.
 
 ```python
 # Arduino_blink.py
 
 for i in range(10):
-    with serial.Serial('COM4', 9800, timeout=1) as ser:
-        ser.writelines(b'H')   # send a byte
-        time.sleep(0.5)        # wait 0.5 seconds before reading the next line
-        ser.writelines(b'L')   # send a byte
-
+    with serial.Serial('COM15', 9800, timeout=1) as ser:
+        time.sleep(2)
+        ser.write(b'H')   # send a byte
+        time.sleep(0.5)   # wait 0.5 seconds
+        ser.write(b'L')   # send a byte
 ```
 
 When the script is run, you should see the Arduino LED blink on and off 10 times.
 
 ## Write a Python script to prompt a user to turn the LED on and off
 
-Once the LED blinks on and off successfully using a __for loop__ in a Python script, we can write a new Python script called **Arduino_LED_user.py** that allows a user to turn the LED on and off. At the top of the **Arduino_LED_user.py** script import the **PySerial** package and built-in ```time``` module.
+Once the LED blinks on and off successfully using a __for loop__ in a Python script, we can write a new Python script called **Arduino_LED_user.py** that allows a user to turn the LED on and off. At the top of the **Arduino_LED_user.py** script import the **PySerial** package and built-in ```time``` module. Then define the serial port. Make sure to include the correct ```'COM#'```. Use the ```'COM#'``` you found in the Windows Device Manager. If the ```'COM#'``` is not set correctly, the script will not run.
 
 ```python
 # Arduino_LED_user.py
 
 import serial
 import time
-```
 
-Next, give the user instructions. If the user types ```H```, the LED turns on. If the user types ```L``` the LED turns off. If the user types ```q```, the program terminates.
+# Define the serial port and baud rate.
+# Ensure the 'COM#' corresponds to what was seen in the Windows Device Manager
+ser = serial.Serial('COM4', 9600)
 
-```python
-print('This is a program that allows a user to turn an LED on and off')
-print('type H to turn the LED on')
-print('type L to turn the LED off')
-print('type q to quit')
-```
+def led_on_off():
+    user_input = input("\n Type on / off / quit : ")
+    if user_input =="on":
+        print("LED is on...")
+        time.sleep(0.1) 
+        ser.write(b'H') 
+        led_on_off()
+    elif user_input =="off":
+        print("LED is off...")
+        time.sleep(0.1)
+        ser.write(b'L')
+        led_on_off()
+    elif user_input =="quit" or user_input == "q":
+        print("Program Exiting")
+        time.sleep(0.1)
+        ser.write(b'L')
+        ser.close()
+    else:
+        print("Invalid input. Type on / off / quit.")
+        led_on_off()
 
-Finally, the script needs a _while loop_ to ask the user to enter the letter ```H```, ```L``` or ```q```. Once the user enters the letter, the letter is converted to a byte string. Next, the byte string is sent over the serial line to the Arduino. A delay is added so that the Arduino can process the command before reading the next command.
+time.sleep(2) # wait for the serial connection to initialize
 
-```python
-user_input = input('H = on, L = off, q = quit' : )
-while user_input != 'q':
-    with serial.Serial('COM4', 9800, timeout=1) as ser:
-        byte_command = encode(user_input)
-        ser.writelines(byte_command)   # send a byte
-        time.sleep(0.1) # wait 0.5 seconds before reading the next line
-        user_input = input('H = on, L = off, q = quit' : )
-print('q entered. Exiting the program')
-
+led_on_off()
 ```
 
 Run the Python script. Type ```H``` and ```L``` and observe the Arduino LED turn on and off. Type ```q``` to end the program.

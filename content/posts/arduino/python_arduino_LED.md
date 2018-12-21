@@ -19,8 +19,8 @@ In this project, we are going to use a couple pieces of hardware. Below is the l
 
 | Component | Item and Link
 | | |
-| Arduino | [SparkFun RedBoard - Programmed with Arduino]((https://www.sparkfun.com/products/13975)) |
-| Jumper Wires | [Jumper Wires Premium 6" M/M Pack of 10]((https://www.sparkfun.com/products/8431)) |
+| Arduino | [SparkFun RedBoard - Programmed with Arduino]((https://www.sparkfun.com/products/13975) |
+| Jumper Wires | [Jumper Wires Premium 6" M/M Pack of 10]((https://www.sparkfun.com/products/8431) |
 | LED | [LED Rainbow Pack - 5mm PTH](https://www.sparkfun.com/products/12903) |
 | 330 Ohm Resistor | [Resistor 330 Ohm 1/6 Watt PTH - 20 pack](https://www.sparkfun.com/products/11507) |
 | Breadboard | [Breadboard - Self-Adhesive (White)](https://www.sparkfun.com/products/12002) |
@@ -152,7 +152,7 @@ In the Arduino Serial Monitor type: ```H``` and click Send (or press ENTER). The
 
 ## Use the Python REPL to turn the Arduino LED on and off.
 
-Open the **Anaconda Prompt** and activate the ```(arduino)``` virtual environment (if it is not currently active). Then start the Python REPL by typing ```python``` at the prompt. T
+Open the **Anaconda Prompt** and activate the ```(arduino)``` virtual environment (if it is not currently active). Then start the Python REPL by typing ```python``` at the prompt.
 
 Type the following commands to turn the Arduino LED on and off. Note the arrow symbols ```>``` and ```>>>``` should not be typed. The arrow symbols ```>``` and ```>>>``` are just shown to indicate the prompt.
 

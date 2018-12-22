@@ -298,7 +298,7 @@ Python for Undergraduate Engineers            </a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>In this post, we will see how to use Python to read sensor. In particular, the sensor we will read is a potentiometer.  The potentiometer will connect to an Arduino and the Arduino will communicatate with a Python script using the PySerial package. Python running on our computer will read the sensor data, then we will use <strong>NumPy</strong> and <strong>Matplotlib</strong> to plot the sensor data.</p>
+                <p>In this post, we will see how to use Python to read sensor. In particular, the sensor we will read is a potentiometer.  The potentiometer will connect to an Arduino and the Arduino will communicatate with a Python script using the <strong>PySerial</strong> package. Python running on our computer will read the sensor data, then we will use <strong>Matplotlib</strong> to plot the sensor data.</p>
 <div class="toc"><span class="toctitle">Table of contents:</span><ul>
 <li><a href="#collect-the-hardware">Collect the hardware</a></li>
 <li><a href="#create-a-virtual-environment-and-install-pyserial">Create a virtual environment and install PySerial</a></li>
@@ -314,6 +314,7 @@ Python for Undergraduate Engineers            </a>
 <li><a href="#write-a-python-script-to-print-out-the-potentiometer-readings">Write a Python Script to print out the potentiometer readings</a></li>
 <li><a href="#write-a-python-script-to-record-the-potentiometer-readings-and-plot-the-readings-over-time">Write a Python Script to record the potentiometer readings and plot the readings over time</a></li>
 <li><a href="#summary">Summary</a></li>
+<li><a href="#going-further">Going Further</a></li>
 </ul>
 </div>
 <h2 id="collect-the-hardware">Collect the hardware</h2>
@@ -357,7 +358,7 @@ Python for Undergraduate Engineers            </a>
 </tbody>
 </table>
 <h2 id="create-a-virtual-environment-and-install-pyserial">Create a virtual environment and install PySerial</h2>
-<p>To complete this Python project, it is best practice to use a virtual environment. I have the <strong>Anaconda</strong> distribution of Python installed on my Windows 10 machine. In the <a href="/python-arduino-LED.html">last post</a>, we reviewed how to create a new virtual enviromment called <code>(arduino)</code>. Before we start this project, we will activate the <code>(arduino)</code> virtual environment and ensure that the <code>pyserial</code> package is installed. </p>
+<p>To complete this Python project, it is best practice to use a virtual environment. I have the <strong>Anaconda</strong> distribution of Python installed on my Windows 10 machine (see <a href="/installing-anaconda-on-windows.html">this post</a> on how to install Anaconda on Windows). In the <a href="/python-arduino-LED.html">last post</a>, we reviewed how to create a new virtual enviromment called <code>(arduino)</code>. Before we start this project, we will activate the <code>(arduino)</code> virtual environment and ensure that the <strong>PySerial</strong> package is installed. </p>
 <p><img alt="anaconda in start menu" src="/images/anaconda_from_start_menu.png"></p>
 <div class="highlight"><pre><span></span> &gt; conda activate arduino
 </pre></div>
@@ -374,12 +375,12 @@ Python for Undergraduate Engineers            </a>
 
 
 <p>To confirm that <strong>PySerial</strong> is installed in the <code>(arduino)</code> virual environment, enter the Python REPL and try to import the <strong>PySerial</strong> package.</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">arduino</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">python</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">serial</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">serial</span><span class="o">.</span><span class="n">__version__</span>
-<span class="s1">&#39;3.4&#39;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">exit</span><span class="p">()</span>
-<span class="p">(</span><span class="n">arduino</span><span class="p">)</span> <span class="o">&gt;</span>
+<div class="highlight"><pre><span></span>(arduino) &gt; python
+&gt;&gt;&gt; import serial
+&gt;&gt;&gt; serial.__version__
+&#39;3.4&#39;
+&gt;&gt;&gt; exit()
+(arduino) &gt;
 </pre></div>
 
 
@@ -415,7 +416,7 @@ Python for Undergraduate Engineers            </a>
 <p>In the next step, we are going to upload the <strong>Blink.ino</strong> sketch to the Arduino and make sure the sketch uploads and the Arduino blinks.</p>
 <p>Double-click the <strong>Arduino.exe</strong> program. Open the Arduino <strong>Blink.ino</strong> sketch by going to: File &rarr; Examples &rarr; 01.Basics &rarr; Blink</p>
 <p><img alt="blink.ino in examples menu" src="/posts/arduino/images/blink_in_examples_menu.png"></p>
-<p>Before we upload the <strong>blink.ion</strong> sketch to the Arduino, ensure that the <strong>Port</strong> and the <strong>Board</strong> type are set correctly in the Arduino IDE. In the Arduino IDE Tools menu, select the following:</p>
+<p>Before we upload the <strong>blink.ino</strong> sketch to the Arduino, ensure that the <strong>Port</strong> and the <strong>Board</strong> type are set correctly in the Arduino IDE. In the Arduino IDE Tools menu, select the following:</p>
 <ul>
 <li>Tools &rarr; Port &rarr; COM4 (or whichever port the Arduino is connected to, found with the Windows Device Manager)</li>
 <li>Tools &rarr; Board &rarr; Arduino / Genuino Uno</li>
@@ -423,10 +424,11 @@ Python for Undergraduate Engineers            </a>
 <p>In the Arduino IDE Window that contains the <strong>Blink.ino</strong> sketch, click the check mark to Verify then click the arrow to Upload. </p>
 <p><img alt="check to verify" src="/posts/arduino/images/Check_to_Verify.png"></p>
 <p><img alt="arrow to upload" src="/posts/arduino/images/Arrow_to_Upload.png"></p>
-<p>Once the upload is complete, the Arduino and LED should blink on and off. If you don't see the Arduino and LED blinking, you need to do some troubleshooting. Check the <strong>COM Port</strong> or try unplugging and re-plugging in the Arduino.</p>
+<p>Once the upload is complete, the Arduino and LED should blink on and off. </p>
+<p>If you don't see the Arduino and LED blinking, you need to do some troubleshooting. Check the <strong>COM Port</strong> or try unplugging and re-plugging in the Arduino.</p>
 <h2 id="upload-the-potentiometerino-sketch-to-the-arduino">Upload the <strong>potentiometer.ino</strong> sketch to the Arduino</h2>
-<p>In this step, we are going to write a new sketch called <strong>potentiometer.ino</strong> and upload it to the Arduino</p>
-<p>Use the Arduino IDE to create a new sketch by going to File &rarr; New. This opens up a new Arduino IDE window. Save the new sketch as <strong>potentiometer.ino</strong> by going to File &rarr; Save. Copy the code below into the blank <strong>potentiometer.ino</strong> sketch.</p>
+<p>In this step, we are going to write a new Arduino sketch called <strong>potentiometer.ino</strong> and upload it to the Arduino.</p>
+<p>Use the Arduino IDE to create a new sketch by going to File &rarr; New. This opens up a new Arduino IDE window. Save the new sketch as <strong>potentiometer.ino</strong> by going to File &rarr; Save. Copy the code below into the <strong>potentiometer.ino</strong> sketch. Replace all of the text in the sketch with the code below.</p>
 <div class="highlight"><pre><span></span>// potentiometer.ino
 // reads a potentiometer sensor and sends the reading over serial
 
@@ -434,9 +436,9 @@ int sensorPin = A0; // The potentiometer is connected to analog pin 0
 int ledPin = 13; // The LED is connected to digital pin 13
 int sensorValue; // An integer variable to store the potentiometer reading
 void setup() { // this function runs once when the sketch starts up
-  pinMode ( ledPin, OUTPUT);
+  pinMode (ledPin, OUTPUT);
   // initialize serial communication :
-  Serial.begin(9600) ;
+  Serial.begin(9600);
 }
 
 void loop() { // this loop runs repeatedly after setup() finishes
@@ -446,13 +448,13 @@ void loop() { // this loop runs repeatedly after setup() finishes
     digitalWrite(ledPin , LOW );} // Turn the LED off
   else {
     digitalWrite(ledPin , HIGH );} // Keep the LED on
-  delay (100) ; // Pause in milliseconds before next reading
+  delay (100); // Pause in milliseconds before next reading
 }
 </pre></div>
 
 
-<p>The <strong>potentiometer.ino</strong> sketch above reads the value off of the potentiometer and sends the potentiometer reading over the serial line.  Then the potentiometer reading is compared to 500. If the potentiometer reading is greater than 500, the LED turns on. If the potentiometer reading is less than 500, the LED turns off. </p>
-<p>Once the <strong>potentiometer.ino</strong> sketch is saved. It needs to be uploaded onto the Arduino. In the Arduino IDE window that contains the potentiometer <strong>potentiometer.ino</strong> sketch, click the check mark to Verify then click the arrow to Upload.</p>
+<p>The <strong>potentiometer.ino</strong> sketch above reads the value off of the potentiometer and sends the potentiometer reading over the serial line.  In the next part of the sketch, the potentiometer reading is compared to 500. If the potentiometer reading is greater than 500, the LED turns on. If the potentiometer reading is less than 500, the LED turns off. </p>
+<p>After the <strong>potentiometer.ino</strong> sketch is saved, the sketch needs to be uploaded onto the Arduino. In the Arduino IDE window that contains the potentiometer <strong>potentiometer.ino</strong> sketch, click the check mark to Verify then click the arrow to Upload.</p>
 <p><img alt="check to verify" src="/posts/arduino/images/Check_to_Verify.png"></p>
 <p><img alt="arrow to upload" src="/posts/arduino/images/Arrow_to_Upload.png"></p>
 <h2 id="twist-the-little-blue-potentiometer-to-turn-the-led-connected-to-the-arduino-on-and-off">Twist the little blue potentiometer to turn the LED connected to the Arduino on and off</h2>
@@ -461,15 +463,16 @@ void loop() { // this loop runs repeatedly after setup() finishes
 <h2 id="view-the-potentiometer-reading-in-the-arduino-serial-monitor">View the potentiometer reading in the Arduino Serial Monitor</h2>
 <p>In the Arduino IDE, open the Arduino Serial Monitor by selecting Tools <span class="math">\(\rightarrow\)</span> Serial Monitor. </p>
 <p><img alt="Arduino IDE Tools menu Serial Monitor" src="/posts/arduino/images/Tools_SerialMonitor.png"></p>
-<p>if the <strong>potentiometer.ino</strong> sketch is working properly, you will see numbers scrolling down the Arduino Serial Monitor. Twist the little blue potentiometer back and forth and watch the numbers scrolling down the Arduino Serial Monitor change.</p>
+<p>If the <strong>potentiometer.ino</strong> sketch is working properly, you will see numbers scrolling down the Arduino Serial Monitor. Twist the little blue potentiometer back and forth and watch the numbers scrolling down the Arduino Serial Monitor change.</p>
 <p><img alt="Arduino Serial Monitor" src="/posts/arduino/images/serial_monitor_output.png"></p>
 <p>Now close the Serial Monitor. The Arduino Serial Monitor and Arduino Serial Plotter can not communicate with the Arduino at the same time.</p>
 <h2 id="view-the-potentiometer-reading-in-the-arduino-serial-plotter">View the potentiometer reading in the Arduino Serial Plotter</h2>
 <p>In the Arduino IDE, open the Arduino Serial Plotter by selecting Tools &rarr; Serial Plotter. </p>
 <p><img alt="Arduino IDE Tools menu SerialPlotter" src="/posts/arduino/images/Tools_SerialPlotter.png"></p>
-<p>You should see a plot with a moving line in the Arduino Serial Plotter. Twist the little blue potentiometer around and observe the line on the plot move up and down. If the Serial Plotter works, close the Serial Plotter Window. If the Serial Plotter isn't working correctly, make sure the COM port is set correctly in the Arduino IDE. The Arduino Serial Monitor and Serial Plotter can not be open at the same time and both need to be closed before Python can communicate with the Arduino. </p>
+<p>You should see a plot with a moving line in the Arduino Serial Plotter. Twist the little blue potentiometer back and forth and observe the line on the plot move up and down. </p>
 <p><img alt="Arduino Serial Plotter Output" src="/posts/arduino/images/serial_plotter_output.png"></p>
-<p>After you successfully:</p>
+<p>Once you can successfully move the plotting line up and down in the Serial Plotter, close the Serial Plotter Window. If the Serial Plotter isn't working correctly, make sure the COM port is set correctly in the Arduino IDE. The Arduino Serial Monitor and Arduino Serial Plotter can not be open at the same time. Both the Arduino Serial Monitor and the Arduino Serial Plotter need need to be closed before Python can communicate with the Arduino. </p>
+<p>After you can successfully:</p>
 <ul>
 <li>turn the Arduino LED on and off by twisting the little blue potentiometer</li>
 <li>see numbers change in the Arduino Serial Monitor when the potentiometer is twisted</li>
@@ -478,7 +481,7 @@ void loop() { // this loop runs repeatedly after setup() finishes
 <p>It is time to use Python to read and record the potentiometer reading. </p>
 <h2 id="use-the-python-repl-to-read-the-potentiometer">Use the Python REPL to read the potentiometer.</h2>
 <p>Open the <strong>Anaconda Prompt</strong> and activate the <code>(arduino)</code> virtual environment (if it is not currently active). Then start the Python REPL by typing <code>python</code> at the prompt.</p>
-<p>Type the following commands to read the potentiometer connected to the Arduino. Note the arrow symbols <code>&gt;</code> and <code>&gt;&gt;&gt;</code> should not be typed. The arrow symbols <code>&gt;</code> and <code>&gt;&gt;&gt;</code> are just shown to indicate the prompt. Make sure to change the COM Port from <code>'COM4'</code> to the Port number you found in the Windows Device Manager. The command <code>ser.readline()</code>. Reads the incomming data off the serial line. Note that the data looks kind of funny, not like the numbers we saw in the Arduino Serial Monitor. Twist the potentiometer and run <code>ser.readline()</code> again. The output should change.</p>
+<p>Type the following commands to read the potentiometer connected to the Arduino. Note the arrow symbols <code>&gt;</code> and <code>&gt;&gt;&gt;</code> should not be typed. The arrow symbols <code>&gt;</code> and <code>&gt;&gt;&gt;</code> are just shown to indicate the prompt. Make sure to change the COM Port from <code>'COM4'</code> to the Port number you found in the Windows Device Manager. The command <code>ser.readline()</code> reads the incomming data off the serial line. Note that the data looks kind of funny, not like the numbers we saw in the Arduino Serial Monitor. Twist the potentiometer and run <code>ser.readline()</code> again. The observe how the output changes.</p>
 <div class="highlight"><pre><span></span>&gt; conda activate arduino
 (arduino) &gt; python
 
@@ -497,9 +500,12 @@ b&#39;589\r\n&#39;
 </pre></div>
 
 
-<p>Make sure to close the serial port with the command <code>ser.close()</code> after you take a couple of readings. If the serial port is not closed, there may be a problem next time you try to open the port. This problem can usually be remedied by unplugging then replugging in the Arudino.</p>
+<p>After you take a couple of readings, make sure to close the serial port with the command <code>ser.close()</code> . If the serial port is not closed, there may be a problem the next time you try to open the port. This problem can usually be remedied by unplugging then replugging in the Arudino.</p>
 <p>If you have trouble, make sure the Arduino Serial Monitor is closed before you run the commands at the Ananconda Prompt. If the Arduino Serial Monitor is open, you can't communicate with the Arduino with the Anaconda Prompt.</p>
-<p>The data comming from the serial line looks kind of funny: <code>b'481\r\n'</code> Let's investigate what kind of data type is returned by the <code>ser.readline()</code> command. Use the <strong>Anaconda Prompt</strong> to open the Python REPL and try the following commands. Leave the Python REPL open after running the commands. Remember to change the COM Port from <code>'COM4'</code> to the Port number you found in the Windows Device Manager.</p>
+<p>The data comming from the serial line looks kind of funny:</p>
+<p><code>b'481\r\n'</code></p>
+<p>Let's investigate what kind of data type is returned by the <code>ser.readline()</code> command. </p>
+<p>Use the <strong>Anaconda Prompt</strong> to open the Python REPL and try the following commands. Leave the Python REPL open after running the commands. Remember to change the COM Port from <code>'COM4'</code> to the Port number you found in the Windows Device Manager.</p>
 <div class="highlight"><pre><span></span>(arduino) &gt; python
 
 Python 3.7.1 (default, Dec 10 2018, 22:54:23) [MSC v.1915 64 bit (AMD64)] :: Anaconda, Inc. on win32
@@ -514,23 +520,23 @@ Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;licen
 </pre></div>
 
 
-<p>So when we store the line comming from the Arduino, we aren't storing an int, float or string. The <code>ser.readline()</code> method returns a <em>byte</em> object. This "byte string" can be converted to a regular Python string using the <code>.decode()</code> method. </p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">serial</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">ser</span> <span class="o">=</span> <span class="n">serial</span><span class="o">.</span><span class="n">Serial</span><span class="p">(</span><span class="s1">&#39;COM4&#39;</span><span class="p">,</span> <span class="mi">9800</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">line</span> <span class="o">=</span>  <span class="n">ser</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">line</span>
-<span class="sa">b</span><span class="s1">&#39;481</span><span class="se">\r\n</span><span class="s1">&#39;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
-<span class="o">&lt;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">bytes</span><span class="s1">&#39;&gt;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">string</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">string</span>
-<span class="s1">&#39;481</span><span class="se">\r\n</span><span class="s1">&#39;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
-<span class="o">&lt;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">str</span><span class="s1">&#39;&gt;</span>
+<p>So when we store the line comming in from the Arduino, we aren't storing an int, a float or a string. The <code>ser.readline()</code> method returns a <em>byte</em> object. The "byte string" can be converted to a regular Python string using the <code>.decode()</code> method.</p>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; import serial
+&gt;&gt;&gt; ser = serial.Serial(&#39;COM4&#39;, 9800, timeout=1)
+&gt;&gt;&gt; line =  ser.readline()
+&gt;&gt;&gt; line
+b&#39;481\r\n&#39;
+&gt;&gt;&gt; type(line)
+&lt;class &#39;bytes&#39;&gt;
+&gt;&gt;&gt; string = line.decode()
+&gt;&gt;&gt; string
+&#39;481\r\n&#39;
+&gt;&gt;&gt; type(string)
+&lt;class &#39;str&#39;&gt;
 </pre></div>
 
 
-<p>OK, now we have a Python string, but what about the <code>\r\n</code> at the end? These are the return and new line characters. <code>\r\n</code> are sent by the Arduino because the <strong>potentiometer.ino</strong> sketch used the <code>println()</code> function, which prints a new line every time it is called. Not to worry, <code>\r\n</code> can be stripped off the <code>string</code> object with the <code>.strip()</code> method. Then let's convert the string to an integer, using Python's <code>int()</code> function. Make sure to close the serial line with the <code>ser.close()</code> method before exiting out of the Python REPL. </p>
+<p>OK, now we have a Python string, but what about the <code>\r\n</code> at the end? These are the return and new line characters. <code>\r\n</code> are sent by the Arduino because the <strong>potentiometer.ino</strong> sketch used the <code>println()</code> function, which prints a new line every time it is called. Not to worry, <code>\r\n</code> can be stripped off the <code>string</code> object with the Python's <code>.strip()</code> method. Then let's convert the "stripped" string to an integer, using Python's <code>int()</code> function. Make sure to close the serial line with the <code>ser.close()</code> method before you <code>exit()</code> the Python REPL. </p>
 <div class="highlight"><pre><span></span>&gt;&gt;&gt; string
 &#39;481\r\n&#39;
 &gt;&gt;&gt; stripped_string = string.strip()
@@ -547,26 +553,26 @@ Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;licen
 </pre></div>
 
 
-<p>To sum up all of these data conversions</p>
+<p>Let's sum up the data type conversions above. Starting from the data that comes in from the Arduino that is a byte string to finally ending up with an integer:</p>
 <ul>
-<li><code>ser.readline()</code> returns a byte string <code>b'481\r\n'</code></li>
-<li><code>.decode()</code> converts the byte string to a Python string <code>'481\r\n'</code></li>
-<li><code>.strip()</code> removes the <code>\r\n</code> characters from the end of the Python string <code>'481'</code></li>
-<li><code>int()</code> converts the Python string to an integer <code>481</code></li>
+<li><code>ser.readline()</code> returns a byte string: <code>b'481\r\n'</code></li>
+<li><code>.decode()</code> converts the byte string to a Python string: <code>'481\r\n'</code></li>
+<li><code>.strip()</code> removes the <code>\r\n</code> characters from the end of the Python string: <code>'481'</code></li>
+<li><code>int()</code> converts the Python string to an integer: <code>481</code></li>
 </ul>
 <h2 id="write-a-python-script-to-print-out-the-potentiometer-readings">Write a Python Script to print out the potentiometer readings</h2>
 <p>Now let's write a Python script that prints out the potentiomter readings.</p>
-<p>Create a new Python script called <strong>potentiometer.py</strong>. Include the code below in the script. Make sure to modify the COM# from <code>'COM15'</code> to the Port you found in the Windows Device Manager.</p>
+<p>Create a new Python script called <strong>potentiometer.py</strong>. Include the code below in the script. Make sure to modify the COM# from <code>'COM4'</code> to the Port you found in the Windows Device Manager.</p>
 <div class="highlight"><pre><span></span><span class="c1"># potentiometer.py</span>
 
 <span class="kn">import</span> <span class="nn">serial</span>
 <span class="kn">import</span> <span class="nn">time</span>
 
-<span class="n">ser</span> <span class="o">=</span> <span class="n">serial</span><span class="o">.</span><span class="n">Serial</span><span class="p">(</span><span class="s1">&#39;COM15&#39;</span><span class="p">,</span> <span class="mi">9800</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ser</span> <span class="o">=</span> <span class="n">serial</span><span class="o">.</span><span class="n">Serial</span><span class="p">(</span><span class="s1">&#39;COM4&#39;</span><span class="p">,</span> <span class="mi">9800</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
-    <span class="n">line</span> <span class="o">=</span> <span class="n">ser</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>   <span class="c1"># read a &#39;\n&#39; terminated line</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">ser</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>   <span class="c1"># read a byte string</span>
     <span class="k">if</span> <span class="n">line</span><span class="p">:</span>
         <span class="n">string</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>  <span class="c1"># convert the byte string to a unicode string</span>
         <span class="n">num</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="c1"># convert the unicode string to an int</span>
@@ -576,9 +582,10 @@ Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;licen
 </pre></div>
 
 
-<p>Run the <strong>potentiometer.py</strong> script and twist the little blue potentiometer back and forth. You should see numbers running down. The numbers change as you dial the potentiometer back and forth. </p>
+<p>Run the <strong>potentiometer.py</strong> script and twist the little blue potentiometer back and forth. You should see numbers running down the terminal. The numbers change as you dial the potentiometer back and forth. </p>
 <h2 id="write-a-python-script-to-record-the-potentiometer-readings-and-plot-the-readings-over-time">Write a Python Script to record the potentiometer readings and plot the readings over time</h2>
-<p>Now let's write a Python script that records the potentiometer readings and plots the potentiomter readings over time. We'll plot the potentiometer reading with <strong>Matplotlib</strong>. <strong>Matplotlib</strong> is a Python package used to build plots. Before we can use <strong>Matplotlib</strong>, <strong>Matplotlib</strong> must first be installed into our <code>(arduino)</code> virtual environment.</p>
+<p>Now let's write a Python script that records the potentiometer readings and plots the potentiomter readings over time. </p>
+<p>We'll plot the potentiometer reading with <strong>Matplotlib</strong>. <strong>Matplotlib</strong> is a Python package used to build plots. Before we can use <strong>Matplotlib</strong>, <strong>Matplotlib</strong> needs to be installed into our <code>(arduino)</code> virtual environment. We'll use the Anaconda Prompt to install <strong>Matplotlib</strong>. Make sure you are in the <code>(arduino)</code> virtual environment when you run the install command.</p>
 <div class="highlight"><pre><span></span>(arduino) &gt; conda install matplotlib
 </pre></div>
 
@@ -597,24 +604,24 @@ Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;licen
 </pre></div>
 
 
-<p>Now that <strong>Matplotlib</strong> is installed, create a new Python script called <strong>potentiometer_plot.py</strong>. Include the code below in the <strong>potentiometer_plot.py</strong> script. Again, remember to modify COM# from <code>'COM15'</code> to the Port you found in the Windows Device Manager.</p>
+<p>Now that <strong>Matplotlib</strong> is installed, create a new Python script called <strong>potentiometer_plot.py</strong>. Include the code below in the <strong>potentiometer_plot.py</strong> script. Again, remember to modify the COM# from <code>'COM4'</code> to the Port you found in the Windows Device Manager.</p>
 <div class="highlight"><pre><span></span><span class="c1"># potentiometer_plot.py</span>
 
 <span class="kn">import</span> <span class="nn">serial</span>
 <span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 
-<span class="n">ser</span> <span class="o">=</span> <span class="n">serial</span><span class="o">.</span><span class="n">Serial</span><span class="p">(</span><span class="s1">&#39;COM15&#39;</span><span class="p">,</span> <span class="mi">9800</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ser</span> <span class="o">=</span> <span class="n">serial</span><span class="o">.</span><span class="n">Serial</span><span class="p">(</span><span class="s1">&#39;COM4&#39;</span><span class="p">,</span> <span class="mi">9800</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 
 <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
-    <span class="n">line</span> <span class="o">=</span> <span class="n">ser</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>   <span class="c1"># read a &#39;\n&#39; terminated line</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">ser</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>   <span class="c1"># read a byte string</span>
     <span class="k">if</span> <span class="n">line</span><span class="p">:</span>
         <span class="n">string</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>  <span class="c1"># convert the byte string to a unicode string</span>
         <span class="n">num</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="c1"># convert the unicode string to an int</span>
         <span class="k">print</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
-        <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="c1"># add the int to the data list</span>
 <span class="n">ser</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
 <span class="c1"># build the plot</span>
@@ -628,8 +635,24 @@ Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;licen
 
 <p>Run the <strong>potentiometer.py</strong> script and turn the blue potentiometer back and forth. You will see numbers running down the screen and then a plot pops up that looks kind of like the plot below. Note the line on your plot will look different, but the title and axis labels should look the same.</p>
 <p><img alt="matplotlib potentiometer plot" src="/posts/arduino/images/matplotlib_potentiometer_plot.png"></p>
+<p>Fantastic! We used Python to read a sensor! When the Python script is run and the potentiometer is dailed back and forth, we see a plot of the potentiometer reading over time.</p>
 <h2 id="summary">Summary</h2>
-<p>In this post...</p>
+<p>In this post, we used Python to read a potentiometer. There were a number of technologies needed to complete this project.</p>
+<ul>
+<li>Arduino Hardware: we wired a potentiometer and an LED to an Ardiuno using jumperwires, a resistor and a breadboard.</li>
+<li>Arduino IDE: we used the Arduino IDE to upload code to the Arduino.</li>
+<li>Arduino sketches: we used a couple Arduino sketches (Arduino scripts), code that runs on an Arduino. Arduino sketches end in the <code>.ino</code> file extension.</li>
+<li>Arduino Serial Monitor and Arduino Serial Plotter: we used the Arduino Serial Monitor and Arduino Serial Plotter to see if the potentiometer reading was sent over the serial line.</li>
+<li>Windows Device Manager: We used the Windows Device Manager to see which COM Port the Arduino was connected to.</li>
+<li>Anaconda Prompt: We used the Anaconda Prompt to create a virtual environment and install Python packages.</li>
+<li>Virtual Environments: We created a virtual environment with the Anaconda prompt to house all the Python packages we used in the project.</li>
+<li>Python REPL: We used the Python REPL (the Python Prompt) to confirm Python packages were installed correctly and run quick commands to confirm Python could communicate with the Arduino.</li>
+<li>Python Scripts: We wrote a couple Python scripts. Python scripts end in the <code>.py</code> file extension and contain Python code. The Python scripts recorded the potentiometer readings.</li>
+<li>PySerial: The PySerial Python package was used to read data coming from the Arduino.</li>
+<li>Matplotlib: The Matplotlib Python package was used to plot the data recorded by the Python script.</li>
+</ul>
+<h2 id="going-further">Going Further</h2>
+<p>This project can be extended in a number of ways. For example, a different type of sensor could replace the potentiometer. A light sensor, temperature sensor or pressure sensor could be used intead of a potentiometer. Two or three sensors could be connected to the Arduino at the same time as well. The plotting script can also be extended. The script could ask the user for the amount of time they wanted to recorded data for. Or the script could produce an annimated plot of the data mimicing the Arduino Serial Monitor. </p>
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var align = "center",
         indent = "0em",

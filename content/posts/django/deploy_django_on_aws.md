@@ -1,4 +1,4 @@
-Title: Deploying a Django site on Amazon Web Services (AWS)
+Title: Deploy a Django Web App on Amazon Web Services (AWS)
 Date: 2018-12-15 14:36
 Modified: 2018-12-15 14:36
 Status: draft
@@ -8,13 +8,11 @@ Slug: deploy-django-on-aws
 Authors: Peter D. Kazarinoff
 Summary: In this post, we are going to deploy a Django Web App on Amazon Web Services (AWS). More specifically, we are going to deploy a pre-built Django App saved on GitHub to an AWS EC2 instance. Follow along to learn how to deploy your own Django Web App on AWS.
 
-# Deployment on AWS
+In this post, we are going to deploy a Django App (the Oregon Engineering Transfer App) on Amazon Web Services (AWS). More specifically, we are going to deploy this Django web app on an AWS EC2 instance. An instance is AWS speak for a virtual private server. This same type of virtual private server is available from other companies such as Digital Ocean and Linode. AWS calls virtual private servers _EC2 instances_. 
 
-In this post, we are going to deploy a Django App (the Oregon Engineering Transfer App) on Amazon Web Services (AWS). More specifically, we are going to deploy this Django web app on an AWS EC2 instance. An instance is AWS speak for a virtual private server. This same type of virtual private server is available from other companies such as Digital Ocean and Linode. AWS calls virtual private servers EC2 _instances_. 
+An advantage of deploying our Django app on AWS, compared to Digital Ocean or Linode, is AWS has a free tier. The AWS free tier includes one EC2 instance (one server) for free. Therefore, running our Django App on AWS should be free.
 
- An advantage of deploying our Django app on AWS, compared to Digital Ocean or Linode, is AWS has a free tier. The AWS free tier includes one EC2 instance (one server) for free. Therefore, running our Django App on AWS should be free.
-
-The steps below to deploy our Django App on AWS are a slight modification of a procedure from [Coding Dojo](https://www.codingdojo.com/). Coding Dojo hosts coding boot camps to get programmers ready for jobs quickly. Their coding bootcamps are 14 weeks long. The Coding Dojo bootcamps include Python, Django and Flask in the curriculum as well as other web development stacks. 
+The deployment steps below are a slight modification of a procedure from [Coding Dojo](https://www.codingdojo.com/). Coding Dojo hosts coding boot camps to get programmers ready for jobs quickly. Their coding bootcamps are 14 weeks long. The Coding Dojo bootcamps include Python, Django and Flask in the curriculum as well as other web development stacks.
 
 A summary of steps to deploy our Django App on AWS is below:
 
@@ -28,11 +26,11 @@ Sign up for an Amazon Web Services (AWS) account here:
 
 Once you sign up for an account, you have to go to your email and activate your AWS account. After your account is active, log into the AWS Console by clicking the [Sign into Console] button.
 
-![AWS sign into console](images/aws_sign_into_console_button.png)
+![AWS sign into console]({filename}/posts/django/images/aws_sign_into_console_button.png)
 
 Once signed in, you are greeted by the ASW Managment Console:
 
-![AWS Management Console](images/aws_management_console.png)
+![AWS Management Console]({filename}/posts/django/images/aws_management_console.png)
 
 ## Update requirements.txt and push to GitHub
 
@@ -40,7 +38,7 @@ Back at the local machine, open the Anaconda Prompt and activate the ```(transfe
 
 Use ```pip freeze``` to create a ```requirement.txt``` file. On Windows, the command ```pip freeze > requirements.txt``` was needed. Note the ```>``` character in the middle of the command. The ```requirements.txt``` file contains all the Python packages used in the ```(transfer)``` virtual environment.
 
-Later, we will install these same Python packages on the server. 
+Later, we will install these same Python packages on the AWS server. 
 
 ```text
 $ conda activate transfer
@@ -106,7 +104,7 @@ Point a web browser to:
 
 See the Oregon Transfer App in all it's glory:
 
-![Transfer App home page](images/home_page_login_button.png)
+![Transfer App home page]({filename}/posts/django/images/home_page_login_button.png)
 
 Use [Ctrl]-[c] to shut down the development server
 
@@ -126,25 +124,25 @@ Log into the AWS Web Console at the following link:
 ](https://aws.amazon.com/console/
 )
 
-![AWS Login Screen](images/aws_login_screen.png)
+![AWS Login Screen]({filename}/posts/django/images/aws_login_screen.png)
 
 In the AWS Console window select Service --> Compute --> EC2 --> Launch Instance.
 
-![AWS services menu](images/aws_services_EC2.png)
+![AWS services menu]({filename}/posts/django/images/aws_services_EC2.png)
 
-![AWS Resources Launch Instance](images/aws_create_instance_launch_instance.png)
+![AWS Resources Launch Instance]({filename}/posts/django/images/aws_create_instance_launch_instance.png)
 
 Scroll down the operating system options and select ```Ubuntu Server 16.04 LTS (HVM), SSD Volume Type```. This option is part of the AWS free tier.
 
-![AWS Ubuntu 16.04 Option](images/aws_select_ubuntu16dot04_server.png)
+![AWS Ubuntu 16.04 Option]({filename}/posts/django/images/aws_select_ubuntu16dot04_server.png)
 
 Choose [select] then [Review and Launch].
 
-![AWS review and launch](images/aws_review_and_launch.png)
+![AWS review and launch]({filename}/posts/django/images/aws_review_and_launch.png)
 
 Before we [Launch] the final server, we need to edit the security group options. Scroll down and select [Edit Security Groups]
 
-![AWS security groups](images/aws_edit_security_groups.png)
+![AWS security groups]({filename}/posts/django/images/aws_edit_security_groups.png)
 
 Add the following security options:
 
@@ -152,65 +150,65 @@ Add the following security options:
  * HTTP - Anywhere, all IPs
  * HTTPS - Anywhere, all IPs
 
-![AWS security options](images/aws_security_groups_added.png)
+![AWS security options]({filename}/posts/django/images/aws_security_groups_added.png)
 
 After the three security rules are added, click [Review and Launch]
 
 At the review screen, click [Launch]
 
-![AWS_final_launch](images/aws_final_launch.png)
+![AWS_final_launch]({filename}/posts/django/images/aws_final_launch.png)
 
 In the pop-up window, select [Create a New Key Pair] from the dropdown menu. 
 
-![AWS download key pair](images/aws_download_key_pair.png)
+![AWS download key pair]({filename}/posts/django/images/aws_download_key_pair.png)
 
 Move the ```.pem``` key from the ```Downloads``` folder to a known location. Note the location where the ```.pem``` key file was moved to. We will need to ```cd``` into that location to log into the server.
 
 Finally, click the [Launch Instances] at the bottom of the pop-up box. 
 
-![AWS popup launch instances](images/aws_popup_final_launch_instances.png)
+![AWS popup launch instances]({filename}/posts/django/images/aws_popup_final_launch_instances.png)
 
-This produce a status window that shows our instances are launching. It takes a couple minutes for the instance to launch. 
+This produces a status window that shows our instance is launching. It takes a couple minutes for the instance to launch. 
 
-![AWS intances launching](images/aws_launch_status.png)
+![AWS intances launching]({filename}/posts/django/images/aws_launch_status.png)
 
 Scroll down and click [View Instances].
 
-![AWS view instances](images/aws_view_instances_button.png)
+![AWS view instances]({filename}/posts/django/images/aws_view_instances_button.png)
 
 You can change the instance name by clicking the pencil icon in the [name] field.
 
-![AWS change name](images/aws_change_name_pencil.png)
+![AWS change name]({filename}/posts/django/images/aws_change_name_pencil.png)
 
 Select the instance (box to the left of the instance name turns blue when instance is selected) and click [Connect]
 
-![AWS Connect Button](images/aws_connect_to_instance.png)
+![AWS Connect Button]({filename}/posts/django/images/aws_connect_to_instance.png)
 
 Copy the SSH connection command from the pop-up window. We will run this command in the Git Bash prompt.
 
-![AWS SSH Command](images/aws_copy_SSH_command.png)
+![AWS SSH Command]({filename}/posts/django/images/aws_copy_SSH_command.png)
 
 Open the Git Bash Prompt, and ```cd``` into the directory where the ```.pem``` file we downloaded earlier is saved. Run the ```ls``` command and make sure the ```.pem``` file downloaded earlier is present. 
 
-![Git Bash in start window](images/git_bash_in_start_window.png)
+![Git Bash in start window]({filename}/posts/django/images/git_bash_in_start_window.png)
 
 Copy the SSH login command from the AWS console pop-up window into the Git Bash Prompt. The right mouse button can be used to paste.
 
-![Git Bash paste SSH command](images/git_bash_paste.png)
+![Git Bash paste SSH command]({filename}/posts/django/images/git_bash_paste.png)
 
 Enter ```yes``` at the prompt to connect.
 
-![Git Bash yes](images/git_bash_sure_connect_yes.png)
+![Git Bash yes]({filename}/posts/django/images/git_bash_sure_connect_yes.png)
 
 You will see the terminal prompt for the AWS server in the command window. Type the ```pwd``` command to print the current working directory. You should be in the ```/home/ubuntu``` directory.
 
 ```text
 # on server
-$ ls
+$ pwd
 /home/ubuntu
 ```
 
-![Git Bash ls after login](images/git_bash_pwd_after_login.png)
+![Git Bash ls after login]({filename}/posts/django/images/git_bash_pwd_after_login.png)
 
 We have now completed the following steps:
 
@@ -229,11 +227,11 @@ $ sudo apt-get upgrade
 
 When asked ```What would you like to do about modified configuration file grub?``` Type ```1``` to choose ```install the package maintainer's version``` 
 
-![What to do with grub file](images/what_to_do_with_grub_file.png)
+![What to do with grub file]({filename}/posts/django/images/what_to_do_with_grub_file.png)
 
 After all the operating system and installed packages are upgraded, run the command ```sudo apt-get update``` again. You should see that updates are 100 percent complete.
 
-![updates complete](images/final_apt_get_upade.png)
+![updates complete]({filename}/posts/django/images/final_apt_get_upade.png)
 
 ## Install packages with apt
 
@@ -480,7 +478,7 @@ Once everything works, browse to the IP address of the AWS instance. The IP addr
  
  You should see the following:
 
-![Django app running](images/django_app_running.png)
+![Django app running]({filename}/posts/django/images/django_app_running.png)
 
 The Django App is now running on AWS.
 
@@ -490,6 +488,6 @@ This deployment is not a permenent solution. The **BIG** reason we can't run the
 
 As it stands we don't have SSL running and we are allowing connections over regular http. We should only be using https.
 
-![Django Admin Login Screen](images/django_admin_login_screen.png)
+![Django Admin Login Screen]({filename}/posts/django/images/django_admin_login_screen.png)
 
 In addition, the Django admin is running and it may be possible for attackers to access our database or backend. Further development is needed before our Django App is running with the bare minimum of security. 

@@ -71,12 +71,12 @@ To confirm **PySerial** is installed, open the Python REPL while the ```(arduio)
 
 ## Download the Arduino IDE
 
-The next step is to download the **Arduino IDE**. IDE stands for Integrated Development Environment. The Arduino IDE is a program that runs on your computer used to edit Arduino code. The Arduino IDE is also used to compile and upload code to an Arduino. We'll use the Arduino IDE to upload two different _sketches_ to our Arduino. An Arduino sketch is name given to Arduino programs. Arduino sketches end in the ```.ino``` file extension.
+The next step is to download the **Arduino IDE**. IDE stands for Integrated Development Environment. The Arduino IDE is a program that runs on your computer used to edit Arduino code. The Arduino IDE is also used to compile and upload code to an Arduino. We'll use the Arduino IDE to upload two different _sketches_ to our Arduino. A sketch is the name given to Arduino programs. Arduino sketches end in the ```.ino``` file extension.
 
 Download the Arduino IDE using the following link: 
 [https://www.arduino.cc/en/Main/Software](https://www.arduino.cc/en/Main/Software) 
 
-Scroll down the page to the Download the Arduino IDE section. Be sure to select: **Windows ZIP file for non-admin install** as new software can not be installed on lab computers without administrator privileges. You can choose**JUST DOWNLOAD** from the donation screen. Extract the downloaded .zip folder to your thumb drive or the desktop.
+Scroll down the page to the Download the Arduino IDE section. Be sure to select: **Windows ZIP file for non-admin install** if you don't have the administrator privileges to install software on the computer you're using. You can choose **JUST DOWNLOAD** from the donation screen. Extract the downloaded .zip folder to your thumb drive or the desktop.
 
 ![Arduino Download Page]({filename}/posts/arduino/images/arduino_download_page.png)
 
@@ -87,7 +87,7 @@ Take out an LED (any color), a 330 Ohm resistor, three jumper wires (red, yellow
  * short LED leg --> resistor --> ground
  * long LED leg --> Pin 13 on Arduino. 
  
- Also see the SIK GUIDE page 19 and the SparkFun Inventor’s kit online guide: 
+ Also see the SparkFun Inventor’s kit online guide: 
 
 > [https://learn.sparkfun.com/tutorials/sparkfun-inventors-kit-experiment-guide---v40/circuit-1a-blink-an-led](https://learn.sparkfun.com/tutorials/sparkfun-inventors-kit-experiment-guide---v40/circuit-1a-blink-an-led)
 
@@ -102,6 +102,8 @@ Now we need to determine which **COM Port** the Arduino is connected to. We will
 You can use the Windows Device Manager to determine which serial port the Arduino is connected to. On my Windows 10 laptop, the port the Arduino is connected to usually comes up as ```COM4```. You can find the serial port by looking in the **Ports (COM & LPT)** category of the Windows Device Manager. Look for something like **USB Serial Port (COM4)** in the **Ports (COM & LPT)** menu. It is the **COM#** that you are looking for.
 
 ![Find Device Manager]({filename}/posts/micropython/find_device_manager.png)
+
+In the picture below, I can see the **COM#** is **COM15** see **Ports (COM & LPT)** menu --> **USB Serial Port (COM15)**. Your **COM#** is likely to be different.
 
 ![Device Manager Menu]({filename}/posts/arduino/images/device_manager_USB_Serial_Port_COM15.png)
 
@@ -123,7 +125,7 @@ In the Arduino IDE Window that contains the **Blink.ino** sketch, click the chec
 
 ![arrow to upload]({filename}/posts/arduino/images/Arrow_to_Upload.png)
 
-Once the upload is complete, the Arduino and LED should blink on and off. If you don't see the Arduino and LED blinking, you need to do some troubleshooting. Check the **COM Port** or try unplugging and re-plugging in the Arduino. 
+Once the upload is complete, the Arduino and LED should blink on and off. If you don't see the Arduino and LED blinking, you need to do some troubleshooting. Check the **COM Port** or try unplugging and re-plugging in the Arduino. Also check the wiring. Ensure the two LED "legs" are wired correctly.
 
 ## Upload the Arduino example sketch **PhysicalPixel.ino** onto the Arduino
 
@@ -174,7 +176,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 (arduino) >
 ```
 
-You should see the Arduino LED turn on and off when you type the commands ```ser.write(b'H')``` and ```ser.write(b'L')```. These commands send the characters ```H``` and ```L``` over the serial line to the Arduino. The Arduino reads these characters and turns the LED on and off. Make sure you run the ```ser.close()``` command. If the serial line is not closed, you may have trouble opening the serial line again and running these same commands a second time.
+You should see the Arduino LED turn on and off when you type the commands ```ser.write(b'H')``` and ```ser.write(b'L')```. These commands send the characters ```H``` and ```L``` over the serial line to the Arduino. The Arduino reads these characters and turns the LED on and off. Make sure you run the ```ser.close()``` command at the end. If the serial line is not closed, you may have trouble opening the serial line again and running these same commands a second time.
 
 If you have trouble, make sure the Arduino Serial Monitor is closed before you run the commands at the Ananconda Prompt. If the Arduino Serial Monitor is open, you can't communicate with the Arduino with the Anaconda Prompt.
 
@@ -182,7 +184,7 @@ If you have trouble, make sure the Arduino Serial Monitor is closed before you r
 
 Now that the Arduino LED turns on and off based on sending ```H``` and ```L``` with the Python REPL, let's write a Python script to turn the LED on and off. Again, the serial communication between the Python script and the Arduino is facilitated by the PySerial package. Ensure PySerial is installed before running the Python script.
 
-Open a new script called **Arduino_blink.py**. At the top of the Python script, import the PySerial package. Note that even though the package is called PySerial, the line ```import serial``` is used. Python's built-in time module is also imported as the ```time.sleep()``` function will be used in the script.  Include the following code in **Arduino_blink.py**:
+Open a new script called **Arduino_blink.py**. At the top of the Python script, import the PySerial package. Note that even though the package is called PySerial, the line ```import serial``` is used. Python's built-in **time** module is also imported as the ```time.sleep()``` function will be used in the script.  Include the following code in **Arduino_blink.py**:
 
 ```python
 # Arduino_blink.py

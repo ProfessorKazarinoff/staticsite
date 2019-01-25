@@ -24,7 +24,7 @@ Using the Anaconda Prompt:
 ```text
 > mkdir piston_motion
 > cd piston_motion
-> conda create -n piston_motion python=3.6
+> conda create -n piston_motion python=3.7
 ```
 
 Alternatively, a virtual environment can be set up with a terminal prompt and **pip**

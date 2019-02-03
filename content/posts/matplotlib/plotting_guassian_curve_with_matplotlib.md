@@ -1,4 +1,4 @@
-Title: Plotting a gaussian normal curve with Python and Matplotlib
+Title: Plotting a Gaussian normal curve with Python and Matplotlib
 Date: 2019-02-02 09:01
 Modified: 2019-02-02 09:01
 Status: published
@@ -9,7 +9,7 @@ Authors: Peter D. Kazarinoff
 
 ![Area Under Normal Curve Plot]({filename}/images/normal_curve.png)
 
-In the [previous post]({filename}/posts/statistics/probability_under_a_normal_curve_with_python.md), we calculated the area under the standard normal curve using Python and the ```erf()``` function from the ```math``` module in Python's Standard Library. In this post, we will construct a plot that illustrates the standard normal curve and the area we calculated. To build the gaussian normal curve, we are going to use Python, Matplotlib, and a module called SciPy.
+In the [previous post]({filename}/posts/statistics/probability_under_a_normal_curve_with_python.md), we calculated the area under the standard normal curve using Python and the ```erf()``` function from the ```math``` module in Python's Standard Library. In this post, we will construct a plot that illustrates the standard normal curve and the area we calculated. To build the Gaussian normal curve, we are going to use Python, Matplotlib, and a module called SciPy.
 
 Calculating the probability under a normal curve is useful for engineers. This type of calculation can be helpful to predict the likely hood of a part coming off an assembly line being within a given specification when the statistical properties of all the parts that have come of the assembly line previously are known.
 

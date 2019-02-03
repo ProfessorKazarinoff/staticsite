@@ -1,9 +1,9 @@
 Title: Plotting a gaussian normal curve with Python and Matplotlib
-Date: 2019-01-27 09:01
-Modified: 2019-01-27 09:01
-Status: Draft
-Category: plotting
-Tags: python, engineering, statistics, matplotlib
+Date: 2019-02-02 09:01
+Modified: 2019-02-02 09:01
+Status: published
+Category: matplotlib
+Tags: python, engineering, statistics, matplotlib, scipy
 Slug: plotting-normal-curve-with-python
 Authors: Peter D. Kazarinoff
 
@@ -21,8 +21,8 @@ At a facility that manufactures electrical resistors, a statistical sample of 1-
 #### FIND:
 Assuming a normal distribution, determine the probability that a resistor coming off the production line will be within spec (in the range of 900 Ω to 1100 Ω). Show the probability that a resistor picked off the production line is within spec on a plot.
 
-#### Solution:
-To build the plot, we will use Python and a plotting package called Matplotlib. We will also use the ```norm()``` function from SciPy's ```stats``` library. Both Matplotlib and SciPy come including when you install [Anaconda](https://anaconda.com/downloads). If you do not have [Anaconda](https://anaconda.com/downloads) installed, Matplotlib and SciPy can be installed from the command line with **pip**.
+#### SOLUTION:
+To build the plot, we will use Python and a plotting package called Matplotlib. We will also use the ```norm()``` function from SciPy's ```stats``` library. Both Matplotlib and SciPy come included when you install [Anaconda](https://anaconda.com/downloads). If you do not have [Anaconda](https://anaconda.com/downloads) installed, Matplotlib and SciPy can be installed from the command line with **pip**.
 
 ```text
 $ pip install matplotlib
@@ -33,19 +33,19 @@ Before we build the plot, let's take a look at a gaussin curve. The shape of a g
 
 ![gaussian_curve]({filename}/images/normal_gaussian_curve.png)
 
-Create a new Python script called ```normal_curve.py```. At the top of the script, import NumPy, Matplotlib, and SciPy's ```norm()``` function.
+Create a new Python script called ```normal_curve.py```. At the top of the script, import NumPy, Matplotlib, and SciPy's ```norm()``` function. If using a Jupyter notebook, include the line ```%matplotlib inline```. If you are not using a Jupyter notebook, leave ```%matplotlib inline``` out as ```%matplotlib inline``` is not a valid line of Python code.
 
 ```python
 # normal_curve.py
 
 import numpy as np
-import matplotlib as mpl
 import matplotlib.pyplot as plt
 from scipy.stats import norm
+# if using a Jupyter notebook, inlcude:
 %matplotlib inline
 ```
 
-Now we need to define the constants given in the problem. The mean is ```979.8``` and the standard deviation is ```73.10```. The lower bound is ```900``` and the upper bound is ```1100```. 
+Next, we need to define the constants given in the problem. The mean is ```979.8``` and the standard deviation is ```73.10```. The lower bound is ```900``` and the upper bound is ```1100```. 
 
 ```python
 # define constants
@@ -55,7 +55,7 @@ x1 = 900
 x2 = 1100
 ```
 
-Next, we calculate the Z-transform of the lower and upper bound ```x1``` and ```x2```.
+Next, we calculate the Z-transform of the lower and upper bound using the mean and standard deviation defined above.
 
 ```python
 # calculate the z-transform
@@ -73,7 +73,7 @@ y = norm.pdf(x,0,1)
 y2 = norm.pdf(x_all,0,1)
 ```
 
-Finally, we build the plot. Note how Matplotlib's ```ax.fill_between()``` function is used to highlight the area of interest. We'll use Matplotlib's ```'fivethirtyeight'``` style and save the figure as ```'normal_curve.png'```.
+Finally, we build the plot. Note how Matplotlib's ```ax.fill_between()``` method is used to highlight the area of interest. We'll use Matplotlib's ```'fivethirtyeight'``` style and save the figure as ```'normal_curve.png'```.
 
 ```python
 # build the plot

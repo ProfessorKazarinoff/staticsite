@@ -172,20 +172,20 @@ init_mathjax = function() {
 }
 init_mathjax();
 </script>
-    <link href="../extra/favicon.ico" rel="icon">
+    <link href="/extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="../drafts/inset-on-stress-strain-curve-with-matplotlib.html">
+<link rel="canonical" href="/drafts/inset-on-stress-strain-curve-with-matplotlib.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
         <meta name="keywords" content="python,matplotlib,engineering,materials science" />
-        <meta name="description" content="Plotting stress strain curves is a useful skill in mechanical engineering because it allows us to derive mechanical properties of materials such as tensile strength, elastic modulus, yield strength and ductility. Plotting stress strain curves can be accomplished with Excel and MATLAB, but what about plotting stress strain curves with …" />
+        <meta name="description" content="Plotting stress strain curves is a useful skill in mechanical engineering because it allows Engineers to derive mechanical properties of materials such as tensile strength, elastic modulus, yield strength and ductility. Plotting stress strain curves can be accomplished with Excel and MATLAB, but what about plotting stress strain curves with Python? Follow along to find out." />
 
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="Adding an Inset Curve with Python and matplotlib"/>
-        <meta property="og:url" content="../drafts/inset-on-stress-strain-curve-with-matplotlib.html"/>
-        <meta property="og:description" content="Plotting stress strain curves is a useful skill in mechanical engineering because it allows us to derive mechanical properties of materials such as tensile strength, elastic modulus, yield strength and ductility. Plotting stress strain curves can be accomplished with Excel and MATLAB, but what about plotting stress strain curves with …"/>
-        <meta property="article:published_time" content="2017-10-04" />
+        <meta property="og:url" content="/drafts/inset-on-stress-strain-curve-with-matplotlib.html"/>
+        <meta property="og:description" content="Plotting stress strain curves is a useful skill in mechanical engineering because it allows Engineers to derive mechanical properties of materials such as tensile strength, elastic modulus, yield strength and ductility. Plotting stress strain curves can be accomplished with Excel and MATLAB, but what about plotting stress strain curves with Python? Follow along to find out."/>
+        <meta property="article:published_time" content="2019-02-16" />
             <meta property="article:section" content="matplotlib" />
             <meta property="article:tag" content="python" />
             <meta property="article:tag" content="matplotlib" />
@@ -196,13 +196,13 @@ init_mathjax();
 
 
     <!-- Bootstrap -->
-        <link rel="stylesheet" href="../theme/css/bootstrap.flatly.min.css" type="text/css"/>
-    <link href="../theme/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="/theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="../theme/css/pygments/native.css" rel="stylesheet">
-    <link href="../theme/tipuesearch/tipuesearch.css" rel="stylesheet">
-    <link rel="stylesheet" href="../theme/css/style.css" type="text/css"/>
-        <link href="../static/css/custom.css" rel="stylesheet">
+    <link href="/theme/css/pygments/native.css" rel="stylesheet">
+    <link href="/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+        <link href="/static/css/custom.css" rel="stylesheet">
 
 
 
@@ -220,18 +220,18 @@ init_mathjax();
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="../" class="navbar-brand">
+            <a href="/" class="navbar-brand">
 Python for Undergraduate Engineers            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                         <li><a href="../pages/about.html">
+                         <li><a href="/pages/about.html">
                              About
                           </a></li>
-                         <li><a href="../pages/book.html">
+                         <li><a href="/pages/book.html">
                              Book
                           </a></li>
-                         <li><a href="../pages/now.html">
+                         <li><a href="/pages/now.html">
                              Now
                           </a></li>
             </ul>
@@ -241,7 +241,7 @@ Python for Undergraduate Engineers            </a>
                   <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
                 </form></span>
               </li>
-              <li><a href="../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+              <li><a href="/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -253,15 +253,15 @@ Python for Undergraduate Engineers            </a>
     <div class="row">
         <div class="col-sm-9">
             <ol class="breadcrumb">
-                <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="../category/matplotlib.html" title="matplotlib">matplotlib</a></li>
+                <li><a href="" title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="/category/matplotlib.html" title="matplotlib">matplotlib</a></li>
                 <li class="active">Adding an Inset Curve with Python and matplotlib</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="../drafts/inset-on-stress-strain-curve-with-matplotlib.html"
+                    <a href="/drafts/inset-on-stress-strain-curve-with-matplotlib.html"
                        rel="bookmark"
                        title="Permalink to Adding an Inset Curve with Python and matplotlib">
                         Adding an Inset Curve with Python and matplotlib
@@ -274,7 +274,7 @@ Python for Undergraduate Engineers            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2017-10-04T09:01:00-07:00"> Wed 04 October 2017</time>
+        <i class="fa fa-calendar"></i><time datetime="2019-02-16T09:01:00-08:00"> Sat 16 February 2019</time>
     </span>
 
 
@@ -282,27 +282,27 @@ Python for Undergraduate Engineers            </a>
 
 
 <span class="label label-default">Tags</span>
-	<a href="../tag/python.html">python</a>
+	<a href="/tag/python.html">python</a>
         /
-	<a href="../tag/matplotlib.html">matplotlib</a>
+	<a href="/tag/matplotlib.html">matplotlib</a>
         /
-	<a href="../tag/engineering.html">engineering</a>
+	<a href="/tag/engineering.html">engineering</a>
         /
-	<a href="../tag/materials-science.html">materials science</a>
+	<a href="/tag/materials-science.html">materials science</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>Plotting stress strain curves is a useful skill in mechanical engineering because it allows us to derive mechanical properties of materials such as tensile strength, elastic modulus, yield strength and ductility. Plotting stress strain curves can be accomplished with Excel and MATLAB, but what about plotting stress strain curves with Python? Follow along to find out.</p>
-<p>In the previous post we built a stress strain curve using python and matplot lib. In this post we are going to add an inset curve to our plot to show the elastic region. </p>
-<p>To build in our inset curve, we need to make sure we have a couple things in place</p>
+                <p>Plotting stress strain curves is a useful skill in mechanical engineering because it allows Engineers to derive mechanical properties of materials such as tensile strength, elastic modulus, yield strength and ductility. Plotting stress strain curves can be accomplished with Excel and MATLAB, but what about plotting stress strain curves with Python? Follow along to find out.</p>
+<p>In a previous post we built a stress strain curve using Python and Matplotlib. In this post, we are going to add an inset curve to the stress strain curve to show the elastic region. </p>
+<p>In order to add an inset curve on a Matplotlib plot, we need to make sure we have a couple things in place.</p>
 <ol>
-<li>python (to run the program) </li>
-<li>A virtual environment with matplotlib, numpy and pandas installed</li>
+<li>Python (to run the program) </li>
+<li>A virtual environment with Matplotlib, NumPy and Pandas installed</li>
 <li>data.csv (the data collected from a mechanical test frame that we will plot)</li>
 </ol>
-<p>To get going, let's log into our virutal environment using the conda prompt</p>
-<p><img alt="conda prompt on windows start menu" src="../images/conda_in_windows_start_menu.png"></p>
-<p>Once you have the conda prompt open, type the following command to log into your virtual environment:</p>
+<p>To get going, let's log into our virutal environment using the Anaconda Prompt.</p>
+<p><img alt="conda prompt on windows start menu" src="/images/conda_in_windows_start_menu.png"></p>
+<p>Once you have the Anaconda Prompt open, type the following command to log into your virtual environment:</p>
 <div class="highlight"><pre><span></span>(C:\Users\peter.kazarinoff\AppData\Local\Continuum\Anaconda3) C:\Users\peter.kazarinoff&gt;activate tensiletest
 
 (tensiletest) C:\Users\peter.kazarinoff&gt;
@@ -328,7 +328,7 @@ wincertstore==0.2
 </pre></div>
 
 
-<p>Next let's run our previous script and to see the plot we have constructed so far. The full script is show$</p>
+<p>Next, let's run our previous script and to see the plot we have constructed so far. The full script that builds a stress strain curve is below:</p>
 <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
@@ -358,10 +358,10 @@ wincertstore==0.2
 </pre></div>
 
 
-<p><img alt="stress strain curve" src="../images/stress_strain_curve3.png"></p>
-<p>Let's zoom into the linear elastic region, that's the region on the left-hand side of the curve where the plot is linear. In this region there is a direct relationship between stress and strain. The constant that relates them is the elastic modulus E. The equation below shows the relationship:</p>
+<p><img alt="stress strain curve" src="/images/stress_strain_curve3.png"></p>
+<p>Let's zoom into the linear elastic region, that's the region on the left-hand side of the curve where the plot is linear. In this region there is a direct relationship between stress and strain. The constant that relates stress and strain (the change in stress over the change in strain in the linear elastic region) is the elastic modulus E. The equation below shows the relationship:</p>
 <p>E = delta_Stress / delta_Strain</p>
-<p><img alt="linear elastic region" src="../images/linear_elastic_region.png"></p>
+<p><img alt="linear elastic region" src="/images/linear_elastic_region.png"></p>
 <p>To add this plot onto our main plot, we need to add the following to our <strong><em>tensiletest.py</em></strong> script:</p>
 <div class="highlight"><pre><span></span><span class="c1"># this is the inset axes over the main axes</span>
 <span class="n">a</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">([</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="o">.</span><span class="mi">3</span><span class="p">,</span> <span class="o">.</span><span class="mi">3</span><span class="p">],</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
@@ -373,17 +373,49 @@ wincertstore==0.2
 
 
 <p>This outputs the plot below:
-<img alt="linear elastic region" src="../images/stress_strain_with_inset.png"></p>
+<img alt="linear elastic region" src="/posts/matplotlib/images/stress_strain_with_inset.png"></p>
+<p>The entire Python script including the section to add the inset curve is below.</p>
+<div class="highlight"><pre><span></span><span class="c1"># read in the data</span>
+<span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">skiprows</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">delta_L</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">*</span><span class="mi">1000</span>  
+<span class="n">force</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+
+<span class="c1"># sample parameters</span>
+<span class="n">d</span> <span class="o">=</span> <span class="mf">1.778</span>     <span class="c1"># diameter of sample in mm</span>
+<span class="n">A0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="p">(</span><span class="n">d</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="c1"># original cross-sectional area of sample in mm^2</span>
+<span class="n">L0</span> <span class="o">=</span> <span class="mf">18.002</span>   <span class="c1"># original gauge length of sample (lenth of narrowest section)</span>
+
+<span class="c1"># calcuate stress and strain</span>
+<span class="n">stress</span> <span class="o">=</span> <span class="p">(</span><span class="n">force</span><span class="o">/</span><span class="n">A0</span><span class="p">)</span>
+<span class="n">strain</span> <span class="o">=</span> <span class="n">delta_L</span><span class="o">/</span><span class="n">L0</span>
+
+<span class="c1"># plot the stress strain curve</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">strain</span><span class="p">,</span><span class="n">stress</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Strain (mm/mm)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Stress (MPa)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Stress-Strain Curve of Al6061 - T6&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">60</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="c1"># inset axes overlayed on the main axes</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">([</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="o">.</span><span class="mi">3</span><span class="p">,</span> <span class="o">.</span><span class="mi">3</span><span class="p">],</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">strain</span><span class="p">,</span> <span class="n">stress</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Inset of Elastic Region&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">
     <h4>Related Posts:</h4>
     <ul>
-        <li><a href="../bar-plot-with-error-bars-jupyter-matplotlib.html">Bar charts with error bars using Python, jupyter notebooks and matplotlib</a></li>
-        <li><a href="../python-matplotlib-error-bars.html">Bar charts with error bars using Python and matplotlib</a></li>
-        <li><a href="../plotting-normal-curve-with-python.html">Plotting a gaussian normal curve with Python and Matplotlib</a></li>
-        <li><a href="../quiver-plot-with-matplotlib-and-jupyter-notebooks.html">Quiver plots using Python, matplotlib and Jupyter notebooks</a></li>
-        <li><a href="../stress-strain-curve-with-4-libraries.html">Plotting a stress-strain curve with four libraries: matplotlib, pandas, altair and bokeh</a></li>
+        <li><a href="/bar-plot-with-error-bars-jupyter-matplotlib.html">Bar charts with error bars using Python, jupyter notebooks and matplotlib</a></li>
+        <li><a href="/python-matplotlib-error-bars.html">Bar charts with error bars using Python and matplotlib</a></li>
+        <li><a href="/plotting-normal-curve-with-python.html">Plotting a Gaussian normal curve with Python and Matplotlib</a></li>
+        <li><a href="/quiver-plot-with-matplotlib-and-jupyter-notebooks.html">Quiver plots using Python, matplotlib and Jupyter notebooks</a></li>
+        <li><a href="/stress-strain-curve-with-4-libraries.html">Plotting a stress-strain curve with four libraries: matplotlib, pandas, altair and bokeh</a></li>
     </ul>
 </section>
         </article>
@@ -394,7 +426,7 @@ wincertstore==0.2
             <aside>
 <div id="aboutme">
         <p>
-            <img width="100%" class="img-thumbnail" src="../extra/gear-wrench-icon-512-278694.png"/>
+            <img width="100%" class="img-thumbnail" src="/extra/gear-wrench-icon-512-278694.png"/>
         </p>
     <p>
       <strong>About Peter Kazarinoff</strong><br/>
@@ -408,46 +440,46 @@ wincertstore==0.2
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
-    <li class="list-group-item"><a href="../plotting-normal-curve-with-python.html">Plotting a gaussian normal curve with Python and Matplotlib</a></li>
-    <li class="list-group-item"><a href="../probability-under-normal-curve-with-python.html">Calculating the probability under a normal curve with Python</a></li>
-    <li class="list-group-item"><a href="../problem-solving-with-python-book-on-amazon.html">My book Problem Solving with Python is available on Amazon</a></li>
+    <li class="list-group-item"><a href="/plotting-normal-curve-with-python.html">Plotting a Gaussian normal curve with Python and Matplotlib</a></li>
+    <li class="list-group-item"><a href="/probability-under-normal-curve-with-python.html">Calculating the probability under a normal curve with Python</a></li>
+    <li class="list-group-item"><a href="/problem-solving-with-python-book-on-amazon.html">My book Problem Solving with Python is available on Amazon</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
 
 <!-- Sidebar/Tag Cloud -->
 <li class="list-group-item">
-  <a href="../"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <a href="/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
   <ul class="list-group list-inline tagcloud" id="tags">
     <li class="list-group-item tag-2">
-      <a href="../tag/engineering.html">engineering</a>
+      <a href="/tag/engineering.html">engineering</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="../tag/esp8266.html">esp8266</a>
+      <a href="/tag/esp8266.html">esp8266</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="../tag/flask.html">flask</a>
+      <a href="/tag/flask.html">flask</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="../tag/iot.html">IoT</a>
+      <a href="/tag/iot.html">IoT</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="../tag/jupyter.html">jupyter</a>
+      <a href="/tag/jupyter.html">jupyter</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="../tag/jupyter-hub.html">jupyter hub</a>
+      <a href="/tag/jupyter-hub.html">jupyter hub</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="../tag/jupyter-notebooks.html">jupyter notebooks</a>
+      <a href="/tag/jupyter-notebooks.html">jupyter notebooks</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="../tag/matplotlib.html">matplotlib</a>
+      <a href="/tag/matplotlib.html">matplotlib</a>
     </li>
     <li class="list-group-item tag-1">
-      <a href="../tag/python.html">python</a>
+      <a href="/tag/python.html">python</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="../tag/sensor.html">sensor</a>
+      <a href="/tag/sensor.html">sensor</a>
     </li>
   </ul>
 </li>
@@ -480,15 +512,15 @@ wincertstore==0.2
       </div>
    </div>
 </footer>
-<script src="../theme/js/jquery.min.js"></script>
+<script src="/theme/js/jquery.min.js"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="../theme/js/bootstrap.min.js"></script>
+<script src="/theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="../theme/js/respond.min.js"></script>
+<script src="/theme/js/respond.min.js"></script>
 
-    <script src="../static/js/custom.js"></script>
+    <script src="/static/js/custom.js"></script>
 
 
 <!-- GitHub JS Code -->
@@ -497,7 +529,7 @@ $(document).ready(function () {
   if (!window.jXHR) {
     var jxhr = document.createElement('script');
     jxhr.type = 'text/javascript';
-    jxhr.src = '../theme/js/jXHR.js';
+    jxhr.src = '/theme/js/jXHR.js';
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(jxhr, s);
   }
@@ -510,7 +542,7 @@ $(document).ready(function () {
   });
 });
 </script>
-<script src="../theme/js/github.js" type="text/javascript"></script>
+<script src="/theme/js/github.js" type="text/javascript"></script>
 <!-- End GitHub JS Code -->
     <!-- Google Analytics -->
     <script type="text/javascript">

@@ -72,8 +72,8 @@ With the esp-open-sdk installed, it's time to clone the main Micropython repo an
 ```bash
 $ cd ~
 $ git clone git@github.com:micropython/micropython.git
-$ git submodule update --init
 $ cd micropython
+$ git submodule update --init
 ``` 
 
 Once the whole Micropython repo is cloned locally, the mpy-cross tool needs to be built and then you can jump into the ESP8266 port and build the firmware.
@@ -83,7 +83,6 @@ $ cd ~/micropython
 $ make -C mpy-cross
 $ cd ports/esp8266
 # if building firmware for the second time run $ make clean
-$ make axtls
 $ make
 ```
 

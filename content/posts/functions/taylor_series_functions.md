@@ -1,4 +1,4 @@
-Title: Creating Taylor Series functions with Python
+Title: Taylor Series in Python
 Date: 2019-03-01 09:01
 Modified: 2019-03-01 09:01
 Status: draft

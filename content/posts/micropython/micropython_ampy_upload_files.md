@@ -9,6 +9,8 @@ Authors: Peter D. Kazarinoff
 Series: micropython
 series_index: 7
 
+![fritzing ESP8266 image]({filename}/posts/micropython/images/fritzing_esp8266.png)
+
 This is an update to the sixth part of a multi-part series on Micropython. I had trouble in class today uploading a .py-file to an ESP8266 microcontroller running MicroPython using a command line tool called **ampy**. There was a trick getting **ampy** to work on with the ESP8266 microcontroller that I want to share in case other people come across the same problem. In this post, I'll show you how I uploaded upload **_.py_** files to an ESP8266 microcontroller using Python and a Python package called **ampy**.
 
 Before you can upload a .py-file onto the ESP8266 microcontroller, first make sure MicroPython is installed on the microcontroller.  

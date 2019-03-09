@@ -15,6 +15,7 @@ ARTICLE_PATHS = ['posts']
 STATIC_PATHS = ['images','extra',
                 'posts/seaborn_bar_plot_files',
                 'posts/micropython',
+                'posts/micropython/images',
                 'extra/CNAME',
                 'code',
                 'code/circuit_diagrams',

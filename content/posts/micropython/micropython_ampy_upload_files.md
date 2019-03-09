@@ -1,7 +1,7 @@
 Title: How to upload .py-files onto an ESP8266 running MicroPython
-Date: 2019-03-08 09:01
-Modified: 2018-03-08 09:01
-Status: draft
+Date: 2019-03-09 09:01
+Modified: 2019-03-09 09:01
+Status: published
 Category: micropython
 Tags: python, micropython, esp8266, microcontroller, ampy
 Slug: upload-py-files-to-esp8266-running-micropython
@@ -11,7 +11,7 @@ series_index: 7
 
 ![fritzing ESP8266 image]({filename}/posts/micropython/images/fritzing_esp8266.png)
 
-This is an update to the sixth part of a multi-part series on Micropython. I had trouble in class today uploading a .py-file to an ESP8266 microcontroller running MicroPython using a command line tool called **ampy**. There was a trick getting **ampy** to work on with the ESP8266 microcontroller that I want to share in case other people come across the same problem. In this post, I'll show you how I uploaded upload **_.py_** files to an ESP8266 microcontroller using Python and a Python package called **ampy**.
+This is an update to the sixth part of a [multi-part series]({filename}/posts/micropython/what_is_micropython.md) on Micropython. I had trouble in class today uploading a .py-file to an ESP8266 microcontroller running MicroPython using a command line tool called **ampy**. There was a trick getting **ampy** to work on with the ESP8266 microcontroller that I want to share in case other people come across the same problem. In this post, I'll show you how I uploaded upload **_.py_** files to an ESP8266 microcontroller using Python and a Python package called **ampy**.
 
 Before you can upload a .py-file onto the ESP8266 microcontroller, first make sure MicroPython is installed on the microcontroller.  
 
@@ -177,6 +177,7 @@ Try and connect to the board with **ampy** again and make sure **ampy** still wo
 
 ```text
 (ampy)$ ampy --port COM4 --baud 115200 ls
+\boot.py
 
 (ampy)$ ampy --port COM4 --baud 115200 get boot.py
 # output
@@ -204,14 +205,17 @@ for i in range(10):
 
 ## Upload **_main.py_** onto the board
 
-After **_main.py_** is saved, you can upload **_main.py_** onto the microcontroller. You can use the same **ampy** put command that you used to upload **_boot.py_** onto the board.
+After **_main.py_** is saved, you can upload **_main.py_** onto the microcontroller. You can use the same **ampy** ```put``` command that you used to upload **_boot.py_** onto the board.
 
 ```text
 (ampy)$ ampy --port COM4 --baud 115200 put main.py
 
 (ampy)$ ampy --port COM4 --baud 115200 ls
+\boot.py
+\main.py
 
 (ampy)$ ampy --port COM4 --baud 115200 get main.py
+#output
 ```
 
 You should see the contents of your **_main.py_** file in the terminal.

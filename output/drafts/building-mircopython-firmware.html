@@ -279,7 +279,7 @@ Python for Undergraduate Engineers            </a>
     </span>
 
             <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x0000013D45BF00F0> of 
+            Part <built-in method index of str object at 0x0000019C9183EEF0> of 
 
 
 
@@ -346,8 +346,8 @@ $ <span class="nb">source</span> ~/.bashrc
 <p>With the esp-open-sdk installed, it's time to clone the main Micropython repo and build the ESP8266 firmware. Some more terminal commands did the trick.</p>
 <div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~
 $ git clone git@github.com:micropython/micropython.git
-$ git submodule update --init
 $ <span class="nb">cd</span> micropython
+$ git submodule update --init
 </pre></div>
 
 
@@ -356,7 +356,6 @@ $ <span class="nb">cd</span> micropython
 $ make -C mpy-cross
 $ <span class="nb">cd</span> ports/esp8266
 <span class="c1"># if building firmware for the second time run $ make clean</span>
-$ make axtls
 $ make
 </pre></div>
 
@@ -370,6 +369,51 @@ $ ls
 
 
 <p>The file to look for is <strong><em>firmware-combined.bin</em></strong>. There will be a lot of files in the build directory, but this is the one we need to upload on the ESP-01 board. </p>
+<p>The full history from the BASH terminal is below:</p>
+<div class="highlight"><pre><span></span>1961  sudo apt-get install make unrar-free autoconf automake libtool gcc g++ gperf     flex bison texinfo gawk ncurses-dev libexpat-dev python-dev python python-serial     sed git unzip bash help2man wget bzip2
+ 1962  sudo apt-get install libtool-bin
+ 1963  git clone --recursive https://github.com/pfalcon/esp-open-sdk.git
+ 1964  cd esp-open-sdk/
+ 1965  make
+ 1966  export PATH=/home/tribilium/esp-open-sdk/xtensa-lx106-elf/bin:$PATH
+ 1967  source ~/.bashrc
+ 1968  cd ..
+ 1969  ls
+ 1970  cd micropython
+ 1971  ls
+ 1972  conda info --envs
+ 1973  conda activate micropython
+ 1974  python
+ 1975  exit
+ 1976  ls
+ 1977  rm -rf micropython/
+ 1978  ls
+ 1979  cd ~
+ 1980  git clone git@github.com:micropython/micropython.git
+ 1981  git submodule update --init
+ 1982  cd micropython
+ 1983  git submodule update --init
+ 1984  ls
+ 1985  make -C mpy-cross
+ 1986  cd ports
+ 1987  cd esp8266
+ 1988  make axtls
+ 1989  make
+ 1990  cd build
+ 1991  ls
+ 1992  cd staticsite
+ 1993  cd Documents/staticsite
+ 1994  git add .
+ 1995  git commit -m &quot;adds&quot;
+ 1996  git push origin master
+ 1997  exit
+ 1998  sudo apt-get update
+ 1999  sudo apt-get dist-upgrade
+ 2000  exit
+ 2001  history
+</pre></div>
+
+
 <h3 id="4-upload-the-firmware-to-the-esp-01">4. Upload the firmware to the ESP-01</h3>
 <p>First the ESP-01 needs to be wired up in bootloader mode. Once connected to USB through and FTDI addapter and wired up in bootloader mode the ESP-01 flash can be erased.</p>
 <div class="highlight"><pre><span></span>$ esptool.py --port /dev/ttyUSB0 erase_flash
@@ -418,15 +462,15 @@ $ esptool.py --port /dev/ttyUSB0 --baud <span class="m">115200</span> write_flas
 <section class="well" id="related-posts">
     <h4>Related Posts:</h4>
     <ul>
+        <li><a href="/upload-py-files-to-esp8266-running-micropython.html">How to upload .py-files onto an ESP8266 running MicroPython</a></li>
         <li><a href="/micropython-upload-code.html">Upload Micropython Code to an Adafruit Feather Huzzah ESP8266</a></li>
         <li><a href="/micropython-wifi.html">Using Micropython to connect an Adafruit Feather Huzzah ESP8266 to WiFi</a></li>
         <li><a href="/micropython-temp-sensor.html">Using a Temperature Sensor with Micropython running on an Adafruit Feather Huzzah ESP8266</a></li>
         <li><a href="/micropython-install.html">Installing Micropython on an Adafruit Feather Huzzah ESP8266</a></li>
-        <li><a href="/what-is-micropython.html">What is Micropython?</a></li>
     </ul>
 </section>
 <section class="well" id="related-posts">
-    <h4>Article <built-in method index of str object at 0x0000013D45BF00F0> of the  series</h4>
+    <h4>Article <built-in method index of str object at 0x0000019C9183EEF0> of the  series</h4>
 </section>
         </article>
     </section>
@@ -450,9 +494,9 @@ $ esptool.py --port /dev/ttyUSB0 --baud <span class="m">115200</span> write_flas
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
-    <li class="list-group-item"><a href="/plotting-normal-curve-with-python.html">Plotting a Gaussian normal curve with Python and Matplotlib</a></li>
-    <li class="list-group-item"><a href="/probability-under-normal-curve-with-python.html">Calculating the probability under a normal curve with Python</a></li>
-    <li class="list-group-item"><a href="/problem-solving-with-python-book-on-amazon.html">My book Problem Solving with Python is available on Amazon</a></li>
+    <li class="list-group-item"><a href="/upload-py-files-to-esp8266-running-micropython.html">How to upload .py-files onto an ESP8266 running MicroPython</a></li>
+    <li class="list-group-item"><a href="/creating-taylor-series-functions-with-python.html">Taylor Series in Python</a></li>
+    <li class="list-group-item"><a href="/moving-from-matlab-to-python-on-talkpython.html">Hear my story about moving from MATLAB to Python on TalkPython</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
@@ -464,14 +508,8 @@ $ esptool.py --port /dev/ttyUSB0 --baud <span class="m">115200</span> write_flas
     <li class="list-group-item tag-2">
       <a href="/tag/engineering.html">engineering</a>
     </li>
-    <li class="list-group-item tag-4">
+    <li class="list-group-item tag-3">
       <a href="/tag/esp8266.html">esp8266</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="/tag/flask.html">flask</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="/tag/iot.html">IoT</a>
     </li>
     <li class="list-group-item tag-2">
       <a href="/tag/jupyter.html">jupyter</a>
@@ -484,6 +522,12 @@ $ esptool.py --port /dev/ttyUSB0 --baud <span class="m">115200</span> write_flas
     </li>
     <li class="list-group-item tag-3">
       <a href="/tag/matplotlib.html">matplotlib</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/microcontroller.html">microcontroller</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="/tag/micropython.html">micropython</a>
     </li>
     <li class="list-group-item tag-1">
       <a href="/tag/python.html">python</a>

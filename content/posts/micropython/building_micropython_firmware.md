@@ -72,8 +72,8 @@ With the esp-open-sdk installed, it's time to clone the main Micropython repo an
 ```bash
 $ cd ~
 $ git clone git@github.com:micropython/micropython.git
-$ git submodule update --init
 $ cd micropython
+$ git submodule update --init
 ``` 
 
 Once the whole Micropython repo is cloned locally, the mpy-cross tool needs to be built and then you can jump into the ESP8266 port and build the firmware.
@@ -83,7 +83,6 @@ $ cd ~/micropython
 $ make -C mpy-cross
 $ cd ports/esp8266
 # if building firmware for the second time run $ make clean
-$ make axtls
 $ make
 ```
 
@@ -97,6 +96,53 @@ $ ls
 ```
 
 The file to look for is **_firmware-combined.bin_**. There will be a lot of files in the build directory, but this is the one we need to upload on the ESP-01 board. 
+
+
+The full history from the BASH terminal is below:
+
+```text
+1961  sudo apt-get install make unrar-free autoconf automake libtool gcc g++ gperf     flex bison texinfo gawk ncurses-dev libexpat-dev python-dev python python-serial     sed git unzip bash help2man wget bzip2
+ 1962  sudo apt-get install libtool-bin
+ 1963  git clone --recursive https://github.com/pfalcon/esp-open-sdk.git
+ 1964  cd esp-open-sdk/
+ 1965  make
+ 1966  export PATH=/home/tribilium/esp-open-sdk/xtensa-lx106-elf/bin:$PATH
+ 1967  source ~/.bashrc
+ 1968  cd ..
+ 1969  ls
+ 1970  cd micropython
+ 1971  ls
+ 1972  conda info --envs
+ 1973  conda activate micropython
+ 1974  python
+ 1975  exit
+ 1976  ls
+ 1977  rm -rf micropython/
+ 1978  ls
+ 1979  cd ~
+ 1980  git clone git@github.com:micropython/micropython.git
+ 1981  git submodule update --init
+ 1982  cd micropython
+ 1983  git submodule update --init
+ 1984  ls
+ 1985  make -C mpy-cross
+ 1986  cd ports
+ 1987  cd esp8266
+ 1988  make axtls
+ 1989  make
+ 1990  cd build
+ 1991  ls
+ 1992  cd staticsite
+ 1993  cd Documents/staticsite
+ 1994  git add .
+ 1995  git commit -m "adds"
+ 1996  git push origin master
+ 1997  exit
+ 1998  sudo apt-get update
+ 1999  sudo apt-get dist-upgrade
+ 2000  exit
+ 2001  history
+```
 
 ### 4. Upload the firmware to the ESP-01
 

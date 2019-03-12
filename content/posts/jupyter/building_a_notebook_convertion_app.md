@@ -78,7 +78,21 @@ The resulting .pdf looks great, but calling the long command from the **Anaconda
 
 ## A Python script that converts .ipynb file to .tex
 
+The Python scirpt that runs the same operation can be found on GitHub [here](https://github.com/ProfessorKazarinoff/notebook-convert-app/blob/master/convert_script.py). The "meat" of the script is in a few commands shown below:
+
+```python
+nb_filepath = Path('ENGR114-Lab07-Taylor_Series.ipynb')
+nbnode = file_to_nbnode(nb_filepath)
+export_nbnode(nbnode, outfile_Path, pdf=False,  template_file=template_file_Path)
+```
+
+The first line above takes in the .ipyn-file and converts it into a ```nbnode``` object. Next the ```export_nbnode()``` function converts the ```nbnode``` object into a .tex-file. ```template_file=``` is a keyword argument and we point it to our lab template.
+
+This works. The .ipynb-file we hard coded in the script is converted to a .tex-file. The problem is that we need to hard code in the notebook file path each time we want to convert a different notebook. We can solve this problem by using Python's argparse library and turning our Python script into a command-line utility.
+
 ## A Python scirpt that accepts command line arguments to convert .ipynb files to .tex files
+
+
 
 ## A Gui App built with Gooey to convert .ipynb file to .tex
 

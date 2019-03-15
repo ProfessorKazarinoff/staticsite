@@ -14,14 +14,14 @@ This is the first part of a multi-part series on how I built this site. In this 
 
 ### Set up the development environment
 
-What does _development environment_ even mean? Before I started building this site, I needed to make sure the necessary software, packages, and settings were in place. This starts with setting up a development environment. To me, a development environment is simply the software on a computer that allows me to get work done. In this case, the development environment means the tools necessary to build this site. A list of the tools and technologies are below:
+What does _development environment_ even mean? Before I started building this site, I needed to make sure the necessary software, packages, and settings were in place. This begins with setting up a development environment. To me, a development environment is merely the software on a computer that allows me to get work done. In this case, the development environment means the tools necessary to build this site. A list of the tools and technologies are below:
 
-1. An operating system: This website was built on machines running Windows 10, MacOS and Linux (Ubuntu 16.04 LTS).
+1. An operating system: This website was created on machines running Windows 10, MacOS and Linux (Ubuntu 16.04 LTS).
 2. Python: Python 3.6 (legacy Python is version 2.7)
 3. Anaconda: The Anaconda Prompt and the Anaconda distribution of Python
 6. GitHub.com and git: Four different computers were used to build the site. GitHub is the central place where the most up-to-date version of the site is kept. Git is the command-line tool used to update GitHub.com. 
 4. Pelican: A static site generator written in Python. Pelican builds websites from posts written in markdown (.md files) and a file settings file (pelicanconf.py). 
-5. Markdown: the posts on this website are written in markdown, or .md format
+5. Markdown: the posts on this website are written in markdown or .md format
 7. fabric and make: fabric is a Python package to automate builds and tasks. Fabric works on Windows. Make is used on MacOS and Linux to build the site and serve up a demo version of the site.
 
 
@@ -48,13 +48,13 @@ The Anaconda distribution of Python comes with an up-to-date and stable version 
  
 ### Create a new virtual environment
 
-Before downloading Pelican, we should create a new virtual environment. The same virtual environment on each of the computers I use means the same packages are installed on each computer. To create a new virtual environment, open up the Anaconda Prompt (on Windows) or a terminal (on Linux or MacOS). Let's call our new virtual environment **_staticsite_**. The ```conda create``` command creates the environment and the ```-n staticsite``` flag adds the name.
+Before downloading Pelican, we should create a new virtual environment. The same virtual environment on each of the computers I use means the same packages are installed on each machine. To create a new virtual environment, open up the Anaconda Prompt (on Windows) or a terminal (on Linux or MacOS). Let's call our new virtual environment **_staticsite_**. The ```conda create``` command creates the environment, and the ```-n staticsite``` flag adds the name.
 
 ```text
 $ conda create -n staticsite
 ```
 
-The ```conda create -n staticsite``` command creates a new virtual environment called **_staticsite_**. Becuase I use four different computers to work on the site, I need to make sure the same Python packages are installed on each computer. Using a virtual environment ensures this consistency. Once the virtual environment **_staticsite_** is created, we need to activate it and start using it with the command:
+The ```conda create -n staticsite``` command creates a new virtual environment called **_staticsite_**. Because I use four different computers to work on the site, I need to make sure the same Python packages are installed on each computer. Using a virtual environment ensures this consistency. Once the virtual environment **_staticsite_** is created, we need to activate it and start using it with the command:
 
 ```text
 $ conda activate staticsite
@@ -64,7 +64,7 @@ We should now see ```(staticsite)``` before the terminal prompt. This means we a
 
 ### Install Pelican
 
-Time for some fun! Installing Pelican. Pelican is a Python package that creates static websites. Static sites are websites that only have html, css and javascript. A static site is not connected to a database and there is no code run on the server side. The server just serves static files (html, css, javascript) to the client when the client requests them. In order to install Pelican, we need to install ```pip``` first. On my Linux and MacOS machines, the command line tool **git** is already installed. If using Windows 10, **git** may not be available. To keep the development environments the same when using Windows 10, you may also need ```conda``` to ```install git```. The commands to install both ```pip``` and ```git``` are below.
+Time for some fun! Installing Pelican. Pelican is a Python package that creates static websites. Static sites are websites that only have html, css, and javascript. A static site is not connected to a database, and there is no code run on the server side. The server just serves static files (html, css, javascript) to the client when the client requests them. To install Pelican, we need to install ```pip``` first. On my Linux and MacOS machines, the command line tool **git** is already installed. If using Windows 10, **git** may not be available. To keep the development environments the same when using Windows 10, you may also need ```conda``` to ```install git```. The commands to install both ```pip``` and ```git``` are below.
 
 
 ```text
@@ -84,9 +84,9 @@ Once ```pip``` is installed, we can install ```pelican``` and ```markdown```. Th
 
 ### Create a GitHub.com account and create a new repository
 
-While I was making the site, it became clear that I had to keep track of **_version control_**. I would make some changes to the site on my computer at work, then come home and make more changes to the site. Carrying a USB thumb drive back and forth from work to home was hard. If I forgot the thumb drive at work,  (or left it at home) and then could not edit the site. Or worse, I'd edit the site in both places and try to remember which changes were made where and which was the best version. Ah!
+While I was making the site, it became clear that I had to keep track of **_version control_**. I would make some changes to the site on my computer at work, then come home and make more changes to the site. Carrying a USB thumb drive back and forth from work to home was hard. If I forgot the thumb drive at work,  (or left it at home) and then could not edit the site. Or worse, I'd modify the site in both places and try to remember which changes were made and which machine and which was the best version. Ah!
  
- The solution is to use **git** and **GitHub**. Git is a command-line utility that assists with version control. Using git means changes made to files on one computer can be synced with the same files on another computer. GitHub.com is the where the site content and settings are remotely stored and integrates easily with git. 
+ The solution is to use **git** and **GitHub**. Git is a command-line utility that assists with version control. Using git means changes made to files on one computer can be synced with the same files on another computer. GitHub.com is where the site content and settings are remotely stored and integrates easily with git. 
 
 To sign up for a github.com account go here:
 
@@ -104,9 +104,9 @@ I named the new repository: **staticsite** and included both a **README.md** and
 
 ![new github repo details](../images/create_a_new_repo_details.png)
 
-### Make a directory for the site and link it to github
+### Make a directory for the site and link it to GitHub
 
-Once the GitHub repo (short for repository, basically a folder with files on github.com) is set up, the last step to complete the development environment is to link the remote repo on GitHub.com to the local version of the site (the version of the site on a laptop or desktop). 
+Once the GitHub repo (short for _repository_, basically a folder with files on github.com) is set up, the last step to complete the development environment is to link the remote repo on GitHub.com to the local version of the site (the version of the site on a laptop or desktop). 
 
 The local version of the site is in a folder call ```staticsite``` in the ```Documents``` folder. The ```staticsite``` folder will contain all the files used to build the site and the output files created by Pelican that _are_ the site. The ```staticsite``` folder can be created using a terminal, or the Anaconda Prompt.
 
@@ -117,14 +117,14 @@ The local version of the site is in a folder call ```staticsite``` in the ```Doc
 (staticsite)$ cd staticsite
 ```
 
-Now, we can set up git to keep the contents of the _local_ staticsite folder in sync with the _remote_ repo on GitHub.com. The command ```git init``` creates the local repository. The command ```git remote add origin``` followed by the url of our GitHub repo links local folder on our computer to the remote repo on GitHub.com. Note the web address ends in ```.git```. If you are following along and want to build your own static site, make sure to change ```username``` to your GitHub username and ```reponame``` to your github repo name.
+Now, we can set up git to keep the contents of the _local_ staticsite folder in sync with the _remote_ repo on GitHub.com. The command ```git init``` creates the local repository. The command ```git remote add origin``` followed by the URL of our GitHub repo links a local folder on our computer to the remote repo on GitHub.com. Note the web address ends in ```.git```. If you are following along and want to build your own static site, make sure to change ```username``` to your GitHub username and ```reponame``` to your GitHub repo name.
 
 ```text
 (staticsite)$ git init
 (staticsite)$ git remote add origin https://github.com/username/reponame.git
 ```
 
-Now for the git magic. On GitHub.com, we have a README.md file and a licence. But the local staticsite folder on the computer is empty. So the two folders aren't in sync. To make the contents of each folder identical, we **_pull_** the files from GitHub onto the local computer. A **_pull_** "pulls" or gets the files from github and copies them to the local staticsite folder.
+Now for the git magic. On GitHub.com, we have a README.md file and a license. But the local staticsite folder on the computer is empty. So the two folders aren't in sync. To make the contents of each folder identical, we **_pull_** the files from GitHub onto the local computer. A **_pull_** "pulls" or gets the files from GitHub and copies them to the local staticsite folder.
 
 ```text
 (staticsite)$ git pull origin master
@@ -155,7 +155,7 @@ git commit -m "commit message"
 git push origin master
 ```
 
-These commands ensures all my computers and the GitHub.com repo contain the same version of the site.
+These commands ensure all my computers and the GitHub.com repo contain the same version of the site.
 
 
 In the [next post]({filename}/posts/how_i_built_this_site/how_I_built_this_site2.md) we will use the ```pelican-quickstart``` command to get the blog off the ground, write our first post and view a demo version of the site.

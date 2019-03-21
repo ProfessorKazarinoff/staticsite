@@ -293,14 +293,14 @@ Python for Undergraduate Engineers            </a>
                 </div>
                 <p>This is the first part of a multi-part series on how I built this site. In this first post, we'll review the development environments, Python, virtual environments, installing Python packages and set up git.</p>
 <h3 id="set-up-the-development-environment">Set up the development environment</h3>
-<p>What does <em>development environment</em> even mean? Before I started building this site, I needed to make sure the necessary software, packages, and settings were in place. This starts with setting up a development environment. To me, a development environment is simply the software on a computer that allows me to get work done. In this case, the development environment means the tools necessary to build this site. A list of the tools and technologies are below:</p>
+<p>What does <em>development environment</em> even mean? Before I started building this site, I needed to make sure the necessary software, packages, and settings were in place. This begins with setting up a development environment. To me, a development environment is merely the software on a computer that allows me to get work done. In this case, the development environment means the tools necessary to build this site. A list of the tools and technologies are below:</p>
 <ol>
-<li>An operating system: This website was built on machines running Windows 10, MacOS and Linux (Ubuntu 16.04 LTS).</li>
+<li>An operating system: This website was created on machines running Windows 10, MacOS and Linux (Ubuntu 16.04 LTS).</li>
 <li>Python: Python 3.6 (legacy Python is version 2.7)</li>
 <li>Anaconda: The Anaconda Prompt and the Anaconda distribution of Python</li>
 <li>GitHub.com and git: Four different computers were used to build the site. GitHub is the central place where the most up-to-date version of the site is kept. Git is the command-line tool used to update GitHub.com. </li>
 <li>Pelican: A static site generator written in Python. Pelican builds websites from posts written in markdown (.md files) and a file settings file (pelicanconf.py). </li>
-<li>Markdown: the posts on this website are written in markdown, or .md format</li>
+<li>Markdown: the posts on this website are written in markdown or .md format</li>
 <li>fabric and make: fabric is a Python package to automate builds and tasks. Fabric works on Windows. Make is used on MacOS and Linux to build the site and serve up a demo version of the site.</li>
 </ol>
 <h3 id="installing-python-the-anaconda-distribution">Installing Python (the Anaconda distribution)</h3>
@@ -324,19 +324,19 @@ Python for Undergraduate Engineers            </a>
 <p><a href="https://www.anaconda.com/download/">https://www.anaconda.com/download</a></p>
 <p>The Anaconda distribution of Python comes with an up-to-date and stable version of Python (Python 3.6) and the <strong>Anaconda Prompt</strong>. The <strong>Anaconda Prompt</strong> is useful because it allows me to run shell commands on my Windows 10 machine at work. These shell commands are the same commands I run in the terminal on my MacOS or Linux boxes. The <strong>Anaconda Prompt</strong> makes creating and logging into virtual environments easy and allows me to use git on Windows 10. Follow this post to <a href="/installing-anaconda-on-windows.html">install the Anaconda on Windows 10.</a></p>
 <h3 id="create-a-new-virtual-environment">Create a new virtual environment</h3>
-<p>Before downloading Pelican, we should create a new virtual environment. The same virtual environment on each of the computers I use means the same packages are installed on each computer. To create a new virtual environment, open up the Anaconda Prompt (on Windows) or a terminal (on Linux or MacOS). Let's call our new virtual environment <strong><em>staticsite</em></strong>. The <code>conda create</code> command creates the environment and the <code>-n staticsite</code> flag adds the name.</p>
+<p>Before downloading Pelican, we should create a new virtual environment. The same virtual environment on each of the computers I use means the same packages are installed on each machine. To create a new virtual environment, open up the Anaconda Prompt (on Windows) or a terminal (on Linux or MacOS). Let's call our new virtual environment <strong><em>staticsite</em></strong>. The <code>conda create</code> command creates the environment, and the <code>-n staticsite</code> flag adds the name.</p>
 <div class="highlight"><pre><span></span>$ conda create -n staticsite
 </pre></div>
 
 
-<p>The <code>conda create -n staticsite</code> command creates a new virtual environment called <strong><em>staticsite</em></strong>. Becuase I use four different computers to work on the site, I need to make sure the same Python packages are installed on each computer. Using a virtual environment ensures this consistency. Once the virtual environment <strong><em>staticsite</em></strong> is created, we need to activate it and start using it with the command:</p>
+<p>The <code>conda create -n staticsite</code> command creates a new virtual environment called <strong><em>staticsite</em></strong>. Because I use four different computers to work on the site, I need to make sure the same Python packages are installed on each computer. Using a virtual environment ensures this consistency. Once the virtual environment <strong><em>staticsite</em></strong> is created, we need to activate it and start using it with the command:</p>
 <div class="highlight"><pre><span></span>$ conda activate staticsite
 </pre></div>
 
 
 <p>We should now see <code>(staticsite)</code> before the terminal prompt. This means we are using the <code>(staticsite)</code> virtual environment.</p>
 <h3 id="install-pelican">Install Pelican</h3>
-<p>Time for some fun! Installing Pelican. Pelican is a Python package that creates static websites. Static sites are websites that only have html, css and javascript. A static site is not connected to a database and there is no code run on the server side. The server just serves static files (html, css, javascript) to the client when the client requests them. In order to install Pelican, we need to install <code>pip</code> first. On my Linux and MacOS machines, the command line tool <strong>git</strong> is already installed. If using Windows 10, <strong>git</strong> may not be available. To keep the development environments the same when using Windows 10, you may also need <code>conda</code> to <code>install git</code>. The commands to install both <code>pip</code> and <code>git</code> are below.</p>
+<p>Time for some fun! Installing Pelican. Pelican is a Python package that creates static websites. Static sites are websites that only have html, css, and javascript. A static site is not connected to a database, and there is no code run on the server side. The server just serves static files (html, css, javascript) to the client when the client requests them. To install Pelican, we need to install <code>pip</code> first. On my Linux and MacOS machines, the command line tool <strong>git</strong> is already installed. If using Windows 10, <strong>git</strong> may not be available. To keep the development environments the same when using Windows 10, you may also need <code>conda</code> to <code>install git</code>. The commands to install both <code>pip</code> and <code>git</code> are below.</p>
 <div class="highlight"><pre><span></span>(staticsite)$ conda install pip
 (staticsite)$ conda install git
 </pre></div>
@@ -352,8 +352,8 @@ Python for Undergraduate Engineers            </a>
 
 
 <h3 id="create-a-githubcom-account-and-create-a-new-repository">Create a GitHub.com account and create a new repository</h3>
-<p>While I was making the site, it became clear that I had to keep track of <strong><em>version control</em></strong>. I would make some changes to the site on my computer at work, then come home and make more changes to the site. Carrying a USB thumb drive back and forth from work to home was hard. If I forgot the thumb drive at work,  (or left it at home) and then could not edit the site. Or worse, I'd edit the site in both places and try to remember which changes were made where and which was the best version. Ah!</p>
-<p>The solution is to use <strong>git</strong> and <strong>GitHub</strong>. Git is a command-line utility that assists with version control. Using git means changes made to files on one computer can be synced with the same files on another computer. GitHub.com is the where the site content and settings are remotely stored and integrates easily with git. </p>
+<p>While I was making the site, it became clear that I had to keep track of <strong><em>version control</em></strong>. I would make some changes to the site on my computer at work, then come home and make more changes to the site. Carrying a USB thumb drive back and forth from work to home was hard. If I forgot the thumb drive at work,  (or left it at home) and then could not edit the site. Or worse, I'd modify the site in both places and try to remember which changes were made and which machine and which was the best version. Ah!</p>
+<p>The solution is to use <strong>git</strong> and <strong>GitHub</strong>. Git is a command-line utility that assists with version control. Using git means changes made to files on one computer can be synced with the same files on another computer. GitHub.com is where the site content and settings are remotely stored and integrates easily with git. </p>
 <p>To sign up for a github.com account go here:</p>
 <p><a href="https://github.com/join">https://github.com/join</a></p>
 <p>The account activation screen looks something like:</p>
@@ -362,8 +362,8 @@ Python for Undergraduate Engineers            </a>
 <p><img alt="new GitHub repo" src="../images/new_github_repo.png"></p>
 <p>I named the new repository: <strong>staticsite</strong> and included both a <strong>README.md</strong> and a <strong>GNU General Public License v3.0</strong>. I also recommend including a .gitignore file and selecting Python among the language options. </p>
 <p><img alt="new github repo details" src="../images/create_a_new_repo_details.png"></p>
-<h3 id="make-a-directory-for-the-site-and-link-it-to-github">Make a directory for the site and link it to github</h3>
-<p>Once the GitHub repo (short for repository, basically a folder with files on github.com) is set up, the last step to complete the development environment is to link the remote repo on GitHub.com to the local version of the site (the version of the site on a laptop or desktop). </p>
+<h3 id="make-a-directory-for-the-site-and-link-it-to-github">Make a directory for the site and link it to GitHub</h3>
+<p>Once the GitHub repo (short for <em>repository</em>, basically a folder with files on github.com) is set up, the last step to complete the development environment is to link the remote repo on GitHub.com to the local version of the site (the version of the site on a laptop or desktop). </p>
 <p>The local version of the site is in a folder call <code>staticsite</code> in the <code>Documents</code> folder. The <code>staticsite</code> folder will contain all the files used to build the site and the output files created by Pelican that <em>are</em> the site. The <code>staticsite</code> folder can be created using a terminal, or the Anaconda Prompt.</p>
 <div class="highlight"><pre><span></span>(staticsite)$ cd ~
 (staticsite)$ cd Documents
@@ -372,13 +372,13 @@ Python for Undergraduate Engineers            </a>
 </pre></div>
 
 
-<p>Now, we can set up git to keep the contents of the <em>local</em> staticsite folder in sync with the <em>remote</em> repo on GitHub.com. The command <code>git init</code> creates the local repository. The command <code>git remote add origin</code> followed by the url of our GitHub repo links local folder on our computer to the remote repo on GitHub.com. Note the web address ends in <code>.git</code>. If you are following along and want to build your own static site, make sure to change <code>username</code> to your GitHub username and <code>reponame</code> to your github repo name.</p>
+<p>Now, we can set up git to keep the contents of the <em>local</em> staticsite folder in sync with the <em>remote</em> repo on GitHub.com. The command <code>git init</code> creates the local repository. The command <code>git remote add origin</code> followed by the URL of our GitHub repo links a local folder on our computer to the remote repo on GitHub.com. Note the web address ends in <code>.git</code>. If you are following along and want to build your own static site, make sure to change <code>username</code> to your GitHub username and <code>reponame</code> to your GitHub repo name.</p>
 <div class="highlight"><pre><span></span>(staticsite)$ git init
 (staticsite)$ git remote add origin https://github.com/username/reponame.git
 </pre></div>
 
 
-<p>Now for the git magic. On GitHub.com, we have a README.md file and a licence. But the local staticsite folder on the computer is empty. So the two folders aren't in sync. To make the contents of each folder identical, we <strong><em>pull</em></strong> the files from GitHub onto the local computer. A <strong><em>pull</em></strong> "pulls" or gets the files from github and copies them to the local staticsite folder.</p>
+<p>Now for the git magic. On GitHub.com, we have a README.md file and a license. But the local staticsite folder on the computer is empty. So the two folders aren't in sync. To make the contents of each folder identical, we <strong><em>pull</em></strong> the files from GitHub onto the local computer. A <strong><em>pull</em></strong> "pulls" or gets the files from GitHub and copies them to the local staticsite folder.</p>
 <div class="highlight"><pre><span></span>(staticsite)$ git pull origin master
 </pre></div>
 
@@ -404,7 +404,7 @@ git push origin master
 </pre></div>
 
 
-<p>These commands ensures all my computers and the GitHub.com repo contain the same version of the site.</p>
+<p>These commands ensure all my computers and the GitHub.com repo contain the same version of the site.</p>
 <p>In the <a href="/how-i-built-this-site-2.html">next post</a> we will use the <code>pelican-quickstart</code> command to get the blog off the ground, write our first post and view a demo version of the site.</p>
             </div>
             <!-- /.entry-content -->

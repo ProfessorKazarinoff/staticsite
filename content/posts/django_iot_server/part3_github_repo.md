@@ -1,6 +1,6 @@
 Title: Django IoT Server - Part 3 Create a GitHub Repo
-Date: 2019-03-20 09:20
-Modified: 2017-03-20 09:21
+Date: 2019-03-21 09:21
+Modified: 2019-03-21 09:21
 Status: draft
 Category: Django
 Tags: python, IoT, django, server, sensor

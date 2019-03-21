@@ -1,6 +1,6 @@
 Title: Django IoT Server - Part 4 Start a Django Project
-Date: 2019-03-20 09:20
-Modified: 2017-03-20 09:21
+Date: 2019-03-21 09:21
+Modified: 2019-03-21 09:21
 Category: Django
 Status: draft
 Tags: python, IoT, django, server, sensor

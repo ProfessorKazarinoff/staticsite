@@ -1,0 +1,25 @@
+Title: Django IoT Server - Part 2 Development Environment
+Date: 2019-03-20 09:20
+Modified: 2017-03-20 09:21
+Category: Django
+Tags: python, IoT, django, server, sensor
+Slug: django-iot-server-part2-development-environment
+Authors: Peter D. Kazarinoff
+
+In this post, we are going to review the development environment
+
+[TOC]
+
+## Computer and Operating System
+
+## Installing Python
+
+## Installing Django
+
+## Summary
+
+This post explained what we need to don
+
+## Next Steps
+
+In the next post, we will review the development environment, set up a GitHub repo and create a virtual environment.

@@ -36,7 +36,8 @@ STATIC_PATHS = ['images','extra',
                 'posts/pswp_book/images',
                 'posts/git/images',
                 'posts/podcast/images',
-                'posts/functions/images',
+                'posts/functions/images'
+                'posts/django_iot_server/images',
                 'posts/flask',]  # removed this, see if any change 'code',
 PLUGIN_PATHS = ['pelican-plugins']
 EXTRA_PATH_METADATA = {

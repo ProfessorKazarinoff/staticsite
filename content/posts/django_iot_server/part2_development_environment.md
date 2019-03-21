@@ -45,19 +45,19 @@ I use the **Anconda** distribution of Python on all my computers. You can downlo
 
 ## Visual Studio Code
 
-![PuTTY IP Address]({filename}/posts/jupyterhub/puTTY_IP_and_Port.png)
-
-![vscode download page]({filename}/posts/django_iot_server/images/putty_download_page.png)
-
 [![vscode download page]({filename}/posts/django_iot_server/images/vscode_download_page.png)](https://code.visualstudio.com/download)
-
-C:\Users\peter.kazarinoff\Documents\staticsite\content\posts\
 
 I have used a couple different code editors. These editors include PyCharm, IDLE, notepad, nano, Sublime Text, and Code Writer. But the one I reach for most often is Visual Studio Code. You can download VS Code [here](https://code.visualstudio.com/download).
 
 ## PuTTY and FileZilla
 
-PuTTY and FileZilla are two other programs that will help with this Django IoT project. PuTTY is an SSH termial program that will allow us to communicate with our server during development. PuTTY comes with the PuTTY terminal and a utility called PuTTY Gen. PuTTY Gen makes SSH Keys. We'll use an SSH Key to Authenticate with our server. You can download PuTTY [here](https://www.putty.org/)
+PuTTY and FileZilla are two other programs that will help with this Django IoT project. 
+
+[![putty download page]({filename}/posts/django_iot_server/images/putty_download_page.png)](https://www.putty.org/)
+
+PuTTY is an SSH termial program that will allow us to communicate with our server during development. PuTTY comes with the PuTTY terminal and a utility called PuTTY Gen. PuTTY Gen makes SSH Keys. We'll use an SSH Key to Authenticate with our server. You can download PuTTY [here](https://www.putty.org/)
+
+[![filezilla download page]({filename}/posts/django_iot_server/images/filezilla_download_page.png)](https://filezilla-project.org/download.php?platform=win64)
 
 FileZilla is an FTP program that will allow us to move files over to the server. It is possible to code all of the files that will run on the server right on the server in a PuTTY window. But an easeir way to accomplish the same thing is to write the code on our local compter, then use FileZilla to copy the files over to the server. You can download FileZilla [here](https://filezilla-project.org/download.php?platform=win64)
 

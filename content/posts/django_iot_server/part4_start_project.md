@@ -13,9 +13,26 @@ In this post, I am going to review how to start django project and get our IoT s
 
 ## Start Django project
 
-## Review of directory structure
+```text
+> cd Documents
+> conda activate djangoiot
+(djangoiot)> django-admin startproject django_iot_project
+```
+
+## Review project directory structure
 
 ## Run the local development server
+
+```text
+> cd Documents
+> cd django_iot_project
+> conda activate djangoiot
+(djangoiot)> python manage.py makemigrations
+(djangoiot)> python manage.py migrate
+(djangoiot)> python manage.py runserver
+```
+
+
 
 ## Summary
 

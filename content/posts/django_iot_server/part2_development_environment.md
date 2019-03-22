@@ -63,13 +63,26 @@ FileZilla is an FTP program that will allow us to move files over to the server.
 
 ## Create a Virtual Environment
 
-
+```text
+> conda create -n djangoiot python=3.7
+> conda activate djangoiot
+(djangoiot)>
+```
 
 ## Install Django
 
+```text
+(djangoiot)> conda install django
+(djangoiot)> python
+
+>>> import django
+>>> django.__version__
+>>> exit()
+```
+
 ## Summary
 
-This post explained what we need to don
+In this post we set up our development environment. This included installing the Anaconda Distribution of Python, installing Visual Studio Code, PuTTY and FileZilla. We also created a virtual environment for the project and installed django into that environment.
 
 ## Next Steps
 

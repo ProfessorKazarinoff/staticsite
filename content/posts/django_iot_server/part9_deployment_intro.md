@@ -1,10 +1,10 @@
-Title: Django IoT Server - Part 7 Introduction to Deployment
+Title: Django IoT Server - Part 9 Introduction to Deployment
 Date: 2019-03-21 09:21
 Modified: 2019-03-21 09:21
 Category: Django
 Status: draft
 Tags: python, IoT, django, server, sensor
-Slug: django-iot-server-part7-deployment-intro
+Slug: django-iot-server-part9-deployment-intro
 Authors: Peter D. Kazarinoff
 
 In this post, we are going to go over the steps to deploy our Django IoT project. We'll deploy the project on a digital ocean virtual private server.

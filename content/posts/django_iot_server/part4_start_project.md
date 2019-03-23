@@ -36,8 +36,8 @@ In this post, I am going to review how to start django project and get our IoT s
 
 ## Summary
 
-This post explained how to start a Django project and which files are present
+In this post, we started our Django project and reviewed which files Django made for us. We also ran the local development server and saw the default Django page.
 
 ## Next Steps
 
-In the next post, we will review how to create the homepage
+In the next post, we will create a simple homepage. To do this we will create our first Django App and modify URL routes and create our first View function.

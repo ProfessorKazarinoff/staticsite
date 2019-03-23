@@ -140,8 +140,8 @@ browse to:
 
 ## Summary
 
-This post, we added boostrap styling and some content to our Django IoT server.
+This post, we added boostrap styling to our Django project. We applied a bootswatch theme to the site and created a dashboard-like interface to build upon.
 
 ## Next Steps
 
-In the next post, we discuss our deployment steps.
+In the next post, we discuss how to deploy our Django website into the wild on a Digital Ocean virtual private server.

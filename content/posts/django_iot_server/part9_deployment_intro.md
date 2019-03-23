@@ -47,8 +47,8 @@ After the server is created, we will need to log into the server and create a no
 
 ## Summary
 
-This post, we reviewed how we are going to deploy our Django IoT server out in the wild.
+This post, we reviewed how we are going to deploy our Django IoT server out in the wild on a Digital Ocean server.
 
 ## Next Steps
 
-In the next post, we will start the server deployment by creating a set of public and private SSH keys.
+In the next post, we will start the Django IoT server deployment by creating a set of public and private SSH keys.

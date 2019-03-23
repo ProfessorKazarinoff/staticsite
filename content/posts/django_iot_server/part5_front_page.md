@@ -161,4 +161,4 @@ This post explained how to build a very simple front page
 
 ## Next Steps
 
-In the next post, we will review how to create the homepage
+In the next post, we will use an HTML template to build our homepage and refactor our View function into a Class-based view. 

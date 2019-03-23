@@ -101,15 +101,13 @@ Create a ```templates``` dir in the main project dir.
             <title>Django IoT Server</title>
         {% endblock %}
     </head>
-{% endblock %}
+{% endblock head %}
 
 {% block header %}
-    
-{% endblock %}
+{% endblock header %}
 
 {% block content %}
-
-{% endblock %}
+{% endblock content %}
 
 ```
 
@@ -142,8 +140,8 @@ create a ```home.html``` file in the ```templates``` directory
 
 ## Summary
 
-This post, we reviewed how we are going to deploy our Django IoT server out in the wild.
+This post, we created an HTML tempate base and an HTML template for our home page. We also 
 
 ## Next Steps
 
-In the next post, we will start the server deployment by creating a set of public and private SSH keys.
+In the next post, we will add a docs page (documentation page) to our Django IoT server. We will use the same set of steps we used in this post: first create a template, then create a Class-based view, then modify our urls.

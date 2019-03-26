@@ -204,3 +204,4 @@ GOOGLE_ANALYTICS = 'UA-116330557-1'
 #          ('Another social link', '#'),)
 
 DEFAULT_PAGINATION = 5
+

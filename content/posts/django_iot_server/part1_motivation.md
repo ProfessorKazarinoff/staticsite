@@ -1,6 +1,6 @@
 Title: Django IoT Server - Part 1 Motivation
-Date: 2019-03-21 09:21
-Modified: 2019-03-21 09:21
+Date: 2019-04-12 09:21
+Modified: 2019-04-12 09:21
 Status: draft
 Category: Django
 Tags: python, IoT, django, server, sensor

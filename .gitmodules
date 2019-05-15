@@ -5,6 +5,3 @@
 	path = pelican-plugins
 	url = https://github.com/getpelican/pelican-plugins.git
 
-[submodule "offset_piston_motion"]
-	path = content/code/offset_piston_motion
-	url = https://github.com/ProfessorKazarinoff/offset_piston_motion.git

@@ -325,6 +325,6 @@ fabric.properties
 .vscode/
 
 ##################################################
-# Anything in the output dir that pelican builds #
+# Anything in the output dir that Pelican builds #
 
 output/

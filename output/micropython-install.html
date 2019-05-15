@@ -152,7 +152,7 @@ div.collapseheader {
 
 </style>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
 <script type="text/javascript">
 init_mathjax = function() {
     if (window.MathJax) {
@@ -162,7 +162,7 @@ init_mathjax = function() {
                 inlineMath: [ ['$','$'], ["\\(","\\)"] ],
                 displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
             },
-            displayAlign: 'center', // Change this to 'center' to center equations.
+            displayAlign: 'left', // Change this to 'center' to center equations.
             "HTML-CSS": {
                 styles: {'.MathJax_Display': {"margin": 0}}
             }
@@ -172,9 +172,9 @@ init_mathjax = function() {
 }
 init_mathjax();
 </script>
-    <link href="./extra/favicon.ico" rel="icon">
+    <link href="/extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="./micropython-install.html">
+<link rel="canonical" href="/micropython-install.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
         <meta name="keywords" content="python,micropython,esp8266,microcontroller,REPL" />
@@ -183,7 +183,7 @@ init_mathjax();
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="Installing Micropython on an Adafruit Feather Huzzah ESP8266"/>
-        <meta property="og:url" content="./micropython-install.html"/>
+        <meta property="og:url" content="/micropython-install.html"/>
         <meta property="og:description" content="This is the second part of a multipart series on Micropython. Micropython is a port of the Python programming language that runs on small, inexpensive microcontrollers. In this post, we will install Micropython on an Adafruit Feather Huzzah ESP8266 board using Python and a package called esptool. In subsequent posts …"/>
         <meta property="article:published_time" content="2018-03-01" />
             <meta property="article:section" content="micropython" />
@@ -197,15 +197,13 @@ init_mathjax();
 
 
     <!-- Bootstrap -->
-        <link rel="stylesheet" href="./theme/css/bootstrap.flatly.min.css" type="text/css"/>
-    <link href="./theme/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="/theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="./theme/css/pygments/native.css" rel="stylesheet">
-    <link href="./theme/tipuesearch/tipuesearch.css" rel="stylesheet">
-    <link rel="stylesheet" href="./theme/css/style.css" type="text/css"/>
-        <link href="./static/css/custom.css" rel="stylesheet">
-
-
+    <link href="/theme/css/pygments/native.css" rel="stylesheet">
+    <link href="/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+        <link href="/static/css/custom.css" rel="stylesheet">
 
 
 
@@ -213,7 +211,7 @@ init_mathjax();
 <body>
 
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-	<div class="container">
+    <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -221,18 +219,18 @@ init_mathjax();
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="./" class="navbar-brand">
+            <a href="/" class="navbar-brand">
 Python for Undergraduate Engineers            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                         <li><a href="./pages/about.html">
+                         <li><a href="/pages/about.html">
                              About
                           </a></li>
-                         <li><a href="./pages/book.html">
+                         <li><a href="/pages/book.html">
                              Book
                           </a></li>
-                         <li><a href="./pages/now.html">
+                         <li><a href="/pages/now.html">
                              Now
                           </a></li>
             </ul>
@@ -242,27 +240,30 @@ Python for Undergraduate Engineers            </a>
                   <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
                 </form></span>
               </li>
-              <li><a href="./archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+              <li><a href="/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
     </div>
 </div> <!-- /.navbar -->
+
 <!-- Banner -->
 <!-- End Banner -->
+
+<!-- Content Container -->
 <div class="container">
     <div class="row">
         <div class="col-sm-9">
             <ol class="breadcrumb">
-                <li><a href="." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="./category/micropython.html" title="micropython">micropython</a></li>
+                <li><a href="" title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="/category/micropython.html" title="micropython">micropython</a></li>
                 <li class="active">Installing Micropython on an Adafruit Feather Huzzah ESP8266</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="./micropython-install.html"
+                    <a href="/micropython-install.html"
                        rel="bookmark"
                        title="Permalink to Installing Micropython on an Adafruit Feather Huzzah ESP8266">
                         Installing Micropython on an Adafruit Feather Huzzah ESP8266
@@ -285,21 +286,21 @@ Python for Undergraduate Engineers            </a>
 
 
 <span class="label label-default">Tags</span>
-	<a href="./tag/python.html">python</a>
+	<a href="/tag/python.html">python</a>
         /
-	<a href="./tag/micropython.html">micropython</a>
+	<a href="/tag/micropython.html">micropython</a>
         /
-	<a href="./tag/esp8266.html">esp8266</a>
+	<a href="/tag/esp8266.html">esp8266</a>
         /
-	<a href="./tag/microcontroller.html">microcontroller</a>
+	<a href="/tag/microcontroller.html">microcontroller</a>
         /
-	<a href="./tag/repl.html">REPL</a>
+	<a href="/tag/repl.html">REPL</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
                 <p>This is the second part of a multipart series on Micropython. Micropython is a port of the Python programming language that runs on small, inexpensive microcontrollers. In this post, we will install Micropython on an Adafruit Feather Huzzah ESP8266 board using Python and a package called esptool. In subsequent posts we will build our Feather Huzzah microcontroller into a WiFi-enabled weather station. The posts in this series:</p>
 <ol>
-<li><a href="./what-is-micropython.html">What is Micropython?</a></li>
+<li><a href="/what-is-micropython.html">What is Micropython?</a></li>
 <li>Installing Micropython on an Adafruit Feather Huzzah ESP8266 (This post)</li>
 <li>Blink an LED on an Adafruit Feather Huzzah ESP8266 using Micropython</li>
 <li>Read the temperature from a MCP9808 breakout board using Micropyton</li>
@@ -376,63 +377,63 @@ Python for Undergraduate Engineers            </a>
 <p>If you don't have Anaconda installed already, go to <a href="https://www.anaconda.com/download/">Anaconda.com/download</a> and install the latest version. The Anaconda distribution of Python is the Python distribution I recommend for undergraduate engineers. You want to download and install the Python 3.6 Version (the Python 2.7 Version is legacy Python). Most laptops and desktops run a 64-bit version of Windows 10. If in doubt, you can check your Windows installation, or just go with the 64-bit version. </p>
 <h3 id="2-create-a-new-conda-environment-and-install-esptoolpy">2. Create a new conda environment and install esptool.py</h3>
 <p>It's best practice when using Python to work in virtual environments. We'll create a new virtual environment with conda to use with our Micropython projects. Open the Anaconda prompt and create a new virtual environment named <code>micropython</code>. Activate the environment with the <code>conda activate</code> command. After activating the virtual environment you should see <code>(micropython)</code> before the Anaconda Prompt.  Once inside the virtual environment, use <code>pip</code> to install <code>esptool</code>. The <code>esptool</code> will be used to upload the Micropython .bin firmware file onto the Adafruit Feather Huzzah board. Confirm that <code>esptool</code> is installed in the <code>(micropython)</code> virtual environment with <code>conda list</code>. I also created a new directory in the <strong>Documents</strong> folder called <strong>micropython</strong> to store all the project files. </p>
-<div class="highlight"><pre><span></span>conda create -n micropython python=3.6
-conda activate micropython
-(micropython) pip install esptool
-(micropython) conda list
-(micropython) cd Documents
-(micropython) mkdir micropthon
-(micropython) cd micropython
+<div class="highlight"><pre><span></span><span class="n">conda</span> <span class="k">create</span> <span class="o">-</span><span class="n">n</span> <span class="n">micropython</span> <span class="n">python</span><span class="o">=</span><span class="mi">3</span><span class="p">.</span><span class="mi">6</span>
+<span class="n">conda</span> <span class="n">activate</span> <span class="n">micropython</span>
+<span class="p">(</span><span class="n">micropython</span><span class="p">)</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">esptool</span>
+<span class="p">(</span><span class="n">micropython</span><span class="p">)</span> <span class="n">conda</span> <span class="n">list</span>
+<span class="p">(</span><span class="n">micropython</span><span class="p">)</span> <span class="n">cd</span> <span class="n">Documents</span>
+<span class="p">(</span><span class="n">micropython</span><span class="p">)</span> <span class="n">mkdir</span> <span class="n">micropthon</span>
+<span class="p">(</span><span class="n">micropython</span><span class="p">)</span> <span class="n">cd</span> <span class="n">micropython</span>
 </pre></div>
 
 
 <h3 id="3-download-the-latest-micropython-firmware-bin-file">3. Download the latest micropython firmware .bin file</h3>
 <p>Go to github and <a href="https://micropython.org/download#esp8266">download the latest .bin firmware</a> file. Move the .bin firmware file to a new <strong>micropython</strong> directory. The .bin firmware file is the version of Micropython that will run on the Adafruit Feather Huzzah ESP8266. Straight from Adafruit, the little microcontroller does not have Micropyton installed, so we need to install Micropython ourselves. After installing the Micropython .bin firmware file onto the board, we will be able to bring up the Micropython REPL prompt, type commands into the Micropython REPL and run Micropython .py scripts on the board.</p>
-<p><img alt=".bin firmware on github" src="./posts/micropython/firmware_download_page.PNG"></p>
+<p><img alt=".bin firmware on github" src="/posts/micropython/firmware_download_page.PNG"></p>
 <h3 id="4-install-the-silabs-driver-for-the-adafruit-feather-huzzah-esp8266">4. Install the SiLabs driver for the Adafruit Feather Huzzah ESP8266</h3>
 <p>Before we can connect the Adafruit Feather Huzzah to the computer, we need a specific driver installed. For my Windows 10 laptop to see the Adafruit Feather Huzzah board, the <a href="https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers">CP210x USB to UART Bridge VCP driver</a> needs to be downloaded from SiLabs and installed. This is quick and easy, but does require admin privileges.</p>
-<p><img alt="SiLabs Driver" src="./posts/micropython/download_silabs_driver.PNG"></p>
+<p><img alt="SiLabs Driver" src="/posts/micropython/download_silabs_driver.PNG"></p>
 <h3 id="5-connect-the-adafruit-feather-huzzah-esp8266-board-to-the-laptop">5. Connect the Adafruit Feather Huzzah ESP8266 board to the laptop</h3>
 <p>Use a microUSB cable (the same kind of cable that charges many mobile phones) to connect the Feather Huzzah to the computer. Make sure that the microUSB cable is a full USB <strong>data cable</strong> and not just a simple power cable. I had trouble getting the Feather Huzzah to work, and it turned out the reason was the micoUSB cable was only a charging cable and could not transfer data. </p>
 <h3 id="6-determine-which-serial-port-the-feather-huzzah-is-connected-to">6. Determine which serial port the Feather Huzzah is connected to</h3>
 <p>Use Windows Device Manager to determine which serial port the Feather Huzzah board is connected to. We will need the serial port as one of the parameters when we upload the .bin firmware file on the board. Look for something like <strong>Silicon Labs CP210x USB to UART Bridge (COM4)</strong> in the <strong>Ports (COM &amp; LPT)</strong> menu. The USB to UART bridge is actually the Feather Huzzah board. CP210x refers to the chip that handles serial communication on the Feather Huzzah, not the esp8266 chip itself. Make note of the number after <strong>(COM )</strong>. It often comes up as <strong>(COM4)</strong> but it may be different on your computer. </p>
-<p><img alt="Find Device Manager" src="./posts/micropython/find_device_manager.png"></p>
-<p><img alt="Device Manager Menu" src="./posts/micropython/device_manager_menu.png"></p>
+<p><img alt="Find Device Manager" src="/posts/micropython/find_device_manager.png"></p>
+<p><img alt="Device Manager Menu" src="/posts/micropython/device_manager_menu.png"></p>
 <p>The first time I plugged the board into my laptop, Windows could't see the board. I looked through the Device Manager under the Ports menu and the Feather board just didn't show up. Turns out the first USB cable I used was just a charging only cable. When I switched this out for a microUSB data cable, the board came right up under <strong>Ports (COM &amp; LPT)</strong>. </p>
 <h3 id="6-run-esptool-to-upload-the-bin-file-to-the-feather-huzzah">6. Run esptool to upload the .bin file to the Feather Huzzah</h3>
 <p>Open the Anaconda Prompt and <code>cd</code> into the <strong>micropython</strong> directory with the .bin file. You can use the <code>dir</code> command to see the directory contents. Make sure the .bin firmware file is in the directory. It will be called something like <code>esp8266-20171101-v1.9.3.bin</code>. Activate the micropython environment with <code>conda activate micropython</code>. Run <code>esptool --help</code> to ensure esptool is installed properly. Note there is no <strong>.py</strong> extension after <code>esptool</code>. On my Windows laptop, the command <code>esptool</code> worked, but the command <code>esptool.py</code> did not (this is different than the commands shown on the <a href="https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/intro.html#deploying-the-firmware">Micropython docs</a>). If you try to run esptool and you are not in the <code>(micropython)</code> virtual environment, you will get an error. </p>
-<div class="highlight"><pre><span></span>cd Documents
-cd micropython
-pwd
-Documents/micropython
-dir
-conda activate micropython
-(micropython) esptool --help
+<div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">Documents</span>
+<span class="n">cd</span> <span class="n">micropython</span>
+<span class="n">pwd</span>
+<span class="n">Documents</span><span class="o">/</span><span class="n">micropython</span>
+<span class="n">dir</span>
+<span class="n">conda</span> <span class="n">activate</span> <span class="n">micropython</span>
+<span class="p">(</span><span class="n">micropython</span><span class="p">)</span> <span class="n">esptool</span> <span class="c1">--help</span>
 </pre></div>
 
 
-<p><img alt="esptool help" src="./posts/micropython/esptool_help.PNG"></p>
+<p><img alt="esptool help" src="/posts/micropython/esptool_help.PNG"></p>
 <p>Before we write the .bin firmware file to the board, we should first erase the flash memory on the Feather Huzzah using the <code>esptool erase_flash</code> command. Make sure to specify the <code>--port</code>. This is the <code>COM</code> port you found in the Windows Device Manager.  In my case the port was <code>COM4</code>.</p>
-<div class="highlight"><pre><span></span>(micropython) esptool --port COM4 erase_flash
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">micropython</span><span class="p">)</span> <span class="n">esptool</span> <span class="c1">--port COM4 erase_flash</span>
 </pre></div>
 
 
-<p><img alt="esptool erase flash" src="./posts/micropython/esptool_erase_flash.PNG"></p>
+<p><img alt="esptool erase flash" src="/posts/micropython/esptool_erase_flash.PNG"></p>
 <p>Now it's time to write the .bin firmware file to the flash memory on the board using the <code>esptool write_flash</code> command. Make sure to use the exact .bin firmware file name you see sitting in the <strong>micropython</strong> directory. The port has to be set as the port you found in the Windows Device Manager. <code>---baud</code> is the baud rate, or upload speed. I found that <code>--baud 460800</code> worked, but you could also specify <code>--baud 115200</code> which is slower. The upload time was a matter of seconds with either baud rate. The <code>0</code> after <code>--flash_size=dectect</code> means we want the firmware to be written at the start of the flash memory (the 0<sup>th</sup> position) on the board. Again, make sure the .bin firmware file name is correct. It is easy to mistype. Another issue I ran into was that I tried to use the command <code>esptool.py</code> instead of <code>esptool</code> as shown on the <a href="https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/intro.html#deploying-the-firmware">Micropython docs</a>. The documentation for <a href="https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/intro.html#deploying-the-firmware">Micropython on the ESP8266</a> specifies the command <code>esptool.py</code> (including the <strong>.py</strong> file extension). This did work on my Windows 10 machine. Omitting the <strong>.py</strong> file extension, and running <code>esptool</code> worked instead. </p>
-<div class="highlight"><pre><span></span>(micropython) esptool --port COM4 --baud 460800 write_flash --flash_size=detect 0 esp8266-20171101-v1.9.3.bin
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">micropython</span><span class="p">)</span> <span class="n">esptool</span> <span class="c1">--port COM4 --baud 460800 write_flash --flash_size=detect 0 esp8266-20171101-v1.9.3.bin</span>
 </pre></div>
 
 
-<p><img alt="esptool write flash" src="./posts/micropython/esptool_write_flash.PNG"></p>
+<p><img alt="esptool write flash" src="/posts/micropython/esptool_write_flash.PNG"></p>
 <h3 id="7-download-and-install-putty-a-serial-monitor">7. Download and install Putty, a serial monitor</h3>
 <p>Now that Micropthon is installed on the board, we need to talk to our board over a serial connection. Windows 10 doesn't have a built-in serial monitor (like screen on OSX and Linux). So we need to download and install <strong>Putty</strong>. Putty is a lightweight SSH and serial client for Windows. Putty will allow us to communicate with the Adafruit Feather Huzzah board. <a href="https://www.putty.org/">Putty can be downloaded here</a>. Putty is pretty small and the download and install should be pretty quick.</p>
-<p><img alt="Download Putty" src="./posts/micropython/download_putty.PNG"></p>
+<p><img alt="Download Putty" src="/posts/micropython/download_putty.PNG"></p>
 <h3 id="8-use-putty-to-connect-to-the-feather-huzzah">8. Use Putty to connect to the Feather Huzzah</h3>
 <p>Ensure the Feather board is connected to the computer with a USB cable and ensure you can see the board in the Windows Device Manager. Then use Putty to connect to the board over serial.  Make sure you specify the correct serial port in the <strong>Serial line</strong> box and <strong>115200</strong> baud in the Speed box. <strong>Micropython is set to run at 115200 baud</strong>, other baud rates will lead to junk characters in the serial monitor. I had trouble finding the serial connection option in Putty. When I opened Putty, the default was an SSH connection. We can't connect to the Feather Huzzah over SSH. You need to select the <strong>Serial</strong> radio button below the header <strong>Connection type:</strong> near the top of the Putty window. </p>
-<p><img alt="Putty in start menu" src="./posts/micropython/putty_in_start_menu.png"></p>
-<p><img alt="Putty config" src="./posts/micropython/putty_config.PNG"></p>
+<p><img alt="Putty in start menu" src="/posts/micropython/putty_in_start_menu.png"></p>
+<p><img alt="Putty config" src="/posts/micropython/putty_config.PNG"></p>
 <p>If you see <code>&gt;&gt;&gt;</code> the Micropython REPL (the Micropython prompt) is running and the Adafruit Feather Huzzah ESP8266 is working! This version of Python isn't running on your computer, it's Micropython running on the little microcontroller! Sometimes I had to type [Enter] or Ctrl-D to get the <code>&gt;&gt;&gt;</code> REPL prompt to show up. A few times I needed to close Putty, unplug then replug the board and try Putty again. The Feather Huzzah also has a tiny little black RESET button that can be pressed to restart the board.  </p>
-<p><img alt="REPL Prompt" src="./posts/micropython/REPL_prompt.PNG"></p>
+<p><img alt="REPL Prompt" src="/posts/micropython/REPL_prompt.PNG"></p>
 <p>At the <code>&gt;&gt;&gt;</code> Micropython REPL prompt try the following commands:</p>
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Micropython for Engineers!&#39;</span><span class="p">)</span>
 <span class="n">Micropython</span> <span class="k">for</span> <span class="n">Engineers</span>
@@ -443,7 +444,7 @@ conda activate micropython
 </pre></div>
 
 
-<p><img alt="sys_dot_platform" src="./posts/micropython/sys_dot_platform.PNG"></p>
+<p><img alt="sys_dot_platform" src="/posts/micropython/sys_dot_platform.PNG"></p>
 <h2 id="next-steps">Next steps:</h2>
 <p>In the next post of the series, we will use the Micropython REPL running on the Adafruit Feather Huzzah to blink an LED.</p>
             </div>
@@ -451,26 +452,26 @@ conda activate micropython
 <section class="well" id="related-posts">
     <h4>Related Posts:</h4>
     <ul>
-        <li><a href="./what-is-micropython.html">What is Micropython?</a></li>
-        <li><a href="./upload-py-files-to-esp8266-running-micropython.html">How to upload .py-files onto an ESP8266 running MicroPython</a></li>
-        <li><a href="./micropython-upload-code.html">Upload Micropython Code to an Adafruit Feather Huzzah ESP8266</a></li>
-        <li><a href="./micropython-wifi.html">Using Micropython to connect an Adafruit Feather Huzzah ESP8266 to WiFi</a></li>
-        <li><a href="./micropython-temp-sensor.html">Using a Temperature Sensor with Micropython running on an Adafruit Feather Huzzah ESP8266</a></li>
+        <li><a href="/what-is-micropython.html">What is Micropython?</a></li>
+        <li><a href="/upload-py-files-to-esp8266-running-micropython.html">How to upload .py-files onto an ESP8266 running MicroPython</a></li>
+        <li><a href="/micropython-upload-code.html">Upload Micropython Code to an Adafruit Feather Huzzah ESP8266</a></li>
+        <li><a href="/micropython-wifi.html">Using Micropython to connect an Adafruit Feather Huzzah ESP8266 to WiFi</a></li>
+        <li><a href="/micropython-temp-sensor.html">Using a Temperature Sensor with Micropython running on an Adafruit Feather Huzzah ESP8266</a></li>
     </ul>
 </section>
 <section class="well" id="related-posts">
     <h4>Article 2 of the micropython series</h4>
        <h5>Previous articles</h5>
        <ul>
-           <li><a href="./what-is-micropython.html">What is Micropython?</a></li>
+           <li><a href="/what-is-micropython.html">What is Micropython?</a></li>
        </ul>
        <h5>Next articles</h5>
        <ul>
-           <li><a href="./micropython-REPL.html">Using the Micropython REPL on an Adafruit Feather Huzzah ESP8266</a></li>
-           <li><a href="./micropython-temp-sensor.html">Using a Temperature Sensor with Micropython running on an Adafruit Feather Huzzah ESP8266</a></li>
-           <li><a href="./micropython-wifi.html">Using Micropython to connect an Adafruit Feather Huzzah ESP8266 to WiFi</a></li>
-           <li><a href="./micropython-upload-code.html">Upload Micropython Code to an Adafruit Feather Huzzah ESP8266</a></li>
-           <li><a href="./upload-py-files-to-esp8266-running-micropython.html">How to upload .py-files onto an ESP8266 running MicroPython</a></li>
+           <li><a href="/micropython-REPL.html">Using the Micropython REPL on an Adafruit Feather Huzzah ESP8266</a></li>
+           <li><a href="/micropython-temp-sensor.html">Using a Temperature Sensor with Micropython running on an Adafruit Feather Huzzah ESP8266</a></li>
+           <li><a href="/micropython-wifi.html">Using Micropython to connect an Adafruit Feather Huzzah ESP8266 to WiFi</a></li>
+           <li><a href="/micropython-upload-code.html">Upload Micropython Code to an Adafruit Feather Huzzah ESP8266</a></li>
+           <li><a href="/upload-py-files-to-esp8266-running-micropython.html">How to upload .py-files onto an ESP8266 running MicroPython</a></li>
        </ul>
 </section>
         </article>
@@ -481,7 +482,7 @@ conda activate micropython
             <aside>
 <div id="aboutme">
         <p>
-            <img width="100%" class="img-thumbnail" src="./extra/gear-wrench-icon-512-278694.png"/>
+            <img width="100%" class="img-thumbnail" src="/extra/gear-wrench-icon-512-278694.png"/>
         </p>
     <p>
       <strong>About Peter Kazarinoff</strong><br/>
@@ -495,46 +496,46 @@ conda activate micropython
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
-    <li class="list-group-item"><a href="./plotting-bond-energy-with-matplotlib-and-python.html">Plotting Bond Energy vs. Distance with Python and Matplotlib</a></li>
-    <li class="list-group-item"><a href="./upload-py-files-to-esp8266-running-micropython.html">How to upload .py-files onto an ESP8266 running MicroPython</a></li>
-    <li class="list-group-item"><a href="./creating-taylor-series-functions-with-python.html">Taylor Series in Python</a></li>
+    <li class="list-group-item"><a href="/plotting-bond-energy-with-matplotlib-and-python.html">Plotting Bond Energy vs. Distance with Python and Matplotlib</a></li>
+    <li class="list-group-item"><a href="/upload-py-files-to-esp8266-running-micropython.html">How to upload .py-files onto an ESP8266 running MicroPython</a></li>
+    <li class="list-group-item"><a href="/creating-taylor-series-functions-with-python.html">Taylor Series in Python</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
 
 <!-- Sidebar/Tag Cloud -->
 <li class="list-group-item">
-  <a href="./"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <a href="/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
   <ul class="list-group list-inline tagcloud" id="tags">
     <li class="list-group-item tag-2">
-      <a href="./tag/engineering.html">engineering</a>
+      <a href="/tag/engineering.html">engineering</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="./tag/esp8266.html">esp8266</a>
+      <a href="/tag/esp8266.html">esp8266</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="./tag/jupyter.html">jupyter</a>
+      <a href="/tag/jupyter.html">jupyter</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="./tag/jupyter-hub.html">jupyter hub</a>
+      <a href="/tag/jupyter-hub.html">jupyter hub</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="./tag/jupyter-notebooks.html">jupyter notebooks</a>
+      <a href="/tag/jupyter-notebooks.html">jupyter notebooks</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="./tag/matplotlib.html">matplotlib</a>
+      <a href="/tag/matplotlib.html">matplotlib</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="./tag/microcontroller.html">microcontroller</a>
+      <a href="/tag/microcontroller.html">microcontroller</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="./tag/micropython.html">micropython</a>
+      <a href="/tag/micropython.html">micropython</a>
     </li>
     <li class="list-group-item tag-1">
-      <a href="./tag/python.html">python</a>
+      <a href="/tag/python.html">python</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="./tag/sensor.html">sensor</a>
+      <a href="/tag/sensor.html">sensor</a>
     </li>
   </ul>
 </li>
@@ -546,11 +547,11 @@ conda activate micropython
   <ul class="list-group">
     <li class="list-group-item">
       <h5></i>Previous article</h5>
-      <a href="./what-is-micropython.html">What is Micropython?</a>
+      <a href="/what-is-micropython.html">What is Micropython?</a>
     </li>
     <li class="list-group-item">
       <h5>Next article</h5>
-      <a href="./micropython-REPL.html">Using the Micropython REPL on an Adafruit Feather Huzzah ESP8266</a>
+      <a href="/micropython-REPL.html">Using the Micropython REPL on an Adafruit Feather Huzzah ESP8266</a>
     </li>
   </ul>
 </li>
@@ -572,6 +573,8 @@ conda activate micropython
         </div>
     </div>
 </div>
+<!-- End Content Container -->
+
 <footer>
    <div class="container">
       <hr>
@@ -584,15 +587,15 @@ conda activate micropython
       </div>
    </div>
 </footer>
-<script src="./theme/js/jquery.min.js"></script>
+<script src="/theme/js/jquery.min.js"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="./theme/js/bootstrap.min.js"></script>
+<script src="/theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="./theme/js/respond.min.js"></script>
+<script src="/theme/js/respond.min.js"></script>
 
-    <script src="./static/js/custom.js"></script>
+    <script src="/static/js/custom.js"></script>
 
 
 <!-- GitHub JS Code -->
@@ -601,7 +604,7 @@ $(document).ready(function () {
   if (!window.jXHR) {
     var jxhr = document.createElement('script');
     jxhr.type = 'text/javascript';
-    jxhr.src = './theme/js/jXHR.js';
+    jxhr.src = '/theme/js/jXHR.js';
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(jxhr, s);
   }
@@ -614,7 +617,7 @@ $(document).ready(function () {
   });
 });
 </script>
-<script src="./theme/js/github.js" type="text/javascript"></script>
+<script src="/theme/js/github.js" type="text/javascript"></script>
 <!-- End GitHub JS Code -->
     <!-- Google Analytics -->
     <script type="text/javascript">

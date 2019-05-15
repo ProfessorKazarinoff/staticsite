@@ -152,7 +152,7 @@ div.collapseheader {
 
 </style>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
 <script type="text/javascript">
 init_mathjax = function() {
     if (window.MathJax) {
@@ -162,7 +162,7 @@ init_mathjax = function() {
                 inlineMath: [ ['$','$'], ["\\(","\\)"] ],
                 displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
             },
-            displayAlign: 'center', // Change this to 'center' to center equations.
+            displayAlign: 'left', // Change this to 'center' to center equations.
             "HTML-CSS": {
                 styles: {'.MathJax_Display': {"margin": 0}}
             }
@@ -172,9 +172,9 @@ init_mathjax = function() {
 }
 init_mathjax();
 </script>
-    <link href="./extra/favicon.ico" rel="icon">
+    <link href="/extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="./new-virtual-environment-with-conda.html">
+<link rel="canonical" href="/new-virtual-environment-with-conda.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
         <meta name="keywords" content="python,conda,virtualenv,anaconda,anaconda prompt" />
@@ -183,7 +183,7 @@ init_mathjax();
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="Create a new virtual environment with Conda"/>
-        <meta property="og:url" content="./new-virtual-environment-with-conda.html"/>
+        <meta property="og:url" content="/new-virtual-environment-with-conda.html"/>
         <meta property="og:description" content="To start a new Python project, it is best practice to create a new virtual environment. I have the Anaconda distribution of Python installed on my Windows 10 machine at work. When you install Anaconda, it comes with the very useful Anaconda Prompt. Using the Anaconda Prompt is a bit …"/>
         <meta property="article:published_time" content="2017-11-17" />
             <meta property="article:section" content="Orientation" />
@@ -197,15 +197,13 @@ init_mathjax();
 
 
     <!-- Bootstrap -->
-        <link rel="stylesheet" href="./theme/css/bootstrap.flatly.min.css" type="text/css"/>
-    <link href="./theme/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="/theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="./theme/css/pygments/native.css" rel="stylesheet">
-    <link href="./theme/tipuesearch/tipuesearch.css" rel="stylesheet">
-    <link rel="stylesheet" href="./theme/css/style.css" type="text/css"/>
-        <link href="./static/css/custom.css" rel="stylesheet">
-
-
+    <link href="/theme/css/pygments/native.css" rel="stylesheet">
+    <link href="/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+        <link href="/static/css/custom.css" rel="stylesheet">
 
 
 
@@ -213,7 +211,7 @@ init_mathjax();
 <body>
 
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-	<div class="container">
+    <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -221,18 +219,18 @@ init_mathjax();
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="./" class="navbar-brand">
+            <a href="/" class="navbar-brand">
 Python for Undergraduate Engineers            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                         <li><a href="./pages/about.html">
+                         <li><a href="/pages/about.html">
                              About
                           </a></li>
-                         <li><a href="./pages/book.html">
+                         <li><a href="/pages/book.html">
                              Book
                           </a></li>
-                         <li><a href="./pages/now.html">
+                         <li><a href="/pages/now.html">
                              Now
                           </a></li>
             </ul>
@@ -242,27 +240,30 @@ Python for Undergraduate Engineers            </a>
                   <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
                 </form></span>
               </li>
-              <li><a href="./archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+              <li><a href="/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
     </div>
 </div> <!-- /.navbar -->
+
 <!-- Banner -->
 <!-- End Banner -->
+
+<!-- Content Container -->
 <div class="container">
     <div class="row">
         <div class="col-sm-9">
             <ol class="breadcrumb">
-                <li><a href="." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="./category/orientation.html" title="Orientation">Orientation</a></li>
+                <li><a href="" title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="/category/orientation.html" title="Orientation">Orientation</a></li>
                 <li class="active">Create a new virtual environment with Conda</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="./new-virtual-environment-with-conda.html"
+                    <a href="/new-virtual-environment-with-conda.html"
                        rel="bookmark"
                        title="Permalink to Create a new virtual environment with Conda">
                         Create a new virtual environment with Conda
@@ -283,88 +284,88 @@ Python for Undergraduate Engineers            </a>
 
 
 <span class="label label-default">Tags</span>
-	<a href="./tag/python.html">python</a>
+	<a href="/tag/python.html">python</a>
         /
-	<a href="./tag/conda.html">conda</a>
+	<a href="/tag/conda.html">conda</a>
         /
-	<a href="./tag/virtualenv.html">virtualenv</a>
+	<a href="/tag/virtualenv.html">virtualenv</a>
         /
-	<a href="./tag/anaconda.html">anaconda</a>
+	<a href="/tag/anaconda.html">anaconda</a>
         /
-	<a href="./tag/anaconda-prompt.html">anaconda prompt</a>
+	<a href="/tag/anaconda-prompt.html">anaconda prompt</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>To start a new Python project, it is best practice to create a new virtual environment. I have the <strong>Anaconda</strong> distribution of Python installed on my Windows 10 machine at work. When you <a href="./installing-anaconda-on-windows.html">install <strong>Anaconda</strong></a>, it comes with the very useful <strong>Anaconda Prompt</strong>. Using the <strong>Anaconda Prompt</strong> is a bit like using the terminal on a Mac OSX or Linux. To start the <strong>Anaconda Prompt</strong> on Windows 10, go to the Windows start button on the lower left and select <strong>Anaconda Prompt</strong>. </p>
+                <p>To start a new Python project, it is best practice to create a new virtual environment. I have the <strong>Anaconda</strong> distribution of Python installed on my Windows 10 machine at work. When you <a href="/installing-anaconda-on-windows.html">install <strong>Anaconda</strong></a>, it comes with the very useful <strong>Anaconda Prompt</strong>. Using the <strong>Anaconda Prompt</strong> is a bit like using the terminal on a Mac OSX or Linux. To start the <strong>Anaconda Prompt</strong> on Windows 10, go to the Windows start button on the lower left and select <strong>Anaconda Prompt</strong>. </p>
 <p><img alt="anaconda in start menu" src="images/anaconda_from_start_menu.png"></p>
 <p>To create the new environment, we need to issue the following command at the prompt:</p>
-<div class="highlight"><pre><span></span>conda create --name webscrape python=3.6
+<div class="highlight"><pre><span></span><span class="n">conda</span> <span class="k">create</span> <span class="c1">--name webscrape python=3.6</span>
 </pre></div>
 
 
 <p>The <code>conda create</code> command builds the new virtual environment. The <code>--name webscrape</code> flag gives our new virtual environment the name <code>webscrape</code>.  I like to name my virtual environments the same name as the project that I will use that environment for, or after the name of the package that will be used the most.  Including <code>python=3.6</code> ensures that your virtual environment has an up to date version of python. </p>
 <p>Conda will tell us:</p>
-<div class="highlight"><pre><span></span>The following NEW packages will be INSTALLED:
+<div class="highlight"><pre><span></span><span class="n">The</span><span class="w"> </span><span class="n">following</span><span class="w"> </span><span class="k">NEW</span><span class="w"> </span><span class="n">packages</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="nl">INSTALLED</span><span class="p">:</span><span class="w"></span>
 
-    certifi:        2016.2.28-py36_0
-    pip:            9.0.1-py36_1
-    python:         3.6.2-0
-    setuptools:     36.4.0-py36_0
-    vs2015_runtime: 14.0.25420-0
-    wheel:          0.29.0-py36_0
-    wincertstore:   0.2-py36_0
+<span class="w">    </span><span class="nl">certifi</span><span class="p">:</span><span class="w">        </span><span class="mf">2016.2.28</span><span class="o">-</span><span class="n">py36_0</span><span class="w"></span>
+<span class="w">    </span><span class="nl">pip</span><span class="p">:</span><span class="w">            </span><span class="mf">9.0.1</span><span class="o">-</span><span class="n">py36_1</span><span class="w"></span>
+<span class="w">    </span><span class="nl">python</span><span class="p">:</span><span class="w">         </span><span class="mf">3.6.2</span><span class="o">-</span><span class="mi">0</span><span class="w"></span>
+<span class="w">    </span><span class="nl">setuptools</span><span class="p">:</span><span class="w">     </span><span class="mf">36.4.0</span><span class="o">-</span><span class="n">py36_0</span><span class="w"></span>
+<span class="w">    </span><span class="nl">vs2015_runtime</span><span class="p">:</span><span class="w"> </span><span class="mf">14.0.25420</span><span class="o">-</span><span class="mi">0</span><span class="w"></span>
+<span class="w">    </span><span class="nl">wheel</span><span class="p">:</span><span class="w">          </span><span class="mf">0.29.0</span><span class="o">-</span><span class="n">py36_0</span><span class="w"></span>
+<span class="w">    </span><span class="nl">wincertstore</span><span class="p">:</span><span class="w">   </span><span class="mf">0.2</span><span class="o">-</span><span class="n">py36_0</span><span class="w"></span>
 
-Proceed ([y]/n)? y
+<span class="n">Proceed</span><span class="w"> </span><span class="p">(</span><span class="o">[</span><span class="n">y</span><span class="o">]/</span><span class="n">n</span><span class="p">)</span><span class="vm">?</span><span class="w"> </span><span class="n">y</span><span class="w"></span>
 </pre></div>
 
 
 <p>Type <code>y</code> to confirm that you want to create the new virtual environment. To use the new virtual environment <code>webscrape</code> you need to <em>activate</em> it by typing:</p>
-<div class="highlight"><pre><span></span>activate webscrape
+<div class="highlight"><pre><span></span><span class="n">activate</span> <span class="n">webscrape</span>
 </pre></div>
 
 
 <p>You know you are in your virtual environment <code>webscrape</code> when <code>(webscrape)</code> is in parenthesis at the start of the prompt:</p>
-<div class="highlight"><pre><span></span>(webscrape) tribilium@Den-PC:~$
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">webscrape</span><span class="p">)</span><span class="w"> </span><span class="n">tribilium</span><span class="nv">@Den</span><span class="o">-</span><span class="nl">PC</span><span class="p">:</span><span class="o">~</span><span class="err">$</span><span class="w"></span>
 </pre></div>
 
 
 <p>To deactivate an active environment, use:</p>
-<div class="highlight"><pre><span></span>deactivate
+<div class="highlight"><pre><span></span><span class="n">deactivate</span>
 </pre></div>
 
 
 <p><br /></p>
 <p>For power-users using the terminal on Mac or Linux, you must use <code>source activate</code> to enter into the virtual environment.</p>
-<div class="highlight"><pre><span></span>source activate webscrape
+<div class="highlight"><pre><span></span><span class="k">source</span> <span class="n">activate</span> <span class="n">webscrape</span>
 </pre></div>
 
 
 <p>and</p>
-<div class="highlight"><pre><span></span>source deactivate webscrape
+<div class="highlight"><pre><span></span><span class="k">source</span> <span class="n">deactivate</span> <span class="n">webscrape</span>
 </pre></div>
 
 
 <p><br /></p>
 <p>If you see the <code>(webscrape)</code> in parenthesis before the command prompt, that means you set up the new virtual environment and are now using it. You can view a list of your virtual environments using the <code>conda info --envs</code> or <code>conda env list</code> command.</p>
-<div class="highlight"><pre><span></span>conda info --envs
+<div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">info</span> <span class="c1">--envs</span>
 
-# conda environments:
-#
-matplotlib               /home/tribilium/anaconda3/envs/matplotlib
-webscrape              * /home/tribilium/anaconda3/envs/pelican
-root                     /home/tribilium/anaconda3
+<span class="o">#</span> <span class="n">conda</span> <span class="n">environments</span><span class="p">:</span>
+<span class="o">#</span>
+<span class="n">matplotlib</span>               <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">tribilium</span><span class="o">/</span><span class="n">anaconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">matplotlib</span>
+<span class="n">webscrape</span>              <span class="o">*</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">tribilium</span><span class="o">/</span><span class="n">anaconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">pelican</span>
+<span class="n">root</span>                     <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">tribilium</span><span class="o">/</span><span class="n">anaconda3</span>
 </pre></div>
 
 
 <p>Notice the <code>*</code> asterisk on the line with <code>webscrape</code>. The virtual environment with the <code>*</code> is currently active. </p>
 <p>To exit the virtual environment, use the command <code>deactivate</code>. If you run <code>conda env list</code> again, you'll see there is no <code>*</code> in front of <code>webscrape</code>. That's because you are not currently in that virtual environment.</p>
-<div class="highlight"><pre><span></span>conda env list
+<div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">env</span> <span class="n">list</span>
 
-# conda environments:
-#
-matplotlib               /home/tribilium/anaconda3/envs/matplotlib
-webscrape                /home/tribilium/anaconda3/envs/pelican
-root                  *  /home/tribilium/anaconda3
+<span class="o">#</span> <span class="n">conda</span> <span class="n">environments</span><span class="p">:</span>
+<span class="o">#</span>
+<span class="n">matplotlib</span>               <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">tribilium</span><span class="o">/</span><span class="n">anaconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">matplotlib</span>
+<span class="n">webscrape</span>                <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">tribilium</span><span class="o">/</span><span class="n">anaconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">pelican</span>
+<span class="n">root</span>                  <span class="o">*</span>  <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">tribilium</span><span class="o">/</span><span class="n">anaconda3</span>
 </pre></div>
 
 
@@ -375,11 +376,11 @@ root                  *  /home/tribilium/anaconda3
 <section class="well" id="related-posts">
     <h4>Related Posts:</h4>
     <ul>
-        <li><a href="./virtualenv-in-osx-linux-windows.html">Python Virtual Environments in OS X, Linux and Windows 10</a></li>
-        <li><a href="./installing-anaconda-on-windows.html">Installing Anaconda on Windows</a></li>
-        <li><a href="./python-arduino-LED.html">Using Python to control an Arduino</a></li>
-        <li><a href="./opening-a-jupyter-notebook-on-windows.html">Opening a Jupyter Notebook on Windows</a></li>
-        <li><a href="./plotting-bond-energy-with-matplotlib-and-python.html">Plotting Bond Energy vs. Distance with Python and Matplotlib</a></li>
+        <li><a href="/virtualenv-in-osx-linux-windows.html">Python Virtual Environments in OS X, Linux and Windows 10</a></li>
+        <li><a href="/installing-anaconda-on-windows.html">Installing Anaconda on Windows</a></li>
+        <li><a href="/python-arduino-LED.html">Using Python to control an Arduino</a></li>
+        <li><a href="/opening-a-jupyter-notebook-on-windows.html">Opening a Jupyter Notebook on Windows</a></li>
+        <li><a href="/plotting-bond-energy-with-matplotlib-and-python.html">Plotting Bond Energy vs. Distance with Python and Matplotlib</a></li>
     </ul>
 </section>
         </article>
@@ -390,7 +391,7 @@ root                  *  /home/tribilium/anaconda3
             <aside>
 <div id="aboutme">
         <p>
-            <img width="100%" class="img-thumbnail" src="./extra/gear-wrench-icon-512-278694.png"/>
+            <img width="100%" class="img-thumbnail" src="/extra/gear-wrench-icon-512-278694.png"/>
         </p>
     <p>
       <strong>About Peter Kazarinoff</strong><br/>
@@ -404,46 +405,46 @@ root                  *  /home/tribilium/anaconda3
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
-    <li class="list-group-item"><a href="./plotting-bond-energy-with-matplotlib-and-python.html">Plotting Bond Energy vs. Distance with Python and Matplotlib</a></li>
-    <li class="list-group-item"><a href="./upload-py-files-to-esp8266-running-micropython.html">How to upload .py-files onto an ESP8266 running MicroPython</a></li>
-    <li class="list-group-item"><a href="./creating-taylor-series-functions-with-python.html">Taylor Series in Python</a></li>
+    <li class="list-group-item"><a href="/plotting-bond-energy-with-matplotlib-and-python.html">Plotting Bond Energy vs. Distance with Python and Matplotlib</a></li>
+    <li class="list-group-item"><a href="/upload-py-files-to-esp8266-running-micropython.html">How to upload .py-files onto an ESP8266 running MicroPython</a></li>
+    <li class="list-group-item"><a href="/creating-taylor-series-functions-with-python.html">Taylor Series in Python</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
 
 <!-- Sidebar/Tag Cloud -->
 <li class="list-group-item">
-  <a href="./"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <a href="/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
   <ul class="list-group list-inline tagcloud" id="tags">
     <li class="list-group-item tag-2">
-      <a href="./tag/engineering.html">engineering</a>
+      <a href="/tag/engineering.html">engineering</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="./tag/esp8266.html">esp8266</a>
+      <a href="/tag/esp8266.html">esp8266</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="./tag/jupyter.html">jupyter</a>
+      <a href="/tag/jupyter.html">jupyter</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="./tag/jupyter-hub.html">jupyter hub</a>
+      <a href="/tag/jupyter-hub.html">jupyter hub</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="./tag/jupyter-notebooks.html">jupyter notebooks</a>
+      <a href="/tag/jupyter-notebooks.html">jupyter notebooks</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="./tag/matplotlib.html">matplotlib</a>
+      <a href="/tag/matplotlib.html">matplotlib</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="./tag/microcontroller.html">microcontroller</a>
+      <a href="/tag/microcontroller.html">microcontroller</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="./tag/micropython.html">micropython</a>
+      <a href="/tag/micropython.html">micropython</a>
     </li>
     <li class="list-group-item tag-1">
-      <a href="./tag/python.html">python</a>
+      <a href="/tag/python.html">python</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="./tag/sensor.html">sensor</a>
+      <a href="/tag/sensor.html">sensor</a>
     </li>
   </ul>
 </li>
@@ -464,6 +465,8 @@ root                  *  /home/tribilium/anaconda3
         </div>
     </div>
 </div>
+<!-- End Content Container -->
+
 <footer>
    <div class="container">
       <hr>
@@ -476,15 +479,15 @@ root                  *  /home/tribilium/anaconda3
       </div>
    </div>
 </footer>
-<script src="./theme/js/jquery.min.js"></script>
+<script src="/theme/js/jquery.min.js"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="./theme/js/bootstrap.min.js"></script>
+<script src="/theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="./theme/js/respond.min.js"></script>
+<script src="/theme/js/respond.min.js"></script>
 
-    <script src="./static/js/custom.js"></script>
+    <script src="/static/js/custom.js"></script>
 
 
 <!-- GitHub JS Code -->
@@ -493,7 +496,7 @@ $(document).ready(function () {
   if (!window.jXHR) {
     var jxhr = document.createElement('script');
     jxhr.type = 'text/javascript';
-    jxhr.src = './theme/js/jXHR.js';
+    jxhr.src = '/theme/js/jXHR.js';
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(jxhr, s);
   }
@@ -506,7 +509,7 @@ $(document).ready(function () {
   });
 });
 </script>
-<script src="./theme/js/github.js" type="text/javascript"></script>
+<script src="/theme/js/github.js" type="text/javascript"></script>
 <!-- End GitHub JS Code -->
     <!-- Google Analytics -->
     <script type="text/javascript">

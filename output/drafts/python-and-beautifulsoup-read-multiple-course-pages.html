@@ -152,7 +152,7 @@ div.collapseheader {
 
 </style>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
 <script type="text/javascript">
 init_mathjax = function() {
     if (window.MathJax) {
@@ -162,7 +162,7 @@ init_mathjax = function() {
                 inlineMath: [ ['$','$'], ["\\(","\\)"] ],
                 displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
             },
-            displayAlign: 'center', // Change this to 'center' to center equations.
+            displayAlign: 'left', // Change this to 'center' to center equations.
             "HTML-CSS": {
                 styles: {'.MathJax_Display': {"margin": 0}}
             }
@@ -172,9 +172,9 @@ init_mathjax = function() {
 }
 init_mathjax();
 </script>
-    <link href="../extra/favicon.ico" rel="icon">
+    <link href="/extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="../drafts/python-and-beautifulsoup-read-multiple-course-pages.html">
+<link rel="canonical" href="/drafts/python-and-beautifulsoup-read-multiple-course-pages.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
         <meta name="keywords" content="python,beautiful soup,web scraping" />
@@ -182,7 +182,7 @@ init_mathjax();
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="Using Python and Beautiful Soup to read multiple course pages"/>
-        <meta property="og:url" content="../drafts/python-and-beautifulsoup-read-multiple-course-pages.html"/>
+        <meta property="og:url" content="/drafts/python-and-beautifulsoup-read-multiple-course-pages.html"/>
         <meta property="og:description" content=""/>
         <meta property="article:published_time" content="2017-09-20" />
             <meta property="article:section" content="Python" />
@@ -194,15 +194,13 @@ init_mathjax();
 
 
     <!-- Bootstrap -->
-        <link rel="stylesheet" href="../theme/css/bootstrap.flatly.min.css" type="text/css"/>
-    <link href="../theme/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="/theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="../theme/css/pygments/native.css" rel="stylesheet">
-    <link href="../theme/tipuesearch/tipuesearch.css" rel="stylesheet">
-    <link rel="stylesheet" href="../theme/css/style.css" type="text/css"/>
-        <link href="../static/css/custom.css" rel="stylesheet">
-
-
+    <link href="/theme/css/pygments/native.css" rel="stylesheet">
+    <link href="/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+        <link href="/static/css/custom.css" rel="stylesheet">
 
 
 
@@ -210,7 +208,7 @@ init_mathjax();
 <body>
 
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-	<div class="container">
+    <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -218,18 +216,18 @@ init_mathjax();
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="../" class="navbar-brand">
+            <a href="/" class="navbar-brand">
 Python for Undergraduate Engineers            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                         <li><a href="../pages/about.html">
+                         <li><a href="/pages/about.html">
                              About
                           </a></li>
-                         <li><a href="../pages/book.html">
+                         <li><a href="/pages/book.html">
                              Book
                           </a></li>
-                         <li><a href="../pages/now.html">
+                         <li><a href="/pages/now.html">
                              Now
                           </a></li>
             </ul>
@@ -239,27 +237,30 @@ Python for Undergraduate Engineers            </a>
                   <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
                 </form></span>
               </li>
-              <li><a href="../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+              <li><a href="/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
     </div>
 </div> <!-- /.navbar -->
+
 <!-- Banner -->
 <!-- End Banner -->
+
+<!-- Content Container -->
 <div class="container">
     <div class="row">
         <div class="col-sm-9">
             <ol class="breadcrumb">
-                <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="../category/python.html" title="Python">Python</a></li>
+                <li><a href="" title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="/category/python.html" title="Python">Python</a></li>
                 <li class="active">Using Python and Beautiful Soup to read multiple course pages</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="../drafts/python-and-beautifulsoup-read-multiple-course-pages.html"
+                    <a href="/drafts/python-and-beautifulsoup-read-multiple-course-pages.html"
                        rel="bookmark"
                        title="Permalink to Using Python and Beautiful Soup to read multiple course pages">
                         Using Python and Beautiful Soup to read multiple course pages
@@ -276,90 +277,90 @@ Python for Undergraduate Engineers            </a>
     </span>
 
             <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x000001BF0CD57978> of 
+            Part <built-in method index of str object at 0x7f24cf61b6b8> of 
 
 
 
 
 <span class="label label-default">Tags</span>
-	<a href="../tag/python.html">python</a>
+	<a href="/tag/python.html">python</a>
         /
-	<a href="../tag/beautiful-soup.html">beautiful soup</a>
+	<a href="/tag/beautiful-soup.html">beautiful soup</a>
         /
-	<a href="../tag/web-scraping.html">web scraping</a>
+	<a href="/tag/web-scraping.html">web scraping</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
                 <p>In the privous post we scraped a college course web page in order to pull out the course number and course name. As a refresher, pull up the conda prompt from the windows start menu and <code>activate</code> the <code>webscrape</code> virtual environment.</p>
-<div class="highlight"><pre><span></span>C:\Users\peter.kazarinoff&gt;activate webscrape
+<div class="highlight"><pre><span></span><span class="nv">C</span>:\<span class="nv">Users</span>\<span class="nv">peter</span>.<span class="nv">kazarinoff</span><span class="o">&gt;</span><span class="nv">activate</span> <span class="nv">webscrape</span>
 
-(webscrape) C:\Users\peter.kazarinoff&gt;
+<span class="ss">(</span><span class="nv">webscrape</span><span class="ss">)</span> <span class="nv">C</span>:\<span class="nv">Users</span>\<span class="nv">peter</span>.<span class="nv">kazarinoff</span><span class="o">&gt;</span>
 ````
 
-We can use Python and a web package called beautiful soup to parse the raw html and pull out the relevant course information. 
+<span class="nv">We</span> <span class="nv">can</span> <span class="nv">use</span> <span class="nv">Python</span> <span class="nv">and</span> <span class="nv">a</span> <span class="nv">web</span> <span class="nv">package</span> <span class="nv">called</span> <span class="nv">beautiful</span> <span class="nv">soup</span> <span class="nv">to</span> <span class="nv">parse</span> <span class="nv">the</span> <span class="nv">raw</span> <span class="nv">html</span> <span class="nv">and</span> <span class="nv">pull</span> <span class="nv">out</span> <span class="nv">the</span> <span class="nv">relevant</span> <span class="nv">course</span> <span class="nv">information</span>. 
 
-Then run our old script by ```cd``` ing into the directory with the webscrape_course_page.py file. .
+<span class="k">Then</span> <span class="nv">run</span> <span class="nv">our</span> <span class="nv">old</span> <span class="nv">script</span> <span class="nv">by</span> ```<span class="nv">cd</span>``` <span class="nv">ing</span> <span class="nv">into</span> <span class="nv">the</span> <span class="nv">directory</span> <span class="nv">with</span> <span class="nv">the</span> <span class="nv">webscrape_course_page</span>.<span class="nv">py</span> <span class="nv">file</span>. .
 
-```terminal
-(webscrape) C:\Users\peter.kazarinoff&gt;
-(webscrape) C:\Users\peter.kazarinoff\Documents\staticsite\content\code&gt;python webscrape_course_page.py
+```<span class="nv">terminal</span>
+<span class="ss">(</span><span class="nv">webscrape</span><span class="ss">)</span> <span class="nv">C</span>:\<span class="nv">Users</span>\<span class="nv">peter</span>.<span class="nv">kazarinoff</span><span class="o">&gt;</span>
+<span class="ss">(</span><span class="nv">webscrape</span><span class="ss">)</span> <span class="nv">C</span>:\<span class="nv">Users</span>\<span class="nv">peter</span>.<span class="nv">kazarinoff</span>\<span class="nv">Documents</span>\<span class="nv">staticsite</span>\<span class="nv">content</span>\<span class="nv">code</span><span class="o">&gt;</span><span class="nv">python</span> <span class="nv">webscrape_course_page</span>.<span class="nv">py</span>
 
-ENGR114 Engineering Programming
-This is the course number: ENGR114
-This is the course name: Engineering Programming
+<span class="nv">ENGR114</span> <span class="nv">Engineering</span> <span class="nv">Programming</span>
+<span class="nv">This</span> <span class="nv">is</span> <span class="nv">the</span> <span class="nv">course</span> <span class="nv">number</span>: <span class="nv">ENGR114</span>
+<span class="nv">This</span> <span class="nv">is</span> <span class="nv">the</span> <span class="nv">course</span> <span class="nv">name</span>: <span class="nv">Engineering</span> <span class="nv">Programming</span>
 ````
 
-Let&#39;s modify this to find the course name and number of another engineering class. The url of ENGR221 Electrical Cirtuits I course is:
-https://www.pcc.edu/schedule/default.cfm?fa=dspCourse2&amp;thisTerm=201704&amp;crsCode=ENGR221&amp;subjCode=ENGR&amp;crsNum=221&amp;topicCode=GE&amp;subtopicCode=ST1
-We can add that to a list of url&#39;s at the top of our code. First Save as to create the file webscrape_multiple_course_pages.py. Then add the following to the top of the code:
+<span class="nv">Let</span><span class="s1">&#39;</span><span class="s">s modify this to find the course name and number of another engineering class. The url of ENGR221 Electrical Cirtuits I course is:</span>
+<span class="nv">https</span>:<span class="o">//</span><span class="nv">www</span>.<span class="nv">pcc</span>.<span class="nv">edu</span><span class="o">/</span><span class="nv">schedule</span><span class="o">/</span><span class="nv">default</span>.<span class="nv">cfm</span>?<span class="nv">fa</span><span class="o">=</span><span class="nv">dspCourse2</span><span class="o">&amp;</span><span class="nv">thisTerm</span><span class="o">=</span><span class="mi">201704</span><span class="o">&amp;</span><span class="nv">crsCode</span><span class="o">=</span><span class="nv">ENGR221</span><span class="o">&amp;</span><span class="nv">subjCode</span><span class="o">=</span><span class="nv">ENGR</span><span class="o">&amp;</span><span class="nv">crsNum</span><span class="o">=</span><span class="mi">221</span><span class="o">&amp;</span><span class="nv">topicCode</span><span class="o">=</span><span class="nv">GE</span><span class="o">&amp;</span><span class="nv">subtopicCode</span><span class="o">=</span><span class="nv">ST1</span>
+<span class="nv">We</span> <span class="nv">can</span> <span class="nv">add</span> <span class="nv">that</span> <span class="nv">to</span> <span class="nv">a</span> <span class="nv">list</span> <span class="nv">of</span> <span class="nv">url</span><span class="s1">&#39;</span><span class="s">s at the top of our code. First Save as to create the file webscrape_multiple_course_pages.py. Then add the following to the top of the code:</span>
 
-```terminal
-#Scrape multiple course information pages
+```<span class="nv">terminal</span>
+#<span class="nv">Scrape</span> <span class="nv">multiple</span> <span class="nv">course</span> <span class="nv">information</span> <span class="nv">pages</span>
 
-import requests
-import bs4
+<span class="nv">import</span> <span class="nv">requests</span>
+<span class="nv">import</span> <span class="nv">bs4</span>
 
-url1 = &#39;https://www.pcc.edu/schedule/default.cfm?fa=dspCourse2&amp;thisTerm=201704&amp;crsCode=ENGR114&amp;subjCode=ENGR&amp;crsNum=114&amp;topicCode=GE&amp;subtopicCode=ST1&amp;frmtype=ADV&amp;crnList=45437&#39;
-url2 = &#39;https://www.pcc.edu/schedule/default.cfm?fa=dspCourse2&amp;thisTerm=201704&amp;crsCode=ENGR211&amp;subjCode=ENGR&amp;crsNum=211&amp;topicCode=GE&amp;subtopicCode=ST1&amp;crnList=40788,41369&#39;
-url3 = &#39;https://www.pcc.edu/schedule/default.cfm?fa=dspCourse2&amp;thisTerm=201704&amp;crsCode=ENGR221&amp;subjCode=ENGR&amp;crsNum=221&amp;topicCode=GE&amp;subtopicCode=ST1&#39;
-url_list = [url1, url2, url3]
+<span class="nv">url1</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="s">https://www.pcc.edu/schedule/default.cfm?fa=dspCourse2&amp;thisTerm=201704&amp;crsCode=ENGR114&amp;subjCode=ENGR&amp;crsNum=114&amp;topicCode=GE&amp;subtopicCode=ST1&amp;frmtype=ADV&amp;crnList=45437</span><span class="s1">&#39;</span>
+<span class="nv">url2</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="s">https://www.pcc.edu/schedule/default.cfm?fa=dspCourse2&amp;thisTerm=201704&amp;crsCode=ENGR211&amp;subjCode=ENGR&amp;crsNum=211&amp;topicCode=GE&amp;subtopicCode=ST1&amp;crnList=40788,41369</span><span class="s1">&#39;</span>
+<span class="nv">url3</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="s">https://www.pcc.edu/schedule/default.cfm?fa=dspCourse2&amp;thisTerm=201704&amp;crsCode=ENGR221&amp;subjCode=ENGR&amp;crsNum=221&amp;topicCode=GE&amp;subtopicCode=ST1</span><span class="s1">&#39;</span>
+<span class="nv">url_list</span> <span class="o">=</span> [<span class="nv">url1</span>, <span class="nv">url2</span>, <span class="nv">url3</span>]
 </pre></div>
 
 
 <p>Now we can integrate over the urls in <code>url_list</code> using a four loop to find the course name and number of the three courses. Note that you need the colon <code>:</code> as part of the code</p>
-<div class="highlight"><pre><span></span>for url in url_list:
+<div class="highlight"><pre><span></span><span class="k">for</span> <span class="nv">url</span> <span class="nv">in</span> <span class="nv">url_list</span>:
 </pre></div>
 
 
 <p>Now we need to indent the lines within our for loop. Remember in python that simply means indenting them. You could also add 4 spaces to the begining of each line:</p>
-<div class="highlight"><pre><span></span>for url in url_list:
-    r = requests.get(url)
-    html = r.content
-    soup = bs4.BeautifulSoup(html, &#39;html.parser&#39;)
-    page_title = soup.h2.text
-    print(&#39;\n&#39; + page_title)
-    course_number = page_title.split(&#39; &#39;,1)[0]
-    course_name = page_title.split(&#39; &#39;,1)[1]
+<div class="highlight"><pre><span></span><span class="k">for</span> <span class="nv">url</span> <span class="nv">in</span> <span class="nv">url_list</span>:
+    <span class="nv">r</span> <span class="o">=</span> <span class="nv">requests</span>.<span class="nv">get</span><span class="ss">(</span><span class="nv">url</span><span class="ss">)</span>
+    <span class="nv">html</span> <span class="o">=</span> <span class="nv">r</span>.<span class="nv">content</span>
+    <span class="nv">soup</span> <span class="o">=</span> <span class="nv">bs4</span>.<span class="nv">BeautifulSoup</span><span class="ss">(</span><span class="nv">html</span>, <span class="s1">&#39;</span><span class="s">html.parser</span><span class="s1">&#39;</span><span class="ss">)</span>
+    <span class="nv">page_title</span> <span class="o">=</span> <span class="nv">soup</span>.<span class="nv">h2</span>.<span class="nv">text</span>
+    <span class="nv">print</span><span class="ss">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nv">page_title</span><span class="ss">)</span>
+    <span class="nv">course_number</span> <span class="o">=</span> <span class="nv">page_title</span>.<span class="nv">split</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s"> </span><span class="s1">&#39;</span>,<span class="mi">1</span><span class="ss">)</span>[<span class="mi">0</span>]
+    <span class="nv">course_name</span> <span class="o">=</span> <span class="nv">page_title</span>.<span class="nv">split</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s"> </span><span class="s1">&#39;</span>,<span class="mi">1</span><span class="ss">)</span>[<span class="mi">1</span>]
 
-    print(&#39;course number: {}&#39;.format(course_number))
-    print(&#39;course name: {}&#39;.format(course_name))
+    <span class="nv">print</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">course number: {}</span><span class="s1">&#39;</span>.<span class="nv">format</span><span class="ss">(</span><span class="nv">course_number</span><span class="ss">))</span>
+    <span class="nv">print</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">course name: {}</span><span class="s1">&#39;</span>.<span class="nv">format</span><span class="ss">(</span><span class="nv">course_name</span><span class="ss">))</span>
 </pre></div>
 
 
 <p>I added a new line with the <code>'\n'</code> character. Remember to use the reverse backslash, not the regualar backslash. Adding a new line will seperate out the courses into sections when it's printed to the command window. This just makes it easier for me to read. When I run the script, I get the following output:</p>
-<div class="highlight"><pre><span></span>(webscrape) C:\Users\peter.kazarinoff\Documents\staticsite\content\code&gt;python webscrape_multiple_course_pages.py
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">webscrape</span><span class="p">)</span> <span class="k">C</span><span class="p">:</span><span class="err">\</span><span class="n">Users</span><span class="err">\</span><span class="n">peter</span><span class="p">.</span><span class="n">kazarinoff</span><span class="err">\</span><span class="n">Documents</span><span class="err">\</span><span class="n">staticsite</span><span class="err">\</span><span class="n">content</span><span class="err">\</span><span class="n">code</span><span class="o">&gt;</span><span class="n">python</span> <span class="n">webscrape_multiple_course_pages</span><span class="p">.</span><span class="n">py</span>
 
-ENGR114 Engineering Programming
-course number: ENGR114
-course name: Engineering Programming
+<span class="n">ENGR114</span> <span class="n">Engineering</span> <span class="n">Programming</span>
+<span class="n">course</span> <span class="nb">number</span><span class="p">:</span> <span class="n">ENGR114</span>
+<span class="n">course</span> <span class="n">name</span><span class="p">:</span> <span class="n">Engineering</span> <span class="n">Programming</span>
 
-ENGR211 Statics
-course number: ENGR211
-course name: Statics
+<span class="n">ENGR211</span> <span class="n">Statics</span>
+<span class="n">course</span> <span class="nb">number</span><span class="p">:</span> <span class="n">ENGR211</span>
+<span class="n">course</span> <span class="n">name</span><span class="p">:</span> <span class="n">Statics</span>
 
-ENGR221 Electrical Circuits I
-course number: ENGR221
-course name: Electrical Circuits I
+<span class="n">ENGR221</span> <span class="n">Electrical</span> <span class="n">Circuits</span> <span class="n">I</span>
+<span class="n">course</span> <span class="nb">number</span><span class="p">:</span> <span class="n">ENGR221</span>
+<span class="n">course</span> <span class="n">name</span><span class="p">:</span> <span class="n">Electrical</span> <span class="n">Circuits</span> <span class="n">I</span>
 </pre></div>
 
 
@@ -369,15 +370,15 @@ course name: Electrical Circuits I
 <section class="well" id="related-posts">
     <h4>Related Posts:</h4>
     <ul>
-        <li><a href="../plotting-bond-energy-with-matplotlib-and-python.html">Plotting Bond Energy vs. Distance with Python and Matplotlib</a></li>
-        <li><a href="../upload-py-files-to-esp8266-running-micropython.html">How to upload .py-files onto an ESP8266 running MicroPython</a></li>
-        <li><a href="../creating-taylor-series-functions-with-python.html">Taylor Series in Python</a></li>
-        <li><a href="../moving-from-matlab-to-python-on-talkpython.html">Hear my story about moving from MATLAB to Python on TalkPython</a></li>
-        <li><a href="../plotting-normal-curve-with-python.html">Plotting a Gaussian normal curve with Python and Matplotlib</a></li>
+        <li><a href="/plotting-bond-energy-with-matplotlib-and-python.html">Plotting Bond Energy vs. Distance with Python and Matplotlib</a></li>
+        <li><a href="/upload-py-files-to-esp8266-running-micropython.html">How to upload .py-files onto an ESP8266 running MicroPython</a></li>
+        <li><a href="/creating-taylor-series-functions-with-python.html">Taylor Series in Python</a></li>
+        <li><a href="/moving-from-matlab-to-python-on-talkpython.html">Hear my story about moving from MATLAB to Python on TalkPython</a></li>
+        <li><a href="/plotting-normal-curve-with-python.html">Plotting a Gaussian normal curve with Python and Matplotlib</a></li>
     </ul>
 </section>
 <section class="well" id="related-posts">
-    <h4>Article <built-in method index of str object at 0x000001BF0CD57978> of the  series</h4>
+    <h4>Article <built-in method index of str object at 0x7f24cf61b6b8> of the  series</h4>
 </section>
         </article>
     </section>
@@ -387,7 +388,7 @@ course name: Electrical Circuits I
             <aside>
 <div id="aboutme">
         <p>
-            <img width="100%" class="img-thumbnail" src="../extra/gear-wrench-icon-512-278694.png"/>
+            <img width="100%" class="img-thumbnail" src="/extra/gear-wrench-icon-512-278694.png"/>
         </p>
     <p>
       <strong>About Peter Kazarinoff</strong><br/>
@@ -401,46 +402,46 @@ course name: Electrical Circuits I
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
-    <li class="list-group-item"><a href="../plotting-bond-energy-with-matplotlib-and-python.html">Plotting Bond Energy vs. Distance with Python and Matplotlib</a></li>
-    <li class="list-group-item"><a href="../upload-py-files-to-esp8266-running-micropython.html">How to upload .py-files onto an ESP8266 running MicroPython</a></li>
-    <li class="list-group-item"><a href="../creating-taylor-series-functions-with-python.html">Taylor Series in Python</a></li>
+    <li class="list-group-item"><a href="/plotting-bond-energy-with-matplotlib-and-python.html">Plotting Bond Energy vs. Distance with Python and Matplotlib</a></li>
+    <li class="list-group-item"><a href="/upload-py-files-to-esp8266-running-micropython.html">How to upload .py-files onto an ESP8266 running MicroPython</a></li>
+    <li class="list-group-item"><a href="/creating-taylor-series-functions-with-python.html">Taylor Series in Python</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
 
 <!-- Sidebar/Tag Cloud -->
 <li class="list-group-item">
-  <a href="../"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <a href="/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
   <ul class="list-group list-inline tagcloud" id="tags">
     <li class="list-group-item tag-2">
-      <a href="../tag/engineering.html">engineering</a>
+      <a href="/tag/engineering.html">engineering</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="../tag/esp8266.html">esp8266</a>
+      <a href="/tag/esp8266.html">esp8266</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="../tag/jupyter.html">jupyter</a>
+      <a href="/tag/jupyter.html">jupyter</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="../tag/jupyter-hub.html">jupyter hub</a>
+      <a href="/tag/jupyter-hub.html">jupyter hub</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="../tag/jupyter-notebooks.html">jupyter notebooks</a>
+      <a href="/tag/jupyter-notebooks.html">jupyter notebooks</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="../tag/matplotlib.html">matplotlib</a>
+      <a href="/tag/matplotlib.html">matplotlib</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="../tag/microcontroller.html">microcontroller</a>
+      <a href="/tag/microcontroller.html">microcontroller</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="../tag/micropython.html">micropython</a>
+      <a href="/tag/micropython.html">micropython</a>
     </li>
     <li class="list-group-item tag-1">
-      <a href="../tag/python.html">python</a>
+      <a href="/tag/python.html">python</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="../tag/sensor.html">sensor</a>
+      <a href="/tag/sensor.html">sensor</a>
     </li>
   </ul>
 </li>
@@ -470,6 +471,8 @@ course name: Electrical Circuits I
         </div>
     </div>
 </div>
+<!-- End Content Container -->
+
 <footer>
    <div class="container">
       <hr>
@@ -482,15 +485,15 @@ course name: Electrical Circuits I
       </div>
    </div>
 </footer>
-<script src="../theme/js/jquery.min.js"></script>
+<script src="/theme/js/jquery.min.js"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="../theme/js/bootstrap.min.js"></script>
+<script src="/theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="../theme/js/respond.min.js"></script>
+<script src="/theme/js/respond.min.js"></script>
 
-    <script src="../static/js/custom.js"></script>
+    <script src="/static/js/custom.js"></script>
 
 
 <!-- GitHub JS Code -->
@@ -499,7 +502,7 @@ $(document).ready(function () {
   if (!window.jXHR) {
     var jxhr = document.createElement('script');
     jxhr.type = 'text/javascript';
-    jxhr.src = '../theme/js/jXHR.js';
+    jxhr.src = '/theme/js/jXHR.js';
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(jxhr, s);
   }
@@ -512,7 +515,7 @@ $(document).ready(function () {
   });
 });
 </script>
-<script src="../theme/js/github.js" type="text/javascript"></script>
+<script src="/theme/js/github.js" type="text/javascript"></script>
 <!-- End GitHub JS Code -->
     <!-- Google Analytics -->
     <script type="text/javascript">

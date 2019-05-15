@@ -152,7 +152,7 @@ div.collapseheader {
 
 </style>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
 <script type="text/javascript">
 init_mathjax = function() {
     if (window.MathJax) {
@@ -162,7 +162,7 @@ init_mathjax = function() {
                 inlineMath: [ ['$','$'], ["\\(","\\)"] ],
                 displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
             },
-            displayAlign: 'center', // Change this to 'center' to center equations.
+            displayAlign: 'left', // Change this to 'center' to center equations.
             "HTML-CSS": {
                 styles: {'.MathJax_Display': {"margin": 0}}
             }
@@ -172,9 +172,9 @@ init_mathjax = function() {
 }
 init_mathjax();
 </script>
-    <link href="../extra/favicon.ico" rel="icon">
+    <link href="/extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="../drafts/python-matplotlib-stress-strain-curve-of-two-metals.html">
+<link rel="canonical" href="/drafts/python-matplotlib-stress-strain-curve-of-two-metals.html">
 
         <meta name="author" content="Sergio Amador" />
         <meta name="keywords" content="python,matplotlib,engineering,materials science" />
@@ -183,7 +183,7 @@ init_mathjax();
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="Plotting the Stress Strain Curves of Two Metals with Python and Matplotlib"/>
-        <meta property="og:url" content="../drafts/python-matplotlib-stress-strain-curve-of-two-metals.html"/>
+        <meta property="og:url" content="/drafts/python-matplotlib-stress-strain-curve-of-two-metals.html"/>
         <meta property="og:description" content="Plotting stress strain curves is a useful skill in mechanical engineering because it allows us to derive mechanical properties of materials such as tensile strength, elastic modulus, yield strength and ductility. Plotting stress strain curves can be accomplished with Excel and MATLAB, but what about plotting stress strain curves with Python? Follow along to find out."/>
         <meta property="article:published_time" content="2019-02-16" />
             <meta property="article:section" content="matplotlib" />
@@ -196,15 +196,13 @@ init_mathjax();
 
 
     <!-- Bootstrap -->
-        <link rel="stylesheet" href="../theme/css/bootstrap.flatly.min.css" type="text/css"/>
-    <link href="../theme/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="/theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="../theme/css/pygments/native.css" rel="stylesheet">
-    <link href="../theme/tipuesearch/tipuesearch.css" rel="stylesheet">
-    <link rel="stylesheet" href="../theme/css/style.css" type="text/css"/>
-        <link href="../static/css/custom.css" rel="stylesheet">
-
-
+    <link href="/theme/css/pygments/native.css" rel="stylesheet">
+    <link href="/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+        <link href="/static/css/custom.css" rel="stylesheet">
 
 
 
@@ -212,7 +210,7 @@ init_mathjax();
 <body>
 
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-	<div class="container">
+    <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -220,18 +218,18 @@ init_mathjax();
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="../" class="navbar-brand">
+            <a href="/" class="navbar-brand">
 Python for Undergraduate Engineers            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                         <li><a href="../pages/about.html">
+                         <li><a href="/pages/about.html">
                              About
                           </a></li>
-                         <li><a href="../pages/book.html">
+                         <li><a href="/pages/book.html">
                              Book
                           </a></li>
-                         <li><a href="../pages/now.html">
+                         <li><a href="/pages/now.html">
                              Now
                           </a></li>
             </ul>
@@ -241,27 +239,30 @@ Python for Undergraduate Engineers            </a>
                   <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
                 </form></span>
               </li>
-              <li><a href="../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+              <li><a href="/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
     </div>
 </div> <!-- /.navbar -->
+
 <!-- Banner -->
 <!-- End Banner -->
+
+<!-- Content Container -->
 <div class="container">
     <div class="row">
         <div class="col-sm-9">
             <ol class="breadcrumb">
-                <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="../category/matplotlib.html" title="matplotlib">matplotlib</a></li>
+                <li><a href="" title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="/category/matplotlib.html" title="matplotlib">matplotlib</a></li>
                 <li class="active">Plotting the Stress Strain Curves of Two Metals with Python and Matplotlib</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="../drafts/python-matplotlib-stress-strain-curve-of-two-metals.html"
+                    <a href="/drafts/python-matplotlib-stress-strain-curve-of-two-metals.html"
                        rel="bookmark"
                        title="Permalink to Plotting the Stress Strain Curves of Two Metals with Python and Matplotlib">
                         Plotting the Stress Strain Curves of Two Metals with Python and Matplotlib
@@ -282,27 +283,25 @@ Python for Undergraduate Engineers            </a>
 
 
 <span class="label label-default">Tags</span>
-	<a href="../tag/python.html">python</a>
+	<a href="/tag/python.html">python</a>
         /
-	<a href="../tag/matplotlib.html">matplotlib</a>
+	<a href="/tag/matplotlib.html">matplotlib</a>
         /
-	<a href="../tag/engineering.html">engineering</a>
+	<a href="/tag/engineering.html">engineering</a>
         /
-	<a href="../tag/materials-science.html">materials science</a>
+	<a href="/tag/materials-science.html">materials science</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
                 <p>Plotting stress strain curves is a useful skill in mechanical engineering because it allows us to derive mechanical properties of materials such as tensile strength, elastic modulus, yield strength and ductility. Plotting stress strain curves can be accomplished with Excel and MATLAB, but what about plotting stress strain curves with Python? Follow along to find out.</p>
 <p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Material-Science-Tensile-Tests">Material Science Tensile Tests<a class="anchor-link" href="#Material-Science-Tensile-Tests">&#182;</a></h2><p>In an engineering tensile stress test, a given specimen of cross-sectional area $A_{o}$ is subjected to a given load $P$ under tension. The stress $\sigma$ generated by load $P$ over cross-sectional area $A_{o}$ is expressed as follows:</p>
-<p>$$\sigma = \frac{P}{A_{o}}$$</p>
+$$\sigma = \frac{P}{A_{o}}$$<p></p>
 <p>When the stresses on the test sample do not exceed the <em>elastic limit</em>${^1}$ the resulting strain $\epsilon$ is proportional to the stress $\sigma$:</p>
-<p>$$\sigma = E\epsilon$$</p>
-<p>However, if the stresses on the member do exceed the <em>yield strength</em>${^2}$ of the material, the linear relationship between stress and strain no longer holds and the specimen will begin to plastically deform. If the load $P$ continues to increase, the ultimate <em>tensile strength</em>${^3}$ will be reached and ultimately the specimen will fracture.</p>
+$$\sigma = E\epsilon$$<p>However, if the stresses on the member do exceed the <em>yield strength</em>${^2}$ of the material, the linear relationship between stress and strain no longer holds and the specimen will begin to plastically deform. If the load $P$ continues to increase, the ultimate <em>tensile strength</em>${^3}$ will be reached and ultimately the specimen will fracture.</p>
 <p><br></p>
 <hr>
 <p>${^1}$The region in which a material will undergo strain without plastically deforming. No permanent deformation is observed.</p>
@@ -329,14 +328,13 @@ Python for Undergraduate Engineers            </a>
 <span class="n">df_al</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;Al_6061.xls&#39;</span><span class="p">)</span>      <span class="c1"># same but now its aluminum instead</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Steel-4142"><em>Steel 4142</em><a class="anchor-link" href="#Steel-4142">&#182;</a></h1>
 </div>
@@ -350,14 +348,13 @@ Python for Undergraduate Engineers            </a>
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#print(df_st.to_string())      # optional execution. prints the entire excel steel data sheet on the screen</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="$\epsilon$-Data-for-Steel-4142"><em>$\epsilon$ Data for Steel 4142</em><a class="anchor-link" href="#$\epsilon$-Data-for-Steel-4142">&#182;</a></h2>
 </div>
@@ -375,14 +372,13 @@ Python for Undergraduate Engineers            </a>
 <span class="c1">#strain_steel                                         # optional execution, check to see the value/s store in the variable</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="$\sigma$-Data-for-Steel-4142-"><em>$\sigma$ Data for Steel 4142 </em><a class="anchor-link" href="#$\sigma$-Data-for-Steel-4142-">&#182;</a></h2>
 </div>
@@ -403,14 +399,13 @@ Python for Undergraduate Engineers            </a>
 <span class="c1">#stress_steel                                             # optional execution, check to see the value/s store in the variable</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="$E$-Value-for-Steel-4142-"><em>$E$ Value for Steel 4142 </em><a class="anchor-link" href="#$E$-Value-for-Steel-4142-">&#182;</a></h2>
 </div>
@@ -430,7 +425,7 @@ Python for Undergraduate Engineers            </a>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The Elastic modulus of Steel 4142 is </span><span class="si">%d</span><span class="s1"> ksi&#39;</span> <span class="o">%</span> <span class="n">Es</span> <span class="p">)</span>    <span class="c1"># prints the input line</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -440,7 +435,7 @@ Python for Undergraduate Engineers            </a>
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -454,8 +449,7 @@ Python for Undergraduate Engineers            </a>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Figure-1"><em>Figure 1</em><a class="anchor-link" href="#Figure-1">&#182;</a></h2>
 </div>
@@ -484,7 +478,7 @@ Python for Undergraduate Engineers            </a>
 <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;steel.png&#39;</span><span class="p">)</span>                                   <span class="c1"># saves a picture of the graph in .png or .jpeg format </span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -494,16 +488,16 @@ Python for Undergraduate Engineers            </a>
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 
 
 
-<div id="cbba3f33-7f1a-4af4-b40a-99ddb1165539"></div>
+<div id="e83ecf9a-7a9c-4cd6-b379-77f1dd72061f"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#cbba3f33-7f1a-4af4-b40a-99ddb1165539');
+var element = $('#e83ecf9a-7a9c-4cd6-b379-77f1dd72061f');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -1281,7 +1275,7 @@ if (IPython.notebook.kernel != null) {
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 
@@ -1296,8 +1290,7 @@ if (IPython.notebook.kernel != null) {
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="$\sigma_{y}$-and-$\sigma_{u}$-values-for-Steel-4142">$\sigma_{y}$ and $\sigma_{u}$ values for Steel 4142<a class="anchor-link" href="#$\sigma_{y}$-and-$\sigma_{u}$-values-for-Steel-4142">&#182;</a></h2>
 </div>
@@ -1316,7 +1309,7 @@ if (IPython.notebook.kernel != null) {
       <span class="o">%</span><span class="p">(</span><span class="n">steel_yield</span><span class="p">,</span> <span class="n">steel_tensile</span><span class="p">))</span>   
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -1326,7 +1319,7 @@ if (IPython.notebook.kernel != null) {
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -1340,8 +1333,7 @@ if (IPython.notebook.kernel != null) {
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Ductility-Value-for-Steel-4142-"><em>Ductility Value for Steel 4142 </em><a class="anchor-link" href="#Ductility-Value-for-Steel-4142-">&#182;</a></h2>
 </div>
@@ -1359,7 +1351,7 @@ if (IPython.notebook.kernel != null) {
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The ductility of Steel 4142 is </span><span class="si">%.1f</span><span class="s1"> &#39;</span><span class="o">%</span> <span class="p">(</span><span class="n">Ductility_steel</span><span class="p">))</span>  <span class="c1"># prints the input line</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -1369,7 +1361,7 @@ if (IPython.notebook.kernel != null) {
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -1383,8 +1375,7 @@ if (IPython.notebook.kernel != null) {
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Aluminum-6061"><em>Aluminum 6061</em><a class="anchor-link" href="#Aluminum-6061">&#182;</a></h1>
 </div>
@@ -1398,14 +1389,13 @@ if (IPython.notebook.kernel != null) {
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#print(df_al.to_string())      # optional execution. prints the entire excel aluminum data sheet on the screen</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="$\epsilon$-Data-for-Aluminium-6061"><em>$\epsilon$ Data for Aluminium 6061</em><a class="anchor-link" href="#$\epsilon$-Data-for-Aluminium-6061">&#182;</a></h2>
 </div>
@@ -1423,14 +1413,13 @@ if (IPython.notebook.kernel != null) {
 <span class="c1">#strain_al                                             # optional execution, check to see the value/s store in the variable</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="$\sigma$-Data-for-Aluminum-6061"><em>$\sigma$ Data for Aluminum 6061</em><a class="anchor-link" href="#$\sigma$-Data-for-Aluminum-6061">&#182;</a></h2>
 </div>
@@ -1450,14 +1439,13 @@ if (IPython.notebook.kernel != null) {
 <span class="c1">#stress_al                                             # optional execution, check to see the value/s store in the variable</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="$E$-Value-for-Aluminum-6061"><em>$E$ Value for Aluminum 6061</em><a class="anchor-link" href="#$E$-Value-for-Aluminum-6061">&#182;</a></h2>
 </div>
@@ -1477,7 +1465,7 @@ if (IPython.notebook.kernel != null) {
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The Elastic Modulus of Aluminum 6061 is </span><span class="si">%d</span><span class="s1"> ksi&#39;</span> <span class="o">%</span><span class="k">Ea</span>) # prints the input line
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -1487,7 +1475,7 @@ if (IPython.notebook.kernel != null) {
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -1501,8 +1489,7 @@ if (IPython.notebook.kernel != null) {
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Figure-2"><em>Figure 2</em><a class="anchor-link" href="#Figure-2">&#182;</a></h2>
 </div>
@@ -1530,7 +1517,7 @@ if (IPython.notebook.kernel != null) {
 <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;alu.png&#39;</span><span class="p">)</span>                                      <span class="c1"># saves a picture of the graph in .png or .jpeg format </span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -1540,16 +1527,16 @@ if (IPython.notebook.kernel != null) {
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 
 
 
-<div id="d71288ca-c7bc-48f5-9a66-4e3d78d695e9"></div>
+<div id="e512449d-7c69-46b8-a7fb-6e324c67f334"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#d71288ca-c7bc-48f5-9a66-4e3d78d695e9');
+var element = $('#e512449d-7c69-46b8-a7fb-6e324c67f334');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -2327,7 +2314,7 @@ if (IPython.notebook.kernel != null) {
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 
@@ -2342,8 +2329,7 @@ if (IPython.notebook.kernel != null) {
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="$\sigma_{y}$-and-$\sigma_{u}$-values-for-Aluminum-6061">$\sigma_{y}$ and $\sigma_{u}$ values for Aluminum 6061<a class="anchor-link" href="#$\sigma_{y}$-and-$\sigma_{u}$-values-for-Aluminum-6061">&#182;</a></h2>
 </div>
@@ -2362,7 +2348,7 @@ if (IPython.notebook.kernel != null) {
       <span class="o">%</span><span class="p">(</span><span class="n">al_yield</span><span class="p">,</span> <span class="n">al_tensile</span><span class="p">))</span>                              
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -2372,7 +2358,7 @@ if (IPython.notebook.kernel != null) {
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -2386,8 +2372,7 @@ if (IPython.notebook.kernel != null) {
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Ductility-Value-for-Aluminum-6061"><em>Ductility Value for Aluminum 6061</em><a class="anchor-link" href="#Ductility-Value-for-Aluminum-6061">&#182;</a></h2>
 </div>
@@ -2405,7 +2390,7 @@ if (IPython.notebook.kernel != null) {
       <span class="o">%</span> <span class="p">(</span><span class="n">Ductility_al</span><span class="p">))</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -2415,7 +2400,7 @@ if (IPython.notebook.kernel != null) {
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -2429,8 +2414,7 @@ if (IPython.notebook.kernel != null) {
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Table-1"><em>Table 1</em><a class="anchor-link" href="#Table-1">&#182;</a></h2><table class="table table-striped table-bordered table-hover">
 <thead><tr>
@@ -2477,8 +2461,7 @@ if (IPython.notebook.kernel != null) {
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Figure-3"><em>Figure 3</em><a class="anchor-link" href="#Figure-3">&#182;</a></h2>
 </div>
@@ -2535,7 +2518,7 @@ if (IPython.notebook.kernel != null) {
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -2545,7 +2528,7 @@ if (IPython.notebook.kernel != null) {
 
 <div class="output_area">
 
-<div class="prompt"></div>
+    <div class="prompt"></div>
 
 
 
@@ -3479,6 +3462,19 @@ JEmSpIXkgFiSJEmStJAcEEuSJEmSFtL/AA9o1/LZTd+9AAAAAElFTkSuQmCC
 </div>
 
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
  
 
 </p>
@@ -3487,11 +3483,11 @@ JEmSpIXkgFiSJEmStJAcEEuSJEmSFtL/AA9o1/LZTd+9AAAAAElFTkSuQmCC
 <section class="well" id="related-posts">
     <h4>Related Posts:</h4>
     <ul>
-        <li><a href="../bar-plot-with-error-bars-jupyter-matplotlib.html">Bar charts with error bars using Python, jupyter notebooks and matplotlib</a></li>
-        <li><a href="../python-matplotlib-error-bars.html">Bar charts with error bars using Python and matplotlib</a></li>
-        <li><a href="../plotting-bond-energy-with-matplotlib-and-python.html">Plotting Bond Energy vs. Distance with Python and Matplotlib</a></li>
-        <li><a href="../plotting-normal-curve-with-python.html">Plotting a Gaussian normal curve with Python and Matplotlib</a></li>
-        <li><a href="../quiver-plot-with-matplotlib-and-jupyter-notebooks.html">Quiver plots using Python, matplotlib and Jupyter notebooks</a></li>
+        <li><a href="/bar-plot-with-error-bars-jupyter-matplotlib.html">Bar charts with error bars using Python, jupyter notebooks and matplotlib</a></li>
+        <li><a href="/python-matplotlib-error-bars.html">Bar charts with error bars using Python and matplotlib</a></li>
+        <li><a href="/plotting-bond-energy-with-matplotlib-and-python.html">Plotting Bond Energy vs. Distance with Python and Matplotlib</a></li>
+        <li><a href="/plotting-normal-curve-with-python.html">Plotting a Gaussian normal curve with Python and Matplotlib</a></li>
+        <li><a href="/quiver-plot-with-matplotlib-and-jupyter-notebooks.html">Quiver plots using Python, matplotlib and Jupyter notebooks</a></li>
     </ul>
 </section>
         </article>
@@ -3502,7 +3498,7 @@ JEmSpIXkgFiSJEmStJAcEEuSJEmSFtL/AA9o1/LZTd+9AAAAAElFTkSuQmCC
             <aside>
 <div id="aboutme">
         <p>
-            <img width="100%" class="img-thumbnail" src="../extra/gear-wrench-icon-512-278694.png"/>
+            <img width="100%" class="img-thumbnail" src="/extra/gear-wrench-icon-512-278694.png"/>
         </p>
     <p>
       <strong>About Peter Kazarinoff</strong><br/>
@@ -3516,46 +3512,46 @@ JEmSpIXkgFiSJEmStJAcEEuSJEmSFtL/AA9o1/LZTd+9AAAAAElFTkSuQmCC
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
-    <li class="list-group-item"><a href="../plotting-bond-energy-with-matplotlib-and-python.html">Plotting Bond Energy vs. Distance with Python and Matplotlib</a></li>
-    <li class="list-group-item"><a href="../upload-py-files-to-esp8266-running-micropython.html">How to upload .py-files onto an ESP8266 running MicroPython</a></li>
-    <li class="list-group-item"><a href="../creating-taylor-series-functions-with-python.html">Taylor Series in Python</a></li>
+    <li class="list-group-item"><a href="/plotting-bond-energy-with-matplotlib-and-python.html">Plotting Bond Energy vs. Distance with Python and Matplotlib</a></li>
+    <li class="list-group-item"><a href="/upload-py-files-to-esp8266-running-micropython.html">How to upload .py-files onto an ESP8266 running MicroPython</a></li>
+    <li class="list-group-item"><a href="/creating-taylor-series-functions-with-python.html">Taylor Series in Python</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
 
 <!-- Sidebar/Tag Cloud -->
 <li class="list-group-item">
-  <a href="../"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <a href="/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
   <ul class="list-group list-inline tagcloud" id="tags">
     <li class="list-group-item tag-2">
-      <a href="../tag/engineering.html">engineering</a>
+      <a href="/tag/engineering.html">engineering</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="../tag/esp8266.html">esp8266</a>
+      <a href="/tag/esp8266.html">esp8266</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="../tag/jupyter.html">jupyter</a>
+      <a href="/tag/jupyter.html">jupyter</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="../tag/jupyter-hub.html">jupyter hub</a>
+      <a href="/tag/jupyter-hub.html">jupyter hub</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="../tag/jupyter-notebooks.html">jupyter notebooks</a>
+      <a href="/tag/jupyter-notebooks.html">jupyter notebooks</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="../tag/matplotlib.html">matplotlib</a>
+      <a href="/tag/matplotlib.html">matplotlib</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="../tag/microcontroller.html">microcontroller</a>
+      <a href="/tag/microcontroller.html">microcontroller</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="../tag/micropython.html">micropython</a>
+      <a href="/tag/micropython.html">micropython</a>
     </li>
     <li class="list-group-item tag-1">
-      <a href="../tag/python.html">python</a>
+      <a href="/tag/python.html">python</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="../tag/sensor.html">sensor</a>
+      <a href="/tag/sensor.html">sensor</a>
     </li>
   </ul>
 </li>
@@ -3576,6 +3572,8 @@ JEmSpIXkgFiSJEmStJAcEEuSJEmSFtL/AA9o1/LZTd+9AAAAAElFTkSuQmCC
         </div>
     </div>
 </div>
+<!-- End Content Container -->
+
 <footer>
    <div class="container">
       <hr>
@@ -3588,15 +3586,15 @@ JEmSpIXkgFiSJEmStJAcEEuSJEmSFtL/AA9o1/LZTd+9AAAAAElFTkSuQmCC
       </div>
    </div>
 </footer>
-<script src="../theme/js/jquery.min.js"></script>
+<script src="/theme/js/jquery.min.js"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="../theme/js/bootstrap.min.js"></script>
+<script src="/theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="../theme/js/respond.min.js"></script>
+<script src="/theme/js/respond.min.js"></script>
 
-    <script src="../static/js/custom.js"></script>
+    <script src="/static/js/custom.js"></script>
 
 
 <!-- GitHub JS Code -->
@@ -3605,7 +3603,7 @@ $(document).ready(function () {
   if (!window.jXHR) {
     var jxhr = document.createElement('script');
     jxhr.type = 'text/javascript';
-    jxhr.src = '../theme/js/jXHR.js';
+    jxhr.src = '/theme/js/jXHR.js';
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(jxhr, s);
   }
@@ -3618,7 +3616,7 @@ $(document).ready(function () {
   });
 });
 </script>
-<script src="../theme/js/github.js" type="text/javascript"></script>
+<script src="/theme/js/github.js" type="text/javascript"></script>
 <!-- End GitHub JS Code -->
     <!-- Google Analytics -->
     <script type="text/javascript">

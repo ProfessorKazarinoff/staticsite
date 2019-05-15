@@ -152,7 +152,7 @@ div.collapseheader {
 
 </style>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
 <script type="text/javascript">
 init_mathjax = function() {
     if (window.MathJax) {
@@ -162,7 +162,7 @@ init_mathjax = function() {
                 inlineMath: [ ['$','$'], ["\\(","\\)"] ],
                 displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
             },
-            displayAlign: 'center', // Change this to 'center' to center equations.
+            displayAlign: 'left', // Change this to 'center' to center equations.
             "HTML-CSS": {
                 styles: {'.MathJax_Display': {"margin": 0}}
             }
@@ -172,9 +172,9 @@ init_mathjax = function() {
 }
 init_mathjax();
 </script>
-    <link href="./extra/favicon.ico" rel="icon">
+    <link href="/extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="./add-ssl-and-domain-name-to-jupyterhub.html">
+<link rel="canonical" href="/add-ssl-and-domain-name-to-jupyterhub.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
         <meta name="keywords" content="jupyter,jupyter hub,jupyter notebooks,python" />
@@ -183,7 +183,7 @@ init_mathjax();
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="Adding SSL and a domain name to Jupyter Hub"/>
-        <meta property="og:url" content="./add-ssl-and-domain-name-to-jupyterhub.html"/>
+        <meta property="og:url" content="/add-ssl-and-domain-name-to-jupyterhub.html"/>
         <meta property="og:description" content="This is the fifth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to link a domain name to our server IP address, add SSL security and configure nginx to run as a proxy in between users and jupyterhub. Then we&#39;ll run jupyterhub over https using the SSL security we created."/>
         <meta property="article:published_time" content="2018-05-25" />
             <meta property="article:section" content="jupyter" />
@@ -196,15 +196,13 @@ init_mathjax();
 
 
     <!-- Bootstrap -->
-        <link rel="stylesheet" href="./theme/css/bootstrap.flatly.min.css" type="text/css"/>
-    <link href="./theme/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="/theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="./theme/css/pygments/native.css" rel="stylesheet">
-    <link href="./theme/tipuesearch/tipuesearch.css" rel="stylesheet">
-    <link rel="stylesheet" href="./theme/css/style.css" type="text/css"/>
-        <link href="./static/css/custom.css" rel="stylesheet">
-
-
+    <link href="/theme/css/pygments/native.css" rel="stylesheet">
+    <link href="/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+        <link href="/static/css/custom.css" rel="stylesheet">
 
 
 
@@ -212,7 +210,7 @@ init_mathjax();
 <body>
 
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-	<div class="container">
+    <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -220,18 +218,18 @@ init_mathjax();
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="./" class="navbar-brand">
+            <a href="/" class="navbar-brand">
 Python for Undergraduate Engineers            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                         <li><a href="./pages/about.html">
+                         <li><a href="/pages/about.html">
                              About
                           </a></li>
-                         <li><a href="./pages/book.html">
+                         <li><a href="/pages/book.html">
                              Book
                           </a></li>
-                         <li><a href="./pages/now.html">
+                         <li><a href="/pages/now.html">
                              Now
                           </a></li>
             </ul>
@@ -241,27 +239,30 @@ Python for Undergraduate Engineers            </a>
                   <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
                 </form></span>
               </li>
-              <li><a href="./archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+              <li><a href="/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
     </div>
 </div> <!-- /.navbar -->
+
 <!-- Banner -->
 <!-- End Banner -->
+
+<!-- Content Container -->
 <div class="container">
     <div class="row">
         <div class="col-sm-9">
             <ol class="breadcrumb">
-                <li><a href="." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="./category/jupyter.html" title="jupyter">jupyter</a></li>
+                <li><a href="" title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="/category/jupyter.html" title="jupyter">jupyter</a></li>
                 <li class="active">Adding SSL and a domain name to Jupyter Hub</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="./add-ssl-and-domain-name-to-jupyterhub.html"
+                    <a href="/add-ssl-and-domain-name-to-jupyterhub.html"
                        rel="bookmark"
                        title="Permalink to Adding SSL and a domain name to Jupyter Hub">
                         Adding SSL and a domain name to Jupyter Hub
@@ -284,23 +285,23 @@ Python for Undergraduate Engineers            </a>
 
 
 <span class="label label-default">Tags</span>
-	<a href="./tag/jupyter.html">jupyter</a>
+	<a href="/tag/jupyter.html">jupyter</a>
         /
-	<a href="./tag/jupyter-hub.html">jupyter hub</a>
+	<a href="/tag/jupyter-hub.html">jupyter hub</a>
         /
-	<a href="./tag/jupyter-notebooks.html">jupyter notebooks</a>
+	<a href="/tag/jupyter-notebooks.html">jupyter notebooks</a>
         /
-	<a href="./tag/python.html">python</a>
+	<a href="/tag/python.html">python</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
                 <p>This is the fifth part of a multi-part series that shows how to set up Jupyter Hub for a college class. In this post, we are going to link a domain name to our server IP address, add SSL security and configure nginx to run as a proxy in between users and <strong>jupyterhub</strong>. Then we'll run <strong>jupyterhub</strong> over https using the SSL security we created.</p>
 <h3 id="posts-in-this-series">Posts in this series</h3>
 <ol>
-<li><a href="./why-jupyter-hub.html">Why Jupyter Hub?</a> </li>
-<li><a href="./ssh-keys-with-putty.html">Create ssh key, save to documents/ssh-keys</a></li>
-<li><a href="./new-digital-ocean-droplet.html">Create a new Digital Ocean Droplet with a non-root sudo user</a></li>
-<li><a href="./installing-jupyter-hub.html">Install Jupyter Hub on the server</a></li>
+<li><a href="/why-jupyter-hub.html">Why Jupyter Hub?</a> </li>
+<li><a href="/ssh-keys-with-putty.html">Create ssh key, save to documents/ssh-keys</a></li>
+<li><a href="/new-digital-ocean-droplet.html">Create a new Digital Ocean Droplet with a non-root sudo user</a></li>
+<li><a href="/installing-jupyter-hub.html">Install Jupyter Hub on the server</a></li>
 <li><strong>Apply SSL, link a domain name to the server and configure nginx</strong> (this post)</li>
 <li>Connect OAuth to Jupyter Hub</li>
 <li>Connect to Jupyter Hub as student</li>
@@ -326,9 +327,9 @@ Python for Undergraduate Engineers            </a>
 <p>I purchased the domain <em>problemsolvingwithpython.com</em> from <a href="https://domains.google.com">google domains</a>. It costs $12/year which seems pretty reasonable and was easy to set up. After purchasing the domain, I added the Digital Ocean DNS servers as a set of custom name servers to my domain options on google domains.</p>
 <p><img alt="Google Domains Dashboard" src="/posts/jupyterhub/google_domains_list.png"></p>
 <p>To add a set of custom name servers, click the button with the two bars under the DNS header. This will bring up a page where you can enter in the Digital Ocean DNS servers. The name servers to add are:</p>
-<div class="highlight"><pre><span></span>ns1.digitalocean.com
-ns2.digitalocean.com
-ns3.digitalocean.com
+<div class="highlight"><pre><span></span><span class="n">ns1</span><span class="p">.</span><span class="n">digitalocean</span><span class="p">.</span><span class="n">com</span>
+<span class="n">ns2</span><span class="p">.</span><span class="n">digitalocean</span><span class="p">.</span><span class="n">com</span>
+<span class="n">ns3</span><span class="p">.</span><span class="n">digitalocean</span><span class="p">.</span><span class="n">com</span>
 </pre></div>
 
 
@@ -361,11 +362,11 @@ $ sudo apt-get install nginx
 
 
 <p>We see a list of available ufw configurations to work with nginx. </p>
-<div class="highlight"><pre><span></span>Available applications:
-  Nginx Full
-  Nginx HTTP
-  Nginx HTTPS
-  OpenSSH
+<div class="highlight"><pre><span></span><span class="n">Available</span> <span class="n">applications</span><span class="p">:</span>
+  <span class="n">Nginx</span> <span class="k">Full</span>
+  <span class="n">Nginx</span> <span class="n">HTTP</span>
+  <span class="n">Nginx</span> <span class="n">HTTPS</span>
+  <span class="n">OpenSSH</span>
 </pre></div>
 
 
@@ -425,25 +426,25 @@ $ chmod a+x certbot-auto
 
 
 <p>Before we can run certbot, we need to turn off nginx. When I first tried to run certbot, I was thrown an error:</p>
-<div class="highlight"><pre><span></span>Problem binding to port 80: Could not bind to IPv4 or IPv6.
+<div class="highlight"><pre><span></span><span class="n">Problem</span> <span class="n">binding</span> <span class="k">to</span> <span class="n">port</span> <span class="mi">80</span><span class="p">:</span> <span class="n">Could</span> <span class="k">not</span> <span class="n">bind</span> <span class="k">to</span> <span class="n">IPv4</span> <span class="k">or</span> <span class="n">IPv6</span><span class="p">.</span>
 </pre></div>
 
 
 <p>Since we installed nginx earlier, and we confirmed that it's running, that means that port 80 is currently in use by nginx. We need to open up port 80 to certbot by temporarily shutting down nginx. Once nginx is stopped, we can run certbot and get our SSL certificate. We'll eventually have to restart nginx, but this can wait until after we change the nginx configuration file. If you are following along, make sure to change <code>notebooks.problemsolvingwithpython.com</code> to your domain.</p>
-<div class="highlight"><pre><span></span>$ sudo systemctl stop nginx
-$ sudo systemctl status nginx
-<span class="c1"># [Ctrl] + [c] to exit</span>
-$ ./certbot-auto certonly --standalone -d notebooks.problemsolvingwithpython.com
+<div class="highlight"><pre><span></span>$ <span class="nv">sudo</span> <span class="nv">systemctl</span> <span class="nv">stop</span> <span class="nv">nginx</span>
+$ <span class="nv">sudo</span> <span class="nv">systemctl</span> <span class="nv">status</span> <span class="nv">nginx</span>
+# [<span class="nv">Ctrl</span>] <span class="o">+</span> [<span class="nv">c</span>] <span class="nv">to</span> <span class="k">exit</span>
+$ .<span class="o">/</span><span class="nv">certbot</span><span class="o">-</span><span class="nv">auto</span> <span class="nv">certonly</span> <span class="o">--</span><span class="nv">standalone</span> <span class="o">-</span><span class="nv">d</span> <span class="nv">notebooks</span>.<span class="nv">problemsolvingwithpython</span>.<span class="nv">com</span>
 </pre></div>
 
 
 <p>If it worked and we got our SSL certificate, the output will be something like:</p>
-<div class="highlight"><pre><span></span>IMPORTANT NOTES:
- - Congratulations! Your certificate and chain have been saved at:
-   /etc/letsencrypt/live/notebooks.problemsolvingwithpython.com/fullchain.pem
-   Your key file has been saved at:
-   /etc/letsencrypt/live/notebooks.problemsolvingwithpython.com/privkey.pem
-   Your cert will expire on 2018-08-15. 
+<div class="highlight"><pre><span></span><span class="n">IMPORTANT</span> <span class="n">NOTES</span><span class="p">:</span>
+ <span class="o">-</span> <span class="n">Congratulations</span><span class="o">!</span> <span class="n">Your</span> <span class="n">certificate</span> <span class="k">and</span> <span class="k">chain</span> <span class="n">have</span> <span class="n">been</span> <span class="n">saved</span> <span class="k">at</span><span class="p">:</span>
+   <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">letsencrypt</span><span class="o">/</span><span class="n">live</span><span class="o">/</span><span class="n">notebooks</span><span class="p">.</span><span class="n">problemsolvingwithpython</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">fullchain</span><span class="p">.</span><span class="n">pem</span>
+   <span class="n">Your</span> <span class="k">key</span> <span class="n">file</span> <span class="n">has</span> <span class="n">been</span> <span class="n">saved</span> <span class="k">at</span><span class="p">:</span>
+   <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">letsencrypt</span><span class="o">/</span><span class="n">live</span><span class="o">/</span><span class="n">notebooks</span><span class="p">.</span><span class="n">problemsolvingwithpython</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">privkey</span><span class="p">.</span><span class="n">pem</span>
+   <span class="n">Your</span> <span class="n">cert</span> <span class="n">will</span> <span class="n">expire</span> <span class="k">on</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">15</span><span class="p">.</span> 
 </pre></div>
 
 
@@ -497,9 +498,9 @@ $ ls -l
 
 
 <p>Now if we list the contents of <code>~/srv/jupyterhub</code> we should see:</p>
-<div class="highlight"><pre><span></span>/srv/jupyterhub/
-├── jupyterhub_cookie_secret
-└── proxy_auth_token
+<div class="highlight"><pre><span></span><span class="o">/</span><span class="n">srv</span><span class="o">/</span><span class="n">jupyterhub</span><span class="o">/</span>
+<span class="err">├──</span> <span class="n">jupyterhub_cookie_secret</span>
+<span class="err">└──</span> <span class="n">proxy_auth_token</span>
 </pre></div>
 
 
@@ -649,10 +650,10 @@ $ jupyterhub --generate-config
 <p><br></p>
 <h3 id="7-restart-nginx-and-start-jupyterhub-see-if-we-can-login">7. Restart nginx and start jupyterhub, see if we can login</h3>
 <p>Now we'll restart nginx and start jupyterhub. Not that this time when we start jupyter hub we don't need to use the <code>--no-ssl</code> flag because we have SSL running on nginx. If it seems like nginx isn't working, try <code>$ sudo systemctl status nginx</code> and see if nginx really started. If it didn't, try the command <code>nginx -t</code>. This will print out any error messages if nginx failed to start. I had to do this many different times before I got nginx to work.</p>
-<div class="highlight"><pre><span></span>$ sudo systemctl stop nginx
-$ sudo systemctl start nginx
-$ sudo systemctl status nginx
-<span class="c1"># [ctrl-c] to exit</span>
+<div class="highlight"><pre><span></span>$ <span class="nv">sudo</span> <span class="nv">systemctl</span> <span class="nv">stop</span> <span class="nv">nginx</span>
+$ <span class="nv">sudo</span> <span class="nv">systemctl</span> <span class="nv">start</span> <span class="nv">nginx</span>
+$ <span class="nv">sudo</span> <span class="nv">systemctl</span> <span class="nv">status</span> <span class="nv">nginx</span>
+# [<span class="nv">ctrl</span><span class="o">-</span><span class="nv">c</span>] <span class="nv">to</span> <span class="k">exit</span>
 </pre></div>
 
 
@@ -671,8 +672,8 @@ $ jupyterhub
 
 
 <p>Go through the prompts and remember the UNIX password. Now we'll modify jupyterhub_conf.py to include our new user <code>kendra</code> and add <code>peter</code> (our non-root sudo user) as an administrator:</p>
-<div class="highlight"><pre><span></span>c.Authenticator.whitelist = {&#39;peter&#39;,&#39;kendra&#39;}
-c.Authenticator.admin_users = {&#39;peter&#39;}
+<div class="highlight"><pre><span></span><span class="k">c</span><span class="p">.</span><span class="n">Authenticator</span><span class="p">.</span><span class="n">whitelist</span> <span class="o">=</span> <span class="err">{</span><span class="s1">&#39;peter&#39;</span><span class="p">,</span><span class="s1">&#39;kendra&#39;</span><span class="err">}</span>
+<span class="k">c</span><span class="p">.</span><span class="n">Authenticator</span><span class="p">.</span><span class="n">admin_users</span> <span class="o">=</span> <span class="err">{</span><span class="s1">&#39;peter&#39;</span><span class="err">}</span>
 </pre></div>
 
 
@@ -693,27 +694,27 @@ c.Authenticator.admin_users = {&#39;peter&#39;}
 <section class="well" id="related-posts">
     <h4>Related Posts:</h4>
     <ul>
-        <li><a href="./first-live-results-running-jupyter-hub.html">First Live Results Running Jupyter Hub in a College Class</a></li>
-        <li><a href="./assignments-dir-and-custom-login-page-to-jupyterhub.html">Add a custom login page and assignments directory for each user on a Jupyter Hub server</a></li>
-        <li><a href="./add-google-oauth-and-system-service-to-jupyterhub.html">Adding Google OAuth and system service to a Jupyter Hub server</a></li>
-        <li><a href="./installing-jupyter-hub.html">Installing Jupyterhub</a></li>
-        <li><a href="./new-digital-ocean-droplet.html">Creating a new Digital Ocean Droplet</a></li>
+        <li><a href="/first-live-results-running-jupyter-hub.html">First Live Results Running Jupyter Hub in a College Class</a></li>
+        <li><a href="/assignments-dir-and-custom-login-page-to-jupyterhub.html">Add a custom login page and assignments directory for each user on a Jupyter Hub server</a></li>
+        <li><a href="/add-google-oauth-and-system-service-to-jupyterhub.html">Adding Google OAuth and system service to a Jupyter Hub server</a></li>
+        <li><a href="/installing-jupyter-hub.html">Installing Jupyterhub</a></li>
+        <li><a href="/new-digital-ocean-droplet.html">Creating a new Digital Ocean Droplet</a></li>
     </ul>
 </section>
 <section class="well" id="related-posts">
     <h4>Article 5 of the Jupyter Hub series</h4>
        <h5>Previous articles</h5>
        <ul>
-           <li><a href="./why-jupyter-hub.html">Why Jupyter Hub?</a></li>
-           <li><a href="./ssh-keys-with-putty.html">Create an SSH Key with PuTTYgen</a></li>
-           <li><a href="./new-digital-ocean-droplet.html">Creating a new Digital Ocean Droplet</a></li>
-           <li><a href="./installing-jupyter-hub.html">Installing Jupyterhub</a></li>
+           <li><a href="/why-jupyter-hub.html">Why Jupyter Hub?</a></li>
+           <li><a href="/ssh-keys-with-putty.html">Create an SSH Key with PuTTYgen</a></li>
+           <li><a href="/new-digital-ocean-droplet.html">Creating a new Digital Ocean Droplet</a></li>
+           <li><a href="/installing-jupyter-hub.html">Installing Jupyterhub</a></li>
        </ul>
        <h5>Next articles</h5>
        <ul>
-           <li><a href="./add-google-oauth-and-system-service-to-jupyterhub.html">Adding Google OAuth and system service to a Jupyter Hub server</a></li>
-           <li><a href="./assignments-dir-and-custom-login-page-to-jupyterhub.html">Add a custom login page and assignments directory for each user on a Jupyter Hub server</a></li>
-           <li><a href="./first-live-results-running-jupyter-hub.html">First Live Results Running Jupyter Hub in a College Class</a></li>
+           <li><a href="/add-google-oauth-and-system-service-to-jupyterhub.html">Adding Google OAuth and system service to a Jupyter Hub server</a></li>
+           <li><a href="/assignments-dir-and-custom-login-page-to-jupyterhub.html">Add a custom login page and assignments directory for each user on a Jupyter Hub server</a></li>
+           <li><a href="/first-live-results-running-jupyter-hub.html">First Live Results Running Jupyter Hub in a College Class</a></li>
        </ul>
 </section>
         </article>
@@ -724,7 +725,7 @@ c.Authenticator.admin_users = {&#39;peter&#39;}
             <aside>
 <div id="aboutme">
         <p>
-            <img width="100%" class="img-thumbnail" src="./extra/gear-wrench-icon-512-278694.png"/>
+            <img width="100%" class="img-thumbnail" src="/extra/gear-wrench-icon-512-278694.png"/>
         </p>
     <p>
       <strong>About Peter Kazarinoff</strong><br/>
@@ -738,46 +739,46 @@ c.Authenticator.admin_users = {&#39;peter&#39;}
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
-    <li class="list-group-item"><a href="./plotting-bond-energy-with-matplotlib-and-python.html">Plotting Bond Energy vs. Distance with Python and Matplotlib</a></li>
-    <li class="list-group-item"><a href="./upload-py-files-to-esp8266-running-micropython.html">How to upload .py-files onto an ESP8266 running MicroPython</a></li>
-    <li class="list-group-item"><a href="./creating-taylor-series-functions-with-python.html">Taylor Series in Python</a></li>
+    <li class="list-group-item"><a href="/plotting-bond-energy-with-matplotlib-and-python.html">Plotting Bond Energy vs. Distance with Python and Matplotlib</a></li>
+    <li class="list-group-item"><a href="/upload-py-files-to-esp8266-running-micropython.html">How to upload .py-files onto an ESP8266 running MicroPython</a></li>
+    <li class="list-group-item"><a href="/creating-taylor-series-functions-with-python.html">Taylor Series in Python</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
 
 <!-- Sidebar/Tag Cloud -->
 <li class="list-group-item">
-  <a href="./"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <a href="/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
   <ul class="list-group list-inline tagcloud" id="tags">
     <li class="list-group-item tag-2">
-      <a href="./tag/engineering.html">engineering</a>
+      <a href="/tag/engineering.html">engineering</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="./tag/esp8266.html">esp8266</a>
+      <a href="/tag/esp8266.html">esp8266</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="./tag/jupyter.html">jupyter</a>
+      <a href="/tag/jupyter.html">jupyter</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="./tag/jupyter-hub.html">jupyter hub</a>
+      <a href="/tag/jupyter-hub.html">jupyter hub</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="./tag/jupyter-notebooks.html">jupyter notebooks</a>
+      <a href="/tag/jupyter-notebooks.html">jupyter notebooks</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="./tag/matplotlib.html">matplotlib</a>
+      <a href="/tag/matplotlib.html">matplotlib</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="./tag/microcontroller.html">microcontroller</a>
+      <a href="/tag/microcontroller.html">microcontroller</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="./tag/micropython.html">micropython</a>
+      <a href="/tag/micropython.html">micropython</a>
     </li>
     <li class="list-group-item tag-1">
-      <a href="./tag/python.html">python</a>
+      <a href="/tag/python.html">python</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="./tag/sensor.html">sensor</a>
+      <a href="/tag/sensor.html">sensor</a>
     </li>
   </ul>
 </li>
@@ -789,11 +790,11 @@ c.Authenticator.admin_users = {&#39;peter&#39;}
   <ul class="list-group">
     <li class="list-group-item">
       <h5></i>Previous article</h5>
-      <a href="./installing-jupyter-hub.html">Installing Jupyterhub</a>
+      <a href="/installing-jupyter-hub.html">Installing Jupyterhub</a>
     </li>
     <li class="list-group-item">
       <h5>Next article</h5>
-      <a href="./add-google-oauth-and-system-service-to-jupyterhub.html">Adding Google OAuth and system service to a Jupyter Hub server</a>
+      <a href="/add-google-oauth-and-system-service-to-jupyterhub.html">Adding Google OAuth and system service to a Jupyter Hub server</a>
     </li>
   </ul>
 </li>
@@ -815,6 +816,8 @@ c.Authenticator.admin_users = {&#39;peter&#39;}
         </div>
     </div>
 </div>
+<!-- End Content Container -->
+
 <footer>
    <div class="container">
       <hr>
@@ -827,15 +830,15 @@ c.Authenticator.admin_users = {&#39;peter&#39;}
       </div>
    </div>
 </footer>
-<script src="./theme/js/jquery.min.js"></script>
+<script src="/theme/js/jquery.min.js"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="./theme/js/bootstrap.min.js"></script>
+<script src="/theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="./theme/js/respond.min.js"></script>
+<script src="/theme/js/respond.min.js"></script>
 
-    <script src="./static/js/custom.js"></script>
+    <script src="/static/js/custom.js"></script>
 
 
 <!-- GitHub JS Code -->
@@ -844,7 +847,7 @@ $(document).ready(function () {
   if (!window.jXHR) {
     var jxhr = document.createElement('script');
     jxhr.type = 'text/javascript';
-    jxhr.src = './theme/js/jXHR.js';
+    jxhr.src = '/theme/js/jXHR.js';
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(jxhr, s);
   }
@@ -857,7 +860,7 @@ $(document).ready(function () {
   });
 });
 </script>
-<script src="./theme/js/github.js" type="text/javascript"></script>
+<script src="/theme/js/github.js" type="text/javascript"></script>
 <!-- End GitHub JS Code -->
     <!-- Google Analytics -->
     <script type="text/javascript">

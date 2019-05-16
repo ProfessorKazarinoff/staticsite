@@ -328,3 +328,9 @@ fabric.properties
 # Anything in the output dir that Pelican builds #
 
 output/
+
+## Misc files
+.DS_Store
+pelican.pid
+server.pid
+__pycache__/

@@ -83,3 +83,12 @@ def gh_pages(c):
     c.run('ghp-import -b {github_pages_branch} '
           '-m {commit_message} '
           '{deploy_path} -p'.format(**CONFIG))
+@task
+def publishsite(c):
+    """Publish to GitHub Pages with a forced push"""
+    c.run('pelican content -s publishconf.py')
+    c.run('git add .')
+    c.run('git commit -m "published changes"')
+    c.run('git push origin master')
+    c.run('ghp-import output')
+    c.run('git push -f origin gh-pages')

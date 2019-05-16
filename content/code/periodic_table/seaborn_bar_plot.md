@@ -558,7 +558,7 @@ plt.show()
 ```
 
 
-![png](seaborn_bar_plot_files/seaborn_bar_plot_13_0.png)
+![png](#)
 
 
 Our final plot looks great! We created a bar chart with seabron and modified some of the plot elements. We took advantage of seaborn plots being matplotlib axis objects which allowed us to modify the plot further. We even added some fancy LaTeX to style a super script. The full code is below. 
@@ -584,5 +584,5 @@ plt.show()
 ```
 
 
-![png](seaborn_bar_plot_files/seaborn_bar_plot_15_0.png)
+![png](#)
 

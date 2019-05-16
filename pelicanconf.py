@@ -81,15 +81,22 @@ IPYNB_IGNORE_CSS = True  ###change back!!!!!!!!!!!!!
 #Plugins, extensions
 JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n']}
 PLUGINS = [
-    'i18n_subsites','series','tag_cloud',
-    'liquid_tags.img', 'liquid_tags.video', 'liquid_tags.youtube', 'liquid_tags.notebook',
+    'i18n_subsites',
+    'series',
+    'tag_cloud',
+    'liquid_tags.img',
+    'liquid_tags.video',
+    'liquid_tags.youtube',
+    'liquid_tags.notebook',
     'liquid_tags.vimeo',
     'liquid_tags.include_code',
     'pelican_javascript',
     'related_posts',
-    'render_math','tipue_search','pelican-ipynb.markup',
+    'render_math',
+    'tipue_search',
+    'pelican-ipynb.markup',
     'neighbors',
-    'bootswatch_markdown_css',] #'pelican_javascript','pelican-ipynb.markup', 'pelican-bootstrapify'
+    'bootswatch_markdown_css',] # 'pelican_javascript', 'pelican-bootstrapify'
 
 
 NOTEBOOK_DIR = 'posts'

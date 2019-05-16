@@ -104,7 +104,7 @@ Point a web browser to:
 
 See the Oregon Transfer App in all it's glory:
 
-![Transfer App home page]({filename}/posts/django/images/home_page_login_button.png)
+![Transfer App home page](#)
 
 Use [Ctrl]-[c] to shut down the development server
 
@@ -227,7 +227,7 @@ $ sudo apt-get upgrade
 
 When asked ```What would you like to do about modified configuration file grub?``` Type ```1``` to choose ```install the package maintainer's version``` 
 
-![What to do with grub file]({filename}/posts/django/images/what_to_do_with_grub_file.png)
+![What to do with grub file](#)
 
 After all the operating system and installed packages are upgraded, run the command ```sudo apt-get update``` again. You should see that updates are 100 percent complete.
 
@@ -478,7 +478,7 @@ Once everything works, browse to the IP address of the AWS instance. The IP addr
  
  You should see the following:
 
-![Django app running]({filename}/posts/django/images/django_app_running.png)
+![Django app running](#)
 
 The Django App is now running on AWS.
 
@@ -488,6 +488,6 @@ This deployment is not a permenent solution. The **BIG** reason we can't run the
 
 As it stands we don't have SSL running and we are allowing connections over regular http. We should only be using https.
 
-![Django Admin Login Screen]({filename}/posts/django/images/django_admin_login_screen.png)
+![Django Admin Login Screen](#)
 
 In addition, the Django admin is running and it may be possible for attackers to access our database or backend. Further development is needed before our Django App is running with the bare minimum of security. 

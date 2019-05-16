@@ -514,7 +514,7 @@ sns.barplot(data=df, palette="pastel")
 
 
 
-![png]({filename}/posts/seaborn_bar_plot_files/seaborn_bar_plot_7_1.png)
+![png](#)
 
 
 Now we can do a little more plot customization. First thing we are going to customize is the error bars. Seaborns sns.barplot() function will build a plot with the standard seaborn confidence interval as the length of the error bars. From my point of view, this gives a warped sense of confidence in the data. Instead of seaborns default confidence interval as the error bar length, let's use the standard deviation instead. The ci="sd" argument will set the confidence interval(ci) to the standard deviation(sd). We are also going style the error bars. I like caps on top of error bars. I think it makes it easier to see across and compare bar and error bar height. We'll add error bar caps with the errwidth=1 and capsize=0.1 arguments. errwidth is the line width of the error bars. Setting erridth to 1 will style the error bars to look like the line thickness in the rest of the plot. capsize=0.1 will set the error bar cap size to a good width. You can play around with different capsizes, but I like 0.1 for this plot.
@@ -526,7 +526,7 @@ plt.show()
 ```
 
 
-![png]({filename}/posts/seaborn_bar_plot_files/seaborn_bar_plot_9_0.png)
+![png](#)
 
 
 Next we are going to add some labels to the bar plot. We need to add an x-axis label which shows density and the units g/cm3. We are also going to add a title. Seabrons sns.barplot() function outputs standard matplotlib axis objects. If we assign the plot to an axis object variable (ax is a typical varaible name), we can then modify that axis using standard matplotlib methods. We'll use the ax.set_ylabel() method to add the y-axis label, and ax.set_title() to add a title to the plot.
@@ -540,7 +540,7 @@ plt.show()
 ```
 
 
-![png]({filename}/posts/seaborn_bar_plot_files/seaborn_bar_plot_11_0.png)
+![png](#)
 
 
 Now the y-axis is included on the plot, but it still looks a little funny. The units g/cm3 don't have the cubed (3) as a super script like it should be. Matplotlib allows LaTeX formatting in text. We'll use LaTeX formatting to make the cubed (3) a super script. To call LaTeX formating we surround the LaTeX expression in dollar signs ($). In LaTeX putting a number in superscript is done with the carrot character (^). 
@@ -554,7 +554,7 @@ plt.show()
 ```
 
 
-![png]({filename}/posts/seaborn_bar_plot_files/seaborn_bar_plot_13_0.png)
+![png](#)
 
 
 Our final plot looks great! We created a bar chart with seabron and modified some of the plot elements. We took advantage of seaborn plots being matplotlib axis objects which allowed us to modify the plot further. We even added some fancy LaTeX to style a super script. The full code is below. 
@@ -580,5 +580,5 @@ plt.show()
 ```
 
 
-![png]({filename}/posts/seaborn_bar_plot_files/seaborn_bar_plot_15_0.png)
+![png](#)
 

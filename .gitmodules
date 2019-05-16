@@ -6,3 +6,7 @@
 	path = pelican-themes
 	url = https://github.com/getpelican/pelican-themes
 	branch = master
+[submodule "extra-plugins/bootswatch_markdown_css"]
+	path = extra-plugins/bootswatch_markdown_css
+	url = https://github.com/yuex/bootswatch_markdown_css.git
+	branch = master

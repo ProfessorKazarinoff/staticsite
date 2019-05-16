@@ -36,7 +36,7 @@ Materials:
 Breadboard - various
 Jumper Wires - various. Better quality is worth it.
 
-![ESP-01 Regular Run Mode]({filename}/posts/micropython/esp8266_pwr_run_mode_fritzing_sketch_bb.png)
+![ESP-01 Regular Run Mode]({static}/posts/micropython/esp8266_pwr_run_mode_fritzing_sketch_bb.png)
 
 
 For regular running mode, pins from the ESP-01 need to be connected to:
@@ -80,7 +80,7 @@ To wire the ESP-01 in bootloader mode:
  * Power up the ESP-01
  * Touch RST to ground momentarily, then unplug RST.
 
-![ESP-01 Regular Run Mode]({filename}/posts/micropython/ESP-01_bootloader_mode_fritzing_sketch_bb.png)
+![ESP-01 Regular Run Mode]({static}/posts/micropython/ESP-01_bootloader_mode_fritzing_sketch_bb.png)
 
 ### ESP-01 Bootloader Mode
 
@@ -112,7 +112,7 @@ Now that the flash memory of the ESP-01 is cleared, we can upload the Micropytho
 
 Go to github and [download the latest .bin firmware](https://micropython.org/download#esp8266) file. The .bin firmware file is the version of Micropython that will run on an ESP-01 board. I got the regular version of the ESP8266 firmware (the ESP8266 firmware version that runs on the Adafruit Feather Huzzah and NodeMCU boards) to run on the ESP-01. The version of little ESP-01 board I'm using is from AI Tinker. The little boards are black and have 1MB of flash memory. Some ESP-01 boards have 512 kB of memory (it seems these are usually blue) and others have 1MB of memory (usually black?).
 
-![.bin firmware on github]({filename}/posts/micropython/firmware_download_page.PNG)
+![.bin firmware on github]({static}/posts/micropython/firmware_download_page.PNG)
 
 #### Flash the firmware onto the ESP-01
 
@@ -152,7 +152,7 @@ Open a PuTTY serial terminal session at 115200 baud and try the following comman
 
 Next, we'll see if we can get an LED to turn on and off using the ESP-01 and Micropython. Unplug the ESP-01 from the computer and power. Wire up an LED to GP2 thru a pull up resistor to ground. 
 
-![ESP-01 Regular Run Mode]({filename}/posts/micropython/esp8266_LED_fritzing_sketch_bb.png)
+![ESP-01 Regular Run Mode]({static}/posts/micropython/esp8266_LED_fritzing_sketch_bb.png)
 
 Connect the ESP-01 to the computer and power it up. Open PuTTY and try to turn the LED on and off with the following commands:
 

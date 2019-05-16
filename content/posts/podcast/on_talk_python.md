@@ -21,7 +21,7 @@ If you want to see how I deployed JupyterHub for my students, check out the docs
  > [https://professorkazarinoff.github.io/jupyterhub-engr101/](https://professorkazarinoff.github.io/jupyterhub-engr101/)
 
 
-[![docs]({filename}/posts/podcast/images/jupyterhub_deployment_docs.png)](https://professorkazarinoff.github.io/jupyterhub-engr101/)
+[![docs]({static}/posts/podcast/images/jupyterhub_deployment_docs.png)](https://professorkazarinoff.github.io/jupyterhub-engr101/)
 
 Before we started recording, I was excited and nervous. TalkPython is a show I listen to every time a new episode is released. Michael, the host of TalkPython, is an excellent, skilled and experienced interviewer. He made the recording process clear for me as a guest. 
 

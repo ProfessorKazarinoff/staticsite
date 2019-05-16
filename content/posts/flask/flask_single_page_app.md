@@ -6,15 +6,15 @@ Category: flask
 Tags: python, flask, thingspeak, mobile, IoT
 Slug: flask-app-on-digital-ocean
 Authors: Peter D. Kazarinoff
-Summary: In this post, we'll run through how to set up a single page [**flask**](http://flask.pocoo.org/docs/1.0/) app that shows a temperature pulled from [ThingSpeak.com](https://thingspeak.com/). ThingSpeak has nice looking graphs, but on ThingSpeak it is actually kind of hard to see the value of an individual data point. I want to be able to see the most recent temperature point recorded by my [ESP8266 WiFi weather station project]({filename}/posts/micropython/micropython_upload_code.md) on a phone or tablet. By building a flask app and hosting it on Digital Ocean, I can now view the current temperature in a nice big font from anywhere.
+Summary: In this post, we'll run through how to set up a single page [**flask**](http://flask.pocoo.org/docs/1.0/) app that shows a temperature pulled from [ThingSpeak.com](https://thingspeak.com/). ThingSpeak has nice looking graphs, but on ThingSpeak it is actually kind of hard to see the value of an individual data point. I want to be able to see the most recent temperature point recorded by my [ESP8266 WiFi weather station project]({static}/posts/micropython/micropython_upload_code.md) on a phone or tablet. By building a flask app and hosting it on Digital Ocean, I can now view the current temperature in a nice big font from anywhere.
 
-In this post, we'll run through how to set up a single page [**flask**](http://flask.pocoo.org/docs/1.0/) app that shows a temperature pulled from [ThingSpeak.com](https://thingspeak.com/). ThingSpeak has nice looking graphs, but on ThingSpeak it is actually kind of hard to see the value of an individual data point. I want to be able to see the most recent temperature point recorded by my [ESP8266 WiFi weather station project]({filename}/posts/micropython/micropython_upload_code.md) on a phone or tablet. By building a flask app and hosting it on Digital Ocean, I can now view the current temperature in a nice big font from anywhere.
+In this post, we'll run through how to set up a single page [**flask**](http://flask.pocoo.org/docs/1.0/) app that shows a temperature pulled from [ThingSpeak.com](https://thingspeak.com/). ThingSpeak has nice looking graphs, but on ThingSpeak it is actually kind of hard to see the value of an individual data point. I want to be able to see the most recent temperature point recorded by my [ESP8266 WiFi weather station project]({static}/posts/micropython/micropython_upload_code.md) on a phone or tablet. By building a flask app and hosting it on Digital Ocean, I can now view the current temperature in a nice big font from anywhere.
 
 [TOC]
 
 ## Set up a new Digital Ocean Droplet
 
-The flask app needs a server to run on. I choose [Digital Ocean](https://www.digitalocean.com/) as my cloud server provider. Digital Ocean hosts virtual private servers that run in the cloud. Setting up a server on Digital Ocean is pretty cheap ($5/month) and quick. I host [my **Jupyter Hub** server]({filename}/posts/jupyterhub/why_jupyter_hub.md) on Digital Ocean, so I am also more familiar with spinning up their servers compared to other cloud providers like Linode or AWS. I like their documentation. It is clear, concise and easy to follow. 
+The flask app needs a server to run on. I choose [Digital Ocean](https://www.digitalocean.com/) as my cloud server provider. Digital Ocean hosts virtual private servers that run in the cloud. Setting up a server on Digital Ocean is pretty cheap ($5/month) and quick. I host [my **Jupyter Hub** server]({static}/posts/jupyterhub/why_jupyter_hub.md) on Digital Ocean, so I am also more familiar with spinning up their servers compared to other cloud providers like Linode or AWS. I like their documentation. It is clear, concise and easy to follow. 
 
 To set up the server for the flask app, I created a new Droplet on Digital Ocean. After creating a new server, it is best practice to create a non-root sudo user.
 
@@ -24,7 +24,7 @@ Our [**flask**](http://flask.pocoo.org/docs/1.0/) single page web app built with
 
 To create a new cloud server, called a _Droplet_ in DigitalOcean-speak, create an account on Digital Ocean. Once logged in select Create --> Droplets in the upper right menu.
 
-![DO create new droplet]({filename}/posts/flask/DO_create_new_droplet.PNG)
+![DO create new droplet]({static}/posts/flask/DO_create_new_droplet.PNG)
 
 The Digital Ocean Droplet options I choose were:
 
@@ -32,7 +32,7 @@ The Digital Ocean Droplet options I choose were:
  * Size: Memory 1G, SSD 25 GB, Transfer 1 TB, Price $5/mo
  * Datacenter Region: San Fransisco 2
  * Additional Options: None
- * SSH keys: **Added all of [my saved SSH keys]({filename}/posts/jupyterhub/PuTTYgen_ssh_key.md). You need this to log into the server with PuTTY!**
+ * SSH keys: **Added all of [my saved SSH keys]({static}/posts/jupyterhub/PuTTYgen_ssh_key.md). You need this to log into the server with PuTTY!**
 
 Create the server with the big green [**Create**] button.
 
@@ -42,7 +42,7 @@ After the Droplet is created, note the IP address of the server. We'll need the 
 
 Our first interaction with the server is to log in as root. Then we'll create a non-root sudo user to interact with the server from then on out.
 
-Open PuTTY and log onto the server as root. See a [previous post]({filename}/posts/jupyterhub/new_DO_droplet.md) on how to set up PuTTY on Windows 10. To log into the server as root, set the following in PuTYY:
+Open PuTTY and log onto the server as root. See a [previous post]({static}/posts/jupyterhub/new_DO_droplet.md) on how to set up PuTTY on Windows 10. To log into the server as root, set the following in PuTYY:
 
  * Hostname (or IP Address): The IP address of the server
  * Port: 22
@@ -55,11 +55,11 @@ Open PuTTY and log onto the server as root. See a [previous post]({filename}/pos
      * Auth:
        * Private keyfile for Authentication: your saved private SSH key
 
-![PuTTY IP Address]({filename}/posts/jupyterhub/puTTY_IP_and_Port.png)
+![PuTTY IP Address]({static}/posts/jupyterhub/puTTY_IP_and_Port.png)
 
-![PuTTY IP Login name]({filename}/posts/jupyterhub/putty_login_details.png)
+![PuTTY IP Login name]({static}/posts/jupyterhub/putty_login_details.png)
 
-![PuTTY IP Login name]({filename}/posts/jupyterhub/putty_Auth_SSH_private_key.png)
+![PuTTY IP Login name]({static}/posts/jupyterhub/putty_Auth_SSH_private_key.png)
 
 ### Create a non-root sudo user
 
@@ -84,7 +84,7 @@ Now let's check if we can log into the server as the new user.
 
 Exit the PuTTY window by typing ```exit``` at the prompt. Open up a new SSH session in PuTTY. Set Connection --> Data --> Auto-login username as the non-root sudo user. (I put ```peter``` in the Auto-login username box).
 
-![PuTTY IP Login name]({filename}/posts/flask/peter_as_auto_login_username.png)
+![PuTTY IP Login name]({static}/posts/flask/peter_as_auto_login_username.png)
 
 When the terminal window opens, you should see your username listed before the prompt. At the prompt, try the following command. Note the dollar sign ```$``` does not need to be typed. The dollar sign ```$``` is there to indicate the command prompt.
 
@@ -108,13 +108,13 @@ I bought my domain name at [Google Domains](https://domains.google/) for $12/yea
 
 Once the domain is purchased, the domain's Name Server needs to be pointed at Digital Ocean.
 
-![Google Domains DNS Routing]({filename}/posts/jupyterhub/google_domains_dns_routing.png)
+![Google Domains DNS Routing]({static}/posts/jupyterhub/google_domains_dns_routing.png)
 
 ### Link the domain name to the server IP address
 
 On Digital Ocean, login and click [Create] --> [Domains/DNS]. Type in the newly purchased domain name in the box and click [Add Domain]. 
 
-![Digital Ocean Domains-DNS]({filename}/posts/jupyterhub/DO_manage_domains.png)
+![Digital Ocean Domains-DNS]({static}/posts/jupyterhub/DO_manage_domains.png)
 
 Link the new Domain to the Digital Ocean Droplet by typing in the ```@``` symbol in the [HOSTNAME] box and selecting the new Droplet name in the [WILL DIRECT TO] drop down box. Click [Create Record] to link the domain name to the server. You can also link ```www``` in the [HOSTNAME] box and select the new Droplet in the [WILL DIRECT TO] dropdown box to link ```www.yourdomain.com``` to the server.
 
@@ -140,7 +140,7 @@ $ sudo apt-get install build-essential libssl-dev libffi-dev
 
 ### Create a virtual environment and install **flask**
 
-Once the necessary libraries are installed, I created a virtual environment to run the flask app. I usually use **conda** to create virtual environments (see [this post]({filename}/posts/virtual_environments/new_virtualenv_conda.md)), but since I'm not using the Anaconda distribution of Python for this flask app, **venv** will have to do instead.
+Once the necessary libraries are installed, I created a virtual environment to run the flask app. I usually use **conda** to create virtual environments (see [this post]({static}/posts/virtual_environments/new_virtualenv_conda.md)), but since I'm not using the Anaconda distribution of Python for this flask app, **venv** will have to do instead.
 
 ```bash
 $ cd ~
@@ -202,7 +202,7 @@ It works! By pointing a browser to the Droplet IP address followed by ```:5000``
 
  > 124.822.76.209:5000
 
-![flask app no styling]({filename}/posts/flask/flask_app_no_template.png)
+![flask app no styling]({static}/posts/flask/flask_app_no_template.png)
 
 ## Set up uWSGI and systemctl
 
@@ -239,7 +239,7 @@ Next, let's test the configuration. **uWSGI** can be run from the command line w
 
 When I point a browser to the droplet IP address followed by ```:5000```, I see the simple message  again: "The temperature is 91.2 F". The flask app still seems to be working!
 
-![flask app no styling]({filename}/posts/flask/flask_app_no_template.png)
+![flask app no styling]({static}/posts/flask/flask_app_no_template.png)
 
 #### Construct the uWSGI configuration file
 
@@ -331,7 +331,7 @@ $ sudo apt-get install nginx
 
 ### Configure NGINX
 
-To use NGINX as part of the web stack, we need to create a configuration file in the ```/etc/nginx/sites-available/``` directory. The [Digital Ocean tutorial](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04) was really helpful for this step. NGINX configuration was something I struggled with when I built [my **Jupyter Hub** server]({filename}/posts/jupyterhub/why_jupyter_hub.md) .
+To use NGINX as part of the web stack, we need to create a configuration file in the ```/etc/nginx/sites-available/``` directory. The [Digital Ocean tutorial](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04) was really helpful for this step. NGINX configuration was something I struggled with when I built [my **Jupyter Hub** server]({static}/posts/jupyterhub/why_jupyter_hub.md) .
 
 ```bash
 $ sudo nano /etc/nginx/sites-available/flaskapp
@@ -371,7 +371,7 @@ Browse to the web address of the server. This time you won't need to append the 
 
  > http://mydomain.com/
 
-![flask app no styling]({filename}/posts/flask/flask_app_no_template.png)
+![flask app no styling]({static}/posts/flask/flask_app_no_template.png)
 
 ### Apply SSL Security
 
@@ -494,7 +494,7 @@ $ sudo systemctl start flaskapp
 $ sudo systemctl status flaskapp
 # [ctrl-c] to exit
 ```
-![temp inside]({filename}/posts/flask/temp_inside.png)
+![temp inside]({static}/posts/flask/temp_inside.png)
 
 
 ## Pull the temperature from ThingSpeak.com with **requests**
@@ -613,7 +613,7 @@ The final single page flask web app is complete!
 
 If everything is working correctly, you should see the working app running on your domain looks like this.
 
-![flask app running]({filename}/posts/flask/simple_index.png)
+![flask app running]({static}/posts/flask/simple_index.png)
 
 ## Summary
 
@@ -639,5 +639,5 @@ An incomplete list is below:
  
  That's a lot of stuff to go in one project. 
  
- The next thing I'm thinking about is building a **flask** IoT (internet of things) server that accepts GET requests from [ESP8266 weather stations]({filename}/posts/micropython/micropython_upload_code.md). ThingSpeak.com works great as an IoT sever, but there are limits to how often data can be posted and how often data can be accessed. I think writing my own IoT server in **flask** would be fun too!
+ The next thing I'm thinking about is building a **flask** IoT (internet of things) server that accepts GET requests from [ESP8266 weather stations]({static}/posts/micropython/micropython_upload_code.md). ThingSpeak.com works great as an IoT sever, but there are limits to how often data can be posted and how often data can be accessed. I think writing my own IoT server in **flask** would be fun too!
  

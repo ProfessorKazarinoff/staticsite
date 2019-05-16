@@ -41,15 +41,15 @@ Connect the [MCP9808 temperature sensor](https://www.adafruit.com/product/1782) 
 | SDA | green | SDA |
 | SCL | yellow | SCL |
 
-![Fritzing Image]({filename}/posts/micropython/feather_huzzah_temp_sensor_fritzing.png)
+![Fritzing Image]({static}/posts/micropython/feather_huzzah_temp_sensor_fritzing.png)
 
 ### 2. Connect the Adafruit Feather Huzzah to the computer with a USB cable and bring up the Micropython REPL using Putty.
 
 Connect the Adafruit Feather Huzzah to the computer with a microUSB cable. Ensure this is a data cable, not just a charging cable. Open Putty and connect to the Feather Huzzah using the proper serial port (COM#) and 115200 baud. (Remember to use the **Serial** radio button under **Connection Type:**)
 
-![Putty in start menu]({filename}/posts/micropython/putty_in_start_menu.png)
+![Putty in start menu]({static}/posts/micropython/putty_in_start_menu.png)
 
-![Putty config]({filename}/posts/micropython/putty_config.PNG)
+![Putty config]({static}/posts/micropython/putty_config.PNG)
 
 This should bring up the Micropython REPL prompt ```>>>```. If you can't see the ```>>>``` prompt, try typing [Enter], Ctrl-D, pushing the RESET button on the Feather Huzzah. If that doesn't work, try closing putty then unplugging then replugging the USB cable.
 

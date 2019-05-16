@@ -35,23 +35,23 @@ $ conda activate convenv
 
 Now that you are logged into GitHub.com, you need to browse to the project that you want to send the pull request to. In my case, the project I want to submit the pull request to is a project built to provide community college engineering transfer students a way to see how their community college classes transfer to 4-year Universities. A screen capture of the repo is below. Note that the repo you submit the pull request to is not a repo you own. The repo you submit the pull request to is a repo someone else owns.  
 
-![Repo to fork]({filename}/posts/git/images/repo_to_fork.png)
+![Repo to fork]({static}/posts/git/images/repo_to_fork.png)
 
 Next, you need to fork the repo from the user that owns it. Forking the repo means that a seperate copy of the repo ends up in your GitHub.com account. To fork someone else's repo into your GitHub.com account, click the [Fork] button in the upper right-hand side of the repo's main page
 
-![fork button]({filename}/posts/git/images/fork_button.png)
+![fork button]({static}/posts/git/images/fork_button.png)
 
 It will take a couple seconds for GitHub.com to complete the forking process. You may see a message like the one below:
 
-![fork button]({filename}/posts/git/images/forking_repo.png)
+![fork button]({static}/posts/git/images/forking_repo.png)
 
 When the forking process is complete, you are brought to your GitHub profile and in the main page of the forked repo. Note the username after ```github.com/``` is now your username and note that the page title contains ```YourUsername/Forked_Repo_Name``` at the top.
 
-![fork button]({filename}/posts/git/images/forked_repo_in_profile.png)
+![fork button]({static}/posts/git/images/forked_repo_in_profile.png)
 
 You can also go to your main GitHub.com page by clicking the "Profile" button (the square button in the upper right corner) or by browsing to ```github.com/username``` where ```username``` is your GitHub.com username
 
-![fork button]({filename}/posts/git/images/user_dropdown.png)
+![fork button]({static}/posts/git/images/user_dropdown.png)
 
 ## Download the forked repo onto your local machine
 

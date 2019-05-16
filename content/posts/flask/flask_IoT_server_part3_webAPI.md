@@ -188,7 +188,7 @@ $ sudo systemctl status flaskapp
 
 If we browse to the web address of the server, we should still see the same index template rendered.
 
-![flask app running]({filename}/posts/flask/simple_index.png)
+![flask app running]({static}/posts/flask/simple_index.png)
 
 But now if we go to the web address:
 

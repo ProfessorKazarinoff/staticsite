@@ -9,7 +9,7 @@ Authors: Peter D. Kazarinoff
 JavaScripts: table.js
 Stylesheets: table.css
 
-![Library Computer and Bookshelf]({filename}/posts/pswp_book/images/pswp_book_cover.jpg)
+![Library Computer and Bookshelf]({static}/posts/pswp_book/images/pswp_book_cover.jpg)
 
 My first book: [Problem Solving with Python 3.6 Edition](https://www.amazon.com/Problem-Solving-Python-3-6-open-source/dp/179381404X/ref=tmm_pap_swatch_0?_encoding=UTF8&qid=1548391706&sr=8-4) is available on Amazon. So excited about publishing my first book! Pick it up here: [Link to Amazon](https://www.amazon.com/Problem-Solving-Python-3-6-open-source/dp/179381404X/ref=tmm_pap_swatch_0?_encoding=UTF8&qid=1548391706&sr=8-4) 
 

@@ -7,7 +7,7 @@ Tags: python, engineering, statistics
 Slug: probability-under-normal-curve-with-python
 Authors: Peter D. Kazarinoff
 
-![gaussian_curve]({filename}/images/gaussian_curve.png)
+![gaussian_curve]({static}/images/gaussian_curve.png)
 
 Calculating the probability under a normal curve is useful for engineers. This type of calculation can be helpful to predict the likely hood of a part coming off an assembly line being within a given specification. The probability can be calculated when the statistical properties of all the parts that have come of the assembly line are known. 
 
@@ -29,7 +29,7 @@ The Python script we are going to build to solve the resistor problem above need
 
 Let's take a look at a Gaussian curve.
 
-![gaussian_curve]({filename}/images/gaussian_curve.png)
+![gaussian_curve]({static}/images/gaussian_curve.png)
 
 The shape of the curve describes the spread of resistors coming off the production line. We need to find the area under the curve within our upper and lower bounds to solve the problem.
 

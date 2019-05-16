@@ -7,7 +7,7 @@ Tags: python, arduino, serial, hardware, anaconda prompt
 Slug: python-arduino-LED
 Authors: Peter D. Kazarinoff
 
-![Python Logo and Arduino]({filename}/posts/arduino/images/python_logo_and_redboard_bb.png)
+![Python Logo and Arduino]({static}/posts/arduino/images/python_logo_and_redboard_bb.png)
 
 Python is used in many applications including data science, machine learning, and web development. Another area where we can use Python is external hardware control. What do I mean by external hardware? A piece of external hardware could be a light or a sensor. External hardware includes multimeters or spectral analyzers. I consider anything connected to a computer that isn't typically connected to a computer as external hardware. So not a keyboard, mouse, headphones, webcams, USB drives, but things like motors, light arrays, solenoids, linear actuators, pressure sensors, etc.  In this post, we'll review over how to use Python to control an LED that is connected to an Arduino. Python running on a computer will turn the Arduino LED on and off.
 
@@ -28,9 +28,9 @@ In this project, we are going to use a couple pieces of hardware. Below is the l
 
 ## Install PySerial
 
-To start a new Python project, it is best practice to create a new virtual environment. I have the **Anaconda distribution of Python** installed on my Windows 10 machine. When you [install **Anaconda**]({filename}/posts/installation/installing_anaconda_on_windows.md), it comes with the very useful **Anaconda Prompt**. Using the **Anaconda Prompt** is a bit like using the terminal on a MacOS or Linux. To start the **Anaconda Prompt** on Windows 10, go to the Windows Start Button on the lower left and select **Anaconda Prompt**.
+To start a new Python project, it is best practice to create a new virtual environment. I have the **Anaconda distribution of Python** installed on my Windows 10 machine. When you [install **Anaconda**]({static}/posts/installation/installing_anaconda_on_windows.md), it comes with the very useful **Anaconda Prompt**. Using the **Anaconda Prompt** is a bit like using the terminal on a MacOS or Linux. To start the **Anaconda Prompt** on Windows 10, go to the Windows Start Button on the lower left and select **Anaconda Prompt**.
 
-![anaconda in start menu]({filename}/images/anaconda_from_start_menu.png)
+![anaconda in start menu]({static}/images/anaconda_from_start_menu.png)
 
 Now using the **Anaconda Prompt**, let's create a new virtual environment for our Arduino LED project. Note the arrow symbol ```>``` does not need to be typed. The arrow symbol ```>``` is just shown to indicate the **Anaconda Prompt**.
 
@@ -78,7 +78,7 @@ Download the Arduino IDE using the following link:
 
 Scroll down the page to the Download the Arduino IDE section. Be sure to select: **Windows ZIP file for non-admin install** if you don't have the administrator privileges to install software on the computer you're using. You can choose **JUST DOWNLOAD** from the donation screen. Extract the downloaded .zip folder to your thumb drive or the desktop.
 
-![Arduino Download Page]({filename}/posts/arduino/images/arduino_download_page.png)
+![Arduino Download Page]({static}/posts/arduino/images/arduino_download_page.png)
 
 ## Wire an LED and a resistor to the Arduino
 
@@ -91,7 +91,7 @@ Take out an LED (any color), a 330 Ohm resistor, three jumper wires (red, yellow
 
 > [https://learn.sparkfun.com/tutorials/sparkfun-inventors-kit-experiment-guide---v40/circuit-1a-blink-an-led](https://learn.sparkfun.com/tutorials/sparkfun-inventors-kit-experiment-guide---v40/circuit-1a-blink-an-led)
 
-![Redboard LED Fritzing]({filename}/posts/arduino/images/redboard_LED_bb.png)
+![Redboard LED Fritzing]({static}/posts/arduino/images/redboard_LED_bb.png)
 
 ## Connect the Arduino to the computer and check the **COM** port
 
@@ -101,18 +101,18 @@ Now we need to determine which **COM Port** the Arduino is connected to. We will
 
 You can use the Windows Device Manager to determine which serial port the Arduino is connected to. On my Windows 10 laptop, the port the Arduino is connected to usually comes up as ```COM4```. You can find the serial port by looking in the **Ports (COM & LPT)** category of the Windows Device Manager. Look for something like **USB Serial Port (COM4)** in the **Ports (COM & LPT)** menu. It is the **COM#** that you are looking for.
 
-![Find Device Manager]({filename}/posts/micropython/find_device_manager.png)
+![Find Device Manager]({static}/posts/micropython/find_device_manager.png)
 
 In the picture below, I can see the **COM#** is **COM15** see **Ports (COM & LPT)** menu --> **USB Serial Port (COM15)**. Your **COM#** is likely to be different.
 
-![Device Manager Menu]({filename}/posts/arduino/images/device_manager_USB_Serial_Port_COM15.png)
+![Device Manager Menu]({static}/posts/arduino/images/device_manager_USB_Serial_Port_COM15.png)
 
 
 ## Upload the Arduino example sketch **Blink.ino** onto the Arduino. Confirm the Arduino and LED blinks
 
 Open the extracted Arduino IDE folder and double-click the **Arduino.exe** program. Open the Arduino **Blink.ino** sketch by going to: File --> Examples --> 01.Basics --> Blink
 
-![blink.ino in examples menu]({filename}/posts/arduino/images/blink_in_examples_menu.png)
+![blink.ino in examples menu]({static}/posts/arduino/images/blink_in_examples_menu.png)
 
 Now ensure that the **Port** and the **Board** type are set correctly in the Arduino IDE. In the Arduino IDE Tools menu, select the following:
 
@@ -121,9 +121,9 @@ Now ensure that the **Port** and the **Board** type are set correctly in the Ard
 
 In the Arduino IDE Window that contains the **Blink.ino** sketch, click the check mark to Verify then click the arrow to Upload. 
 
-![check to verify]({filename}/posts/arduino/images/Check_to_Verify.png)
+![check to verify]({static}/posts/arduino/images/Check_to_Verify.png)
 
-![arrow to upload]({filename}/posts/arduino/images/Arrow_to_Upload.png)
+![arrow to upload]({static}/posts/arduino/images/Arrow_to_Upload.png)
 
 Once the upload is complete, the Arduino and LED should blink on and off. If you don't see the Arduino and LED blinking, you need to do some troubleshooting. Check the **COM Port** or try unplugging and re-plugging in the Arduino. Also check the wiring. Ensure the two LED "legs" are wired correctly.
 
@@ -131,26 +131,26 @@ Once the upload is complete, the Arduino and LED should blink on and off. If you
 
 Open the Arduino sketch **PhysicalPixel.ino** by going to File --> Examples --> 04.Communication --> PhysicalPixel 
 
-   ![image name]({filename}/posts/arduino/images/physicalpixel_in_examples_menu.png)
+   ![image name]({static}/posts/arduino/images/physicalpixel_in_examples_menu.png)
 
 Once again, click the check mark to Verify then click the arrow to Upload. 
 
 
-   ![image name]({filename}/posts/arduino/images/Check_to_Verify.png)
+   ![image name]({static}/posts/arduino/images/Check_to_Verify.png)
 
-   ![image name]({filename}/posts/arduino/images/Arrow_to_Upload.png)
+   ![image name]({static}/posts/arduino/images/Arrow_to_Upload.png)
 
 
 ## Use the Arduino Serial Monitor to turn the Arduino LED on and off
 
 In the Arduino IDE Window that contains the **PhysicalPixel.ino** sketch, open the **Arduino Serial Monitor** by going to Tools --> Serial Monitor
 
-![image name]({filename}/posts/arduino/images/Tools_SerialMonitor.png)
+![image name]({static}/posts/arduino/images/Tools_SerialMonitor.png)
 
 
 In the Arduino Serial Monitor type: ```H``` and click Send (or press ENTER). Then type: ```L``` and click Send (or press ENTER). The letters ```H``` and ```L``` need to be uppercase. When you click Send or press ENTER, you should see the Arduino LED turn on and off. If have trouble, make sure the **Port** is set correctly in Tools --> Port and make sure the Serial Monitor is set to 9600 baud. You can also try unplugging and replugging in the Arduino and closing then reopening the Arduino IDE.
 
-![image name]({filename}/posts/arduino/images/SerialMonitor_H.png)
+![image name]({static}/posts/arduino/images/SerialMonitor_H.png)
 
 ## Use the Python REPL to turn the Arduino LED on and off.
 

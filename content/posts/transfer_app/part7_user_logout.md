@@ -144,23 +144,23 @@ Start the local server with:
 
 Browse to http://localhost:8000 and select the [Administrators] dropdown from the navigation bar at the top of the page. Click the [Login] link.
 
-![Home Page Login Link]({filename}/posts/transfer_app/images/home_page_login_menu.png)
+![Home Page Login Link]({static}/posts/transfer_app/images/home_page_login_menu.png)
 
 The login page should look something like this:
 
-![Login Page Login Link]({filename}/posts/transfer_app/images/login_page.png)
+![Login Page Login Link]({static}/posts/transfer_app/images/login_page.png)
 
 Login with the superuser username and password we created earlier.  After we login, we are directed back to the homepage. Now that we are logged in, if we click the [Administrators] nav menu item, we see an option to logout (where as before we saw an option to login). Cool!
 
-![Home Page Logout Link]({filename}/posts/transfer_app/images/home_page_logout_menu.png)
+![Home Page Logout Link]({static}/posts/transfer_app/images/home_page_logout_menu.png)
 
 If we click [Logout], we are directed to the logout page:
 
-![Logout Page]({filename}/posts/transfer_app/images/logout_page.png)
+![Logout Page]({static}/posts/transfer_app/images/logout_page.png)
 
 If we click the [Log in Again] link, we are directed back to the login page
 
-![Login Page]({filename}/posts/transfer_app/images/login_page.png)
+![Login Page]({static}/posts/transfer_app/images/login_page.png)
 
 Neat.
 
@@ -251,19 +251,19 @@ OK. Coding for logging in and out is complete. Let's see the results. Run the lo
 
 When the user is not logged in, the page looks like:
 
-![Logout Page]({filename}/posts/transfer_app/images/login_page.png)
+![Logout Page]({static}/posts/transfer_app/images/login_page.png)
 
 If we click the [Login] button on the upper right, we are brought to the login screen
 
-![Login Page]({filename}/posts/transfer_app/images/login_page.png)
+![Login Page]({static}/posts/transfer_app/images/login_page.png)
 
 After we log in, we are taken back to the homepage, but now the menu in the upper right shows our user name and has some additional options.
 
-![Home Page Logged in as Peter]({filename}/posts/transfer_app/images/home_page_logged_in_as_peter.png)
+![Home Page Logged in as Peter]({static}/posts/transfer_app/images/home_page_logged_in_as_peter.png)
 
 If will click [logout] from the drop down menu, we are brought back to log out screen and the button in the upper right has gone back to a login button. Awesome!
 
-![Home Page Logged in as Peter]({filename}/posts/transfer_app/images/logout_page_showing_login_button.png)
+![Home Page Logged in as Peter]({static}/posts/transfer_app/images/logout_page_showing_login_button.png)
 
 ## Build tests for logout pages
 

@@ -27,9 +27,9 @@ In this project, we are going to use a couple pieces of hardware. Below is the l
 
 ## Create a virtual environment and install PySerial
 
-To complete this Python project, it is best practice to use a virtual environment. I have the **Anaconda** distribution of Python installed on my Windows 10 machine (see [this post]({filename}/posts/installation/installing_anaconda_on_windows.md) on how to install Anaconda on Windows). In the [last post]({filename}/posts/arduino/python_arduino_LED.md), we reviewed how to create a new virtual enviromment called ```(arduino)```. Before we start this project, we will activate the ```(arduino)``` virtual environment and ensure that the **PySerial** package is installed. 
+To complete this Python project, it is best practice to use a virtual environment. I have the **Anaconda** distribution of Python installed on my Windows 10 machine (see [this post]({static}/posts/installation/installing_anaconda_on_windows.md) on how to install Anaconda on Windows). In the [last post]({static}/posts/arduino/python_arduino_LED.md), we reviewed how to create a new virtual enviromment called ```(arduino)```. Before we start this project, we will activate the ```(arduino)``` virtual environment and ensure that the **PySerial** package is installed. 
 
-![anaconda in start menu]({filename}/images/anaconda_from_start_menu.png)
+![anaconda in start menu]({static}/images/anaconda_from_start_menu.png)
 
 ```text
  > conda activate arduino
@@ -41,7 +41,7 @@ You know you are in the ```arduino``` virtual environment when ```(arduino)``` i
 (arduino) >
 ```
 
-To communicate with the Arudino using Python over a serial line, we need to have the **PySerial** package installed. In the [last post]({filename}/posts/arduino/python_arduino_LED.md) we installed **PySerial** from the **Anaconda Prompt** using the command ```conda install pyserial```.
+To communicate with the Arudino using Python over a serial line, we need to have the **PySerial** package installed. In the [last post]({static}/posts/arduino/python_arduino_LED.md) we installed **PySerial** from the **Anaconda Prompt** using the command ```conda install pyserial```.
 
 ```text
 (arduino) > conda install pyserial
@@ -60,13 +60,13 @@ To confirm that **PySerial** is installed in the ```(arduino)``` virual environm
 
 ## Download the Arduino IDE
 
-As shown in the [last post]({filename}/posts/arduino/python_arduino_LED.md), download and install the Arduino IDE found at the link below. 
+As shown in the [last post]({static}/posts/arduino/python_arduino_LED.md), download and install the Arduino IDE found at the link below. 
 
  > [https://www.arduino.cc/en/Main/Software](https://www.arduino.cc/en/Main/Software)
 
 If you are working on a company or school computer that won't allow you to install software, choose the **Windows ZIP file for non-admin install** option.
 
-![Arduino Download Page]({filename}/posts/arduino/images/arduino_download_page.png)
+![Arduino Download Page]({static}/posts/arduino/images/arduino_download_page.png)
 
 ## Wire the potentiometer and an LED to the Arduino
 
@@ -82,7 +82,7 @@ Take out the potentiometer, an LED (any color), a 330 Ohm resistor, five jumper 
 
  > [https://learn.sparkfun.com/tutorials/sparkfun-inventors-kit-experiment-guide---v40/circuit-1b-potentiometer](https://learn.sparkfun.com/tutorials/sparkfun-inventors-kit-experiment-guide---v40/circuit-1b-potentiometer)
 
-![Redboard LED Fritzing]({filename}/posts/arduino/images/redboard_LED_potentiometer_bb.png)
+![Redboard LED Fritzing]({static}/posts/arduino/images/redboard_LED_potentiometer_bb.png)
 
 ## Connect the Arduino to the computer and check the **COM** port
 
@@ -94,9 +94,9 @@ Now we need to determine which **COM Port** the Arduino is connected to. Later, 
 
 We can use the Windows Device Manager to determine which serial port the Arduino is connected to. On my Windows 10 laptop, the Arduino is usually connected to port ```COM15```. You can find the port number by looking in the **Ports (COM & LPT)** category of the Windows Device Manager. Look for something like **USB Serial Port (COM15)** in the **Ports (COM & LPT)** menu. It is the **COM#** that you are looking for. Remember your **COM#** will probably not be **COM15**.
 
-![Find Device Manager]({filename}/posts/micropython/find_device_manager.png)
+![Find Device Manager]({static}/posts/micropython/find_device_manager.png)
 
-![Device Manager Menu]({filename}/posts/arduino/images/device_manager_USB_Serial_Port_COM15.png)
+![Device Manager Menu]({static}/posts/arduino/images/device_manager_USB_Serial_Port_COM15.png)
 
 
 ## "Blink" the Arduino to confirm it is working
@@ -105,7 +105,7 @@ In the next step, we are going to upload the **Blink.ino** sketch to the Arduino
 
 Double-click the **Arduino.exe** program. Open the Arduino **Blink.ino** sketch by going to: File --> Examples --> 01.Basics --> Blink
 
-![blink.ino in examples menu]({filename}/posts/arduino/images/blink_in_examples_menu.png)
+![blink.ino in examples menu]({static}/posts/arduino/images/blink_in_examples_menu.png)
 
 Before we upload the **blink.ino** sketch to the Arduino, ensure that the **Port** and the **Board** type are set correctly in the Arduino IDE. In the Arduino IDE Tools menu, select the following:
 
@@ -114,9 +114,9 @@ Before we upload the **blink.ino** sketch to the Arduino, ensure that the **Port
 
 In the Arduino IDE Window that contains the **Blink.ino** sketch, click the check mark to Verify then click the arrow to Upload. 
 
-![check to verify]({filename}/posts/arduino/images/Check_to_Verify.png)
+![check to verify]({static}/posts/arduino/images/Check_to_Verify.png)
 
-![arrow to upload]({filename}/posts/arduino/images/Arrow_to_Upload.png)
+![arrow to upload]({static}/posts/arduino/images/Arrow_to_Upload.png)
 
 Once the upload is complete, the Arduino and LED should blink on and off. 
 
@@ -156,9 +156,9 @@ The **potentiometer.ino** sketch above reads the value off of the potentiometer 
 
 After the **potentiometer.ino** sketch is saved, the sketch needs to be uploaded onto the Arduino. In the Arduino IDE window that contains the potentiometer **potentiometer.ino** sketch, click the check mark to Verify then click the arrow to Upload.
 
-![check to verify]({filename}/posts/arduino/images/Check_to_Verify.png)
+![check to verify]({static}/posts/arduino/images/Check_to_Verify.png)
 
-![arrow to upload]({filename}/posts/arduino/images/Arrow_to_Upload.png)
+![arrow to upload]({static}/posts/arduino/images/Arrow_to_Upload.png)
 
 ## Twist the little blue potentiometer to turn the LED connected to the Arduino on and off
 
@@ -170,11 +170,11 @@ After the **potentiometer.ino** sketch is uploaded on the Arduino, twist the sma
 
 In the Arduino IDE, open the Arduino Serial Monitor by selecting Tools $\rightarrow$ Serial Monitor. 
 
-![Arduino IDE Tools menu Serial Monitor]({filename}/posts/arduino/images/Tools_SerialMonitor.png)
+![Arduino IDE Tools menu Serial Monitor]({static}/posts/arduino/images/Tools_SerialMonitor.png)
 
 If the **potentiometer.ino** sketch is working properly, you will see numbers scrolling down the Arduino Serial Monitor. Twist the little blue potentiometer back and forth and watch the numbers scrolling down the Arduino Serial Monitor change.
 
-![Arduino Serial Monitor]({filename}/posts/arduino/images/serial_monitor_output.png)
+![Arduino Serial Monitor]({static}/posts/arduino/images/serial_monitor_output.png)
 
 Now close the Serial Monitor. The Arduino Serial Monitor and Arduino Serial Plotter can not communicate with the Arduino at the same time.
 
@@ -182,11 +182,11 @@ Now close the Serial Monitor. The Arduino Serial Monitor and Arduino Serial Plot
 
 In the Arduino IDE, open the Arduino Serial Plotter by selecting Tools --> Serial Plotter. 
 
-![Arduino IDE Tools menu SerialPlotter]({filename}/posts/arduino/images/Tools_SerialPlotter.png)
+![Arduino IDE Tools menu SerialPlotter]({static}/posts/arduino/images/Tools_SerialPlotter.png)
 
 You should see a plot with a moving line in the Arduino Serial Plotter. Twist the little blue potentiometer back and forth and observe the line on the plot move up and down. 
 
-![Arduino Serial Plotter Output]({filename}/posts/arduino/images/serial_plotter_output.png)
+![Arduino Serial Plotter Output]({static}/posts/arduino/images/serial_plotter_output.png)
 
 Once you can successfully move the plotting line up and down in the Serial Plotter, close the Serial Plotter Window. If the Serial Plotter isn't working correctly, make sure the COM port is set correctly in the Arduino IDE. The Arduino Serial Monitor and Arduino Serial Plotter can not be open at the same time. Both the Arduino Serial Monitor and the Arduino Serial Plotter need need to be closed before Python can communicate with the Arduino. 
 
@@ -376,7 +376,7 @@ plt.show()
 
 Run the **potentiometer.py** script and turn the blue potentiometer back and forth. You will see numbers running down the screen and then a plot pops up that looks kind of like the plot below. Note the line on your plot will look different, but the title and axis labels should look the same.
 
-![matplotlib potentiometer plot]({filename}/posts/arduino/images/matplotlib_potentiometer_plot.png)
+![matplotlib potentiometer plot]({static}/posts/arduino/images/matplotlib_potentiometer_plot.png)
 
 Fantastic! We used Python to read a sensor! When the Python script is run and the potentiometer is dailed back and forth, we see a plot of the potentiometer reading over time.
 

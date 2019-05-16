@@ -9,7 +9,7 @@ Authors: Peter D. Kazarinoff
 JavaScripts: table.js
 Stylesheets: table.css
 
-![Library Computer and Bookshelf]({filename}/posts/resources/images/computer_in_library.png)
+![Library Computer and Bookshelf]({static}/posts/resources/images/computer_in_library.png)
 
 This post is a short list of my recommended Python learning resources. I received an email from someone who found this blog and [my GitHub repo](https://github.com/ProfessorKazarinoff) and asked about the right place to go to start learning Python. The list of resources in this post comes from the email I sent back. I want to share these Python resources with everyone reading this blog.
 

@@ -21,13 +21,13 @@ In the next couple of posts, I'm going to demonstrate how I built an Internet-of
 
 I have two ESP8266-based WiFi weather stations. These little devices are part of the Internet-of-Things. The little WiFi weather stations cost about $20 each and run on very little power. The weather stations are made up of an ESP8266 microcontroller and a temperature sensor connected with jumper wires and a bread board. The ESP8266-based WiFi weather stations beam temperature measurements up to servers in the cloud. These WiFi weather stations are _IoT devices_.
 
-![ESP8266-based WiFi weather station]({filename}/posts/flask/esp8266-based_wifi_weather_station.jpg)
+![ESP8266-based WiFi weather station]({static}/posts/flask/esp8266-based_wifi_weather_station.jpg)
 
 ### IoT Servers
 
-Servers that interact with Internet-of-Things devices (like my ESP8266-based WiFi weather stations) are called Internet-of-Things servers or _IoT servers_. IoT servers communicate with _IoT devices_.  At the start of this project, the ESP8266-based WiFi weather stations communicated with ThingSpeak.com IoT servers. The WiFi weather stations send temperature measurements up to the ThingSpeak.com IoT servers where the data is saved. In a [previous post]({filename}/posts/flask/flask_single_page_app.md) I described how to build a **flask** single page web app that pulls temperature data from the ThingSpeak.com IoT servers using a web API.
+Servers that interact with Internet-of-Things devices (like my ESP8266-based WiFi weather stations) are called Internet-of-Things servers or _IoT servers_. IoT servers communicate with _IoT devices_.  At the start of this project, the ESP8266-based WiFi weather stations communicated with ThingSpeak.com IoT servers. The WiFi weather stations send temperature measurements up to the ThingSpeak.com IoT servers where the data is saved. In a [previous post]({static}/posts/flask/flask_single_page_app.md) I described how to build a **flask** single page web app that pulls temperature data from the ThingSpeak.com IoT servers using a web API.
 
-![flask app simple index]({filename}/posts/flask/simple_index.png)
+![flask app simple index]({static}/posts/flask/simple_index.png)
 
 ## The Problem 
 
@@ -57,7 +57,7 @@ In practice, when I power up both ESP8266-based WiFi weather stations, it is har
 
 I propose to solve this problem by building my own Internet-of-Things server with **flask** and Python. With my own IoT server, _I_ can set the limit of how often devices (WiFi weather stations) can post data points. Since I only have two weather stations, the IoT server can accept data points at a faster rate than every 15 seconds. 
 
-In addition to solving a problem, this project also interests me. I already built a [single page web app with **flask** and Python]({filename}/posts/flask/flask_single_page_app.md). How can this previous project be taken further? One way of extending the previous project is to turn the single page web app into an IoT server.
+In addition to solving a problem, this project also interests me. I already built a [single page web app with **flask** and Python]({static}/posts/flask/flask_single_page_app.md). How can this previous project be taken further? One way of extending the previous project is to turn the single page web app into an IoT server.
 
 ### IoT Server Requirements
 

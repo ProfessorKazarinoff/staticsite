@@ -20,7 +20,7 @@ In order to add an inset curve on a Matplotlib plot, we need to make sure we hav
 
 To get going, let's log into our virutal environment using the Anaconda Prompt.
 
-![conda prompt on windows start menu]({filename}/images/conda_in_windows_start_menu.png)
+![conda prompt on windows start menu]({static}/images/conda_in_windows_start_menu.png)
 
 
 Once you have the Anaconda Prompt open, type the following command to log into your virtual environment:
@@ -82,13 +82,13 @@ plt.grid(True)
 plt.show()
 ```
 
-![stress strain curve]({filename}/images/stress_strain_curve3.png)
+![stress strain curve]({static}/images/stress_strain_curve3.png)
 
 Let's zoom into the linear elastic region, that's the region on the left-hand side of the curve where the plot is linear. In this region there is a direct relationship between stress and strain. The constant that relates stress and strain (the change in stress over the change in strain in the linear elastic region) is the elastic modulus E. The equation below shows the relationship:
 
 E = delta_Stress / delta_Strain
 
-![linear elastic region]({filename}/images/linear_elastic_region.png)
+![linear elastic region]({static}/images/linear_elastic_region.png)
 
 To add this plot onto our main plot, we need to add the following to our **_tensiletest.py_** script:
 
@@ -102,7 +102,7 @@ plt.ylim(0, 40)
 ```
 
 This outputs the plot below:
-![linear elastic region]({filename}/posts/matplotlib/images/stress_strain_with_inset.png)
+![linear elastic region]({static}/posts/matplotlib/images/stress_strain_with_inset.png)
 
 The entire Python script including the section to add the inset curve is below.
 

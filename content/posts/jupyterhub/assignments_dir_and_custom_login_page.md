@@ -14,18 +14,18 @@ This is the seventh part of a multi-part series that shows how to set up Jupyter
 
 ### Posts in this series
 
-1. [Why Jupyter Hub?]({filename}/posts/jupyterhub/why_jupyter_hub.md)
-2. [Create ssh key, save to documents/ssh-keys]({filename}/posts/jupyterhub/PuTTYgen_ssh_key.md)
-3. [Create a new Digital Ocean Droplet with a non-root sudo user]({filename}/posts/jupyterhub/new_DO_droplet.md)
-4. [Install Jupyter Hub on the server]({filename}/posts/jupyterhub/installing_jupyterhub.md)
-5. [Apply SSL, link a domain name to the server and configure nginx]({filename}/posts/jupyterhub/SSL_and_nginx_with_jupyterhub.md)
-6. [Connect OAuth to Jupyter Hub]({filename}/posts/jupyterhub/authentication_and_jupyterhub_as_a_system_service.md)
+1. [Why Jupyter Hub?]({static}/posts/jupyterhub/why_jupyter_hub.md)
+2. [Create ssh key, save to documents/ssh-keys]({static}/posts/jupyterhub/PuTTYgen_ssh_key.md)
+3. [Create a new Digital Ocean Droplet with a non-root sudo user]({static}/posts/jupyterhub/new_DO_droplet.md)
+4. [Install Jupyter Hub on the server]({static}/posts/jupyterhub/installing_jupyterhub.md)
+5. [Apply SSL, link a domain name to the server and configure nginx]({static}/posts/jupyterhub/SSL_and_nginx_with_jupyterhub.md)
+6. [Connect OAuth to Jupyter Hub]({static}/posts/jupyterhub/authentication_and_jupyterhub_as_a_system_service.md)
 7. **Add a custom login page and assignments directory for each user on a Jupyter Hub server** (this post)
 
 
 ### Last time
 
-In the [last post]({filename}/posts/jupyterhub/authentication_and_jupyterhub_as_a_system_service.md), we set **JupyterHub** to run as a system service in the background on our server. Then we added tried two different login systems: github and google. The github authentication system allowed user to log in with github usernames and passwords. The google authentication system allowed users to log in with their college usernames and passwords. Then we modified the **_jupyterhub_config.py_** file to all the creation of new users on the server even if the new usernames contained a dot.
+In the [last post]({static}/posts/jupyterhub/authentication_and_jupyterhub_as_a_system_service.md), we set **JupyterHub** to run as a system service in the background on our server. Then we added tried two different login systems: github and google. The github authentication system allowed user to log in with github usernames and passwords. The google authentication system allowed users to log in with their college usernames and passwords. Then we modified the **_jupyterhub_config.py_** file to all the creation of new users on the server even if the new usernames contained a dot.
 
 ### Steps in this post:
 

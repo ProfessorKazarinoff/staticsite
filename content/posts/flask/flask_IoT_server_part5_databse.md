@@ -9,7 +9,7 @@ Authors: Peter D. Kazarinoff
 Series: Building an IoT Server with Flask and Python
 Series_index: 5
 
-![two temps shown]({filename}/posts/flask/updated_double_temp.png)
+![two temps shown]({static}/posts/flask/updated_double_temp.png)
 
 This is the fifth part of a series of posts about building an Internet of Things (IoT) server with **flask**, Python and ESP8266 microcontrollers. In this post, we'll add a sqlite3 database to our **flask** IoT server to store all the temperature data points that come in from our ESP8266-based WiFi weather stations. We will also build out the main page of the **flask** IoT server site to display the most recent data points pulled from the database.
 
@@ -180,19 +180,19 @@ Let's try uploading a datapoint to the server using a valid URL. This GET reques
 
 > https://mydomain.com/update/API_key=DTLZ3LBY/mac=5m:ct:7f:3b:0d:a8/field=1/data=30
 
-![two temps shown]({filename}/posts/flask/temp_upload_30.png)
+![two temps shown]({static}/posts/flask/temp_upload_30.png)
 
 Now let's upload another data point, this time using ```field=2``` and ```data=15.2```.
 
 > https://mydomain/update/API_key=DTLZ3LBY/mac=5m:ct:7f:3b:0d:a8/field=2/data=15.2
 
-![two temps shown]({filename}/posts/flask/temp_upload_152.png)
+![two temps shown]({static}/posts/flask/temp_upload_152.png)
 
 Now let's browse to the home page of the server and view the temperatures which were saved to the database.
 
 > https://mydomain.com
 
-![two temps shown]({filename}/posts/flask/updated_double_temp.png)
+![two temps shown]({static}/posts/flask/updated_double_temp.png)
 
 ## Summary
 

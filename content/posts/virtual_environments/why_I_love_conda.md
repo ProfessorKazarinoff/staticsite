@@ -11,7 +11,7 @@ Summary: This post is a love letter of sorts to the conda prompt. All the reason
 ### The conda prompt works in Windows
 Conda prompt, how I love thee. Conda prompt, you work on windows. My machine at work is a Windows 10 Desktop. From the windows start menu it always available:
 
-![conda prompt on windows start menu]({filename}/images/conda_in_windows_start_menu.png)
+![conda prompt on windows start menu]({static}/images/conda_in_windows_start_menu.png)
 
 ### The conda prompt works in Windows Locked down by your IT Department
 

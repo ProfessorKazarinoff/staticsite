@@ -7,6 +7,6 @@ Tags: python, matplotlib, math, plotting, functions, loops
 Slug: creating-taylor-series-functions-with-python
 Authors: Peter D. Kazarinoff
 
-![plot of Taylor Series]({filename}/posts/functions/images/taylor.png)
+![plot of Taylor Series]({static}/posts/functions/images/taylor.png)
 
 {% notebook ../code/functions/taylor_series_functions.ipynb %}

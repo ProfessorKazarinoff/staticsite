@@ -244,7 +244,7 @@ Now if we go to the web address:
 
  You should see the the 403 error template rendered. Because the URL above is an invalid URL. It does not contain a valid API key or mac address.
 
- ![flask app running]({filename}/posts/flask/403error.png)
+ ![flask app running]({static}/posts/flask/403error.png)
 
  But if you go to the web address:
 
@@ -252,7 +252,7 @@ Now if we go to the web address:
 
  You should see the **_showrecent.html_** template rendered. This URL contains a valid API and mac address.
 
-![flask app running]({filename}/posts/flask/showrecent.png)
+![flask app running]({static}/posts/flask/showrecent.png)
 
 ## Summary
 

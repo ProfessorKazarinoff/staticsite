@@ -76,7 +76,7 @@ staticsite/
 
 Up to this point, the top of our site has a menu item for [This site], which isn't very useful.  
 
-![pelican-bootstrap3_this_site_menu.png]({filename}/images/pelican-bootstrap3_this_site_menu.png)
+![pelican-bootstrap3_this_site_menu.png]({static}/images/pelican-bootstrap3_this_site_menu.png)
 
 We are going to add two new menu items that link to two new _pages_. These new menu items will be [About] and [Book]. First we'll create a **pages** folder in the **staticsite/content** directory
 

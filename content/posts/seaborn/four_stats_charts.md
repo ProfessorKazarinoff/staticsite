@@ -12,7 +12,7 @@ Error bars are useful in engineering to show the confidence or precision in a se
 
 The finished compilation of the charts is shown below. The bar graph is on the top followed by the historgram, box plot and violin plot.
 
-![plot with error bars]({filename}/images/bar_plot_with_error_bars.png)
+![plot with error bars]({static}/images/bar_plot_with_error_bars.png)
 
 To build these plots, we will use the dataset below. The data is in a .csv file and has three columns. The data represents the density of four different shaped blocks from Ikea. The idea is to see if the density of each shape is different. If the density of each shape is different, one possible theory is that the shapes are made of different types of wood. We will use the statistics plots to help us visualize the problem. Each shape has about 100 density measurements. The first column is for rectangles, the second column is for squares the third column is triagles and the fourth column is squares. All of the density measurements are in units of $g/cm^3$.  The .csv file looks something like below:
  
@@ -32,7 +32,7 @@ In order to build our first plot, we need to fire up a new virtual environment w
 To get going, we'll use the **conda prompt** to create a new virtual environment. Select **Anaconda Prompt** from the windows start menu.
 The install the modules using ```conda install```. I like using the Anaconda distribution of Python because it makes creating and managing virtual environments easy on the three major computing platforms
 
-![conda prompt on windows start menu]({filename}/images/conda_in_windows_start_menu.png)
+![conda prompt on windows start menu]({static}/images/conda_in_windows_start_menu.png)
 
 ```
 (C:\Users\peter.kazarinoff\AppData\Local\Continuum\Anaconda3) C:\Users\peter.kazarinoff>conda create -n plotenv
@@ -70,7 +70,7 @@ With the virtual environment set up and the packages installed, we can move on t
 The first plot we will create is a bar chart with error bars. 
 Open a new Python script called ***bar_plot.py***. At the top of the script we need to import pandas matplotlib and seaborn. 
 
-![panda_doodle]({filename}/images/panda_doodle.png)
+![panda_doodle]({static}/images/panda_doodle.png)
 
 We'll use pandas to read in the data from the .csv file, seaborn to build the plot and matplot lib to display it. 
 
@@ -87,7 +87,7 @@ import seaborn as sns
 Next we need to read in our data. We will use ```pandas``` to do this, specifically the ```pd.read_csv()``` function. It is common practice to import ```pandas``` as ```pd```. With that as our import line, we only need to call ```pd``` before pandas methods and functions.  ```df``` is a common variable name to give a pandas dataframe. 
 
 a dada frame?
-![dada_frame]({filename}/images/dada_frame.png)
+![dada_frame]({static}/images/dada_frame.png)
 
 The pandas dataframe is a python object that is a little like a microsoft excel file. Data frames have columns and rows and is the perfect object type to store our data in from our .csv file.
 
@@ -119,7 +119,7 @@ ax.set_title('Density of IKEA wood blocks organized by shape')
 
 The final plot looks like this:
 
-![plot with error bars]({filename}/images/seaborn_error_bar_plot.png)
+![plot with error bars]({static}/images/seaborn_error_bar_plot.png)
 
 The full script is shown below:
 

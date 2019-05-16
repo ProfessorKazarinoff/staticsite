@@ -25,13 +25,13 @@ Summary of Steps:
 
 Wire up the [MCP9808 temperature sensor](https://www.adafruit.com/product/1782) to the [Adafruit Feather Huzzah ESP8266](https://www.adafruit.com/product/2821) as shown in a [previous post]({filename}micropython_temp_sensor.md).
 
-![Fritzing Diagram]({filename}/posts/micropython/feather_huzzah_temp_sensor_fritzing.png)
+![Fritzing Diagram]({static}/posts/micropython/feather_huzzah_temp_sensor_fritzing.png)
 
 ### 2. Use PuTTY to connect to the Adafruit Feather Huzzah ESP8266 board
 
 Connect the Feather to the computer using a USB data cable. Open PuTTY. Ensure the serial port (Serial line) is set correctly and the baud rate (speed) is set to 115200.
 
-![Putty config]({filename}/posts/micropython/putty_config.PNG)
+![Putty config]({static}/posts/micropython/putty_config.PNG)
 
 ### 3. Run commands at the Micropython REPL to connect the Feather board to WiFi
 
@@ -67,7 +67,7 @@ Now that the Feather board is connected to a WiFi network, we can use the board 
 
 Now imagine our weather station is up and working and reads a temperature of 21 &deg;C. We are going to push this temperature data reading (21 &deg;C) up to [ThingSpeak.com](https://thingspeak.com/). ThingSpeak.com is an Internet of Things (IoT) cloud service provider. We'll  upload the temperature to ThingSpeak.com using an http GET request in the format required by the [ThingSpeak web API](https://www.mathworks.com/help/thingspeak/rest-api.html).
 
-![ThingSpeak.com Homepage]({filename}/posts/micropython/ThingSpeak_homepage.png)
+![ThingSpeak.com Homepage]({static}/posts/micropython/ThingSpeak_homepage.png)
 
 Sign up for an account on [ThingSpeak.com](https://thingspeak.com/)  and create a new channel. In the ThingSpeak channel, create a new field called ```temperature```. Note the **ThingSpeak channel number** and **ThingSpeak write API key**. The write API key will be needed to send our temperature up to ThingSpeak.com and the channel number is needed to view the temperature.
 

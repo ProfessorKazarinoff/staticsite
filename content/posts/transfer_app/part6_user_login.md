@@ -181,11 +181,11 @@ Start the local server with:
 
 Browse to http://localhost:8000 and select the [Administrators] dropdown from the navigation bar at the top of the page. Click the [Login] link.
 
-![Home Page Login Link]({filename}/posts/transfer_app/images/home_page_login_menu.png)
+![Home Page Login Link]({static}/posts/transfer_app/images/home_page_login_menu.png)
 
 The login page should look something like this:
 
-![Login Page Login Link]({filename}/posts/transfer_app/images/home_page_login_menu.png)
+![Login Page Login Link]({static}/posts/transfer_app/images/home_page_login_menu.png)
 
 Login with the superuser username and password we created earlier.  Problem is, when we click [Login], we get a Page not found error. Django is trying to direct us to the accounts/profile url, but this page doesn't exist. For right now, let's direct users back to the homepage when they login. We can specify where users go after they login by specifying ```LOGIN_REDIRECT_URL = ``` in our transfer_project/settings.py file. At the bottom of the settings.py file, include the extra two lines at the bottom below the ```CRISPY_TEMPLATE_PACK``` line.
 
@@ -202,7 +202,7 @@ LOGIN_URL = 'login'
 
 Now go back to the login page, log in again and see we are directed back to the homepage.
 
-![Login Page Login Link]({filename}/posts/transfer_app/images/home_page_after_login.png)
+![Login Page Login Link]({static}/posts/transfer_app/images/home_page_after_login.png)
 
 ## Build tests for login page
 

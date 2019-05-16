@@ -7,7 +7,7 @@ Tags: python, matplotlib, engineering, materials science
 Slug: python-matplotlib-stress-strain
 Authors: Peter Kazarinoff
 
-![stress strain curve 3]({filename}/images/stress_strain_curve3.png)
+![stress strain curve 3]({static}/images/stress_strain_curve3.png)
 
 Plotting stress strain curves is a useful skill in mechanical engineering because it allows Engineers to derive mechanical properties of materials such as tensile strength, elastic modulus, yield strength and ductility. Plotting stress strain curves can be accomplished with Excel and MATLAB, but what about plotting stress strain curves with Python? Follow along to find out.
 
@@ -21,7 +21,7 @@ In this post, we'll plot the stress strain curve of Aluminum 6061 - T6 from raw 
 
 As a first step, we should create a a new virtual environment. Python virtual environments are useful because they create an isolated environment that our Python script will run in. Let's call our virtual environment tensiletest. I'm using **conda** to create the virtual environment. Select **Anaconda Prompt** from the windows start menu.
 
-![conda prompt on windows start menu]({filename}/images/conda_in_windows_start_menu.png)
+![conda prompt on windows start menu]({static}/images/conda_in_windows_start_menu.png)
 
 Once you have the Anaconda Prompt open, type the following command:
 
@@ -123,7 +123,7 @@ plt.show()
 
 If everything works correctly, you should see a plot that looks something like the following:
 
-![simple line plot]({filename}/images/simple_plot.png)
+![simple line plot]({static}/images/simple_plot.png)
 
 OK, now we need to manipulate the data a little bit. The ```df[1]``` column in our data set is the **extension** or **change in length**. The ```df[2]``` column in our data set is **force**. We need to convert the **change in length** to strain and we need to convert the **force** to stress. We need to define some sample parameters to convert **extension** and **force** to strain and stress:
 
@@ -162,7 +162,7 @@ plt.show()
 
 When you run the **_tensiletest.py_** script, you should see the stress strain curve below:
 
-![simple line plot]({filename}/images/stress_strain_curve1.png)
+![simple line plot]({static}/images/stress_strain_curve1.png)
 
 The stress-strain curve above looks pretty good. But we still need to add some axis labels with units using Matplotlib's ```plt.ylabel()``` and ```plt.xlabel()``` methods. Let's also add a title with the ```plt.title()``` method. Ensure the plot customization lines are in between the ```plt.plot()``` and the ```plt.show()``` lines, otherwise the title and axis labels won't show up on the plot.
 
@@ -177,7 +177,7 @@ plt.show()
 
 When the script is run, you should see a plot that looks like the plot below that contains axis labels and a title.
 
-![stress strain curve axis labels and title]({filename}/images/stress_strain_curve2.png)
+![stress strain curve axis labels and title]({static}/images/stress_strain_curve2.png)
 
 In this last step, we are going to make some changes to the axis limits of the plot. Notice how the plot doesn't start at **strain=0** or **stress=0**. We can change the axis limits using ```plt.axis([Xmin, Xmax, Ymin, Ymax])``` where ```Xmin``` and ```Xmax``` are our x-axis limits and ```Ymin``` and ```Ymax``` are our y-axis limits. We are also going to add a grid by setting ```plt.axis()``` to ```True```.
 
@@ -194,7 +194,7 @@ plt.show()
 
 The final plot produced by the **_tensiletest.py_** script is shown below.
 
-![simple line plot]({filename}/images/stress_strain_curve3.png)
+![simple line plot]({static}/images/stress_strain_curve3.png)
 
 The complete **_tensiletest.py_** script is below.
 

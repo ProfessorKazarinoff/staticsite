@@ -7,6 +7,6 @@ Tags: python, matplotlib, engineering, plotting, jupyter notebook
 Slug: plotting-bond-energy-with-matplotlib-and-python
 Authors: Peter D. Kazarinoff
 
-![bond energy vs. distance curve]({filename}/posts/matplotlib/images/energy_vs_distance_curve.png)
+![bond energy vs. distance curve]({static}/posts/matplotlib/images/energy_vs_distance_curve.png)
 
 {% notebook ../code/matplotlib_plots/plot_bond_energy.ipynb %}

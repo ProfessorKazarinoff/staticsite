@@ -15,18 +15,18 @@ This post is the second part of a series of posts which detail building an Inter
 
 ## Introduction
 
-This **flask** IoT server project builds upon the [ESP8266 WiFi weather station project]({filename}/posts/micropython/micropython_upload_code.md) and the [flask app on Digital Ocean project]({filename}/posts/flask/flask_single_page_app.md). In the flask app on Digital Ocean project, a flask app pulled a measurement temperature down from ThingSpeak.com and displayed the temperature on a webpage. In the ESP8266 WiFi weather station project, an ESP8266 microcontroller (connected to a temperature sensor) posted the temperature up to ThingSpeak.com. The problem with using ThingSpeak.com as an IoT platform is there are limits to how often data can be posted. Building my own IoT server with **flask** is an exciting and interesting project and solves the "only one data post every 15 seconds" limitation imposed by ThingSpeak.
+This **flask** IoT server project builds upon the [ESP8266 WiFi weather station project]({static}/posts/micropython/micropython_upload_code.md) and the [flask app on Digital Ocean project]({static}/posts/flask/flask_single_page_app.md). In the flask app on Digital Ocean project, a flask app pulled a measurement temperature down from ThingSpeak.com and displayed the temperature on a webpage. In the ESP8266 WiFi weather station project, an ESP8266 microcontroller (connected to a temperature sensor) posted the temperature up to ThingSpeak.com. The problem with using ThingSpeak.com as an IoT platform is there are limits to how often data can be posted. Building my own IoT server with **flask** is an exciting and interesting project and solves the "only one data post every 15 seconds" limitation imposed by ThingSpeak.
 
 
 ## Prerequisites
 
-Previously, I built a single page flask app that displays the temperature measured by WiFi weather stations. That single page flask app is running on a Digital Ocean cloud server. The flask app pulls a temperature data point using the ThingSpeak.com web API and displays the temperature on a webpage using **flask** and a **jinja** template. See the [flask app hosted on Digital Ocean]({filename}/posts/flask/flask_app_no_template.png) post to see the starting point for this project's **flask** IoT server. 
+Previously, I built a single page flask app that displays the temperature measured by WiFi weather stations. That single page flask app is running on a Digital Ocean cloud server. The flask app pulls a temperature data point using the ThingSpeak.com web API and displays the temperature on a webpage using **flask** and a **jinja** template. See the [flask app hosted on Digital Ocean]({static}/posts/flask/flask_app_no_template.png) post to see the starting point for this project's **flask** IoT server. 
 
 If you are starting from scratch, the prerequisites needed to build an Internet-of-Things server with **flask**, Python and ESP8266 microcontrollers are:
 
 ### Server
 
- * A Digital Ocean cloud server (just called _the server_ from here on out). See [this post]({filename}/posts/jupyterhub/new_DO_droplet.md) and part of [this post.](http://pythonforundergradengineers.com/flask-app-on-digital-ocean.html#create-a-new-droplet)
+ * A Digital Ocean cloud server (just called _the server_ from here on out). See [this post]({static}/posts/jupyterhub/new_DO_droplet.md) and part of [this post.](http://pythonforundergradengineers.com/flask-app-on-digital-ocean.html#create-a-new-droplet)
  * A domain name hooked up to the server. See part of [this post.](http://pythonforundergradengineers.com/flask-app-on-digital-ocean.html#point-dns-severs-at-digital-ocean)
  * [PuTTY](https://www.putty.org) or a terminal that can SSH into the server
  * A non-root sudo user on the server. See part of [this post.](https://pythonforundergradengineers.com/flask-app-on-digital-ocean.html#create-a-non-root-sudo-user)
@@ -34,30 +34,30 @@ If you are starting from scratch, the prerequisites needed to build an Internet-
   * A Python 3.6 virtual environment set up on the sever with ```flask``` and ```uwsgi``` ```pip install```ed. See part of [this post.](http://pythonforundergradengineers.com/flask-app-on-digital-ocean.html#install-packages)
   *  **uWSGI** and **NGINX** installed on configured on the server. See part of [this post.](https://pythonforundergradengineers.com/flask-app-on-digital-ocean.html#set-up-uwsgi-and-systemctl). The configuration files I used can be found on github: [**_myproject.ini_**](https://github.com/ProfessorKazarinoff/flask-IoT/blob/master/myproject.ini), [**_wsgi.py_**](https://github.com/ProfessorKazarinoff/flask-IoT/blob/master/wsgi.py), [**_sites-avialable_**](https://gist.github.com/ProfessorKazarinoff/633abea34c5ea2420f1278deae61c091) (nginx config)
   * The flask app running as a system service. See [this gist](https://gist.github.com/ProfessorKazarinoff/51f819f7001b3fc92982413eb9df4ed5) for the systemd [**_flaskapp.service_**](https://gist.github.com/ProfessorKazarinoff/51f819f7001b3fc92982413eb9df4ed5) file.
-  * SSL attached to the domain name and **NGINX** instance. See part of [this post](http://pythonforundergradengineers.com/flask-app-on-digital-ocean.html#apply-ssl-security) and [this post.]({filename}/posts/jupyterhub/SSL_and_nginx_with_jupyterhub.md)
+  * SSL attached to the domain name and **NGINX** instance. See part of [this post](http://pythonforundergradengineers.com/flask-app-on-digital-ocean.html#apply-ssl-security) and [this post.]({static}/posts/jupyterhub/SSL_and_nginx_with_jupyterhub.md)
 
 The final web page produced by the flask app is below:
 
-![flask app simple index]({filename}/posts/flask/simple_index.png)
+![flask app simple index]({static}/posts/flask/simple_index.png)
 
 ### Hardware
 
-  The below is a list of hardware used to build the ESP8266-based WiFi weather stations. See [this post]({filename}/posts/micropython/micropython_temp_sensor.md) and the Fritzing sketch below for hardware setup.
+  The below is a list of hardware used to build the ESP8266-based WiFi weather stations. See [this post]({static}/posts/micropython/micropython_temp_sensor.md) and the Fritzing sketch below for hardware setup.
 
  * [Adafruit Feather Huzzah ESP8266](https://www.adafruit.com/product/2821)
  * [MCP9808 temperature sensor](https://www.adafruit.com/product/1782), [BMP280 temperature sensor](https://www.adafruit.com/product/2651)
  * [jumper wires](https://www.adafruit.com/product/758), [breadboard](https://www.adafruit.com/product/64)
  * [microUSB cable](https://www.adafruit.com/product/592).
- * [Micropython firmware for the ESP8266](http://micropython.org/download#esp8266) loaded on the ESP8266 board. See [this post.]({filename}/posts/micropython/micropython_install.md)
+ * [Micropython firmware for the ESP8266](http://micropython.org/download#esp8266) loaded on the ESP8266 board. See [this post.]({static}/posts/micropython/micropython_install.md)
  * The following **_.py_** files (available on github) were loaded onto the board with **ampy**: [BMP280.py](https://github.com/ProfessorKazarinoff/MATLAB-Arduino-ESP8266-IoT/blob/master/BMP280.py), [MCP9808](https://github.com/ProfessorKazarinoff/MATLAB-Arduino-ESP8266-IoT/blob/master/MCP9808.py), [wifitools.py](https://github.com/ProfessorKazarinoff/MATLAB-Arduino-ESP8266-IoT/blob/master/wifitools.py). See [this post.](content/posts/micropython/micropython_upload_code.md)
  
-![fritzing sketch]({filename}/posts/micropython/feather_huzzah_temp_sensor_fritzing.png)
+![fritzing sketch]({static}/posts/micropython/feather_huzzah_temp_sensor_fritzing.png)
 
 Note that as part of this project, I'm using two ESP8266 microcontrollers. One ESP8266 is connected to a BMP280 temperature sensor and the other ESP8266 is connected to an MCP9808 temperature sensor. These two temperature sensors are leftover from previous projects (I would have used two of the same sensor, but one BMP280 and one MCP9808 is what I have lying around). 
 
 One ESP8266-tempsensor combo is used to measure the temperature outside, the other ESP8266-tempsensor combo is used to measure the temperature inside. 
 
-![ESP8266-based WiFi weather station]({filename}/posts/flask/esp8266-based_wifi_weather_station.png)
+![ESP8266-based WiFi weather station]({static}/posts/flask/esp8266-based_wifi_weather_station.png)
 
 ## The starting place
 
@@ -143,7 +143,7 @@ $ sudo systemctl status flaskapp
 
 The resulting web page looks like this:
 
-![flask app simple index]({filename}/posts/flask/simple_index.png)
+![flask app simple index]({static}/posts/flask/simple_index.png)
 
 ## Summary
 

@@ -38,7 +38,7 @@ plt.show()
 ```
 
 
-![png]({filename}/images/output_7_0.png)
+![png]({static}/images/output_7_0.png)
 
 
 ### Save the figure
@@ -67,4 +67,4 @@ fig.savefig('sns_violin_plot.png', dpi=300)
 ```
 
 
-![png]({filename}/images/output_10_0.png)
+![png]({static}/images/output_10_0.png)

@@ -21,7 +21,7 @@ It would be more convenient to click on a .exe file and run the notebook convert
 
 ## Converting .ipynb files to .tex files using nbconvert
 
-First, let's convert a Jupyter notebook (a .ipynb-file) to LaTeX (a .tex-file) using the **nbcovert** command-line utility. The notebook I'm converting is from my ENGR114 Engineering Programming class. You can find the notebook on GitHub [here](https://github.com/ProfessorKazarinoff/ENGR114/blob/master/ENGR114-Labs/Lab07-Taylor_Series/ENGR114-Lab07-Taylor_Series.ipynb). **nbconvert** is a package that gets installed when you install Jupyter into a Python virtual environment. So to get this processes started, let's create a new virtual environment using the **Anaconda Prompt**. I've written a post on [Creating a virtual environment with conda]({filename}/posts/virtual_environments/new_virtualenv_conda.md) if you are interested in the process.
+First, let's convert a Jupyter notebook (a .ipynb-file) to LaTeX (a .tex-file) using the **nbcovert** command-line utility. The notebook I'm converting is from my ENGR114 Engineering Programming class. You can find the notebook on GitHub [here](https://github.com/ProfessorKazarinoff/ENGR114/blob/master/ENGR114-Labs/Lab07-Taylor_Series/ENGR114-Lab07-Taylor_Series.ipynb). **nbconvert** is a package that gets installed when you install Jupyter into a Python virtual environment. So to get this processes started, let's create a new virtual environment using the **Anaconda Prompt**. I've written a post on [Creating a virtual environment with conda]({static}/posts/virtual_environments/new_virtualenv_conda.md) if you are interested in the process.
 
 To create a new virtual environmnet with the **Anaconda Prompt**, open the **Anaconda Prompt** and type the command below. Note the prompt character ```>``` should not be typed. ```>``` is shown to indicate the **Anaconda Prompt**, not as a character for a user to enter.
 
@@ -29,7 +29,7 @@ To create a new virtual environmnet with the **Anaconda Prompt**, open the **Ana
 > conda create -n notebook-conversion-app python=3.7 jupyter nbconvert
 ```
 
-![create virtual env with anaconda prompt]({filename}/posts/jupyter/images/anaconda_prompt_create_virtual_env.png)
+![create virtual env with anaconda prompt]({static}/posts/jupyter/images/anaconda_prompt_create_virtual_env.png)
 
 Type ```y``` for yes when prompted. 
 
@@ -48,15 +48,15 @@ Now we'll use **nbconvert** to convert our Jupyter notebook .ipynb-file to a LaT
 (notebook-conversion-app) > jupyter nbconvert --to latex ENGR114-Lab07-Taylor_Series.ipynb
 ```
 
-![nbconvert run on anaconda prompt]({filename}/posts/jupyter/images/anaconda_prompt_nbconvert_to_latex.png)
+![nbconvert run on anaconda prompt]({static}/posts/jupyter/images/anaconda_prompt_nbconvert_to_latex.png)
 
 The resulting .tex-file is produced in the current working directory. When I open the .tex-file with TeXworks, the .tex-file looks something like below:
 
-![.tex file open in TeXworks]({filename}/posts/jupyter/images/TeXworks_file_open.png)
+![.tex file open in TeXworks]({static}/posts/jupyter/images/TeXworks_file_open.png)
 
 When TeXworks is used to generate a .pdf from the .tex-file. The results lok something like below:
 
-![.pdf file produced by TeXworks]({filename}/posts/jupyter/images/pdf_made_by_TeXworks.png)
+![.pdf file produced by TeXworks]({static}/posts/jupyter/images/pdf_made_by_TeXworks.png)
 
 The compilation to .pdf works just fine, but the resulting .pdf file looks kind of funny. The date is listed after the title, there isn't a header and the sections are numbered. Let's see if we can improve the look of the .pdf document using a custom template.
 
@@ -68,11 +68,11 @@ Since I want the final .pdf to look different than the output produced by the **
 (notebook-conversion-app) > jupyter nbconvert --to latex --template templates/ENGR114_lab_assignment.tplx ENGR114-Lab07-Taylor_Series.ipynb
 ```
 
-![nbconvert with custom template on anaconda prompt]({filename}/posts/jupyter/images/anaconda_prompt_nbconvert_to_latex_custom_template.png)
+![nbconvert with custom template on anaconda prompt]({static}/posts/jupyter/images/anaconda_prompt_nbconvert_to_latex_custom_template.png)
 
 After the resulting .tex-file is created, the .tex-file can be opened in TeXworks and converted to .pdf. The compiled .pdf using the custom template looks something like below:
 
-![.pdf file produced by TeXworks]({filename}/posts/jupyter/images/pdf_made_by_TeXworks_custom_template.png)
+![.pdf file produced by TeXworks]({static}/posts/jupyter/images/pdf_made_by_TeXworks_custom_template.png)
 
 The resulting .pdf looks great, but calling the long command from the **Anaconda Prompt** is sort of a pain in the butt. Plus I would need to refer back to the **nbconvert** documentation each time I wanted to convert a notebook to another file format. To get around this problem, I wrote a Python script that completes the same conversion. 
 

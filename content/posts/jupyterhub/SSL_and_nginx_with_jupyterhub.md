@@ -14,10 +14,10 @@ This is the fifth part of a multi-part series that shows how to set up Jupyter H
 
 ### Posts in this series
 
-1. [Why Jupyter Hub?]({filename}/posts/jupyterhub/why_jupyter_hub.md) 
-2. [Create ssh key, save to documents/ssh-keys]({filename}/posts/jupyterhub/PuTTYgen_ssh_key.md)
-3. [Create a new Digital Ocean Droplet with a non-root sudo user]({filename}/posts/jupyterhub/new_DO_droplet.md)
-4. [Install Jupyter Hub on the server]({filename}/posts/jupyterhub/installing_jupyterhub.md)
+1. [Why Jupyter Hub?]({static}/posts/jupyterhub/why_jupyter_hub.md) 
+2. [Create ssh key, save to documents/ssh-keys]({static}/posts/jupyterhub/PuTTYgen_ssh_key.md)
+3. [Create a new Digital Ocean Droplet with a non-root sudo user]({static}/posts/jupyterhub/new_DO_droplet.md)
+4. [Install Jupyter Hub on the server]({static}/posts/jupyterhub/installing_jupyterhub.md)
 5. **Apply SSL, link a domain name to the server and configure nginx** (this post)
 6. Connect OAuth to Jupyter Hub
 7. Connect to Jupyter Hub as student

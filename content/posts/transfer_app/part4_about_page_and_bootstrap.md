@@ -183,9 +183,9 @@ Let's test the site. Run the local server and see our changes. I ran the server 
 
 The resulting home and about pages should look something like this:
 
-![Home Page no bootstrap]({filename}/posts/transfer_app/images/no_bootstrap_home_page.png)
+![Home Page no bootstrap]({static}/posts/transfer_app/images/no_bootstrap_home_page.png)
 
-![About Page no bootstrap]({filename}/posts/transfer_app/images/no_bootstrap_about_page.png)
+![About Page no bootstrap]({static}/posts/transfer_app/images/no_bootstrap_about_page.png)
 
 ## Add Bootstrap to templates
 
@@ -358,7 +358,7 @@ Now modify the about page template to use bootstrap styling. Note again how the 
 
 All the new template and css files ends up with the following directory structure:
 
-![file structure after bootstrap]({filename}/posts/transfer_app/images/file_structure_after_bootstrap.png)
+![file structure after bootstrap]({static}/posts/transfer_app/images/file_structure_after_bootstrap.png)
 
 ## Run the server locally. See if the bootstrap styling works.
 
@@ -369,9 +369,9 @@ OK, let's run the server locally and see if all the bootstrap styling changes ma
 (transfer)> python manage.py runserver
 ```
 
-![about page with bootstrap styling]({filename}/posts/transfer_app/images/home_page_bootstrap_stying.png)
+![about page with bootstrap styling]({static}/posts/transfer_app/images/home_page_bootstrap_stying.png)
 
-![homepage with bootstrap styling]({filename}/posts/transfer_app/images/about_page_bootstrap_styling.png)
+![homepage with bootstrap styling]({static}/posts/transfer_app/images/about_page_bootstrap_styling.png)
 
 Awesome! The home and about pages look great!
 

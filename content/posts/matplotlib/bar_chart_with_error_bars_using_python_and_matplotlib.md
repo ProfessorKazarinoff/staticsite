@@ -14,7 +14,7 @@ Bar charts with error bars are useful in engineering to show the confidence or p
 
 A bar chart with error bars is shown below. Note the labels on the x-axis and the error bars at the top of each bar.
 
-![plot with error bars]({filename}/images/bar_plot_with_error_bars.png)
+![plot with error bars]({static}/images/bar_plot_with_error_bars.png)
 
 In order to build this plot, we need a couple of things:
 
@@ -26,11 +26,11 @@ In order to build this plot, we need a couple of things:
 | matplotlib	| build the plot	|
 | data set | data to plot |
 
-Before you can build the plot, make sure you have the Anaconda Distribution of Python installed on your computer. See [installing Anaconda on Windows]({filename}/posts/installation/installing_anaconda_on_windows.md) for installation instructions.
+Before you can build the plot, make sure you have the Anaconda Distribution of Python installed on your computer. See [installing Anaconda on Windows]({static}/posts/installation/installing_anaconda_on_windows.md) for installation instructions.
 
 To get going, we'll use the **Anaconda Prompt** to create a new virtual environment. Select **Anaconda Prompt** from the Windows Start Menu. (If using OSX or Linux, the terminal could also be used)
 
-![conda prompt on windows start menu]({filename}/images/conda_in_windows_start_menu.png)
+![conda prompt on windows start menu]({static}/images/conda_in_windows_start_menu.png)
 
 
 Once you have the **Anaconda Prompt** open, type the following command to create a new virtual environment:
@@ -156,4 +156,4 @@ plt.show()
 
 The final plot looks like this:
 
-![plot with error bars]({filename}/images/bar_plot_with_error_bars.png)
+![plot with error bars]({static}/images/bar_plot_with_error_bars.png)

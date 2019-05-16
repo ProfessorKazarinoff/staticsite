@@ -87,7 +87,7 @@ ds18x20.py  ntptime.py    upip_utarfile.py  wifitools.py
 
 I don't need all of these on the little ESP-01 board. So let's see how big each one of these are:
 
-![modules dir]({filename}/posts/micropython/micropython_modules.png)
+![modules dir]({static}/posts/micropython/micropython_modules.png)
 
 Now to move these to another directory for safe keeping. I built a new directory called modules-orig and copied all the files over. Now it's time to delete all the .py files in the modules directory that we don't need. The only .py files I left were:
 

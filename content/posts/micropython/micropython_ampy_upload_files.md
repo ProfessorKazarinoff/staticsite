@@ -9,15 +9,15 @@ Authors: Peter D. Kazarinoff
 Series: micropython
 series_index: 7
 
-![fritzing ESP8266 image]({filename}/posts/micropython/images/fritzing_esp8266.png)
+![fritzing ESP8266 image]({static}/posts/micropython/images/fritzing_esp8266.png)
 
-This is an update to the sixth part of a [multi-part series]({filename}/posts/micropython/what_is_micropython.md) on Micropython. I had trouble in class today uploading a .py-file to an ESP8266 microcontroller running MicroPython using a command line tool called **ampy**. There was a trick getting **ampy** to work on with the ESP8266 microcontroller that I want to share in case other people come across the same problem. In this post, I'll show you how I uploaded upload **_.py_** files to an ESP8266 microcontroller using Python and a Python package called **ampy**.
+This is an update to the sixth part of a [multi-part series]({static}/posts/micropython/what_is_micropython.md) on Micropython. I had trouble in class today uploading a .py-file to an ESP8266 microcontroller running MicroPython using a command line tool called **ampy**. There was a trick getting **ampy** to work on with the ESP8266 microcontroller that I want to share in case other people come across the same problem. In this post, I'll show you how I uploaded upload **_.py_** files to an ESP8266 microcontroller using Python and a Python package called **ampy**.
 
 Before you can upload a .py-file onto the ESP8266 microcontroller, first make sure MicroPython is installed on the microcontroller.  
 
-![micropython docs page]({filename}/posts/micropython/images/micropython_downloads_page.png)
+![micropython docs page]({static}/posts/micropython/images/micropython_downloads_page.png)
 
-![micropython firmware page]({filename}/posts/micropython/images/firmware_for_esp8266_boards.png)
+![micropython firmware page]({static}/posts/micropython/images/firmware_for_esp8266_boards.png)
 
 See the [MicroPython docs](https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/intro.html) and a [previous post]({filename}micropython_install.md) on how to install MicroPython on an ESP8266  and how to install PuTTY on a Windows 10 machine. [PuTTY](https://www.putty.org/) needs to be installed on your computer to communicate with the ESP8266 running MicroPython. 
 
@@ -25,7 +25,7 @@ See the [MicroPython docs](https://docs.micropython.org/en/latest/esp8266/esp826
 
 ## Create a new virtual environment
 
-It is a good idea to create a new virtual environment when you start a Python project. A virtual environment is an isolated installation of Python that is separate from other Python installations running on your computer. See [this post]({filename}/posts/virtual_environments/new_virtualenv_conda.md) to learn how to create a virtual environment with the **Anaconda Prompt**. I called my new virtual environment ```ampy```. I like to name my virtual environments with a name that corresponds to what the environment is used for.
+It is a good idea to create a new virtual environment when you start a Python project. A virtual environment is an isolated installation of Python that is separate from other Python installations running on your computer. See [this post]({static}/posts/virtual_environments/new_virtualenv_conda.md) to learn how to create a virtual environment with the **Anaconda Prompt**. I called my new virtual environment ```ampy```. I like to name my virtual environments with a name that corresponds to what the environment is used for.
 
 To create a new Python virtual environment, open the **Anaconda Prompt** and type the following commands. Note the prompt character (the greater than sign ```>```) does not need to be typed. It is included to indicate the **Anaconda Prompt**. The ```-n ampy``` portion of the command denotes the name of the virtual environment. ```python=3.7``` ensures Python version 3.7 is installed into the ```ampy``` virtual environment.
 
@@ -63,13 +63,13 @@ When I tried to run **ampy** commands, the output would show some type of error 
 
 It turned out the problem had to do with a debug setting running on the ESP8266 by default. I found the section below inside the **ampy** documentation.
 
-![adafruit ampy docs]({filename}/posts/micropython/images/adafruit_docs.png)
+![adafruit ampy docs]({static}/posts/micropython/images/adafruit_docs.png)
 
 The **ampy** documentation says that debugging can be disabled by running the command ```esp.osdebug(None)``` at the MicroPython REPL.
 
 So to get **ampy** working and upload .py-files onto the board, you first need to open PuTTY and connect to the board over a serial connection. Remember to include the correct ```Port``` and use ```115200``` as the baud rate.
 
-![PuTTY configuration]({filename}/posts/micropython/putty_config.PNG)
+![PuTTY configuration]({static}/posts/micropython/putty_config.PNG)
 
 Type the commands below into the MicroPython REPL (into the PuTTY window). Note the triple arrow prompt ```>>>``` should not be typed. The triple arrow prompt ```>>>``` is shown to denote the MicroPython prompt.
 
@@ -78,7 +78,7 @@ Type the commands below into the MicroPython REPL (into the PuTTY window). Note 
 >>> esp.osdebug(None)
 ```
 
-![esp.debug(None)]({filename}/posts/micropython/images/import_esp_esposdebug_none.png)
+![esp.debug(None)]({static}/posts/micropython/images/import_esp_esposdebug_none.png)
 
 After you type the ```esp.osdebug(None)``` command, close the PuTTY window, but **don't unplug the ESP8266 microcontroller from the computer**. If you unplug the microcontroller, the board will reset, and the command will not take effect. Then you'll have to type the command again before using **ampy**.
 
@@ -106,7 +106,7 @@ If you can successfully read which files are on the ESP8266, a next step is to d
 
 ```
 
-![ampy get boot.py]({filename}/posts/micropython/images/ampy_get_boot_dot_py.png)
+![ampy get boot.py]({static}/posts/micropython/images/ampy_get_boot_dot_py.png)
 
 To download the ```boot.py``` file onto your computer, you need to include the file name twice in the **ampy** ```get``` command. One time to indicate which file on the microcontroller you want to download and another time to name the file that's stored on your computer.
 
@@ -146,7 +146,7 @@ gc.collect()
 
 ```
 
-![boot.py in VS Code]({filename}/posts/micropython/images/edits_to_boot_dot_py.png)
+![boot.py in VS Code]({static}/posts/micropython/images/edits_to_boot_dot_py.png)
 
 Save the **_boot.py_** file. If you are using Visual Studio Code, you can leave the file open. If you are using another text editor, you may need to close **_boot.py_** before you can upload it to the board with **ampy**.
 
@@ -165,7 +165,7 @@ Now you can upload the **_boot.py_** file you just edited onto the ESP8266 micro
 
 The output of the **ampy** ```get``` command should be the code you just revised.
 
-![revised boot.py using ampy get]({filename}/posts/micropython/images/ampy_get_boot_dot_py_revised.png)
+![revised boot.py using ampy get]({static}/posts/micropython/images/ampy_get_boot_dot_py_revised.png)
 
 ## Unplug and power up the ESP8266 microcontroller
 

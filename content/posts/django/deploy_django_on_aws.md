@@ -26,11 +26,11 @@ Sign up for an Amazon Web Services (AWS) account here:
 
 Once you sign up for an account, you have to go to your email and activate your AWS account. After your account is active, log into the AWS Console by clicking the [Sign into Console] button.
 
-![AWS sign into console]({filename}/posts/django/images/aws_sign_into_console_button.png)
+![AWS sign into console]({static}/posts/django/images/aws_sign_into_console_button.png)
 
 Once signed in, you are greeted by the ASW Managment Console:
 
-![AWS Management Console]({filename}/posts/django/images/aws_management_console.png)
+![AWS Management Console]({static}/posts/django/images/aws_management_console.png)
 
 ## Update requirements.txt and push to GitHub
 
@@ -124,25 +124,25 @@ Log into the AWS Web Console at the following link:
 ](https://aws.amazon.com/console/
 )
 
-![AWS Login Screen]({filename}/posts/django/images/aws_login_screen.png)
+![AWS Login Screen]({static}/posts/django/images/aws_login_screen.png)
 
 In the AWS Console window select Service --> Compute --> EC2 --> Launch Instance.
 
-![AWS services menu]({filename}/posts/django/images/aws_services_EC2.png)
+![AWS services menu]({static}/posts/django/images/aws_services_EC2.png)
 
-![AWS Resources Launch Instance]({filename}/posts/django/images/aws_create_instance_launch_instance.png)
+![AWS Resources Launch Instance]({static}/posts/django/images/aws_create_instance_launch_instance.png)
 
 Scroll down the operating system options and select ```Ubuntu Server 16.04 LTS (HVM), SSD Volume Type```. This option is part of the AWS free tier.
 
-![AWS Ubuntu 16.04 Option]({filename}/posts/django/images/aws_select_ubuntu16dot04_server.png)
+![AWS Ubuntu 16.04 Option]({static}/posts/django/images/aws_select_ubuntu16dot04_server.png)
 
 Choose [select] then [Review and Launch].
 
-![AWS review and launch]({filename}/posts/django/images/aws_review_and_launch.png)
+![AWS review and launch]({static}/posts/django/images/aws_review_and_launch.png)
 
 Before we [Launch] the final server, we need to edit the security group options. Scroll down and select [Edit Security Groups]
 
-![AWS security groups]({filename}/posts/django/images/aws_edit_security_groups.png)
+![AWS security groups]({static}/posts/django/images/aws_edit_security_groups.png)
 
 Add the following security options:
 
@@ -150,55 +150,55 @@ Add the following security options:
  * HTTP - Anywhere, all IPs
  * HTTPS - Anywhere, all IPs
 
-![AWS security options]({filename}/posts/django/images/aws_security_groups_added.png)
+![AWS security options]({static}/posts/django/images/aws_security_groups_added.png)
 
 After the three security rules are added, click [Review and Launch]
 
 At the review screen, click [Launch]
 
-![AWS_final_launch]({filename}/posts/django/images/aws_final_launch.png)
+![AWS_final_launch]({static}/posts/django/images/aws_final_launch.png)
 
 In the pop-up window, select [Create a New Key Pair] from the dropdown menu. 
 
-![AWS download key pair]({filename}/posts/django/images/aws_download_key_pair.png)
+![AWS download key pair]({static}/posts/django/images/aws_download_key_pair.png)
 
 Move the ```.pem``` key from the ```Downloads``` folder to a known location. Note the location where the ```.pem``` key file was moved to. We will need to ```cd``` into that location to log into the server.
 
 Finally, click the [Launch Instances] at the bottom of the pop-up box. 
 
-![AWS popup launch instances]({filename}/posts/django/images/aws_popup_final_launch_instances.png)
+![AWS popup launch instances]({static}/posts/django/images/aws_popup_final_launch_instances.png)
 
 This produces a status window that shows our instance is launching. It takes a couple minutes for the instance to launch. 
 
-![AWS intances launching]({filename}/posts/django/images/aws_launch_status.png)
+![AWS intances launching]({static}/posts/django/images/aws_launch_status.png)
 
 Scroll down and click [View Instances].
 
-![AWS view instances]({filename}/posts/django/images/aws_view_instances_button.png)
+![AWS view instances]({static}/posts/django/images/aws_view_instances_button.png)
 
 You can change the instance name by clicking the pencil icon in the [name] field.
 
-![AWS change name]({filename}/posts/django/images/aws_change_name_pencil.png)
+![AWS change name]({static}/posts/django/images/aws_change_name_pencil.png)
 
 Select the instance (box to the left of the instance name turns blue when instance is selected) and click [Connect]
 
-![AWS Connect Button]({filename}/posts/django/images/aws_connect_to_instance.png)
+![AWS Connect Button]({static}/posts/django/images/aws_connect_to_instance.png)
 
 Copy the SSH connection command from the pop-up window. We will run this command in the Git Bash prompt.
 
-![AWS SSH Command]({filename}/posts/django/images/aws_copy_SSH_command.png)
+![AWS SSH Command]({static}/posts/django/images/aws_copy_SSH_command.png)
 
 Open the Git Bash Prompt, and ```cd``` into the directory where the ```.pem``` file we downloaded earlier is saved. Run the ```ls``` command and make sure the ```.pem``` file downloaded earlier is present. 
 
-![Git Bash in start window]({filename}/posts/django/images/git_bash_in_start_window.png)
+![Git Bash in start window]({static}/posts/django/images/git_bash_in_start_window.png)
 
 Copy the SSH login command from the AWS console pop-up window into the Git Bash Prompt. The right mouse button can be used to paste.
 
-![Git Bash paste SSH command]({filename}/posts/django/images/git_bash_paste.png)
+![Git Bash paste SSH command]({static}/posts/django/images/git_bash_paste.png)
 
 Enter ```yes``` at the prompt to connect.
 
-![Git Bash yes]({filename}/posts/django/images/git_bash_sure_connect_yes.png)
+![Git Bash yes]({static}/posts/django/images/git_bash_sure_connect_yes.png)
 
 You will see the terminal prompt for the AWS server in the command window. Type the ```pwd``` command to print the current working directory. You should be in the ```/home/ubuntu``` directory.
 
@@ -208,7 +208,7 @@ $ pwd
 /home/ubuntu
 ```
 
-![Git Bash ls after login]({filename}/posts/django/images/git_bash_pwd_after_login.png)
+![Git Bash ls after login]({static}/posts/django/images/git_bash_pwd_after_login.png)
 
 We have now completed the following steps:
 
@@ -231,7 +231,7 @@ When asked ```What would you like to do about modified configuration file grub?`
 
 After all the operating system and installed packages are upgraded, run the command ```sudo apt-get update``` again. You should see that updates are 100 percent complete.
 
-![updates complete]({filename}/posts/django/images/final_apt_get_upade.png)
+![updates complete]({static}/posts/django/images/final_apt_get_upade.png)
 
 ## Install packages with apt
 

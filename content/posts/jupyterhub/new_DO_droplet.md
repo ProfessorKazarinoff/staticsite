@@ -15,8 +15,8 @@ This is the third part of a multi-part series on how to set up Jupyter Hub for a
 
 ### Posts in this series
 
-1. [Why Jupyter Hub?]({filename}/posts/jupyterhub/why_jupyter_hub.md) 
-2. [Create ssh key, save to documents/ssh-keys]({filename}/posts/jupyterhub/PuTTYgen_ssh_key.md)
+1. [Why Jupyter Hub?]({static}/posts/jupyterhub/why_jupyter_hub.md) 
+2. [Create ssh key, save to documents/ssh-keys]({static}/posts/jupyterhub/PuTTYgen_ssh_key.md)
 3. **Create a new Digital Ocean Droplet with a non-root sudo user** (this post)
 4. Install Jupyter Hub on the server
 5. Apply SSL, link a domain name to the server and configure nginx
@@ -25,7 +25,7 @@ This is the third part of a multi-part series on how to set up Jupyter Hub for a
 
 ### The last post
 
-In the [previous post]({filename}/posts/jupyterhub/PuTTYgen_ssh_key.md), we created a public/private SSH key pair using PuTTYgen. We saved the SSH keys in the Documents/ssh-keys directory. We also copied contents of the public SSH key to the clipboard.
+In the [previous post]({static}/posts/jupyterhub/PuTTYgen_ssh_key.md), we created a public/private SSH key pair using PuTTYgen. We saved the SSH keys in the Documents/ssh-keys directory. We also copied contents of the public SSH key to the clipboard.
 
 ### Steps in this post
 

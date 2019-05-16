@@ -150,7 +150,7 @@ main.py
 
 The Feather Huzzah needs to be restarted to run the code we just uploaded. To restart the board, unplug and then replug the board's power. Once power is restored, the board will run through the **_boot.py_** script then start the **_main.py_** script. When the board runs the **_main.py_** script, the board will connect to the WiFi network, read the temperature from the sensor then upload the temperature to ThingSpeak.com. If we go to ThingSpeak.com, we should see the temperature plotted on our Channel's page.
 
-![Channel Plot on ThingSpeak]({filename}/posts/micropython/channel_plot_on_ThingSpeak.png)
+![Channel Plot on ThingSpeak]({static}/posts/micropython/channel_plot_on_ThingSpeak.png)
 
 ### Congrats! You have a working weather station that is part of the Internet of Things.
 

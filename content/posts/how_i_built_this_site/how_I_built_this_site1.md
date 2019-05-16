@@ -43,7 +43,7 @@ Download the latest Anaconda distribution of Python release at:
 
 [https://www.anaconda.com/download](https://www.anaconda.com/download/)
 
-The Anaconda distribution of Python comes with an up-to-date and stable version of Python (Python 3.6) and the **Anaconda Prompt**. The **Anaconda Prompt** is useful because it allows me to run shell commands on my Windows 10 machine at work. These shell commands are the same commands I run in the terminal on my MacOS or Linux boxes. The **Anaconda Prompt** makes creating and logging into virtual environments easy and allows me to use git on Windows 10. Follow this post to [install the Anaconda on Windows 10.]({filename}/posts/installation/installing_anaconda_on_windows.md)
+The Anaconda distribution of Python comes with an up-to-date and stable version of Python (Python 3.6) and the **Anaconda Prompt**. The **Anaconda Prompt** is useful because it allows me to run shell commands on my Windows 10 machine at work. These shell commands are the same commands I run in the terminal on my MacOS or Linux boxes. The **Anaconda Prompt** makes creating and logging into virtual environments easy and allows me to use git on Windows 10. Follow this post to [install the Anaconda on Windows 10.]({static}/posts/installation/installing_anaconda_on_windows.md)
 
  
 ### Create a new virtual environment
@@ -158,4 +158,4 @@ git push origin master
 These commands ensure all my computers and the GitHub.com repo contain the same version of the site.
 
 
-In the [next post]({filename}/posts/how_i_built_this_site/how_I_built_this_site2.md) we will use the ```pelican-quickstart``` command to get the blog off the ground, write our first post and view a demo version of the site.
+In the [next post]({static}/posts/how_i_built_this_site/how_I_built_this_site2.md) we will use the ```pelican-quickstart``` command to get the blog off the ground, write our first post and view a demo version of the site.

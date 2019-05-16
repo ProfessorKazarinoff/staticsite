@@ -7,9 +7,9 @@ Tags: python, engineering, statistics, matplotlib, scipy
 Slug: plotting-normal-curve-with-python
 Authors: Peter D. Kazarinoff
 
-![Area Under Normal Curve Plot]({filename}/images/normal_curve.png)
+![Area Under Normal Curve Plot]({static}/images/normal_curve.png)
 
-In the [previous post]({filename}/posts/statistics/probability_under_a_normal_curve_with_python.md), we calculated the area under the standard normal curve using Python and the ```erf()``` function from the ```math``` module in Python's Standard Library. In this post, we will construct a plot that illustrates the standard normal curve and the area we calculated. To build the Gaussian normal curve, we are going to use Python, Matplotlib, and a module called SciPy.
+In the [previous post]({static}/posts/statistics/probability_under_a_normal_curve_with_python.md), we calculated the area under the standard normal curve using Python and the ```erf()``` function from the ```math``` module in Python's Standard Library. In this post, we will construct a plot that illustrates the standard normal curve and the area we calculated. To build the Gaussian normal curve, we are going to use Python, Matplotlib, and a module called SciPy.
 
 Calculating the probability under a normal curve is useful for engineers. This type of calculation can be helpful to predict the likely hood of a part coming off an assembly line being within a given specification when the statistical properties of all the parts that have come of the assembly line previously are known.
 
@@ -31,7 +31,7 @@ $ pip install scipy
 
 Before we build the plot, let's take a look at a gaussin curve. The shape of a gaussin curve is sometimes referred to as a "bell curve." This is the type of curve we are going to plot with Matplotlib.
 
-![gaussian_curve]({filename}/images/normal_gaussian_curve.png)
+![gaussian_curve]({static}/images/normal_gaussian_curve.png)
 
 Create a new Python script called ```normal_curve.py```. At the top of the script, import NumPy, Matplotlib, and SciPy's ```norm()``` function. If using a Jupyter notebook, include the line ```%matplotlib inline```. If you are not using a Jupyter notebook, leave ```%matplotlib inline``` out as ```%matplotlib inline``` is not a valid line of Python code.
 
@@ -94,4 +94,4 @@ plt.show()
 
 The finished plot is below. Notice how the area corresponding to resistors in the given specification (between the upper and lower bounds) is shaded.
 
-![Area Under Normal Curve Plot]({filename}/images/normal_curve.png)
+![Area Under Normal Curve Plot]({static}/images/normal_curve.png)

@@ -40,7 +40,7 @@ STATIC_PATHS = ['images','extra',
                 'posts/django_iot_server/images',
                 'posts/flask',]  # removed this, see if any change 'code',
                 
-PLUGIN_PATHS = ['pelican-plugins']
+PLUGIN_PATHS = ['pelican-plugins','extra-plugins']
 EXTRA_PATH_METADATA = {
     'extra/custom.css': {'path': 'static/css/custom.css'},
     'extra/jupyter.css': {'path': 'static/css/jupyter.css'},
@@ -58,7 +58,7 @@ WITH_FUTURE_DATES = False
 #    'status': 'draft',
 #}
 
-#Theme, environements and plugins
+# Theme, environements and plugins
 THEME = 'pelican-themes/pelican-bootstrap3'
 BOOTSTRAP_THEME = 'flatly'
 FAVICON = 'extra/favicon.ico'
@@ -66,6 +66,7 @@ AVATAR ='extra/gear-wrench-icon-512-278694.png'
 CUSTOM_CSS = 'static/css/custom.css'
 CUSTOM_JS = 'static/js/custom.js'
 PYGMENTS_STYLE = 'native'
+THEME_TEMPLATES_OVERRIDES = ['theme-overrides']
 
 #to ignore any injected css for ipynb pages
 IPYNB_IGNORE_CSS = True  ###change back!!!!!!!!!!!!!
@@ -199,6 +200,14 @@ AUTHOR_FEED_RSS = None
 
 # for Google Analytics
 GOOGLE_ANALYTICS = 'UA-116330557-1'
+
+# Add This (tweet, like, email buttons on posts)
+ADDTHIS_PROFILE = "ra-5cdd8eb4e16bf94c"
+ADDTHIS_DATA_TRACK_ADDRESSBAR = False
+ADDTHIS_FACEBOOK_LIKE = True
+ADDTHIS_TWEET = True
+ADDTHIS_EMAIL = True
+ADDTHIS_GOOGLE_PLUSONE = False
 
 # Blogroll
 #LINKS = (('Pelican', 'http://getpelican.com/'),

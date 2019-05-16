@@ -231,7 +231,7 @@ We'll create a sample **jupyter notebook** in a new folder called **code** in ou
 
 Let's put one markdown cell, one code cell and produce one output cell in our **jupyter notebook**. We'll save it as **_example_notebook.ipynb_**. My **_sample_notebook.ipynb_** looks like:
 
-![example jupyter notebook]({filename}/images/jupyter_notebook_sample_example.png)
+![example jupyter notebook]({static}/images/jupyter_notebook_sample_example.png)
 
 Now we will put our **_example_notebook.ipynb_** into our third post. Including a **juypter notebook** requires the use of the line ```notebook path/to/notebook.ipynb``` surrounded with a ```{``` ```%```   ```%``` ```}```.  
 

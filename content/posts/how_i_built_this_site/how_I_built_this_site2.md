@@ -132,11 +132,11 @@ On Windows:
 
 Point a web browser to: [localhost:8000](localhost:8000)
 
-![local host in browser]({filename}/images/browser_to_localhost8000.png)
+![local host in browser]({static}/images/browser_to_localhost8000.png)
 
 The site will look something like:
 
-![default pelican site]({filename}/images/default_site_no_posts.png)
+![default pelican site]({static}/images/default_site_no_posts.png)
 
 We can shut down the server by typing ```ctrl-c```
 
@@ -208,11 +208,11 @@ On Windows:
 
 Again, point a web browser to: [localhost:8000](localhost:8000)
 
-![local host in browser]({filename}/images/browser_to_localhost8000.png)
+![local host in browser]({static}/images/browser_to_localhost8000.png)
 
 The site will look something like:
 
-![default pelican site]({filename}/images/default_site_1_post.png)
+![default pelican site]({static}/images/default_site_1_post.png)
 
 It works! I can see the first post!
 

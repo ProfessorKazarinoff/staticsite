@@ -11,7 +11,7 @@ Plotting stress strain curves is a useful skill in mechanical engineering becaus
 
 In a previous post, we plotted a stress-strain curve using Python and Matplotlib. The resulting stress strain curve is below.
 
-![simple line plot]({filename}/images/stress_strain_curve3.png)
+![simple line plot]({static}/images/stress_strain_curve3.png)
 
 In this post, we will derive mechanical properties from the stress strain curve. The mechanical properties we will derive are: tensile strength (TS), yield strength (YS), elastic modulus (E), and ductility (%EL). In order to do calculate these four material properties from a stress strain curve, we need to have a couple things in place:
 
@@ -24,7 +24,7 @@ In this post, we will derive mechanical properties from the stress strain curve.
 
 Let's get going. First, we will activate our  ````(tensiletest)``` virtual environment. I'm used **conda** to create the virtual environment. Select the **Anaconda Prompt** from the windows start menu.
 
-![conda prompt on windows start menu]({filename}/images/conda_in_windows_start_menu.png)
+![conda prompt on windows start menu]({static}/images/conda_in_windows_start_menu.png)
 
 
 Once you have the Anaconda Prompt open, type the following command:

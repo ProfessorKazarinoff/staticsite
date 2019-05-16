@@ -14,7 +14,7 @@ This is the second part of a multi-part series on how to set up Jupyter Hub for 
 
 ### Posts in this series
 
-1. [Why Jupyter Hub?]({filename}/posts/jupyterhub/why_jupyter_hub.md) 
+1. [Why Jupyter Hub?]({static}/posts/jupyterhub/why_jupyter_hub.md) 
 2. **Create ssh key, save to documents/ssh-keys** (this post)
 3. Create a new Digital Ocean Droplet with a non-root sudo user
 4. Install Jupyter Hub on the server

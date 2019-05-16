@@ -145,15 +145,15 @@ OK. We should be able to see the profile page now. Let's start the local server,
 
 When the user is not logged in, the page looks like:
 
-![Logout Page]({filename}/posts/transfer_app/images/home_page_login_button.png)
+![Logout Page]({static}/posts/transfer_app/images/home_page_login_button.png)
 
 If we click the [Login] button on the upper right, we are brought to the login screen
 
-![Login Page]({filename}/posts/transfer_app/images/login_page.png)
+![Login Page]({static}/posts/transfer_app/images/login_page.png)
 
 After we log in, we are taken back to the homepage, but now the menu in the upper right shows our user name and has some additional options.
 
-![Home Page Logged in as Peter]({filename}/posts/transfer_app/images/home_page_logged_in_as_peter.png)
+![Home Page Logged in as Peter]({static}/posts/transfer_app/images/home_page_logged_in_as_peter.png)
 
 If will click [Profile] from the drop down menu, we are brought to the profile page. Awesome!
 

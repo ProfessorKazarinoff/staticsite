@@ -37,22 +37,22 @@ Use a microUSB cable to connect the Feather Huzzah to the computer. Make sure th
 
 Use Windows Device Manager to determine which serial port the Feather Huzzah is connected to. On my Windows 10 laptop, it usually comes up as ```COM4```. You can find the serial port by looking in the Ports (COM & LPT) category of the Windows Device Manager. Look for something like **Silicon Labs CP210x USB to UART Bridge (COM4)** in the **Ports (COM & LPT)** menu. It is the **COM#** that you are looking for.
 
-![Find Device Manager]({filename}/posts/micropython/find_device_manager.png)
+![Find Device Manager]({static}/posts/micropython/find_device_manager.png)
 
-![Device Manager Menu]({filename}/posts/micropython/device_manager_menu.png)
+![Device Manager Menu]({static}/posts/micropython/device_manager_menu.png)
 
 
 ### 3. Use Putty to connect to the Feather Huzzah
 
 Ensure the Feather Huzzah board is connected with a USB cable, then connect to it with Putty using the proper serial port (COM#) and 115200 baud. Remember to use the **Serial** radio button under **Connection Type:** to select serial communication or you will be trying to communicate with the Feather Huzzah over SSH which won't work. 
 
-![Putty in start menu]({filename}/posts/micropython/putty_in_start_menu.png)
+![Putty in start menu]({static}/posts/micropython/putty_in_start_menu.png)
 
-![Putty config]({filename}/posts/micropython/putty_config.PNG)
+![Putty config]({static}/posts/micropython/putty_config.PNG)
 
 This should bring up the Micropython REPL prompt ```>>>```. If you can't see the ```>>>``` prompt, try typing [Enter], Ctrl-D, pushing the RESET button on the Feather Huzzah or unplugging then replugging the USB cable.
 
-![REPL prompt]({filename}/posts/micropython/REPL_prompt.PNG)
+![REPL prompt]({static}/posts/micropython/REPL_prompt.PNG)
 
 
 ### 4. Run commands at the prompt to turn the built-in LED on the Adafruit Feather Huzzah ESP8266 on and off
@@ -74,7 +74,7 @@ If we import the ```sys``` module, we can see the Micropython implementation and
 'esp8266'
 ```
 
-![REPL prompt]({filename}/posts/micropython/sys_dot_implementation_and_platform.PNG)
+![REPL prompt]({static}/posts/micropython/sys_dot_implementation_and_platform.PNG)
 
 If you see similar output, that means Micropython is working on the Feather Huzzah. We can also view the flash memory size of our Feather Huzzah and the size of the Micropyton firmware we installed. Try this at the Micropython prompt:
 
@@ -82,7 +82,7 @@ If you see similar output, that means Micropython is working on the Feather Huzz
 >>> import port_diag
 ```
 
-![REPL prompt]({filename}/posts/micropython/import_port_diag.PNG)
+![REPL prompt]({static}/posts/micropython/import_port_diag.PNG)
 
 We can see the flash memory size is 4 MB. Below the label ```Firmware checksum:``` we can see a line for ```size: 600872```. This means the size of our Micropythpon installation is about 600 KB or 0.6 MB. Just over half a megabyte and we are running a working version of Python!
 

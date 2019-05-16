@@ -14,25 +14,25 @@ This is the eighth part of a multi-part series settting up Jupyter Hub for a col
 
 ### Posts in this series
 
-1. [Why Jupyter Hub?]({filename}/posts/jupyterhub/why_jupyter_hub.md)
-2. [Create ssh key, save to documents/ssh-keys]({filename}/posts/jupyterhub/PuTTYgen_ssh_key.md)
-3. [Create a new Digital Ocean Droplet with a non-root sudo user]({filename}/posts/jupyterhub/new_DO_droplet.md)
-4. [Install Jupyter Hub on the server]({filename}/posts/jupyterhub/installing_jupyterhub.md)
-5. [Apply SSL, link a domain name to the server and configure nginx]({filename}/posts/jupyterhub/SSL_and_nginx_with_jupyterhub.md)
-6. [Connect OAuth to Jupyter Hub]({filename}/posts/jupyterhub/authentication_and_jupyterhub_as_a_system_service.md)
-7. [Add a custom login page and assignments directory for each user on a Jupyter Hub server]({filename}/posts/jupyterhub/assignments_dir_and_custom_login_page.md)
+1. [Why Jupyter Hub?]({static}/posts/jupyterhub/why_jupyter_hub.md)
+2. [Create ssh key, save to documents/ssh-keys]({static}/posts/jupyterhub/PuTTYgen_ssh_key.md)
+3. [Create a new Digital Ocean Droplet with a non-root sudo user]({static}/posts/jupyterhub/new_DO_droplet.md)
+4. [Install Jupyter Hub on the server]({static}/posts/jupyterhub/installing_jupyterhub.md)
+5. [Apply SSL, link a domain name to the server and configure nginx]({static}/posts/jupyterhub/SSL_and_nginx_with_jupyterhub.md)
+6. [Connect OAuth to Jupyter Hub]({static}/posts/jupyterhub/authentication_and_jupyterhub_as_a_system_service.md)
+7. [Add a custom login page and assignments directory for each user on a Jupyter Hub server]({static}/posts/jupyterhub/assignments_dir_and_custom_login_page.md)
 8. **Initial first impressions of running Jupyter Hub live with students** (this post)
 
 
 ### Last time
 
-In the last [Jupyter Hub post]({filename}/posts/jupyterhub/assignments_dir_and_custom_login_page.md), we added a custom login page to Jupyter Hub and built a way for a repo on GitHub to be pulled down and pre-populate each users' directory with assignments and notes.
+In the last [Jupyter Hub post]({static}/posts/jupyterhub/assignments_dir_and_custom_login_page.md), we added a custom login page to Jupyter Hub and built a way for a repo on GitHub to be pulled down and pre-populate each users' directory with assignments and notes.
 
 ### What the big deal was today
 
 The big deal today was that during lab this morning, 17 students (plus me) logged onto Jupyter Hub together - all at the same time - for the first time!
 
-![Jupyter Hub Start Page]({filename}/posts/jupyterhub/start_my_server_button.png)
+![Jupyter Hub Start Page]({static}/posts/jupyterhub/start_my_server_button.png)
 
 I've tested the Jupyter Hub server for a couple weeks. One student logged in to the server and ran some notebooks. Another faculty member tested the server out too. But this morning was the first time all the students in one lab logged and ran notebooks all at the same time. 
 
@@ -46,7 +46,7 @@ Before this morning, I was nervous about a couple of things in regards to the Ju
  * notes and assignments up on GitHub won't populate students' directory
  * students won't be able to run notebooks at the same time because the server gets overloaded. 
 
-![file_browser_with_notes_and_assignments.png]({filename}/posts/jupyterhub/file_browser_with_notes_and_assignments.png)
+![file_browser_with_notes_and_assignments.png]({static}/posts/jupyterhub/file_browser_with_notes_and_assignments.png)
 
 
 ### What happened
@@ -59,7 +59,7 @@ I'm pleased to report **none of those worries came to fruition**. What happened 
  * Students looked at notebooks and ran code cells at the same time
  * The Jupyter Hub server never crashed
 
-![live_notes_notebook_running.png]({filename}/posts/jupyterhub/live_notes_notebook_running.png)
+![live_notes_notebook_running.png]({static}/posts/jupyterhub/live_notes_notebook_running.png)
 
 ### What's next?
 

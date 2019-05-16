@@ -156,21 +156,21 @@ browse to:
 
 Login with the superuser account
 
-![Django Admin Login]({filename}/posts/transfer_app/images/django_admin_login.png)
+![Django Admin Login]({static}/posts/transfer_app/images/django_admin_login.png)
 
 Add a new course with the [+] button
 
-![Django Admin add course]({filename}/posts/transfer_app/images/django_admin_add_course.png)
+![Django Admin add course]({static}/posts/transfer_app/images/django_admin_add_course.png)
 
 Add course details
 
-![Django Admin add course details]({filename}/posts/transfer_app/images/django_admin_add_course_details.png)
+![Django Admin add course details]({static}/posts/transfer_app/images/django_admin_add_course_details.png)
 
-![Django Admin add course details]({filename}/posts/transfer_app/images/django_admin_save_course_details.png)
+![Django Admin add course details]({static}/posts/transfer_app/images/django_admin_save_course_details.png)
 
 Afer we save the course, we can see the course in the list of courses on the Django admin pannel. We can see the course number, course name and college as we specificed in the courses model
 
-![Django Admin add course details]({filename}/posts/transfer_app/images/django_admin_add_course_details.png)
+![Django Admin add course details]({static}/posts/transfer_app/images/django_admin_add_course_details.png)
 
 Now that the courses model is running and we have a course added, let's add one more course through the Django admin. With two courses added we will be able to see what a course page looks like with more than one course and how we can iterated over the courses to build the courses page. Up next is creating a url route so we have a destination for our course page.
 
@@ -284,7 +284,7 @@ OK. We should be able to see the course page list now. Let's run the local serve
 
  > localhost:8000/courses
 
- ![courses list page]({filename}/posts/transfer_app/images/courses_list_page.png)
+ ![courses list page]({static}/posts/transfer_app/images/courses_list_page.png)
 
 It works! We see the two courses we added to the Django admin.
 

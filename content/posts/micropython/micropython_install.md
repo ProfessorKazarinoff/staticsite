@@ -136,7 +136,7 @@ Ensure the Feather board is connected to the computer with a USB cable and ensur
 
 ![Putty in start menu]({static}/posts/micropython/putty_in_start_menu.png)
 
-![Putty config]({static}/posts/micropython/putty_config.PNG)
+![Putty config]({static}/posts/micropython/putty_settings.png)
 
 If you see ```>>>``` the Micropython REPL (the Micropython prompt) is running and the Adafruit Feather Huzzah ESP8266 is working! This version of Python isn't running on your computer, it's Micropython running on the little microcontroller! Sometimes I had to type [Enter] or Ctrl-D to get the ```>>>``` REPL prompt to show up. A few times I needed to close Putty, unplug then replug the board and try Putty again. The Feather Huzzah also has a tiny little black RESET button that can be pressed to restart the board.  
 

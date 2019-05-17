@@ -31,7 +31,7 @@ Wire up the [MCP9808 temperature sensor](https://www.adafruit.com/product/1782) 
 
 Connect the Feather to the computer using a USB data cable. Open PuTTY. Ensure the serial port (Serial line) is set correctly and the baud rate (speed) is set to 115200.
 
-![Putty config]({static}/posts/micropython/putty_config.PNG)
+![Putty config]({static}/posts/micropython/putty_settings.png)
 
 ### 3. Run commands at the Micropython REPL to connect the Feather board to WiFi
 

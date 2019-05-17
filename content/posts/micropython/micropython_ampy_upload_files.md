@@ -69,7 +69,7 @@ The **ampy** documentation says that debugging can be disabled by running the co
 
 So to get **ampy** working and upload .py-files onto the board, you first need to open PuTTY and connect to the board over a serial connection. Remember to include the correct ```Port``` and use ```115200``` as the baud rate.
 
-![PuTTY configuration]({static}/posts/micropython/putty_config.PNG)
+![PuTTY configuration]({static}/posts/micropython/putty_settings.png)
 
 Type the commands below into the MicroPython REPL (into the PuTTY window). Note the triple arrow prompt ```>>>``` should not be typed. The triple arrow prompt ```>>>``` is shown to denote the MicroPython prompt.
 

@@ -49,7 +49,7 @@ Connect the Adafruit Feather Huzzah to the computer with a microUSB cable. Ensur
 
 ![Putty in start menu]({static}/posts/micropython/putty_in_start_menu.png)
 
-![Putty config]({static}/posts/micropython/putty_config.PNG)
+![Putty config]({static}/posts/micropython/putty_settings.png)
 
 This should bring up the Micropython REPL prompt ```>>>```. If you can't see the ```>>>``` prompt, try typing [Enter], Ctrl-D, pushing the RESET button on the Feather Huzzah. If that doesn't work, try closing putty then unplugging then replugging the USB cable.
 

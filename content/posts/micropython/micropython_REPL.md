@@ -48,7 +48,7 @@ Ensure the Feather Huzzah board is connected with a USB cable, then connect to i
 
 ![Putty in start menu]({static}/posts/micropython/putty_in_start_menu.png)
 
-![Putty config]({static}/posts/micropython/putty_config.PNG)
+![Putty config]({static}/posts/micropython/putty_settings.png)
 
 This should bring up the Micropython REPL prompt ```>>>```. If you can't see the ```>>>``` prompt, try typing [Enter], Ctrl-D, pushing the RESET button on the Feather Huzzah or unplugging then replugging the USB cable.
 

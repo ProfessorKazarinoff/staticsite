@@ -21,6 +21,7 @@ STATIC_PATHS = ['images','extra','code',
                 'code/flask',
                 'code/sympy',
                 'code/statistics',
+                'code/matplotlib_plots/stress_strain_curves/images'
                 'posts/jupyter',
                 'posts/jupyter/images',
                 'posts/jupyterhub',

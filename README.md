@@ -2,11 +2,13 @@
 
  > [https://pythonforundergradengineers.com](https://pythonforundergradengineers.com)
 
-Built with Python, [Pelican](https://docs.getpelican.com/en/stable/), and the [pelican-bootstrap3](https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3) theme. Deployed with [GitHub Pages](https://pages.github.com/)
+[![screencap](screencap.png)](https://pythonforundergradengineers.com) 
 
- ## To build locally
+Built with Python, [Pelican](https://docs.getpelican.com/en/stable/), and the [pelican-bootstrap3](https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3) theme. Deployed on [GitHub Pages](https://pages.github.com/).
 
- clone the repo
+## To build locally
+
+clone the repo
 
  ```
 $ git clone https://github.com/ProfessorKazarinoff/staticsite.git
@@ -14,15 +16,14 @@ $ git clone https://github.com/ProfessorKazarinoff/staticsite.git
 $ git submodule update --init --recursive
 ```
 
-build the conda environment
+build the conda environment and install the required packages
 
 ```
-> conda create -n staticsite python=3.7
-> conda install -c conda-forge pelican==4.0.1 invoke==1.2.0
-> conda install jupyter markdown==2.6.11   # some pelican plugins need mardown<3.0
-> pip install pymdown-extensions
+> conda create -n staticsite python=3.7]
 > conda activate staticsite
-(staticsite)>
+(staticsite)> conda install jupyter beautifulsoup4
+(staticsite)> conda install -c conda-forge pelican==4.0.1 invoke==1.2.0 ghp-import==0.5.5
+(staticsite)> pip install markdown==3.1 pymdown-extensions==5.0
 ```
 
 build the site and preview
@@ -39,5 +40,3 @@ publish the site to GitHub Pages
 ```
 (staticsite)> invoke publishsite
 ```
-
-

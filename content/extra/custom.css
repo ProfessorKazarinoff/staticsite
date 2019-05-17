@@ -85,7 +85,8 @@ Puts some space above the search bar
      box-shadow: none;
      outline: 0;
      margin: 10px;
-     background: #fff url('img/search.png') no-repeat 15px 15px;
+     height: 41px;
+     background: #fff url('../../extra/search.png') no-repeat 15px 15px;
 }
 
 /*

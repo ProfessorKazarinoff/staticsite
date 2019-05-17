@@ -12,12 +12,11 @@ DEFAULT_LANG = 'en'
 PATH = 'content'
 PAGE_PATHS = ['pages']
 ARTICLE_PATHS = ['posts']
-STATIC_PATHS = ['images','extra',
+STATIC_PATHS = ['images','extra','code',
                 'posts/seaborn_bar_plot_files',
                 'posts/micropython',
                 'posts/micropython/images',
                 'extra/CNAME',
-                'code',
                 'code/circuit_diagrams',
                 'code/flask',
                 'code/sympy',
@@ -38,7 +37,8 @@ STATIC_PATHS = ['images','extra',
                 'posts/podcast/images',
                 'posts/functions/images',
                 'posts/django_iot_server/images',
-                'posts/flask',]  # removed this, see if any change 'code',
+                'posts/flask',
+                ]  # removed this, see if any change 'code',
                 
 PLUGIN_PATHS = ['pelican-plugins','extra-plugins']
 EXTRA_PATH_METADATA = {
@@ -145,7 +145,7 @@ RSS_FEED_SUMMARY_ONLY = True
 #RELATIVE_URLS = True
 
 #USE_PAGER = True
-#BOOTSTRAP_FLUID = True
+BOOTSTRAP_FLUID = True
 
 # Breadcrumbs
 DISPLAY_BREADCRUMBS = True
@@ -173,7 +173,6 @@ GITHUB_USER = 'professorkazarinoff'
 GITHUB_REPO_COUNT = 5
 GITHUB_SKIP_FORK = True
 GITHUB_SHOW_USER_LINK = True
-
 
 # Top menus
 DISPLAY_CATEGORIES_ON_MENU = False
@@ -209,15 +208,4 @@ ADDTHIS_TWEET = True
 ADDTHIS_EMAIL = True
 ADDTHIS_GOOGLE_PLUSONE = False
 
-# Blogroll
-#LINKS = (('Pelican', 'http://getpelican.com/'),
-#         ('Python.org', 'http://python.org/'),
-#         ('Jinja2', 'http://jinja.pocoo.org/'),
-#         ('You can modify those links in your config file', '#'),)
-
-# Social widget
-#SOCIAL = (('You can add links in your config file', '#'),
-#          ('Another social link', '#'),)
-
 DEFAULT_PAGINATION = 5
-

@@ -69,6 +69,14 @@ div.input_area{border: ;border-radius: ; background: ;}
 }
 
 /*
+Add space between LaTeX equations in Jupyter notebooks
+*/
+
+.MathJax_Display {
+  padding: 10px;
+}
+
+/*
 Puts some space above the search bar
 */
 

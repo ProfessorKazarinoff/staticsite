@@ -5,6 +5,7 @@ import os
 import shutil
 import sys
 import datetime
+from pathlib import Path
 
 from invoke import task
 from invoke.util import cd
@@ -83,6 +84,7 @@ def gh_pages(c):
     c.run('ghp-import -b {github_pages_branch} '
           '-m {commit_message} '
           '{deploy_path} -p'.format(**CONFIG))
+
 @task
 def publishsite(c):
     """Publish to GitHub Pages with a forced push"""
@@ -90,5 +92,5 @@ def publishsite(c):
     c.run('git add .')
     c.run('git commit -m "published changes"')
     c.run('git push origin master')
-    c.run('ghp-import output')
-    c.run('git push -f origin gh-pages')
+    Path('output/.nojekyll').touch()
+    c.run('ghp-import -m "publishing site" -p -f output')

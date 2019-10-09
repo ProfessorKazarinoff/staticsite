@@ -9,7 +9,7 @@ Authors: Peter D. Kazarinoff
 JavaScripts: table.js
 Stylesheets: table.css
 
-![Problem Solving with Python 3.7 Edition cover]({static}/posts/pwsp_book/images/pswp37_book_cover.jpg)
+![Problem Solving with Python 3.7 Edition cover]({static}/posts/pswp_book/images/pswp37_book_cover.jpg)
 
 My book: [Problem Solving with Python 3.7 Edition](https://amazon) is available on Amazon. This is the second edition of the book. The 3.7 Edition has a bunch of updates and improvments and is tested to work with Python 3.7: [Link to Amazon](https://www.amazon.com/Problem-Solving-Python-3-7-open-source/dp/1693405415) 
 

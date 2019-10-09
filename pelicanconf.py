@@ -40,6 +40,7 @@ STATIC_PATHS = ['images','extra','code',
                 'posts/functions/images',
                 'posts/django_iot_server/images',
                 'posts/flask',
+                'posts/pypdx_west/images',
                 ]  # removed this, see if any change 'code',
                 
 PLUGIN_PATHS = ['pelican-plugins','extra-plugins']

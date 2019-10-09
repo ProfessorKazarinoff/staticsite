@@ -10,3 +10,7 @@
 	path = extra-plugins/bootswatch_markdown_css
 	url = https://github.com/yuex/bootswatch_markdown_css.git
 	branch = master
+[submodule "content/code/offset_piston_motion"]
+	path = content/code/offset_piston_motion
+	url = https://github.com/ProfessorKazarinoff/offset_piston_motion.git
+	branch = master

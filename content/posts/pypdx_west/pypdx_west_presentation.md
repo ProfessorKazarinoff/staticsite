@@ -1,7 +1,7 @@
 Title: Slides from my PyPDX West Presentaion
-Date: 2019-10-09 09:01
-Modified: 2019-10-09 09:01
-Status: Draft
+Date: 2019-10-09 15:01
+Modified: 2019-10-09 15:01
+Status: published
 Category: jupyterhub
 Tags: python, jupyter, jupyterhub
 Slug: slides-from-pypdx-west-presentation
@@ -10,7 +10,7 @@ Summary: ![Intro Slice]({static}/posts/pypdx_west/images/image0.png)I gave a pre
 
 I gave a presentation at the first PyPDX West Meetup held in Hillsboro, OR. This post contains the slides from my presentation on JupyterHub and how JupyterHub is used to teach Python at our college.
 
-The slides for the entire talk are below. The slides can also be found on GitHub [here](https://github.com/ProfessorKazarinoff/PyPDXWest-2019-10)
+The slides for the entire talk are below. The slides can also be found on GitHub [here](https://github.com/ProfessorKazarinoff/PyPDXWest-2019-10).
 
 ![slide]({static}/posts/pypdx_west/images/image0.png)
 

@@ -1,4 +1,4 @@
-Title: Estimating the deflection of a truncated cone using Python
+Title: Estimating the Deflection of a Truncated Cone using Python
 Date: 2019-07-02 09:30
 Modified: 2019-07-02 09:30
 Status: published

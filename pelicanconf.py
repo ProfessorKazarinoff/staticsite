@@ -102,7 +102,8 @@ PLUGINS = [
     'tipue_search',
     'pelican-ipynb.markup',
     'neighbors',
-    'bootswatch_markdown_css',] # 'pelican_javascript', 'pelican-bootstrapify'
+    'bootswatch_markdown_css',
+    ] # 'pelican_javascript', 'pelican-bootstrapify'
 
 
 NOTEBOOK_DIR = 'posts'

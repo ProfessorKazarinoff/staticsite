@@ -11,7 +11,7 @@ series_index: 7
 
 ![fritzing ESP8266 image]({static}/posts/micropython/images/fritzing_esp8266.png)
 
-This is an update to the sixth part of a [multi-part series]({static}/posts/micropython/what_is_micropython.md) on Micropython. I had trouble in class today uploading a .py-file to an ESP8266 microcontroller running MicroPython using a command line tool called **ampy**. There was a trick getting **ampy** to work on with the ESP8266 microcontroller that I want to share in case other people come across the same problem. In this post, I'll show you how I uploaded upload **_.py_** files to an ESP8266 microcontroller using Python and a Python package called **ampy**.
+This is an update to the sixth part of a [multi-part series](https://pythonforundergradengineers.com/what-is-micropython.html) on Micropython. I had trouble in class today uploading a .py-file to an ESP8266 microcontroller running MicroPython using a command line tool called **ampy**. There was a trick getting **ampy** to work on with the ESP8266 microcontroller that I want to share in case other people come across the same problem. In this post, I'll show you how I uploaded upload **_.py_** files to an ESP8266 microcontroller using Python and a Python package called **ampy**.
 
 Before you can upload a .py-file onto the ESP8266 microcontroller, first make sure MicroPython is installed on the microcontroller.  
 
@@ -30,7 +30,7 @@ It is a good idea to create a new virtual environment when you start a Python pr
 To create a new Python virtual environment, open the **Anaconda Prompt** and type the following commands. Note the prompt character (the greater than sign ```>```) does not need to be typed. It is included to indicate the **Anaconda Prompt**. The ```-n ampy``` portion of the command denotes the name of the virtual environment. ```python=3.7``` ensures Python version 3.7 is installed into the ```ampy``` virtual environment.
 
 ```text
-> conda install -n ampy python=3.7
+> conda create -n ampy python=3.7
 ```
 
 Type ```y``` for yes when prompted. After the virtual environment is created, it needs to be _activated_ before any packages are installed into it. Activate the ```ampy``` virtual environment with the command below. Note that when the ```ampy``` virtual environment is active, ```(ampy)``` is shown in parenthesis before the prompt.

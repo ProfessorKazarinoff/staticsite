@@ -43,6 +43,7 @@ STATIC_PATHS = ['images','extra','code',
                 'posts/pypdx_west/images',
                 'posts/pswp_book/images',
                 'posts/pdf/images',
+                'posts/engr213/images',
                 ]  # removed this, see if any change 'code',
                 
 PLUGIN_PATHS = ['pelican-plugins','extra-plugins']

@@ -1,4 +1,4 @@
-Title: Automating JupyterHub Deployment: Part 1 - What is Ansible?
+Title: Automating JupyterHub Deployment with Ansible: Part 1 - What is Ansible?
 Date: 2019-10-10 19:36
 Modified: 2019-10-10 19:50
 Status: Draft
@@ -6,7 +6,7 @@ Category: Python
 Tags: python, jupyterhub, ansible, automation 
 Slug: what-is-ansible
 Authors: Peter D. Kazarinoff
-Series: Automating JupyterHub Deployment
+Series: Automating JupyterHub Deployment with Ansible
 series_index: 1
 
 ![conductor]({static}/posts/ansible/images/conductor.png)
@@ -19,7 +19,7 @@ Ansible is a tool to automate IT orchestration. What does IT orchestration mean?
 
 ![conductor]({static}/posts/ansible/images/robot_factory.jpg)
 
-In the purposes of this project: Automating a JupyerHub Deployment, Ansible is a tool to automate setting up the cloud server that runs JupyerHub. So my IT orchestration is setting up JupyerHub to run on a cloud server with all my custom configuration and settings.
+In the purposes of this project: Automating a JupyerHub Deployment, Ansible is a tool to automate setting up the cloud server that runs JupyerHub. So my IT orchestration is setting up JupyerHub to run on a cloud server with all my custom configuration and settings. JupyterHub can be set up by typing all of the commands into a SSH shell and copying over files with FTP. But if JupyterHub gets deployed each quarter, and these commands are the same each quarter, then why not automate the process?
 
 ## Ansible is a run-time that executes automation tasks
 
@@ -93,32 +93,31 @@ There are a number of words that mean specific things when applied to Ansible. T
 
 ### Control node
 
-A control node is a computer with Ansible installed that runs Ansible playbooks and orchestrates cloud servers. In my case the control node will be a laptop or desktop running Windows10 and Windows Subsystem for Linux. The control node needs to have Ansible installed on it and it must have access to the internet. 
+A _control node_ is a computer with Ansible installed on it that runs Ansible playbooks and orchestrates cloud servers. In my case, the control node is a laptop or desktop running Windows10 and Windows Subsystem for Linux or a cloud server that sets up a seperate JupyterHub cloud server. The control node needs to have Ansible installed on it and it must have access to the internet. 
 
 ### Managed node
 
-A managed node is a cloud server that is created, configured and customized by a control node and a set of pre-defined rules. In my case, the managed node is the cloud server running JupyterHub. In the past I have run Digital Ocean Cloud servers, so that's probably what I'll use when working with Ansible. 
+A _managed node_, or host, is a cloud server that is created, configured and customized by a control node and a set of pre-defined rules. In my case, the managed node is the cloud server running JupyterHub. In the past, I have run Digital Ocean Cloud servers, so that's probably what I'll use working with Ansible. 
 
 ### Playbooks
 
-An Ansible playbook is a yaml file that contains human and machine readable commands to run IT orchestration tasks. Playbooks are saved and run on control nodes.
+An Ansible _playbook_ is a yaml file that contains human and machine readable commands to run IT orchestration tasks. Playbooks are saved and run on control nodes. Playbooks are kind of like ```.py``` files that run Python code. They are usually more than 5 lines long and less than 200 lines long. A long playbook can be broken up into several smaller playbooks.
 
 ### Play
 
-Ansible playbooks contain plays. A play is a section of commands in a playbook. A playbook can contain one play or many plays.
+A _play_ is a run of an Ansible playbook or a run of part of a playbook.  Running a play is sort of like executing a ```.py``` file. Usually Ansible plays end up changing the state of a cloud server.
 
 ### Tasks
 
-Tasks are groups of commands. A play can contain one or many tasks. Tasks in a play run sequentially.
-
+_Tasks_ are groups of commands in a playbook. A playbook can contain one or many tasks. Tasks in a play run sequentially. Tasks are a way to break up a playbook into smaller chunks.
 
 ### Modules
 
-Tasks contain modules. A module is one command or a several commands that run as part of a task. There are modules for installing packages, running bash commands and dealing with git on managed nodes.
+Tasks contain _modules_. A module is one command or function the performs one specific action. Ansible modules are comparable to Python functions. Ansible modules can accept extra arguments like some Python functions. There are Ansible modules for installing software, copying files, creating users, starting services, creating files and directories, setting permissions and a whole host of other tasks. 
 
 ### Handlers
 
-Handlers are triggered by tasks and are run once at the end of a play. A completed play can have one handler or many handlers.
+_Handlers_ are triggered by tasks and are run once at the end of a playbook. A completed play can have one handler or many handlers.
 
 #### Playbook
 
@@ -138,10 +137,18 @@ Handlers are triggered by tasks and are run once at the end of a play. A complet
 
 ### Inventory
 
-An inventory is a list of servers (a list of manged nodes) that Ansible is going to set up. The inventory can contain one server or many servers. In my case, the inventory will just contain one server, the Digital Ocean cloud server running JupyterHub.
+An _inventory_ is a list of servers (a list of manged nodes) that Ansible is going to set up and configure. The inventory can contain one server or many servers. In my case, the inventory just contains one server, the Digital Ocean cloud server running JupyterHub.
 
 ## Summary of Ansible Vocabulary
 
 How about a couple sentences to bring all these words together:
 
-> Ansible runs playbooks on a control node that configures managed nodes in your inventory. Playbooks are made up of plays. Plays are made up of tasks. Tasks contain modules. At the end of an executed play, a handler is run.
+> Ansible runs playbooks on a control node that configures managed nodes in your inventory. Playbooks are made up of tasks. Tasks contain modules. Modules complete one specific function on a managed node like install a package or copy a file.
+
+## Summary
+
+In this post, we reviewed what Ansible is, a software package used to set-up, configure, and manage cloud servers. We reviewed some Ansible-specific vocabulary like control nodes, managed nodes, playbooks, tasks and modules. 
+
+## Next Post
+
+In the next post, we will review how to install Ansible on a control node. Ansible does not need to be installed on managed nodes, just on the control node that is going to manage the orchestration.

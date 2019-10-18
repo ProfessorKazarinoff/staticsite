@@ -19,8 +19,8 @@ In this project, we are going to use a couple pieces of hardware. Below is the l
 
 | Component | Item and Link
 | | |
-| Arduino | [SparkFun RedBoard - Programmed with Arduino]((https://www.sparkfun.com/products/13975) |
-| Jumper Wires | [Jumper Wires Premium 6" M/M Pack of 10]((https://www.sparkfun.com/products/8431) |
+| Arduino | [SparkFun RedBoard - Programmed with Arduino](https://www.sparkfun.com/products/13975) |
+| Jumper Wires | [Jumper Wires Premium 6" M/M Pack of 10](https://www.sparkfun.com/products/8431) |
 | LED | [LED Rainbow Pack - 5mm PTH](https://www.sparkfun.com/products/12903) |
 | 330 Ohm Resistor | [Resistor 330 Ohm 1/6 Watt PTH - 20 pack](https://www.sparkfun.com/products/11507) |
 | Breadboard | [Breadboard - Self-Adhesive (White)](https://www.sparkfun.com/products/12002) |
@@ -34,7 +34,7 @@ To start a new Python project, it is best practice to create a new virtual envir
 
 Now using the **Anaconda Prompt**, let's create a new virtual environment for our Arduino LED project. Note the arrow symbol ```>``` does not need to be typed. The arrow symbol ```>``` is just shown to indicate the **Anaconda Prompt**.
 
-```terminal
+```text
 > conda create --name arduino python=3.7
 ```
 
@@ -42,19 +42,19 @@ The ```conda create``` command builds the new virtual environment. The ```--name
 
 Type ```y``` to confirm and create the new virtual environment. To use the new virtual environment ```arduino```, you need to first _activate_ it by typing:
 
-```terminal
+```text
 > conda activate arduino
 ```
 
 You know you are in the ```arduino``` virtual environment when ```(arduino)``` is in parenthesis at the start of the **Anaconda Prompt**:
 
-```terminal
+```text
 (arduino) >
 ```
 
 To communicate with the Arduino using Python, we need to install the **PySerial** package. You can install the **PySerial** package at the **Anaconda Prompt** using the command ```conda install pyserial```. Note the ```(arduino)``` virtual environment should be active when you run the ```conda install``` command.
 
-```terminal
+```text
 (arduino) > conda install pyserial
 ```
 
@@ -184,19 +184,19 @@ If you have trouble, make sure the Arduino Serial Monitor is closed before you r
 
 Now that the Arduino LED turns on and off based on sending ```H``` and ```L``` with the Python REPL, let's write a Python script to turn the LED on and off. Again, the serial communication between the Python script and the Arduino is facilitated by the PySerial package. Ensure PySerial is installed before running the Python script.
 
-Open a new script called **Arduino_blink.py**. At the top of the Python script, import the PySerial package. Note that even though the package is called PySerial, the line ```import serial``` is used. Python's built-in **time** module is also imported as the ```time.sleep()``` function will be used in the script.  Include the following code in **Arduino_blink.py**:
+Open a new script called **arduino_blink.py**. At the top of the Python script, import the PySerial package. Note that even though the package is called PySerial, the line ```import serial``` is used. Python's built-in **time** module is also imported as the ```time.sleep()``` function will be used in the script.  Include the following code in **arduino_blink.py**:
 
 ```python
-# Arduino_blink.py
+# arduino_blink.py
 
 import serial
 import time
 ```
 
-In the next part of **Arduino_blink.py**, create a loop that blinks the LED on and off for about 5 seconds. Note the byte string ```b'H'``` is sent to the Arduino, not the unicode string ```'H'```. The unicode string ```'H'``` is pre-pended with the letter ```b``` in the line ```ser.write(b'H')```. Make sure the ```'COM#'``` is set correctly. This ```'COM#'``` is the COM port we found using the Windows Device Manager. It may be ```'COM4'```, but you may have to change it to something else.
+In the next part of **arduino_blink.py**, create a loop that blinks the LED on and off for about 5 seconds. Note the byte string ```b'H'``` is sent to the Arduino, not the unicode string ```'H'```. The unicode string ```'H'``` is pre-pended with the letter ```b``` in the line ```ser.write(b'H')```. Make sure the ```'COM#'``` is set correctly. This ```'COM#'``` is the COM port we found using the Windows Device Manager. It may be ```'COM4'```, but you may have to change it to something else.
 
 ```python
-# Arduino_blink.py
+# arduino_blink.py
 
 for i in range(10):
     with serial.Serial('COM4', 9800, timeout=1) as ser:
@@ -206,16 +206,16 @@ for i in range(10):
         ser.write(b'L')   # send the byte string 'L'
 ```
 
-Run the **Arduino_blink.py** script. You should see the Arduino LED blink on and off 10 times.
+Run the **arduino_blink.py** script. You should see the Arduino LED blink on and off 10 times.
 
 ## Write a Python script to prompt a user to turn the LED on and off
 
-Once the LED blinks on and off successfully using a __for loop__ in a Python script, let's write a new Python script called **Arduino_LED_user.py** that allows a user to turn the LED on and off. 
+Once the LED blinks on and off successfully using a __for loop__ in a Python script, let's write a new Python script called **arduino_LED_user.py** that allows a user to turn the LED on and off. 
 
-Create a new file called **Arduino_LED_user.py**. At the top of the **Arduino_LED_user.py** script, import the **PySerial** package and built-in ```time``` module. Then define the serial port. Make sure to include the correct ```'COM#'```. Use the ```'COM#'``` you found in the Windows Device Manager. If the ```'COM#'``` is not set correctly, the script will not run. Include the code below in **Arduino_LED_user.py**:
+Create a new file called **arduino_LED_user.py**. At the top of the **arduino_LED_user.py** script, import the **PySerial** package and built-in ```time``` module. Then define the serial port. Make sure to include the correct ```'COM#'```. Use the ```'COM#'``` you found in the Windows Device Manager. If the ```'COM#'``` is not set correctly, the script will not run. Include the code below in **arduino_LED_user.py**:
 
 ```python
-# Arduino_LED_user.py
+# arduino_LED_user.py
 
 import serial
 import time
@@ -250,8 +250,10 @@ time.sleep(2) # wait for the serial connection to initialize
 led_on_off()
 ```
 
-Run the Python script **Arduino_LED_user.py**. Type ```H``` and ```L``` and observe the Arduino LED turn on and off. Type ```q``` to end the program.
+Run the Python script **arduino_LED_user.py**. Type ```H``` and ```L``` and observe the Arduino LED turn on and off. Type ```q``` to end the program.
 
 ## Summary
 
-In this post, we reviewed how to control an Arduino LED with Python. We accomplished this task in a couple steps. First, we created a virtual environment and installed the PySerial package into it. Next, we downloaded the Arduino IDE. Then we wired up an LED to an Arduino and uploaded the blink.ino sketch to the Arduino. This ensured the Arduino was worked properly. After that, we uploaded the PhysicalPixel.ino sketch to the Arduino and turned the Arduino LED on and off with the Arduino Serial Monitor. Once that was successful, we used the Python REPL and PySerial to turn the LED on and off. Finally, we constructed a Python script to turn the Arduino LED on and off based on user input.
+In this post, we reviewed how to control an Arduino LED with Python.
+
+We accomplished this task in a couple steps. First, we created a virtual environment and installed the PySerial package into it. Next, we downloaded the Arduino IDE. Then we wired up an LED to an Arduino and uploaded the blink.ino sketch to the Arduino. This ensured the Arduino was worked properly. After that, we uploaded the PhysicalPixel.ino sketch to the Arduino and turned the Arduino LED on and off with the Arduino Serial Monitor. Once that was successful, we used the Python REPL and PySerial to turn the LED on and off. Finally, we constructed a Python script to turn the Arduino LED on and off based on user input.

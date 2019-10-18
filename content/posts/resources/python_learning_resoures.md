@@ -17,7 +17,7 @@ This post is a short list of my recommended Python learning resources. I receive
 
 ## Books
 
-My book [Problem Solving with Python 3.6 Edition](https://www.amazon.com/dp/B07M7S6LTT/ref=sr_1_5?ie=UTF8&qid=1547223360&sr=8-5&keywords=kazarinoff) is available on Amazon. I am teaching a section of our Engineering Programming course this quarter, Winter 2019. If you would like to use the bookk, please feel free! I am also looking for any feedback. I'll include you in the list of contributors (with your permission) if you are interested.
+My book [Problem Solving with Python 3.7 Edition](https://www.amazon.com/Problem-Solving-Python-3-7-open-source/dp/1693405415) is available on Amazon. I am teaching a section of our Engineering Programming course this quarter, Winter 2019. If you would like to use the book, please feel free! I am also looking for any feedback. I'll include you in the list of contributors (with your permission) if you are interested.
 
 For my Intro to Engineering course, I constructed this book: [https://professorkazarinoff.github.io/Problem-Solving-101-with-Python/](https://professorkazarinoff.github.io/Problem-Solving-101-with-Python/). I welcome any edits. I'll add you to the list of contributors (with your permission) for any edits suggested. So far, one person has given me feedback. You can see how contributors are listed here: [https://professorkazarinoff.github.io/Problem-Solving-101-with-Python/99-Appendix/99.08-Contributions/](https://professorkazarinoff.github.io/Problem-Solving-101-with-Python/99-Appendix/99.08-Contributions/)
 

@@ -19,7 +19,7 @@ This is the fifth part of a series of posts about building an Internet of Things
 
 In the last post, we built in some validation for our flask IoT server web API so that only certain API keys and mac addresses are allowed. We also used Python's **datetime** module to add a time stamp to each data point as it comes into our flask IoT server. 
 
-This is great, but it would be really to _save_ every data point that comes in. Right now, when a new data point comes into our server, the previous data point is erased.  
+This is great, but it would be really awesome to _save_ every data point that comes in. Right now, when a new data point comes into our server, the previous data point is erased.  
 
 There are a couple of ways we could store the temperature data that comes in from our ESP8266-based WiFi weather stations:
 
@@ -32,7 +32,7 @@ There are a couple of ways we could store the temperature data that comes in fro
 
 ## Why a sqlite3 database?
 
-Why use a sqlite3 database? One of the key reasons is that the [**sqlite3** module](https://docs.python.org/3.7/library/sqlite3.html) is part of the Python Standard Library. We don't have to install any external packages to use **sqlite3**. A sqlite3 database is also light-weight and won't take up a lot of space on our server. But the real reason I choose to use **sqlite3** is that the library has good documentation and I can build off the **sqlite3** examples of others. 
+Why use a sqlite3 database? One of the key reasons is the [**sqlite3** module](https://docs.python.org/3.7/library/sqlite3.html) is part of the Python Standard Library. We don't have to install any external packages to use **sqlite3**. A sqlite3 database is also light-weight and won't take up a lot of space on our server. But the real reason I choose to use **sqlite3** is that the library has good documentation and I can build off the **sqlite3** examples of others. 
 
 ## Database design
  
@@ -73,7 +73,7 @@ Two example records in our database might look like:
 
 ## Prototype the sqlite3 database
 
-I didn't have a lot of experience building or using databases before this **flask** IoT server project. Before I started coding, I tried out a couple of **sqlite3** commands in a jupyter notebook.
+I didn't have a lot of experience building or using databases before this **flask** IoT server project. Before I started coding, I tried out a couple of **sqlite3** commands in a Jupyter notebook.
 
 {% notebook ../code/flask/sqlite_play.ipynb %}
 

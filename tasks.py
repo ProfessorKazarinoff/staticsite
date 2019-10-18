@@ -92,5 +92,5 @@ def publishsite(c):
     c.run('git add .')
     c.run('git commit -m "published changes"')
     c.run('git push origin master')
-    Path('output/.nojekyll').touch()
+    #Path('output/.nojekyll').touch()
     c.run('ghp-import -m "publishing site" -p -f output')

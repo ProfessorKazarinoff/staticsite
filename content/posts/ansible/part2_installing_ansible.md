@@ -1,4 +1,4 @@
-Title: Automating JupyterHub Deployment with Ansible: Part 2 - Installing Ansible?
+Title: Automating JupyterHub Deployment with Ansible: Part 2 - Installing Ansible
 Date: 2019-10-14 19:36
 Modified: 2019-10-14 19:50
 Status: Draft
@@ -23,7 +23,7 @@ Ansible can be installed on the command line using both a package manager or a *
 
 Using a terminal, the commands below install Ansible:
 
-```test
+```text
 sudo apt-get install software-properties-common
 sudo apt-add-repository ppa:ansible/ansible
 sudo apt-get update

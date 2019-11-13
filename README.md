@@ -10,7 +10,7 @@ Built with Python, [Pelican](https://docs.getpelican.com/en/stable/), and the [p
 
 clone the repo
 
- ```
+ ```text
 $ git clone https://github.com/ProfessorKazarinoff/staticsite.git
 # update all the embedded git submodules
 $ git submodule update --init --recursive
@@ -18,8 +18,8 @@ $ git submodule update --init --recursive
 
 build the conda environment and install the required packages
 
-```
-> conda create -n staticsite python=3.7]
+```text
+> conda create -n staticsite python=3.7
 > conda activate staticsite
 (staticsite)> conda install jupyter beautifulsoup4
 (staticsite)> conda install -c conda-forge pelican==4.0.1 invoke==1.2.0 ghp-import==0.5.5
@@ -28,7 +28,7 @@ build the conda environment and install the required packages
 
 build the site and preview
 
-```
+```text
 (staticsite)> cd staticsite
 (staticsite)> invoke build
 (staticsite)> invoke serve
@@ -37,6 +37,6 @@ build the site and preview
 
 publish the site to GitHub Pages
 
-```
+```text
 (staticsite)> invoke publishsite
 ```

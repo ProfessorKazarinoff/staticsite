@@ -34,6 +34,105 @@ streamlit.__version__
 
 ## Creating a Mohr's Circle Streamlit App
 
+## Deploying on Heroku
+
+Sign up for a Heroku account. 
+
+Use Windows Subsystem for Linux (WSL) to install the Heroku CLI
+
+```
+sudo apt-get -y update && sudo apt-get -y upgrade
+curl https://cli-assets.heroku.com/install.sh | sh
+source .bashrc
+```
+
+Create a virtual environment, install packages and save a requirements.txt file
+
+```
+conda create -n mohrs_circle python=3.7
+conda activate mohrs_circle
+python -m pip install streamlit bokeh numpy
+pip freeze > requirements.txt
+```
+
+Test and make sure the streamlit app runs
+
+```
+streamlit run streamlit_app_bokeh.py
+```
+
+Save all the changes to Git
+
+```
+git add .
+git commit -m "add Heroku Profile setup.sh requirements.txt"
+git push origin master
+```
+
+Create a Procfile and a setup.sh file
+
+In Profile (the file name is Profile with a capital P and no file extension)
+
+```
+web: sh setup.sh && streamlit run streamlit_app_bokeh.py
+```
+
+In setup.sh
+
+```
+mkdir -p ~/.streamlit/
+
+echo "\
+[general]\n\
+email = \"your-email@domain.com\"\n\
+" > ~/.streamlit/credentials.toml
+
+echo "\
+[server]\n\
+headless = true\n\
+enableCORS=false\n\
+port = $PORT\n\
+" > ~/.streamlit/config.toml
+```
+
+Now in the project directory the following files should be present:
+
+```
+mohrs_circle/
+├── LICENSE
+├── Procfile
+├── README.md
+├── requirements.txt
+├── setup.sh
+├── streamlit_app.py
+├── streamlit_app_bokeh.py
+├── test.py
+└── user_funcs.py
+```
+
+Commit all the files and push to GitHub
+
+```
+git add .
+git commit -m "add Profile, setup.sh, requirements.txt"
+```
+
+
+Log into Heroku with the Heroku CLI, create the Heroku project and push to Heroku
+
+
+```
+heroku login
+heroku create
+git push heroku master
+# see if it's running
+heroku ps:scale web=1
+```
+
+Check the URL provided by the Heroku CLI
+
 ## Summary
+
+In this post, we created an app with streamlit and deployed it on Heroku
 
 ## Next Steps

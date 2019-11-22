@@ -45,6 +45,7 @@ STATIC_PATHS = ['images','extra','code',
                 'posts/pdf/images',
                 'posts/engr213/images',
                 'posts/ansible/images',
+                'posts/streamlit/images',
                 ]  # removed this, see if any change 'code',
                 
 PLUGIN_PATHS = ['pelican-plugins','extra-plugins']

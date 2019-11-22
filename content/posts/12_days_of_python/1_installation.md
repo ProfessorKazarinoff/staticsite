@@ -9,7 +9,7 @@ Authors: Peter D. Kazarinoff
 Series: 12 Days of Python
 series_index: 2
 
-![conductor]({static}/posts/12_days_of_python/images/ornament.png)
+![conductor]({static}/posts/ansible/images/conductor.png)
 
 On the first day of Python the open source gave to me: Python to run my code on
 

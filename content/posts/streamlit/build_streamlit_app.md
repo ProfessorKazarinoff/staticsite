@@ -1,6 +1,6 @@
 Title: How to Build a Streamlit App in Python
-Date: 2019-11-22 08:11
-Modified: 2019-11-22 08:11
+Date: 2019-11-25 08:11
+Modified: 2019-11-25 08:11
 Status: draft
 Category: Python
 Tags: streamlit, matplotlib, engineering
@@ -8,6 +8,7 @@ Slug: streamlit-app-with-bokeh
 Authors: Peter D. Kazarinoff
 
 ![streamlit bokeh heroku]({static}/posts/streamlit/images/bokeh_streamlit_heroku.png)
+
 [**Streamlit**](https://streamlit.io/docs/) is an app-building framework for Python. Steamlit is a way to create mostly simple single-page web apps that are easy to deploy. Streamlit is usefull for engineers and data scientists who have some app functionality, like a plot that dynamically changes based on user interaction, but don't want to build out a full website using a tool like Django or Flask. 
 
 In this post we will create a Streamlit app that displays a Bokeh plot and deploy it with Heroku.
@@ -130,12 +131,12 @@ import numpy as np
 
 def mohr_c(stress_x, stress_y, shear):
     """
-    This function takes in:
+    input arguments:
         stress_x: int or float
         stress_y: int or float
         shear: int or float
 
-    mohr_c() outputs two values for the circle center and radius
+    mohr_c() outputs two values for the circle, center and radius
 
     output:
         C, R
@@ -149,7 +150,7 @@ def mohr_c(stress_x, stress_y, shear):
 
 def c_array(C, R, n=100):
     """
-    This function takes in:
+    input arguments:
         C: int or float, the x-value of a circle center
         R: int or float, the radius of the circle
         n: int, number of points (optional)
@@ -178,15 +179,16 @@ def X_Y(stress_x, stress_y, shear):
 The second Pyton file, called ```streamlit_app_bokeh.py``` contains the code to build the plot using Bokeh and build the app using Streamlit. Note the last line of code is ```st.bokeh_chart(p)```. This line is the "magic sauce" that turns our Bokeh plot into a Streamlit app. The line is a substitue for a command to show the plot in a regular Bokeh application.
 
 ```text
-# streamlit_app.py
+# streamlit_app_bokeh.py
 """
-A streamlit app to draw a Mohr's Circle based on user input using the Bokeh plotting library
+A streamlit app to draw a Mohr's Circle based on user input
+using the Bokeh plotting library
 """
 
 import numpy as np
 import streamlit as st
 from bokeh.plotting import figure
-from user_funcs import mohrs_circle
+from user_funcs import mohr_c, c_array, X_Y
 
 st.title("Mohr's Circle App")
 
@@ -194,9 +196,14 @@ stress_x = st.sidebar.number_input("stress in x", value=2.0, step=0.1)
 stress_y = st.sidebar.number_input("stress in y", value=5.0, step=0.1)
 shear = st.sidebar.number_input("shear xy", value=4.0, step=0.1)
 
-circle_x, circle_y, X, Y, R, C = mohrs_circle(
-    stress_x=stress_x, stress_y=stress_y, shear=shear
-)
+# find center and radius
+C, R = mohr_c(stress_x, stress_y, shear)
+
+# build arrays plot circle
+circle_x, circle_y = c_array(C, R)
+
+# build arrays to plot line through circle
+X, Y = X_Y(stress_x, stress_y, shear)
 
 st.sidebar.markdown(f"max stress = {round(C+R,2)}")
 st.sidebar.markdown(f"min stress = {round(C-R,2)}")

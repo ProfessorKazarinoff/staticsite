@@ -9,9 +9,9 @@ Authors: Peter D. Kazarinoff
 
 ![streamlit bokeh heroku]({static}/posts/streamlit/images/bokeh_streamlit_heroku.png)
 
-[**Streamlit**](https://streamlit.io/docs/) is a web app-building framework for Python. Steamlit is a way to create mostly simple single-page web apps that are easy to deploy. Streamlit is usefull for engineers and data scientists who have some app functionality, like a plot that dynamically changes based on user interaction, but don't want to build out a full website using a web framework like Django or Flask. 
+[**Streamlit**](https://streamlit.io/docs/) is a web app-building framework for Python. Streamlit is a way to create mostly simple single-page web apps that are easy to deploy. Streamlit is useful for engineers and data scientists who have some app functionality, like a plot that dynamically changes based on user interaction, but don't want to build out a full website using a web framework like Django or Flask. 
 
-In this post we will create a Streamlit app that displays a Bokeh plot and deploy it online with Heroku.
+In this post, we will create a Streamlit app that displays a Bokeh plot and deploy it online with Heroku.
 
 [TOC]
 
@@ -23,7 +23,7 @@ Streamlit builds web-apps from a single Python file. Only a couple additional li
 
 ## Installing Streamlit
 
-Streamlit can be installed with **pip**, the Python package manager. It's a good idea to install Streamlit into a virtaul environment, rather than installing Streamlit into the base or built-in version of Python installed on your machine. I use the **Anaconda Prompt** to create virtual environments. The commands below are designed to run on the **Anaconda Prompt** and will create a virtual environment called ```(streamlit)``` and install the Streamlit package into that environment. Note that at the time of writing, Streamlit can not be installed with **conda**, it must be installed with **pip**. 
+Streamlit can be installed with **pip**, the Python package manager. It's a good idea to install Streamlit into a virtual environment, rather than installing Streamlit into the base or built-in version of Python installed on your machine. I use the **Anaconda Prompt** to create virtual environments. The commands below are designed to run on the **Anaconda Prompt** and will create a virtual environment called ```(streamlit)``` and install the Streamlit package into that environment. Note that at the time of writing, Streamlit can not be installed with **conda**, it must be installed with **pip**. 
 
 ```text
 conda create -y -n streamlit python=3.7
@@ -41,13 +41,13 @@ python
 
 ## Running Streamlit for the First Time
 
-You can run a demo app that comes with the Streamlit package by running the follow command into a terminal. Note the ```(streamlit)``` virtual enivronment (with Streamlit installed into it) must be active for the command to work.
+You can run a demo app that comes with the Streamlit package by running the following command into a terminal. Note the ```(streamlit)``` virtual environment (with Streamlit installed into it) must be active for the command to work.
 
 ```text
 streamlit hello
 ```
 
-This command starts a demo Streamlit app. Open a web browser and enter the URL shown in your terminal. The running app will loook something like the screenshot below.
+This command starts a demo Streamlit app. Open a web browser and enter the URL shown in your terminal. The running app will look something like the screenshot below.
 
 ![streamlit hello app]({static}/posts/streamlit/images/streamlit_hello_app.png)
 
@@ -63,7 +63,7 @@ Now that we have a feel for some of the things Streamlit can do, let's build a s
 
 ![streamlit logo]({static}/posts/streamlit/images/streamlit_logo.png)
 
-Next let's build our own simple Streamlit app. Our app will ask a user for a number and a name. The app will add 1 to the number and tell the user "Hello" based on their name.
+Next, let's build our own simple Streamlit app. Our app will ask a user for a number and a name. The app will add 1 to the number and tell the user "Hello" based on their name.
 
 The following code was entered into a file called ```simple_streamlit_app.py```
 
@@ -99,7 +99,7 @@ streamlit run simple_streamlit_app.py
 
 ![Anaconda Prompt run_simple_streamlit_app.py]({static}/posts/streamlit/images/anaconda_prompt_run_simple_streamlit_app.png)
 
-Browse to the URL shown in the terminal. The resulting Streamlit app looks something like the screen shot below.
+Browse to the URL shown in the terminal. The resulting Streamlit app looks something like the screenshot below.
 
 ![streamlit logo]({static}/posts/streamlit/images/simple_streamlit_app.png)
 
@@ -109,7 +109,7 @@ Now that we have created a simple Streamlit app, let's build upon the experience
 
 ## Create a Mohr's Circle Streamlit App
 
-Next we are going to create a Streamlit App that builds a _Mohr's Circle_ based on user input. A Mohr's Circle is a type of diagram used in Mechanical Engineering to show the internal stresses acting on a region, called a stress element, of a part. When that stress element is rotated relative to the part's direction, the stresses change. A Mohr's circle shows the resulting normal and shear stresses based on the angle the stress element is rotated. 
+Next, we are going to create a Streamlit App that builds a _Mohr's Circle_ based on user input. A Mohr's Circle is a type of diagram used in Mechanical Engineering to show the internal stresses acting on a region, called a stress element, of a part. When that stress element is rotated relative to the part's direction, the stresses change. A Mohr's circle shows the resulting normal and shear stresses based on the angle the stress element is rotated. 
 
 ### Bokeh
 
@@ -119,7 +119,7 @@ We will build Mohr's Circle using a plotting library called [Bokeh](https://docs
 
 ### Create the App
 
-Let's create two ```.py``` files to build our app. The first file, ```user_funcs.py``` contains a couple functions needed to calculate the parameters of Mohr's Cirle. The Python code below contains the functions we need.
+Let's create two ```.py``` files to build our app. The first file, ```user_funcs.py``` contains a couple functions needed to calculate the parameters of Mohr's Circle. The Python code below contains the functions we need.
 
 ```text
 # user_funcs.py
@@ -137,7 +137,7 @@ def mohr_c(stress_x, stress_y, shear):
         stress_y: int or float
         shear: int or float
 
-    mohr_c() outputs two values for the circle, center and radius
+    mohr_c() outputs two values for the circle, center, and radius
 
     output:
         C, R
@@ -177,7 +177,7 @@ def X_Y(stress_x, stress_y, shear):
 
 ```
 
-The second Pyton file, called ```streamlit_app_bokeh.py``` contains the code to build the plot using Bokeh and build the app using Streamlit. Note the last line of code is ```st.bokeh_chart(p)```. This line is the "magic sauce" that turns our Bokeh plot into a Streamlit app. The line is a substitue for the command to show a plot in a regular Bokeh application.
+The second Python file, called ```streamlit_app_bokeh.py``` contains the code to build the plot using Bokeh and build the app using Streamlit. Note the last line of code is ```st.bokeh_chart(p)```. This line is the "magic sauce" that turns our Bokeh plot into a Streamlit app. The line is a substitute for the command to show a plot in a regular Bokeh application.
 
 ```text
 # streamlit_app_bokeh.py
@@ -203,7 +203,7 @@ C, R = mohr_c(stress_x, stress_y, shear)
 # build arrays plot circle
 circle_x, circle_y = c_array(C, R)
 
-# build arrays to plot line through circle
+# build arrays to plot line through the circle
 X, Y = X_Y(stress_x, stress_y, shear)
 
 st.sidebar.markdown(f"max stress = {round(C+R,2)}")
@@ -284,10 +284,13 @@ This will install the Heroku CLI. You can test the installation with the command
 heroku --version
 ```
 
-
 ### Create a virtual environment, install packages and save a requirements.txt file
 
+Next, within Windows Subsystem for Linux, create a new virtual environment and install streamlit, bokeh and numpy into it. After the packages are installed, you can use pip to write a requirements.txt file. Heroku needs the requirements.txt file in order for the streamlit app to work.
+
 ```text
+git clone https://github.com/ProfessorKazarinoff/mohrs_circle.git
+cd mohrs_circle
 conda create -n mohrs_circle python=3.7
 conda activate mohrs_circle
 python -m pip install streamlit bokeh numpy
@@ -298,14 +301,6 @@ pip freeze > requirements.txt
 
 ```text
 streamlit run streamlit_app_bokeh.py
-```
-
-Save all the changes to Git
-
-```text
-git add .
-git commit -m "add Heroku Profile setup.sh requirements.txt"
-git push origin master
 ```
 
 ### Create a Procfile and a setup.sh file
@@ -382,4 +377,4 @@ The Streamlit app opens on a phone too.
 
 ## Summary
 
-In this post, we created an web app with Streamlit and Bokeh. We ran the Streamlit app locally and then deployed it on the internet using Heroku. Streamlit makes it pretty easy to turn a Python script into a fuctional web app deployed on the internet.
+In this post, we created a web app with Streamlit and Bokeh. We ran the Streamlit app locally and then deployed it on the internet using Heroku. Streamlit makes it pretty easy to turn a Python script into a functional web app deployed on the internet.

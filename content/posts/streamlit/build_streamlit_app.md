@@ -1,6 +1,6 @@
 Title: How to Build a Streamlit App in Python
-Date: 2019-11-25 08:11
-Modified: 2019-11-25 08:11
+Date: 2019-12-14 08:11
+Modified: 2019-12-14 08:11
 Status: draft
 Category: Python
 Tags: streamlit, matplotlib, engineering
@@ -9,13 +9,13 @@ Authors: Peter D. Kazarinoff
 
 ![streamlit bokeh heroku]({static}/posts/streamlit/images/bokeh_streamlit_heroku.png)
 
-[**Streamlit**](https://streamlit.io/docs/) is an app-building framework for Python. Steamlit is a way to create mostly simple single-page web apps that are easy to deploy. Streamlit is usefull for engineers and data scientists who have some app functionality, like a plot that dynamically changes based on user interaction, but don't want to build out a full website using a tool like Django or Flask. 
+[**Streamlit**](https://streamlit.io/docs/) is a web app-building framework for Python. Steamlit is a way to create mostly simple single-page web apps that are easy to deploy. Streamlit is usefull for engineers and data scientists who have some app functionality, like a plot that dynamically changes based on user interaction, but don't want to build out a full website using a web framework like Django or Flask. 
 
-In this post we will create a Streamlit app that displays a Bokeh plot and deploy it with Heroku.
+In this post we will create a Streamlit app that displays a Bokeh plot and deploy it online with Heroku.
 
 [TOC]
 
-A link to the Streamlit Docs is below:
+A link to the Streamlit docs is below:
 
  > [https://streamlit.io/docs/](https://streamlit.io/docs/)
 
@@ -34,6 +34,7 @@ pip install streamlit
 You can confirm your installation by opening up the Python REPL and typing the commands below (note the ```>>>``` prompt is shown to indicate the Python REPL, not characters for the user to enter).
 
 ```text
+python
 >>> import streamlit
 >>> streamlit.__version__
 ```
@@ -176,7 +177,7 @@ def X_Y(stress_x, stress_y, shear):
 
 ```
 
-The second Pyton file, called ```streamlit_app_bokeh.py``` contains the code to build the plot using Bokeh and build the app using Streamlit. Note the last line of code is ```st.bokeh_chart(p)```. This line is the "magic sauce" that turns our Bokeh plot into a Streamlit app. The line is a substitue for a command to show the plot in a regular Bokeh application.
+The second Pyton file, called ```streamlit_app_bokeh.py``` contains the code to build the plot using Bokeh and build the app using Streamlit. Note the last line of code is ```st.bokeh_chart(p)```. This line is the "magic sauce" that turns our Bokeh plot into a Streamlit app. The line is a substitue for the command to show a plot in a regular Bokeh application.
 
 ```text
 # streamlit_app_bokeh.py
@@ -229,7 +230,7 @@ st.bokeh_chart(p)
 
 ### Install Bokeh and NumPy
 
-Before we can run our Mohr's Circle Streamlit app, we need to install the packages we called in the two ```.py``` files. The packages we need are Bokeh and NumPy. Both of these packages can be installed with **conda** or **pip** on the command line. Make sure you are in the ```(streamlit)``` virtual environment when you run the install command.
+Before we can run our Mohr's Circle Streamlit app, we need to install the packages we imported in the two ```.py``` files. The packages we need are Bokeh and NumPy. Both of these packages can be installed with **conda** or **pip** on the command line. Make sure you are in the ```(streamlit)``` virtual environment when you run the install command.
 
 ```text
 conda install -y bokeh numpy
@@ -269,13 +270,20 @@ First, sign up for a Heroku account. See the link below.
 
 ### Use Windows Subsystem for Linux (WSL) to install the Heroku CLI
 
-I had trouble installing and using the Heroku CLI (Command Line Interface) in Windows 10. I had success installing and using the Heroku CLI in Windows Subsystem for Linux. Install Windows Subsystem for Linux (WSL) and open the WSL prompt. Type the commands below to update the system and install the Heroku CLI.
+I had trouble installing and using the Heroku CLI (Command Line Interface) in Windows 10. But, I had success installing and using the Heroku CLI in Windows Subsystem for Linux. If you are using Windows 10, install Windows Subsystem for Linux (WSL) and open the WSL prompt. Type the commands below to update the system and install the Heroku CLI.
 
 ```text
 sudo apt-get -y update && sudo apt-get -y upgrade
 curl https://cli-assets.heroku.com/install.sh | sh
 source .bashrc
 ```
+
+This will install the Heroku CLI. You can test the installation with the command below.
+
+```text
+heroku --version
+```
+
 
 ### Create a virtual environment, install packages and save a requirements.txt file
 

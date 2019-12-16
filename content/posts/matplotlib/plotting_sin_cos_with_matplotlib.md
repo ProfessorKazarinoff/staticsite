@@ -1,4 +1,4 @@
-Title: Plotting sine and cosine with matplotlib and Python
+Title: Plotting sine and cosine with Matplotlib and Python
 Slug: plotting-sin-cos-with-matplotlib
 Date: 2018-02-05 10:30
 Status: published

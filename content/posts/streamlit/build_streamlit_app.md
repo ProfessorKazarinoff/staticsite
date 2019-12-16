@@ -254,6 +254,22 @@ Try typing in different numbers for stress in x, stress in y and shear xy. See h
 
 Our Mohr's Circle Streamlit app runs locally, but if we want to share the app with friends, we need to deploy it over the internet. One way to deploy a Streamlit app is with a web service called Heroku.
 
+### Save code on GitHub.com
+
+After I was sure the Streamlit app worked, I saved the code into a git repo and pushed the code up to Github.com. This isn't absolutly necessary, but as you can read below, I needed to use Windows Subsystem for Linux to Deploy the Streamlit app. A simple way to bring the code into WSL is to pull the code down from a GitHub repo. 
+
+Create a repo on Github, and then use the commands below to commit the code locally and then push the code up to GitHub.com. Make sure to change ```<UserName>``` to your GitHub username and change ```<commit message>``` to your specific commit message.
+
+```text
+git init
+git remote add origin https://github.com/<UserName>/mohrs_circle.git
+git add .
+git commit -m "<commit message>"
+git push origin master
+```
+
+Next, we'll deploy our Steamlit app on the Internet using a service called Heroku.
+
 ## Deploy on Heroku
 
 ![Heroku Logo]({static}/posts/streamlit/images/heroku_logo.png)
@@ -270,7 +286,11 @@ First, sign up for a Heroku account. See the link below.
 
 ### Use Windows Subsystem for Linux (WSL) to install the Heroku CLI
 
-I had trouble installing and using the Heroku CLI (Command Line Interface) in Windows 10. But, I had success installing and using the Heroku CLI in Windows Subsystem for Linux. If you are using Windows 10, install Windows Subsystem for Linux (WSL) and open the WSL prompt. Type the commands below to update the system and install the Heroku CLI.
+One of the easiest ways to deploy a web-app to Heroku is to use the Heroku CLI (Command Line Interface).
+
+If you are using a Mac or Linux, the Heroku CLI is easy to install using a terminal. However, I had trouble installing and using the Heroku CLI in Windows 10. My work around was installing and using the Heroku CLI in Windows Subsystem for Linux. 
+
+If you are using Windows 10, install Windows Subsystem for Linux (WSL) and open the WSL prompt. Type the commands below to update the system and install the Heroku CLI.
 
 ```text
 sudo apt-get -y update && sudo apt-get -y upgrade
@@ -278,7 +298,7 @@ curl https://cli-assets.heroku.com/install.sh | sh
 source .bashrc
 ```
 
-This will install the Heroku CLI. You can test the installation with the command below.
+This installs the Heroku CLI. You can test the installation with the command below.
 
 ```text
 heroku --version
@@ -286,11 +306,16 @@ heroku --version
 
 ### Create a virtual environment, install packages and save a requirements.txt file
 
-Next, within Windows Subsystem for Linux, create a new virtual environment and install streamlit, bokeh and numpy into it. After the packages are installed, you can use pip to write a requirements.txt file. Heroku needs the requirements.txt file in order for the streamlit app to work.
+Since we saved our code on GitHub.com, we can use git to pull the code down into the WSL environment.
 
 ```text
-git clone https://github.com/ProfessorKazarinoff/mohrs_circle.git
+clone https://github.com/<UserName>/mohrs_circle.git
 cd mohrs_circle
+```
+
+Next, within Windows Subsystem for Linux, create a new virtual environment and install streamlit, bokeh and numpy into it. I have Anaconda installed in my WSL environment, so I used conda to install the Python packages. Alternatively, you could use Python's venv module and pip instead. After the packages are installed, you can use pip to write a requirements.txt file. Heroku needs the requirements.txt file in order for the streamlit app to work.
+
+```text
 conda create -n mohrs_circle python=3.7
 conda activate mohrs_circle
 python -m pip install streamlit bokeh numpy
@@ -299,19 +324,28 @@ pip freeze > requirements.txt
 
 ### Test and make sure the streamlit app runs
 
+Next, within WSL, let's test and see that the Streamlit app still works. Ensure you are in the virtual environment created above when the command is run.
+
 ```text
 streamlit run streamlit_app_bokeh.py
 ```
 
+You can browse to the URL listed and test the app by typing in a couple different stresses and see how the plot changes.
+
 ### Create a Procfile and a setup.sh file
 
-In Procfile (the file name is ```Profile``` with a capital ```P``` and no file extension)
+Before we can deploy the app on Heroku, a couple more files are required:
+
+ * Procfile
+ * setup.sh
+
+In the Procfile (the file name is ```Profile``` with a capital ```P``` and no file extension) add the text:
 
 ```text
 web: sh setup.sh && streamlit run streamlit_app_bokeh.py
 ```
 
-In ```setup.sh```
+In ```setup.sh``` add the text:
 
 ```text
 mkdir -p ~/.streamlit/
@@ -329,7 +363,7 @@ port = $PORT\n\
 " > ~/.streamlit/config.toml
 ```
 
-Now the project directory should have the following files present:
+Now the main project directory should have the following files present:
 
 ```text
 mohrs_circle/
@@ -340,7 +374,6 @@ mohrs_circle/
 ├── setup.sh
 ├── streamlit_app.py
 ├── streamlit_app_bokeh.py
-├── test.py
 └── user_funcs.py
 ```
 
@@ -352,9 +385,11 @@ git commit -m "add Profile, setup.sh, requirements.txt"
 git push origin master
 ```
 
+Now we are finally ready to deploy on Heroku.
+
 ### Push the project up to Heroku
 
-Log into Heroku with the Heroku CLI, create the Heroku project and git push to Heroku
+Log into Heroku with the Heroku CLI, create the Heroku project and git push to Heroku:
 
 ```text
 heroku login
@@ -369,11 +404,11 @@ heroku ps:scale web=1
 
 Check the URL provided by the Heroku CLI. The app works the same as when we ran it locally, but now it's live on the internet. Anyone with the URL provided by the Heroku CLI can view our Streamlit app.
 
-![Heroku Signup]({static}/posts/streamlit/images/mohrs_circle_app_on_heroku.png)
+![app on Heroku]({static}/posts/streamlit/images/mohrs_circle_app_on_heroku.png)
 
 The Streamlit app opens on a phone too. 
 
-![Heroku Signup]({static}/posts/streamlit/images/app_on_phone.png)
+![app on Phone]({static}/posts/streamlit/images/app_on_phone.png)
 
 ## Summary
 

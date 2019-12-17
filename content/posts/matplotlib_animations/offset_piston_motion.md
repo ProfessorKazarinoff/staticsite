@@ -58,6 +58,3 @@ l = 4.0  # connecting rod length
 rot_num = 4 # number of crank rotations
 increment = 0.1 # angle incremement
 ```
-
-
- 

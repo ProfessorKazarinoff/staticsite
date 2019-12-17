@@ -1,8 +1,7 @@
 """
 Offset Piston Motion Animation using Matplotlib.
-Animation designed to run on Raspberry Pi 2
-Author: Peter D. Kazarinoff, 2016
-Tribilium Engineering Solutions   www.tribilium.com
+Animation designed to run on Raspberry Pi 3
+Author: Peter D. Kazarinoff, 2019
 """
 
 #import necessary packages

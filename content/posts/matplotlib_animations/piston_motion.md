@@ -1,12 +1,12 @@
-Title: Piston Motion with Python and matplotlib
-Date: 2017-09-15 20:40
-Modified: 2017-09-15 20:40
+Title: Piston Motion with Python and Matplotlib
+Date: 2019-12-17 20:40
+Modified: 2019-12-17 20:40
 Status: Draft
 Category: Python
-Tags: python, matplotlib, animation
+Tags: python, matplotlib, animation, dynamics
 Slug: piston-motion
 Authors: Peter D. Kazarinoff
-Summary: An animation of piston motion created with Python and matplotlib
+Summary: An animation of piston motion created with Python and Matplotlib
 
 Piston motion is one of the classic dynamic types of motion that belong to a category of 4-bar motion. Piston motion is the type of motion that the piston in a cylinder of a car engine goes through as the crankshaft rotates. 
 
@@ -18,7 +18,6 @@ Real Python has a good [introduction to virtual environments](https://realpython
 
 I recommend undergraduate engineers use the Anaconda distribution of Python which comes with the **Anaconda Prompt**. A new virtual environment can be set up by opening the **Anaconda Prompt** and typing:
 
-
 Using the Anaconda Prompt:
 
 ```text
@@ -29,12 +28,12 @@ Using the Anaconda Prompt:
 
 Alternatively, a virtual environment can be set up with a terminal prompt and **pip**
 
-Using a terminal:
+Using a terminal on MacOS or Linux:
 
 ```text
 $ mkdir piston_motion
 $ cd piston_motion
-$ mkvirtualenv piston_motion -p python3
+$ python3 -m venv venv
 ```
 
 Now that we have a new clean virtual environment with Python 3 installed, we need to install the necessary packages:
@@ -47,13 +46,13 @@ Using the Anaconda Prompt, activate the ```piston_motion``` virtual environment 
 (piston_motion) > conda install matplotlib
 ```
 
-Alternatively, the packages can be installed with **pip**:
+Alternatively, if you are using MacOS or Linux, the packages can be installed with a terminal **pip**:
 
 ```text
-$ workon piston_motion
-(piston_motion) $ pip install numpy
-(piston_motion) $ pip install matplotlib
-(piston_motion) $ pip freeze
+$ source venv/bin/activate
+(venv) $ pip install numpy
+(venv) $ pip install matplotlib
+(venv) $ pip freeze
 cycler==0.10.0
 matplotlib==2.0.2
 numpy==1.13.1
@@ -63,8 +62,9 @@ pytz==2017.2
 six==1.10.0
 ```
 
-Next, open a text editor or IDLE and start a new python file called ```piston_motion.py```
-We will start our script by importing the necessary modules
+Next, open a text editor (I like to use VS Code) and start a new python file called ```piston_motion.py```
+
+We will start our ```piston_motion.py``` script by importing the necessary modules. NumPy is imported as the comman alias ```np```. Besides importing Matplotlib's ```pyplot``` module, we'll also import Matplotlib's ```animation``` module. 
 
 ```python
 # import necessary packages
@@ -74,7 +74,13 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 ```
 
-To model piston motion we need to have two moving parts. One is the crankshaft. The crankshaft rotates around a central axis with a constant radius. We will model this with a line of constant length, one end fixed at the origin and the other rotating in a circle like the hand on a clock. To model this line, we just need two points, the origin at x=0 and y=0  and the end of the line at the point ```x1``` and ```x2```. We also need to have a crank radius and a connecting rode length. We will define these constants at the top of our code. So that the animation does not run around indefininelty we will set a fixed number of rotations.  The rotation increment defines how fine the 'ticks' are as our crankshaft arm rotates. 0.1 will work to make the animation smooth enough.
+To model piston motion, we need to animate two moving parts: a crankshaft and a connecting rod.
+
+The crankshaft rotates around a central axis with a constant radius. We'll model the crankshaft as a line of constant length, one end fixed at the origin and the other rotating in a circle like the hand on a clock. To model this line, we just need two points, the origin at ```x=0``` and ```y=0```  and the end of the line at the point ```x1``` and ```x2```.
+
+We also need to define a crank radius and a connecting rode length. We will define these constants at the top of our code.
+
+We'll set a fixed number of rotations so that the animation does not run around indefininelty. The rotation increment defines how fine the 'ticks' are as our crankshaft arm rotates. A rotation increment of ```0.1``` will make our animation smooth enough.
 
 ```
 # input parameters

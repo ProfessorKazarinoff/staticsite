@@ -1,9 +1,9 @@
 Title: How to Build a Streamlit App in Python
 Date: 2019-12-16 08:11
 Modified: 2019-12-16 08:11
-Status: draft
+Status: published
 Category: Python
-Tags: streamlit, matplotlib, engineering
+Tags: streamlit, bokeh, engineering
 Slug: streamlit-app-with-bokeh
 Authors: Peter D. Kazarinoff
 
@@ -252,13 +252,13 @@ The resulting app will look something like the screenshot below:
 
 Try typing in different numbers for stress in x, stress in y and shear xy. See how the plot changes when different numbers are entered. The app looks great!
 
-Our Mohr's Circle Streamlit app runs locally, but if we want to share the app with friends, we need to deploy it over the internet. One way to deploy a Streamlit app is with a web service called Heroku.
+Now that the app is running, let's save all the files on GitHub. We'll need the files saved on GitHub for the next couple steps.
 
 ### Save code on GitHub.com
 
-After I was sure the Streamlit app worked, I saved the code into a git repo and pushed the code up to Github.com. This isn't absolutly necessary, but as you can read below, I needed to use Windows Subsystem for Linux to Deploy the Streamlit app. A simple way to bring the code into WSL is to pull the code down from a GitHub repo. 
+After I was sure the Streamlit app worked, I saved the code into a git repo and pushed the code up to Github.com. This isn't absolutly necessary, but as you can see below, I needed to use Windows Subsystem for Linux to deploy the Streamlit app. A simple way to bring the code into WSL is to pull the code down from a GitHub repo. 
 
-Create a repo on Github, and then use the commands below to commit the code locally and then push the code up to GitHub.com. Make sure to change ```<UserName>``` to your GitHub username and change ```<commit message>``` to your specific commit message.
+Create a repo on Github, and then use the commands below to commit the code locally and push the code up to GitHub.com. Make sure to change ```<UserName>``` to your GitHub username and change ```<commit message>``` to your specific commit message.
 
 ```text
 git init
@@ -268,7 +268,7 @@ git commit -m "<commit message>"
 git push origin master
 ```
 
-Next, we'll deploy our Steamlit app on the Internet using a service called Heroku.
+Our Mohr's Circle Streamlit app runs locally, but if we want to share the app with friends, we need to deploy it over the internet. One way to deploy a Streamlit app is with a web service called Heroku.
 
 ## Deploy on Heroku
 
@@ -284,13 +284,17 @@ First, sign up for a Heroku account. See the link below.
 
 ![Heroku Signup]({static}/posts/streamlit/images/heroku_signup.png)
 
-### Use Windows Subsystem for Linux (WSL) to install the Heroku CLI
-
 One of the easiest ways to deploy a web-app to Heroku is to use the Heroku CLI (Command Line Interface).
 
-If you are using a Mac or Linux, the Heroku CLI is easy to install using a terminal. However, I had trouble installing and using the Heroku CLI in Windows 10. My work around was installing and using the Heroku CLI in Windows Subsystem for Linux. 
+### Use Windows Subsystem for Linux (WSL) to install the Heroku CLI
 
-If you are using Windows 10, install Windows Subsystem for Linux (WSL) and open the WSL prompt. Type the commands below to update the system and install the Heroku CLI.
+If you are using a Mac or Linux, the Heroku CLI is easy to install using a terminal. However, I had trouble installing and using the Heroku CLI in Windows 10. My work around was installing and using the Heroku CLI in Windows Subsystem for Linux.
+
+![WSL in windows store]({static}/posts/streamlit/images/WSL_in_windows_store.PNG)
+
+If you are using Windows 10, install Windows Subsystem for Linux (WSL) from the Windows Store. I installed the Ubuntu distribution.
+
+Using the start menu, and open the WSL prompt. Type the commands below to update the system and install the Heroku CLI.
 
 ```text
 sudo apt-get -y update && sudo apt-get -y upgrade
@@ -298,22 +302,30 @@ curl https://cli-assets.heroku.com/install.sh | sh
 source .bashrc
 ```
 
-This installs the Heroku CLI. You can test the installation with the command below.
+These commands install the Heroku CLI. You can test the installation with the command below.
 
 ```text
 heroku --version
 ```
 
-### Create a virtual environment, install packages and save a requirements.txt file
+If the Heroku CLI is installed, output should look similar to the screen capture below.
 
-Since we saved our code on GitHub.com, we can use git to pull the code down into the WSL environment.
+![WSL in windows store]({static}/posts/streamlit/images/heroku_version_output.PNG)
+
+### Pull down the code from GitHub
+
+Since we saved our code on GitHub.com, we can use git to pull the code down into the WSL environment. Remember to replace ```<UserName>``` with your GitHub username.
 
 ```text
 clone https://github.com/<UserName>/mohrs_circle.git
 cd mohrs_circle
 ```
 
-Next, within Windows Subsystem for Linux, create a new virtual environment and install streamlit, bokeh and numpy into it. I have Anaconda installed in my WSL environment, so I used conda to install the Python packages. Alternatively, you could use Python's venv module and pip instead. After the packages are installed, you can use pip to write a requirements.txt file. Heroku needs the requirements.txt file in order for the streamlit app to work.
+Now that we have the code for our app, we need to create the same virtual environment in WSL as we had before when we got our app to run locally.
+
+### Create a virtual environment, install packages and save a requirements.txt file
+
+Next, within Windows Subsystem for Linux, create a new virtual environment and install Streamlit, Bokeh and NumPy into it. I have Anaconda installed in my WSL environment, so I used conda to install the Python packages. Alternatively, you could use Python's venv module and pip instead. After the packages are installed, you can use pip to write a ```requirements.txt``` file. Heroku needs the requirements.txt file in order for the Streamlit app to work.
 
 ```text
 conda create -n mohrs_circle python=3.7
@@ -321,6 +333,8 @@ conda activate mohrs_circle
 python -m pip install streamlit bokeh numpy
 pip freeze > requirements.txt
 ```
+
+Now we should be able to run the streamlit app from the WSL prompt.
 
 ### Test and make sure the streamlit app runs
 
@@ -363,7 +377,7 @@ port = $PORT\n\
 " > ~/.streamlit/config.toml
 ```
 
-Now the main project directory should have the following files present:
+Now the main project directory should have the following files present. The ```LICENSE``` and ```README.md``` files are optional, but I include these two files in my GitHub repos as a general practice.
 
 ```text
 mohrs_circle/
@@ -377,7 +391,7 @@ mohrs_circle/
 └── user_funcs.py
 ```
 
-Commit all the files and push to GitHub
+Commit all the files and push to GitHub.
 
 ```text
 git add .
@@ -399,6 +413,8 @@ git push heroku master
 # see if it's running
 heroku ps:scale web=1
 ```
+
+That's it! The Streamlit app should now be running on Heroku.
 
 ### View the Streamlit App live on the web
 

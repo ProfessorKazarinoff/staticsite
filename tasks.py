@@ -93,4 +93,6 @@ def publishsite(c):
     c.run('git commit -m "published changes"')
     c.run('git push origin master')
     #Path('output/.nojekyll').touch()
-    c.run('ghp-import -m "publishing site" -p -f output')
+    c.run('ghp-import output -b gh-pages')
+    #c.run('ghp-import -m "publishing site" -p -f output')
+    c.run('git push -f origin gh-pages')

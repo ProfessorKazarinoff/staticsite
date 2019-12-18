@@ -88,11 +88,11 @@ def gh_pages(c):
 @task
 def publishsite(c):
     """Publish to GitHub Pages with a forced push"""
-    c.run('pelican content -s publishconf.py')
-    c.run('git add .')
-    c.run('git commit -m "published changes"')
-    c.run('git push origin master')
+    c.run('pelican content -o output -s publishconf.py')
+    #c.run('git add .')
+    #c.run('git commit -m "published changes"')
+    #c.run('git push origin master')
     #Path('output/.nojekyll').touch()
     c.run('ghp-import output -b gh-pages')
     #c.run('ghp-import -m "publishing site" -p -f output')
-    c.run('git push -f origin gh-pages')
+    c.run('git push origin gh-pages')

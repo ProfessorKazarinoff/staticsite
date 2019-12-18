@@ -1,7 +1,7 @@
 """
 Offset Piston Motion Animation using Matplotlib.
-Animation designed to run on Raspberry Pi 3
 Author: Peter D. Kazarinoff, 2019
+MIT License
 """
 
 #import necessary packages
@@ -53,7 +53,7 @@ line, = ax.plot([], [], 'o-', lw=5, color='#de2d26')
 # initialization function
 def init():
     line.set_data([], [])
-    eturn line,
+    return line,
 
 # animation function
 def animate(i):

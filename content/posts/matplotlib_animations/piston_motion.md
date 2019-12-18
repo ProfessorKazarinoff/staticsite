@@ -200,6 +200,10 @@ A frame from the resulting animation is below.
 
 ![still of piston motion]({static}/posts/matplotlib_animations/images/piston_motion_still.png) 
 
+A video from the resulting animation is below.
+
+{% youtube cDIU_4-qWuo %}
+
 ## The complete script
 
 The complete ```piston_motion.py``` script is below:

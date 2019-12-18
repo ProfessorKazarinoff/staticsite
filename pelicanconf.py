@@ -29,6 +29,7 @@ STATIC_PATHS = ['images','extra','code',
                 'posts/fairtalk'
                 'posts/matplotlib/images',
                 'posts/matplotlib',
+                'posts/matplotlib_animations/images',
                 'posts/resources/images',
                 'posts/schemdraw',
                 'posts/transfer_app/images',

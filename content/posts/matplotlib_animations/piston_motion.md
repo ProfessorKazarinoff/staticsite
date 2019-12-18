@@ -4,11 +4,14 @@ Modified: 2019-12-17 20:40
 Status: Draft
 Category: Python
 Tags: python, matplotlib, animation, dynamics
-Slug: piston-motion
+Slug: piston-motion-with-python-matplotlib
 Authors: Peter D. Kazarinoff
-Summary: An animation of piston motion created with Python and Matplotlib
 
-Piston motion is one of the classic dynamic types of motion that belong to a category of 4-bar motion. Piston motion is the type of motion that the piston in a cylinder of a car engine goes through as the crankshaft rotates. 
+![still of piston motion]({static}/posts/matplotlib_animations/images/piston_motion_still.png) 
+
+Piston motion is one of the classic types of motion in engineering dynamics that belong to a category of 4-bar motion. Piston motion is the type of motion that the piston in a cylinder of a car engine goes through as the crankshaft rotates. In this post, we'll review how to use Python and Matplotlib to build a moving animation of piston motion.
+
+[TOC]
 
 ## Set up a python virtual environment
 
@@ -35,6 +38,8 @@ $ mkdir piston_motion
 $ cd piston_motion
 $ python3 -m venv venv
 ```
+
+## Install Python packages
 
 Now that we have a new clean virtual environment with Python 3 installed, we need to install the necessary packages:
 
@@ -67,7 +72,7 @@ Next, open a text editor (I like to use VS Code) and start a new python file cal
 We will start our ```piston_motion.py``` script by importing the necessary modules. NumPy is imported as the comman alias ```np```. Besides importing Matplotlib's ```pyplot``` module, we'll also import Matplotlib's ```animation``` module. 
 
 ```python
-# import necessary packages
+#import necessary packages
 import numpy as np
 from numpy import pi, sin, cos, sqrt
 import matplotlib.pyplot as plt
@@ -102,30 +107,28 @@ angles = np.arange(0,rot_num*2*pi+increment,increment)
 Once we have all the rotation angles in an array, we can set up empty arrays for the points in our animation. These point arrays need to have the same number of entries as the angle array:
 
 ```python
-X1=np.zeros(len(angle)) # array of crank x-positions: Point 1
-Y1=np.zeros(len(angle)) # array of crank y-positions: Point 1
-X2=np.zeros(len(angle)) # array of rod x-positions: Point 2
-Y2=np.zeros(len(angle)) # array of rod y-positions: Point 2
+X1=np.zeros(len(angles)) # array of crank x-positions: Point 1
+Y1=np.zeros(len(angles)) # array of crank y-positions: Point 1
+X2=np.zeros(len(angles)) # array of rod x-positions: Point 2
+Y2=np.zeros(len(angles)) # array of rod y-positions: Point 2
 ```
 
-# Fill the point arrays
+## Fill the point arrays
 
 Now we will populate the point arrays with values according to the geometry of piston motion:
 
 ```python
-# find the crank and connecting rod positions for each angle
-for index, theta in enumerate(angles):
-
-        x1 = r*cos(theta) # x-coordinate of the crank: Point 1
-        y1 = r*sin(theta) # y-coordinate of the crank: Point 1
-        x2 = 0 # x-coordinate of the rod: Point 2
-        # y-coordinate of the rod: Point 2
-        y2 = ((r*cos(theta-pi/2)) + (sqrt((l**2)-(r**2)*((sin(theta-pi/2))**2))))
-
-        X1[index]=x1 #grab the crank x-position
-        Y1[index]=y1 #grab the crank y-position
-        X2[index]=x2 #grab the rod x-position
-        Y2[index]=y2 #grab the rod y-position
+for index,theta in enumerate(angles, start=0):
+    x1 = r*cos(theta) # x-cooridnate of the crank: Point 1
+    y1 = r*sin(theta) # y-cooridnate of the crank: Point 1
+    x2 = 0 # x-coordinate of the rod: Point 2
+    # y-coordinate of the rod: Point 2
+    y2 = r*sin(theta) + sqrt(  l**2 - (r*cos(theta))**2  )
+        
+    X1[index]=x1 #grab the crankshaft x-position
+    Y1[index]=y1 #grab the crankshaft y-position
+    X2[index]=x2 #grab the connecting rod x-position
+    Y2[index]=y2 #grab the connecting rod y-position
 ```
 
 ## Set up the Matplotlib figure
@@ -135,9 +138,13 @@ Now that the point arrays are full, we have the values necessary to build the an
 ```python
 # set up the figure and subplot
 fig = plt.figure()
+fig.canvas.set_window_title('Matplotlib Animation')
 ax = fig.add_subplot(111, aspect='equal', autoscale_on=False, xlim=(-4,4), ylim=(-2,6))
 ax.grid()
-line, = ax.plot([], [], 'o-', lw=5, color='g')
+ax.set_title('Piston Motion Animation')
+ax.axes.xaxis.set_ticklabels([])
+ax.axes.yaxis.set_ticklabels([])
+line, = ax.plot([], [], 'o-', lw=5, color='#de2d26')
 ```
 
 ## Initialization Function
@@ -147,8 +154,8 @@ The animation requires an initialization function:
 ```python
 # initialization function
 def init():
-        line.set_data([], [])
-        return line,
+    line.set_data([], [])
+    return line,
 
 ```
 
@@ -159,34 +166,46 @@ Finally on to building the animation function and showing it.
 ```python
 # animation function
 def animate(i):
-        thisx = [0, X1[i], X2[i]]
-        thisy = [0, Y1[i], Y2[i]]
+    x_points = [0, X1[i], X2[i]]
+    y_points = [0, Y1[i], Y2[i]]
 
-        line.set_data(thisx, thisy)
-        return line,
+    line.set_data(x_points, y_points)
+    return line,
 
+```
+
+## Call and show the animation
+
+The last part of our Python script will call the animation and show the figure. Notice how the figure ```fig```, animation function ```animate``` and initialization function ```init``` are passed to the ```FuncAnimation()``` class.
+
+```python
 # call the animation
-ani = animation.FuncAnimation(fig, animate, init_func=init, frames=len(X1), interval=20, blit=True, repeat=False)
+ani = animation.FuncAnimation(fig, animate, init_func=init, frames=len(X1), interval=40, blit=True, repeat=False)
 ## to save animation, uncomment the line below:
-## ani.save('piston_motion.mp4', fps=30, extra_args=['-vcodec', 'libx264'])
+## ani.save('offset_piston_motion_animation.mp4', fps=30, extra_args=['-vcodec', 'libx264'])
 
 #show the animation
 plt.show()
 ```
 
-## Running the annimation
+## Run the script
 
 The animation can be run by running the ```piston_motion.py``` script. This can be accomplished using the Anaconda prompt or a terminal. Make sure the virtual environment we created above is active when the command is run.
 
 ```text
-python piston_motion.py
+> python piston_motion.py
 ```
+
+A frame from the resulting animation is below.
+
+![still of piston motion]({static}/posts/matplotlib_animations/images/piston_motion_still.png) 
 
 ## The complete script
 
 The complete ```piston_motion.py``` script is below:
 
 ```python
+# piston_motion.py
 """
 Offset Piston Motion Animation using Matplotlib.
 Animation designed to run on Raspberry Pi 3
@@ -199,17 +218,14 @@ from numpy import pi, sin, cos, sqrt
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
-#input parameters
+# input parameters
 r = 1.0  # crank radius
 l = 4.0  # connecting rod length
-d = 0.5; # offset distance
-rot_num = 6 # number of crank rotations
-increment = 0.1 # angle incremement
+rot_num = 4 # number of crank rotations
+increment = 0.1 # angle increment
 
-#create the angle array, where the last angle is the number of rotations*2*pi
-angle_minus_last = np.arange(0,rot_num*2*pi,increment)
-angles = np.append(angle_minus_last, rot_num*2*pi)
-
+# create the angle array, where the last angle is the number of rotations*2*pi
+angles = np.arange(0,rot_num*2*pi+increment,increment)
 
 X1=np.zeros(len(angles)) # array of crank x-positions: Point 1
 Y1=np.zeros(len(angles)) # array of crank y-positions: Point 1
@@ -218,27 +234,23 @@ Y2=np.zeros(len(angles)) # array of rod y-positions: Point 2
 
 #find the crank and connecting rod positions for each angle
 for index,theta in enumerate(angles, start=0):
-
-        x1 = r*cos(theta) # x-cooridnate of the crank: Point 1
-        y1 = r*sin(theta) # y-cooridnate of the crank: Point 1
-        x2 = d # x-coordinate of the rod: Point 2
-        # y-coordinate of the rod: Point 2
-        y2 = r*sin(theta) + sqrt(  l**2 - (r*cos(theta)-d)**2  )
+    x1 = r*cos(theta) # x-cooridnate of the crank: Point 1
+    y1 = r*sin(theta) # y-cooridnate of the crank: Point 1
+    x2 = 0 # x-coordinate of the rod: Point 2
+    # y-coordinate of the rod: Point 2
+    y2 = r*sin(theta) + sqrt(  l**2 - (r*cos(theta))**2  )
         
-        X1[index]=x1 #grab the crankshaft x-position
-        Y1[index]=y1 #grab the crankshaft y-position
-        X2[index]=x2 #grab the connecting rod x-position
-        Y2[index]=y2 #grab the connecting rod y-position
-        #print piston_height
-        #axis ([-r-l r+l -3*r 3*r+l]); %set the plot size
-        #pause (speed); %wait before next iteration
+    X1[index]=x1 #grab the crankshaft x-position
+    Y1[index]=y1 #grab the crankshaft y-position
+    X2[index]=x2 #grab the connecting rod x-position
+    Y2[index]=y2 #grab the connecting rod y-position
 
 # set up the figure and subplot
 fig = plt.figure()
 fig.canvas.set_window_title('Matplotlib Animation')
 ax = fig.add_subplot(111, aspect='equal', autoscale_on=False, xlim=(-4,4), ylim=(-2,6))
 ax.grid()
-ax.set_title('Offset Piston Motion Animation')
+ax.set_title('Piston Motion Animation')
 ax.axes.xaxis.set_ticklabels([])
 ax.axes.yaxis.set_ticklabels([])
 line, = ax.plot([], [], 'o-', lw=5, color='#de2d26')
@@ -246,16 +258,16 @@ line, = ax.plot([], [], 'o-', lw=5, color='#de2d26')
 
 # initialization function
 def init():
-        line.set_data([], [])
-        return line,
+    line.set_data([], [])
+    return line,
 
 # animation function
 def animate(i):
-        x_points = [0, X1[i], X2[i]]
-        y_points = [0, Y1[i], Y2[i]]
+    x_points = [0, X1[i], X2[i]]
+    y_points = [0, Y1[i], Y2[i]]
 
-        line.set_data(x_points, y_points)
-        return line,
+    line.set_data(x_points, y_points)
+    return line,
 
 # call the animation
 ani = animation.FuncAnimation(fig, animate, init_func=init, frames=len(X1), interval=40, blit=True, repeat=False)
@@ -266,5 +278,3 @@ ani = animation.FuncAnimation(fig, animate, init_func=init, frames=len(X1), inte
 plt.show()
 
 ```
-
-

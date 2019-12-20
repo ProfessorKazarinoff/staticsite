@@ -1,0 +1,25 @@
+# part 11 Start
+clear
+sudo systemctl status nginx
+clear
+cd etc
+cd /etc
+ls
+cd nginx
+ls
+ls -la
+sudo nginx.conf
+sudo nano nginx.conf
+clear
+sudo systemctl stop nginx
+sudo systemctl start nginx
+sudo systemctl status nginx
+clear
+nginx -t
+sudo nginx -t
+sudo systemctl status nginx
+clear
+sudo nginx -t
+cd ~
+history -w history11.txt
+# end part 11

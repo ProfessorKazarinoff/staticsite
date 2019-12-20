@@ -1,0 +1,14 @@
+# start of part 6
+sudo ls -la /root
+exit
+ls -la
+cd .ssh
+ls -la
+cd authorized_keys
+cat authorized_keys
+clear
+exit
+pwd
+sudo ls -la /root
+exit
+# end of part 6

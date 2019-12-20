@@ -1,0 +1,46 @@
+# start of part 9
+clear
+cd /srv
+sudo mkdir jupyterhub
+ls -la
+cd jupyterhub
+pwd
+sudo touch jupyterhub_cookie_secret
+ls -la
+sudo chown :sudo jupyterhub_cookie_secret 
+ls -la
+sudo chmod g+rw jupyterhub_cookie_secret 
+ls -la
+clear
+sudo openssl rand -hex 32 > jupyterhub_cookie_secret
+ls -la
+sudo chmod 600 jupyterhub_cookie_secret
+ls -la
+clear
+pwd
+sudo touch proxy_auth_token
+ls -la
+sudo chown :sudo proxy_auth_token
+ls -la
+sudo chmod g+rw proxy_auth_token
+ls -la
+clear
+sudo openssl rand -hex 32 > proxy_auth_token
+ls -la
+sudo chmod 600 proxy_auth_token
+ls -la
+clear
+pwd
+ls
+sudo touch dhparam.pem
+sudo chown :sudo dhparam.pem
+sudo chmod g+rw dhparam.pem
+sudo openssl dhparam -out /srv/jupyterhub/dhparam.pem 2048
+clear
+sudo chmod 600 dhparam.pem
+ls -la
+clear
+history
+cd ~
+history -w history9.txt
+# end of part 9

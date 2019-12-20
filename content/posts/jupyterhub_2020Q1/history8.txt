@@ -1,0 +1,36 @@
+# start of part 8
+clear
+sudo ufw allow 80
+sudo ufw status
+sudo ufw deney 8000
+sudo ufw deny 8000
+uwf status
+sudo ufw status
+cd ~
+pwd
+clear
+mkdir certbot
+cd certbot
+wget https://dl.eff.org/certbot-auto
+ls
+clear
+ls -la
+chmod a+x certbot-auto
+ls -la
+./certbot-auto certonly --standalone -d engr114.org
+clear
+cd /etc
+ls
+cd letsencrypt/
+ls
+ls -la
+sudo chmod 777 -R archive
+sudo chmod 777 -R live/
+ls -la
+cd live
+ls
+cd engr114.org
+ls
+cd ~
+exit
+# end of part 8

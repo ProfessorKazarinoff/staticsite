@@ -1,0 +1,54 @@
+# start of part 7
+sudo apt-get -y update && sudo apt-get -y upgrade
+clear
+cd /tmp
+curl -O https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+ls
+sudo bash Miniconda3-latest-Linux-x86_64.sh 
+cd /opt
+ls -la
+sudo chmod -R g+w miniconda3/
+ls -la
+sudo chown -R root:peter miniconda3/
+ls -la
+exit
+clear
+conda --version
+conda create -y -n jupyterhubenv python=3.7
+conda activate jupyterhubenv
+clear
+conda install -y numpy matplotlib pandas scipy sympy seaborn bokeh holoviews pyserial xlrd jupyter notebook
+clear
+conda install -y -c conda-forge pint altair
+clear
+conda install -y -c conda-forge jupyterlab
+clear
+conda install -y -c jupyterhub
+conda install -y -c conda-forge jupyterhub
+clear
+conda list
+clear
+python
+clear
+sudo ufw allow 8000
+sudo ufw status
+sudo ufw activate
+sudo ufw status
+sudo ufw reload
+sudo ufw enable
+sudo ufw status
+sudo ufw allow OpenSSH
+sudo ufw status
+clear
+jupyterhub --no-ssl
+clear
+sudo ufw deny 8000
+sudo ufw status
+exit
+conda activate jupyterhubenv
+jupyterhub --no-ssl
+sudo ufw allow 8000
+sudo ufw status
+jupyterhub --no-ssl
+exit
+# end of part 7

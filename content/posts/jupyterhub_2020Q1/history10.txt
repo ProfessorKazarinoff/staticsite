@@ -1,0 +1,17 @@
+
+#start part 10
+clear
+sudo apt-get -y update && sudo apt-get -y upgrade
+clear
+sudo apt-get install nginx
+clear
+ufw status
+sudo ufw status
+sudo ufw app list
+sudo ufw allow 'Nginx Full'
+sudo ufw status
+clear
+sudo systemctl status nginx
+cd ~
+history -w history10.txt
+# end of part 10

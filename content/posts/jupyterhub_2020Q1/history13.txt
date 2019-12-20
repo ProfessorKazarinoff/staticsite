@@ -1,0 +1,29 @@
+# start part 13
+clear
+cd /etc
+cd systemd
+ls
+cd system
+ls
+sudo nano jupyterhub.service
+ls
+clear
+sudo systemctl daemon-reload
+sudo systemctl start jupyterhub
+sudo systemctl status jupyterhub
+clear
+sudo systemctl status nginx
+cd ~
+ls
+clear
+pwd
+ls
+sudo systemctl status jupyterhub
+clear
+sudo systemctl status nginx
+clear
+ps aux | grep configurable-http-proxy
+clear
+cd ~
+history -w history13.txt
+# end part 13

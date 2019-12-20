@@ -1,0 +1,47 @@
+# start part 12
+clear
+pwd
+cd /etc
+sudo mkdir jupyterhub
+ls -la
+clear
+sudo chown -R root:peter jupyterhub/
+sudo chmod -R g+rwx jupyterhub/
+ls -la
+clear
+conda activate jupyterhubenv
+pwd
+cd jupyterhub
+pwd
+jupyterhub --generate-config
+clear
+ls
+ls -la
+nano jupyterhub_config.py 
+cat jupyterhub_config.py 
+clear
+sudo systemctl stop nginx
+sudo systemctl start nginx
+sudo systemctl status nginx
+clear
+jupyterhub
+sudo jupyterhub
+cd /srv/jupyterhub
+ls
+ls -la
+sudo chown :peter jupyterhub_cookie_secret 
+ls -la
+sudo chmod g+r jupyterhub_cookie_secret 
+ls -la
+sudo chown :peter proxy_auth_token 
+ls -la
+sudo chmod g+r proxy_auth_token 
+ls -la
+cd /etc/jupyterhub
+ls
+jupyterhub
+cd ~
+ls
+cd ~
+history -w history12.txt
+# end part 12

@@ -21,7 +21,7 @@ I use a couple different computers to write this blog, write my book, and work o
  * Chromebook at home
  * Linux desktop at home
 
-The computer that is on the fritz right now is the Linux desktop in my home office. I use this computer for writing and general Python programming. In particular, I use the Linux desktop to build software, such as building a custom MicroPython firmware or building Python from source. It is useful to have a Linux system around for these sorts of tasks.
+The computer that is on the fritz right now is the Linux desktop in my home office. I use this computer for writing and general Python programming. In particular, I use the Linux desktop to build software, such as building custom MicroPython firmware or building Python from source. It is useful to have a Linux system around for these sorts of tasks.
 
 ## Parts List
 
@@ -33,8 +33,7 @@ Below is a table of the parts I'm using for the build.
 | motherboard | MSI B450I Mini-ITX Gaming Plus AC | [amzn.to/2Vzhuco](https://amzn.to/2Vzhuco) |
 | hard drive | Crucial P1 1TB M.2 NVMe SSD | [amzn.to/2WEup9e](https://amzn.to/2WEup9e) |
 | RAM | Corsair Vengeance DDR4 3000 MHz 16GB (2x8GB) | [amzn.to/2WzXsLh](https://amzn.to/2WzXsLh)  |
-| power supply | old Antec 250W SFX PSU that came with the case | (no longer available) |
-| case | old Mini-ITX case with included 150W power supply| (no longer available) |
+| power supply | Corsair 450SF | (no longer available) |
 
 The following is an overview of each component
 
@@ -44,11 +43,11 @@ The AMD Ryzen 5 2400G is an integrated CPU and GPU in one package (called an APU
 
 ### MSI B450I Mini-ITX Gaming Plus AC
 
-The mother board I choose is the MSI B450I Mini-ITX Gaming Plus AC. This motherboard has an AM4 CPU socket for the Ryzen 5 processor I chose. I like the newer B450 chipset, and I hopefully won't need to use an older Ryzen first gen processor to get the system started, which might be required if an older motherboard was employed. The MSI B450I Mini-ITX motherboard has an M.2 slot for my SSD and an HDMI port for monitor output. When using the Ryzen 5 2400G, you need to make sure that the motherboard as an AM4 socket and an HDMI out. This motherboard fits the bill.
+The mother board I choose is the MSI B450I Mini-ITX Gaming Plus AC. This motherboard has an AM4 CPU socket for the Ryzen 5 processor I chose. I like the newer B450 chipset, and I hopefully won't need to use an older Ryzen first gen processor to get the system started, which might be required if an older motherboard was employed. The MSI B450I Mini-ITX motherboard has an M.2 slot for my SSD and an HDMI port for monitor output. When using the Ryzen 5 2400G, you need to make sure that the motherboard as an AM4 socket and has an HDMI out. This motherboard fits the bill.
 
 ### Crucial P1 1TB M.2 NVMe SSD
 
-I picked the Crucial P1 1TB M.2 NVMe SSD for this Linux PC build. The SSD was a component I had trouble deciding on. The current system has a 60GB SSD and a 1TB spinning hard drive. This was a cheap way to equip the system. The problem I have with it is that there have to be two SATA data cables and two SATA power cables, plus the drives need to be mounted in the case. I wanted to keep this build simple and clutter-free. An M.2 form factor drive does not require any cables. M.2 drives plug directly into the motherboard. The Crucial P1 drive I selected is 80 mm long, which is the most common M.2 length. The MSI motherboard I picked has one M.2 slot on the back that the drive will plug into. I choose 1GB of capacity because I just feel like you always need more storage. The old system started with 60GB about 8 years ago and then I had to add a 1TB hard disk because I ran out of space. I want this build to last at least 5 years, so I splurged on extra capacity. I also went with a drive that runs the super fast NMV3e PCIe communication standard. Using an NVMe drive probably won't have any practical performance benefits for the things I will use the new PC for, but I guess I just like to know that I have really fast storage. Long boot times also bug me. Hopefully the new system will boot quickly with the SSD I choose.
+I picked the Crucial P1 1TB M.2 NVMe SSD for this Linux PC build. The SSD was a component I had trouble deciding on. The current system has a 60GB SSD and a 1TB spinning hard drive. This was a cheap way to equip the system. The problem I have with it is that there have to be two SATA data cables and two SATA power cables, plus the drives need to be mounted in the case. I wanted to keep this build simple and clutter-free. An M.2 form factor drive does not require any cables. M.2 drives plug directly into the motherboard. The Crucial P1 drive I selected is 80 mm long, which is the most common M.2 length. The MSI motherboard I picked has one M.2 slot on the back that the drive will plug into. I choose 1GB of capacity because I just feel like you always need more storage. The old system started with 60GB about 8 years ago and then I had to add a 1TB hard disk because I ran out of space. I want this build to last at least 5 years, so I splurged on extra capacity. I also went with a drive that runs the super fast NMV3e PCIe communication standard. Using an NVMe drive probably won't have any practical performance benefits for the things I will use the new PC for, but I guess I just like to know that I have really fast storage. Long boot times also bug me. Hopefully, the new system will boot quickly with the SSD I choose.
 
 ### Corsair Vengeance DDR4 3000 MHz 16GB (2x8GB)
 

@@ -1,6 +1,6 @@
 Title: Four different statistics charts using Python, matplotlib and seaborn
-Date: 2018-11-30 10:32
-Modified: 2018-11-30 10:32
+Date: 2018-12-21 10:32
+Modified: 2018-12-21 10:32
 Status: Draft
 Category: matplotlib
 Tags: python, matplotlib, engineering, statistics, seaborn, pandas
@@ -14,7 +14,7 @@ The finished compilation of the charts is shown below. The bar graph is on the t
 
 ![plot with error bars]({static}/images/bar_plot_with_error_bars.png)
 
-To build these plots, we will use the dataset below. The data is in a .csv file and has three columns. The data represents the density of four different shaped blocks from Ikea. The idea is to see if the density of each shape is different. If the density of each shape is different, one possible theory is that the shapes are made of different types of wood. We will use the statistics plots to help us visualize the problem. Each shape has about 100 density measurements. The first column is for rectangles, the second column is for squares the third column is triagles and the fourth column is squares. All of the density measurements are in units of $g/cm^3$.  The .csv file looks something like below:
+To build these plots, we will use the dataset below. The data is in a .csv file and has three columns. The data represents the density of four different shaped blocks from Ikea. The idea is to see if the density of each shape is different. If the density of each shape is different, one possible theory is that the shapes are made of different types of wood. We will use the statistics plots to help us visualize the problem. Each shape has about 100 density measurements. The first column is for rectangles, the second column is for squares the third column is triagles and the fourth column is cylinders. All of the density measurements are in units of g/cm<sup>3</sup>.  The .csv file looks something like the table below:
  
 | Rectangle | Square | Triangle | Cylinder |
 | --- | --- | --- | --- |

@@ -7,11 +7,11 @@ Tags: python, pelican, blog, github
 Slug: add-nojekyll-file-to-pelican
 Authors: Peter D. Kazarinoff
 
-This blog is build with Python and a package called Pelican. Pelican is a Python package used to create blogs.  This blog is deployed on GitHub pages. When Pelican runs, it produces .html files that make up the blog in an output directory. The output directory is saved to a gh-pages branch of the main GitHub repo. When the gh-pages branch is updated with new content (a new blog post).
+This blog is build with Python and a package called Pelican. Pelican is a Python package used to create blogs.  This blog is deployed on GitHub pages. When Pelican runs, it produces .html files that make up the blog in an output directory. The output directory is saved to a gh-pages branch of the main GitHub repo. When the gh-pages branch is updated with new content (a new blog post), the blog webpages are re-deployed.
 
 ## The Problem
 
-The problem I had was that the changes to the blog would not show up after the gh-pages branch was updated. Github gave a cryptic message about not being able to build the site. 
+The problem I had was that the changes to the blog would not show up after the gh-pages branch was updated. GitHub gave a cryptic message about not being able to build the site. 
 
 ```text
 The page build failed for the `gh-pages` branch with the following error:
@@ -19,7 +19,7 @@ The page build failed for the `gh-pages` branch with the following error:
 Page build failed. For more information, see https://help.github.com/articles/troubleshooting-github-pages-builds/.
 ```
 
-But Pelican already built the site. Why is GitHub trying to build something? Why isn't the blog updating?
+But Pelican already built the site. Why is GitHub trying to build something? Why isn't the blog updating with the newest post?
 
 ## The Cause
 

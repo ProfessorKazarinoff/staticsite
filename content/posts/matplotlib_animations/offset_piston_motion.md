@@ -1,6 +1,6 @@
 Title: Offset Piston Motion with Python and matplotlib
-Date: 2019-12-18 20:40
-Modified: 2017-12-18 20:40
+Date: 2019-12-21 20:40
+Modified: 2017-12-21 20:40
 Status: Draft
 Category: matplotlib
 Tags: python, matplotlib, animation, engineering
@@ -11,13 +11,13 @@ Authors: Peter D. Kazarinoff
 
 Offset piston motion is one of the classic types of engineering dynamics motion that belong to a category of 4-bar motion. Piston motion is the type of motion that the piston in a cylinder of a car engine goes through as the crankshaft rotates.
 
-Offset pistion motion has the same type of motion, but the center line of the piston is not inline with the center of the crankshaft.
+_Offset_ pistion motion has the same type of motion, but the center line of the piston is not inline with the center of the crankshaft.
 
 This type of offset piston/crankshaft geometry is sometimes used in automobile engines. For example, some Toyota engines have an offset piston geometry.
 
 [TOC]
 
-## Set up a python virtual environment
+## Set up a Python virtual environment
 
 To start this process, we will set up a Python virtual environment. 
 
@@ -47,7 +47,7 @@ $ python3 -m venv venv
 
 ## Install Python packages
 
-Now that we have the a new clean virtual environment with Python 3 installed, we need to install the necessary packages. Before the Python packages are installed, we have to make sure that the virtual environment we just created is **active**. The active virtual environment is the virtual environment the packages will be installed into.
+Now that we have the a new clean virtual environment with Python 3 installed, we need to install the a couple Python packages: Matplotlib and NumPy. Before the Python packages are installed, we have to make sure that the virtual environment we just created is **active**. The active virtual environment is the virtual environment the packages will be installed into.
 
 ### Windows 10
 
@@ -71,7 +71,7 @@ $ source venv/bin/activate
 
 Open a text editor (like [VS Code](https://code.visualstudio.com/) or [PyCharm](https://www.jetbrains.com/pycharm/download/#section=windows)) and create a new Python file called ```offset_piston_motion.py```
 
-At the top of the ```offset_piston_motion.py``` script, we'll start by importing the necessary modules. In this section of code, we import NumPy as ```np``` and also import a couple trig fuctions from NumPy. We will use NumPy's trig functions (instead of the trig functions in Python's Standard Library math module) because we will the trig functions on arrays of numbers. From Matplotlib, a Python plotting library, we'll import the ```pyplot``` and ```animation``` modules.
+At the top of the ```offset_piston_motion.py``` script, we'll start by importing the necessary modules. In this section of code, we import NumPy as ```np``` and also import a couple trig fuctions from NumPy. We will use NumPy's trig functions (instead of the trig functions in Python's Standard Library math module) because the trig functions need to operate on arrays of numbers. From Matplotlib, a Python plotting library, we'll import the ```pyplot``` and ```animation``` modules.
 
 ```python
 #import the necessary packages
@@ -85,11 +85,11 @@ import matplotlib.animation as animation
 
 To model offset piston motion we need to have two moving parts: a crankshaft and a connecting rod.
 
-The crankshaft rotates around a central axis with a constant radius. We'll model this rotation with a line of constant length, one end fixed at the origin and the other rotating in a circle like the hand on a clock. To model this crankshaft line, we just need two points, the origin at ```x=0``` and ```y=0```  and the end of the line at the point ```x1``` and ```x2```.
+The crankshaft rotates around a central axis with a constant radius. We'll model this rotation with a line of constant length, one end fixed at the origin and the other rotating in a circle like the hand on a clock. To model this crankshaft line, we just need two points, the origin at ```x=0``` and ```y=0```  and the end of the line at the point ```x1``` and ```y1```.
 
 We also need to define a crank radius and a connecting rode length. To ensure the animation does not run indefininelty, we will set a fixed number of rotations.  The rotation increment defines how fine the 'ticks' are as our crankshaft arm rotates. A rotation increment of ```0.1``` works to make our animation run smooth enough.
 
-For offset piston motion (compared to regular piston motion), one last parameter we need to define is the offset distance. This is the horizontal distance between the vertical line that goes through the center of the crankshaft and the vertical line that goes through the end of the connecting rod. In regular piston motion, this horizontal distace is zero. In offset pistion motion, this horizontal distance is non-negative.
+For offset piston motion (compared to regular piston motion), one last parameter we need to define is the offset distance. The offset distance is the horizontal distance between the vertical line that goes through the center of the crankshaft and the vertical line that goes through the end of the connecting rod. In regular piston motion, the offset distace is zero. In offset pistion motion, this offset distance is non-negative.
 
 ```python
 #input parameters

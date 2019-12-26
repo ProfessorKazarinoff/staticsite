@@ -334,3 +334,7 @@ output/
 pelican.pid
 server.pid
 __pycache__/
+
+# MacOS icloud files
+.icloud
+*.icould

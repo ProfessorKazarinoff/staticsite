@@ -7,7 +7,7 @@ Tags: streamlit, bokeh, engineering
 Slug: streamlit-app-aws
 Authors: Peter D. Kazarinoff
 
-![streamlit bokeh heroku]({static}/posts/streamlit/images/file.png)
+![Anaconda Prompt run_mohrs_circle_app.py]({static}/posts/streamlit/images/mohrs_circle_app.png)
 
 [**Streamlit**](https://streamlit.io/docs/) is a web app-building framework for Python. Streamlit is a way to create mostly simple single-page web apps that are easy to deploy. Streamlit is useful for engineers and data scientists who have some app functionality, like a plot that dynamically changes based on user interaction, but don't want to build out a full website using a web framework like Django or Flask. 
 
@@ -121,11 +121,7 @@ That's it! The Streamlit app should now be running on our AWS EC2 instance.
 
 Check the URL provided by Azure dashboard. The app works the same as when we ran it locally, but now it's live on the internet. Anyone with the URL can view our Streamlit app.
 
-![app on Heroku]({static}/posts/streamlit/images/file.png)
-
 The Streamlit app opens on a phone too. 
-
-![app on Phone]({static}/posts/streamlit/images/file.png)
 
 ## Summary
 

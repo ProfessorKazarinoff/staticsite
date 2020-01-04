@@ -8,11 +8,13 @@ Slug: building-mircopython-firmware
 Authors: Peter D. Kazarinoff
 Series: micropython
 series_index: 8
-Summary: This is the eighth part of a multipart series on Micropython. In this last post of the series, we will uploaded Micropython on a cheap $3 ESP8266-01 board. In this post we will journey down the rabbit hole of building custom firmware for the ESP-01 boards. 
+Summary: This is the eighth part of a multipart series on Micropython. In this last post of the series, we uploaded Micropython on a cheap $3 ESP8266-01 board. In this post, we will journey down the rabbit hole of building custom firmware for the ESP-01 boards. 
 
-This is the eighth part of a multipart series on Micropython. In this last post of the series, we will uploaded Micropython on a cheap $3 ESP8266-01 board with only 1 MB of flash memory. It is pretty amazing that even these inexpensive boards can run Micropython. Although the small ESP-01 can run Micropython, The problem is I wasn't able to load any code (upload any **_.py_** files) onto little ESP-01 board. The Micropython REPL worked, but when the board was restarted all the code typed in was erased. This brought me down the rabbit hole of building custom firmware for the ESP-01 board. 
+This is the eighth part of a multipart series on Micropython. In this last post of the series, we will uploaded Micropython on a cheap $3 ESP8266-01 board with only 1 MB of flash memory. It is pretty amazing that even these inexpensive boards can run Micropython. Although the small ESP-01 can run Micropython, The problem is I wasn't able to load any code (upload any **_.py_** files) onto little ESP-01 board. The Micropython REPL worked, but when the board was unplugged then restarted, all the code typed into the REPL was erased. This brought me down the rabbit hole of building custom Micropython firmware for the ESP-01 board. 
 
-Getting Micropython onto the little ESP-01 board with only 1 MB of flash memory was really cool. It is amazing that such a small, cheap piece of hardware can run Python. The problem is that if I want to turn the ESP-01 into something useful, it has to have a Python program running on it. The REPL worked great. But when I tried to use **ampy** to upload a **_.py_** file onto it, the terminal just spit out an error. After watching a couple YouTube videos on pushing Micropython to Adafruit boards, I think the only way to get a **_.py_** file on the ESP-01 is to have the **_.py_** file baked into the firmware. How hard can that be? Pretty hard actually. Building custom firmware is kind of a daunting task. Here's how I finally got it to work.
+Getting Micropython onto the little ESP-01 board with only 1 MB of flash memory was really cool. It is amazing that such a small, cheap piece of hardware can run Python. The problem is that if I want to turn the ESP-01 into something useful, it has to have a Python program running on the little board. The REPL worked great. But when I tried to use **ampy** to upload a **_.py_** file onto it, the terminal just spit out an error. After watching a couple YouTube videos on pushing Micropython to Adafruit boards, I think the only way to get a **_.py_** file on the ESP-01 is to have the **_.py_** file baked into the firmware.
+
+ > How hard can that be? Pretty hard actually. Building custom firmware is kind of a daunting task. Here's how I finally got it to work.
 
 Summary of Steps:
 
@@ -22,7 +24,6 @@ Summary of Steps:
 4. Upload the firmware to the ESP-01
 5. Test out the Micropython REPL
 6. A neat buried function in the Micropython firmware
-
 
 ### 1. Go to the den and use the Linux Desktop running Ubuntu 16.04
 
@@ -34,7 +35,7 @@ In order to build the Micropython firmware for the ESP-01. First I needed to bui
 
 According to the [Micropython docs](https://github.com/micropython/micropython/tree/master/ports/esp8266):
 
- > The tool chain required for the build is the OpenSource ESP SDK, which can be found at https://github.com/pfalcon/esp-open-sdk. Clone this repository and run make in its directory to build and install the SDK locally. Make sure to add toolchain bin directory to your PATH. Read esp-open-sdk's README for additional important information on toolchain setup.
+ > The tool chain required for the build is the OpenSource ESP SDK, which can be found at [https://github.com/pfalcon/esp-open-sdk](https://github.com/pfalcon/esp-open-sdk). Clone this repository and run make in its directory to build and install the SDK locally. Make sure to add toolchain bin directory to your PATH. Read esp-open-sdk's README for additional important information on toolchain setup.
  
 Over on pfalcon's [esp-open-sdk github repo README](https://github.com/micropython/micropython/tree/master/ports/esp8266), a bunch of dependencies need to be installed first before building the ESP SDK.
 
@@ -114,6 +115,7 @@ The full history from the BASH terminal is below:
  1971  ls
  1972  conda info --envs
  1973  conda activate micropython
+ # need to create and activate a Python 2.7 environment with pyserial installed into it
  1974  python
  1975  exit
  1976  ls

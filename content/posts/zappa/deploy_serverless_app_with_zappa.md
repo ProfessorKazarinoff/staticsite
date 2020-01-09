@@ -158,141 +158,101 @@ Don't close the AWS IAM window yet. In the next step you will need to be able to
 
 **Double, double toil and trouble...** I had a tough time figuring out what the AWS security policies I needed to attach to my AWS IAM User to get Zappa to work. In the end, I attached two manually created policies to the User and had four AWS pre-created group policies attached to the group the user was part of. The json output of the two individual policies are below:
 
-In an added inline policy ```min_API_Gateway_Policy```:
+The inline group policy I applied to my new IAM group and then attached the new user to that IAM group is below. I think it's a good idea to attach the security policy to the group and then you can add and delete users easily without loosing any info in the inline security policy. Note the ```XXXXXXXXXXX``` should be replaced by your AWS Account Number.
+
+The AWS Account Number can be found by clicking [Support] --> [Support Center]. In the Support Center on the upper left hand side will be your Account Number.
 
 ```text
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "VisualEditor0",
-            "Effect": "Allow",
-            "Action": [
-                "apigateway:DELETE",
-                "apigateway:PUT",
-                "apigateway:PATCH",
-                "apigateway:POST",
-                "apigateway:GET"
-            ],
-            "Resource": "*"
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "iam:AttachRolePolicy",
+        "iam:GetRole",
+        "iam:CreateRole",
+        "iam:PassRole",
+        "iam:PutRolePolicy"
+      ],
+      "Resource": [
+        "arn:aws:iam::XXXXXXXXXXXXXX:role/*-ZappaLambdaExecutionRole"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "apigateway:DELETE",
+        "apigateway:GET",
+        "apigateway:PATCH",
+        "apigateway:POST",
+        "apigateway:PUT",
+        "events:DeleteRule",
+        "events:DescribeRule",
+        "events:ListRules",
+        "events:ListRuleNamesByTarget",
+        "events:ListTargetsByRule",
+        "events:PutRule",
+        "events:PutTargets",
+        "events:RemoveTargets",
+        "lambda:AddPermission",
+        "lambda:CreateFunction",
+        "lambda:DeleteFunction",
+        "lambda:GetAlias",
+        "lambda:GetFunction",
+        "lambda:GetFunctionConfiguration",
+        "lambda:GetPolicy",
+        "lambda:InvokeFunction",
+        "lambda:ListVersionsByFunction",
+        "lambda:RemovePermission",
+        "lambda:UpdateFunctionCode",
+        "lambda:UpdateFunctionConfiguration",
+        "cloudformation:CreateStack",
+        "cloudformation:DeleteStack",
+        "cloudformation:DescribeStackResource",
+        "cloudformation:DescribeStacks",
+        "cloudformation:ListStackResources",
+        "cloudformation:UpdateStack",
+        "cloudfront:UpdateDistribution",
+        "logs:DeleteLogGroup",
+        "logs:DescribeLogStreams",
+        "logs:FilterLogEvents",
+        "route53:ListHostedZones"
+      ],
+      "Resource": [
+        "*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:CreateBucket",
+        "s3:ListBucket",
+        "s3:ListBucketMultipartUploads"
+      ],
+      "Resource": [
+        "arn:aws:s3:::zappa-*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:DeleteObject",
+        "s3:GetObject",
+        "s3:PutObject",
+        "s3:AbortMultipartUpload",
+        "s3:ListMultipartUploadParts"
+      ],
+      "Resource": [
+        "arn:aws:s3:::zappa-*/*"
+      ]
+    }
+  ]
 }
+
 ```
 
-In an added inline policy ```min_CloudFormation_Policy```:
-
-```text
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "VisualEditor0",
-            "Effect": "Allow",
-            "Action": [
-                "cloudformation:CreateStack",
-                "cloudformation:DeleteStack",
-                "cloudformation:DescribeStackResources",
-                "cloudformation:UpdateStack",
-                "cloudformation:DescribeStackResource",
-                "cloudformation:UpdateStackSet",
-                "cloudformation:ListStackResources",
-                "cloudformation:DescribeStacks"
-            ],
-            "Resource": "*"
-        }
-    ]
-}
-```
-
-In an added inline policy ```min_IAM_Policy```:
-
-```text
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "VisualEditor0",
-            "Effect": "Allow",
-            "Action": [
-                "iam:GetRole",
-                "iam:PassRole",
-                "iam:CreateGroup",
-                "iam:GetPolicy",
-                "iam:PutUserPolicy",
-                "iam:CreateRole",
-                "iam:AttachRolePolicy",
-                "iam:PutRolePolicy",
-                "iam:CreateUser",
-                "iam:GetGroup",
-                "iam:PutGroupPolicy"
-            ],
-            "Resource": "*"
-        }
-    ]
-}
-```
-
-In an added inline policy ```min_Lambda_Policy```:
-
-```text
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "VisualEditor0",
-            "Effect": "Allow",
-            "Action": [
-                "lambda:CreateFunction",
-                "lambda:UpdateFunctionCode",
-                "lambda:AddPermission",
-                "lambda:InvokeFunction",
-                "lambda:ListVersionsByFunction",
-                "lambda:GetFunction",
-                "lambda:UpdateFunctionConfiguration",
-                "lambda:GetFunctionConfiguration",
-                "lambda:RemovePermission",
-                "lambda:GetPolicy"
-            ],
-            "Resource": "*"
-        }
-    ]
-}
-```
-
-In an added inline policy ```min_S3_Policy```:
-
-```text
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "VisualEditor0",
-            "Effect": "Allow",
-            "Action": [
-                "s3:PutObject",
-                "s3:GetObject",
-                "s3:ListBucketMultipartUploads",
-                "s3:AbortMultipartUpload",
-                "s3:CreateBucket",
-                "s3:ListBucket",
-                "s3:DeleteObject",
-                "s3:ListMultipartUploadParts"
-            ],
-            "Resource": "*"
-        }
-    ]
-}
-```
-
-Adding these four ```Attached directly``` inline security Policies along with the Group policies:
-
- * AWSLambdaFullAccess 
- * AmazonS3FullAccess 
- * AmazonAPIGatewayInvokeFullAccess 
- * AmazonAPIGatewayAdministrator 
-
-Is what worked in the end. I expect that this set of security permissions is too open. You could slowly pare down the permissions granted to the IAM user and see if the Zappa app still deploys. The settings above are the ones that finally got it to work for me. You can dig through this discussion on GitHub if you want to know more [https://github.com/Miserlou/Zappa/issues/244](https://github.com/Miserlou/Zappa/issues/244) 
+The json above is what worked in the end. I expect this set of security permissions may be too open. You could slowly pare down the permissions granted to the IAM Group (and therefore the IAM User attached to the group) and see if Zappa still deploys. The settings above are the ones that finally got it working for me. You can dig through this discussion on GitHub if you want to know more [https://github.com/Miserlou/Zappa/issues/244](https://github.com/Miserlou/Zappa/issues/244). 
 
 ## Save AWS access key id and secret access key
 
@@ -381,6 +341,13 @@ Then re-deploy the app.
 zappa update dev
 ```
 
+# Shut down and delete the app
+
+To remote the Zappa app, use the following command:
+
+```text
+ zappa undeploy dev
+ ```
 
 
 # Summary

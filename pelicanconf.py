@@ -49,6 +49,7 @@ STATIC_PATHS = ['images','extra','code',
                 'posts/streamlit/images',
                 'posts/jupyterhub_2020Q1/images',
                 'posts/top_five/images',
+                'posts/zappa/images',
                 ]
                 
 PLUGIN_PATHS = ['pelican-plugins','extra-plugins']

@@ -7,23 +7,27 @@ Tags: python, flask, zappa, deployment, heroku
 Slug: deploy-serverless-app-zappa
 Authors: Peter D. Kazarinoff
 
-Zappa is a way to deploy a serverless web app on AWS lamda
+Zappa is a way to deploy a serverless web app on AWS lamda. In this post, we will build a simple Flask web app with Python and run the web app on AWS Lambda in only a few steps.
 
 [TOC]
 
+![Zappa Icon]({static}/posts/zappa/images/zappa_icon.png)
+
 # What is Zappa?
 
-Zappa is a Python package the packages up web apps written in Flask or Django and deploys them to AWS Lamda. Why is Zappa so great then? Becuase instead of deploying your Flask or Django web app on a cloud server like an AWS EC2 instance or a droplet on Digital Ocean, you can deploy your app serverless as an AWS Lamda function. This isn't really "serverless", but with an AWS Lamda function, you don't have to spin up servers, install packages on them, make sure security paches are up do date, and most of all, you don't have to pay for server time that isn't being using. A cloud server has to be on all the time, whether or not someone visits your website. But an AWS Lamda function only runs when requested.
+Zappa is a Python package the packages up web apps written in Flask or Django and deploys them to AWS Lamda. Why is Zappa so great then? Becuase instead of deploying your Flask or Django web app on a cloud server like an AWS EC2 instance or a droplet on Digital Ocean, you can deploy your app serverless as an AWS Lamda function. This isn't really "serverless", but with an AWS Lamda function, you don't have to spin up servers, install packages on them, make sure security paches are up do date, and most of all, you don't have to pay for server time that isn't being using. 
 
-Cloud servers are kind of like rental cars. AWS Lamda is sort of like calling an Uber. With Uber, you only pay for the rides you take. The rental car has to be paid for even when it' just sitting in your driveway. For only a trip or two in a month, Uber is pretty cheap compared to renting a car for a month that you only sometimes use.
+ > A cloud server has to be on all the time, whether or not someone visits your website. But an AWS Lamda function only runs when requested.
 
-So as long as your web traffic is low, running a web app serverless on AWS Lamda is pretty cheap compared to a cloud server. AWS Lamda has a free tier. For a simple temporary hobby project, AWS is effectivly free.
+Cloud servers are kind of like rental cars. AWS Lamda is sort of like calling an Uber. With Uber, you only pay for the rides you take. The rental car has to be paid for even when it's just sitting in your driveway. For only a trip or two in a month, Uber is pretty cheap compared to renting a car for a month that you only take one or two trips with.
+
+So as long as your web traffic is low, running a web app serverless on AWS Lambda is pretty cheap compared to a regular cloud server. AWS Lamda has a free tier. For a simple temporary hobby project, AWS is effectivly free.
 
 # Install Zappa and Flask
 
-Before we can deploy our web app on AWS Lamda with Zappa, we first need to install Zappa and the web framwork to build our web app in. In this example we are going to a Flask app, so Flask needs to be installed to. You can install both of the packages with pip, the Python package manager. 
+Before we can deploy our web app on AWS Lamda with Zappa, first we need to install Zappa and the web framwork to build our web app with. In this example we are going to build a Flask app, so Flask needs to be installed too. You can install both of the packages with pip, the Python package manager. 
 
-Using a terminal, create a project directory and cd into it. Create a virtual environment, activate it and install Zappa and Flask.
+Using a terminal, create a project directory and ```cd``` into it. Create a virtual environment, activate it, and install Zappa and Flask.
 
 ```text
 mkdir zappa_app
@@ -35,13 +39,17 @@ pip install flask
 pip install zappa
 ```
 
+![Zappa Icon]({static}/posts/zappa/images/flask_icon.png)
+
 # A Simple App
 
-Next, we'll build a simple app in Flask. This App is super small and basic, but it will give you and idea of how Zappa and running a web app on AWS Lamda works.
+Next, we'll build a simple web app in Flask. This app is super small and basic, but it will give you and idea of how Zappa and running a web app on AWS Lamda works.
 
-GitHub repo can be found here: [https://github.com/ProfessorKazarinoff/flask-zappa-tutorial](https://github.com/ProfessorKazarinoff/flask-zappa-tutorial)
+A GitHub repo with all the code used in the rest of this post can be found here: [https://github.com/ProfessorKazarinoff/flask-zappa-tutorial](https://github.com/ProfessorKazarinoff/flask-zappa-tutorial)
 
-Create a file called ```app.py```. Inside the file, paste in the following code. This simple script will just show one webpage that includes the text **Yeah, that is Zappa! Zappa! Zap!**. You can modify the text to include any message you want.
+Create a file called ```app.py``` in the main project directory. Inside the ```app.py``` file, paste in the following code. This super simple Flask app will just show one webpage that includes the text **Yeah, that is Zappa! Zappa! Zap!**. You can modify the text to include any message you want.
+
+![zappa zap zap]({static}/posts/zappa/images/simple_app_webpage.png)
 
 ```text
 # app.py
@@ -60,16 +68,17 @@ if __name__ == '__main__':
 
 # Test Locally
 
-Next, let's test the Flask app locally. From a terminal, run the command below. Make sure to run the commands in the virtual environment we installed Flask and Zappa into. You should see ```(venv)``` before the terminal prompt.
+Next, let's test the Flask app locally. From a terminal, run the command below. Make sure to run the command in the virtual environment we installed Flask and Zappa into. You should see ```(venv)``` before the terminal prompt.
 
 ```text
-flask run app.py
+flask run
 ```
 
-Browse to the URL shown in the terminal. The webpage should look something like the screenshot below.
+Browse to the URL shown in the terminal [http://127.0.0.1:5000/](Running on http://127.0.0.1:5000/). The webpage should look something like the screenshot below.
 
+![zappa zap zap]({static}/posts/zappa/images/flask_run_locally.png)
 
-Great! Our web app works locally. There are a couple more steps before we can run the web app serverless on AWS Lamda.
+**Great! Our web app works locally!** There are a couple more steps before we can run our web app serverless on AWS Lamda. And Zappa is going to help.
 
 # AWS Credentials
 
@@ -77,15 +86,79 @@ Before we can deploy our serverless web app on AWS Lamda, we need to have an AWS
 
 ## Sign up for AWS
 
-If you don't have an AWS account yet, you can sign up here: [https://aws.amazon.com/](https://aws.amazon.com/)
+![zappa zap zap]({static}/posts/zappa/images/aws_account_page.png)
+
+If you don't have an AWS account yet, you can sign up here: [https://aws.amazon.com/account/](https://aws.amazon.com/account/)
 
 ## Create AWS access keys
 
-Next, you need to create a new AWS access key id and secret access key. To me, this was suprisingly tricky. I mean _how hard can it be to get an access key from AWS?_ It turns out permissions in AWS is a complicated beast.
+Next, you need to create a new AWS access key id and secret access key. For me, this was suprisingly tricky. I mean **_how hard can it be to get an access key from AWS?_** It turns out permissions in AWS is a complicated beast.
+
+![zappa zap zap]({static}/posts/zappa/images/bear_scratch.jpg)
+
+Log into your AWS account at [https://aws.amazon.com/](https://aws.amazon.com/)
+
+Click the orange [Sign into the Console] button.
+
+![zappa zap zap]({static}/posts/zappa/images/aws_sign_into_the_console.png)
+
+Within the AWS Console, type ```IAM``` into the search box.
+
+![zappa zap zap]({static}/posts/zappa/images/IAM_search.png)
+
+In the IAM Dashboard, click [Groups] on the lefthand menu. And then create a new group with the [Create New Group] button.
+
+![zappa zap zap]({static}/posts/zappa/images/IAM_groups.png)
+
+Give your group a name and click [Next Step].
+
+![zappa zap zap]({static}/posts/zappa/images/IAM_set_group_name.png)
+
+Add APIGateway security policies and Lambda security policies. It is easiest to search for these. Once the security policies are added, click [Next Step].
+
+![zappa zap zap]({static}/posts/zappa/images/IAM_APIGateway_Policy.png)
+
+![zappa zap zap]({static}/posts/zappa/images/IAM_Lambda_Policy.png)
+
+Review the group security policies and click [Create Group]
+
+![zappa zap zap]({static}/posts/zappa/images/IAM_Review_Grou.png)
+
+Back at the IAM Dashboard, create a new user with the [Users] lefthand menu option and the [Create New User] button.
+
+![zappa zap zap]({static}/posts/zappa/images/IAM_add_user.png)
+
+Give your new user a name and select the Access Type for [Programmatic Access]. Click the [Next: Permissions] button.
+
+![zappa zap zap]({static}/posts/zappa/images/IAM_set_user_details.png)
+
+Add the new user to the group we just created. Click [Next: Tags]
+
+![zappa zap zap]({static}/posts/zappa/images/IAM_add_user_to_group.png)
+
+Tags are optional. Add tags if you want, then click [Next: Review]
+
+![zappa zap zap]({static}/posts/zappa/images/IAM_add_tags.png)
+
+Review the user details and click [Create user]
+
+![zappa zap zap]({static}/posts/zappa/images/IAM_review_user.png)
+
+You should now be able to see your new user attached to your new group. 
+
+![zappa zap zap]({static}/posts/zappa/images/IAM_user_success.png)
+
+Click the [Show] button under the [Secret Access Key] Heading. You should now be able to see both the [Access key ID]  and the [Secret access key]. We need both of these keys to deploy our Zappa app.
+
+![zappa zap zap]({static}/posts/zappa/images/IAM_secrets_shown.png)
+
+Don't close the AWS IAM window yet. In the next step you will need to be able to copy and paste these keys into a file.
 
 ## Save AWS access key id and secret access key
 
-Save these keys in the file ```~/.aws/credentials```. Note the ```.aws/``` directory needs to be in your home directory and the ```credentials``` file has no file extension.
+Save the AWS access key id and secret access key in the file ```~/.aws/credentials```. Note the ```.aws/``` directory needs to be in your home directory and the ```credentials``` file has no file extension.
+
+ > Note: On windows save the credentials file in ```C:\> dir "%UserProfile%\.aws```
 
 In the ```credentials``` file, copy the text below then modify the ```XXXXXXXX``` portions to include your keys (no quotes).
 
@@ -95,11 +168,94 @@ aws_access_key_id = XXXXXXXXXXXXXXXXXXXXXXXXXX
 aws_secret_access_key = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
 
- > Note: On windows save the credentials file in ```C:\> dir "%UserProfile%\.aws```
+## AWS Security Policies
 
-Now that our AWS credentials are set, we can work on **getting Zappa to do it's magic**.
+Trouble Trouble Boil and Bubble. I had a tough time figuring out what the AWS security policies I needed to attach to my AWS IAM User to get Zappa to work. In the end, I attached two manually created policies to the User. json output of the policies are below:
 
-# Create zappa settings file
+In an IAM specific policy:
+
+```text
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "iam:GetRole",
+                "iam:CreateGroup",
+                "iam:GetPolicy",
+                "iam:AttachUserPolicy",
+                "iam:CreateRole",
+                "iam:AttachRolePolicy",
+                "iam:PutRolePolicy",
+                "iam:GetGroup",
+                "iam:CreatePolicy",
+                "iam:PassRole",
+                "iam:AttachGroupPolicy",
+                "iam:PutUserPolicy",
+                "iam:GetRolePolicy",
+                "iam:PutGroupPolicy"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+```
+
+In a Policy For Lambda, Cloud Formation and API gateway:
+
+```text
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "lambda:CreateFunction",
+                "lambda:InvokeFunction",
+                "lambda:ListVersionsByFunction",
+                "apigateway:PUT",
+                "lambda:GetFunction",
+                "cloudformation:DescribeStackResources",
+                "lambda:UpdateFunctionConfiguration",
+                "cloudformation:DescribeStackResource",
+                "lambda:GetFunctionConfiguration",
+                "cloudformation:UpdateStackSet",
+                "cloudformation:DescribeStacks",
+                "lambda:UpdateFunctionCode",
+                "apigateway:DELETE",
+                "lambda:AddPermission",
+                "cloudformation:CreateStack",
+                "cloudformation:DeleteStack",
+                "apigateway:PATCH",
+                "cloudformation:UpdateStack",
+                "apigateway:POST",
+                "lambda:GetAlias",
+                "apigateway:GET",
+                "lambda:RemovePermission",
+                "lambda:GetPolicy",
+                "cloudformation:ListStackResources"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+```
+
+Adding these two ```Attached Directly``` security Policies along with the Group policies
+
+ * AWSLambdaFullAccess 
+ * AmazonS3FullAccess 
+ * AmazonAPIGatewayInvokeFullAccess 
+ * AmazonAPIGatewayAdministrator 
+
+Is what worked in the end. I expect that this set of security permissions is too open. You could slowly pare down the permissions granted to the IAM user and see if the Zappa app still deploys. The settings above are the ones that finally got it to work for me. You can dig through this discussion on GitHub if you want to know more [https://github.com/Miserlou/Zappa/issues/244](https://github.com/Miserlou/Zappa/issues/244) 
+
+Now that our AWS credentials are set, close the AWS IAM browser window and we can work on **getting Zappa to do it's magic!**.
+
+# Create Zappa settings file
 
 Next, we need to create a Zappa settings file: ```zappa_settings.json```. Create this file by typing the command  ```zappa init``` into a terminal. (Remember the virtual environment needs to be active)
 
@@ -118,7 +274,7 @@ My complete ```zapp_settings.json``` file is below:
     "dev": {
         "app_function": "app.app",
         "profile_name": "default",
-        "project_name": "flask-zappa-tut",
+        "project_name": "zappa-flask-app",
         "runtime": "python3.7",
         "s3_bucket": "zappa-9cf4j0c1h",
         "aws_region": "us-west-2"
@@ -128,23 +284,49 @@ My complete ```zapp_settings.json``` file is below:
 
 # Save the requirements.txt
 
+Before we deploy (we are almost done!), we'll create a ```requirements.txt``` file using ```pip freeze```
+
 ```text
 pip freeze > requirements.txt
 ```
 
+> I saved my project directory in a GitHub repo and included a ```LICENSE```, ```.gitignore``` and a ```README.md```  as part of the repo. Saving the project on GitHub isn't necessary, but I like to keep my code in multiple places and GitHub acts as the central storage place.
+
+The following files should now be in the main project directory:
+
+```text
+zappa_app/
+├── app.py
+├── requirements.txt
+├── venv/
+└── zappa_settings.json
+```
+
 # Deploy on AWS
 
-Deploy with a simple command:
+It's time to deploy our Flask app on AWS Lambda. Deploy with the simple command below:
 
 ```text
 zappa deploy dev
 ```
 
+If everything worked, you should be able to browse to the URL listed in the terminal and see your Zappa web app in all it's serverless glory.
+
 # Modify the App and re-deploy
+
+Change the return within the ```<h1>``` tags to:
+
+```text
+Yeah, that is Zappa! Zappa! Zap! Zap! I am revised
+```
+
+Then re-deploy the app.
 
 ```text
 zappa update dev
 ```
+
+
 
 # Summary
 In this post, we reviewed how to create a simple web app with flask and deploy it to AWS Lamda. It's pretty neat how little code you need to get a serverless app up and running with Zappa.

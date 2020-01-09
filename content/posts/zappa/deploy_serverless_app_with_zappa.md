@@ -152,7 +152,147 @@ Click the [Show] button under the [Secret Access Key] Heading. You should now be
 
 ![zappa zap zap]({static}/posts/zappa/images/IAM_secrets_shown.png)
 
-Don't close the AWS IAM window yet. In the next step you will need to be able to copy and paste these keys into a file.
+Don't close the AWS IAM window yet. In the next step you will need to be able to copy and paste these keys into a file. _But first, a little yum yum._
+
+## AWS Security Policies
+
+**Double, double toil and trouble...** I had a tough time figuring out what the AWS security policies I needed to attach to my AWS IAM User to get Zappa to work. In the end, I attached two manually created policies to the User and had four AWS pre-created group policies attached to the group the user was part of. The json output of the two individual policies are below:
+
+In an added inline policy ```min_API_Gateway_Policy```:
+
+```text
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "apigateway:DELETE",
+                "apigateway:PUT",
+                "apigateway:PATCH",
+                "apigateway:POST",
+                "apigateway:GET"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+```
+
+In an added inline policy ```min_CloudFormation_Policy```:
+
+```text
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "cloudformation:CreateStack",
+                "cloudformation:DeleteStack",
+                "cloudformation:DescribeStackResources",
+                "cloudformation:UpdateStack",
+                "cloudformation:DescribeStackResource",
+                "cloudformation:UpdateStackSet",
+                "cloudformation:ListStackResources",
+                "cloudformation:DescribeStacks"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+```
+
+In an added inline policy ```min_IAM_Policy```:
+
+```text
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "iam:GetRole",
+                "iam:PassRole",
+                "iam:CreateGroup",
+                "iam:GetPolicy",
+                "iam:PutUserPolicy",
+                "iam:CreateRole",
+                "iam:AttachRolePolicy",
+                "iam:PutRolePolicy",
+                "iam:CreateUser",
+                "iam:GetGroup",
+                "iam:PutGroupPolicy"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+```
+
+In an added inline policy ```min_Lambda_Policy```:
+
+```text
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "lambda:CreateFunction",
+                "lambda:UpdateFunctionCode",
+                "lambda:AddPermission",
+                "lambda:InvokeFunction",
+                "lambda:ListVersionsByFunction",
+                "lambda:GetFunction",
+                "lambda:UpdateFunctionConfiguration",
+                "lambda:GetFunctionConfiguration",
+                "lambda:RemovePermission",
+                "lambda:GetPolicy"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+```
+
+In an added inline policy ```min_S3_Policy```:
+
+```text
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject",
+                "s3:GetObject",
+                "s3:ListBucketMultipartUploads",
+                "s3:AbortMultipartUpload",
+                "s3:CreateBucket",
+                "s3:ListBucket",
+                "s3:DeleteObject",
+                "s3:ListMultipartUploadParts"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+```
+
+Adding these four ```Attached directly``` inline security Policies along with the Group policies:
+
+ * AWSLambdaFullAccess 
+ * AmazonS3FullAccess 
+ * AmazonAPIGatewayInvokeFullAccess 
+ * AmazonAPIGatewayAdministrator 
+
+Is what worked in the end. I expect that this set of security permissions is too open. You could slowly pare down the permissions granted to the IAM user and see if the Zappa app still deploys. The settings above are the ones that finally got it to work for me. You can dig through this discussion on GitHub if you want to know more [https://github.com/Miserlou/Zappa/issues/244](https://github.com/Miserlou/Zappa/issues/244) 
 
 ## Save AWS access key id and secret access key
 
@@ -167,91 +307,6 @@ In the ```credentials``` file, copy the text below then modify the ```XXXXXXXX``
 aws_access_key_id = XXXXXXXXXXXXXXXXXXXXXXXXXX
 aws_secret_access_key = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
-
-## AWS Security Policies
-
-Trouble Trouble Boil and Bubble. I had a tough time figuring out what the AWS security policies I needed to attach to my AWS IAM User to get Zappa to work. In the end, I attached two manually created policies to the User. json output of the policies are below:
-
-In an IAM specific policy:
-
-```text
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "VisualEditor0",
-            "Effect": "Allow",
-            "Action": [
-                "iam:GetRole",
-                "iam:CreateGroup",
-                "iam:GetPolicy",
-                "iam:AttachUserPolicy",
-                "iam:CreateRole",
-                "iam:AttachRolePolicy",
-                "iam:PutRolePolicy",
-                "iam:GetGroup",
-                "iam:CreatePolicy",
-                "iam:PassRole",
-                "iam:AttachGroupPolicy",
-                "iam:PutUserPolicy",
-                "iam:GetRolePolicy",
-                "iam:PutGroupPolicy"
-            ],
-            "Resource": "*"
-        }
-    ]
-}
-```
-
-In a Policy For Lambda, Cloud Formation and API gateway:
-
-```text
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "VisualEditor0",
-            "Effect": "Allow",
-            "Action": [
-                "lambda:CreateFunction",
-                "lambda:InvokeFunction",
-                "lambda:ListVersionsByFunction",
-                "apigateway:PUT",
-                "lambda:GetFunction",
-                "cloudformation:DescribeStackResources",
-                "lambda:UpdateFunctionConfiguration",
-                "cloudformation:DescribeStackResource",
-                "lambda:GetFunctionConfiguration",
-                "cloudformation:UpdateStackSet",
-                "cloudformation:DescribeStacks",
-                "lambda:UpdateFunctionCode",
-                "apigateway:DELETE",
-                "lambda:AddPermission",
-                "cloudformation:CreateStack",
-                "cloudformation:DeleteStack",
-                "apigateway:PATCH",
-                "cloudformation:UpdateStack",
-                "apigateway:POST",
-                "lambda:GetAlias",
-                "apigateway:GET",
-                "lambda:RemovePermission",
-                "lambda:GetPolicy",
-                "cloudformation:ListStackResources"
-            ],
-            "Resource": "*"
-        }
-    ]
-}
-```
-
-Adding these two ```Attached Directly``` security Policies along with the Group policies
-
- * AWSLambdaFullAccess 
- * AmazonS3FullAccess 
- * AmazonAPIGatewayInvokeFullAccess 
- * AmazonAPIGatewayAdministrator 
-
-Is what worked in the end. I expect that this set of security permissions is too open. You could slowly pare down the permissions granted to the IAM user and see if the Zappa app still deploys. The settings above are the ones that finally got it to work for me. You can dig through this discussion on GitHub if you want to know more [https://github.com/Miserlou/Zappa/issues/244](https://github.com/Miserlou/Zappa/issues/244) 
 
 Now that our AWS credentials are set, close the AWS IAM browser window and we can work on **getting Zappa to do it's magic!**.
 

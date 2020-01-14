@@ -17,13 +17,13 @@ Zappa is a way to deploy serverless web apps on AWS Lambda. In this post, we wil
 
 # What is Zappa?
 
-[Zappa](https://github.com/Miserlou/Zappa) is a Python package that bundles up web apps written in Flask or Django and deploys them to AWS Lambda. Why is Zappa so great? Because instead of deploying your Flask or Django web app on a cloud server, like an AWS EC2 instance or a Digital Ocean Droplet, you can deploy your app _serverless_ as an AWS Lamda function.
+[Zappa](https://github.com/Miserlou/Zappa) is a Python package that bundles up web apps written in Flask or Django and deploys them to AWS (Amazon Web Services) Lambda. Lambda is Amazon's function as a service (FaaS) platorm. Why is Zappa so great? Because instead of deploying your Flask or Django web app on a cloud server, like an AWS EC2 instance or a Digital Ocean Droplet, you can deploy your app _serverless_ as an AWS Lambda function.
 
 This isn't really "serverless" (servers run AWS Lambda), but with an AWS Lambda function, you don't have to spin up servers, install packages, make sure security patches are up to date, and most of all: **you don't have to pay for server time that isn't used.** 
 
- > A cloud server has to run all the time, whether or not someone visits your website. But an AWS Lamda function only runs when requested.
+ > A cloud server has to run all the time, whether or not someone visits your website. But an AWS Lambda function only runs when requested.
 
-Think of it this way: Cloud servers are kind of like rental cars. AWS Lamda is sort of like calling an Uber. With Uber, you only pay for the rides you take. The rental car has to be paid for even when it's just sitting in your driveway. For only a trip or two in a month, Uber is pretty cheap compared to renting a car for a month.
+Think of it this way: Cloud servers are kind of like rental cars. AWS Lambda is sort of like calling an Uber. With Uber, you only pay for the rides you take. The rental car has to be paid for even when it's just sitting in your driveway. For only a trip or two in a month, Uber is pretty cheap compared to renting a car for a month.
 
 So as long as your web traffic is low, running a web app serverless on AWS Lambda is pretty cheap compared to running a regular cloud server. AWS Lambda has a free tier. For a simple temporary hobby project, AWS is effectively free.
 
@@ -33,7 +33,7 @@ Let's get started building our web app with Flask and deploying it on AWS Lambda
 
 # Install Zappa and Flask
 
-Before we can deploy our web app on AWS Lamda with Zappa, first we need to install Zappa and a web framework to build our web app with. In this project, we are going to build a [Flask](https://www.palletsprojects.com/p/flask/) app, so Flask needs to be installed too. You can install both of the packages with **pip**, the Python package manager. 
+Before we can deploy our web app on AWS Lambda with Zappa, first we need to install Zappa and a web framework to build our web app with. In this project, we are going to build a [Flask](https://www.palletsprojects.com/p/flask/) app, so Flask needs to be installed too. You can install both of these packages with **pip**, the Python package manager. 
 
 Using a terminal, create a project directory called ```zappa_app``` and ```cd``` into it. Create a virtual environment, activate it, and install Zappa and Flask.
 
@@ -64,7 +64,7 @@ Next, we'll build a simple web app with Flask. This web app is super small and b
 
 The GitHub repo with all the code used in the rest of this post can be found here: [https://github.com/ProfessorKazarinoff/flask-zappa-tutorial](https://github.com/ProfessorKazarinoff/flask-zappa-tutorial)
 
-Create a file called ```app.py``` in the main project directory ```zappa_app``` we created earlier. Inside ```app.py```, paste the following code. This super simple Flask app creates one webpage that displays the text **Yeah, that is Zappa! Zappa! Zap!**. You can modify the text between the ```<h1> .... </h1>``` tags to include any message you want.
+Create a file called ```app.py``` in the main project directory ```zappa_app``` we created earlier. Inside ```app.py```, paste the following code. This super simple Flask app creates one webpage that displays the text **Yeah, that is Zappa! Zappa! Zap! Zap!**. You can modify the text between the ```<h1> .... </h1>``` tags to include any message you want.
 
 Copy the code below into ```app.py```.
 
@@ -99,11 +99,11 @@ Browse to the URL shown in the terminal [http://127.0.0.1:5000/](Running on http
 
 ![zappa zap zap]({static}/posts/zappa/images/flask_run_locally.png)
 
-**Great! Our web app works locally.** But before we can deploy our Flask app on AWS Lambda, there are a couple more steps. Next, we need to dive into AWS permissions. Put your seatbelt on.
+**Great! Our web app works locally.** But before we can deploy our Flask app on AWS Lambda, there are a couple more steps. Next, we need to dive into AWS permissions and credentials. Put your seatbelt on.
 
 # AWS Credentials
 
-Before we can deploy our serverless web app on AWS Lamda, we need to create and save a set of AWS credentials in a ```~/.aws/credentials``` file.
+Before we can deploy our serverless web app on AWS Lambda, we need to create and save a set of AWS credentials in a ```~/.aws/credentials``` file.
 
 ## Sign Up for AWS
 
@@ -139,7 +139,7 @@ Before we go any further, let's talk about permissions in AWS. This took me a wh
  * **Managed Policy**: Managed policies are permissions grouped by Amazon that covers some sort of sub-functionality in AWS. For instance, one managed policy created by Amazon is AWSLambdaFullAccess. This managed policy allows a user or group to do anything on AWS Lambda. 
  * **Inline Policy**: Inline policies are permissions grouped together by you. You can pick individual permissions and assemble them into an inline policy. A user or group can have many inline and managed policies at the same time. Inline policies are stored in json format.
 
-To create our AWS credentials need to run our web app, we need to complete a couple of steps:
+To create the AWS credentials needed to run our web app, we need to complete a couple of steps:
 
 1. Create a group
 2. Assign an inline policy to the group
@@ -150,43 +150,43 @@ To create our AWS credentials need to run our web app, we need to complete a cou
 
 In the IAM Dashboard, click [Groups] on the left-hand menu. 
 
-![zappa zap zap]({static}/posts/zappa/images/aws/5.PNG)
+![zappa zap zap]({static}/posts/zappa/images/aws/5.png)
 
 Then create a new group with the [Create New Group] button.
 
-![zappa zap zap]({static}/posts/zappa/images/aws/6.PNG)
+![zappa zap zap]({static}/posts/zappa/images/aws/6.png)
 
 Give your group a name, I called my group ```zappa_group```, and click [Next Step].
 
-![zappa zap zap]({static}/posts/zappa/images/aws/7.PNG)
+![zappa zap zap]({static}/posts/zappa/images/aws/7.png)
 
 In the Attach Policy screen, don't check any radio boxes, just click [Next Step]. All of the attached policy options are AWS managed policies. We want to create our own specific inline policy for our zappa_group, so we don't need to select any pre-selected AWS policies.
 
-![zappa zap zap]({static}/posts/zappa/images/aws/8.PNG)
+![zappa zap zap]({static}/posts/zappa/images/aws/8.png)
 
 At the review screen, review the group you created and click [Create Group]. 
 
-![zappa zap zap]({static}/posts/zappa/images/aws/9.PNG)
+![zappa zap zap]({static}/posts/zappa/images/aws/9.png)
 
 Next, we will copy and paste an inline policy written in json format and assign our custom inline policy to our group.
 
 ### 2. Assign an inline policy to the group
 
-**Double, double toil and trouble...** I had a tough time figuring out what the AWS security permissions I needed to attach to my AWS User to get Zappa to work. In the end, I attached one manually created custom inline policy to the group.
+**Double, double toil and trouble...** I had a tough time figuring out which AWS security permissions I needed to attach to my AWS User to get Zappa to work. In the end, I attached one manually-created custom inline policy to the group.
 
 I think it's a good idea to attach the security policy to a group. Then you can add and delete users easily without losing any info in the security policy. 
 
 At the Groups main screen, click on the group you just created to view the group's details.
 
-![zappa zap zap]({static}/posts/zappa/images/aws/10.PNG)
+![zappa zap zap]({static}/posts/zappa/images/aws/10.png)
 
 In the Permissions tab, under the Inline Policies section, choose the [click here] link to create a new Inline Policy.
 
-![zappa zap zap]({static}/posts/zappa/images/aws/11.PNG)
+![zappa zap zap]({static}/posts/zappa/images/aws/11.png)
 
 In the Set Permissions screen, click the Custom Policy radio button and click the [Select] button on the right. We could use the policy generator to create our inline policy, but instead, we will create a Custom Policy written in json format.
 
-![zappa zap zap]({static}/posts/zappa/images/aws/13.PNG)
+![zappa zap zap]({static}/posts/zappa/images/aws/13.png)
 
 Type a policy name and paste the json below into the Policy Document window.
 
@@ -288,23 +288,23 @@ The json for the inline policy applied to the group is below.
 
 After pasting and modifying the json with your AWS Account Number, click the [Validate Policy] button to ensure you copied valid json. Then click the [Apply Policy] button to attach the inline policy to the group.
 
-![zappa zap zap]({static}/posts/zappa/images/aws/14.PNG)
+![zappa zap zap]({static}/posts/zappa/images/aws/14.png)
 
-The json above is what worked for me. I expect this set of security permissions may be too open. To increase security, you could slowly pare down the permissions and see if Zappa still deploys. The settings above are the ones that finally worked for me. You can dig through this discussion on GitHub if you want to learn more about specific AWS permissions needed to run Zappa: [https://github.com/Miserlou/Zappa/issues/244](https://github.com/Miserlou/Zappa/issues/244).
+The json above is what worked for me. But, I expect this set of security permissions may be too open. To increase security, you could slowly pare down the permissions and see if Zappa still deploys. The settings above are the ones that finally worked for me. You can dig through this discussion on GitHub if you want to learn more about specific AWS permissions needed to run Zappa: [https://github.com/Miserlou/Zappa/issues/244](https://github.com/Miserlou/Zappa/issues/244).
 
 ### 3. Create a user and add the user to the group
 
 Back at the IAM Dashboard, create a new user with the [Users] left-hand menu option and the [Add User] button.
 
-![zappa zap zap]({static}/posts/zappa/images/aws/15.PNG)
+![zappa zap zap]({static}/posts/zappa/images/aws/15.png)
 
 In the Add user screen, give your new user a name and select the Access Type for Programmatic access. Then click the [Next: Permissions] button.
 
-![zappa zap zap]({static}/posts/zappa/images/aws/16.PNG)
+![zappa zap zap]({static}/posts/zappa/images/aws/16.png)
 
 In the Set permissions screen, select the group you created earlier in the Add user to group section and click [Next: Tags].
 
-![zappa zap zap]({static}/posts/zappa/images/aws/17.PNG)
+![zappa zap zap]({static}/posts/zappa/images/aws/17.png)
 
 Tags are optional. Add tags if you want, then click [Next: Review].
 
@@ -312,7 +312,7 @@ Tags are optional. Add tags if you want, then click [Next: Review].
 
 Review the user details and click [Create user]
 
-![zappa zap zap]({static}/posts/zappa/images/aws/19.PNG)
+![zappa zap zap]({static}/posts/zappa/images/aws/19.png)
 
 You should now be able to see your new user attached to your new group. Hopefully, you see a green Success screen.
 
@@ -328,7 +328,7 @@ Don't close the AWS IAM window yet. In the next step, you will copy and paste th
 
 ## Copy the Keys to a credentials File
 
-Save the AWS **access key id** and **secret access key** assigned to the User in the file ```~/.aws/credentials```. Note the ```.aws/``` directory needs to be in your home directory and the ```credentials``` file has no file extension.
+Save the AWS **access key id** and **secret access key** assigned to the User you created in the file ```~/.aws/credentials```. Note the ```.aws/``` directory needs to be in your home directory and the ```credentials``` file has no file extension.
 
  > **Note:** On Windows, save the credentials file in ```C:\> dir "%UserProfile%\.aws```
 
@@ -397,7 +397,7 @@ zappa_app/
 zappa deploy dev
 ```
 
-If everything worked, you should be able to browse to the URL listed in the terminal (something like https://heq5x2wioxcz.execute-api.us-west-2.amazonaws.com/dev) and see your your web app running in all its serverless glory.
+If everything worked, you should be able to browse to the URL listed in the terminal (something like https://heq5x2wioxcz.execute-api.us-west-2.amazonaws.com/dev) and see your web app running in all its serverless glory.
 
 ![zappa zap zap]({static}/posts/zappa/images/Zappa_app_running.png)
 
@@ -430,13 +430,14 @@ Reload your browser and see the modified text.
 
 # Shutdown and Delete the App
 
-At some point, you will want to shut down and delete your app. Who knows, maybe your app becomes super popular and your AWS bill goes through the roof? (we can only hope). To shutdown the Zappa app type the following command:
+At some point, you will want to shut down and delete your app. Who knows, maybe your app becomes super popular and your AWS bill goes through the roof? (we can only hope). To shutdown the Zappa app, type the following command:
 
 ```text
 zappa undeploy dev
 ```
 
 # Summary
+
 In this post, we created a simple web app with Flask and deployed it to AWS Lambda with Zappa. We completed the project in a few steps. First, we built a simple Flask app and ran it locally. Next, we messed around with AWS permissions and saved an access key id and secret access key in ```~/.aws/credentials```. Finally, we ran ```zappa init``` and ```zappa deploy dev``` to deploy our web app on AWS Lambda. It's amazing how little code you need to write to deploy a serverless Flask app on AWS Lambda with Zappa.
 
 ![zappa zap zap]({static}/posts/zappa/images/rabbits_kissing.jpg)

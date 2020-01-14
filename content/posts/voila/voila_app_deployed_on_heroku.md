@@ -72,13 +72,13 @@ voila app.ipynb
 
 Next we will create three files required by Heroku
 
- * requirments.txt
- * runtime.txt
- * Profile
+ * ```requirments.txt```
+ * ```runtime.txt```
+ * ```Profile```
 
 ### requirements.txt
 
-Create a requirments.txt file with pip
+Create a requirments.txt file with **pip**. The requirements.txt file tells Heroku which Python packages to install to run our app.
 
 ```text
 pip freeze > requirements.txt
@@ -86,18 +86,18 @@ pip freeze > requirements.txt
 
 ### runtime.txt
 
-The runtime.txt file specifies the version of Python we want Heroku to use. Create a new file called ```runtime.txt```. Inside the file include just one line of text.
+The runtime.txt file specifies the version of Python we want Heroku to use. Create a new file called ```runtime.txt```. Inside the file, just one line of text is needed.
 
 ```text
-python=3.7.6
+python-3.7.6
 ```
 
 ### Profile
 
-The last required file for our Heroku deployment is a Procfile. This file includes the instructions for Heroku to deploy our Voila app. Create a new file named ```Profile``` and include the text below.
+The last required file for our Heroku deployment is a Procfile. This file includes the instructions for Heroku to deploy our Voila app. Create a new file named ```Profile``` (no extension) and include the text below.
 
 ```text
-
+web: voila —-port=$PORT —-no-browser app.ipynb
 ```
 
 ## Install the Heroku CLI
@@ -119,9 +119,12 @@ git push origin master
 ## Push to Heroku
 
 ```text
-
+heroku create voila_app
+git push heroku master
 ```
 
 # View Website online
 
 # Summary
+
+In this post,

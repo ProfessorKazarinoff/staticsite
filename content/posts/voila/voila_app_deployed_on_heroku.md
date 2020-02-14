@@ -11,6 +11,10 @@ Authors: Peter D. Kazarinoff
 
 Jupyter notebooks are a great way to write and run Python code. Jupyter notebooks can produce plots and animations. Static Jupyter notebooks can be shared on GitHub.com and [nbviewer](https://nbviewer.jupyter.org/). A great Python package called [**Voila**](https://voila.readthedocs.io/en/stable/) turns Jupyter notebooks into deployable web apps. In this post, you'll learn how to deploy a Jupyter notebook as a cloud-based web app with Voila and Heroku.
 
+# Prerequisites
+
+This tutorial assumes you have Python installed on your local computer. I recommend installing the [Anaconda distribution of Python](https://anaconda.com/distribution) Version 3.7, but you can also install Python from [Python.org](https://python.org) or the Windows Store. It is also assumed that you either have Windows Subsystem for Linux (WSL) installed or you are using MacOS or Linux itself. I recommend Ubuntu 18.04 LTS for your Linux distribution. You should also be able to bring up a terminal in your prefered operating system and be able to use some basic terminal commands such as ```cd``` to change directories, ```mkdir``` to make a new directory ```pwd``` to list the contents of a directory and ```cd ..``` to go back a directory.
+
 [TOC]
 
 # Voila
@@ -32,7 +36,7 @@ Before we start writing any code, we need to install Voila and Jupyter. These pa
 mkdir voila
 cd voila
 python -m venv venv
-souce venv/bin/activate
+source venv/bin/activate
 pip install voila
 pip install jupyter numpy matplotlib
 ```

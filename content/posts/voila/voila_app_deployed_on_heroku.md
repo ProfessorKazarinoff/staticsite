@@ -154,9 +154,15 @@ Because we need to use WSL to use the Heroku CLI, we have to move the whole proj
 
 ### Create repo on GitHub.com
 
-Log into GitHub.com and create a new repo. I always add a ```.gitignore``` and a ```README.md```. 
+Log into GitHub.com and create a new repo. I always add a readme, ```.gitignore```, and a license. 
 
-Make sure to copy the GitHub clone URL to make the next step easier.
+![Heroku Logo]({static}/posts/voila/images/github_add_new_repo.png)
+
+![Heroku Logo]({static}/posts/voila/images/github_add_dot_gitignore.png)
+
+![Heroku Logo]({static}/posts/voila/images/github_copy_url.png)
+
+Make sure to copy the GitHub URL from the repo to make the next step easier.
 
 ### Add, commit and push local files to GitHub
 
@@ -172,7 +178,7 @@ git push origin master
 
 ## Pull the Repo down into WSL
 
-Now that the repo is up on GitHub.com, we can pull it down into WSL where the Heroku CLI is installed.
+Now that the repo is up on GitHub.com, we can pull it down into WSL where the Heroku CLI is installed. Back in the Windows Subsystem for Linux terminal, type the following commands.
 
 ```text
 mkdir voila
@@ -182,17 +188,46 @@ git remote add origin https://github.com/<usename>/<reponame>
 git pull origin master
 ```
 
+After you pull the repo down from GitHub, the follwoing files should be present.
+
+```text
+.
+├── LICENSE
+├── Procfile
+├── README.md
+├── app.ipynb
+├── requirements.txt
+└── runtime.txt
+```
+
+Now we can push the project up to heroku.
+
 ## Push to Heroku
 
 After the files are pushed to GitHub, we are almost done. All that's left is to push the files to Heroku and view our live web app.
 
 ```text
 heroku create
+```
+Output will look something like below:
+
+```text
+Creating app... done, ⬢ damp-cove-01735
+https://damp-cove-01735.herokuapp.com/ | https://git.heroku.com/damp-cove-01735.git
+```
+
+Last thing to do is push the changes to Heroku to publish our app.
+
+```
 git push heroku master
 ```
 
+The first time the command is run, it will take a little time. 
+
 # View the Web App Online
+
+![Image Desc]({static}/posts/subdir/images/jupyter_voila_heroku.png)
 
 # Summary
 
-In this post, we created a website from a Jupyter notebook using Voila.
+In this post, we created a website from a Jupyter notebook using Voila. First we created a Jupyter notebook with an interactive widget. Then we ran Voila locally and saw a preview of what the app would look like online. Lastly we published the app on Heroku using the Heroku CLI. Thanks to all the maintainers of Voila. It is a wondeful package.

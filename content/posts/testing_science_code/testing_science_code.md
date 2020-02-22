@@ -1,7 +1,7 @@
 Title: Thoughts on How to Test Science Code
 Date: 2020-02-21 08:11
 Modified: 2020-02-21 08:11
-Status: dract
+Status: draft
 Category: Python
 Tags: engineering,testing
 Slug: how-to-test-science-code
@@ -13,35 +13,52 @@ I have been at a couple meetups (at PyData PDX) and heard a few podcasts (TalkPy
 
  > **"How do we bring software design princpals into science?"**
 
-This got me thinking. There are a couple ways software design could be incorporated into science. The science I'm thinking about deals with the collection and analysis of data (that's almost all science right?). A few practices that could be incorporated are below.
+This got me thinking... There are a couple ways software design could be incorporated into science. The science I'm thinking about deals with the collection and analysis of data (that's almost all science right?). A few practices that could be incorporated into computer programs that analyze science data are below.
 
 ## Version Control
 
-Instead of -final.xlsx and -final2.xlsx and -final_v2_reviewed.xlsx, use a version control system like git and make meaningful commit messages. 
+![fishing net]({static}/posts/testing_science_code/images/notebooks.jpg)
+
+Instead of ```myscript-final.xlsx``` and ```myscript-final2.xlsx``` and ```myscript-final_v2_reviewed.xlsx```, use a version control system like **git** and Github.com. If this practice is adopted, scientists need to ensure that meaningful commit messages are incorporated with each code change. Version control could also be used as part of the peer-reviewed paper writing process. 
 
 ## Code Review
 
+![fishing net]({static}/posts/testing_science_code/images/map.jpg)
+
 When an analysis is completed, review it with a partner. Have someone else review your code, have some one else run the same code on their computer and give you structured feed-back about it. Scientists have practice reviewing paper drafts, use that experience to help review analysis that includes code.
-
-## Portability and Packaging
-
 
 
 ## Break code up into modules and functions
 
+![fishing net]({static}/posts/testing_science_code/images/package.jpg)
+
+Some scientific code is written in one or two long scripts. Another software design principal to bring to this code is break code up into functions and modules (different files). A long 2000 line script can be broken up into different functions and these functions can be pulled out into different modules, or put into different files. Two rough guidlines:
+
+ * Each file should be able to fit on one screen
+ * Each function should be 10 lines or less
+
+These are not hard rules, but something to aim for if you don't know where to start.
+
+The last software design principal we'll talk about in this post is testing. It's a big topic. Here we go.
 
 ## Testing
+
+![fishing net]({static}/posts/testing_science_code/images/lab.jpg)
 
 So this is the main reason I wanted to write this post. How to incorporate software testing in science data analysis. I have a couple ideas.
 
 ### A sample script
 
-Below is a sample Python script that reads in an excel file of data, plots the data and then outputs two calculated values. In this case the data is from Field Effect Transistors made from semiconducting polymers, but the same ideas with testing could be applied to a script that does something different. Very often science analysis comes down to a couple steps:
+Below is a sample Python script that reads in an excel file of data, plots the data, and then outputs two calculated values. In this case, the data is from a mechanical test frame (a piece of equipment that tests the strength of materials), but the same testing ideas could be applied to a script that analyzes data from another subject area.
 
- * reading in raw data from a file or many files
- * cleaning or reorganizing the data in some way
- * running calculations on the data
- * creating a figure that demonstrates the results
+Very often scientific code comes down to a couple steps:
+
+ * Read in raw data from a file or many files
+ * Clean or reorganize the data
+ * Run calculations on the data
+ * Create a figure that demonstrates the results
+
+The code below is one long script. In the rest of this post, we are going work on adding tests to this script.
 
 ```python
 # code raw

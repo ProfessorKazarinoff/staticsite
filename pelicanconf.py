@@ -52,6 +52,7 @@ STATIC_PATHS = ['images','extra','code',
                 'posts/zappa/images',
                 'posts/zappa/images/aws',
                 'posts/voila/images',
+                'posts/testing_science_code/images',
                 ]
                 
 PLUGIN_PATHS = ['pelican-plugins','extra-plugins']

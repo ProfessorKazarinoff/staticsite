@@ -66,7 +66,7 @@ The code below is one long script. In the rest of this post, we are going work o
 
  ### Idea 1. Break the script up into functions
 
- ![streamlit bokeh heroku]({static}/posts/testing_science_code/images/kids-holding-hands.jpg)
+ ![holding hands]({static}/posts/testing_science_code/images/kids-holding-hands.jpg)
 
 The first thing to do is break the script up into functions. If you don't know where to start, use the four bullet points above to help guide where to break up the one long script into 3 or 4 pieces. Don't worry if all that happens is that you have four sections, each section is a function and each function has no inputs and no outputs. End the script with a main function.
 
@@ -76,13 +76,23 @@ The first thing to do is break the script up into functions. If you don't know w
 
 ### Idea 2. Remove all hard-coded file names
 
-Next, try to remove all hard-coded file names. If you renamed your data file my-data_v2.csv, would your script still work? If not, break the file name into a variable first, and then make the file name be included as a parsed argument when the file is called.
+ ![holding hands]({static}/posts/testing_science_code/images/concrete.jpg)
+
+Next, let's try to remove all hard-coded file names. If you renamed your data file ```my-data_v2.csv```, would your script still work? If not, break the file name into a variable first. Next, make the file name be included as a parsed argument when the file is called.
 
  ```python
  # code with argparse
 ```
 
+Now the script is run using the command below.
+
+```text
+# python analysis.py -i my-data.csv
+```
+
 ### Idea 3. Your code should not modify the data
+
+![holding hands]({static}/posts/testing_science_code/images/ice.jpg)
 
 When your code runs, it should not modify, rename, rewrite or otherwise change the originol data. If that happens as a result of your script, take it out.
 
@@ -92,7 +102,9 @@ When your code runs, it should not modify, rename, rewrite or otherwise change t
 
 ### Idea 4. Consider inputs and outputs of your functions
 
-Now that we removed all hard-coded file names and make sure that the data wasn't modified by the code, is it any clearer what the input and output of our functions are? At the very least, have your functions return ```True``` at the end. For a function that produces a plot, make the output be ```fig``` and ```ax``` objects.
+![holding hands]({static}/posts/testing_science_code/images/pipe.jpg)
+
+Now that we removed all hard-coded file names and made sure that the data wasn't modified by the code, is it any clearer what the input and output of our functions should be? At the very least, modify your functions tp return ```True``` at the end. For a function that produces a plot, assign the outputs as Matplotlib ```fig``` and ```ax``` objects.
 
 ```python
 # code that have function inputs and outputs
@@ -100,7 +112,29 @@ Now that we removed all hard-coded file names and make sure that the data wasn't
 
 ### Idea 5. Test each function
 
-Now we are going to use pytest to test each function. Some of the functions can have expected input and output. Some functions may need an example file passed to them.
+ ![holding hands]({static}/posts/testing_science_code/images/pin_wheel.jpg)
+
+Now we are going to use **pytest** to test each function. Some of the functions can have expected input and output. Some functions may need an example file passed to them.
+
+Before pytest can be used, pytest needs to be installed. You can install pytest using **pip**, Python's package manager
+
+```text
+$ pip install pytest
+```
+
+I set up my directory structure as shown below. The file which contains the tests start with the filename ```test_ ...```.
+
+```text
+project_directory/
+├── analysis.py
+├── analysis_script.py
+├── data
+│   └── raw_data.csv
+├── LICENSE
+├── README.md
+└── tests
+    └── test_plot.py
+```
 
 ### Idea 6. Test the main() function
 
@@ -114,5 +148,11 @@ Now we are going to use pytest to test each function. Some of the functions can 
 
 ## Conclusion
 
+To wrap up. Some scientific code is difficult to test. But there are things we can do to make the code more portable and incorporate the ideas of software design into scientific code.
 
+To help make a scientific script testable, consider trying the following:
 
+ * break a long script into functions and seperate files
+ * include one main fuction
+ * assign functions inputs and outputs. If no output makes sense, return ```True```
+ * functions which produce plots should output ```fig``` and ```ax``` objects.

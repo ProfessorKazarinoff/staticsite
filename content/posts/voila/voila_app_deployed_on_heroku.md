@@ -230,7 +230,7 @@ The first time the command is run, it will take a little time.
 
 # View the Web App Online
 
-![Image Desc]({static}/posts/subdir/images/jupyter_voila_heroku.png)
+![Image Desc]({static}/posts/voila/images/jupyter_voila_heroku.png)
 
 # Summary
 

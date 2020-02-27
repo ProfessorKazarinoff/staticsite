@@ -92,7 +92,7 @@ Now the script is run using the command below.
 
 ### Idea 3. Your code should not modify the data
 
-![holding hands]({static}/posts/testing_science_code/images/ice.jpg)
+![holding hands]({static}/posts/testing_science_code/images/ice.jpeg)
 
 When your code runs, it should not modify, rename, rewrite or otherwise change the originol data. If that happens as a result of your script, take it out.
 
@@ -102,7 +102,7 @@ When your code runs, it should not modify, rename, rewrite or otherwise change t
 
 ### Idea 4. Consider inputs and outputs of your functions
 
-![holding hands]({static}/posts/testing_science_code/images/pipe.jpg)
+![holding hands]({static}/posts/testing_science_code/images/pipe.jpeg)
 
 Now that we removed all hard-coded file names and made sure that the data wasn't modified by the code, is it any clearer what the input and output of our functions should be? At the very least, modify your functions tp return ```True``` at the end. For a function that produces a plot, assign the outputs as Matplotlib ```fig``` and ```ax``` objects.
 

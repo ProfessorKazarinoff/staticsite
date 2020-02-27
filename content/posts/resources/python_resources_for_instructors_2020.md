@@ -1,7 +1,7 @@
 Title: Python Resources for Instructors
 Date: 2020-02-27 08:11
 Modified: 2020-02-27 08:11
-Status: draft
+Status: published
 Category: introduction
 Tags: python, resources
 Slug: python-resources-for-instructors-2020
@@ -47,11 +47,11 @@ Think Python by Allen Downey can be purchased in hard-copy or used online for fr
 
 ![lesson plan]({static}/posts/resources/images/lesson_plan.jpg)
 
-The syllabus and labs we use in our ENGR114 Programming Class hare linked here: [https://github.com/ProfessorKazarinoff/ENGR114](https://github.com/ProfessorKazarinoff/ENGR114). If GitHub's notebook render isn't working, you can also view the syllabus and labs on nbviewer: [Link](https://nbviewer.jupyter.org/github/ProfessorKazarinoff/ENGR114/tree/master/)
+The syllabus and labs we use in our ENGR114 Engineering Programming class hare linked here: [https://github.com/ProfessorKazarinoff/ENGR114](https://github.com/ProfessorKazarinoff/ENGR114). If GitHub's notebook render isn't working, you can also view the syllabus and labs on nbviewer: [Link](https://nbviewer.jupyter.org/github/ProfessorKazarinoff/ENGR114/tree/master/)
 
-The class notes I recorded last quarter in Jupyter notebooks from our ENGR114 Programming Class can be found here: [https://github.com/ProfessorKazarinoff/ENGR114-2019Q4](https://github.com/ProfessorKazarinoff/ENGR114-2019Q4). Or see the note on nbviewer: [Link](https://nbviewer.jupyter.org/github/ProfessorKazarinoff/ENGR114-2019Q4/tree/master/)
+The class notes I recorded last quarter in Jupyter notebooks from our ENGR114 Engineering Programming class can be found here: [https://github.com/ProfessorKazarinoff/ENGR114-2019Q4](https://github.com/ProfessorKazarinoff/ENGR114-2019Q4). Or see the notes on nbviewer: [Link](https://nbviewer.jupyter.org/github/ProfessorKazarinoff/ENGR114-2019Q4/tree/master/)
 
-I found this GitHub repo for another Engineering Programming Class. This course uses NumPy and Matplotlib like we do: [https://github.com/karlvandesman/Python-Course](https://github.com/karlvandesman/Python-Course)
+I found this GitHub repo for another Engineering Programming class. This course uses NumPy and Matplotlib like we do: [https://github.com/karlvandesman/Python-Course](https://github.com/karlvandesman/Python-Course)
 
 A set of Engineering Computations Modules by Lorena Barba and Natalia Clementi are posted on GitHub. The authors mention they are happy to have instructors use their resources in full or partial form: [https://github.com/engineersCode/EngComp1_offtheground](https://github.com/engineersCode/EngComp1_offtheground)
 
@@ -65,7 +65,7 @@ If you are an instructor and learning Python programming, below are a couple of 
 
 ![beach book]({static}/posts/resources/images/beach_book.jpg)
 
-Python Data Science Handbook by Jake VanderPlas: [https://jakevdp.github.io/PythonDataScienceHandbook/](https://jakevdp.github.io/PythonDataScienceHandbook/) also on [amazon](https://www.amazon.com/Python-Data-Science-Handbook-Essential/dp/1491912057)
+Python Data Science Handbook by Jake VanderPlas: [https://jakevdp.github.io/PythonDataScienceHandbook/](https://jakevdp.github.io/PythonDataScienceHandbook/) also on [Amazon].(https://www.amazon.com/Python-Data-Science-Handbook-Essential/dp/1491912057)
 
 Effective Computation in Physics by Anthony Scopatz and Kathryn Huff: [https://www.amazon.com/Effective-Computation-Physics-Research-Python/dp/1491901535/](https://www.amazon.com/Effective-Computation-Physics-Research-Python/dp/1491901535/)
 
@@ -85,7 +85,7 @@ Microsoft's Python for Beginners Tutorial Series: [https://www.youtube.com/playl
 
 ![blog pic]({static}/posts/resources/images/blog_image.jpg)
 
-My blog, the one you are viewing right now: [https://pythonforundergradengineers.com/](https://pythonforundergradengineers.com/)
+My blog, the one you are reading right now: [https://pythonforundergradengineers.com/](https://pythonforundergradengineers.com/)
 
 Real Python Blog: [https://realpython.com/tutorials/basics/](https://realpython.com/tutorials/basics/)
 
@@ -97,6 +97,8 @@ A running listing of Python blogs. I usually read PlanetPython a couple of times
 
 
 ### Podcasts
+
+I found listening to podcasts helped me get familiar with Python-specific jargon. _Virtual Envs_, _Distribution_, _Web Framework_, _API_... those sorts of terms.
 
 ![blog pic]({static}/posts/resources/images/phone_headphones.jpg)
 
@@ -120,7 +122,7 @@ SciPy (the folks that make NumPy and Matplotlib) have a docs page describing how
 
 This is an older resource, but I still found this table helpful. Maps MATLAB commands to NumPy commands: [http://mathesaurus.sourceforge.net/matlab-numpy.html](http://mathesaurus.sourceforge.net/matlab-numpy.html)
 
-This GitHub repo is another place to check out the MATLAB to Python comparison:
+This GitHub repo is another place to check out a MATLAB to Python comparison:
 [https://github.com/PythonForMatlabProgrammers](https://github.com/PythonForMatlabProgrammers)
 
 ## Summary

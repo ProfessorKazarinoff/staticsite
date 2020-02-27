@@ -61,6 +61,7 @@ EXTRA_PATH_METADATA = {
     'extra/jupyter.css': {'path': 'static/css/jupyter.css'},
     'extra/custom.js': {'path': 'static/js/custom.js'},
     'extra/nojekyll': {'path': '.nojekyll'},
+    'extra/CNAME': {'path': 'CNAME'},
 }
 #consider above to have extra/custom.js bath go to static/theme/js and see if that works
 

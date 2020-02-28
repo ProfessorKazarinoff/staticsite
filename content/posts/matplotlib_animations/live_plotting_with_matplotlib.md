@@ -137,6 +137,7 @@ Run the ```static_plot.py``` script using the Anaconda Prompt of a terminal. Ens
 ```text
 (live_plot)> python static_plot.py
 ```
+
 ![still of piston motion]({static}/posts/matplotlib_animations/images/run_static_plot_dot_py.PNG) 
 
 The plot should look something like image below:
@@ -221,7 +222,7 @@ ani = FuncAnimation(plt.gcf(), animate, interval=1000)
 # show the plot
 plt.tight_layout
 plt.show()
- ```
+```
 
 Before you run the script, create a new file in the ```live_plot``` directory along side our ```live_plot_user_input.py``` script called ```data.txt```. Inside the file add a couple numbers, each number on it's own line.
 

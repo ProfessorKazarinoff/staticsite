@@ -8,11 +8,13 @@ Slug: deploy-django-on-aws
 Authors: Peter D. Kazarinoff
 Summary: In this post, we are going to deploy a Django Web App on Amazon Web Services (AWS). More specifically, we are going to deploy a pre-built Django App saved on GitHub to an AWS EC2 instance. Follow along to learn how to deploy your own Django Web App on AWS.
 
-In this post, we are going to deploy a Django App (the Oregon Engineering Transfer App) on Amazon Web Services (AWS). More specifically, we are going to deploy this Django web app on an AWS EC2 instance. An instance is AWS speak for a virtual private server. This same type of virtual private server is available from other companies such as Digital Ocean and Linode. AWS calls virtual private servers _EC2 instances_. 
+In this post, we are going to deploy a Django App (the Oregon Engineering Transfer App) on Amazon Web Services (AWS). More specifically, we are going to deploy this Django web app on an AWS EC2 instance. An EC2 instance is AWS-speak for a virtual private server hosted by Amazon. This same type of virtual private server is available from other companies such as Digital Ocean and Linode. AWS calls virtual private servers _EC2 instances_.
 
-An advantage of deploying our Django app on AWS, compared to Digital Ocean or Linode, is AWS has a free tier. The AWS free tier includes one EC2 instance (one server) for free. Therefore, running our Django App on AWS should be free.
+Django is a Python package used to create Web Apps. Django can be used to create a simple one-page website, a web-based API service or a complex multi-page site. 
 
-The deployment steps below are a slight modification of a procedure from [Coding Dojo](https://www.codingdojo.com/). Coding Dojo hosts coding boot camps to get programmers ready for jobs quickly. Their coding bootcamps are 14 weeks long. The Coding Dojo bootcamps include Python, Django and Flask in the curriculum as well as other web development stacks.
+An advantage of deploying our Django app on AWS, compared to Digital Ocean or Linode, is AWS has a free tier. The AWS free tier includes one EC2 instance (one server) for free for one year. Therefore, running our Django App on AWS should be free for a while (but don't forget that it's running...).
+
+The deployment steps below are a slight modification of a procedure from [Coding Dojo](https://www.codingdojo.com/). Coding Dojo hosts coding boot camps to get programmers ready for jobs quickly. Their in-person coding bootcamps are 14 weeks long. The Coding Dojo bootcamps include Python, Django and Flask in the curriculum as well as other web development stacks.
 
 A summary of steps to deploy our Django App on AWS is below:
 
@@ -24,7 +26,7 @@ Sign up for an Amazon Web Services (AWS) account here:
 
  > [https://aws.amazon.com/](https://aws.amazon.com/)
 
-Once you sign up for an account, you have to go to your email and activate your AWS account. After your account is active, log into the AWS Console by clicking the [Sign into Console] button.
+Once you sign up for an account, you have to go to your email and activate your AWS account. After your account is active, log into the AWS Console by browsing to [aws.amazon.com](https://aws.amazon.com) and clicking the [Sign into Console] button on the upper right.
 
 ![AWS sign into console]({static}/posts/django/images/aws_sign_into_console_button.png)
 
@@ -66,7 +68,7 @@ livereload==2.5.2
 ...
 ```
 
-We also need to modify the ```.gitignore``` file. Open the ```.gitignore``` file and add ```env/``` on it's own line at the bottom of the file. This addition will ensure that the virtual environment we create on the server does not get saved in our git revision history.
+We also need to modify the ```.gitignore``` file. We need to make sure the ```env/``` directory isn't saved up on GitHub or copied directly from GitHub to our EC2 instance. Open the ```.gitignore``` file and add ```env/``` on it's own line at the bottom of the file. This addition will ensure that the virtual environment we create on the server does not get saved in our git revision history.
 
 ```text
 # .gitignore
@@ -75,17 +77,17 @@ We also need to modify the ```.gitignore``` file. Open the ```.gitignore``` file
 env/
 ```
 
-Save the .gitignore file. Add, commit and push the changes to GitHub. 
+Save the ```.gitignore file```. Add, commit and push the changes to GitHub. 
 
-```
+```text
 (transfer)$ git add .
 (transfer)$ git commit -m "updated requirements.txt"
 (transfer)$ git push origin master
 ```
 
-Do a quick check that the Django project runs without errors and works as expected on the local machine. 
+Do a quick check that the Django project runs without errors and works as expected on your local machine. 
 
-If the Django project doesn't run on the local machine, there is no way the Django project will work on the AWS server. Start the development server on the local machine with the command:
+If the Django project doesn't run on your local machine, there is no way the Django project will work on the AWS cloud server. Start the development server on the local machine with the command below:
 
 ```text
 (transfer)$ pwd
@@ -102,17 +104,17 @@ Point a web browser to:
 
  > [http://localhost:8000/](http://localhost:8000/)
 
-See the Oregon Transfer App in all it's glory:
+See your Django app running in all it's glory:
 
 ![Transfer App home page](#)
 
-Use [Ctrl]-[c] to shut down the development server
+Use [Ctrl]-[c] to shut down the development server.
 
 The following tasks are now complete:
 
  * ```requirements.txt``` created
  * changes pushed to GitHub
- * the Django App runs locally as expected with no errors. 
+ * the Django App runs locally as expected with no errors
 
 Now close the Anaconda Prompt. We'll use the Git Bash terminal (instead of the Anaconda Prompt) later in the deployment.
 
@@ -168,7 +170,7 @@ Finally, click the [Launch Instances] at the bottom of the pop-up box.
 
 ![AWS popup launch instances]({static}/posts/django/images/aws_popup_final_launch_instances.png)
 
-This produces a status window that shows our instance is launching. It takes a couple minutes for the instance to launch. 
+This produces a status window that shows our instance is launching. It takes a minute or two for the instance to launch. 
 
 ![AWS intances launching]({static}/posts/django/images/aws_launch_status.png)
 
@@ -213,7 +215,7 @@ $ pwd
 We have now completed the following steps:
 
  * launched a new AWS EC2 instance
- * logged into our new AWS EC2 intance
+ * logged into our new AWS EC2 intance with Git Bash
 
 ## Update the server
 
@@ -331,6 +333,8 @@ Add the AWS instance IP address to the allowed hosts, set debug to False.
 
 ```text
 #transfer_project/settings.py
+...
+
 DEBUG = False
 ALLOWED_HOSTS =['aws instance IP address']
 ```
@@ -347,7 +351,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
 ## Collect Static
 
-Now we'll copy the static sites into the directory we specified in the ```STATIC_ROOT``` setting of the ```settings.py``` file. We'll also migrate the database with the ```makemigrations``` and ```migrate``` commands.
+Now we'll copy the static files into the directory we specified in the ```STATIC_ROOT``` setting of the ```settings.py``` file. We'll also migrate the database with the ```makemigrations``` and ```migrate``` commands.
 
 ```text
 (env)$ cd ~/repo_name
@@ -363,7 +367,7 @@ Next we'll test that ```gunicorn``` can work with our Django app. When the ```--
 ```text
 (env)$ gunicorn --bind 0.0.0.0:8000 transfer_project.wsgi:application
 # should see no errors
-````
+```
 
 Now deactivate the ```(env)``` virtual environment. After deactivation, there should no longer be an ```(env)``` before command prompt
 
@@ -490,4 +494,4 @@ As it stands we don't have SSL running and we are allowing connections over regu
 
 ![Django Admin Login Screen](#)
 
-In addition, the Django admin is running and it may be possible for attackers to access our database or backend. Further development is needed before our Django App is running with the bare minimum of security. 
+In addition, the Django admin is running and it may be possible for attackers to access our database or backend. Further development is needed before our Django App is running with the bare minimum of security.

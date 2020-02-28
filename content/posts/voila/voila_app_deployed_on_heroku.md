@@ -15,7 +15,9 @@ Jupyter notebooks are a great way to write Python code and view the results of t
 
 # Voila
 
-**What is Voila?** Voila is a Python package that turns Jupyter notebooks into working web sites. It is pretty amazing. Another Python package called Streamlit turns .py-files into websites. Voila does the same thing for Jupyter notebooks. Any Jupyter notebook can be turned into a web site with Voila. Voila is specifically useful for turning Jupyter notebooks with embedded widgets into working websites.
+**What is Voila?** Voila is a Python package that turns Jupyter notebooks into working web sites. It is pretty amazing. Another Python package called Streamlit turns .py-files into websites. Voila does the same thing for Jupyter notebooks.
+
+Any Jupyter notebook can be turned into a web site with Voila. Voila is specifically useful for turning Jupyter notebooks with embedded widgets into working websites.
 
 # Install Voila and Jupyter
 
@@ -40,7 +42,7 @@ jupyter notebook
 
 Before we can deploy our Jupyter notebook as a cloud-based web app, we need write a few cells in our Jupyter notebook. Any markdown cells will become text in on our website. Any plots or widgets will also become part of our website. 
 
-Our Jupyter notebook needs to start with a couple import lines. Note that we don't need to import Volia into the notebook that will become the website. We just need to install Voila into the environment that will deploy the website.
+Our Jupyter notebook needs to start with a couple import lines. Note that we don't need to import Volia into the notebook that will become the website. We just need to install Voila into the environment that will _deploy_ the website.
 
 ```python
 import numpy as np
@@ -76,7 +78,7 @@ Next we will create three files required by Heroku
 
  * ```requirments.txt```
  * ```runtime.txt```
- * ```Profile```
+ * ```Procfile```
 
 ### requirements.txt
 
@@ -94,9 +96,9 @@ The runtime.txt file specifies the version of Python we want Heroku to use. Crea
 python-3.7.6
 ```
 
-### Profile
+### Procfile
 
-The last required file for our Heroku deployment is a Procfile. This file includes the instructions for Heroku to deploy our Voila app. Create a new file named ```Profile``` (no extension) and include the text below.
+The last required file for our Heroku deployment is a Procfile. This file includes the instructions for Heroku to deploy our Voila app. Create a new file named ```Procfile``` (no extension) and include the text below.
 
 ```text
 web: voila —-port=$PORT —-no-browser app.ipynb

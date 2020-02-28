@@ -42,6 +42,8 @@ INSTALLED_APPS = [
 
 in pages/views.py
 ```python
+# pages/views.py
+
 from django.http import HttpResponse
 
 def homePageView(request):

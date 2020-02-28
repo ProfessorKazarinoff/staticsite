@@ -11,17 +11,17 @@ series_index: 2
 
 ![conductor]({static}/posts/ansible/images/dump_truck.jpg)
 
-In this post, I'm going to review how to install Ansible on the computer or server that will run ansible and act as the conductor setting up JupyterHub on the server.  JupyterHub will run on a cloud server, but that isn't the server that Ansible needs to be installed on. Ansible is installed on a seperate machine that sends commands to the JupyterHub server over SSH. 
+In this post, I'm going to review how to install Ansible on the computer or server that will run Ansible and act as the conductor setting up JupyterHub on a cloud server server.  JupyterHub will run on the cloud server, but that isn't the server that Ansible needs to be installed on. Ansible is installed on a seperate machine that sends commands to the JupyterHub server over SSH. 
 
 ## What can Ansible be installed on?
 
-Ansible can be installed  on a MacOS or Linux computer or a Linux cloud server. Ansible can also be installed on Windows Subsystem for Linux (WSL). Ansible can not be run on Windows 10. During my testing and exploration of Ansible, I've used both WSL and an Ubuntu cloud server to run Ansible.
+Ansible can be installed  on a MacOS or Linux computer or a Linux cloud server. Ansible can also be installed on Windows Subsystem for Linux (WSL). Ansible can not run on Windows 10. During my testing and exploration of Ansible, I've used both WSL and an Ubuntu cloud server to run Ansible.
 
 ## Anstalling Ansible
 
-Ansible can be installed on the command line using both a package manager or a **pip** or **conda**. The Ansible docs state that the install preference was to use a package manager, so on both WSL and an Ubuntu cloud server, I installed Linux with **apt**, the Debian/Ubuntu package manager. 
+Ansible can be installed on the command line using both a Linux system package manager like **apt** or **yum**. Since Ansible is a Python package, Ansible can also be installed with a Python package manager like **pip** or **conda**. The Ansible docs state the install preference is to use a system package manager. So on both WSL and an Ubuntu cloud server, I installed Linux with **apt**, the Debian/Ubuntu package manager. 
 
-Using a terminal, the commands below install Ansible:
+Using a terminal, the commands below install Ansible an a Debian/Ubuntu system:
 
 ```text
 sudo apt-get install software-properties-common
@@ -34,7 +34,7 @@ Ansible should now be installed.
 
 ## Confirm the Ansible installation
 
-After Ansible is successfully installed, the commands below print the Ansible version and indicate a successfully installation.
+After Ansible is successfully installed, the commands below print the Ansible version and indicate a successful installation.
 
 ```text
 ansible --version

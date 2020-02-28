@@ -19,11 +19,6 @@ This tutorial assumes you have Python installed on your local computer. I recomm
 
 # Voila
 
-<<<<<<< HEAD
-**What is Voila?** Voila is a Python package that turns Jupyter notebooks into working web sites. It is pretty amazing. Another Python package called Streamlit turns .py-files into websites. Voila does the same thing for Jupyter notebooks.
-
-Any Jupyter notebook can be turned into a web site with Voila. Voila is specifically useful for turning Jupyter notebooks with embedded widgets into working websites.
-=======
 [![Voila Logo]({static}/posts/voila/images/voila_logo.png)](https://voila.readthedocs.io/en/latest/)
 
 **What is Voila?** Voila is a Python package that turns Jupyter notebooks into working web sites. It is pretty amazing. Another Python package called Streamlit turns .py-files into websites. Voila does the same thing for Jupyter notebooks.
@@ -32,7 +27,6 @@ Any Jupyter notebook can be turned into a web site with Voila. Voila is specific
  [https://voila.readthedocs.io/en/stable/](https://voila.readthedocs.io/en/stable/)
 
 Any Jupyter notebook can be turned into a website with Voila. Voila is specifically useful for turning Jupyter notebooks with embedded widgets into working websites.
->>>>>>> 055cb290c50391f03e3029af580412208160010f
 
 # Install Voila and Jupyter
 
@@ -57,11 +51,7 @@ jupyter notebook
 
 ![Jupyter Logo]({static}/posts/voila/images/jupyter_logo.png)
 
-<<<<<<< HEAD
-Our Jupyter notebook needs to start with a couple import lines. Note that we don't need to import Volia into the notebook that will become the website. We just need to install Voila into the environment that will _deploy_ the website.
-=======
 Before we can deploy our Jupyter notebook as a cloud-based web app, we need to write a few cells in our Jupyter notebook. Any markdown cells will become text in on our website. Any plots or widgets will also become part of our website. Code cells can be used on our website, but the code cells will not be seen by our website's visitors. 
->>>>>>> 055cb290c50391f03e3029af580412208160010f
 
 Our Jupyter notebook needs to start with a couple of import lines. Note that we don't need to import Volia into the notebook that will _become_ the website. We just need to install Voila into the environment that will _deploy_ the website.
 
@@ -150,11 +140,7 @@ python-3.7.6
 
 ### Procfile
 
-<<<<<<< HEAD
 The last required file for our Heroku deployment is a Procfile. This file includes the instructions for Heroku to deploy our Voila app. Create a new file named ```Procfile``` (no extension) and include the text below.
-=======
-The last required file for our Heroku deployment is a ```Procfile```. This file includes the instructions for Heroku to deploy our Voila app. Create a new file named ```Procfile``` (no extension) and include the text below:
->>>>>>> 055cb290c50391f03e3029af580412208160010f
 
 ```text
 web: voila —-port=$PORT —-no-browser app.ipynb

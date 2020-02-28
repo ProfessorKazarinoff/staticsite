@@ -1,10 +1,10 @@
 Title: Add a CNAME file to a Pelican blog 
-Date: 2020-02-27 19:36
-Modified: 2020-02-27 19:50
+Date: 2020-02-28 19:36
+Modified: 2020-02-28 19:50
 Status: Draft
 Category: Python
 Tags: python, pelican, blog, github 
-Slug: add-nojekyll-file-to-pelican
+Slug: add-CNAME-file-to-pelican
 Authors: Peter D. Kazarinoff
 
 This blog is built with Python and a package called Pelican. Pelican is a Python package used to create blogs.  This blog is deployed on GitHub pages. When Pelican runs, it produces .html files that make up the blog in an output directory. The output directory is saved to a gh-pages branch of the main GitHub repo. When the gh-pages branch is updated with new content (a new blog post), the blog webpages are re-deployed.

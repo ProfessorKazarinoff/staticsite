@@ -304,6 +304,170 @@ ani = animation.FuncAnimation(fig, animate, fargs=(xs,ys), interval=1000)
 plt.show()
 ```
 
+Next, we will build a live-plot from sensor data
+
 ## Build a live plot using data from a sensor
 
+The final live auto-updating plot we are going to build will show sensor data streaming in from an Arduino. Since this post is about live plots, I will not go into great detail about how to connect the sensor to the Arduino or how the Arduino works. Very briefly, the sensor we are using in this example is a potentiometer. A potentiometer is a dial that you can turn back and forth. When the dial of a potentiometer is turned, the resistance of the poteniomter changes. 
+
+### Hardware Hookup
+
+We can hook up a potentiometer up to an Arduino based on the diagram below.
+
+![still of piston motion]({static}/posts/matplotlib_animations/images/redboard_pot_led_fritzing.png)
+
+### Arduino Code
+
+After the little blue potentiometer is hooked up, Upload the following code on the Arduino. 
+
+```text
+// potentiometer.ino
+// reads a potentiometer and sends value over serial
+
+int sensorPin = A0; // The potentiometer is connected to analog pin 0
+int ledPin = 13; // The LED is connected to digital pin 13
+int sensorValue; // an integer variable to store the potentiometer reading
+
+void setup() // this function runs once when the sketch starts
+{
+// make the LED pin (pin 13) an output pin
+pinMode(ledPin, OUTPUT);
+// initialize serial communication at 9600 baud
+Serial.begin(9600);
+}
+
+void loop() // this function runs repeatedly after setup() finishes
+{
+sensorValue = analogRead(sensorPin); // read the voltage at pin A0
+Serial.println(sensorValue); // Output voltage value to Serial Monitor
+if (sensorValue < 500) { // if sensor output is less than 500,
+    digitalWrite(ledPin, LOW); } // Turn the LED off
+else {                   // if sensor output is greater than 500
+    digitalWrite(ledPin, HIGH); } // Keep the LED on
+delay(100); // Pause 100 milliseconds before next reading
+}
+```
+
+### Python Code
+
+We need to install the PySerial library before we can use PySerial to read the sensor data the Arduino spits out over the serial line. Install PySerial with the command below. Make sure you have activated the ```(live_plot)``` virtual environment when the install commmand is entered.
+
+```text
+(live_plot)> conda install -y pyserial
+```
+
+or
+
+```
+(venv)$ pip install pyserial
+
+```
+
+At the top of the Python script, we need to import the necessary libraries:
+
+```python
+import time
+import serial
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+```
+
+Next, we need to build an ```animate()``` function like we did above when we build our live plot from a data file and our live plot from a web api. 
+
+```python
+def animate(i, data_lst, ser):  # ser is the serial object
+    b = ser.readline()
+    string_n = b.decode()
+    string = string_n.rstrip()
+    flt = float(string)
+    data_lst.append(flt)
+
+    # Add x and y to lists
+    x.append(dt.datetime.now().strftime('%H:%M:%S'))
+    data_list.append(flt)
+    # Limit x and y lists to 10 items
+    x = x[-10:]
+    data_lst = data_lst[-10:]
+    # Draw x and y lists
+    ax.clear()
+    ax.plot(x, data_lst)
+    # Format plot
+    ax.set_ylim([0,2065])
+    plt.xticks(rotation=45, ha='right')
+    plt.subplots_adjust(bottom=0.30)
+    plt.title('Potentiometer Reading Live Plot')
+    plt.ylabel('Potentiometer Reading')
+```
+
+Now we need to create our ```x``` list and ```data_lst``` as well as intantiate the serial object.
+
+```python
+x = []
+data_lst = []
+fig, ax = plt.subplots()
+# set up the serial line
+ser = serial.Serial('COM4', 9600) # change COM# if necessary
+time.sleep(2)
+print(ser.name)
+```
+
+Then we need to call our animation using Matplotlib's FuncAnimate class. After the animation is finished, we should close the serial line
+
+
+```python
+ani = animation.FuncAnimation(fig, animate, fargs=(data_lst, ser), interval=500)
+plt.show()
+
+ser.close()
+```
+
+The entire Python script is below:
+
+```python
+import datetime as dt
+import serial
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+
+# animation function
+def animate(i, data_lst, ser):  # ser is the serial object
+    b = ser.readline()
+    string_n = b.decode()
+    string = string_n.rstrip()
+    flt = float(string)
+    data_lst.append(flt)
+
+    # Add x and y to lists
+    x.append(dt.datetime.now().strftime('%H:%M:%S'))
+    data_list.append(flt)
+    # Limit x and y lists to 10 items
+    x = x[-10:]
+    data_lst = data_lst[-10:]
+    # Draw x and y lists
+    ax.clear()
+    ax.plot(x, data_lst)
+    # Format plot
+    ax.set_ylim([0,2065])
+    plt.xticks(rotation=45, ha='right')
+    plt.subplots_adjust(bottom=0.30)
+    plt.title('Potentiometer Reading Live Plot')
+    plt.ylabel('Potentiometer Reading')
+
+
+x = []
+data_lst = []
+fig, ax = plt.subplots()
+# set up the serial line
+ser = serial.Serial('COM4', 9600) # change COM# if necessary
+time.sleep(2)
+print(ser.name)
+
+ani = animation.FuncAnimation(fig, animate, frames=100, fargs=(data_lst, ser), interval=200)
+plt.show()
+
+ser.close()
+```
+
 ## Summary
+
+In this post, we...

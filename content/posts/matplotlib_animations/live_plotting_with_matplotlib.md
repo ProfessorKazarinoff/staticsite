@@ -375,6 +375,7 @@ import matplotlib.animation as animation
 Next, we need to build an ```animate()``` function like we did above when we build our live plot from a data file and our live plot from a web api. 
 
 ```python
+# animation function
 def animate(i, data_lst, ser):  # ser is the serial object
     b = ser.readline()
     string_n = b.decode()
@@ -383,48 +384,52 @@ def animate(i, data_lst, ser):  # ser is the serial object
     data_lst.append(flt)
 
     # Add x and y to lists
-    x.append(dt.datetime.now().strftime('%H:%M:%S'))
-    data_list.append(flt)
-    # Limit x and y lists to 10 items
-    x = x[-10:]
-    data_lst = data_lst[-10:]
-    # Draw x and y lists
+    data_lst.append(flt)
+    # Limit the data list to 100 values
+    data_lst = data_lst[-100:]
+    # clear the last frame and draw the next frame
     ax.clear()
-    ax.plot(x, data_lst)
+    ax.plot(data_lst)
     # Format plot
-    ax.set_ylim([0,2065])
-    plt.xticks(rotation=45, ha='right')
-    plt.subplots_adjust(bottom=0.30)
-    plt.title('Potentiometer Reading Live Plot')
-    plt.ylabel('Potentiometer Reading')
+    ax.set_ylim([0,1050])
+    ax.set_title('Potentiometer Reading Live Plot')
+    ax.set_ylabel('Potentiometer Reading')
 ```
 
-Now we need to create our ```x``` list and ```data_lst``` as well as intantiate the serial object.
+Now we need to create our ```data_lst``` list as well as intantiate the serial object.
 
 ```python
-x = []
+# create empty list to store data
+# create figure and axes objects
 data_lst = []
 fig, ax = plt.subplots()
+
 # set up the serial line
-ser = serial.Serial('COM4', 9600) # change COM# if necessary
+ser = serial.Serial('COM7', 9600) # change COM# if necessary
 time.sleep(2)
 print(ser.name)
+
 ```
 
 Then we need to call our animation using Matplotlib's FuncAnimate class. After the animation is finished, we should close the serial line
 
 
 ```python
-ani = animation.FuncAnimation(fig, animate, fargs=(data_lst, ser), interval=500)
+# run the animation and show the figure
+ani = animation.FuncAnimation(fig, animate, frames=100, fargs=(data_lst, ser), interval=200)
 plt.show()
 
+# after the window is closed, close the serial line
 ser.close()
+print("Serial line closed")
 ```
 
 The entire Python script is below:
 
 ```python
-import datetime as dt
+# live_sensor.py
+
+import time
 import serial
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
@@ -438,34 +443,35 @@ def animate(i, data_lst, ser):  # ser is the serial object
     data_lst.append(flt)
 
     # Add x and y to lists
-    x.append(dt.datetime.now().strftime('%H:%M:%S'))
-    data_list.append(flt)
-    # Limit x and y lists to 10 items
-    x = x[-10:]
-    data_lst = data_lst[-10:]
-    # Draw x and y lists
+    data_lst.append(flt)
+    # Limit the data list to 100 values
+    data_lst = data_lst[-100:]
+    # clear the last frame and draw the next frame
     ax.clear()
-    ax.plot(x, data_lst)
+    ax.plot(data_lst)
     # Format plot
-    ax.set_ylim([0,2065])
-    plt.xticks(rotation=45, ha='right')
-    plt.subplots_adjust(bottom=0.30)
-    plt.title('Potentiometer Reading Live Plot')
-    plt.ylabel('Potentiometer Reading')
+    ax.set_ylim([0,1050])
+    ax.set_title('Potentiometer Reading Live Plot')
+    ax.set_ylabel('Potentiometer Reading')
 
-
-x = []
+# create empty list to store data
+# create figure and axes objects
 data_lst = []
 fig, ax = plt.subplots()
+
 # set up the serial line
-ser = serial.Serial('COM4', 9600) # change COM# if necessary
+ser = serial.Serial('COM7', 9600) # change COM# if necessary
 time.sleep(2)
 print(ser.name)
 
+# run the animation and show the figure
 ani = animation.FuncAnimation(fig, animate, frames=100, fargs=(data_lst, ser), interval=200)
 plt.show()
 
+# after the window is closed, close the serial line
 ser.close()
+print("Serial line closed")
+
 ```
 
 ## Summary

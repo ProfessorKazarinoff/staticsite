@@ -170,7 +170,63 @@ fig.savefig('static_plot.png')
 plt.show()
 ```
 
-Next, we'll build a live plot based on user input.
+Next, we'll build a plot that shows an animated line.
+
+## Create an animated line plot
+
+The last plot we built was a simple line plot. We are going to build on that simple static line plot and trun it into an animated line plot. To create the data for the plot we are going to use Python's ```random.randint()``` function. The ```randint()``` function accepts a lower limit and upper limit, for our temperature data, we will set a lover limit of 25 degrees and an uper limit of 99 degrees. The script to build the animated line plot starts almost the same way as our simple line plot, the difference is that we need to import Matplotlib's ```FuncAnimation``` class from the `````matplotlib.animation``` library. The next part of the script is the same.
+
+```python
+# animated_line_plot.py
+
+from random import randint
+
+import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
+
+# create empty lists for the x and y data
+x = []
+y = []
+
+# create the figure and axes objects
+fig, ax = plt.subplots()
+```
+
+In our first static line plot, we started the plot at this point, but for the animated line plot, we need to build the plot in a function. At a minimum the fuction needs to accept one argument that corresponds to frames in the animation. This argument can be given a simple parameter like ```i```. That parameter does not have to be used in the function that draws the plot. It just has to be included in the function definition.
+
+```python
+# function that draws each frame of the animation
+def animate(i):
+    pt = randint(1,9) # grab a random integer to be the next y-value in the animation
+    x.append(i)
+    y.append(pt)
+
+    ax.clear()
+    ax.plot(x, y)
+    ax.set_xlim([0,20])
+    ax.set_ylim([0,10])
+```
+
+Now we need to call the animation. Matplotlib's FuncAnimation class can accept a number of arguments. At a minum, we need to pass in the figure object ```fig```, our animation function that draws the plot ```animate```. We'll also add a ```frames=``` keyword aregument that describes how many times the plot is re-drawn or how many times the animation function is called. ```interval=500``` specifies the time between frames in miliseconds. ```interval=500``` means 500 milliseconds between each frame which is half a second. ```repeat=False``` means that once the live plot is drawn, it will not repeat.
+
+```python
+# run the animation
+ani = FuncAnimation(fig, animate, frames=20, interval=500, repeat=False)
+
+plt.show()
+```
+
+You can run the animated plot from the command line.
+
+```text
+(live_plot)> animated_line_plot.py
+```
+
+An example of the plot produced is below.
+
+![still of animated line plot]({static}/posts/matplotlib_animations/images/animated_line_plot.png)
+
+Next, we'll build a live auto-updating plot based on user input.
 
 ## Build a live plot based on user input
 
@@ -184,7 +240,6 @@ In the file ```live_plot_user_input.py```, add the same imports we used in our f
 # live_plot_user_input.py
 
 # import necessary packages
-import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 ```
@@ -194,6 +249,9 @@ Next we'll pre-populate a list called ```data``` with a couple of data points. T
 ```python
 # initial data
 data = [3, 6, 2, 1, 8]
+
+# create figure and axes objects
+fig, ax = plt.subplots()
 ```
 
 Now we'll build an ```animate()``` function that will read in values from a text file and plot them with Matplotlib. Note the line ```plt.cla()```. This line of code clears the current axis so that the plot can be redrawn. The line ```plt.plot(data[-5:])``` pulls the last 5 data points out of the list ```data``` and plots them.
@@ -204,23 +262,21 @@ def animate(i):
     with open('data.txt','r') as f:
         for line in f:
             data.append(int(line.strip()))
-    plt.cla()
-
-    plt.plot(data[-5:])
+    ax.clear()
+    ax.plot(data[-5:]) # plot the last 5 data points
 ```
 
 The last section of code in the ```live_plot_user_input.py``` script will call the ```FuncAnimation``` class. When we intantiate an instance of this class, we pass in a couple arguments:
 
- * ```plt.gcf()``` - grabs the current Matplotlib figure. This is the figure we animate
+ * ```fig``` - the figure object we created with the ```plt.subplots()``` method
  * ```animate``` - this is the function we wrote above that pulls lines out of a ```data.txt``` file and plots 5 points at a time.
  * ```interval=1000``` - this is the time interval in milliseconds (1000 miliseconds = 1 second) for our plot to update.
 
  ```python
 # call the animation
-ani = FuncAnimation(plt.gcf(), animate, interval=1000)
+ani = FuncAnimation(fig, animate, interval=1000)
 
 # show the plot
-plt.tight_layout
 plt.show()
 ```
 

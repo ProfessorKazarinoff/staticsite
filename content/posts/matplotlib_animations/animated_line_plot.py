@@ -20,10 +20,11 @@ def animate(i):
 
     ax.clear()
     ax.plot(x, y)
+    ax.set_title('Animated Line Plot')
     ax.set_xlim([0,20])
     ax.set_ylim([0,10])
 
 # run the animation
 ani = FuncAnimation(fig, animate, frames=20, interval=500, repeat=False)
-
+ani.save('images/animated_line_plot.html', writer='html', fps=2)
 plt.show()

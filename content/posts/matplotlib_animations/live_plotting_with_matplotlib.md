@@ -224,7 +224,7 @@ You can run the animated plot from the command line.
 
 An example of the plot produced is below.
 
-![still of animated line plot]({static}/posts/matplotlib_animations/images/animated_line_plot.png)
+![still of animated line plot]({static}/posts/matplotlib_animations/images/animated_line_plot.gif)
 
 Next, we'll build a live auto-updating plot based on user input.
 
@@ -272,7 +272,7 @@ The last section of code in the ```live_plot_user_input.py``` script will call t
  * ```animate``` - this is the function we wrote above that pulls lines out of a ```data.txt``` file and plots 5 points at a time.
  * ```interval=1000``` - this is the time interval in milliseconds (1000 miliseconds = 1 second) for our plot to update.
 
- ```python
+```python
 # call the animation
 ani = FuncAnimation(fig, animate, interval=1000)
 

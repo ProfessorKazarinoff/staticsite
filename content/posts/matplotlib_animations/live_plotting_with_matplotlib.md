@@ -294,11 +294,11 @@ Save ```data.txt``` and leave the file open. This is the file that we will add n
 
 Save ```live_plot_user_input.py``` and run it. You should see a plot pop up. 
 
-![still of piston motion]({static}/posts/matplotlib_animations/images/run_live_plot_user_input_py.PNG)
+![still of plot]({static}/posts/matplotlib_animations/images/run_live_plot_user_input_py.PNG)
 
 Now add a number to ```data.txt``` at the bottom of the file on it's own line. Save ```data.txt```. The plot should update with a new data point. I added the number ```16``` to ```data.txt``` and saw the line on the plot go upwards. Add another number at the end of ```data.txt``` (I added ```18``` on the last line). Save ```data.txt``` and watch the plot update.
 
-![still of piston motion]({static}/posts/matplotlib_animations/images/user_input_live_plot.PNG)
+![animated gif]({static}/posts/matplotlib_animations/images/user_input_live_plot.gif)
 
 Great! We built a live updating plot based on user input. Next, let's build a live auto-updating plot using data pulled from the web.
 
@@ -320,7 +320,7 @@ import requests
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
-url = "https://api.thingspeak.com/channels/9/fields/1.json?results=1"
+url = "https://api.thingspeak.com/channels/948462/fields/2.json?results=1"
 
 # function to pull out a float from the requests response object
 def pull_float(response, field_num='1'):
@@ -349,11 +349,11 @@ def animate(i, xs:list, ys:list):
     ax.clear()
     ax.plot(xs, ys)
     # Format plot
-    ax.set_ylim([175,225])
+    ax.set_ylim([0,10])
     plt.xticks(rotation=45, ha='right')
     plt.subplots_adjust(bottom=0.30)
-    plt.title('Light from ThingSpeak Channel 9')
-    plt.ylabel('Light Reading')
+    plt.title('Wind Speed from ThingSpeak Channel 948462')
+    plt.ylabel('Wind Speed (mph)')
 
 # Set up plot to call animate() function every 1000 milliseconds
 ani = animation.FuncAnimation(fig, animate, fargs=(xs,ys), interval=1000)

@@ -304,30 +304,57 @@ Great! We built a live updating plot based on user input! Next, let's build a li
 
 The third plot we are going to build is a plot that pulls data from the web. The basic structure of the script is the same as the last two animated plots. We need to create figure and axis objects, write an animation fuction and create the animation with ```FuncAnimation```.
 
+> [https://qrng.anu.edu.au/API/api-demo.php](https://qrng.anu.edu.au/API/api-demo.php)
+
+The website notes:
+
+ > This website offers true random numbers to anyone on the internet. The random numbers are generated in real-time in our lab by measuring the quantum fluctuations of the vacuum.
+
+Having true random numbers for an example animated plot isn't absolutely necessary. The reason I picked this web API is that the random numbers can be polled every second, and since you can specify an 8-bit integer, the random numbers have a fixed range between 0 and 255.
+
+The code below calls the web API for one 8-bit random integer. A little fuction converts the web API's json reponse into a float. The raw json that comes back from the API looks like below:
+
+```json
+{
+    "type":"uint8",
+    "length":1,
+    "data":[53],
+    "success":true
+    }
+```
+
+Once the json is converted to a Python dictionary, we can pull the random number out (in this case ```53```) with the following Python code.
 
 ```python
-# plot_thingspeak_realtime.py
+json_dict["data"][0]
+```
 
+The entire script is below.
+
+```python
+# plot_web_api_realtime.py
 """
-A Python script that plots live data from Thingspeak.com using Matplotlib
-inspiration from:
-https://learn.sparkfun.com/tutorials/graph-sensor-data-with-python-and-matplotlib/update-a-graph-in-real-time
+A live auto-updating plot of random numbers pulled from a web API
 """
+
 import time
 import datetime as dt
 import requests
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
-url = "https://api.thingspeak.com/channels/948462/fields/2.json?results=1"
+url = "https://qrng.anu.edu.au/API/jsonI.php?length=1&type=uint8"
 
 # function to pull out a float from the requests response object
-def pull_float(response, field_num='1'):
+def pull_float(response):
     jsonr = response.json()
-    field_str = 'field'+field_num
-    strr = jsonr['feeds'][0][field_str]
-    fltr = round(float(strr),2)
-    return fltr
+    strr = jsonr["data"][0]
+    if strr:
+        fltr = round(float(strr), 2)
+        return fltr
+    else:
+        return None
+
 
 # Create figure for plotting
 fig, ax = plt.subplots()
@@ -337,7 +364,7 @@ ys = []
 def animate(i, xs:list, ys:list):
     # grab the data from thingspeak.com
     response = requests.get(url)
-    flt = pull_float(response,'1')
+    flt = pull_float(response)
     # Add x and y to lists
     xs.append(dt.datetime.now().strftime('%H:%M:%S'))
     ys.append(flt)
@@ -348,16 +375,22 @@ def animate(i, xs:list, ys:list):
     ax.clear()
     ax.plot(xs, ys)
     # Format plot
-    ax.set_ylim([0,10])
+    ax.set_ylim([0,255])
     plt.xticks(rotation=45, ha='right')
-    plt.subplots_adjust(bottom=0.30)
-    plt.title('Wind Speed from ThingSpeak Channel 948462')
-    plt.ylabel('Wind Speed (mph)')
+    plt.subplots_adjust(bottom=0.20)
+    ax.set_title('Plot of random numbers from https://qrng.anu.edu.au')
+    ax.set_xlabel('Date Time (hour:minute:second)')
+    ax.set_ylabel('Random Number')
 
 # Set up plot to call animate() function every 1000 milliseconds
 ani = animation.FuncAnimation(fig, animate, fargs=(xs,ys), interval=1000)
+
 plt.show()
 ```
+
+An example of the resulting plot is below.
+
+![live plot from web api data]({static}/posts/matplotlib_animations/images/web_api_live_plot.gif)
 
 Next, we will build a live-plot from sensor data
 

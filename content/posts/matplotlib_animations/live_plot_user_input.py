@@ -12,15 +12,16 @@ fig, ax = plt.subplots()
 
 # animation function
 def animate(i):
-    with open('data.txt','r') as f:
+    with open("data.txt", "r") as f:
         for line in f:
             data.append(int(line.strip()))
     ax.clear()
-    ax.plot(data[-5:]) # plot the last 5 data points
+    ax.plot(data[-5:])  # plot the last 5 data points
+
 
 # call the animation
 ani = FuncAnimation(fig, animate, interval=1000)
-ani.save('images/live_plot_user_input.html', writer='html', fps=1)
+ani.save("images/live_plot_user_input.html", writer="html", fps=1)
 
 # show the plot
 plt.show()

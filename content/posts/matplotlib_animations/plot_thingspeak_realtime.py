@@ -14,28 +14,30 @@ import matplotlib.animation as animation
 url = "https://api.thingspeak.com/channels/12397/fields/2.json?results=1"
 
 # function to pull out a float from the requests response object
-def pull_float(response, field_num='2'):
+def pull_float(response, field_num="2"):
     jsonr = response.json()
-    field_str = 'field'+field_num
-    strr = jsonr['feeds'][0][field_str]
+    field_str = "field" + field_num
+    strr = jsonr["feeds"][0][field_str]
     if strr:
-        fltr = round(float(strr),2)
+        fltr = round(float(strr), 2)
         return fltr
     else:
         return None
+
 
 # Create figure for plotting
 fig, ax = plt.subplots()
 xs = []
 ys = []
 
-def animate(i, xs:list, ys:list):
+
+def animate(i, xs: list, ys: list):
     # grab the data from thingspeak.com
     response = requests.get(url)
-    flt = pull_float(response,'2')
+    flt = pull_float(response, "2")
     print(flt)
     # Add x and y to lists
-    xs.append(dt.datetime.now().strftime('%H:%M:%S'))
+    xs.append(dt.datetime.now().strftime("%H:%M:%S"))
     ys.append(flt)
     # Limit x and y lists to 10 items
     xs = xs[-10:]
@@ -44,12 +46,13 @@ def animate(i, xs:list, ys:list):
     ax.clear()
     ax.plot(xs, ys)
     # Format plot
-    ax.set_ylim([0,10])
-    plt.xticks(rotation=45, ha='right')
+    ax.set_ylim([0, 10])
+    plt.xticks(rotation=45, ha="right")
     plt.subplots_adjust(bottom=0.30)
-    plt.title('Wind Speed from ThingSpeak Channel 948462')
-    plt.ylabel('Wind Speed (mph)')
+    plt.title("Wind Speed from ThingSpeak Channel 948462")
+    plt.ylabel("Wind Speed (mph)")
+
 
 # Set up plot to call animate() function every 1000 milliseconds
-ani = animation.FuncAnimation(fig, animate, fargs=(xs,ys), interval=1000)
+ani = animation.FuncAnimation(fig, animate, fargs=(xs, ys), interval=1000)
 plt.show()

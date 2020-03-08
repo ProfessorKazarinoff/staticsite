@@ -1,4 +1,4 @@
-Title: Plotting Live Data with Matplotlib and Python
+Title: Live Plotting with Matplotlib and Python
 Date: 2020-03-06 08:40
 Modified: 2020-03-06 08:40
 Status: draft
@@ -9,7 +9,7 @@ Authors: Peter D. Kazarinoff
 
 ![animated sensor plot]({static}/posts/matplotlib_animations/images/animated_sensor_plot.gif)
 
-Python and Matplotlib can be used to create static 2D plots. But it Matplotlib can also be used to create dynamic auto-updating live plots. In this post, you learn how to create a live auto-updating animated plot using Matplotlib and Python.
+Python and Matplotlib can be used to create static 2D plots. But it **Matplotlib can also be used to create dynamic auto-updating live plots**. In this post, you learn how to create a live auto-updating animated plot using Python and Matplotlib.
 
 [TOC]
 
@@ -17,16 +17,16 @@ Python and Matplotlib can be used to create static 2D plots. But it Matplotlib c
 
 To follow along with this tutorial, a couple pre-requisits need to be in place:
 
- * Python needs to be installed on your computer. I recommend installing the [Anaconda Distribution](https://anaconda.com/distribution) of Python
- * You are running a version of Python 3.6 or above. Python version 3.7 or 3.8 are more up to date.
- * You know how to open the Anaconda Prompt on Windows10 or know how to open a terminal on MacOS or Linux
+ * Python needs to be installed on your computer. I recommend installing the [Anaconda Distribution](https://anaconda.com/distribution) of Python.
+ * You are running a version of Python 3.6 or above. Python version 3.7 or 3.8 are more up to date and recommended.
+ * You know how to open the Anaconda Prompt on Windows10 or know how to open a terminal on MacOS or Linux.
  * You have a general idea of what Python packages are and have installed a Python package before using **conda** or **pip**.
- * You know how to create a text file in an editor or an IDE (integrated development environment) such as [Visual Studio Code](https://code.visualstudio.com/download), PyCharm, Sublime Text, vim, emacs, etc. I will be using Visual Studio Code (also called VS Code) in this post, but any regular code text editor will work. 
- * You know how to run a Python program using a terminal prompt, like the Anaconda Prompt or know how to run a Python program from your IDE.
+ * You know how to create a text file in an editor or an IDE (integrated development environment) such as [Visual Studio Code](https://code.visualstudio.com/download), PyCharm, Sublime Text, vim, emacs, etc. I will be using Visual Studio Code (also called VS Code) in this post, but any regular code editor will work. 
+ * You know how to run a Python program (exectute a .py file) using a terminal prompt, like the Anaconda Prompt or know how to run a Python program using your IDE.
  * You have general understanding of how files are organized on your computer into directories and sub-directories.
- * You have some familiarity with navigating through directories and files using a terminal or the Anaconda Prompt using commands like ```cd```, ```cd ..```, ```dir``` or ```ls```, and ```mdkir```.
+ * You have some familiarity with navigating through directories and files using a terminal or the Anaconda Prompt with commands like ```cd```, ```cd ..```, ```dir``` or ```ls```, and ```mdkir```.
 
-Now that those pre-requisites are out of the way, let's start coding! 
+Now that the pre-requisites are out of the way, let's start coding! 
 
 ## Set up a Python virtual environment
 
@@ -64,7 +64,7 @@ Using the Anaconda Prompt, activate the ```live_plot``` virtual environment and 
 
 ```text
 > conda activate live_plot
-(live_plot) > conda install -y matplotlib requests pyserial
+(live_plot)> conda install -y matplotlib requests pyserial
 ```
 
 ![still of piston motion]({static}/posts/matplotlib_animations/images/conda_install_numpy_matplotlib.PNG) 
@@ -80,7 +80,7 @@ $ source venv/bin/activate
 
 ## Create a static line plot
 
-Before we create a live auto-updating plot, let's first create simpler static line plot. Our live plots will look a lot like this first static plot. Building a simpler plot first gives us some practice and a structure to build upon when we create the more complex live plots.
+Before we create a live animated auto-updating plot, let's first create simpler static, non-moving line plot. Our live plots will look a lot like this first static plot, except in the live plot, the line on the plot will move. Coding a simpler plot first gives us some practice and a structure to build upon when we create the more complex live plots.
 
 Open a text editor or IDE (I like to use [VS Code](https://code.visualstudio.com/)) and create a new Python file called ```static_plot.py```
 
@@ -88,7 +88,7 @@ Open a text editor or IDE (I like to use [VS Code](https://code.visualstudio.com
 
 ### Import packages
 
-Let's start our ```static_plot.py``` script by importing the packages we'll use later in the script. Matplotlib's ```pyplot``` module is imported using the standard ```plt``` alias.
+Let's start our ```static_plot.py``` script by importing the packages we'll use later in the script. Matplotlib's ```pyplot``` module is imported using the standard alias ```plt```.
 
 ```python
 # static_plot.py
@@ -137,11 +137,11 @@ Run the ```static_plot.py``` script using the Anaconda Prompt of a terminal. Ens
 (live_plot)> python static_plot.py
 ```
 
-![still of piston motion]({static}/posts/matplotlib_animations/images/run_static_plot_dot_py.PNG) 
+![run static plot]({static}/posts/matplotlib_animations/images/run_static_plot_dot_py.PNG) 
 
 The plot should look something like image below:
 
-![still of piston motion]({static}/posts/matplotlib_animations/images/static_plot.png) 
+![static plot]({static}/posts/matplotlib_animations/images/static_plot.png) 
 
 The complete script is below:
 
@@ -222,7 +222,7 @@ You can run the ```animated_line_plot.py``` script using the Anaconda Prompt or 
 
 An example of the plot animated line plot produced is below.
 
-![still of animated line plot]({static}/posts/matplotlib_animations/images/animated_line_plot.gif)
+![animated line plot]({static}/posts/matplotlib_animations/images/animated_line_plot.gif)
 
 Next, we'll build a live auto-updating plot based on user input.
 
@@ -230,7 +230,7 @@ Next, we'll build a live auto-updating plot based on user input.
 
 Create a new Python file called ```live_plot_user_input.py``` using a code editor or IDE.
 
-![still of piston motion]({static}/posts/matplotlib_animations/images/create_live_plot_user_input_dot_py.PNG)
+![create user input module]({static}/posts/matplotlib_animations/images/create_live_plot_user_input_dot_py.PNG)
 
 In the file ```live_plot_user_input.py```, add the same imports we used in our previous plot: Matplotlib's ```pyplot``` library is imported as ```plt``` and Matplotlib's ```FuncAnimation``` class is imported from the ```matplotlib.animation``` library. Like the previous plot, we'll use the ```FuncAnimation``` class to build our live auto-updating plot and create an ```animation()``` function to draw the plot.
 
@@ -292,11 +292,11 @@ Save ```data.txt``` and leave the file open. This is the file that we will add n
 
 Save ```live_plot_user_input.py``` and run it. You should see a plot pop up. 
 
-![still of plot]({static}/posts/matplotlib_animations/images/run_live_plot_user_input_py.PNG)
+![run live user plot]({static}/posts/matplotlib_animations/images/run_live_plot_user_input_py.PNG)
 
 Now add a number to the bottom of the ```data.txt``` on it's own line. Save ```data.txt```. The plot should update with a new data point. I added the number ```16``` to ```data.txt``` and saw the line on the plot go upwards. Add another number at the end of ```data.txt```. Save ```data.txt``` and watch the plot update.
 
-![animated gif]({static}/posts/matplotlib_animations/images/user_input_live_plot.gif)
+![animated user plot]({static}/posts/matplotlib_animations/images/user_input_live_plot.gif)
 
 Great! We built a live updating plot based on user input! Next, let's build a live auto-updating plot using data pulled from the web.
 
@@ -304,7 +304,7 @@ Great! We built a live updating plot based on user input! Next, let's build a li
 
 The third plot we are going to build is a plot that pulls data from the web. The basic structure of the script is the same as the last two animated plots. We need to create figure and axis objects, write an animation fuction and create the animation with ```FuncAnimation```.
 
-> [https://qrng.anu.edu.au/API/api-demo.php](https://qrng.anu.edu.au/API/api-demo.php)
+ > [https://qrng.anu.edu.au/API/api-demo.php](https://qrng.anu.edu.au/API/api-demo.php)
 
 The website notes:
 
@@ -402,7 +402,7 @@ The final live auto-updating animated plot we are going to build will show senso
 
 Hook up a potentiometer up to an Arduino based on the diagram below.
 
-![still of piston motion]({static}/posts/matplotlib_animations/images/redboard_pot_led_fritzing.png)
+![Arduino breadboard hookup]({static}/posts/matplotlib_animations/images/redboard_pot_led_fritzing.png)
 
 ### Arduino Code
 

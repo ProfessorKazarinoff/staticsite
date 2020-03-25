@@ -1,6 +1,6 @@
 Title: Deploy a Jupyter Notebook Online with Voila and Heroku
-Date: 2020-01-28 09:01
-Modified: 2020-01-28 09:01
+Date: 2020-03-25 09:01
+Modified: 2020-03-25 09:01
 Status: draft
 Category: jupyter
 Tags: python, jupyter, jupyter notebook, voila, heroku, deploy
@@ -9,7 +9,7 @@ Authors: Peter D. Kazarinoff
 
 [![Voila Logo]({static}/posts/voila/images/jupyter_voila_heroku.png)]({file}/posts/voila/voila_app_deployment.md)
 
-Jupyter notebooks are a great way to write and run Python code. Jupyter notebooks can produce plots and animations. Static Jupyter notebooks can be shared on GitHub.com and [nbviewer](https://nbviewer.jupyter.org/). A great Python package called [**Voila**](https://voila.readthedocs.io/en/stable/) turns Jupyter notebooks into deployable web apps. In this post, you'll learn how to deploy a Jupyter notebook as a cloud-based web app with Voila and Heroku.
+Jupyter notebooks are a great way to write and run Python code. Jupyter notebooks can produce text output, plots and animations. Static Jupyter notebooks can be shared on GitHub.com and on [nbviewer](https://nbviewer.jupyter.org/). Another way to share Jupyter notebooks is a great Python package called [**Voila**](https://voila.readthedocs.io/en/stable/). Voila turns Jupyter notebooks into deployable web apps. In this post, you'll learn how to deploy a Jupyter notebook as a cloud-based web app with Voila and Heroku.
 
 # Prerequisites
 
@@ -21,7 +21,7 @@ This tutorial assumes you have Python installed on your local computer. I recomm
 
 [![Voila Logo]({static}/posts/voila/images/voila_logo.png)](https://voila.readthedocs.io/en/latest/)
 
-**What is Voila?** Voila is a Python package that turns Jupyter notebooks into working web sites. It is pretty amazing. Another Python package called Streamlit turns .py-files into websites. Voila does the same thing for Jupyter notebooks.
+**What is Voila?** Voila is a Python package that turns Jupyter notebooks into working web sites. It is pretty amazing. Another Python package called Streamlit turns .py-files into websites. Voila does the same that Streamlit does to .py-files, except for Jupyter notebooks.
 
  > A link to the Voila docs is below:
  [https://voila.readthedocs.io/en/stable/](https://voila.readthedocs.io/en/stable/)
@@ -51,7 +51,9 @@ jupyter notebook
 
 ![Jupyter Logo]({static}/posts/voila/images/jupyter_logo.png)
 
-Before we can deploy our Jupyter notebook as a cloud-based web app, we need to write a few cells in our Jupyter notebook. Any markdown cells will become text in on our website. Any plots or widgets will also become part of our website. Code cells can be used on our website, but the code cells will not be seen by our website's visitors. 
+Before we can deploy our Jupyter notebook as a cloud-based web app, we need to write a few cells in our Jupyter notebook. Any markdown cells will become text on our website. Any plots or widgets will also become part of the website. Code cells can be used on our website, but the code cells will not be seen by our website's visitors.
+
+Save the new Jupyter notebook as ```app.ipynb```. Jupyter notebooks can be re-named by clicking on the notebook name in the upper left-hand corner. Note that you do not include the ```.ipynb``` file extension when re-naming the notebook.
 
 Our Jupyter notebook needs to start with a couple of import lines. Note that we don't need to import Volia into the notebook that will _become_ the website. We just need to install Voila into the environment that will _deploy_ the website.
 
@@ -72,7 +74,7 @@ from ipywidgets import interactive
 %matplotlib inline
 ```
 
-Below the imports, enter the code below into a code cell. The code creates an interactive plot of the sine function using Jupyter notebook widgets. 
+Below the imports, enter the code below into a code cell. The code creates an interactive plot of the sine function using Jupyter notebook widgets, NumPy and Matplotlib. 
 
 ```python
 def plot_func(a, f):
@@ -96,7 +98,7 @@ Run the code cell and play with the sliders and see the plot change. The sliders
 
 # Test Voila locally
 
-Next, we can test our website running on our local machine. Close the Jupyter notebook and make sure the environment where voila is installed and activate. Type the command below into a tutorial to bring up the app locally. Note how we don't see the code in the code cells, we just see the markdown cells, sliders and plot.
+Next, we can test our website running on our local machine. Close the Jupyter notebook and make sure the environment where Voila was installed is activate. Type the command below into a terminal to run the app locally. Note how we don't see the code in the code cells of our Jupyter notebook, we just see the markdown cells, sliders and plot.
 
 ```text
 voila app.ipynb
@@ -104,11 +106,11 @@ voila app.ipynb
 
 ![Jupyter notebook with widget]({static}/posts/voila/images/voilia_running_locally.png)
 
-Great! The Voila app works locally and we can move the sliders and see the plot change, just like in the Jupyter notebook. So... next we need to deploy this app online so that other people can see it.
+Great! The Voila app works locally and we can move the sliders and see the plot change, just like in the Jupyter notebook. So... next we need to deploy this Voila app online so that other people can see it and interact with it.
 
 # Deploy Voila App on Heroku
 
-We are going to deploy the app on Heroku. Heroku is a service to host webapps that takes care of the server administration for you. You can deploy Flask or Django apps on Heroku. We can also deploy our Voila app on Heroku. Luckily, Heroku has a free tier- so you can try out deploying Voilia online without having to shell out any money.
+We are going to deploy our Voila web app on Heroku. Heroku is a service to host webapps that takes care of the server administration for you. You can deploy Flask or Django webs apps on Heroku. We can also deploy our Voila app on Heroku. Luckily, Heroku has a free tier- so you can try out deploying Voilia online without having to pay any money.
 
 ![Heroku Logo]({static}/posts/voila/images/heroku_logo.png)
 
@@ -140,7 +142,7 @@ python-3.7.6
 
 ### Procfile
 
-The last required file for our Heroku deployment is a Procfile. This file includes the instructions for Heroku to deploy our Voila app. Create a new file named ```Procfile``` (no extension) and include the text below.
+The last required file for our Heroku deployment is a ```Procfile```. This file includes the instructions for Heroku to deploy our Voila app. Create a new file named ```Procfile``` (no extension) and include the text below:
 
 ```text
 web: voila —-port=$PORT —-no-browser app.ipynb
@@ -150,9 +152,13 @@ We need to use the Heroku command line interface (CLI) to deploy our app.
 
 ## Install the Heroku CLI
 
-The Heroku CLI (command line interface) is the way we are going to deploy the app online. I had the most success installing the Heroku CLI on Linux, MacOS or WSL (Windows Subsystem for Linux). I had trouble installing the Heroku CLI on regular Windows 10.
+The Heroku CLI (command line interface) is the way we are going to deploy our Voila web app online. I had the most success installing the Heroku CLI on Linux, MacOS or WSL (Windows Subsystem for Linux). I had trouble installing the Heroku CLI on regular Windows 10. Instructions to install the Heroku CLI are below:
 
-## Create git Repo
+ > [https://devcenter.heroku.com/articles/heroku-cli](https://devcenter.heroku.com/articles/heroku-cli)
+
+After the Heroku CLI is installed, a couple more steps are needed.
+
+## Create a git Repo
 
 Because we need to use WSL to use the Heroku CLI, we have to move the whole project into the proper WSL folder. You could move it over manually using the Windows file browser, but the way I did it was to save the project on GitHub and then pull the project down from GitHub.com in WSL using git.
 
@@ -182,13 +188,13 @@ git push origin master
 
 ## Pull the Repo down into WSL
 
-Now that the repo is up on GitHub.com, we can pull it down into WSL where the Heroku CLI is installed. Back in the Windows Subsystem for Linux terminal, type the following commands.
+Now that the repo is up on GitHub.com, we can pull it down into WSL where the Heroku CLI is installed. Back in the Windows Subsystem for Linux terminal, type the following commands. Make sure to change ```<username>``` and ```<reponame>``` corresponding to your project.
 
 ```text
 mkdir voila
 cd voila
 git init
-git remote add origin https://github.com/<usename>/<reponame>
+git remote add origin https://github.com/<username>/<reponame>
 git pull origin master
 ```
 
@@ -222,15 +228,25 @@ https://damp-cove-01735.herokuapp.com/ | https://git.heroku.com/damp-cove-01735.
 
 Last thing to do is push the changes to Heroku to publish our app.
 
-```
+```text
 git push heroku master
 ```
 
-The first time the command is run, it will take a little time. 
+The first time the command is run, it will take a little time for the web app to be deployed. 
 
 # View the Web App Online
 
+You can view the web app running with the following Heroku CLI command:
+
+```
+heroku open
+```
+
+A web browser window should pop up and you should be able to see your web app running!
+
 ![Image Desc]({static}/posts/voila/images/jupyter_voila_heroku.png)
+
+When the slider is moved, you will be able to see the plot change.
 
 # Summary
 

@@ -30,7 +30,7 @@ Any Jupyter notebook can be turned into a website with Voila. Voila is specifica
 
 # Install Voila and Jupyter
 
-Before we start writing any code, we need to install Voila and Jupyter. These packages can be installed using a terminal. In our example, we are also going to use NumPy and Matplotlib. The commands below show a virtual environment created with Python's built-in **venv** module. You could also create a virtual environment with **conda** if you are using the Anaconda distribution of Python.
+Before we start writing any code, we need to install Voila and Jupyter. These packages can be installed using a terminal. In our example, we are also going to use NumPy and Matplotlib. The commands below show a virtual environment created with Python's built-in **venv** module. You could also create a virtual environment with [**conda**](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) if you are using the Anaconda distribution of Python. Note the command ```source venv/bin/activate``` will only work on MacOS, Linux, or WSL (Windows Subsystem for Linux). On Windows 10, use ```venv\Scripts\activate.bat``` instead.
 
 ```text
 mkdir voila
@@ -74,7 +74,7 @@ from ipywidgets import interactive
 %matplotlib inline
 ```
 
-Below the imports, enter the code below into a code cell. The code creates an interactive plot of the sine function using Jupyter notebook widgets, NumPy and Matplotlib. 
+After the imports, enter the code below into a code cell. The code creates an interactive plot of the sine function using Jupyter notebook widgets, NumPy and Matplotlib. 
 
 ```python
 def plot_func(a, f):
@@ -98,7 +98,7 @@ Run the code cell and play with the sliders and see the plot change. The sliders
 
 # Test Voila locally
 
-Next, we can test our website running on our local machine. Close the Jupyter notebook and make sure the environment where Voila was installed is activate. Type the command below into a terminal to run the app locally. Note how we don't see the code in the code cells of our Jupyter notebook, we just see the markdown cells, sliders and plot.
+Next, we can test our website running on our local machine. Close the Jupyter notebook and make sure the environment where Voila was installed is activate. Type the command below into a terminal to run the app locally. Note how we don't see the code in the code cells of our Jupyter notebook; we just see the markdown cells, sliders and plot.
 
 ```text
 voila app.ipynb
@@ -106,11 +106,11 @@ voila app.ipynb
 
 ![Jupyter notebook with widget]({static}/posts/voila/images/run_voila_locally.gif)
 
-Great! The Voila app works locally and we can move the sliders and see the plot change, just like when we ran the code cell in the Jupyter notebook. So... next we need to deploy this Voila app online so that other people can see it and interact with it.
+Great! The Voila app works locally and we can move the sliders and see the plot change, just like when we ran the code cell in the Jupyter notebook. So... next we need to deploy this Voila app online so that other people can see it and interact with it too.
 
 # Deploy Voila App on Heroku
 
-We are going to deploy our Voila web app on [Heroku](https://heroku.com). Heroku is a service to host webapps and takes care of the server administration for you. You can deploy Flask or Django webs apps on Heroku. We can also deploy our Voila app on Heroku. Luckily, Heroku has a free tier- so you can try out deploying Voilia online without having to pay any money.
+We are going to deploy our Voila web app on [Heroku](https://heroku.com). Heroku is a service that host webapps and takes care of server administration for you. You can deploy Flask or Django webs apps on Heroku. We can also deploy our Voila app on Heroku. Luckily, Heroku has a free tier- **you can try out deploying Voilia online without having to pay any money.**
 
 ![Heroku Logo]({static}/posts/voila/images/heroku_logo.png)
 
@@ -118,7 +118,7 @@ A couple steps need to be completed before we deploy our Voila app on Heroku.
 
 ## Create Three Files
 
-The first step to deploying our Voila app on Heroku is to create three files which Heroku requires. The three required files are:
+The first step to deploy our Voila app on Heroku is to create three files which Heroku requires. The three required files are:
 
  * ```requirements.txt```
  * ```runtime.txt```
@@ -156,7 +156,7 @@ The Heroku CLI (command line interface) is the way we are going to deploy our Vo
 
  > [https://devcenter.heroku.com/articles/heroku-cli](https://devcenter.heroku.com/articles/heroku-cli)
 
-After the Heroku CLI is installed, a couple more steps are needed before we can deploy our app.
+After the Heroku CLI is installed, a couple more steps are needed before we can deploy our Voila app online.
 
 ## Create a git Repo
 
@@ -176,7 +176,7 @@ Make sure to copy the GitHub URL from the repo to make the next step easier.
 
 ### Add, commit and push local files to GitHub
 
-Next, back on your local machine, move into the main project directory that contains the ```app.ipynb``` file. Use the commands below to create a local git repo and add the newly created GitHub.com repo as a remote. Add all the files in the directory, commit and push up to Github.
+Next, back on your local machine, move into the main project directory that contains the ```app.ipynb``` file. Use the commands below to create a local git repo and add the newly created GitHub.com repo as a remote. Make sure to change ```<username>``` and ```<reponame>``` corresponding to you and your project. Add all the files in the directory, commit and push up to Github.
 
 ```text
 git init
@@ -240,7 +240,7 @@ The first time the command is run, it will take a little time for the web app to
 
 You can view the web app running with the following Heroku CLI command:
 
-```
+```text
 heroku open
 ```
 

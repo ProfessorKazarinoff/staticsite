@@ -1,6 +1,6 @@
 Title: Deploy a Jupyter Notebook Online with Voila and Heroku
-Date: 2020-04-01 09:01
-Modified: 2020-04-01 09:01
+Date: 2020-04-08 09:01
+Modified: 2020-04-08 09:01
 Status: draft
 Category: jupyter
 Tags: python, jupyter, jupyter notebook, voila, heroku, deploy
@@ -9,11 +9,11 @@ Authors: Peter D. Kazarinoff
 
 [![Voila Logo]({static}/posts/voila/images/jupyter_voila_heroku.png)]({file}/posts/voila/voila_app_deployment.md)
 
-Jupyter notebooks are a great way to write and run Python code. Jupyter notebooks can produce text output, plots and animations. Static Jupyter notebooks can be shared on GitHub.com and on [nbviewer](https://nbviewer.jupyter.org/). Another way to share Jupyter notebooks is a great Python package called [**Voila**](https://voila.readthedocs.io/en/stable/). Voila turns Jupyter notebooks into deployable web apps. In this post, you'll learn how to deploy a Jupyter notebook as a cloud-based web app with Voila and the cloud hosting service Heroku.
+Jupyter notebooks are a great way to write and run Python code. Jupyter notebooks can produce text output, plots, and animations. Static Jupyter notebooks can be shared on GitHub.com and [nbviewer](https://nbviewer.jupyter.org/). Another way to share Jupyter notebooks is a great Python package called [**Voila**](https://voila.readthedocs.io/en/stable/). Voila turns Jupyter notebooks into deployable web apps. In this post, you'll learn how to deploy a Jupyter notebook as a cloud-based web app with Voila and the cloud hosting service Heroku.
 
 # Prerequisites
 
-This tutorial assumes you have Python installed on your local computer. I recommend installing the [Anaconda distribution of Python](https://anaconda.com/distribution) Version 3.7, but you can also install Python from [Python.org](https://python.org) or the Windows Store. It is also assumed that you either have Windows Subsystem for Linux (WSL) installed or you are using MacOS or Linux itself. I recommend Ubuntu 18.04 LTS for your Linux distribution. You should also be able to bring up a terminal in your prefered operating system and be able to use some basic terminal commands such as ```cd``` to change directories, ```mkdir``` to make a new directory ```pwd``` to list the contents of a directory and ```cd ..``` to go back a directory.
+This tutorial assumes you have Python installed on your local computer. I recommend installing the [Anaconda distribution of Python](https://anaconda.com/distribution) Version 3.7, but you can also install Python from [Python.org](https://python.org) or the Windows Store. It is also assumed that you either have Windows Subsystem for Linux (WSL) installed or you are using MacOS or Linux itself. I recommend Ubuntu 18.04 LTS for your Linux distribution. You should also be able to bring up a terminal in your preferred operating system and be able to use some basic terminal commands such as ```cd``` to change directories, ```mkdir``` to make a new directory ```pwd``` to list the contents of a directory and ```cd ..``` to go back a directory.
 
 [TOC]
 
@@ -53,7 +53,7 @@ jupyter notebook
 
 Before we can deploy our Jupyter notebook as a cloud-based web app, we need to write a few cells in our Jupyter notebook. Any markdown cells in our Jupyter notebook will become text on our website. Any plots or widgets will also become part of the website. Code cells can be used on our website, but the code cells will not be seen by our website's visitors.
 
-Save the new Jupyter notebook as ```app.ipynb```. Jupyter notebooks can be re-named by clicking on the notebook name in the upper left-hand corner. Note that you do not include the ```.ipynb``` file extension when re-naming a Jupyter notebook.
+Save the new Jupyter notebook as ```app.ipynb```. Jupyter notebooks can be re-named by clicking on the notebook name in the upper left-hand corner. Note that you do not include the ```.ipynb``` file extension when renaming a Jupyter notebook.
 
 Our Jupyter notebook needs to start with a couple of import lines. Note that we don't need to import Volia into the notebook that will _become_ the website. We just need to install Voila into the environment that will _deploy_ the website.
 
@@ -106,19 +106,19 @@ voila app.ipynb
 
 ![Jupyter notebook with widget]({static}/posts/voila/images/run_voila_locally.gif)
 
-Great! The Voila app works locally and we can move the sliders and see the plot change, just like when we ran the code cell in the Jupyter notebook. So... next we need to deploy this Voila app online so that other people can see it and interact with it too.
+Great! The Voila app works locally and we can move the sliders and see the plot change, just like when we ran the code cell in the Jupyter notebook. So... next, we need to deploy this Voila app online so that other people can see it and interact with it too.
 
 # Deploy Voila App on Heroku
 
-We are going to deploy our Voila web app on [Heroku](https://heroku.com). Heroku is a service that host webapps and takes care of server administration for you. You can deploy Flask or Django webs apps on Heroku. We can also deploy our Voila app on Heroku. Luckily, Heroku has a free tier- **you can try out deploying Voilia online without having to pay any money.**
+We are going to deploy our Voila web app on [Heroku](https://heroku.com). Heroku is a service that hosts web apps and takes care of server administration for you. You can deploy Flask or Django webs apps on Heroku. We can also deploy our Voila app on Heroku. Luckily, Heroku has a free tier- **you can try out deploying Voila online without having to pay any money.**
 
 ![Heroku Logo]({static}/posts/voila/images/heroku_logo.png)
 
-A couple steps need to be completed before we deploy our Voila app on Heroku.
+A couple of steps need to be completed before we deploy our Voila app on Heroku.
 
 ## Create Three Files
 
-The first step to deploy our Voila app on Heroku is to create three files which Heroku requires. The three required files are:
+The first step to deploy our Voila app on Heroku is to create three files that Heroku requires. The three required files are:
 
  * ```requirements.txt```
  * ```runtime.txt```
@@ -148,7 +148,7 @@ The last required file for our Heroku deployment is a ```Procfile```. This file 
 web: voila —-port=$PORT —-no-browser app.ipynb
 ```
 
-Next we'll use the Heroku command line interface (CLI) to deploy our app.
+Next, we'll use the Heroku command-line interface (CLI) to deploy our app.
 
 ## Install the Heroku CLI
 
@@ -198,7 +198,7 @@ git remote add origin https://github.com/<username>/<reponame>
 git pull origin master
 ```
 
-After you pull the repo down from GitHub, the follwoing files should be present.
+After you pull the repo down from GitHub, the following files should be present.
 
 ```text
 .
@@ -221,14 +221,14 @@ After our files are pushed to GitHub, we are almost done. All that's left is to 
 heroku login
 heroku create
 ```
-Output will look something like below:
+The output will look something like below:
 
 ```text
 Creating app... done, ⬢ apple-crumble-25196
 https://apple-crumble-25196.herokuapp.com/ | https://git.heroku.com/apple-crumble-25196.git
 ```
 
-Last thing to do is push the changes to Heroku to publish our app.
+The last thing to do is to push the changes to Heroku to publish our app.
 
 ```text
 git push heroku master
@@ -252,4 +252,4 @@ When the slider is moved, you will be able to see the plot change. The web addre
 
 # Summary
 
-In this post, we created a website from a Jupyter notebook using Voila. First we created a Jupyter notebook with an interactive widget. Then we ran Voila locally and saw a preview of what the app would look like online. Lastly we published the app on Heroku using the Heroku CLI. Thanks to all the maintainers of Voila. It is a wondeful package.
+In this post, we created a website from a Jupyter notebook using Voila. First, we created a Jupyter notebook with an interactive widget. Then we ran Voila locally and saw a preview of what the app would look like online. Lastly, we published the app on Heroku using the Heroku CLI. Thanks to all the maintainers of Voila. It is a wonderful package.

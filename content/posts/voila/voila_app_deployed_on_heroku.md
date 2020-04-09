@@ -7,7 +7,7 @@ Tags: python, jupyter, jupyter notebook, voila, heroku, deploy
 Slug: deploy-jupyter-notebook-voila-heroku
 Authors: Peter D. Kazarinoff
 
-[![Voila Logo]({static}/posts/voila/images/jupyter_voila_heroku.png)]({file}/posts/voila/voila_app_deployment.md)
+[![Voila Logo]({static}/posts/voila/images/jupyter_voila_heroku.png)]({filename}/posts/voila/voila_app_deployment.md)
 
 Jupyter notebooks are a great way to write and run Python code. Jupyter notebooks can produce text output, plots, and animations. Static Jupyter notebooks can be shared on GitHub.com and [nbviewer](https://nbviewer.jupyter.org/). Another way to share Jupyter notebooks is a great Python package called [**Voila**](https://voila.readthedocs.io/en/stable/). Voila turns Jupyter notebooks into deployable web apps. In this post, you'll learn how to deploy a Jupyter notebook as a cloud-based web app with Voila and the cloud hosting service Heroku.
 

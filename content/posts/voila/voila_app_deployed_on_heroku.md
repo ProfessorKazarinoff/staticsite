@@ -1,7 +1,7 @@
 Title: Deploy a Jupyter Notebook Online with Voila and Heroku
 Date: 2020-04-08 09:01
 Modified: 2020-04-08 09:01
-Status: draft
+Status: published
 Category: jupyter
 Tags: python, jupyter, jupyter notebook, voila, heroku, deploy
 Slug: deploy-jupyter-notebook-voila-heroku

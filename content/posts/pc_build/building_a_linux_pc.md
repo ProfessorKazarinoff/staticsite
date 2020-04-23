@@ -3,7 +3,7 @@ Date: 2019-05-10 09:21
 Modified: 2019-05-10 09:21
 Status: draft
 Category: diy
-Tags: python, IoT, django, server, sensor
+Tags: hardware, diy
 Slug: ryzen5-linux-pc-build
 Authors: Peter D. Kazarinoff
 
@@ -13,7 +13,7 @@ In this post, I am going to build a Linux PC from parts I ordered from Amazon. T
 
 ## Why am I building a new Linux PC?
 
-I use a couple different computers to write this blog, write my book, and work on Python projects. Below is a partial list:
+I use a couple different computers to write this blog, write my [book](https://www.amazon.com/Problem-Solving-Python-3-7-open-source/dp/1693405415), and work on [Python projects](https://github.com/ProfessorKazarinoff/). Below is a partial list:
 
  * Windows 10 desktop at work
  * Windows 10 laptop at home
@@ -28,12 +28,13 @@ The computer that is on the fritz right now is the Linux desktop in my home offi
 Below is a table of the parts I'm using for the build.
 
 | Component | Part | Link |
-| --- | --- |
+| --- | --- | --- |
 | processor | AMD Ryzen 5 2400G | [amzn.to/2VyVqyB](https://amzn.to/2VyVqyB) |
 | motherboard | MSI B450I Mini-ITX Gaming Plus AC | [amzn.to/2Vzhuco](https://amzn.to/2Vzhuco) |
 | hard drive | Crucial P1 1TB M.2 NVMe SSD | [amzn.to/2WEup9e](https://amzn.to/2WEup9e) |
 | RAM | Corsair Vengeance DDR4 3000 MHz 16GB (2x8GB) | [amzn.to/2WzXsLh](https://amzn.to/2WzXsLh)  |
 | power supply | Corsair 450SF | (no longer available) |
+| case | Silverstone SG13B-V2 | [amazon.com/dp/B00U8IS89E/](https://www.amazon.com/dp/B00U8IS89E/) |
 
 The following is an overview of each component
 
@@ -47,61 +48,73 @@ The mother board I choose is the MSI B450I Mini-ITX Gaming Plus AC. This motherb
 
 ### Crucial P1 1TB M.2 NVMe SSD
 
-I picked the Crucial P1 1TB M.2 NVMe SSD for this Linux PC build. The SSD was a component I had trouble deciding on. The current system has a 60GB SSD and a 1TB spinning hard drive. This was a cheap way to equip the system. The problem I have with it is that there have to be two SATA data cables and two SATA power cables, plus the drives need to be mounted in the case. I wanted to keep this build simple and clutter-free. An M.2 form factor drive does not require any cables. M.2 drives plug directly into the motherboard. The Crucial P1 drive I selected is 80 mm long, which is the most common M.2 length. The MSI motherboard I picked has one M.2 slot on the back that the drive will plug into. I choose 1GB of capacity because I just feel like you always need more storage. The old system started with 60GB about 8 years ago and then I had to add a 1TB hard disk because I ran out of space. I want this build to last at least 5 years, so I splurged on extra capacity. I also went with a drive that runs the super fast NMV3e PCIe communication standard. Using an NVMe drive probably won't have any practical performance benefits for the things I will use the new PC for, but I guess I just like to know that I have really fast storage. Long boot times also bug me. Hopefully, the new system will boot quickly with the SSD I choose.
+I picked the Crucial P1 1TB M.2 NVMe SSD for this Linux PC build. The SSD was a component I had trouble deciding on. My old system has a 60GB SSD and a 1TB spinning hard drive. This was a cheap way to equip the system. The problem I have with it is that there have to be two SATA data cables and two SATA power cables, plus the drives need to be mounted in the case. I wanted to keep this build simple and clutter-free. An M.2 form factor, the drive does not require any cables. M.2 drives plug directly into the motherboard. The Crucial P1 drive I selected is 80 mm long, which is the most common M.2 length. The MSI motherboard I picked has one M.2 slot on the back that the drive will plug into. I choose 1GB of capacity because I just feel like you always need more storage. The old system started with 60GB about 8 years ago and then I had to add a 1TB hard disk because I ran out of space. I want this build to last at least 5 years, so I splurged on extra SSD capacity. I also went with a drive that runs the super fast NMV3e PCIe communication standard. Using an NVMe drive probably won't have any practical performance benefits for the things I will use the new PC for, but I guess I just like to know that I have really fast storage. Long boot times also bug me. Hopefully, the new system will boot quickly with the SSD I choose.
 
 ### Corsair Vengeance DDR4 3000 MHz 16GB (2x8GB)
 
-I choose 16 GB of DDR4 RAM for my new system. The Corsair Vengeance DDR4 3000 MHz kit I bought includes 2 x 8 GB dimms. I don't know if my system will be able to take advantage of the 3000 MHz maxium clock speed. 
+I choose 16 GB of DDR4 RAM for my new system. The Corsair Vengeance DDR4 3000 MHz kit I bought includes 2 x 8 GB dimms. I don't know if my system will be able to take advantage of the 3000 MHz maxium clock speed. It's really just 16 GB of standard memory
 
-### Old Case and Power Supply
+### Power Supply
 
-I am going to re-use my old case and power supply from the previous build. It has USB ports and a headphone jack on the front. It worked OK for my old system. The problems with the case that cropped up are that the headphone jack in the front doesn't realy work, and I am concerned about airflow through the case. The CPU fan and GPU fan of my old system were loud and seemed to work really hard on startup and when doing a demanding tasks.
+The power supply I went with this the ...
 
-The power supply that I'm going to use came bundled with my old case. It is about 250 watts and conforms to the small SFX form factor. The old power supply has cables for the motherboard, CPU, and hard drives. For this build I am only going to need the cable for the motherboard power and the cable for the CPU power. The leftover extra cables will have to be tucked out of the way
+For this build I am only going to need the cable for the motherboard power and the cable for the CPU power. These cables are built into the power supply. The other modular cables aren't needed.
+
+### Case
+
+I put all the components inside the Silverstone ...
+
+### Fan
+
+I bought a fan for the SilverStone case becuase it doesn't come with one.
 
 ## Build
 
-I built the PC in a couple of steps. First I built the PCC on top of the motherboard box outside of the case to make sure all the components worked together. I plugged in the power supply (power off) and attached an ESD wrist strap to the grounded power supply case.
+I built the PC in a couple of steps. First I built the PCC on top of the motherboard box outside of the case to make sure all the components worked together. 
+
+Before I started building, I plugged in the power supply (power off) and attached an ESD wrist strap to the grounded power supply case with the aligator clip.
 
 ### Mount the CPU on the motherboard
 
-First I mounted the CPU to the motherboard. Make sure to line up the little triangle on the corner of the CPU with the little corner on the CPU socket on the motherboard. You don't need to push the processor into the socket. The little lever on the side of the socket seats the CPU with the right amount of pressure.
+Next, I installed the CPU in the motherboard. Make sure to line up the little triangle on the corner of the CPU with the little corner on the CPU socket on the motherboard. You don't need to _push_ the processor into the socket. The little lever on the side of the socket seats the CPU with the right amount of pressure.
 
 ### Mount the RAM on the motherboard
 
-Next, I attached the RAM to the motherboard. There are two clips on the side of the RAM slots of the motherboard. Then I pushed the RAM in until it "clicked"
+Next, I attached the RAM to the motherboard. There are two clips on the side of the RAM slots of the motherboard. Then I pushed the RAM in until it "clicked".
 
 ### Add the CPU cooler
 
-The Ryzen 5 2400G CPU comes with a CPU cooler in the box. The included cooler has thermal paste pre-applied, so no thermal paste needs to be added to the top of the processor before the cooler is mounted. There is a plastic bracket on either side of the motherboard that needs to be removed before the CPU cooler is screwed it. When the plastic brackets come off, the plate on the back of the motherboard falls off. Make sure that plate on the back of the motherboard is aligned when the cooler is screwed in.
+The Ryzen 5 2400G CPU comes with a CPU cooler included in the box. The included cooler has thermal paste pre-applied, so no thermal paste needs to be added to the top of the processor before the cooler is mounted. There is a plastic bracket on either side of the motherboard that needs to be removed before the CPU cooler is screwed it. When the plastic brackets come off, the plate on the back of the motherboard falls off. Make sure that plate on the back of the motherboard is aligned when the cooler is screwed in.
 
 I put the cooler on top of the processor and just seated the screws before I tightened it down. I used a cross pattern and tighted each screw about a turn at a time until the cooler was screwed down tight.
 
 ### Attach the M.2 SSD drive
 
-Next I flipped the motherboard over and attached the M.2 SSD. There is a baggie that came with the motherboard with a tiny M.2 standoff and a tiny M.2 screw. The standoff goes below the drive and the screw goes above the drive. I slid the drive into the M.2 slot at about a 30 degree angle and tightend it down to the tiny standoff.
+Next, I flipped the motherboard over and attached the M.2 SSD. There is a baggie of screws that came with the motherboard. The baggie contained a tiny M.2 standoff and a tiny M.2 screw. The standoff goes "below" the drive and the screw goes "above" the drive. I slid the drive into the M.2 slot at about a 30 degree angle and tightend it down to the tiny standoff with the tiny screw.
 
 ### Attach the motherboard power and CPU power. 
 
-Finally, I attached the big 24 pin motherboard power cable from the power supply and the 6 pin supplemental CPU power cable from the power supply. I don't need any other power cables because the SSD is powered by the M.2 slot and the "graphics card" is integrated into the CPU.
+Finally, I attached the big 24 pin motherboard power cable from the power supply and the 6 pin supplemental CPU power cable from the power supply to the motherboard. I don't need any other power cables because the SSD is powered by the M.2 slot and the "graphics card" is integrated into the CPU.
+
+All these steps were accomplished outside the case first. The motherboard was on top of the motherboard box and the power supply was next to it on the table.
 
 ## Start Up
 
-After the system was fully assembled, I plugged in a monitor to the HDMI port and plugged in a mouse and keyboard. I also plugged in an ethernet cable. I could use the motherboard's onboard WiFi, but the wired ethernet will be faster and hopefully won't require any setup. Then I started the system for the first time by shorting the POWER pins on the motherboard with a screw driver. After the power turned on, I hit the DELETE key repeatidly to bring up the motherboard bios.
+After the system was fully assembled, I plugged in a monitor to the HDMI port and plugged in a mouse and keyboard to the motherboard. I also plugged in an ethernet cable. I could use the motherboard's onboard WiFi, but the wired ethernet will be faster and hopefully won't require any setup. Then I started the system for the first time by shorting the POWER pins on the motherboard with a screw driver. After the power turned on, I hit the DELETE key rapidly to bring up the motherboard bios.
 
 ### Update the motherboard BIOS
 
-I downloaded the latest firmare for my motherboard from the MSI website. The download from MSI was a zip file, and I unzipped it onto a USB thumb drive. Within the motherboard BIOS there is the option to update the BIOS firmare. I selected that option and my USB thumb drive that had the firmare file. Then the system re-started and I went went through the BIOS again.
+I downloaded the latest firmare for my motherboard from the MSI website. The download from MSI was a zip file, and I unzipped it onto a USB thumb drive. Within the motherboard BIOS there is the option to update the BIOS firmare. I selected that option and my USB thumb drive that contained the firmare file. Then the system re-started and I went went into the BIOS again.
 
-### Check on system specs in the BIOS
+### Check the system specs in the BIOS
 
-Next I checked my new system's specs in the BIOS. I wanted to make sure the CPU and SSD were recognized. I also enabled RAM speed acceleration. For right now I didn't overclock the CPU. I may do that later if I get a new CPU cooler. 
+Next I checked my new system's specs in the BIOS. I wanted to make sure the CPU and SSD were recognized. For right now, I didn't overclock the CPU or the RAM.
 
 ## Install Linux
 
 With the system still outside the case on the motherboard box, I installed Linux from a USB drive. 
 
-From the BIOS, I powered down the system and inserted a thumbdrive with the Linux .iso image into the motherboard. I selected the newest version of Ubuntu. My hope is that the newest version of Ubuntu (not the long-term release) will play nice with my Ryzen 5 APU. 
+From the BIOS, I powered down the system and inserted a thumbdrive with the Linux (Ubuntu 19.10) .iso image into the motherboard. I selected the newest version of Ubuntu. My hope is that the newest version of Ubuntu (not the long-term release) will play nice with my newer Ryzen 5 APU. 
 
 When I turned the power back on, I pushed F11 over and over to bring up the boot menu. I selected the USB file with the Linux .iso image on it and started the system for the first time.
 
@@ -109,9 +122,16 @@ The Ubuntu installer takes a while and downloads a bunch of stuff while it is in
 
 ## Try it out!
 
+After Ubuntu was set up, I tried the new system out. It worked great! Firefox opens quickly and YouTube videos stream no problem. I also entered those standard Linux commandline update commands:
+
+```text
+sudo apt-get update
+sudo apt-get upgrade
+```
+
 ## Put the system in the case
 
-Finally I put my new system in my old case. The mother board gets screwed into the four standoffs. A problem I ran into  is that the AMD wraith CPU cooler bumbs into a hard drive caddy on my case. I took a drill bit to the rivets that held the hard drive cady in place and pulled out the sheet metal. This gave me room for my new AMD CPU cooler. 
+Finally I put my new system in the case. The mother board gets screwed into the four standoffs. A problem I ran into  is that the AMD wraith CPU cooler bumbs into a hard drive caddy on my case. I took the drive caddy off and this gave me room for my new AMD CPU cooler. 
 
 I just love the fact that there is only one fan and just two power cables to make my system work. The inside of the case is clean and un-cluttered.
 

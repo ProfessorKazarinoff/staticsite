@@ -35,20 +35,22 @@ The solution I found is to add a ```.nojekyll``` file to root directory of the s
 
 ## Copying a source file with Pelican
 
-Pelican has a method to copy static files when the site is built. First the static file needs to be added to the content of the site. 
+Pelican has a method to copy static files when the site is built. First, the static file needs to be added to the content of the site. 
 
 ### Add a ```nojekyll``` file to blog content
 
 My directory structure looks like below. I added the ```nojekyll``` file to the ```extra/``` directory. Note the file name is ```nojekyll``` not ```.nojekyll```. There is no dot ```.``` at the start of the filename. I don't know why, but for some reason, Pelican or Windows wouldn't copy over a ```.nojekyll``` file but will copy over a ```nojekyll``` file.
 
 ```text
-dir structure
-```
-
-After the ```nojekyll``` file is added
-
-```text
-dir structure with nojekyll
+project_root/
+    content/
+        code/
+        css/
+        extra/
+            CNAME
+            custom.css
+            custom.js
+            nojekyl
 ```
 
 ### Modify ```pelican_conf.py```
@@ -74,14 +76,24 @@ EXTRA_PATH_METADATA = {
 
 Now build the site using Pelican and look in the output directory for a ```.nojekyll``` file.
 
-```
+```text
 > invoke build
 ```
 
-## Upload to GitHub on gh-pages branch
+## Upload to GitHub on the gh-pages branch
 
-### Re-add the domain name
+Build and deploy the site to GitHub Pages. The commands I use are below. 
+
+```text
+pelican content -o output -s publishconf.py
+ghp-import output -b gh-pages
+ghp-import -m "publishing site" -p -f output
+```
 
 ### View the site
 
+Ah Ha! It works! GitHub isn't trying to build my Pelican blog with Jekyll. Success.
+
 ### Summary
+
+In this post, I showed how to prevent GitHub from building a static site built with Pelican into a Jekyll site. The secret is to add a ```.nojekyll``` file to the main output directory of the static site. The trick is that in the source files, the ```.nojekyll``` file name can not contain a dot ```.```

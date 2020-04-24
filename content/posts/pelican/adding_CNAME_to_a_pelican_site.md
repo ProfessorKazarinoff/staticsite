@@ -1,4 +1,4 @@
-Title: Add a CNAME file to a Pelican blog 
+Title: Add a CNAME file to a Pelican blog
 Date: 2020-02-28 19:36
 Modified: 2020-02-28 19:50
 Status: Draft
@@ -7,11 +7,13 @@ Tags: python, pelican, blog, github
 Slug: add-CNAME-file-to-pelican
 Authors: Peter D. Kazarinoff
 
-This blog is built with Python and a package called Pelican. Pelican is a Python package used to create blogs.  This blog is deployed on GitHub pages. When Pelican runs, it produces .html files that make up the blog in an output directory. The output directory is saved to a gh-pages branch of the main GitHub repo. When the gh-pages branch is updated with new content (a new blog post), the blog webpages are re-deployed.
+This blog is built with Python and a package called [Pelican](https://docs.getpelican.com/en/stable/index.html). Pelican is a Python package used to create static sites, like a blog, a documentation site, or a simple site that doesn't require a back-end server or a database.
+
+This blog is deployed on GitHub pages. Here's how it works: when Pelican runs, it produces .html files that make up the blog in an output directory. The output directory is saved to a gh-pages branch of the main GitHub repo. When the gh-pages branch is updated with new content (a new blog post), the blog webpages are re-deployed.
 
 ## The Problem
 
-The problem I had was that each time I pushed a new blog post to GitHub pages, I had to manually add my Domain Name in GitHub under the settings tab of the repository. This wasn't a deal-breaker, but it was annoying. Then by chance, I typed in the wrong domain name into the GitHub settings page and GitHub displayed something like
+The problem I had was that each time I pushed a new blog post to GitHub pages, I had to manually add my domain name in GitHub under the settings tab of the repository. This wasn't a deal-breaker, but it was annoying. Then by chance, I typed in the wrong domain name into the GitHub settings page and GitHub displayed an error message something like:
 
 ```text
 * Failed the CNAME specified is already in use on GitHub Pages:
@@ -19,7 +21,7 @@ The problem I had was that each time I pushed a new blog post to GitHub pages, I
 For more information, see https://help.github.com/en/github/working-with-github-pages/troubleshooting-custom-domains-and-github-pages#cname-already-taken.
 ```
 
-I though, "Crap, someone stole my domain name!" But it turned out that I typed in the wrong domain name (a domain name for another one of my projects). Trying to find the solution to the ```CNAME already taken``` problem led me down a rabbit hole of trying to figure out what the ```CNAME``` file does, and where it has to be included. I ended up fixing two problems:
+I thought, _"Crap, someone stole my domain name!"_ But it turned out that I typed in the wrong domain name (a domain name for another one of my projects). Trying to find the solution to the ```CNAME already taken``` problem led me down a rabbit hole of trying to figure out what the ```CNAME``` file does, and where it has to be included. I ended up fixing two problems:
 
  1. I realized I typed in the wrong domain name
  2. I figured out how to add a CNAME file to a Pelican static site
@@ -34,11 +36,11 @@ The reason I had to enter the domain name manually in the settings tab for the G
 
 **The solution is to have Pelican copy a CNAME file to the main project directory when the site is built.** 
 
-The solution I found is to add a ```CNAME``` file to root directory of the site. This ```CNAME``` file needs to have an upper-case file name and no file extension. One one line of text needs to be in the file, just a domain name with no ```https``` or ```www```. Something like ```mydomain.org```. 
+The solution I found is to add a ```CNAME``` file to the root directory of the site. This ```CNAME``` file needs to have an upper-case file name and no file extension. One line of text needs to be in the file, just a domain name with no ```https``` or ```www```. Something like ```mydomain.org```. 
 
 ## Copying a source file with Pelican
 
-Pelican has the ability to copy static files when the site is built. First the static file needs to be added to the content of the site. 
+Pelican can copy static files when the site is built. First, the static file needs to be added to the content of the site. 
 
 ### Add a ```CNAME``` file to the main project directory
 
@@ -89,7 +91,7 @@ Now build the site using Pelican and look in the output directory for a ```CNAME
 > invoke build
 ```
 
-## Upload to GitHub on gh-pages branch
+## Upload to GitHub on the gh-pages branch
 
 Build and deploy the site to GitHub Pages. The commands I use are below. 
 
@@ -105,4 +107,4 @@ Now you can browse to your domain name and see the live static site in all it's 
 
 ### Summary
 
-In this post, I reviewed how to add a CNAME file and a custom domain name to a static site built with Pelican. Making the CNAME file is easy, but figuring out where to put it and how to make Pelican copy when the site was built took a little trouble-shooting. But now that it's done, once and my ```pelicanconf.py``` is saved, I shouldn't have to manually add a domain name into the GitHub settings tab each time I depoly the site. 
+In this post, I reviewed how to add a CNAME file and a custom domain name to a static site built with Pelican. Making the CNAME file is easy, but figuring out where to put it and how to make Pelican copy when the site was built took a little trouble-shooting. But now that it's done, once and my ```pelicanconf.py``` is saved, I shouldn't have to manually add a domain name into the GitHub settings tab each time I deploy the site.

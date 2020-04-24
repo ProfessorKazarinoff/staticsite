@@ -156,6 +156,8 @@ TAG_FEED_RSS = None
 RSS_FEED_SUMMARY_ONLY = True
 
 # URL's
+# DRAFT_URL = 'drafts/{slug}.html'
+# DRAFT_SAVE_AS = 'drafts/{slug}.html'
 #SLUGIFY_SOURCE = 'title'
 #PAGE_URL = 'pages/{slug}/'
 #ARTICLE_URL = 'posts/{date:%Y}/{date:%b}/{date:%d}/{slug}/'

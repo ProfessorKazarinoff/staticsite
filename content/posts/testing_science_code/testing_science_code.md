@@ -1,6 +1,6 @@
 Title: Thoughts on How to Test Science Code
-Date: 2020-02-21 08:11
-Modified: 2020-02-21 08:11
+Date: 2020-05-02 08:11
+Modified: 2020-05-02 08:11
 Status: draft
 Category: Python
 Tags: engineering,testing
@@ -56,7 +56,7 @@ Very often scientific code comes down to a couple steps:
  * Read in raw data from a file or many files
  * Clean or reorganize the data
  * Run calculations on the data
- * Create a figure that demonstrates the results
+ * Create a figure or plot
 
 The code below is one long script. In the rest of this post, we are going work on adding tests to this script.
 
@@ -64,7 +64,7 @@ The code below is one long script. In the rest of this post, we are going work o
 # code raw
 ```
 
- ### Idea 1. Break the script up into functions
+### Idea 1. Break the script up into functions
 
  ![holding hands]({static}/posts/testing_science_code/images/kids-holding-hands.jpg)
 
@@ -104,7 +104,7 @@ When your code runs, it should not modify, rename, rewrite or otherwise change t
 
 ![holding hands]({static}/posts/testing_science_code/images/pipe.jpeg)
 
-Now that we removed all hard-coded file names and made sure that the data wasn't modified by the code, is it any clearer what the input and output of our functions should be? At the very least, modify your functions tp return ```True``` at the end. For a function that produces a plot, assign the outputs as Matplotlib ```fig``` and ```ax``` objects.
+Now that we removed all hard-coded file names and made sure that the data wasn't modified by the code, is it any clearer what the input and output of our functions should be? At the very least, modify your functions to return ```True``` at the end. For a function that produces a plot, assign the outputs as Matplotlib ```fig``` and ```ax``` objects.
 
 ```python
 # code that have function inputs and outputs

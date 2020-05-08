@@ -1,4 +1,4 @@
-Title: Calculating the probability under a normal curve with Python
+Title: Calculate the Probability Under a Normal Curve
 Date: 2019-01-24 09:01
 Modified: 2019-01-24 09:01
 Status: published
@@ -6,10 +6,11 @@ Category: statistics
 Tags: python, engineering, statistics
 Slug: probability-under-normal-curve-with-python
 Authors: Peter D. Kazarinoff
+Summary: ![gaussian_curve]({static}/images/gaussian_curve.png) Calculating the probability under a normal curve is useful for engineers. This type of calculation can be helpful to predict the likely hood of a part coming off an assembly line being within a given specification. The probability can be calculated when the statistical properties of all the parts that have come of the assembly line are known.
 
 ![gaussian_curve]({static}/images/gaussian_curve.png)
 
-Calculating the probability under a normal curve is useful for engineers. This type of calculation can be helpful to predict the likely hood of a part coming off an assembly line being within a given specification. The probability can be calculated when the statistical properties of all the parts that have come of the assembly line are known. 
+Calculating the probability under a normal curve is useful for engineers. This type of calculation can be helpful to predict the likely hood of a part coming off an assembly line being within a given specification. The probability can be calculated when the statistical properties of all the parts that have come of the assembly line are known.
 
 In this post, we will calculate the probability under the normal curve to answer a question like the one below:
 
@@ -112,7 +113,7 @@ _Determine the probability that a resistor coming off the production line will b
 
 <br>
 
-The answer is: the probability a resistor coming off the production line is within spec is the probability of the inside interval, **81.2%**
+The answer is: The probability a resistor coming off the production line is within spec is the probability of the inside interval, **81.2%**
 
 <br>
 

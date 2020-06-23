@@ -19,7 +19,7 @@ Ansible is a tool to automate IT orchestration. What does IT orchestration mean?
 
 ![conductor]({static}/posts/ansible/images/robot_factory.jpg)
 
-In the purposes of this project: Automating a JupyerHub Deployment, Ansible is a tool to automate setting up the cloud server that runs JupyerHub. So my IT orchestration is setting up JupyerHub to run on a cloud server with all my custom configuration and settings. JupyterHub can be set up by typing all of the commands into a SSH shell and copying over files with FTP. But if JupyterHub gets deployed each quarter, and these commands are the same each quarter, then why not automate the process?
+With regard to this project: Automating a JupyerHub Deployment, Ansible is a tool to automate setting up the cloud server that runs JupyerHub. So my IT orchestration is setting up JupyerHub to run on a cloud server with all my custom configuration and settings. JupyterHub can be set up by typing all of the commands into a SSH shell and copying over files with FTP. But if JupyterHub gets deployed each quarter, and these commands are the same each quarter, then why not automate the process?
 
 ## Ansible is a run-time that executes automation tasks
 

@@ -353,7 +353,7 @@ Before we can deploy the app on Heroku, a couple more files are required:
  * Procfile
  * setup.sh
 
-In the Procfile (the file name is ```Profile``` with a capital ```P``` and no file extension) add the text:
+In the Procfile (the file name is ```Procfile``` with a capital ```P``` and no file extension) add the text:
 
 ```text
 web: sh setup.sh && streamlit run streamlit_app_bokeh.py
@@ -395,7 +395,7 @@ Commit all the files and push to GitHub.
 
 ```text
 git add .
-git commit -m "add Profile, setup.sh, requirements.txt"
+git commit -m "add Procfile, setup.sh, requirements.txt"
 git push origin master
 ```
 

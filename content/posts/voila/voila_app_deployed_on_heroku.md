@@ -145,7 +145,7 @@ python-3.7.6
 The last required file for our Heroku deployment is a ```Procfile```. This file includes the instructions for Heroku to deploy our Voila app. Create a new file named ```Procfile``` (no extension) and include the text below:
 
 ```text
-web: voila —-port=$PORT —-no-browser app.ipynb
+web: voila --port=$PORT --no-browser app.ipynb
 ```
 
 Next, we'll use the Heroku command-line interface (CLI) to deploy our app.

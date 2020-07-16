@@ -92,13 +92,13 @@ output.layout.height = '300px'
 interactive_plot
 ```
 
-Run the code cell and play with the sliders and see the plot change. The sliders should change the frequency and amplitude of the sine wave.
+Run the code cell and play with the sliders and see the plot change. The sliders change the frequency and amplitude of the sine wave.
 
 ![Jupyter notebook with widget]({static}/posts/voila/images/run_jupyter_notebook_locally.gif)
 
 # Test Voila locally
 
-Next, we can test our website running on our local machine. Close the Jupyter notebook and make sure the environment where Voila was installed is activate. Type the command below into a terminal to run the app locally. Note how we don't see the code in the code cells of our Jupyter notebook; we just see the markdown cells, sliders and plot.
+Next, we can test our website running on our local machine. Close the Jupyter notebook and make sure the environment where Voila was installed is activate. Type the command below into a terminal to run the app locally. Notice that we don't see the code in the code cells of our Jupyter notebook; we just see the markdown cells, sliders and plot.
 
 ```text
 voila app.ipynb

@@ -73,9 +73,19 @@ def preview(c):
 def publish(c):
     """Publish to GitHub Pages"""
     preview(c)
+    #c.run('ghp-import output -b {github_pages_branch}'.format(**CONFIG))
     c.run('ghp-import -b {github_pages_branch} '
-          '-m {commit_message} '
-          '{deploy_path} -p'.format(**CONFIG))
+          '-m "{commit_message}" '
+          '-p '
+          '-f '
+          '-s '
+          '{deploy_path}'.format(**CONFIG))
+
+@task
+def publish2(c):
+    preview(c)
+    c.run('ghp-import output -b gh-pages')
+    c.run('git push -f origin gh-pages')
 
 @task
 def gh_pages(c):
@@ -83,6 +93,7 @@ def gh_pages(c):
     preview(c)
     c.run('ghp-import -b {github_pages_branch} '
           '-m {commit_message} '
+          '-p '
           '{deploy_path} -p'.format(**CONFIG))
 
 @task

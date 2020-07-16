@@ -137,8 +137,8 @@ MARKDOWN = {
 
 # could not get 'pymdownx.superfences': {}, to work.
 
-#Ignore all files that start with a dot .
-IGNORE_FILES = ['.*','*-checkpoint.ipynb']
+# Ignore all files that start with a dot .
+IGNORE_FILES = ['.*','*-checkpoint.ipynb','app.ipynb']
 
 # RSS Feed Settings
 
@@ -177,7 +177,7 @@ DISPLAY_CATEGORY_IN_BREADCRUMBS = True
 #BANNER_ALL_PAGES =  True
 
 SERIES_TEXT = 'Article %(index)s of the %(name)s series'
-#sidebar options
+# Sidebar options
    # Tag Cloud Options
 DISPLAY_SERIES_ON_SIDEBAR = True
 DISPLAY_TAGS_INLINE = True
@@ -197,7 +197,7 @@ GITHUB_SHOW_USER_LINK = True
 # Top menus
 DISPLAY_CATEGORIES_ON_MENU = False
 DISPLAY_PAGES_ON_MENU = True
-#MENUITEMS = ['Home','About','Search']
+# MENUITEMS = ['Home','About','Search']
 ARCHIVES_SAVE_AS = 'archives.html'
 DISPLAY_ARCHIVE_ON_MENU = True
 YEAR_ARCHIVE_SAVE_AS = 'posts/{date:%Y}/index.html'
@@ -205,7 +205,7 @@ MONTH_ARCHIVE_SAVE_AS = 'posts/{date:%Y}/{date:%b}/index.html'
 ABOUT_ME = 'I teach engineering at a community college in the Pacific Northwest. ' \
            'I am interested in programming and how to help students. ' \
            'Here I mostly blog about Python, and how programing can be incorporated into engineering education.'
-#AVATAR = 'images/about_me_image.png'
+# AVATAR = 'images/about_me_image.png'
 
 # for Tique Search Plugin
 DIRECT_TEMPLATES = ('index','tags', 'categories', 'authors', 'archives', 'search')

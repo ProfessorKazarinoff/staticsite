@@ -15,8 +15,8 @@ In this post, we will see how to use Python to read sensor. In particular, the s
 
 In this project, we are going to use a couple pieces of hardware. Below is the list of harware we need to complete the project:
 
-| Component | Item and Link
-| | |
+| Component | Item and Link |
+| --- | --- |
 | Arduino | [SparkFun RedBoard - Programmed with Arduino](https://www.sparkfun.com/products/13975) |
 | Potentiometer | [https://www.sparkfun.com/products/9806](https://www.sparkfun.com/products/9806) |
 | Jumper Wires | [Jumper Wires Premium 6" M/M Pack of 10](https://www.sparkfun.com/products/8431) |
@@ -398,4 +398,4 @@ In this post, we used Python to read a potentiometer. There were a number of tec
 
 ## Going Further
 
-This project can be extended in a number of ways. For example, a different type of sensor could replace the potentiometer. A light sensor, temperature sensor or pressure sensor could be used intead of a potentiometer. Two or three sensors could be connected to the Arduino at the same time as well. The plotting script can also be extended. The script could ask the user for the amount of time they wanted to recorded data for. Or the script could produce an annimated plot of the data mimicing the Arduino Serial Monitor. 
+This project can be extended in a number of ways. For example, a different type of sensor could replace the potentiometer. A light sensor, temperature sensor or pressure sensor could be used intead of a potentiometer. Two or three sensors could be connected to the Arduino at the same time as well. The plotting script can also be extended. The script could ask the user for the amount of time they wanted to recorded data for. Or the script could produce an annimated plot of the data mimicing the Arduino Serial Monitor.

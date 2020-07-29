@@ -210,7 +210,7 @@ The json for the inline policy applied to the group is below.
           "iam:PutRolePolicy"
         ],
         "Resource": [
-          "arn:aws:iam::XXXXXXXXXXXXXX:role/*-ZappaLambdaExecutionRole"
+          "arn:aws:iam::XXX_MY_AWS_ACCOUNT_ID_XXX:role/*-ZappaLambdaExecutionRole"
         ]
       },
       {
@@ -237,6 +237,7 @@ The json for the inline policy applied to the group is below.
           "lambda:GetFunctionConfiguration",
           "lambda:GetPolicy",
           "lambda:InvokeFunction",
+          "lambda:DeleteFunctionConcurrency",
           "lambda:ListVersionsByFunction",
           "lambda:RemovePermission",
           "lambda:UpdateFunctionCode",
@@ -283,7 +284,7 @@ The json for the inline policy applied to the group is below.
       }
     ]
   }
-
+  
 ```
 
 After pasting and modifying the json with your AWS Account Number, click the [Validate Policy] button to ensure you copied valid json. Then click the [Apply Policy] button to attach the inline policy to the group.

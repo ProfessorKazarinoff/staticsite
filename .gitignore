@@ -338,3 +338,7 @@ __pycache__/
 # MacOS icloud files
 .icloud
 *.icould
+
+# Python virtual environments
+venv/
+.env/

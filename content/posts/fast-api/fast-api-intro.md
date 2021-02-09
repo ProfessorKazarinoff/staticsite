@@ -49,7 +49,7 @@ async def read_item(item_id: int, q: Optional[str] = None):
 
 ```
 
-Same ```main.py```
+Save ```main.py```
 
 ## Run the one-file fast API app
 

@@ -84,11 +84,67 @@ Type "help", "copyright", "credits" or "license" for more information.
 >>>
 ```
 
+At this point, we have now converted an originol Jupyter notebook into a Python script. We have also included a ```requirements.txt``` file and a ```runtime.txt``` file. The directory structure of our growing project is shown below.
+
+```text
+project/
+    analysis.ipynb
+    analysis.py
+    requirements.txt
+    runtime.txt
+    data/
+        raw_data.csv
+    output/
+        plot.png
+```
 
 ## Idea 3. Test the Dependancy Package Versions and the Python Version
 
+Now that we defined our package versions and Python runtime version, we can write tests to confirm these are the same versions that are used when our script is run. If another researcher wants to run our script, they can confirm through our tests that they are using the same dependancy versions. Create a new directory called ```tests``` and inside create a new file called ```test_dependancies.py```.
+
+The directory structure of our project should now look like:
+
+```text
+project/
+    analysis.ipynb
+    analysis.py
+    requirements.txt
+    runtime.txt
+    data/
+        raw_data.csv
+    output/
+        plot.png
+    tests/
+        __init__.py
+        test_dependancies.py
+```
+
+Inside the ```test_dependancies.py``` file, we can write tests that confirm the versions of the packages we say are necessary in our ```requirements.txt``` file. Examples of these tests are below.
+
+```python
+# test_dependancies.py
 
 
+```
+
+The Python version can be tested with another test. 
+
+```python
+def test_python_version():
+
+```
+
+Now these tests can be run on the command line with pytest
+
+```text
+> python -m pytest tests/test_dependancies.py
+```
+
+The output should look something like below:
+
+```text
+pytest output
+```
 
 ## Idea 2. Break the script up into functions
 

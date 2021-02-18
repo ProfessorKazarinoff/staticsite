@@ -4,10 +4,10 @@ Modified: 2021-02-17 08:11
 Status: draft
 Category: Python
 Tags: engineering,testing
-Slug: thouhts-on-how-to-test-science-code
+Slug: thoughts-on-how-to-test-science-code
 Authors: Peter D. Kazarinoff
 
-![fishing net]({static}/posts/testing_science_code/images/fishing-net.jpg)
+[![fishing net]({static}/posts/testing_science_code/images/fishing-net.jpg)]({filename}/posts/testing_science_code/testing_science_code.md)
 
 I have been at a couple meetups (at PyData PDX) and heard a few podcasts (TalkPython) that had a theme of:
 
@@ -41,13 +41,29 @@ These are not hard and fast rules, but something to aim for if a scientists does
 
 The last software design principal we'll talk about in this blog post is testing.
 
+![lab]({static}/posts/testing_science_code/images/lab.jpg)
+
+## Testing
+
+Testing is the last software design principal that could be brought into scientific code. Although the data analysis and plotting doesn't particularly lend itself to Test-driven Design (TDD). *How do you know what the result should be until you find the result?* The type of testing I think does apply is **scientific code testing for reproducibility**. 
+
+In this reproducibility testing mode, things that can be tested are things like:
+
+ * Which Python version is running the code?
+ * Which packages and versions need to be installed to make the code run?
+ * What versions of those packages need to be installed to run the code?
+ * Which character encoding is the code using (uft-8 anyone?)
+
 ## Conclusion
 
 To wrap up. Some scientific code is difficult to test. But there are things we can do to make the code more portable and incorporate the ideas of software design into scientific code.
 
 To help make a scientific script testable, consider trying the following:
 
- * break a long script into functions and seperate files
- * include one main fuction
- * assign functions inputs and outputs. If no output makes sense, return ```True```
- * functions which produce plots should output ```fig``` and ```ax``` objects.
+ * Use version control, like git and GitHub
+ * Use .py-files instead of Jupyter notebooks (.ipynb-files)
+ * Participate in code review sessions with other researchers
+ * Break long scripts into functions and seperate files
+ * Include one ```main()``` fuction that runs the entire script
+ * Use testing to help ensure repoducibiliy
+ 

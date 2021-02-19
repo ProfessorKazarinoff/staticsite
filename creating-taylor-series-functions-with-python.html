@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Taylor Series in Python - Python for Undergraduate Engineers</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
+<style type="text/css">
+
+    /*some stuff for output/input prompts*/
+    div.cell{border:1px solid transparent;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}div.cell.selected{border-radius:4px;border:thin #ababab solid}
+    div.cell.edit_mode{border-radius:4px;border:thin #008000 solid}
+    div.cell{width:100%;padding:5px 5px 5px 0;margin:0;outline:none}
+    div.prompt{min-width:11ex;padding:.4em;margin:0;font-family:monospace;text-align:right;line-height:1.21429em}
+    @media (max-width:480px){div.prompt{text-align:left}}div.inner_cell{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
+    div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;line-height:1.21429em}
+    div.prompt:empty{padding-top:0;padding-bottom:0}
+    div.input{page-break-inside:avoid;display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;}
+    div.inner_cell{width:90%;}
+    div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;}
+    div.input_prompt{color:navy;border-top:1px solid transparent;}
+    div.output_wrapper{margin-top:5px;position:relative;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+    div.output_scroll{height:24em;width:100%;overflow:auto;border-radius:4px;-webkit-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);-moz-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);}
+    div.output_collapsed{margin:0px;padding:0px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+    div.out_prompt_overlay{height:100%;padding:0px 0.4em;position:absolute;border-radius:4px;}
+    div.out_prompt_overlay:hover{-webkit-box-shadow:inset 0 0 1px #000000;-moz-box-shadow:inset 0 0 1px #000000;box-shadow:inset 0 0 1px #000000;background:rgba(240, 240, 240, 0.5);}
+    div.output_prompt{color:darkred;}
+    
+    a.anchor-link:link{text-decoration:none;padding:0px 20px;visibility:hidden;}
+    h1:hover .anchor-link,h2:hover .anchor-link,h3:hover .anchor-link,h4:hover .anchor-link,h5:hover .anchor-link,h6:hover .anchor-link{visibility:visible;}
+    /* end stuff for output/input prompts*/
+    
+    
+    .highlight-ipynb .hll { background-color: #ffffcc }
+    .highlight-ipynb  { background: #f8f8f8; }
+    .highlight-ipynb .c { color: #408080; font-style: italic } /* Comment */
+    .highlight-ipynb .err { border: 1px solid #FF0000 } /* Error */
+    .highlight-ipynb .k { color: #008000; font-weight: bold } /* Keyword */
+    .highlight-ipynb .o { color: #666666 } /* Operator */
+    .highlight-ipynb .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+    .highlight-ipynb .cp { color: #BC7A00 } /* Comment.Preproc */
+    .highlight-ipynb .c1 { color: #408080; font-style: italic } /* Comment.Single */
+    .highlight-ipynb .cs { color: #408080; font-style: italic } /* Comment.Special */
+    .highlight-ipynb .gd { color: #A00000 } /* Generic.Deleted */
+    .highlight-ipynb .ge { font-style: italic } /* Generic.Emph */
+    .highlight-ipynb .gr { color: #FF0000 } /* Generic.Error */
+    .highlight-ipynb .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+    .highlight-ipynb .gi { color: #00A000 } /* Generic.Inserted */
+    .highlight-ipynb .go { color: #888888 } /* Generic.Output */
+    .highlight-ipynb .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+    .highlight-ipynb .gs { font-weight: bold } /* Generic.Strong */
+    .highlight-ipynb .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+    .highlight-ipynb .gt { color: #0044DD } /* Generic.Traceback */
+    .highlight-ipynb .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+    .highlight-ipynb .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+    .highlight-ipynb .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+    .highlight-ipynb .kp { color: #008000 } /* Keyword.Pseudo */
+    .highlight-ipynb .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+    .highlight-ipynb .kt { color: #B00040 } /* Keyword.Type */
+    .highlight-ipynb .m { color: #666666 } /* Literal.Number */
+    .highlight-ipynb .s { color: #BA2121 } /* Literal.String */
+    .highlight-ipynb .na { color: #7D9029 } /* Name.Attribute */
+    .highlight-ipynb .nb { color: #008000 } /* Name.Builtin */
+    .highlight-ipynb .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+    .highlight-ipynb .no { color: #880000 } /* Name.Constant */
+    .highlight-ipynb .nd { color: #AA22FF } /* Name.Decorator */
+    .highlight-ipynb .ni { color: #999999; font-weight: bold } /* Name.Entity */
+    .highlight-ipynb .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+    .highlight-ipynb .nf { color: #0000FF } /* Name.Function */
+    .highlight-ipynb .nl { color: #A0A000 } /* Name.Label */
+    .highlight-ipynb .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+    .highlight-ipynb .nt { color: #008000; font-weight: bold } /* Name.Tag */
+    .highlight-ipynb .nv { color: #19177C } /* Name.Variable */
+    .highlight-ipynb .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+    .highlight-ipynb .w { color: #bbbbbb } /* Text.Whitespace */
+    .highlight-ipynb .mf { color: #666666 } /* Literal.Number.Float */
+    .highlight-ipynb .mh { color: #666666 } /* Literal.Number.Hex */
+    .highlight-ipynb .mi { color: #666666 } /* Literal.Number.Integer */
+    .highlight-ipynb .mo { color: #666666 } /* Literal.Number.Oct */
+    .highlight-ipynb .sb { color: #BA2121 } /* Literal.String.Backtick */
+    .highlight-ipynb .sc { color: #BA2121 } /* Literal.String.Char */
+    .highlight-ipynb .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+    .highlight-ipynb .s2 { color: #BA2121 } /* Literal.String.Double */
+    .highlight-ipynb .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+    .highlight-ipynb .sh { color: #BA2121 } /* Literal.String.Heredoc */
+    .highlight-ipynb .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+    .highlight-ipynb .sx { color: #008000 } /* Literal.String.Other */
+    .highlight-ipynb .sr { color: #BB6688 } /* Literal.String.Regex */
+    .highlight-ipynb .s1 { color: #BA2121 } /* Literal.String.Single */
+    .highlight-ipynb .ss { color: #19177C } /* Literal.String.Symbol */
+    .highlight-ipynb .bp { color: #008000 } /* Name.Builtin.Pseudo */
+    .highlight-ipynb .vc { color: #19177C } /* Name.Variable.Class */
+    .highlight-ipynb .vg { color: #19177C } /* Name.Variable.Global */
+    .highlight-ipynb .vi { color: #19177C } /* Name.Variable.Instance */
+    .highlight-ipynb .il { color: #666666 } /* Literal.Number.Integer.Long */
+    </style>
+    
+    <style type="text/css">
+    /* Overrides of notebook CSS for static HTML export */
+    div.entry-content {
+      overflow: visible;
+      padding: 8px;
+    }
+    .input_area {
+      padding: 0.2em;
+    }
+    
+    a.heading-anchor {
+     white-space: normal;
+    }
+    
+    .rendered_html
+    code {
+     font-size: .8em;
+    }
+    
+    pre.ipynb {
+      color: black;
+      background: #f7f7f7;
+      border: none;
+      box-shadow: none;
+      margin-bottom: 0;
+      padding: 0;
+      margin: 0px;
+      font-size: 13px;
+    }
+    
+    /* remove the prompt div from text cells */
+    div.text_cell .prompt {
+        display: none;
+    }
+    
+    /* remove horizontal padding from text cells, */
+    /* so it aligns with outer body text */
+    div.text_cell_render {
+        padding: 0.5em 0em;
+    }
+    
+    img.anim_icon{padding:0; border:0; vertical-align:middle; -webkit-box-shadow:none; -box-shadow:none}
+    
+    div.collapseheader {
+        width=100%;
+        padding: 2px;
+        cursor: pointer;
+        font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+    
+    </style>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+    <script type="text/javascript">
+    init_mathjax = function() {
+        if (window.MathJax) {
+            // MathJax loaded
+            MathJax.Hub.Config({
+                tex2jax: {
+                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+                },
+                displayAlign: 'center', // Change this to 'center' to center equations.
+                "HTML-CSS": {
+                    styles: {'.MathJax_Display': {"margin": 0}}
+                }
+            });
+            MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        }
+    }
+    init_mathjax();
+    </script>
+    
+    <link href="./extra/favicon.ico" rel="icon">
+
+<link rel="canonical" href="./creating-taylor-series-functions-with-python.html">
+
+        <meta name="author" content="Peter D. Kazarinoff" />
+        <meta name="keywords" content="python,matplotlib,math,plotting,functions,loops" />
+        <meta name="description" content="In this post, we will review how to create a Taylor Series with Python and for loops. Then we will refactor the Taylor Series into functions and compare the output of our Taylor Series functions to functions from Python&#39;s Standard Library. A Taylor Series is an infinite series of mathematical …" />
+
+        <meta property="og:site_name" content="Python for Undergraduate Engineers" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Taylor Series in Python"/>
+        <meta property="og:url" content="./creating-taylor-series-functions-with-python.html"/>
+        <meta property="og:description" content="In this post, we will review how to create a Taylor Series with Python and for loops. Then we will refactor the Taylor Series into functions and compare the output of our Taylor Series functions to functions from Python&#39;s Standard Library. A Taylor Series is an infinite series of mathematical …"/>
+        <meta property="article:published_time" content="2019-03-06" />
+            <meta property="article:section" content="functions" />
+            <meta property="article:tag" content="python" />
+            <meta property="article:tag" content="matplotlib" />
+            <meta property="article:tag" content="math" />
+            <meta property="article:tag" content="plotting" />
+            <meta property="article:tag" content="functions" />
+            <meta property="article:tag" content="loops" />
+            <meta property="article:author" content="Peter D. Kazarinoff" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="./theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="./theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="./theme/css/pygments/native.css" rel="stylesheet">
+    <link href="./theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="./theme/css/style.css" type="text/css"/>
+        <link href="./static/css/custom.css" rel="stylesheet">
+
+
+
+</head>
+<body>
+
+<!-- .navbar -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="./" class="navbar-brand">
+Python for Undergraduate Engineers            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="./pages/about.html">
+                             About
+                          </a></li>
+                         <li><a href="./pages/book.html">
+                             Book
+                          </a></li>
+                         <li><a href="./pages/now.html">
+                             Now
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+
+<!-- .navbar-search -->
+<li>
+    <span>
+        <form class="navbar-search" action="/search.html">
+            <input type="text" name="q" id="tipue_search_input">
+        </form>
+    </span>
+</li>
+<!-- /.navbar-search -->              <li><a href="./archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+            <ol class="breadcrumb">
+                <li><a href="." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="./category/functions.html" title="functions">functions</a></li>
+                <li class="active">Taylor Series in Python</li>
+            </ol>
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="./creating-taylor-series-functions-with-python.html"
+                       rel="bookmark"
+                       title="Permalink to Taylor Series in Python">
+                        Taylor Series in Python
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2019-03-06T09:01:00-08:00"> Wed 06 March 2019</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="./tag/python.html">python</a>
+        /
+	<a href="./tag/matplotlib.html">matplotlib</a>
+        /
+	<a href="./tag/math.html">math</a>
+        /
+	<a href="./tag/plotting.html">plotting</a>
+        /
+	<a href="./tag/functions.html">functions</a>
+        /
+	<a href="./tag/loops.html">loops</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p><img alt="plot of Taylor Series" src="./posts/functions/images/taylor.png"></p>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In this post, we will review how to create a Taylor Series with Python and for loops. Then we will refactor the Taylor Series into functions and compare the output of our Taylor Series functions to functions from Python's Standard Library.</p>
+<p>A Taylor Series is an infinite series of mathematical terms that when summed together approximate a mathematical function. A Taylor Series can be used to approximate $e^x$, and $cosine$.</p>
+<p>An example of a Taylor Series that approximates $e^x$ is below.</p>
+$$  {e^x} \approx \sum\limits_{n = 0}^\infty  {\frac{{{x^n}}}{{n!}}} \approx 1 + x + \frac{{{x^2}}}{{2!}} + \frac{{{x^3}}}{{3!}} + \frac{{{x^4}}}{{4!}} \ + \ ... $$
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can see that each term in the Taylor Series expansion is dependent on that term's place in the series. Below is a chart that shows each term of the Taylor Series in a row. The columns of the table represent the term index, the mathematical term and, how to code that term in Python. Note that the <code>factorial()</code> function is part of the <code>math</code> module in Python's Standard Library.</p>
+<table class="table table-striped table-bordered table-hover">
+<thead><tr>
+<th>Term Index</th>
+<th>Mathematical Term</th>
+<th>Term coded in Python</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>$x^0/0!$</td>
+<td><code>x**0/math.factorial(0)</code></td>
+</tr>
+<tr>
+<td>1</td>
+<td>$x^1/1!$</td>
+<td><code>x**1/math.factorial(1)</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td>$x^2/2!$</td>
+<td><code>x**2/math.factorial(2)</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td>$x^3/3!$</td>
+<td><code>x**3/math.factorial(3)</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td>$x^4/4!$</td>
+<td><code>x**4/math.factorial(4)</code></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Code-the-Taylor-Series-by-writing-out-each-term-individually">Code the Taylor Series by writing out each term individually<a class="anchor-link" href="#Code-the-Taylor-Series-by-writing-out-each-term-individually">&#182;</a></h2><p>We can combine these terms in a line of Python code to estimate $e^2$. The code below calculates the sum of the first five terms of the Taylor Series expansion of $e^x$, where $x=2$. Note the <code>math</code> module needs to be imported before <code>math.factorial()</code> can be used.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">e_to_2</span> <span class="o">=</span> <span class="n">x</span><span class="o">**</span><span class="mi">0</span><span class="o">/</span><span class="n">math</span><span class="o">.</span><span class="n">factorial</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">x</span><span class="o">**</span><span class="mi">1</span><span class="o">/</span><span class="n">math</span><span class="o">.</span><span class="n">factorial</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">math</span><span class="o">.</span><span class="n">factorial</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span><span class="o">/</span><span class="n">math</span><span class="o">.</span><span class="n">factorial</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="n">x</span><span class="o">**</span><span class="mi">4</span><span class="o">/</span><span class="n">math</span><span class="o">.</span><span class="n">factorial</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">e_to_2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>7.0
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Our Taylor Series approximation of $e^2$ was calculated as <code>7.0</code>. Let's compare our Taylor Series approximation to Python's <code>math.exp()</code> function. Python's <code>math.exp()</code> function raises $e$ to any power. In our case, we want to use <code>math.exp(2)</code> because we want to calculate $e^2$.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>7.38905609893065
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Our Taylor Series approximation <code>7.0</code> is not that far off the calculated value <code>7.389056...</code> using Python's <code>exp()</code> function.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Use-a-for-loop-to-calculate-a-Taylor-Series">Use a <em>for loop</em> to calculate a Taylor Series<a class="anchor-link" href="#Use-a-for-loop-to-calculate-a-Taylor-Series">&#182;</a></h2><p>If we want to get closer to the value of $e^x$, we need to add more terms to our Taylor Series. The problem is coding each individual term is time-consuming and repetitive. Instead of coding each term individually, we can use a <em>for loop</em>. A <em>for loop</em> is a repetition structure in Python that runs a section of code a specified number of times. The syntax for coding a <em>for loop</em> in Python using the <code>range()</code> function is below:</p>
+
+<pre><code>for &lt;var&gt; in range(&lt;num&gt;):
+    &lt;code&gt;</code></pre>
+<p>Where <code>&lt;var&gt;</code> is any valid Python variable name and <code>&lt;num&gt;</code> is an integer to determines how many times the <code>&lt;code&gt;</code> in the loop runs.</p>
+<p>We can recreate our approximation of $e^2$ with 5 terms using a <em>for loop</em>. Note we need to set the variable <code>e_to_2</code> to <code>0</code> before the loop starts. The mathematical operator <code>+=</code> in the line <code>e_to_2 += x**i/math.factorial(i)</code> is equivalent to <code>e_to_2 = e_to_2 + x**i/math.factorial(i)</code>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">e_to_2</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+    <span class="n">e_to_2</span> <span class="o">+=</span> <span class="n">x</span><span class="o">**</span><span class="n">i</span><span class="o">/</span><span class="n">math</span><span class="o">.</span><span class="n">factorial</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    
+<span class="nb">print</span><span class="p">(</span><span class="n">e_to_2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>7.0
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The result <code>7.0</code> is the same as the result we calculated when we wrote out each term of the Taylor Series individually.</p>
+<p>An advantage of using a <em>for loop</em> is that we can easily increase the number of terms. If we increase the number of times the <em>for loop</em> runs, we increase the number of terms in the Taylor Series expansion. Let's try <code>10</code> terms. Note how the line <code>for i in range(10):</code> now includes <code>10</code> passed to the <code>range()</code> function.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">e_to_2</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">e_to_2</span> <span class="o">+=</span> <span class="n">x</span><span class="o">**</span><span class="n">i</span><span class="o">/</span><span class="n">math</span><span class="o">.</span><span class="n">factorial</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    
+<span class="nb">print</span><span class="p">(</span><span class="n">e_to_2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>7.3887125220458545
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The result is <code>7.38871...</code>. Let's see how close that is to $e^2$ calculated with Python's <code>exp()</code> function.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>7.38905609893065
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The result is <code>7.38905...</code>. We get closer to the value of $e^2$ when <code>10</code> terms are used in the Taylor Series compared to when <code>5</code> terms were used in the Taylor Series.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Refactor-the-for-loop-into-a-function">Refactor the <em>for loop</em> into a function<a class="anchor-link" href="#Refactor-the-for-loop-into-a-function">&#182;</a></h2><p>Next, let's refactor the code above that contained a <em>for loop</em> (which calculated $e^2$) into a function that can compute $e$ raised to any power estimated with any number of terms in the Taylor Series. The general syntax to define a function in Python is below.</p>
+
+<pre><code>def &lt;func name&gt;(&lt;arg 1&gt;, &lt;arg 2&gt;, ...):
+    &lt;code&gt;
+    return &lt;output&gt;</code></pre>
+<p>Where <code>def</code> is the Python keyword that defines a function, <code>&lt;func name&gt;</code> is a valid Python variable name, and <code>&lt;arg 1&gt;, &lt;arg 2&gt;</code> are the input arguments passed to the function. <code>&lt;code&gt;</code> that runs when the function is called must be indented (the standard indentation is 4 spaces). The keyword <code>return</code> denotes the <code>&lt;output&gt;</code> of the function.</p>
+<p>Let's code our <em>for loop</em> that approximates $e^2$ into a function.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+
+<span class="k">def</span> <span class="nf">func_e_to_2</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">e_to_2</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">e_to_2</span> <span class="o">+=</span> <span class="n">x</span><span class="o">**</span><span class="n">i</span><span class="o">/</span><span class="n">math</span><span class="o">.</span><span class="n">factorial</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">e_to_2</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If we call our function <code>func_e_to_2()</code> with the input argument <code>10</code>, the result is the same as when we ran the <em>for loop</em> <code>10</code> times.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">out</span> <span class="o">=</span> <span class="n">func_e_to_2</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>7.3887125220458545
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The output of our <code>func_e_to_2()</code> function is <code>7.38871...</code>.</p>
+<p>We can make our function more general by setting <code>x</code> (the number that $e$ gets raised to) as an input argument. Note how now there are two input arguments in the function definition <code>(x, n)</code>. <code>x</code> is the number $e$ is raised to, and <code>n</code> is the number of terms in the Taylor Series (which is the number of times the <em>for loop</em> runs on the inside of the function definition).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+
+<span class="k">def</span> <span class="nf">func_e</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="n">e_approx</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">e_approx</span> <span class="o">+=</span> <span class="n">x</span><span class="o">**</span><span class="n">i</span><span class="o">/</span><span class="n">math</span><span class="o">.</span><span class="n">factorial</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">e_approx</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's calculate $e^2$ using <code>10</code> terms with our new <code>func_e()</code> function.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">out</span> <span class="o">=</span> <span class="n">func_e</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>7.3887125220458545
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The result is <code>7.38871...</code>, the same result as before.</p>
+<p>An advantage to writing our Taylor Series expansion in a function is that now the Taylor Series approximation calculation is reusable and can be called in one line of code. For instance, we can estimate the value of $e^5$ with <code>10</code> terms, by calling our <code>func_e()</code> function with the input arguments <code>(5,10)</code>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">out</span> <span class="o">=</span> <span class="n">func_e</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>143.68945656966488
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The result is <code>143.68945...</code>. Let's see how close this value is to Python's <code>exp()</code> function when we make the same calculation $e^5$.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">out</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>148.4131591025766
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The result is <code>148.41315...</code>. The Taylor Series approximation calculated by our <code>func_e()</code> function is pretty close to the value calculated by Python's <code>exp()</code> function.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Use-a-for-loop-to-calculate-the-difference-between-the-Taylor-Series-expansion-and-Python's-exp()-function">Use a <em>for loop</em> to calculate the difference between the Taylor Series expansion and Python's <code>exp()</code> function<a class="anchor-link" href="#Use-a-for-loop-to-calculate-the-difference-between-the-Taylor-Series-expansion-and-Python's-exp()-function">&#182;</a></h2><p>Now let's use a <em>for loop</em> to calculate the difference between the Taylor Series expansion as calculated by our <code>func_e()</code> function compared to Python's <code>exp()</code> function. We'll calculate the difference between the two functions when we use between <code>1</code> and <code>10</code> terms in the Taylor Series expansion.</p>
+<p>The code below uses <em>f-strings</em>, which is a Python syntax for inserting the value of a variable in a string. The general syntax for an <em>f-string</em> in Python is below.</p>
+
+<pre><code>f'string statment {&lt;var&gt;}'</code></pre>
+<p>Where <code>f</code> denotes the beginning of an <em>f-string</em>, the <em>f-string</em> is surrounded by quotes <code>'   '</code>, and the variable <code>&lt;var&gt;</code> is enclosed in curly braces <code>{  }</code>. The value of <code>&lt;var&gt;</code> will be printed out without the curly braces.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">11</span><span class="p">):</span>
+    <span class="n">e_approx</span> <span class="o">=</span> <span class="n">func_e</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">e_exp</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">e_error</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">e_approx</span> <span class="o">-</span> <span class="n">e_exp</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{i}</span><span class="s1"> terms: Taylor Series approx= </span><span class="si">{e_approx}</span><span class="s1">, exp calc= </span><span class="si">{e_exp}</span><span class="s1">, error = </span><span class="si">{e_error}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>1 terms: Taylor Series approx= 1.0, exp calc= 148.4131591025766, error = 147.4131591025766
+2 terms: Taylor Series approx= 6.0, exp calc= 148.4131591025766, error = 142.4131591025766
+3 terms: Taylor Series approx= 18.5, exp calc= 148.4131591025766, error = 129.9131591025766
+4 terms: Taylor Series approx= 39.33333333333333, exp calc= 148.4131591025766, error = 109.07982576924327
+5 terms: Taylor Series approx= 65.375, exp calc= 148.4131591025766, error = 83.0381591025766
+6 terms: Taylor Series approx= 91.41666666666667, exp calc= 148.4131591025766, error = 56.99649243590993
+7 terms: Taylor Series approx= 113.11805555555556, exp calc= 148.4131591025766, error = 35.29510354702104
+8 terms: Taylor Series approx= 128.61904761904762, exp calc= 148.4131591025766, error = 19.79411148352898
+9 terms: Taylor Series approx= 138.30716765873015, exp calc= 148.4131591025766, error = 10.105991443846449
+10 terms: Taylor Series approx= 143.68945656966488, exp calc= 148.4131591025766, error = 4.723702532911716
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Note how the error decreases as we add terms to the Taylor Series. When the Taylor Series only has 1 term, the error is <code>147.41...</code>. When <code>10</code> terms are used in the Taylor Series, the error goes down to <code>4.7237...</code>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Use-a-break-statement-to-exit-a-for-loop-early.">Use a <code>break</code> statement to exit a <em>for loop</em> early.<a class="anchor-link" href="#Use-a-break-statement-to-exit-a-for-loop-early.">&#182;</a></h2><p>How many terms would it take to produce an error of less than <code>1</code>? We can use a <code>break</code> statement to drop out of the <em>for loop</em> when the error is less than <code>1</code>. The code below calculates how many terms are needed in the Taylor Series, when $e^5$ is calculated, to keep the error less than <code>1</code>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">20</span><span class="p">):</span>
+    <span class="n">e_approx</span> <span class="o">=</span> <span class="n">func_e</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">e_exp</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">e_error</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">e_approx</span> <span class="o">-</span> <span class="n">e_exp</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">e_error</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">break</span>
+        
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{i}</span><span class="s1"> terms: Taylor Series approx= </span><span class="si">{e_approx}</span><span class="s1">, exp calc= </span><span class="si">{e_exp}</span><span class="s1">, error = </span><span class="si">{e_error}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>12 terms: Taylor Series approx= 147.60384850489015, exp calc= 148.4131591025766, error = 0.8093105976864479
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The output shows that it takes <code>12</code> terms in the Taylor Series to drop the error below <code>1</code>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Create-a-function-to-estimate-the-value-of-$cos(x)$-using-a-Taylor-Series">Create a function to estimate the value of $cos(x)$ using a Taylor Series<a class="anchor-link" href="#Create-a-function-to-estimate-the-value-of-$cos(x)$-using-a-Taylor-Series">&#182;</a></h2><p>Next, let's calculate the value of the cosine function using a Taylor Series. The Taylor Series expansion for $\cos(x)$ is below.</p>
+$$  \cos \left( x \right) \approx \sum\limits_{n = 0}^\infty  {{{\left( { - 1} \right)}^n}\frac{{{x^{2n}}}}{{\left( {2n} \right)!}}}  \approx 1 - \frac{{{x^2}}}{{2!}} + \frac{{{x^4}}}{{4!}} - \frac{{{x^6}}}{{6!}} + \frac{{{x^8}}}{{8!}} - \frac{{{x^{10}}}}{{10!}} \ + \ ... $$<p>We can code this formula into a function that contains a <em>for loop</em>. Note the variable <code>x</code> is the value we are trying to find the cosine of, the variable <code>n</code> is the number of terms in the Taylor Series, and the variable <code>i</code> is the loop index which is also the Taylor Series term number. We are using a separate variable for the coefficient <code>coef</code> which is equal to $(-1)^i$, the numerator <code>num</code> which is equal to $x^{2i}$ and the denominator <code>denom</code> which is equal to $(2i!)$. Breaking the Taylor Series formula into three parts can cut down on coding errors.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+
+<span class="k">def</span> <span class="nf">func_cos</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="n">cos_approx</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">coef</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="n">i</span>
+        <span class="n">num</span> <span class="o">=</span> <span class="n">x</span><span class="o">**</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">denom</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">factorial</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">cos_approx</span> <span class="o">+=</span> <span class="p">(</span> <span class="n">coef</span> <span class="p">)</span> <span class="o">*</span> <span class="p">(</span> <span class="p">(</span><span class="n">num</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">denom</span><span class="p">)</span> <span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">cos_approx</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's use our <code>func_cos()</code> function to estimate the cosine of 45 degrees. Note that <code>func_cos()</code> function computes the cosine of an angle in radians. If we want to calculate the cosine of 45 degrees using our function, we first have to convert 45 degrees into radians. Luckily, Python's <code>math</code> module has a function called <code>radians()</code> that makes the angle conversion early.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">angle_rad</span> <span class="o">=</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="mi">45</span><span class="p">))</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">func_cos</span><span class="p">(</span><span class="n">angle_rad</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>0.7071068056832942
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Using our <code>func_cos()</code> function and <code>5</code> terms in the Taylor Series approximation, we estimate the cosine of 45 degrees is <code>0.707106805...</code>. Let's check our <code>func_cos()</code> function compared to Python's <code>cos()</code> function from the <code>math</code> module.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">out</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle_rad</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>0.7071067811865476
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Using Python's <code>cos()</code> function, the cosine of 45 degrees returns <code>0.707106781...</code> This value is very close to the approximation calculated using our <code>func_cos()</code> function.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Build-a-plot-to-compare-the-Taylor-Series-approximation-to-Python's-cos()-function">Build a plot to compare the Taylor Series approximation to Python's <code>cos()</code> function<a class="anchor-link" href="#Build-a-plot-to-compare-the-Taylor-Series-approximation-to-Python's-cos()-function">&#182;</a></h2><p>In the last part of this post, we are going to build a plot that shows how the Taylor Series approximation calculated by our <code>func_cos()</code> function compares to Python's <code>cos()</code> function.</p>
+<p>The idea is to make a plot that has one line for Python's <code>cos()</code> function and lines for the Taylor Series approximation based on different numbers of terms.</p>
+<p>For instance, if we use 3 terms in the Taylor Series approximation, our plot has two lines. One line for Python's <code>cos()</code> function and one line for our <code>func_cos()</code> function with three terms in the Taylor series approximation. We'll calculate the cosine using both functions for angles between $-2\pi$ radians and $2\pi$ radians.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="c1"># if using a Jupyter notebook, include:</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="n">angles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">p_cos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angles</span><span class="p">)</span>
+<span class="n">t_cos</span> <span class="o">=</span> <span class="p">[</span><span class="n">func_cos</span><span class="p">(</span><span class="n">angle</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span> <span class="k">for</span> <span class="n">angle</span> <span class="ow">in</span> <span class="n">angles</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">angles</span><span class="p">,</span><span class="n">p_cos</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">angles</span><span class="p">,</span><span class="n">t_cos</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;cos() function&#39;</span><span class="p">,</span><span class="s1">&#39;Taylor Series - 3 terms&#39;</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can use a <em>for loop</em> to see how much better adding additional terms to our Taylor Series approximation compares to Python's <code>cos()</code> function.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="c1"># if using a Jupyter notebook, include:</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="n">angles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">p_cos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angles</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">angles</span><span class="p">,</span><span class="n">p_cos</span><span class="p">)</span>
+
+<span class="c1"># add lines for between 1 and 6 terms in the Taylor Series</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">):</span>
+    <span class="n">t_cos</span> <span class="o">=</span> <span class="p">[</span><span class="n">func_cos</span><span class="p">(</span><span class="n">angle</span><span class="p">,</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">angle</span> <span class="ow">in</span> <span class="n">angles</span><span class="p">]</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">angles</span><span class="p">,</span><span class="n">t_cos</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="o">-</span><span class="mi">7</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+
+<span class="c1"># set up legend</span>
+<span class="n">legend_lst</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;cos() function&#39;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">):</span>
+    <span class="n">legend_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Taylor Series - </span><span class="si">{i}</span><span class="s1"> terms&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">legend_lst</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We see the Taylor Series with 5 terms (the brown line) comes closest to approximating Python's <code>cos()</code> function. The Taylor Series with 5 terms is a good approximation of the cosine of angles between about $-\pi$ and $\pi$ radians. The Taylor Series with 5 terms is a worse approximation for angles less than $-\pi$ or greater than $\pi$. As the angle gets further away from zero radians, the estimate of the cosine using a Taylor Series gets worse and worse.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Summary">Summary<a class="anchor-link" href="#Summary">&#182;</a></h2><p>In this post, we reviewed how to construct the Taylor Series of $e^x$ and $\cos(x)$ in Python. First, we coded each term of the Taylor series individually. Next, we used a <em>for loop</em> to calculate $n$ terms in the Taylor Series expansion. We then refactored the code with the <em>for loop</em> into a function and parameterized our function so that we could calculate $e$ raised to any number calculated out to any number of terms. At the end of the post, we coded the Taylor Series of $\cos(x)$ into a Python function. Finally, we used our Taylor Series cosine function to build a plot with <strong>Matplotlib</strong> that shows how the Taylor Series approximation compares to Python's <code>cos()</code> function for angles between $-2\pi$ and $2\pi$ radians.</p>
+
+</div>
+</div>
+</div>
+            </div>
+            <!-- /.entry-content -->
+<section class="well" id="related-posts">
+    <h4>Related Posts:</h4>
+    <ul>
+        <li><a href="./plotting-bond-energy-with-matplotlib-and-python.html">Plotting Bond Energy vs. Distance with Python and Matplotlib</a></li>
+        <li><a href="./quiver-plot-with-matplotlib-and-jupyter-notebooks.html">Quiver plots using Python, matplotlib and Jupyter notebooks</a></li>
+        <li><a href="./histogram-plots-with-matplotlib-and-python.html">Plotting Histograms with matplotlib and Python</a></li>
+        <li><a href="./bar-plot-with-error-bars-jupyter-matplotlib.html">Bar charts with error bars using Python, jupyter notebooks and matplotlib</a></li>
+        <li><a href="./python-matplotlib-error-bars.html">Bar charts with error bars using Python and matplotlib</a></li>
+    </ul>
+</section>
+    <hr />
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style">
+            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+            <a class="addthis_button_tweet"></a>
+    </div>
+    <!-- AddThis Button END -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<div id="aboutme">
+        <p>
+            <img width="100%" class="img-thumbnail" src="./extra/gear-wrench-icon-512-278694.png"/>
+        </p>
+    <p>
+      <strong>About Peter Kazarinoff</strong><br/>
+        I teach engineering at a community college in the Pacific Northwest. I am interested in programming and how to help students. Here I mostly blog about Python, and how programing can be incorporated into engineering education.
+    </p>
+</div><!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Recent Posts -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+  <ul class="list-group" id="recentposts">
+    <li class="list-group-item"><a href="./thoughts-on-how-to-test-science-code.html">Thoughts on Software Design in Scientific Code</a></li>
+    <li class="list-group-item"><a href="./stream-S01-E01-jupyterhub-intro.html">My first Twitch Stream: S01-E01 JupyterHub Intro and Tools</a></li>
+    <li class="list-group-item"><a href="./jupyterhub-deployment-on-running-in-production.html">Hear my story about deploying JupyterHub on the Running in Production Podcast</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Recent Posts -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="./"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-2">
+      <a href="./tag/engineering.html">engineering</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/esp8266.html">esp8266</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="./tag/jupyter.html">jupyter</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="./tag/jupyter-notebook.html">jupyter notebook</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="./tag/matplotlib.html">matplotlib</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/micropython.html">micropython</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/pelican.html">pelican</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="./tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/sensor.html">sensor</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Github -->
+<li class="list-group-item">
+  <h4><i class="fa fa-github fa-lg"></i><span class="icon-label">GitHub Repos</span></h4>
+  <div id="gh_repos">
+    <p class="list-group-item">Status updating...</p>
+  </div>
+  <a href="https://github.com/professorkazarinoff">@professorkazarinoff</a> on GitHub
+</li>
+<!-- End Sidebar/Github -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2021 Peter Kazarinoff
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="./theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="./theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="./theme/js/respond.min.js"></script>
+
+    <script src="./static/js/custom.js"></script>
+
+
+<!-- GitHub JS Code -->
+<script type="text/javascript">
+$(document).ready(function () {
+  if (!window.jXHR) {
+    var jxhr = document.createElement('script');
+    jxhr.type = 'text/javascript';
+    jxhr.src = './theme/js/jXHR.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(jxhr, s);
+  }
+
+  github.showRepos({
+    user: 'professorkazarinoff',
+    count: 5,
+    skip_forks: true,
+    target: '#gh_repos'
+  });
+});
+</script>
+<script src="./theme/js/github.js" type="text/javascript"></script>
+<!-- End GitHub JS Code -->
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-116330557-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+    $("div.collapseheader").click(function () {
+    $header = $(this).children("span").first();
+    $codearea = $(this).children(".input_area");
+    console.log($(this).children());
+    $codearea.slideToggle(500, function () {
+        $header.text(function () {
+            return $codearea.is(":visible") ? "Collapse Code" : "Expand Code";
+        });
+    });
+});
+});
+</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cdd8eb4e16bf94c"></script>
+</body>
+</html>

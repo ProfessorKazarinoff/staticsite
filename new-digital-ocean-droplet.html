@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Creating a new Digital Ocean Droplet - Python for Undergraduate Engineers</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
+<style type="text/css">
+
+    /*some stuff for output/input prompts*/
+    div.cell{border:1px solid transparent;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}div.cell.selected{border-radius:4px;border:thin #ababab solid}
+    div.cell.edit_mode{border-radius:4px;border:thin #008000 solid}
+    div.cell{width:100%;padding:5px 5px 5px 0;margin:0;outline:none}
+    div.prompt{min-width:11ex;padding:.4em;margin:0;font-family:monospace;text-align:right;line-height:1.21429em}
+    @media (max-width:480px){div.prompt{text-align:left}}div.inner_cell{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
+    div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;line-height:1.21429em}
+    div.prompt:empty{padding-top:0;padding-bottom:0}
+    div.input{page-break-inside:avoid;display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;}
+    div.inner_cell{width:90%;}
+    div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;}
+    div.input_prompt{color:navy;border-top:1px solid transparent;}
+    div.output_wrapper{margin-top:5px;position:relative;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+    div.output_scroll{height:24em;width:100%;overflow:auto;border-radius:4px;-webkit-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);-moz-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);}
+    div.output_collapsed{margin:0px;padding:0px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+    div.out_prompt_overlay{height:100%;padding:0px 0.4em;position:absolute;border-radius:4px;}
+    div.out_prompt_overlay:hover{-webkit-box-shadow:inset 0 0 1px #000000;-moz-box-shadow:inset 0 0 1px #000000;box-shadow:inset 0 0 1px #000000;background:rgba(240, 240, 240, 0.5);}
+    div.output_prompt{color:darkred;}
+    
+    a.anchor-link:link{text-decoration:none;padding:0px 20px;visibility:hidden;}
+    h1:hover .anchor-link,h2:hover .anchor-link,h3:hover .anchor-link,h4:hover .anchor-link,h5:hover .anchor-link,h6:hover .anchor-link{visibility:visible;}
+    /* end stuff for output/input prompts*/
+    
+    
+    .highlight-ipynb .hll { background-color: #ffffcc }
+    .highlight-ipynb  { background: #f8f8f8; }
+    .highlight-ipynb .c { color: #408080; font-style: italic } /* Comment */
+    .highlight-ipynb .err { border: 1px solid #FF0000 } /* Error */
+    .highlight-ipynb .k { color: #008000; font-weight: bold } /* Keyword */
+    .highlight-ipynb .o { color: #666666 } /* Operator */
+    .highlight-ipynb .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+    .highlight-ipynb .cp { color: #BC7A00 } /* Comment.Preproc */
+    .highlight-ipynb .c1 { color: #408080; font-style: italic } /* Comment.Single */
+    .highlight-ipynb .cs { color: #408080; font-style: italic } /* Comment.Special */
+    .highlight-ipynb .gd { color: #A00000 } /* Generic.Deleted */
+    .highlight-ipynb .ge { font-style: italic } /* Generic.Emph */
+    .highlight-ipynb .gr { color: #FF0000 } /* Generic.Error */
+    .highlight-ipynb .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+    .highlight-ipynb .gi { color: #00A000 } /* Generic.Inserted */
+    .highlight-ipynb .go { color: #888888 } /* Generic.Output */
+    .highlight-ipynb .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+    .highlight-ipynb .gs { font-weight: bold } /* Generic.Strong */
+    .highlight-ipynb .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+    .highlight-ipynb .gt { color: #0044DD } /* Generic.Traceback */
+    .highlight-ipynb .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+    .highlight-ipynb .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+    .highlight-ipynb .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+    .highlight-ipynb .kp { color: #008000 } /* Keyword.Pseudo */
+    .highlight-ipynb .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+    .highlight-ipynb .kt { color: #B00040 } /* Keyword.Type */
+    .highlight-ipynb .m { color: #666666 } /* Literal.Number */
+    .highlight-ipynb .s { color: #BA2121 } /* Literal.String */
+    .highlight-ipynb .na { color: #7D9029 } /* Name.Attribute */
+    .highlight-ipynb .nb { color: #008000 } /* Name.Builtin */
+    .highlight-ipynb .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+    .highlight-ipynb .no { color: #880000 } /* Name.Constant */
+    .highlight-ipynb .nd { color: #AA22FF } /* Name.Decorator */
+    .highlight-ipynb .ni { color: #999999; font-weight: bold } /* Name.Entity */
+    .highlight-ipynb .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+    .highlight-ipynb .nf { color: #0000FF } /* Name.Function */
+    .highlight-ipynb .nl { color: #A0A000 } /* Name.Label */
+    .highlight-ipynb .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+    .highlight-ipynb .nt { color: #008000; font-weight: bold } /* Name.Tag */
+    .highlight-ipynb .nv { color: #19177C } /* Name.Variable */
+    .highlight-ipynb .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+    .highlight-ipynb .w { color: #bbbbbb } /* Text.Whitespace */
+    .highlight-ipynb .mf { color: #666666 } /* Literal.Number.Float */
+    .highlight-ipynb .mh { color: #666666 } /* Literal.Number.Hex */
+    .highlight-ipynb .mi { color: #666666 } /* Literal.Number.Integer */
+    .highlight-ipynb .mo { color: #666666 } /* Literal.Number.Oct */
+    .highlight-ipynb .sb { color: #BA2121 } /* Literal.String.Backtick */
+    .highlight-ipynb .sc { color: #BA2121 } /* Literal.String.Char */
+    .highlight-ipynb .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+    .highlight-ipynb .s2 { color: #BA2121 } /* Literal.String.Double */
+    .highlight-ipynb .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+    .highlight-ipynb .sh { color: #BA2121 } /* Literal.String.Heredoc */
+    .highlight-ipynb .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+    .highlight-ipynb .sx { color: #008000 } /* Literal.String.Other */
+    .highlight-ipynb .sr { color: #BB6688 } /* Literal.String.Regex */
+    .highlight-ipynb .s1 { color: #BA2121 } /* Literal.String.Single */
+    .highlight-ipynb .ss { color: #19177C } /* Literal.String.Symbol */
+    .highlight-ipynb .bp { color: #008000 } /* Name.Builtin.Pseudo */
+    .highlight-ipynb .vc { color: #19177C } /* Name.Variable.Class */
+    .highlight-ipynb .vg { color: #19177C } /* Name.Variable.Global */
+    .highlight-ipynb .vi { color: #19177C } /* Name.Variable.Instance */
+    .highlight-ipynb .il { color: #666666 } /* Literal.Number.Integer.Long */
+    </style>
+    
+    <style type="text/css">
+    /* Overrides of notebook CSS for static HTML export */
+    div.entry-content {
+      overflow: visible;
+      padding: 8px;
+    }
+    .input_area {
+      padding: 0.2em;
+    }
+    
+    a.heading-anchor {
+     white-space: normal;
+    }
+    
+    .rendered_html
+    code {
+     font-size: .8em;
+    }
+    
+    pre.ipynb {
+      color: black;
+      background: #f7f7f7;
+      border: none;
+      box-shadow: none;
+      margin-bottom: 0;
+      padding: 0;
+      margin: 0px;
+      font-size: 13px;
+    }
+    
+    /* remove the prompt div from text cells */
+    div.text_cell .prompt {
+        display: none;
+    }
+    
+    /* remove horizontal padding from text cells, */
+    /* so it aligns with outer body text */
+    div.text_cell_render {
+        padding: 0.5em 0em;
+    }
+    
+    img.anim_icon{padding:0; border:0; vertical-align:middle; -webkit-box-shadow:none; -box-shadow:none}
+    
+    div.collapseheader {
+        width=100%;
+        padding: 2px;
+        cursor: pointer;
+        font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+    
+    </style>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+    <script type="text/javascript">
+    init_mathjax = function() {
+        if (window.MathJax) {
+            // MathJax loaded
+            MathJax.Hub.Config({
+                tex2jax: {
+                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+                },
+                displayAlign: 'center', // Change this to 'center' to center equations.
+                "HTML-CSS": {
+                    styles: {'.MathJax_Display': {"margin": 0}}
+                }
+            });
+            MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        }
+    }
+    init_mathjax();
+    </script>
+    
+    <link href="./extra/favicon.ico" rel="icon">
+
+<link rel="canonical" href="./new-digital-ocean-droplet.html">
+
+        <meta name="author" content="Peter D. Kazarinoff" />
+        <meta name="keywords" content="jupyter,jupyter hub,jupyter notebooks,python" />
+        <meta name="description" content="This is the third part of a multi-part series on how to set up Jupyter Hub for a class. My goal is to have a running version of Jupyter Hub that students can access using a simple web link. I am primarily writing to my future self as I may need to set up Jupyter Hub again for a future class. In this post, we are going to create a new Digital Ocean server (called a droplet) and create a non-root user with sudo privileges. Then we&#39;ll SSH into the droplet with PuTTY as the non-root user." />
+
+        <meta property="og:site_name" content="Python for Undergraduate Engineers" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Creating a new Digital Ocean Droplet"/>
+        <meta property="og:url" content="./new-digital-ocean-droplet.html"/>
+        <meta property="og:description" content="This is the third part of a multi-part series on how to set up Jupyter Hub for a class. My goal is to have a running version of Jupyter Hub that students can access using a simple web link. I am primarily writing to my future self as I may need to set up Jupyter Hub again for a future class. In this post, we are going to create a new Digital Ocean server (called a droplet) and create a non-root user with sudo privileges. Then we&#39;ll SSH into the droplet with PuTTY as the non-root user."/>
+        <meta property="article:published_time" content="2018-05-20" />
+            <meta property="article:section" content="jupyter" />
+            <meta property="article:tag" content="jupyter" />
+            <meta property="article:tag" content="jupyter hub" />
+            <meta property="article:tag" content="jupyter notebooks" />
+            <meta property="article:tag" content="python" />
+            <meta property="article:author" content="Peter D. Kazarinoff" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="./theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="./theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="./theme/css/pygments/native.css" rel="stylesheet">
+    <link href="./theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="./theme/css/style.css" type="text/css"/>
+        <link href="./static/css/custom.css" rel="stylesheet">
+
+
+
+</head>
+<body>
+
+<!-- .navbar -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="./" class="navbar-brand">
+Python for Undergraduate Engineers            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="./pages/about.html">
+                             About
+                          </a></li>
+                         <li><a href="./pages/book.html">
+                             Book
+                          </a></li>
+                         <li><a href="./pages/now.html">
+                             Now
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+
+<!-- .navbar-search -->
+<li>
+    <span>
+        <form class="navbar-search" action="/search.html">
+            <input type="text" name="q" id="tipue_search_input">
+        </form>
+    </span>
+</li>
+<!-- /.navbar-search -->              <li><a href="./archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+            <ol class="breadcrumb">
+                <li><a href="." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="./category/jupyter.html" title="jupyter">jupyter</a></li>
+                <li class="active">Creating a new Digital Ocean Droplet</li>
+            </ol>
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="./new-digital-ocean-droplet.html"
+                       rel="bookmark"
+                       title="Permalink to Creating a new Digital Ocean Droplet">
+                        Creating a new Digital Ocean Droplet
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2018-05-20T12:40:00-07:00"> Sun 20 May 2018</time>
+    </span>
+
+            <span class="label label-default">Series</span>
+            Part 3 of Jupyter Hub
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="./tag/jupyter.html">jupyter</a>
+        /
+	<a href="./tag/jupyter-hub.html">jupyter hub</a>
+        /
+	<a href="./tag/jupyter-notebooks.html">jupyter notebooks</a>
+        /
+	<a href="./tag/python.html">python</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>This is the third part of a multi-part series on how to set up Jupyter Hub for a class.  My goal is to have a running version of Jupyter Hub that students can access using a simple web link. I am primarily writing to my future self as I may need to set up Jupyter Hub again for a future class. In this post, we are going to create a new Digital Ocean server (called a <em>droplet</em>) and create a non-root user with sudo privileges. Then we'll SSH into the droplet with PuTTY as the non-root user.</p>
+<h3 id="posts-in-this-series">Posts in this series</h3>
+<ol>
+<li><a href="./posts/jupyterhub/why_jupyter_hub.md">Why Jupyter Hub?</a> </li>
+<li><a href="./posts/jupyterhub/PuTTYgen_ssh_key.md">Create ssh key, save to documents/ssh-keys</a></li>
+<li><strong>Create a new Digital Ocean Droplet with a non-root sudo user</strong> (this post)</li>
+<li>Install Jupyter Hub on the server</li>
+<li>Apply SSL, link a domain name to the server and configure nginx</li>
+<li>Connect OAuth to Jupyter Hub</li>
+<li>Connect to Jupyter Hub as student</li>
+</ol>
+<h3 id="the-last-post">The last post</h3>
+<p>In the <a href="./posts/jupyterhub/PuTTYgen_ssh_key.md">previous post</a>, we created a public/private SSH key pair using PuTTYgen. We saved the SSH keys in the Documents/ssh-keys directory. We also copied contents of the public SSH key to the clipboard.</p>
+<h3 id="steps-in-this-post">Steps in this post</h3>
+<ol>
+<li>Sign up for a Digital Ocean Account</li>
+<li>Create a new Digital Ocean Droplet (will be called <em>the server</em> from here on out)</li>
+<li>Log into the server as root over SSH using PuTTY. </li>
+<li>Create a non-root sudo user</li>
+<li>Log into to the server as the non-root sudo user using PuTTY</li>
+</ol>
+<h3 id="1-sign-up-for-a-digital-ocean-account">1. Sign up for a Digital Ocean Account</h3>
+<p>Digital Ocean is a cloud service provider like Amazon Web Services (AWS), Google Cloud, Microsoft Azure and Linode. Digital Ocean provides virtual private servers (called <em>droplets</em> in Digital Ocean-speak) and online storage of static files (called <em>spaces</em> in Digital Ocean-speak). We are going to run the Jupyter Hub server on a Digital Ocean <em>droplet</em>. I like Digital Ocean's prices and web interface. The documentation on Digital Ocean is pretty good too. I already have a Digital Ocean account. I don't remember exactly how I did it, but going to this link:</p>
+<p><a href="https://www.digitalocean.com/">https://www.digitalocean.com/</a></p>
+<p>and selecting [Create Account &rarr;] should work.</p>
+<h3 id="2-create-a-new-digital-ocean-droplet">2. Create a new Digital Ocean Droplet</h3>
+<p>To create a new Digtial Ocean Droplet (a new server), log in here:</p>
+<p><a href="https://cloud.digitalocean.com/login">https://cloud.digitalocean.com/login</a></p>
+<p><img alt="Digital Ocean Login" src="/posts/jupyterhub/digital_ocean_login.png"></p>
+<p>After logging in, I got a verify screen and had to go to my email and retrive a six digit code. Ah... the joys of two-factor authentication.</p>
+<p><img alt="Digital Ocean Verify" src="/posts/jupyterhub/digital_ocean_verify.png"></p>
+<p>The welcome screen looks like this. To create a new server select [Create Droplet]</p>
+<p><img alt="Digital Ocean Create Droplet" src="/posts/jupyterhub/digital_ocean_create_droplet.png"></p>
+<p>There are a number of choices to make. These are the ones I selected:</p>
+<ul>
+<li>Image: Ubuntu 16.04.4 x64</li>
+<li>Size: 1 GB Memory 25GB SSD $5/month</li>
+<li>Datacenter: San Fransisco 2</li>
+<li>Add your SSH keys: New SSH Key</li>
+<li>Finalize: 1 Droplet, Hostname: jupyter-hub</li>
+</ul>
+<p><img alt="Digital Droplet Choices" src="/posts/jupyterhub/digital_ocean_create_droplets_choices.png"></p>
+<p><img alt="Digital Droplet Choices" src="/posts/jupyterhub/digital_ocean_droplet_size_choices.png"></p>
+<p><img alt="Digital Droplet Choices" src="/posts/jupyterhub/digital_ocean_droplet_data_center_choices.png"></p>
+<p><img alt="Digital Droplet Choices" src="/posts/jupyterhub/digital_ocean_droplet_ssh_key__choices.png"></p>
+<h4 id="add-an-ssh-key">Add an SSH Key</h4>
+<div class="alert alert-warning" role="alert">
+  <strong>Important!</strong> You need to add the public SSH key BEFORE creating the droplet
+</div>
+
+<p>The public SSH key we created needs to be shown on the list of keys and the radio box beside it needs to be checked. If the SSH key isn't listed or the SSH key box left  unchecked, the SSH key will not be added to the server when the server is first created (and then we won't be able to log in with PuTTY). We need to add our public SSH key and check the key box so we can log onto the server with PuTTY.</p>
+<p>Under [Add your SSH keys], click [New SSH Key]. A dialog window pops up:</p>
+<p><img alt="Digital Droplet Choices" src="/posts/jupyterhub/digital_ocean_droplet_new_ssh_key_dialog.png"></p>
+<p>Paste the contents of the public SSH key into the [New SSH Key] dialog box.</p>
+<p><img alt="Putty in Windows Start Menu" src="/posts/jupyterhub/digital_ocean_droplet_enter_ssh_key__details.png"></p>
+<p>Enter a name for the SSH key that will be saved on Digital Ocean. I choose the name <code>jupyter-hub-ssh-key</code>. Then click [Add SSH Key]</p>
+<p><img alt="Putty in Windows Start Menu" src="/posts/jupyterhub/digital_ocean_droplet_ssh_key_name_and_add.png"></p>
+<p>Then you should see the new SSH Key in the [Add your SSH Keys?] region of the new droplets page. Make sure that the radio box for the SSH key we just added is checked. </p>
+<p>A problem I had when I set up my first <em>droplet</em> was that I did not have the SSH Key was radio button selected. Therefore, when the server was created, no SSH keys were installed. I ended up going through this long process of copying the public SSH key into pastbin.com (which is definitely <strong>not a safe thing to do</strong>), and using <code>wget</code> to past the raw contents from the pastebin into the server file system, then using <code>cp</code> to copy the publish SSH key into the correct file name. This required using the Digital Ocean console, which is sort of like a bash terminal that pops up in a web browser. I couldn't figure out a way to copy and paste into the Digital Ocean console and the console is slow and laggy. </p>
+<p>It is <em>way easier</em> to insert SSH keys into the server when the server is created. It is <em>way harder</em> to add an SSH key after the server is created.</p>
+<p><img alt="Putty in Windows Start Menu" src="/posts/jupyterhub/digital_ocean_see_new_ssh_key.png"></p>
+<p>OK, I think it's time to actually create the <em>droplet</em>. Click the long green [Create] button at the bottom of the page.</p>
+<p><img alt="Putty in Windows Start Menu" src="/posts/jupyterhub/digital_ocean_droplet_create.png"></p>
+<p>This will bring you back the the Digital Ocean main dashboard and you should see your new droplet under [Resources] &rarr; [Droplets]</p>
+<p><img alt="Putty in Windows Start Menu" src="/posts/jupyterhub/digital_ocean_droplets_1.png"></p>
+<p>Note the IP address of the new droplet. We need to IP address to log into our server with PuTTY.</p>
+<h3 id="3-log-into-the-server-as-root-over-ssh-using-putty">3. Log into the server as root over SSH using PuTTY.</h3>
+<p>Open PuTTY from the Windows start menu. A couple other parameters need to be set before we log onto the server.</p>
+<table class="table table-striped table-bordered table-hover">
+<thead>
+<tr>
+<th>parameter</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IP Address</td>
+<td>IP of <em>droplet</em> ex: 168.97.14.19</td>
+</tr>
+<tr>
+<td>Port</td>
+<td>22</td>
+</tr>
+<tr>
+<td>Connection &rarr; SSH &rarr; Auth &rarr; Private key file</td>
+<td>private SSH key</td>
+</tr>
+<tr>
+<td>Connection &rarr; Data &rarr; Auto-login username</td>
+<td>root</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="Putty in Windows Start Menu" src="/posts/jupyterhub/putty_in_start_menu.png"></p>
+<p>Under Connect &rarr; SSH &rarr; Auth &rarr; Private key file for authentication:, click [Browse]. </p>
+<p><img alt="PuTTY Auth SSH private key" src="/posts/jupyterhub/putty_Auth_SSH_private_key.png"></p>
+<p>Navigate to the SSH private key in Documents/ssh-keys. The private key ends in a .ppk extension. I had trouble finding the key when I first set up PuTTY. It turned out that when the key was saved in Programfiles/PuTTY. The key was not visible in the Windows file browser because I don't have administrator permissions on my machine at work. I ended up having to create a new SSH key and save the new key in Documents/ssh-key (I can access Documents/ssh-key without administrator privaleges).</p>
+<p><img alt="PuTTY browse to private SSH key" src="/posts/jupyterhub/putty_browse_private_ssh_key.png"></p>
+<p>Under Connection &rarr; Data &rarr; Auto-login username: <code>root</code></p>
+<p><img alt="Putty login details" src="/posts/jupyterhub/putty_login_details.png"></p>
+<p>Back in [Sessions] (the top-most menu item or main page), add the IP address and Port = 22, click [Open]</p>
+<p><img alt="Putty IP address and Port" src="/posts/jupyterhub/puTTY_IP_and_Port.png"></p>
+<p>This should bring up a new window that is a terminal for our server:</p>
+<p><img alt="PyTTY SSH window open" src="/posts/jupyterhub/putty_ssh_window_open.png"></p>
+<h3 id="4-create-a-non-root-sudo-user">4. Create a non-root sudo user</h3>
+<p>Digital Ocean recommends that the servers are run by non-root user that have sudo access. So one of the first things we'll do on our server is create a non-root sudo user. First though, let's make sure everything is up to date:</p>
+<div class="highlight"><pre><span></span>$ sudo apt-get update
+$ sudo apt-get upgrade
+</pre></div>
+
+
+<p>I followed <a href="https://www.digitalocean.com/community/tutorials/how-to-create-a-sudo-user-on-ubuntu-quickstart">this tutorial</a> at Digital Ocean to create a non-root sudo user.</p>
+<p>Create the new user with the <code>adduser</code> command. I called my new user <code>peter</code>.</p>
+<div class="highlight"><pre><span></span>$ adduser &lt;username&gt;
+</pre></div>
+
+
+<p>Set a new password and confirm:</p>
+<div class="highlight"><pre><span></span><span class="n">Enter</span> <span class="k">new</span> <span class="n">UNIX</span> <span class="n">password</span><span class="p">:</span>
+<span class="n">Retype</span> <span class="k">new</span> <span class="n">UNIX</span> <span class="n">password</span><span class="p">:</span>
+<span class="n">passwd</span><span class="p">:</span> <span class="n">password</span> <span class="n">updated</span> <span class="n">successfully</span>
+</pre></div>
+
+
+<p>The user details can be skipped by pressing [Enter]. Then [Y] to complete the new user setup.</p>
+<div class="highlight"><pre><span></span><span class="nv">Changing</span> <span class="nv">the</span> <span class="nv">user</span> <span class="nv">information</span> <span class="k">for</span> <span class="nv">username</span>
+<span class="nv">Enter</span> <span class="nv">the</span> <span class="nv">new</span> <span class="nv">value</span>, <span class="nv">or</span> <span class="nv">press</span> <span class="nv">ENTER</span> <span class="k">for</span> <span class="nv">the</span> <span class="nv">default</span>
+    <span class="nv">Full</span> <span class="nv">Name</span> []:
+    <span class="nv">Room</span> <span class="nv">Number</span> []:
+    <span class="nv">Work</span> <span class="nv">Phone</span> []:
+    <span class="nv">Home</span> <span class="nv">Phone</span> []:
+    <span class="nv">Other</span> []:
+<span class="nv">Is</span> <span class="nv">the</span> <span class="nv">information</span> <span class="nv">correct</span>? [<span class="nv">Y</span><span class="o">/</span><span class="nv">n</span>]
+</pre></div>
+
+
+<p>Now let's give our new user sudo privaleges:</p>
+<div class="highlight"><pre><span></span>$ usermod -aG sudo &lt;username&gt;
+</pre></div>
+
+
+<p>The new user account is created and the new user has sudo privalges. We can switch accounts and become the new user with:</p>
+<div class="highlight"><pre><span></span>$ sudo su - &lt;username&gt;
+</pre></div>
+
+
+<p>The new user should have <code>sudo</code> privileges. That means when acting as <code>&lt;username&gt;</code> we should be able to look in the <code>/root</code> directory.</p>
+<div class="highlight"><pre><span></span>$ sudo ls -la /root
+</pre></div>
+
+
+<p>If you can see the contents of <code>/root</code> then the new user is set up with sudo access.</p>
+<p>To exit out of the the new sudo user, and get back to using the root profile, type <code>exit</code> at the prompt</p>
+<div class="highlight"><pre><span></span>$ <span class="k">exit</span>
+</pre></div>
+
+
+<h4 id="add-ssh-keys-to-new-users-profile">Add SSH keys to new user's profile</h4>
+<p>Before we log off, we need to add our SSH keys to our new user's profile on the server. The second time I set up JupyterHub, I had trouble logging in as the non-root user using PuTTY. I could log in as <code>root</code> just fine, but I couldn't log in as the newly created user <code>peter</code>.</p>
+<p>When Digital Ocean created the server, the SSH keys (specified on the creation page) were added to the <code>root</code> profile. The new user <code>peter</code> didn't exist when the server was created. The only user on the server at creation time was <code>root</code>. Therefore, no SSH keys were added to the <code>peter</code> profile at server creation time- because the user <code>peter</code> didn't exist yet. </p>
+<p>Since we want to log into our server as the new non-root user <code>peter</code>, we need to add the same SSH keys saved in the <code>root</code> profile to the <code>peter</code> profile. The SSH keys belong in a file located at <code>/home/peter/.ssh/authorized_keys</code>. </p>
+<p>This little line will copy the ssh keys from the root profile to the new user's profile. The line comes from <a href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04">this tutorial</a> by Digital Ocean.</p>
+<div class="highlight"><pre><span></span>$ rsync --archive --chown<span class="o">=</span>peter:peter ~/.ssh /home/peter
+</pre></div>
+
+
+<p>Next, we need to open the ufw firewall to OpenSSH trafic. We will communicate with the server over SSH and need the firewall to allow this type of communication through.</p>
+<div class="highlight"><pre><span></span>$ ufw allow OpenSSH
+$ ufw <span class="nb">enable</span>
+$ ufw status
+</pre></div>
+
+
+<p>Now we can exit out of the <code>root</code> profile. This will terminate the PuTTY session.</p>
+<div class="highlight"><pre><span></span>$ <span class="k">exit</span>
+</pre></div>
+
+
+<h3 id="4-connect-to-the-server-as-the-non-root-sudo-user-using-putty">4. Connect to the server as the non-root sudo user using PuTTY</h3>
+<p>Now that the non-root sudo user is set up and our ssh keys are in /home/<user>/.ssh/authorized_keys, let's start a new PuTTY session and log into the server as the new user. </p>
+<p>Like before, open PuTTY from the Windows Start menu and add the following settings, but this time the Auto-login user name is the name of our new non-root sudo user:</p>
+<table class="table table-striped table-bordered table-hover">
+<thead>
+<tr>
+<th>parameter</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IP Address</td>
+<td>IP of <em>droplet</em> ex: 168.97.14.19</td>
+</tr>
+<tr>
+<td>Port</td>
+<td>22</td>
+</tr>
+<tr>
+<td>Connection &rarr; SSH &rarr; Auth &rarr; Private key file</td>
+<td>private SSH key</td>
+</tr>
+<tr>
+<td>Connection &rarr; Data &rarr; Auto-login username</td>
+<td>peter</td>
+</tr>
+</tbody>
+</table>
+<p>I also saved the PuTTY session details at this point so that I wouldn't have to re-enter all of the parameters each time I want to log into the server. Enter a name into [Saved Sessions] and click [Save]. Once the parameters are saved in PuTTY, you can simply double-click the profile name and you will log into the server.</p>
+<p><img alt="PuTTY save profile" src="/posts/jupyterhub/putty_save_session.PNG"></p>
+<p>Log into the server with Sessions &rarr; [Open]</p>
+<p>You should see the Digital Ocean login screen again. Note the command prompt will have the new user's name before the <code>@</code> symbol. </p>
+<p><img alt="server terminal as peter" src="/posts/jupyterhub/putty_ssh_window_open_as_peter.png"></p>
+<p>Check to see which directory you land in. It should be <code>/home/&lt;username&gt;</code></p>
+<div class="highlight"><pre><span></span>$ <span class="nb">pwd</span>
+/home/&lt;username&gt;
+</pre></div>
+
+
+<p>We can see the non-root user's home directory. Let's make sure we can also see into the <code>root</code> user's home directory to ensure we have sudo privileges as the non-root user:</p>
+<div class="highlight"><pre><span></span>$ sudo ls -la /root
+</pre></div>
+
+
+<p>To log out of the server simply type <code>exit</code>. This should close the PuTTY session.</p>
+<div class="highlight"><pre><span></span>$ <span class="k">exit</span>
+</pre></div>
+
+
+<h3 id="summary">Summary</h3>
+<p>In this post we created a new Digital Ocean server (called a <em>droplet</em>) and made sure to add our public SSH key to the setup options before we hit [Create]. Then we logged into the server as <code>root</code>  with our private SSH key. As <code>root</code>, we set up a new user with sudo privileges and added our public SSH key to the new user's profile in <code>~/.ssh/authorized_keys</code>. Then we logged into the server as the new user and checked the new user's home directory and ensured the new user has sudo privileges.</p>
+<h3 id="next-steps">Next Steps</h3>
+<p>In the next post, we will get to the fun stuff: installing <strong>Anaconda</strong> and <strong>jupyterhub</strong> on our new server. Plus we'll start Jupyter Hub for the first time! (but only keep it open for a couple seconds because we don't have SSL set up yet).</p>
+            </div>
+            <!-- /.entry-content -->
+<section class="well" id="related-posts">
+    <h4>Related Posts:</h4>
+    <ul>
+        <li><a href="./first-live-results-running-jupyter-hub.html">First Live Results Running Jupyter Hub in a College Class</a></li>
+        <li><a href="./assignments-dir-and-custom-login-page-to-jupyterhub.html">Add a custom login page and assignments directory for each user on a Jupyter Hub server</a></li>
+        <li><a href="./add-google-oauth-and-system-service-to-jupyterhub.html">Adding Google OAuth and system service to a Jupyter Hub server</a></li>
+        <li><a href="./add-ssl-and-domain-name-to-jupyterhub.html">Adding SSL and a domain name to Jupyter Hub</a></li>
+        <li><a href="./installing-jupyter-hub.html">Installing Jupyterhub</a></li>
+    </ul>
+</section>
+<section class="well" id="related-posts">
+    <h4>Article 3 of the Jupyter Hub series</h4>
+       <h5>Previous articles</h5>
+       <ul>
+           <li><a href="./why-jupyter-hub.html">Why Jupyter Hub?</a></li>
+           <li><a href="./ssh-keys-with-putty.html">Create an SSH Key with PuTTYgen</a></li>
+       </ul>
+       <h5>Next articles</h5>
+       <ul>
+           <li><a href="./installing-jupyter-hub.html">Installing Jupyterhub</a></li>
+           <li><a href="./add-ssl-and-domain-name-to-jupyterhub.html">Adding SSL and a domain name to Jupyter Hub</a></li>
+           <li><a href="./add-google-oauth-and-system-service-to-jupyterhub.html">Adding Google OAuth and system service to a Jupyter Hub server</a></li>
+           <li><a href="./assignments-dir-and-custom-login-page-to-jupyterhub.html">Add a custom login page and assignments directory for each user on a Jupyter Hub server</a></li>
+           <li><a href="./first-live-results-running-jupyter-hub.html">First Live Results Running Jupyter Hub in a College Class</a></li>
+       </ul>
+</section>
+    <hr />
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style">
+            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+            <a class="addthis_button_tweet"></a>
+    </div>
+    <!-- AddThis Button END -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<div id="aboutme">
+        <p>
+            <img width="100%" class="img-thumbnail" src="./extra/gear-wrench-icon-512-278694.png"/>
+        </p>
+    <p>
+      <strong>About Peter Kazarinoff</strong><br/>
+        I teach engineering at a community college in the Pacific Northwest. I am interested in programming and how to help students. Here I mostly blog about Python, and how programing can be incorporated into engineering education.
+    </p>
+</div><!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Recent Posts -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+  <ul class="list-group" id="recentposts">
+    <li class="list-group-item"><a href="./thoughts-on-how-to-test-science-code.html">Thoughts on Software Design in Scientific Code</a></li>
+    <li class="list-group-item"><a href="./stream-S01-E01-jupyterhub-intro.html">My first Twitch Stream: S01-E01 JupyterHub Intro and Tools</a></li>
+    <li class="list-group-item"><a href="./jupyterhub-deployment-on-running-in-production.html">Hear my story about deploying JupyterHub on the Running in Production Podcast</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Recent Posts -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="./"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-2">
+      <a href="./tag/engineering.html">engineering</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/esp8266.html">esp8266</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="./tag/jupyter.html">jupyter</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="./tag/jupyter-notebook.html">jupyter notebook</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="./tag/matplotlib.html">matplotlib</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/micropython.html">micropython</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/pelican.html">pelican</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="./tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/sensor.html">sensor</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Series -->
+<li class="list-group-item">
+  <h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Series</span></h4>
+  <ul class="list-group">
+    <li class="list-group-item">
+      <h5></i>Previous article</h5>
+      <a href="./ssh-keys-with-putty.html">Create an SSH Key with PuTTYgen</a>
+    </li>
+    <li class="list-group-item">
+      <h5>Next article</h5>
+      <a href="./installing-jupyter-hub.html">Installing Jupyterhub</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Series -->
+
+
+<!-- Sidebar/Github -->
+<li class="list-group-item">
+  <h4><i class="fa fa-github fa-lg"></i><span class="icon-label">GitHub Repos</span></h4>
+  <div id="gh_repos">
+    <p class="list-group-item">Status updating...</p>
+  </div>
+  <a href="https://github.com/professorkazarinoff">@professorkazarinoff</a> on GitHub
+</li>
+<!-- End Sidebar/Github -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2021 Peter Kazarinoff
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="./theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="./theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="./theme/js/respond.min.js"></script>
+
+    <script src="./static/js/custom.js"></script>
+
+
+<!-- GitHub JS Code -->
+<script type="text/javascript">
+$(document).ready(function () {
+  if (!window.jXHR) {
+    var jxhr = document.createElement('script');
+    jxhr.type = 'text/javascript';
+    jxhr.src = './theme/js/jXHR.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(jxhr, s);
+  }
+
+  github.showRepos({
+    user: 'professorkazarinoff',
+    count: 5,
+    skip_forks: true,
+    target: '#gh_repos'
+  });
+});
+</script>
+<script src="./theme/js/github.js" type="text/javascript"></script>
+<!-- End GitHub JS Code -->
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-116330557-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+    $("div.collapseheader").click(function () {
+    $header = $(this).children("span").first();
+    $codearea = $(this).children(".input_area");
+    console.log($(this).children());
+    $codearea.slideToggle(500, function () {
+        $header.text(function () {
+            return $codearea.is(":visible") ? "Collapse Code" : "Expand Code";
+        });
+    });
+});
+});
+</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cdd8eb4e16bf94c"></script>
+</body>
+</html>

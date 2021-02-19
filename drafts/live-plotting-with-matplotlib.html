@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Live Plotting with Matplotlib and Python - Python for Undergraduate Engineers</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
+<style type="text/css">
+
+    /*some stuff for output/input prompts*/
+    div.cell{border:1px solid transparent;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}div.cell.selected{border-radius:4px;border:thin #ababab solid}
+    div.cell.edit_mode{border-radius:4px;border:thin #008000 solid}
+    div.cell{width:100%;padding:5px 5px 5px 0;margin:0;outline:none}
+    div.prompt{min-width:11ex;padding:.4em;margin:0;font-family:monospace;text-align:right;line-height:1.21429em}
+    @media (max-width:480px){div.prompt{text-align:left}}div.inner_cell{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
+    div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;line-height:1.21429em}
+    div.prompt:empty{padding-top:0;padding-bottom:0}
+    div.input{page-break-inside:avoid;display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;}
+    div.inner_cell{width:90%;}
+    div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;}
+    div.input_prompt{color:navy;border-top:1px solid transparent;}
+    div.output_wrapper{margin-top:5px;position:relative;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+    div.output_scroll{height:24em;width:100%;overflow:auto;border-radius:4px;-webkit-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);-moz-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);}
+    div.output_collapsed{margin:0px;padding:0px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+    div.out_prompt_overlay{height:100%;padding:0px 0.4em;position:absolute;border-radius:4px;}
+    div.out_prompt_overlay:hover{-webkit-box-shadow:inset 0 0 1px #000000;-moz-box-shadow:inset 0 0 1px #000000;box-shadow:inset 0 0 1px #000000;background:rgba(240, 240, 240, 0.5);}
+    div.output_prompt{color:darkred;}
+    
+    a.anchor-link:link{text-decoration:none;padding:0px 20px;visibility:hidden;}
+    h1:hover .anchor-link,h2:hover .anchor-link,h3:hover .anchor-link,h4:hover .anchor-link,h5:hover .anchor-link,h6:hover .anchor-link{visibility:visible;}
+    /* end stuff for output/input prompts*/
+    
+    
+    .highlight-ipynb .hll { background-color: #ffffcc }
+    .highlight-ipynb  { background: #f8f8f8; }
+    .highlight-ipynb .c { color: #408080; font-style: italic } /* Comment */
+    .highlight-ipynb .err { border: 1px solid #FF0000 } /* Error */
+    .highlight-ipynb .k { color: #008000; font-weight: bold } /* Keyword */
+    .highlight-ipynb .o { color: #666666 } /* Operator */
+    .highlight-ipynb .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+    .highlight-ipynb .cp { color: #BC7A00 } /* Comment.Preproc */
+    .highlight-ipynb .c1 { color: #408080; font-style: italic } /* Comment.Single */
+    .highlight-ipynb .cs { color: #408080; font-style: italic } /* Comment.Special */
+    .highlight-ipynb .gd { color: #A00000 } /* Generic.Deleted */
+    .highlight-ipynb .ge { font-style: italic } /* Generic.Emph */
+    .highlight-ipynb .gr { color: #FF0000 } /* Generic.Error */
+    .highlight-ipynb .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+    .highlight-ipynb .gi { color: #00A000 } /* Generic.Inserted */
+    .highlight-ipynb .go { color: #888888 } /* Generic.Output */
+    .highlight-ipynb .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+    .highlight-ipynb .gs { font-weight: bold } /* Generic.Strong */
+    .highlight-ipynb .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+    .highlight-ipynb .gt { color: #0044DD } /* Generic.Traceback */
+    .highlight-ipynb .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+    .highlight-ipynb .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+    .highlight-ipynb .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+    .highlight-ipynb .kp { color: #008000 } /* Keyword.Pseudo */
+    .highlight-ipynb .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+    .highlight-ipynb .kt { color: #B00040 } /* Keyword.Type */
+    .highlight-ipynb .m { color: #666666 } /* Literal.Number */
+    .highlight-ipynb .s { color: #BA2121 } /* Literal.String */
+    .highlight-ipynb .na { color: #7D9029 } /* Name.Attribute */
+    .highlight-ipynb .nb { color: #008000 } /* Name.Builtin */
+    .highlight-ipynb .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+    .highlight-ipynb .no { color: #880000 } /* Name.Constant */
+    .highlight-ipynb .nd { color: #AA22FF } /* Name.Decorator */
+    .highlight-ipynb .ni { color: #999999; font-weight: bold } /* Name.Entity */
+    .highlight-ipynb .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+    .highlight-ipynb .nf { color: #0000FF } /* Name.Function */
+    .highlight-ipynb .nl { color: #A0A000 } /* Name.Label */
+    .highlight-ipynb .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+    .highlight-ipynb .nt { color: #008000; font-weight: bold } /* Name.Tag */
+    .highlight-ipynb .nv { color: #19177C } /* Name.Variable */
+    .highlight-ipynb .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+    .highlight-ipynb .w { color: #bbbbbb } /* Text.Whitespace */
+    .highlight-ipynb .mf { color: #666666 } /* Literal.Number.Float */
+    .highlight-ipynb .mh { color: #666666 } /* Literal.Number.Hex */
+    .highlight-ipynb .mi { color: #666666 } /* Literal.Number.Integer */
+    .highlight-ipynb .mo { color: #666666 } /* Literal.Number.Oct */
+    .highlight-ipynb .sb { color: #BA2121 } /* Literal.String.Backtick */
+    .highlight-ipynb .sc { color: #BA2121 } /* Literal.String.Char */
+    .highlight-ipynb .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+    .highlight-ipynb .s2 { color: #BA2121 } /* Literal.String.Double */
+    .highlight-ipynb .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+    .highlight-ipynb .sh { color: #BA2121 } /* Literal.String.Heredoc */
+    .highlight-ipynb .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+    .highlight-ipynb .sx { color: #008000 } /* Literal.String.Other */
+    .highlight-ipynb .sr { color: #BB6688 } /* Literal.String.Regex */
+    .highlight-ipynb .s1 { color: #BA2121 } /* Literal.String.Single */
+    .highlight-ipynb .ss { color: #19177C } /* Literal.String.Symbol */
+    .highlight-ipynb .bp { color: #008000 } /* Name.Builtin.Pseudo */
+    .highlight-ipynb .vc { color: #19177C } /* Name.Variable.Class */
+    .highlight-ipynb .vg { color: #19177C } /* Name.Variable.Global */
+    .highlight-ipynb .vi { color: #19177C } /* Name.Variable.Instance */
+    .highlight-ipynb .il { color: #666666 } /* Literal.Number.Integer.Long */
+    </style>
+    
+    <style type="text/css">
+    /* Overrides of notebook CSS for static HTML export */
+    div.entry-content {
+      overflow: visible;
+      padding: 8px;
+    }
+    .input_area {
+      padding: 0.2em;
+    }
+    
+    a.heading-anchor {
+     white-space: normal;
+    }
+    
+    .rendered_html
+    code {
+     font-size: .8em;
+    }
+    
+    pre.ipynb {
+      color: black;
+      background: #f7f7f7;
+      border: none;
+      box-shadow: none;
+      margin-bottom: 0;
+      padding: 0;
+      margin: 0px;
+      font-size: 13px;
+    }
+    
+    /* remove the prompt div from text cells */
+    div.text_cell .prompt {
+        display: none;
+    }
+    
+    /* remove horizontal padding from text cells, */
+    /* so it aligns with outer body text */
+    div.text_cell_render {
+        padding: 0.5em 0em;
+    }
+    
+    img.anim_icon{padding:0; border:0; vertical-align:middle; -webkit-box-shadow:none; -box-shadow:none}
+    
+    div.collapseheader {
+        width=100%;
+        padding: 2px;
+        cursor: pointer;
+        font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+    
+    </style>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+    <script type="text/javascript">
+    init_mathjax = function() {
+        if (window.MathJax) {
+            // MathJax loaded
+            MathJax.Hub.Config({
+                tex2jax: {
+                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+                },
+                displayAlign: 'center', // Change this to 'center' to center equations.
+                "HTML-CSS": {
+                    styles: {'.MathJax_Display': {"margin": 0}}
+                }
+            });
+            MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        }
+    }
+    init_mathjax();
+    </script>
+    
+    <link href="../extra/favicon.ico" rel="icon">
+
+<link rel="canonical" href="../drafts/live-plotting-with-matplotlib.html">
+
+        <meta name="author" content="Peter D. Kazarinoff" />
+        <meta name="keywords" content="python,matplotlib,animation,arduino,api" />
+        <meta name="description" content="Python and Matplotlib can be used to create static 2D plots. But it Matplotlib can also be used to create dynamic auto-updating live plots. In this post, you learn how to create a live auto-updating animated plot using Python and Matplotlib. Table of contents: Pre-requisits Set up a Python virtual …" />
+
+        <meta property="og:site_name" content="Python for Undergraduate Engineers" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Live Plotting with Matplotlib and Python"/>
+        <meta property="og:url" content="../drafts/live-plotting-with-matplotlib.html"/>
+        <meta property="og:description" content="Python and Matplotlib can be used to create static 2D plots. But it Matplotlib can also be used to create dynamic auto-updating live plots. In this post, you learn how to create a live auto-updating animated plot using Python and Matplotlib. Table of contents: Pre-requisits Set up a Python virtual …"/>
+        <meta property="article:published_time" content="2020-03-06" />
+            <meta property="article:section" content="Plotting" />
+            <meta property="article:tag" content="python" />
+            <meta property="article:tag" content="matplotlib" />
+            <meta property="article:tag" content="animation" />
+            <meta property="article:tag" content="arduino" />
+            <meta property="article:tag" content="api" />
+            <meta property="article:author" content="Peter D. Kazarinoff" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../theme/css/pygments/native.css" rel="stylesheet">
+    <link href="../theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="../theme/css/style.css" type="text/css"/>
+        <link href="../static/css/custom.css" rel="stylesheet">
+
+
+
+</head>
+<body>
+
+<!-- .navbar -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../" class="navbar-brand">
+Python for Undergraduate Engineers            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="../pages/about.html">
+                             About
+                          </a></li>
+                         <li><a href="../pages/book.html">
+                             Book
+                          </a></li>
+                         <li><a href="../pages/now.html">
+                             Now
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+
+<!-- .navbar-search -->
+<li>
+    <span>
+        <form class="navbar-search" action="/search.html">
+            <input type="text" name="q" id="tipue_search_input">
+        </form>
+    </span>
+</li>
+<!-- /.navbar-search -->              <li><a href="../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+            <ol class="breadcrumb">
+                <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="../category/plotting.html" title="Plotting">Plotting</a></li>
+                <li class="active">Live Plotting with Matplotlib and Python</li>
+            </ol>
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="../drafts/live-plotting-with-matplotlib.html"
+                       rel="bookmark"
+                       title="Permalink to Live Plotting with Matplotlib and Python">
+                        Live Plotting with Matplotlib and Python
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2020-03-06T08:40:00-08:00"> Fri 06 March 2020</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="../tag/python.html">python</a>
+        /
+	<a href="../tag/matplotlib.html">matplotlib</a>
+        /
+	<a href="../tag/animation.html">animation</a>
+        /
+	<a href="../tag/arduino.html">arduino</a>
+        /
+	<a href="../tag/api.html">api</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p><img alt="animated sensor plot" src="../posts/matplotlib_animations/images/animated_sensor_plot.gif"></p>
+<p>Python and Matplotlib can be used to create static 2D plots. But it <strong>Matplotlib can also be used to create dynamic auto-updating live plots</strong>. In this post, you learn how to create a live auto-updating animated plot using Python and Matplotlib.</p>
+<div class="toc"><span class="toctitle">Table of contents:</span><ul>
+<li><a href="#pre-requisits">Pre-requisits</a></li>
+<li><a href="#set-up-a-python-virtual-environment">Set up a Python virtual environment</a></li>
+<li><a href="#install-python-packages">Install Python packages</a></li>
+<li><a href="#create-a-static-line-plot">Create a static line plot</a><ul>
+<li><a href="#import-packages">Import packages</a></li>
+</ul>
+</li>
+<li><a href="#create-an-animated-line-plot">Create an animated line plot</a></li>
+<li><a href="#build-a-live-plot-based-on-user-input">Build a live plot based on user input</a></li>
+<li><a href="#build-a-live-plot-using-data-from-the-web">Build a live plot using data from the web</a></li>
+<li><a href="#build-a-live-plot-using-data-from-a-sensor">Build a live plot using data from a sensor</a><ul>
+<li><a href="#hardware-hookup">Hardware Hookup</a></li>
+<li><a href="#arduino-code">Arduino Code</a></li>
+<li><a href="#python-code">Python Code</a></li>
+</ul>
+</li>
+<li><a href="#summary">Summary</a></li>
+</ul>
+</div>
+<h2 id="pre-requisits">Pre-requisits</h2>
+<p>To follow along with this tutorial, a couple pre-requisits need to be in place:</p>
+<ul>
+<li>Python needs to be installed on your computer. I recommend installing the <a href="https://anaconda.com/distribution">Anaconda Distribution</a> of Python.</li>
+<li>You are running a version of Python 3.6 or above. Python version 3.7 or 3.8 are more up to date and recommended.</li>
+<li>You know how to open the Anaconda Prompt on Windows10 or know how to open a terminal on MacOS or Linux.</li>
+<li>You have a general idea of what Python packages are and have installed a Python package before using <strong>conda</strong> or <strong>pip</strong>.</li>
+<li>You know how to create a text file in an editor or an IDE (integrated development environment) such as <a href="https://code.visualstudio.com/download">Visual Studio Code</a>, PyCharm, Sublime Text, vim, emacs, etc. I will be using Visual Studio Code (also called VS Code) in this post, but any regular code editor will work. </li>
+<li>You know how to run a Python program (exectute a .py file) using a terminal prompt, like the Anaconda Prompt or know how to run a Python program using your IDE.</li>
+<li>You have general understanding of how files are organized on your computer into directories and sub-directories.</li>
+<li>You have some familiarity with navigating through directories and files using a terminal or the Anaconda Prompt with commands like <code>cd</code>, <code>cd ..</code>, <code>dir</code> or <code>ls</code>, and <code>mdkir</code>.</li>
+</ul>
+<p>Now that the pre-requisites are out of the way, let's start coding! </p>
+<h2 id="set-up-a-python-virtual-environment">Set up a Python virtual environment</h2>
+<p>To start the coding process, we will set up a new Python virtual environment.</p>
+<p>Real Python has a good <a href="https://realpython.com/blog/python/python-virtual-environments-a-primer/">introduction to virtual environments</a> and why to use them.</p>
+<p>I recommend undergraduate engineers use the <a href="https://anaconda.com/distribution">Anaconda distribution of Python</a> which comes with the <strong>Anaconda Prompt</strong>. You can create a new virtual environment by opening the <strong>Anaconda Prompt</strong> and typing:</p>
+<p>Using the Anaconda Prompt:</p>
+<div class="highlight"><pre><span></span>&gt; mkdir live_plot
+&gt; cd live_plot
+&gt; conda create -y -n live_plot python=3.7
+</pre></div>
+
+
+<p><img alt="still of piston motion" src="../posts/matplotlib_animations/images/create_env_conda.PNG"> </p>
+<p>Alternatively, on MacOS or Linux, a virtual environment can be set up with a terminal prompt and <strong>pip</strong> (the Python package manager).</p>
+<p>Using a terminal on MacOS or Linux:</p>
+<div class="highlight"><pre><span></span>$ mkdir live_plot
+$ cd live_plot
+$ python3 -m venv venv
+</pre></div>
+
+
+<h2 id="install-python-packages">Install Python packages</h2>
+<p>Now that we have a new clean virtual environment with Python 3 installed, we need to install the necessary packages that we'll use to create our plots.</p>
+<p>Using the Anaconda Prompt, activate the <code>live_plot</code> virtual environment and use <strong>conda</strong> to install the following Python packages. Ensure the virtual environment you created above is activate when the packages are installed.</p>
+<div class="highlight"><pre><span></span>&gt; conda activate live_plot
+(live_plot)&gt; conda install -y matplotlib requests pyserial
+</pre></div>
+
+
+<p><img alt="still of piston motion" src="../posts/matplotlib_animations/images/conda_install_numpy_matplotlib.PNG"> </p>
+<p>Alternatively, if you are using MacOS or Linux, the packages can be installed with a terminal <strong>pip</strong>:</p>
+<div class="highlight"><pre><span></span>$ source venv/bin/activate
+(venv) $ pip install matplotlib
+(venv) $ pip install requests
+(venv) $ pip install pyserial
+</pre></div>
+
+
+<h2 id="create-a-static-line-plot">Create a static line plot</h2>
+<p>Before we create a live animated auto-updating plot, let's first create simpler static, non-moving line plot. Our live plots will look a lot like this first static plot, except in the live plot, the line on the plot will move. Coding a simpler plot first gives us some practice and a structure to build upon when we create the more complex live plots.</p>
+<p>Open a text editor or IDE (I like to use <a href="https://code.visualstudio.com/">VS Code</a>) and create a new Python file called <code>static_plot.py</code></p>
+<p><img alt="still of piston motion" src="../posts/matplotlib_animations/images/create_static_plot_dot_py.PNG"> </p>
+<h3 id="import-packages">Import packages</h3>
+<p>Let's start our <code>static_plot.py</code> script by importing the packages we'll use later in the script. Matplotlib's <code>pyplot</code> module is imported using the standard alias <code>plt</code>.</p>
+<div class="highlight"><pre><span></span><span class="c1"># static_plot.py</span>
+
+<span class="c1"># import necessary packages</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+</pre></div>
+
+
+<p>We need some data to plot. For this first static plot, we'll plot the temperature in Portland, OR in degrees fahrenheit over seven day. We'll save the temperatures in a Python list called <code>data_lst</code>.</p>
+<div class="highlight"><pre><span></span><span class="c1"># data</span>
+<span class="n">data_lst</span> <span class="o">=</span> <span class="p">[</span><span class="mi">60</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="mi">49</span><span class="p">,</span> <span class="mi">51</span><span class="p">,</span> <span class="mi">49</span><span class="p">,</span> <span class="mi">52</span><span class="p">,</span> <span class="mi">53</span><span class="p">]</span>
+</pre></div>
+
+
+<p>Next, we'll create a figure object <code>fig</code> and an axis object <code>ax</code> using Matplotlib's <code>plt.subplots()</code> method. </p>
+<div class="highlight"><pre><span></span><span class="c1"># create the figure and axis objects</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+</pre></div>
+
+
+<p>Now we can plot the temperature data on the axis object <code>ax</code> and customize the plot. Let's include plot title, and axis labels.</p>
+<div class="highlight"><pre><span></span><span class="c1"># plot the data and customize</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data_lst</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Day Number&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Temperature (*F)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Temperature in Portland, OR over 7 days&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Finally, we can show and save the plot. Make sure that the <code>fig.savefig()</code> line is before the <code>plt.show()</code> line. </p>
+<div class="highlight"><pre><span></span><span class="c1"># save and show the plot</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;static_plot.png&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p>That's it for this first script. Pretty simple right?</p>
+<p>Run the <code>static_plot.py</code> script using the Anaconda Prompt of a terminal. Ensure the virtual environment <code>(live_plot)</code> is active when the script is run.</p>
+<div class="highlight"><pre><span></span>(live_plot)&gt; python static_plot.py
+</pre></div>
+
+
+<p><img alt="run static plot" src="../posts/matplotlib_animations/images/run_static_plot_dot_py.PNG"> </p>
+<p>The plot should look something like image below:</p>
+<p><img alt="static plot" src="../posts/matplotlib_animations/images/static_plot.png"> </p>
+<p>The complete script is below:</p>
+<div class="highlight"><pre><span></span><span class="c1"># static_plot.py</span>
+
+<span class="c1"># import necessary packages</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+
+<span class="c1"># data</span>
+<span class="n">data_lst</span> <span class="o">=</span> <span class="p">[</span><span class="mi">60</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="mi">49</span><span class="p">,</span> <span class="mi">51</span><span class="p">,</span> <span class="mi">49</span><span class="p">,</span> <span class="mi">52</span><span class="p">,</span> <span class="mi">53</span><span class="p">]</span>
+
+<span class="c1"># create the figure and axis objects</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="c1"># plot the data and customize</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data_lst</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Day Number&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Temperature (*F)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Temperature in Portland, OR over 7 days&#39;</span><span class="p">)</span>
+
+<span class="c1"># save and show the plot</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;static_plot.png&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p>Next, we'll build an animated line plot with Matplotlib.</p>
+<h2 id="create-an-animated-line-plot">Create an animated line plot</h2>
+<p>The previous plot we just built was a static line plot. We are going to build upon that static line plot and create an animated line plot. The data for the animated line plot will be generated randomly using Python's <code>randint()</code> function from the <code>random</code> module in the Standard Library. Python's <code>randint()</code> function accepts a lower limit and upper limit. We will set a lower limit of <code>1</code> and an upper limit of <code>9</code>. The script to build the animated line plot starts almost the same way as our simple line plot, the difference is that we need to import Matplotlib's <code>FuncAnimation</code> class from the <code>matplotlib.animation</code> library. The <code>FuncAnimation</code> class will be used to create the animated plot.</p>
+<div class="highlight"><pre><span></span><span class="c1"># animated_line_plot.py</span>
+
+<span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib.animation</span> <span class="kn">import</span> <span class="n">FuncAnimation</span>
+
+<span class="c1"># create empty lists for the x and y data</span>
+<span class="n">x</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># create the figure and axes objects</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+</pre></div>
+
+
+<p>In our first static line plot, we started the plot at this point, but for the animated line plot, we need to <strong><em>build the plot in a function</em></strong>. At a minimum the function that builds the plot needs to accept one argument that corresponds to the frame number in the animation. This frame number argument can be given a simple parameter like <code>i</code>. That parameter does not have to be used in the function that draws the plot. It just has to be included in the function definition. Note the line <code>ax.clear()</code> in the middle of the function. This line clears the figure window so that the next frame of the animation can be drawn. <code>ax.clear()</code> needs to be included before the data is plotted with the <code>ax.plot()</code> method. Also note that <code>plt.show()</code> is not part of the function. <code>plt.show()</code> will be called outside the function at the end of the script.</p>
+<div class="highlight"><pre><span></span><span class="c1"># function that draws each frame of the animation</span>
+<span class="k">def</span> <span class="nf">animate</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+    <span class="n">pt</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">9</span><span class="p">)</span> <span class="c1"># grab a random integer to be the next y-value in the animation</span>
+    <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pt</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">20</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">])</span>
+</pre></div>
+
+
+<p>OK- our <code>animate()</code> function is defined, now we need to <em>call</em> the animation. Matplotlib's <code>FuncAnimation</code> class can accept a number of arguments. At a minimum, we need to pass in the figure object <code>fig</code>, and our animation function that draws the plot <code>animate</code> to the <code>FuncAnimation</code> class. We'll also add a <code>frames=</code> keyword aregument that sets many times the plot is re-drawn meaning how many times the animation function is called. <code>interval=500</code> specifies the time between frames (time between <code>animate()</code> function calls) in miliseconds. <code>interval=500</code> means 500 milliseconds between each frame, which is half a second. <code>repeat=False</code> means that after all the frames are drawn, the animation will not repeat. Note how the <code>plt.show()</code> line is called after the <code>FuncAnimation</code> line. </p>
+<div class="highlight"><pre><span></span><span class="c1"># run the animation</span>
+<span class="n">ani</span> <span class="o">=</span> <span class="n">FuncAnimation</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">animate</span><span class="p">,</span> <span class="n">frames</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p>You can run the <code>animated_line_plot.py</code> script using the Anaconda Prompt or a terminal.</p>
+<div class="highlight"><pre><span></span>(live_plot)&gt; animated_line_plot.py
+</pre></div>
+
+
+<p>An example of the plot animated line plot produced is below.</p>
+<p><img alt="animated line plot" src="../posts/matplotlib_animations/images/animated_line_plot.gif"></p>
+<p>Next, we'll build a live auto-updating plot based on user input.</p>
+<h2 id="build-a-live-plot-based-on-user-input">Build a live plot based on user input</h2>
+<p>Create a new Python file called <code>live_plot_user_input.py</code> using a code editor or IDE.</p>
+<p><img alt="create user input module" src="../posts/matplotlib_animations/images/create_live_plot_user_input_dot_py.PNG"></p>
+<p>In the file <code>live_plot_user_input.py</code>, add the same imports we used in our previous plot: Matplotlib's <code>pyplot</code> library is imported as <code>plt</code> and Matplotlib's <code>FuncAnimation</code> class is imported from the <code>matplotlib.animation</code> library. Like the previous plot, we'll use the <code>FuncAnimation</code> class to build our live auto-updating plot and create an <code>animation()</code> function to draw the plot.</p>
+<div class="highlight"><pre><span></span><span class="c1"># live_plot_user_input.py</span>
+
+<span class="c1"># import necessary packages</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib.animation</span> <span class="kn">import</span> <span class="n">FuncAnimation</span>
+</pre></div>
+
+
+<p>Next we'll pre-populate a list called <code>data</code> with a couple of data points. This will gives our plot a couple of points to start off with. When our script runs, we'll include functionality to add more points.</p>
+<div class="highlight"><pre><span></span><span class="c1"># initial data</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+
+<span class="c1"># create figure and axes objects</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+</pre></div>
+
+
+<p>Now we'll build an <code>animate()</code> function that will read in values from a text file and plot them with Matplotlib. Note the line <code>ax.clear()</code>. This line of code clears the current axis so that the plot can be redrawn. The line <code>ax.plot(data[-5:])</code> pulls the last 5 data points out of the list <code>data</code> and plots them.</p>
+<div class="highlight"><pre><span></span><span class="c1"># animation function</span>
+<span class="k">def</span> <span class="nf">animate</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;data.txt&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">:])</span> <span class="c1"># plot the last 5 data points</span>
+</pre></div>
+
+
+<p>The last section of code in the <code>live_plot_user_input.py</code> script calls the <code>FuncAnimation</code> class. When we intantiate an instance of this class, we pass in a couple arguments:</p>
+<ul>
+<li><code>fig</code> - the figure object we created with the <code>plt.subplots()</code> method</li>
+<li><code>animate</code> - the function we wrote above that pulls lines out of a <code>data.txt</code> file and plots 5 points at a time.</li>
+<li><code>interval=1000</code> - the time interval in milliseconds (1000 miliseconds = 1 second) between frames or between <code>animate()</code> function calls.</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="c1"># call the animation</span>
+<span class="n">ani</span> <span class="o">=</span> <span class="n">FuncAnimation</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">animate</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+
+<span class="c1"># show the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p>Before you run the script, create a new file in the <code>live_plot</code> directory along side our <code>live_plot_user_input.py</code> script called <code>data.txt</code>. Inside the file add a couple numbers, each number on it's own line.</p>
+<div class="highlight"><pre><span></span>5
+9
+3
+10
+12
+</pre></div>
+
+
+<p>Save <code>data.txt</code> and leave the file open. This is the file that we will add numbers to and watch our live plot update.</p>
+<p>Save <code>live_plot_user_input.py</code> and run it. You should see a plot pop up. </p>
+<p><img alt="run live user plot" src="../posts/matplotlib_animations/images/run_live_plot_user_input_py.PNG"></p>
+<p>Now add a number to the bottom of the <code>data.txt</code> on it's own line. Save <code>data.txt</code>. The plot should update with a new data point. I added the number <code>16</code> to <code>data.txt</code> and saw the line on the plot go upwards. Add another number at the end of <code>data.txt</code>. Save <code>data.txt</code> and watch the plot update.</p>
+<p><img alt="animated user plot" src="../posts/matplotlib_animations/images/user_input_live_plot.gif"></p>
+<p>Great! We built a live updating plot based on user input! Next, let's build a live auto-updating plot using data pulled from the web.</p>
+<h2 id="build-a-live-plot-using-data-from-the-web">Build a live plot using data from the web</h2>
+<p>The third plot we are going to build is a plot that pulls data from the web. The basic structure of the script is the same as the last two animated plots. We need to create figure and axis objects, write an animation fuction and create the animation with <code>FuncAnimation</code>.</p>
+<blockquote>
+<p><a href="https://qrng.anu.edu.au/API/api-demo.php">https://qrng.anu.edu.au/API/api-demo.php</a></p>
+</blockquote>
+<p>The website notes:</p>
+<blockquote>
+<p>This website offers true random numbers to anyone on the internet. The random numbers are generated in real-time in our lab by measuring the quantum fluctuations of the vacuum.</p>
+</blockquote>
+<p>Having true random numbers for an example animated plot isn't absolutely necessary. The reason I picked this web API is that the random numbers can be polled every second, and since you can specify an 8-bit integer, the random numbers have a fixed range between 0 and 255.</p>
+<p>The code below calls the web API for one 8-bit random integer. A little fuction converts the web API's json reponse into a float. The raw json that comes back from the API looks like below:</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;uint8&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;length&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:[</span><span class="mi">53</span><span class="p">],</span>
+    <span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="kc">true</span>
+    <span class="p">}</span>
+</pre></div>
+
+
+<p>Once the json is converted to a Python dictionary, we can pull the random number out (in this case <code>53</code>) with the following Python code.</p>
+<div class="highlight"><pre><span></span><span class="n">json_dict</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+
+
+<p>The entire script is below.</p>
+<div class="highlight"><pre><span></span><span class="c1"># plot_web_api_realtime.py</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">A live auto-updating plot of random numbers pulled from a web API</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">datetime</span> <span class="kn">as</span> <span class="nn">dt</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.animation</span> <span class="kn">as</span> <span class="nn">animation</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://qrng.anu.edu.au/API/jsonI.php?length=1&amp;type=uint8&quot;</span>
+
+<span class="c1"># function to pull out a float from the requests response object</span>
+<span class="k">def</span> <span class="nf">pull_float</span><span class="p">(</span><span class="n">response</span><span class="p">):</span>
+    <span class="n">jsonr</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+    <span class="n">strr</span> <span class="o">=</span> <span class="n">jsonr</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">strr</span><span class="p">:</span>
+        <span class="n">fltr</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">strr</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">fltr</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">None</span>
+
+
+<span class="c1"># Create figure for plotting</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">xs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">ys</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">def</span> <span class="nf">animate</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">xs</span><span class="p">:</span><span class="nb">list</span><span class="p">,</span> <span class="n">ys</span><span class="p">:</span><span class="nb">list</span><span class="p">):</span>
+    <span class="c1"># grab the data from thingspeak.com</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">flt</span> <span class="o">=</span> <span class="n">pull_float</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+    <span class="c1"># Add x and y to lists</span>
+    <span class="n">xs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%H:%M:%S&#39;</span><span class="p">))</span>
+    <span class="n">ys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">flt</span><span class="p">)</span>
+    <span class="c1"># Limit x and y lists to 10 items</span>
+    <span class="n">xs</span> <span class="o">=</span> <span class="n">xs</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:]</span>
+    <span class="n">ys</span> <span class="o">=</span> <span class="n">ys</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:]</span>
+    <span class="c1"># Draw x and y lists</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">)</span>
+    <span class="c1"># Format plot</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">bottom</span><span class="o">=</span><span class="mf">0.20</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Plot of random numbers from https://qrng.anu.edu.au&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Date Time (hour:minute:second)&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Random Number&#39;</span><span class="p">)</span>
+
+<span class="c1"># Set up plot to call animate() function every 1000 milliseconds</span>
+<span class="n">ani</span> <span class="o">=</span> <span class="n">animation</span><span class="o">.</span><span class="n">FuncAnimation</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">animate</span><span class="p">,</span> <span class="n">fargs</span><span class="o">=</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span><span class="n">ys</span><span class="p">),</span> <span class="n">interval</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p>An example of the resulting plot is below.</p>
+<p><img alt="live plot from web api data" src="../posts/matplotlib_animations/images/web_api_live_plot.gif"></p>
+<p>Next, we will build a live-plot from sensor data</p>
+<h2 id="build-a-live-plot-using-data-from-a-sensor">Build a live plot using data from a sensor</h2>
+<p>The final live auto-updating animated plot we are going to build will show sensor data streaming in from an Arduino. Since this post is about live plots, I will not go into detail about how to connect the sensor to the Arduino or how an Arduino works. Very briefly, the sensor we are using in this example is a little blue potentiometer. A potentiometer is a dial that you can turn back and forth. When the dial of a potentiometer is turned, the resistance of the potentiometer changes. </p>
+<h3 id="hardware-hookup">Hardware Hookup</h3>
+<p>Hook up a potentiometer up to an Arduino based on the diagram below.</p>
+<p><img alt="Arduino breadboard hookup" src="../posts/matplotlib_animations/images/redboard_pot_led_fritzing.png"></p>
+<h3 id="arduino-code">Arduino Code</h3>
+<p>After the little blue potentiometer is hooked up, Upload the following code on the Arduino. This code reads the potentiometer value and sends the measured value over the serial line.</p>
+<div class="highlight"><pre><span></span>// potentiometer.ino
+// reads a potentiometer and sends value over serial
+
+int sensorPin = A0; // The potentiometer is connected to analog pin 0
+int ledPin = 13; // The LED is connected to digital pin 13
+int sensorValue; // an integer variable to store the potentiometer reading
+
+void setup() // this function runs once when the sketch starts
+{
+// make the LED pin (pin 13) an output pin
+pinMode(ledPin, OUTPUT);
+// initialize serial communication at 9600 baud
+Serial.begin(9600);
+}
+
+void loop() // this function runs repeatedly after setup() finishes
+{
+sensorValue = analogRead(sensorPin); // read the voltage at pin A0
+Serial.println(sensorValue); // Output voltage value to Serial Monitor
+if (sensorValue &lt; 500) { // if sensor output is less than 500,
+    digitalWrite(ledPin, LOW); } // Turn the LED off
+else {                   // if sensor output is greater than 500
+    digitalWrite(ledPin, HIGH); } // Keep the LED on
+delay(100); // Pause 100 milliseconds before next reading
+}
+</pre></div>
+
+
+<h3 id="python-code">Python Code</h3>
+<p>The PySerial library needs to be installed before we can use PySerial to read the sensor data the Arduino spits out over the serial line. Install PySerial with the command below. Make sure you activated the <code>(live_plot)</code> virtual environment when the install commmand is entered.</p>
+<div class="highlight"><pre><span></span>(live_plot)&gt; conda install -y pyserial
+</pre></div>
+
+
+<p>or</p>
+<div class="highlight"><pre><span></span>(venv)$ pip install pyserial
+</pre></div>
+
+
+<p>At the top of the Python script, we import the necessary libraries:</p>
+<div class="highlight"><pre><span></span><span class="c1"># live_plot_sensor.py</span>
+
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">serial</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.animation</span> <span class="kn">as</span> <span class="nn">animation</span>
+</pre></div>
+
+
+<p>Next, we need to build an <code>animate()</code> function like we did above when we build our live plot from a data file and our live plot from a web api. </p>
+<div class="highlight"><pre><span></span><span class="c1"># animation function</span>
+<span class="k">def</span> <span class="nf">animate</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">data_lst</span><span class="p">,</span> <span class="n">ser</span><span class="p">):</span>  <span class="c1"># ser is the serial object</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">ser</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+    <span class="n">string_n</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+    <span class="n">string</span> <span class="o">=</span> <span class="n">string_n</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+    <span class="n">flt</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+    <span class="n">data_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">flt</span><span class="p">)</span>
+
+    <span class="c1"># Add x and y to lists</span>
+    <span class="n">data_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">flt</span><span class="p">)</span>
+    <span class="c1"># Limit the data list to 100 values</span>
+    <span class="n">data_lst</span> <span class="o">=</span> <span class="n">data_lst</span><span class="p">[</span><span class="o">-</span><span class="mi">100</span><span class="p">:]</span>
+    <span class="c1"># clear the last frame and draw the next frame</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data_lst</span><span class="p">)</span>
+    <span class="c1"># Format plot</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1050</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Potentiometer Reading Live Plot&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Potentiometer Reading&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Now we need to create our <code>data_lst</code>, <code>fig</code> and <code>ax</code> objects, as well as intantiate the serial object <code>ser</code>. Note that the <code>COM#</code> will may be different for you based on which <code>COM</code> port the Arduino is connected to. On MacOS or Linux, the com port will be something like <code>/dev/ttyUSB0</code> instead of <code>COM7</code>. If you are using MacOS or Linux, you many need to modify the permissions of the com port before the script will run. The command <code>sudo chown root:peter /dev/ttyUSB0</code> changes the group corresponding to <code>ttyUSB0</code> to <code>peter</code>. You will have to modify this command based on your MacOS or Linux username and port number.</p>
+<div class="highlight"><pre><span></span><span class="c1"># create empty list to store data</span>
+<span class="c1"># create figure and axes objects</span>
+<span class="n">data_lst</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="c1"># set up the serial line</span>
+<span class="n">ser</span> <span class="o">=</span> <span class="n">serial</span><span class="o">.</span><span class="n">Serial</span><span class="p">(</span><span class="s1">&#39;COM7&#39;</span><span class="p">,</span> <span class="mi">9600</span><span class="p">)</span> <span class="c1"># change COM# if necessary</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">ser</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Then we need to call our animation using Matplotlib's FuncAnimate class. After the animation is finished, we should close the serial line</p>
+<div class="highlight"><pre><span></span><span class="c1"># run the animation and show the figure</span>
+<span class="n">ani</span> <span class="o">=</span> <span class="n">animation</span><span class="o">.</span><span class="n">FuncAnimation</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">animate</span><span class="p">,</span> <span class="n">frames</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">fargs</span><span class="o">=</span><span class="p">(</span><span class="n">data_lst</span><span class="p">,</span> <span class="n">ser</span><span class="p">),</span> <span class="n">interval</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># after the window is closed, close the serial line</span>
+<span class="n">ser</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Serial line closed&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>The entire Python script is below:</p>
+<div class="highlight"><pre><span></span><span class="c1"># live_plot_sensor.py</span>
+
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">serial</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.animation</span> <span class="kn">as</span> <span class="nn">animation</span>
+
+<span class="c1"># animation function</span>
+<span class="k">def</span> <span class="nf">animate</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">data_lst</span><span class="p">,</span> <span class="n">ser</span><span class="p">):</span>  <span class="c1"># ser is the serial object</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">ser</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+    <span class="n">string_n</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+    <span class="n">string</span> <span class="o">=</span> <span class="n">string_n</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">flt</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+        <span class="n">data_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">flt</span><span class="p">)</span>
+        <span class="n">data_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">flt</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="c1"># Add x and y to lists</span>
+
+    <span class="c1"># Limit the data list to 100 values</span>
+    <span class="n">data_lst</span> <span class="o">=</span> <span class="n">data_lst</span><span class="p">[</span><span class="o">-</span><span class="mi">100</span><span class="p">:]</span>
+    <span class="c1"># clear the last frame and draw the next frame</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data_lst</span><span class="p">)</span>
+    <span class="c1"># Format plot</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1050</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Potentiometer Reading Live Plot&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Potentiometer Reading&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># create empty list to store data</span>
+<span class="c1"># create figure and axes objects</span>
+<span class="n">data_lst</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="c1"># set up the serial line</span>
+<span class="n">ser</span> <span class="o">=</span> <span class="n">serial</span><span class="o">.</span><span class="n">Serial</span><span class="p">(</span><span class="s2">&quot;/dev/ttyUSB0&quot;</span><span class="p">,</span> <span class="mi">9600</span><span class="p">)</span>  <span class="c1"># change COM# if necessary</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">ser</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+<span class="c1"># run the animation and show the figure</span>
+<span class="n">ani</span> <span class="o">=</span> <span class="n">animation</span><span class="o">.</span><span class="n">FuncAnimation</span><span class="p">(</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">animate</span><span class="p">,</span> <span class="n">frames</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">fargs</span><span class="o">=</span><span class="p">(</span><span class="n">data_lst</span><span class="p">,</span> <span class="n">ser</span><span class="p">),</span> <span class="n">interval</span><span class="o">=</span><span class="mi">100</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># after the window is closed, close the serial line</span>
+<span class="n">ser</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Serial line closed&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Run the script using the Anaconda Prompt or a terminal:</p>
+<div class="highlight"><pre><span></span>(live_plot)&gt; python live_plot_sensor.py
+</pre></div>
+
+
+<p>Twist the little blue potentiometer while the script is running and watch the animated line on the plot update.</p>
+<p><img alt="animated sensor plot" src="../posts/matplotlib_animations/images/animated_sensor_plot.gif"></p>
+<h2 id="summary">Summary</h2>
+<p>In this post, we created a couple live auto-updating animated line plots with Matplotlib.</p>
+            </div>
+            <!-- /.entry-content -->
+<section class="well" id="related-posts">
+    <h4>Related Posts:</h4>
+    <ul>
+        <li><a href="../piston-motion-with-python-matplotlib.html">Matplotlib Animation to Demonstrate Piston Motion</a></li>
+        <li><a href="../stress-strain-curve-with-python-and-matpotlib.html">Plotting a Stress Strain Curve with Python and Matplotlib</a></li>
+        <li><a href="../plotting-bond-energy-with-matplotlib-and-python.html">Plotting Bond Energy vs. Distance with Python and Matplotlib</a></li>
+        <li><a href="../creating-taylor-series-functions-with-python.html">Taylor Series in Python</a></li>
+        <li><a href="../plotting-normal-curve-with-python.html">Plotting a Gaussian normal curve with Python and Matplotlib</a></li>
+    </ul>
+</section>
+    <hr />
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style">
+            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+            <a class="addthis_button_tweet"></a>
+    </div>
+    <!-- AddThis Button END -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<div id="aboutme">
+        <p>
+            <img width="100%" class="img-thumbnail" src="../extra/gear-wrench-icon-512-278694.png"/>
+        </p>
+    <p>
+      <strong>About Peter Kazarinoff</strong><br/>
+        I teach engineering at a community college in the Pacific Northwest. I am interested in programming and how to help students. Here I mostly blog about Python, and how programing can be incorporated into engineering education.
+    </p>
+</div><!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Recent Posts -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+  <ul class="list-group" id="recentposts">
+    <li class="list-group-item"><a href="../thoughts-on-how-to-test-science-code.html">Thoughts on Software Design in Scientific Code</a></li>
+    <li class="list-group-item"><a href="../stream-S01-E01-jupyterhub-intro.html">My first Twitch Stream: S01-E01 JupyterHub Intro and Tools</a></li>
+    <li class="list-group-item"><a href="../jupyterhub-deployment-on-running-in-production.html">Hear my story about deploying JupyterHub on the Running in Production Podcast</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Recent Posts -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="../"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-2">
+      <a href="../tag/engineering.html">engineering</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="../tag/esp8266.html">esp8266</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="../tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="../tag/jupyter.html">jupyter</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="../tag/jupyter-notebook.html">jupyter notebook</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="../tag/matplotlib.html">matplotlib</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="../tag/micropython.html">micropython</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="../tag/pelican.html">pelican</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="../tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="../tag/sensor.html">sensor</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Github -->
+<li class="list-group-item">
+  <h4><i class="fa fa-github fa-lg"></i><span class="icon-label">GitHub Repos</span></h4>
+  <div id="gh_repos">
+    <p class="list-group-item">Status updating...</p>
+  </div>
+  <a href="https://github.com/professorkazarinoff">@professorkazarinoff</a> on GitHub
+</li>
+<!-- End Sidebar/Github -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2021 Peter Kazarinoff
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="../theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../theme/js/respond.min.js"></script>
+
+    <script src="../static/js/custom.js"></script>
+
+
+<!-- GitHub JS Code -->
+<script type="text/javascript">
+$(document).ready(function () {
+  if (!window.jXHR) {
+    var jxhr = document.createElement('script');
+    jxhr.type = 'text/javascript';
+    jxhr.src = '../theme/js/jXHR.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(jxhr, s);
+  }
+
+  github.showRepos({
+    user: 'professorkazarinoff',
+    count: 5,
+    skip_forks: true,
+    target: '#gh_repos'
+  });
+});
+</script>
+<script src="../theme/js/github.js" type="text/javascript"></script>
+<!-- End GitHub JS Code -->
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-116330557-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+    $("div.collapseheader").click(function () {
+    $header = $(this).children("span").first();
+    $codearea = $(this).children(".input_area");
+    console.log($(this).children());
+    $codearea.slideToggle(500, function () {
+        $header.text(function () {
+            return $codearea.is(":visible") ? "Collapse Code" : "Expand Code";
+        });
+    });
+});
+});
+</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cdd8eb4e16bf94c"></script>
+</body>
+</html>

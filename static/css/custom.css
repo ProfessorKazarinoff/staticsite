@@ -1,0 +1,143 @@
+/*
+For extra css
+Added a margin to the right
+width: inherit; makes the width conform to the width of the text in the columns, not 100% width across the div
+
+*/
+
+body {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/*
+To separate the written paragraphs from the code.
+*/
+
+p {
+    font-size: 16px;
+    margin-top: 16px;
+    margin-bottom: 20px;
+}
+/*
+to make the In [ ]: code boxes from pelican posts have a consistent border around them.
+*/
+
+pre {
+	margin: 0 0 0.5px;
+	color: #2c3e50;
+}
+/*
+makes the jupyter notebook output boxes have darker and more readable text
+
+pre {
+	margin: 0px 10.5px 10.5px;
+	color: #666666;
+}
+*/
+
+/*
+does not seem to effect anything from jupyter notebooks
+
+div.input_area{border: ;border-radius: ; background: ;}
+*/
+
+.navbar-default {
+	background-color: #263c53;
+}
+
+.table {
+
+    width: inherit;
+    max-width: 100%;
+    margin-bottom: 21px;
+    padding: 6px 13px;
+	margin: 20px;
+
+}
+
+.table>thead>tr>th {
+	
+	padding: 6px 13px;
+
+}
+
+.table>tbody>tr>td {
+	
+	padding: 6px 13px;
+
+}
+
+/*
+Add space between LaTeX equations in Jupyter notebooks
+*/
+
+.MathJax_Display {
+  padding: 10px;
+}
+
+/*
+Puts some space above the search bar
+*/
+
+#tipue_search_input
+{
+     /* font: 13px/1.6 'open sans', sans-serif; */
+     color: #333;
+     padding: 12px 12px 12px 40px;
+     width: 170px;
+     border: 1px solid #e2e2e2;
+     border-radius: 4px;
+     -moz-appearance: none;
+     -webkit-appearance: none;
+     box-shadow: none;
+     outline: 0;
+     margin: 10px;
+     height: 41px;
+     background: #fff url('../../extra/search.png') no-repeat 15px 15px;
+}
+
+/*
+For superfences code blocks
+*/
+
+.superfences-tabs {
+  display: flex;
+  position: relative;
+  flex-wrap: wrap;
+}
+
+.superfences-tabs .highlight {
+  background: #ddd;
+}
+
+.superfences-tabs .superfences-content {
+  display: none;
+  order: 99;
+  width: 100%;
+}
+
+.superfences-tabs label {
+  width: auto;
+  margin: 0 0.5em;
+  padding: 0.25em;
+  font-size: 120%;
+  cursor: pointer;
+}
+
+.superfences-tabs input {
+  position: absolute;
+  opacity: 0;
+}
+
+.superfences-tabs input:nth-child(n+1) {
+  color: #333333;
+}
+
+.superfences-tabs input:nth-child(n+1):checked + label {
+    color: #FF5252;
+}
+
+.superfences-tabs input:nth-child(n+1):checked + label + .superfences-content {
+    display: block;
+}

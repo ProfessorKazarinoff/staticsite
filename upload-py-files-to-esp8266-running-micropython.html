@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>How to upload .py-files onto an ESP8266 running MicroPython - Python for Undergraduate Engineers</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
+<style type="text/css">
+
+    /*some stuff for output/input prompts*/
+    div.cell{border:1px solid transparent;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}div.cell.selected{border-radius:4px;border:thin #ababab solid}
+    div.cell.edit_mode{border-radius:4px;border:thin #008000 solid}
+    div.cell{width:100%;padding:5px 5px 5px 0;margin:0;outline:none}
+    div.prompt{min-width:11ex;padding:.4em;margin:0;font-family:monospace;text-align:right;line-height:1.21429em}
+    @media (max-width:480px){div.prompt{text-align:left}}div.inner_cell{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
+    div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;line-height:1.21429em}
+    div.prompt:empty{padding-top:0;padding-bottom:0}
+    div.input{page-break-inside:avoid;display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;}
+    div.inner_cell{width:90%;}
+    div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;}
+    div.input_prompt{color:navy;border-top:1px solid transparent;}
+    div.output_wrapper{margin-top:5px;position:relative;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+    div.output_scroll{height:24em;width:100%;overflow:auto;border-radius:4px;-webkit-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);-moz-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);}
+    div.output_collapsed{margin:0px;padding:0px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+    div.out_prompt_overlay{height:100%;padding:0px 0.4em;position:absolute;border-radius:4px;}
+    div.out_prompt_overlay:hover{-webkit-box-shadow:inset 0 0 1px #000000;-moz-box-shadow:inset 0 0 1px #000000;box-shadow:inset 0 0 1px #000000;background:rgba(240, 240, 240, 0.5);}
+    div.output_prompt{color:darkred;}
+    
+    a.anchor-link:link{text-decoration:none;padding:0px 20px;visibility:hidden;}
+    h1:hover .anchor-link,h2:hover .anchor-link,h3:hover .anchor-link,h4:hover .anchor-link,h5:hover .anchor-link,h6:hover .anchor-link{visibility:visible;}
+    /* end stuff for output/input prompts*/
+    
+    
+    .highlight-ipynb .hll { background-color: #ffffcc }
+    .highlight-ipynb  { background: #f8f8f8; }
+    .highlight-ipynb .c { color: #408080; font-style: italic } /* Comment */
+    .highlight-ipynb .err { border: 1px solid #FF0000 } /* Error */
+    .highlight-ipynb .k { color: #008000; font-weight: bold } /* Keyword */
+    .highlight-ipynb .o { color: #666666 } /* Operator */
+    .highlight-ipynb .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+    .highlight-ipynb .cp { color: #BC7A00 } /* Comment.Preproc */
+    .highlight-ipynb .c1 { color: #408080; font-style: italic } /* Comment.Single */
+    .highlight-ipynb .cs { color: #408080; font-style: italic } /* Comment.Special */
+    .highlight-ipynb .gd { color: #A00000 } /* Generic.Deleted */
+    .highlight-ipynb .ge { font-style: italic } /* Generic.Emph */
+    .highlight-ipynb .gr { color: #FF0000 } /* Generic.Error */
+    .highlight-ipynb .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+    .highlight-ipynb .gi { color: #00A000 } /* Generic.Inserted */
+    .highlight-ipynb .go { color: #888888 } /* Generic.Output */
+    .highlight-ipynb .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+    .highlight-ipynb .gs { font-weight: bold } /* Generic.Strong */
+    .highlight-ipynb .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+    .highlight-ipynb .gt { color: #0044DD } /* Generic.Traceback */
+    .highlight-ipynb .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+    .highlight-ipynb .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+    .highlight-ipynb .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+    .highlight-ipynb .kp { color: #008000 } /* Keyword.Pseudo */
+    .highlight-ipynb .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+    .highlight-ipynb .kt { color: #B00040 } /* Keyword.Type */
+    .highlight-ipynb .m { color: #666666 } /* Literal.Number */
+    .highlight-ipynb .s { color: #BA2121 } /* Literal.String */
+    .highlight-ipynb .na { color: #7D9029 } /* Name.Attribute */
+    .highlight-ipynb .nb { color: #008000 } /* Name.Builtin */
+    .highlight-ipynb .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+    .highlight-ipynb .no { color: #880000 } /* Name.Constant */
+    .highlight-ipynb .nd { color: #AA22FF } /* Name.Decorator */
+    .highlight-ipynb .ni { color: #999999; font-weight: bold } /* Name.Entity */
+    .highlight-ipynb .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+    .highlight-ipynb .nf { color: #0000FF } /* Name.Function */
+    .highlight-ipynb .nl { color: #A0A000 } /* Name.Label */
+    .highlight-ipynb .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+    .highlight-ipynb .nt { color: #008000; font-weight: bold } /* Name.Tag */
+    .highlight-ipynb .nv { color: #19177C } /* Name.Variable */
+    .highlight-ipynb .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+    .highlight-ipynb .w { color: #bbbbbb } /* Text.Whitespace */
+    .highlight-ipynb .mf { color: #666666 } /* Literal.Number.Float */
+    .highlight-ipynb .mh { color: #666666 } /* Literal.Number.Hex */
+    .highlight-ipynb .mi { color: #666666 } /* Literal.Number.Integer */
+    .highlight-ipynb .mo { color: #666666 } /* Literal.Number.Oct */
+    .highlight-ipynb .sb { color: #BA2121 } /* Literal.String.Backtick */
+    .highlight-ipynb .sc { color: #BA2121 } /* Literal.String.Char */
+    .highlight-ipynb .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+    .highlight-ipynb .s2 { color: #BA2121 } /* Literal.String.Double */
+    .highlight-ipynb .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+    .highlight-ipynb .sh { color: #BA2121 } /* Literal.String.Heredoc */
+    .highlight-ipynb .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+    .highlight-ipynb .sx { color: #008000 } /* Literal.String.Other */
+    .highlight-ipynb .sr { color: #BB6688 } /* Literal.String.Regex */
+    .highlight-ipynb .s1 { color: #BA2121 } /* Literal.String.Single */
+    .highlight-ipynb .ss { color: #19177C } /* Literal.String.Symbol */
+    .highlight-ipynb .bp { color: #008000 } /* Name.Builtin.Pseudo */
+    .highlight-ipynb .vc { color: #19177C } /* Name.Variable.Class */
+    .highlight-ipynb .vg { color: #19177C } /* Name.Variable.Global */
+    .highlight-ipynb .vi { color: #19177C } /* Name.Variable.Instance */
+    .highlight-ipynb .il { color: #666666 } /* Literal.Number.Integer.Long */
+    </style>
+    
+    <style type="text/css">
+    /* Overrides of notebook CSS for static HTML export */
+    div.entry-content {
+      overflow: visible;
+      padding: 8px;
+    }
+    .input_area {
+      padding: 0.2em;
+    }
+    
+    a.heading-anchor {
+     white-space: normal;
+    }
+    
+    .rendered_html
+    code {
+     font-size: .8em;
+    }
+    
+    pre.ipynb {
+      color: black;
+      background: #f7f7f7;
+      border: none;
+      box-shadow: none;
+      margin-bottom: 0;
+      padding: 0;
+      margin: 0px;
+      font-size: 13px;
+    }
+    
+    /* remove the prompt div from text cells */
+    div.text_cell .prompt {
+        display: none;
+    }
+    
+    /* remove horizontal padding from text cells, */
+    /* so it aligns with outer body text */
+    div.text_cell_render {
+        padding: 0.5em 0em;
+    }
+    
+    img.anim_icon{padding:0; border:0; vertical-align:middle; -webkit-box-shadow:none; -box-shadow:none}
+    
+    div.collapseheader {
+        width=100%;
+        padding: 2px;
+        cursor: pointer;
+        font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+    
+    </style>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+    <script type="text/javascript">
+    init_mathjax = function() {
+        if (window.MathJax) {
+            // MathJax loaded
+            MathJax.Hub.Config({
+                tex2jax: {
+                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+                },
+                displayAlign: 'center', // Change this to 'center' to center equations.
+                "HTML-CSS": {
+                    styles: {'.MathJax_Display': {"margin": 0}}
+                }
+            });
+            MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        }
+    }
+    init_mathjax();
+    </script>
+    
+    <link href="./extra/favicon.ico" rel="icon">
+
+<link rel="canonical" href="./upload-py-files-to-esp8266-running-micropython.html">
+
+        <meta name="author" content="Peter D. Kazarinoff" />
+        <meta name="keywords" content="python,micropython,esp8266,microcontroller,ampy" />
+        <meta name="description" content="This is an update to the sixth part of a multi-part series on Micropython. I had trouble in class today uploading a .py-file to an ESP8266 microcontroller running MicroPython using a command line tool called ampy. There was a trick getting ampy to work on with the ESP8266 microcontroller that …" />
+
+        <meta property="og:site_name" content="Python for Undergraduate Engineers" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="How to upload .py-files onto an ESP8266 running MicroPython"/>
+        <meta property="og:url" content="./upload-py-files-to-esp8266-running-micropython.html"/>
+        <meta property="og:description" content="This is an update to the sixth part of a multi-part series on Micropython. I had trouble in class today uploading a .py-file to an ESP8266 microcontroller running MicroPython using a command line tool called ampy. There was a trick getting ampy to work on with the ESP8266 microcontroller that …"/>
+        <meta property="article:published_time" content="2019-03-09" />
+            <meta property="article:section" content="micropython" />
+            <meta property="article:tag" content="python" />
+            <meta property="article:tag" content="micropython" />
+            <meta property="article:tag" content="esp8266" />
+            <meta property="article:tag" content="microcontroller" />
+            <meta property="article:tag" content="ampy" />
+            <meta property="article:author" content="Peter D. Kazarinoff" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="./theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="./theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="./theme/css/pygments/native.css" rel="stylesheet">
+    <link href="./theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="./theme/css/style.css" type="text/css"/>
+        <link href="./static/css/custom.css" rel="stylesheet">
+
+
+
+</head>
+<body>
+
+<!-- .navbar -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="./" class="navbar-brand">
+Python for Undergraduate Engineers            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="./pages/about.html">
+                             About
+                          </a></li>
+                         <li><a href="./pages/book.html">
+                             Book
+                          </a></li>
+                         <li><a href="./pages/now.html">
+                             Now
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+
+<!-- .navbar-search -->
+<li>
+    <span>
+        <form class="navbar-search" action="/search.html">
+            <input type="text" name="q" id="tipue_search_input">
+        </form>
+    </span>
+</li>
+<!-- /.navbar-search -->              <li><a href="./archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+            <ol class="breadcrumb">
+                <li><a href="." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="./category/micropython.html" title="micropython">micropython</a></li>
+                <li class="active">How to upload .py-files onto an ESP8266 running MicroPython</li>
+            </ol>
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="./upload-py-files-to-esp8266-running-micropython.html"
+                       rel="bookmark"
+                       title="Permalink to How to upload .py-files onto an ESP8266 running MicroPython">
+                        How to upload .py-files onto an ESP8266 running MicroPython
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2019-03-09T09:01:00-08:00"> Sat 09 March 2019</time>
+    </span>
+
+            <span class="label label-default">Series</span>
+            Part 7 of micropython
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="./tag/python.html">python</a>
+        /
+	<a href="./tag/micropython.html">micropython</a>
+        /
+	<a href="./tag/esp8266.html">esp8266</a>
+        /
+	<a href="./tag/microcontroller.html">microcontroller</a>
+        /
+	<a href="./tag/ampy.html">ampy</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p><img alt="fritzing ESP8266 image" src="./posts/micropython/images/fritzing_esp8266.png"></p>
+<p>This is an update to the sixth part of a <a href="https://pythonforundergradengineers.com/what-is-micropython.html">multi-part series</a> on Micropython. I had trouble in class today uploading a .py-file to an ESP8266 microcontroller running MicroPython using a command line tool called <strong>ampy</strong>. There was a trick getting <strong>ampy</strong> to work on with the ESP8266 microcontroller that I want to share in case other people come across the same problem. In this post, I'll show you how I uploaded upload <strong><em>.py</em></strong> files to an ESP8266 microcontroller using Python and a Python package called <strong>ampy</strong>.</p>
+<p>Before you can upload a .py-file onto the ESP8266 microcontroller, first make sure MicroPython is installed on the microcontroller.  </p>
+<p><img alt="micropython docs page" src="./posts/micropython/images/micropython_downloads_page.png"></p>
+<p><img alt="micropython firmware page" src="./posts/micropython/images/firmware_for_esp8266_boards.png"></p>
+<p>See the <a href="https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/intro.html">MicroPython docs</a> and a <a href="./micropython-install.html">previous post</a> on how to install MicroPython on an ESP8266  and how to install PuTTY on a Windows 10 machine. <a href="https://www.putty.org/">PuTTY</a> needs to be installed on your computer to communicate with the ESP8266 running MicroPython. </p>
+<div class="toc"><span class="toctitle">Table of contents:</span><ul>
+<li><a href="#create-a-new-virtual-environment">Create a new virtual environment</a></li>
+<li><a href="#install-ampy-with-pip">Install ampy with pip</a></li>
+<li><a href="#disable-debug-output-on-the-esp8266-microcontroller">Disable debug output on the ESP8266 MicroController</a></li>
+<li><a href="#list-the-files-stored-on-the-esp8266-microcontroller">List the files stored on the ESP8266 microcontroller</a></li>
+<li><a href="#download-files-stored-on-the-esp8266-to-your-computer">Download files stored on the ESP8266 to your computer</a></li>
+<li><a href="#modify-bootpy-to-include-esposdebugnone">Modify boot.py to include esp.osdebug(None)</a></li>
+<li><a href="#upload-the-revised-bootpy-file-onto-the-esp8266-with-ampy">Upload the revised boot.py file onto the ESP8266 with ampy</a></li>
+<li><a href="#unplug-and-power-up-the-esp8266-microcontroller">Unplug and power up the ESP8266 microcontroller</a></li>
+<li><a href="#write-a-mainpy-script">Write a main.py script</a></li>
+<li><a href="#upload-mainpy-onto-the-board">Upload main.py onto the board</a></li>
+<li><a href="#start-the-board-to-see-the-code-run">Start the board to see the code run</a></li>
+<li><a href="#modify-the-code-in-mainpy-and-re-upload">Modify the code in main.py and re-upload</a></li>
+<li><a href="#summary">Summary</a></li>
+</ul>
+</div>
+<h2 id="create-a-new-virtual-environment">Create a new virtual environment</h2>
+<p>It is a good idea to create a new virtual environment when you start a Python project. A virtual environment is an isolated installation of Python that is separate from other Python installations running on your computer. See <a href="./posts/virtual_environments/new_virtualenv_conda.md">this post</a> to learn how to create a virtual environment with the <strong>Anaconda Prompt</strong>. I called my new virtual environment <code>ampy</code>. I like to name my virtual environments with a name that corresponds to what the environment is used for.</p>
+<p>To create a new Python virtual environment, open the <strong>Anaconda Prompt</strong> and type the following commands. Note the prompt character (the greater than sign <code>&gt;</code>) does not need to be typed. It is included to indicate the <strong>Anaconda Prompt</strong>. The <code>-n ampy</code> portion of the command denotes the name of the virtual environment. <code>python=3.7</code> ensures Python version 3.7 is installed into the <code>ampy</code> virtual environment.</p>
+<div class="highlight"><pre><span></span>&gt; conda create -n ampy python=3.7
+</pre></div>
+
+
+<p>Type <code>y</code> for yes when prompted. After the virtual environment is created, it needs to be <em>activated</em> before any packages are installed into it. Activate the <code>ampy</code> virtual environment with the command below. Note that when the <code>ampy</code> virtual environment is active, <code>(ampy)</code> is shown in parenthesis before the prompt.</p>
+<div class="highlight"><pre><span></span>&gt; conda activate ampy
+(ampy) &gt;
+</pre></div>
+
+
+<h2 id="install-ampy-with-pip">Install <strong>ampy</strong> with <strong>pip</strong></h2>
+<p><a href="https://github.com/adafruit/ampy"><strong>Ampy</strong></a> is a command-line tool (a program that accepts text commands typed into a terminal) for uploading files onto microcontrollers running MicroPython. <strong>Ampy</strong> was created by Adafruit. Adafruit is the company that makes the ESP8266 Microcontroller I'm using. The microcontroller is called the Adafruit Feather Huzzah ESP2866.  <strong>Ampy</strong> can also be used to download files stored on an ESP8266 microcontroller.</p>
+<p>Before installing <strong>ampy</strong>, make sure to activate the virtual environment you just created. You know the virtual environment is activated because <code>(ampy)</code> will be shown before the prompt. The command line tool is called <strong>ampy</strong>, but you enter the command <code>pip install ampy-adafruit</code> to install it. Remember the prompt character <code>&gt;</code> and <code>(ampy)</code> do not need to be typed. They are included below to indicate the <strong>Anaconda Prompt</strong>.</p>
+<div class="highlight"><pre><span></span># if the virtual environment isn&#39;t already active
+&gt; conda activate ampy
+(ampy) &gt; pip install ampy-adafruit
+(ampy) &gt; ampy --help
+</pre></div>
+
+
+<p>If <strong>ampy</strong> is successfully installed, the command <code>ampy --help</code> will show some documentation about how to use the tool.</p>
+<h2 id="disable-debug-output-on-the-esp8266-microcontroller">Disable debug output on the ESP8266 MicroController</h2>
+<p><strong>Here is the gotcha</strong>- I had trouble uploading .py-files to the ESP8266 microcontroller, and I couldn't figure out why I kept getting when I ran <strong>ampy</strong> commands.</p>
+<p>When I tried to run <strong>ampy</strong> commands, the output would show some type of error involving the web REPL. I couldn't figure out what was wrong. At first, I thought the ESP8266 microcontroller was trying to connect to WiFi, and that was the reason <strong>ampy</strong> didn't work. Then I thought maybe the version of MicroPython running on the board was out of date. But after I did a fresh MicroPython install, <strong>ampy</strong> still didn't work.</p>
+<p>It turned out the problem had to do with a debug setting running on the ESP8266 by default. I found the section below inside the <strong>ampy</strong> documentation.</p>
+<p><img alt="adafruit ampy docs" src="./posts/micropython/images/adafruit_docs.png"></p>
+<p>The <strong>ampy</strong> documentation says that debugging can be disabled by running the command <code>esp.osdebug(None)</code> at the MicroPython REPL.</p>
+<p>So to get <strong>ampy</strong> working and upload .py-files onto the board, you first need to open PuTTY and connect to the board over a serial connection. Remember to include the correct <code>Port</code> and use <code>115200</code> as the baud rate.</p>
+<p><img alt="PuTTY configuration" src="./posts/micropython/putty_settings.png"></p>
+<p>Type the commands below into the MicroPython REPL (into the PuTTY window). Note the triple arrow prompt <code>&gt;&gt;&gt;</code> should not be typed. The triple arrow prompt <code>&gt;&gt;&gt;</code> is shown to denote the MicroPython prompt.</p>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; import esp
+&gt;&gt;&gt; esp.osdebug(None)
+</pre></div>
+
+
+<p><img alt="esp.debug(None)" src="./posts/micropython/images/import_esp_esposdebug_none.png"></p>
+<p>After you type the <code>esp.osdebug(None)</code> command, close the PuTTY window, but <strong>don't unplug the ESP8266 microcontroller from the computer</strong>. If you unplug the microcontroller, the board will reset, and the command will not take effect. Then you'll have to type the command again before using <strong>ampy</strong>.</p>
+<h2 id="list-the-files-stored-on-the-esp8266-microcontroller">List the files stored on the ESP8266 microcontroller</h2>
+<p>Before you upload files on the microcontroller, it is a good idea to see what files are already stored on the microcontroller. Seeing which files are on the board is also a good test to make sure <strong>ampy</strong> works appropriately.</p>
+<p>To see which files are on your ESP8266 microcontroller, open the <strong>Anaconda Prompt</strong> and make sure the <code>(ampy)</code> virtual environment is active. Then run the following command. Again, remember you don't have to type the <code>&gt;</code>, which denotes the <strong>Anaconda Prompt</strong>. The port your ESP8266 is connected to may be <code>COM4</code>, but it might be called something else. You can use the Windows Device Manager and search under [Ports (COM &amp; LPT)]. The ESP8266 will be listed at the bottom of the list of COM ports.</p>
+<div class="highlight"><pre><span></span>(ampy) &gt; ampy --port COM4 --baud 115200 ls
+boot.py
+web_repl.py
+</pre></div>
+
+
+<p>You can see the files <strong>boot.py</strong>, and <strong>web_repl.py</strong> are currently on the board. </p>
+<h2 id="download-files-stored-on-the-esp8266-to-your-computer">Download files stored on the ESP8266 to your computer</h2>
+<p>If you can successfully read which files are on the ESP8266, a next step is to download one of these files from the microcontroller onto your computer. The <strong>ampy</strong> command <code>get</code> is used to complete this operation. Note that when a single file name is listed before <code>get</code>, you only see the contents of the file. The file will not download onto your computer.</p>
+<div class="highlight"><pre><span></span>(ampy) &gt; ampy --port COM4 --baud 115200 get boot.py
+# output
+</pre></div>
+
+
+<p><img alt="ampy get boot.py" src="./posts/micropython/images/ampy_get_boot_dot_py.png"></p>
+<p>To download the <code>boot.py</code> file onto your computer, you need to include the file name twice in the <strong>ampy</strong> <code>get</code> command. One time to indicate which file on the microcontroller you want to download and another time to name the file that's stored on your computer.</p>
+<div class="highlight"><pre><span></span>(ampy) &gt; ampy --port COM4 --baud 115200 get boot.py boot.py
+</pre></div>
+
+
+<p>Now you can look at your folders and see the <strong><em>boot.py</em></strong> file you just downloaded. You can find out which folder <strong><em>boot.py</em></strong> is saved in by running the command <code>pwd</code> (for print working directory) at the <strong>Anaconda Prompt</strong>.</p>
+<div class="highlight"><pre><span></span>(ampy) &gt; pwd
+</pre></div>
+
+
+<h2 id="modify-bootpy-to-include-esposdebugnone">Modify boot.py to include esp.osdebug(None)</h2>
+<p>Next, modify the <strong><em>boot.py</em></strong> file you just downloaded so that the ESP8266 microcontroller won't run debugging automatically when it starts up. </p>
+<p><strong><em>boot.py</em></strong> is the file that runs first when the microcontroller is first powered up. After <strong><em>boot.py</em></strong> runs, then a file called  <strong><em>main.py</em></strong> runs if it is present. We can add other <strong><em>.py</em></strong> files to the board to provide <strong><em>main.py</em></strong> some functions to work with. </p>
+<p>You can modify <strong><em>boot.py</em></strong> on your computer and then upload the revised version of <strong><em>boot.py</em></strong> to the ESP8266. The ESP8266 will then run whatever is in <strong><em>boot.py</em></strong> the next time the microcontroller restarts.</p>
+<p>Open <strong><em>boot.py</em></strong> on your computer with a text editor. I like to use <a href="https://vscode.org">Visula Studio Code</a>, but another text editor like Sublime will work as well. I don't recommend using Notepad to edit the file. Notepad doesn't display the line endings correctly. So the code in Notepad is challenging to read and modify.</p>
+<p>Edit <strong><em>boot.py</em></strong> to include the following code. Note how the lines <code>import esp</code> and <code>esp.osdebug(None)</code> are uncommented. The lines <code>web_repl_start</code> are commented.</p>
+<div class="highlight"><pre><span></span># boot.py
+
+import esp
+esp.osdebug(None)
+import uos, machine
+#uos.dupterm(None, 1) # disable REPL on UART(0)
+import gc
+#import webrepl
+#webrepl.start()
+gc.collect()
+</pre></div>
+
+
+<p><img alt="boot.py in VS Code" src="./posts/micropython/images/edits_to_boot_dot_py.png"></p>
+<p>Save the <strong><em>boot.py</em></strong> file. If you are using Visual Studio Code, you can leave the file open. If you are using another text editor, you may need to close <strong><em>boot.py</em></strong> before you can upload it to the board with <strong>ampy</strong>.</p>
+<h2 id="upload-the-revised-bootpy-file-onto-the-esp8266-with-ampy">Upload the revised <strong><em>boot.py</em></strong> file onto the ESP8266 with <strong>ampy</strong></h2>
+<p>Now you can upload the <strong><em>boot.py</em></strong> file you just edited onto the ESP8266 microcontroller using <strong>ampy</strong>. Make sure you are in the directory with the <strong><em>boot.py</em></strong> file and that you are working in the <code>(ampy)</code> virtual environment. The command below will upload the file to the board.</p>
+<div class="highlight"><pre><span></span>(ampy)$ ampy --port COM4 --baud 115200 put boot.py
+
+(ampy)$ ampy --port COM4 --baud 115200 ls
+
+(ampy)$ ampy --port COM4 --baud 115200 get boot.py
+# output
+</pre></div>
+
+
+<p>The output of the <strong>ampy</strong> <code>get</code> command should be the code you just revised.</p>
+<p><img alt="revised boot.py using ampy get" src="./posts/micropython/images/ampy_get_boot_dot_py_revised.png"></p>
+<h2 id="unplug-and-power-up-the-esp8266-microcontroller">Unplug and power up the ESP8266 microcontroller</h2>
+<p>Now you can see if the changes you did work, and the <code>esp.osdebug(None)</code> command really worked.</p>
+<p>To restart the board, unplug and then replug the board's USB cable. Once power is restored, the board runs <strong><em>boot.py</em></strong>.</p>
+<p>Try and connect to the board with <strong>ampy</strong> again and make sure <strong>ampy</strong> still works with the board.</p>
+<div class="highlight"><pre><span></span>(ampy)$ ampy --port COM4 --baud 115200 ls
+\boot.py
+
+(ampy)$ ampy --port COM4 --baud 115200 get boot.py
+# output
+</pre></div>
+
+
+<h2 id="write-a-mainpy-script">Write a <strong><em>main.py</em></strong> script</h2>
+<p>Now you can write a <strong><em>main.py</em></strong> script that will run on the microcontroller after <strong><em>boot.py</em></strong> executes. Open a text editor and include the following code. The code blinks the built-in LED on the ESP8266 on and off 10 times.</p>
+<div class="highlight"><pre><span></span># main.py
+
+import machine
+import time
+
+pin = machine.Pin(0, machine.Pin.OUT)
+
+for i in range(10):
+        pin.value(1)
+        time.sleep(0.5)
+        pin.value(0)
+        time.sleep(0.5)
+</pre></div>
+
+
+<h2 id="upload-mainpy-onto-the-board">Upload <strong><em>main.py</em></strong> onto the board</h2>
+<p>After <strong><em>main.py</em></strong> is saved, you can upload <strong><em>main.py</em></strong> onto the microcontroller. You can use the same <strong>ampy</strong> <code>put</code> command that you used to upload <strong><em>boot.py</em></strong> onto the board.</p>
+<div class="highlight"><pre><span></span>(ampy)$ ampy --port COM4 --baud 115200 put main.py
+
+(ampy)$ ampy --port COM4 --baud 115200 ls
+\boot.py
+\main.py
+
+(ampy)$ ampy --port COM4 --baud 115200 get main.py
+#output
+</pre></div>
+
+
+<p>You should see the contents of your <strong><em>main.py</em></strong> file in the terminal.</p>
+<h2 id="start-the-board-to-see-the-code-run">Start the board to see the code run</h2>
+<p>Unplug and replug the USB cable connected to the board to restart it. When the board restarts, it runs <strong><em>boot.py</em></strong> then <strong><em>main.py</em></strong>. After the board is plugged back in, you should see the LED on the board blink on and off 10 times. </p>
+<h2 id="modify-the-code-in-mainpy-and-re-upload">Modify the code in <strong><em>main.py</em></strong> and re-upload</h2>
+<p>You can write any valid MicroPyton code you want in <strong><em>main.py</em></strong>. After the edits are complete, you can re-upload <strong><em>main.py</em></strong> to the board. When the board restarts, any changes you made to <strong><em>main.py</em></strong> will take effect.</p>
+<p>You can also upload additional .py-files to the board with the same <strong>ampy</strong> <code>put</code> command. A typical pattern is to have very minimal code in <strong><em>main.py</em></strong>.  You can use <strong><em>main.py</em></strong> to import functions from other .py-files stored on the board and run them.</p>
+<h2 id="summary">Summary</h2>
+<p>In this post, I showed you how to use <strong>ampy</strong> to upload .py-files onto an ESP8266 microcontroller running MicroPython. The big gotcha we solved was that by default <code>esp.osdebug(None)</code> wasn't running, and therefore <strong>ampy</strong> didn't work. First, we ran the <code>esp.osdebug(None)</code> command at the MicroPython REPL using PuTTY. Next, we downloaded the <strong><em>boot.py</em></strong> file stored and the board and modified <strong><em>boot.py</em></strong> to include the <code>esp.osdebug(None)</code> command. Then we used <strong>ampy</strong> to upload the revised <strong><em>boot.py</em></strong> file onto the board. Finally, we modified a file called <strong><em>main.py</em></strong> on our computer and then uploaded this file to the board using <strong>ampy</strong>. </p>
+            </div>
+            <!-- /.entry-content -->
+<section class="well" id="related-posts">
+    <h4>Related Posts:</h4>
+    <ul>
+        <li><a href="./micropython-upload-code.html">Upload Micropython Code to an Adafruit Feather Huzzah ESP8266</a></li>
+        <li><a href="./micropython-wifi.html">Using Micropython to connect an Adafruit Feather Huzzah ESP8266 to WiFi</a></li>
+        <li><a href="./micropython-temp-sensor.html">Using a Temperature Sensor with Micropython running on an Adafruit Feather Huzzah ESP8266</a></li>
+        <li><a href="./micropython-install.html">Installing Micropython on an Adafruit Feather Huzzah ESP8266</a></li>
+        <li><a href="./what-is-micropython.html">What is Micropython?</a></li>
+    </ul>
+</section>
+<section class="well" id="related-posts">
+    <h4>Article 7 of the micropython series</h4>
+       <h5>Previous articles</h5>
+       <ul>
+           <li><a href="./what-is-micropython.html">What is Micropython?</a></li>
+           <li><a href="./micropython-install.html">Installing Micropython on an Adafruit Feather Huzzah ESP8266</a></li>
+           <li><a href="./micropython-REPL.html">Using the Micropython REPL on an Adafruit Feather Huzzah ESP8266</a></li>
+           <li><a href="./micropython-temp-sensor.html">Using a Temperature Sensor with Micropython running on an Adafruit Feather Huzzah ESP8266</a></li>
+           <li><a href="./micropython-wifi.html">Using Micropython to connect an Adafruit Feather Huzzah ESP8266 to WiFi</a></li>
+           <li><a href="./micropython-upload-code.html">Upload Micropython Code to an Adafruit Feather Huzzah ESP8266</a></li>
+       </ul>
+</section>
+    <hr />
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style">
+            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+            <a class="addthis_button_tweet"></a>
+    </div>
+    <!-- AddThis Button END -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<div id="aboutme">
+        <p>
+            <img width="100%" class="img-thumbnail" src="./extra/gear-wrench-icon-512-278694.png"/>
+        </p>
+    <p>
+      <strong>About Peter Kazarinoff</strong><br/>
+        I teach engineering at a community college in the Pacific Northwest. I am interested in programming and how to help students. Here I mostly blog about Python, and how programing can be incorporated into engineering education.
+    </p>
+</div><!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Recent Posts -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+  <ul class="list-group" id="recentposts">
+    <li class="list-group-item"><a href="./thoughts-on-how-to-test-science-code.html">Thoughts on Software Design in Scientific Code</a></li>
+    <li class="list-group-item"><a href="./stream-S01-E01-jupyterhub-intro.html">My first Twitch Stream: S01-E01 JupyterHub Intro and Tools</a></li>
+    <li class="list-group-item"><a href="./jupyterhub-deployment-on-running-in-production.html">Hear my story about deploying JupyterHub on the Running in Production Podcast</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Recent Posts -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="./"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-2">
+      <a href="./tag/engineering.html">engineering</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/esp8266.html">esp8266</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="./tag/jupyter.html">jupyter</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="./tag/jupyter-notebook.html">jupyter notebook</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="./tag/matplotlib.html">matplotlib</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/micropython.html">micropython</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/pelican.html">pelican</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="./tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/sensor.html">sensor</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Series -->
+<li class="list-group-item">
+  <h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Series</span></h4>
+  <ul class="list-group">
+    <li class="list-group-item">
+      <h5></i>Previous article</h5>
+      <a href="./micropython-upload-code.html">Upload Micropython Code to an Adafruit Feather Huzzah ESP8266</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Series -->
+
+
+<!-- Sidebar/Github -->
+<li class="list-group-item">
+  <h4><i class="fa fa-github fa-lg"></i><span class="icon-label">GitHub Repos</span></h4>
+  <div id="gh_repos">
+    <p class="list-group-item">Status updating...</p>
+  </div>
+  <a href="https://github.com/professorkazarinoff">@professorkazarinoff</a> on GitHub
+</li>
+<!-- End Sidebar/Github -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2021 Peter Kazarinoff
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="./theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="./theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="./theme/js/respond.min.js"></script>
+
+    <script src="./static/js/custom.js"></script>
+
+
+<!-- GitHub JS Code -->
+<script type="text/javascript">
+$(document).ready(function () {
+  if (!window.jXHR) {
+    var jxhr = document.createElement('script');
+    jxhr.type = 'text/javascript';
+    jxhr.src = './theme/js/jXHR.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(jxhr, s);
+  }
+
+  github.showRepos({
+    user: 'professorkazarinoff',
+    count: 5,
+    skip_forks: true,
+    target: '#gh_repos'
+  });
+});
+</script>
+<script src="./theme/js/github.js" type="text/javascript"></script>
+<!-- End GitHub JS Code -->
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-116330557-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+    $("div.collapseheader").click(function () {
+    $header = $(this).children("span").first();
+    $codearea = $(this).children(".input_area");
+    console.log($(this).children());
+    $codearea.slideToggle(500, function () {
+        $header.text(function () {
+            return $codearea.is(":visible") ? "Collapse Code" : "Expand Code";
+        });
+    });
+});
+});
+</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cdd8eb4e16bf94c"></script>
+</body>
+</html>

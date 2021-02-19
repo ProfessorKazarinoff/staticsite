@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Estimating the Deflection of a Truncated Cone using Python - Python for Undergraduate Engineers</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
+<style type="text/css">
+
+    /*some stuff for output/input prompts*/
+    div.cell{border:1px solid transparent;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}div.cell.selected{border-radius:4px;border:thin #ababab solid}
+    div.cell.edit_mode{border-radius:4px;border:thin #008000 solid}
+    div.cell{width:100%;padding:5px 5px 5px 0;margin:0;outline:none}
+    div.prompt{min-width:11ex;padding:.4em;margin:0;font-family:monospace;text-align:right;line-height:1.21429em}
+    @media (max-width:480px){div.prompt{text-align:left}}div.inner_cell{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
+    div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;line-height:1.21429em}
+    div.prompt:empty{padding-top:0;padding-bottom:0}
+    div.input{page-break-inside:avoid;display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;}
+    div.inner_cell{width:90%;}
+    div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;}
+    div.input_prompt{color:navy;border-top:1px solid transparent;}
+    div.output_wrapper{margin-top:5px;position:relative;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+    div.output_scroll{height:24em;width:100%;overflow:auto;border-radius:4px;-webkit-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);-moz-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);}
+    div.output_collapsed{margin:0px;padding:0px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+    div.out_prompt_overlay{height:100%;padding:0px 0.4em;position:absolute;border-radius:4px;}
+    div.out_prompt_overlay:hover{-webkit-box-shadow:inset 0 0 1px #000000;-moz-box-shadow:inset 0 0 1px #000000;box-shadow:inset 0 0 1px #000000;background:rgba(240, 240, 240, 0.5);}
+    div.output_prompt{color:darkred;}
+    
+    a.anchor-link:link{text-decoration:none;padding:0px 20px;visibility:hidden;}
+    h1:hover .anchor-link,h2:hover .anchor-link,h3:hover .anchor-link,h4:hover .anchor-link,h5:hover .anchor-link,h6:hover .anchor-link{visibility:visible;}
+    /* end stuff for output/input prompts*/
+    
+    
+    .highlight-ipynb .hll { background-color: #ffffcc }
+    .highlight-ipynb  { background: #f8f8f8; }
+    .highlight-ipynb .c { color: #408080; font-style: italic } /* Comment */
+    .highlight-ipynb .err { border: 1px solid #FF0000 } /* Error */
+    .highlight-ipynb .k { color: #008000; font-weight: bold } /* Keyword */
+    .highlight-ipynb .o { color: #666666 } /* Operator */
+    .highlight-ipynb .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+    .highlight-ipynb .cp { color: #BC7A00 } /* Comment.Preproc */
+    .highlight-ipynb .c1 { color: #408080; font-style: italic } /* Comment.Single */
+    .highlight-ipynb .cs { color: #408080; font-style: italic } /* Comment.Special */
+    .highlight-ipynb .gd { color: #A00000 } /* Generic.Deleted */
+    .highlight-ipynb .ge { font-style: italic } /* Generic.Emph */
+    .highlight-ipynb .gr { color: #FF0000 } /* Generic.Error */
+    .highlight-ipynb .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+    .highlight-ipynb .gi { color: #00A000 } /* Generic.Inserted */
+    .highlight-ipynb .go { color: #888888 } /* Generic.Output */
+    .highlight-ipynb .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+    .highlight-ipynb .gs { font-weight: bold } /* Generic.Strong */
+    .highlight-ipynb .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+    .highlight-ipynb .gt { color: #0044DD } /* Generic.Traceback */
+    .highlight-ipynb .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+    .highlight-ipynb .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+    .highlight-ipynb .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+    .highlight-ipynb .kp { color: #008000 } /* Keyword.Pseudo */
+    .highlight-ipynb .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+    .highlight-ipynb .kt { color: #B00040 } /* Keyword.Type */
+    .highlight-ipynb .m { color: #666666 } /* Literal.Number */
+    .highlight-ipynb .s { color: #BA2121 } /* Literal.String */
+    .highlight-ipynb .na { color: #7D9029 } /* Name.Attribute */
+    .highlight-ipynb .nb { color: #008000 } /* Name.Builtin */
+    .highlight-ipynb .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+    .highlight-ipynb .no { color: #880000 } /* Name.Constant */
+    .highlight-ipynb .nd { color: #AA22FF } /* Name.Decorator */
+    .highlight-ipynb .ni { color: #999999; font-weight: bold } /* Name.Entity */
+    .highlight-ipynb .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+    .highlight-ipynb .nf { color: #0000FF } /* Name.Function */
+    .highlight-ipynb .nl { color: #A0A000 } /* Name.Label */
+    .highlight-ipynb .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+    .highlight-ipynb .nt { color: #008000; font-weight: bold } /* Name.Tag */
+    .highlight-ipynb .nv { color: #19177C } /* Name.Variable */
+    .highlight-ipynb .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+    .highlight-ipynb .w { color: #bbbbbb } /* Text.Whitespace */
+    .highlight-ipynb .mf { color: #666666 } /* Literal.Number.Float */
+    .highlight-ipynb .mh { color: #666666 } /* Literal.Number.Hex */
+    .highlight-ipynb .mi { color: #666666 } /* Literal.Number.Integer */
+    .highlight-ipynb .mo { color: #666666 } /* Literal.Number.Oct */
+    .highlight-ipynb .sb { color: #BA2121 } /* Literal.String.Backtick */
+    .highlight-ipynb .sc { color: #BA2121 } /* Literal.String.Char */
+    .highlight-ipynb .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+    .highlight-ipynb .s2 { color: #BA2121 } /* Literal.String.Double */
+    .highlight-ipynb .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+    .highlight-ipynb .sh { color: #BA2121 } /* Literal.String.Heredoc */
+    .highlight-ipynb .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+    .highlight-ipynb .sx { color: #008000 } /* Literal.String.Other */
+    .highlight-ipynb .sr { color: #BB6688 } /* Literal.String.Regex */
+    .highlight-ipynb .s1 { color: #BA2121 } /* Literal.String.Single */
+    .highlight-ipynb .ss { color: #19177C } /* Literal.String.Symbol */
+    .highlight-ipynb .bp { color: #008000 } /* Name.Builtin.Pseudo */
+    .highlight-ipynb .vc { color: #19177C } /* Name.Variable.Class */
+    .highlight-ipynb .vg { color: #19177C } /* Name.Variable.Global */
+    .highlight-ipynb .vi { color: #19177C } /* Name.Variable.Instance */
+    .highlight-ipynb .il { color: #666666 } /* Literal.Number.Integer.Long */
+    </style>
+    
+    <style type="text/css">
+    /* Overrides of notebook CSS for static HTML export */
+    div.entry-content {
+      overflow: visible;
+      padding: 8px;
+    }
+    .input_area {
+      padding: 0.2em;
+    }
+    
+    a.heading-anchor {
+     white-space: normal;
+    }
+    
+    .rendered_html
+    code {
+     font-size: .8em;
+    }
+    
+    pre.ipynb {
+      color: black;
+      background: #f7f7f7;
+      border: none;
+      box-shadow: none;
+      margin-bottom: 0;
+      padding: 0;
+      margin: 0px;
+      font-size: 13px;
+    }
+    
+    /* remove the prompt div from text cells */
+    div.text_cell .prompt {
+        display: none;
+    }
+    
+    /* remove horizontal padding from text cells, */
+    /* so it aligns with outer body text */
+    div.text_cell_render {
+        padding: 0.5em 0em;
+    }
+    
+    img.anim_icon{padding:0; border:0; vertical-align:middle; -webkit-box-shadow:none; -box-shadow:none}
+    
+    div.collapseheader {
+        width=100%;
+        padding: 2px;
+        cursor: pointer;
+        font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+    
+    </style>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+    <script type="text/javascript">
+    init_mathjax = function() {
+        if (window.MathJax) {
+            // MathJax loaded
+            MathJax.Hub.Config({
+                tex2jax: {
+                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+                },
+                displayAlign: 'center', // Change this to 'center' to center equations.
+                "HTML-CSS": {
+                    styles: {'.MathJax_Display': {"margin": 0}}
+                }
+            });
+            MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        }
+    }
+    init_mathjax();
+    </script>
+    
+    <link href="./extra/favicon.ico" rel="icon">
+
+<link rel="canonical" href="./deflection-of-a-truncated-cone-with-python.html">
+
+        <meta name="author" content="Peter D. Kazarinoff" />
+        <meta name="keywords" content="python,strengths,engineering,materials science,jupyter notebook" />
+        <meta name="description" content="In this post, we will complete a problem that might come up in a Strength of Materials class. We&#39;ll estimate the deflection of a truncated cone given an applied load using Python. The Problem¶Below is an engineering mechanics problem that can be solved in Python. Follow along this post …" />
+
+        <meta property="og:site_name" content="Python for Undergraduate Engineers" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Estimating the Deflection of a Truncated Cone using Python"/>
+        <meta property="og:url" content="./deflection-of-a-truncated-cone-with-python.html"/>
+        <meta property="og:description" content="In this post, we will complete a problem that might come up in a Strength of Materials class. We&#39;ll estimate the deflection of a truncated cone given an applied load using Python. The Problem¶Below is an engineering mechanics problem that can be solved in Python. Follow along this post …"/>
+        <meta property="article:published_time" content="2019-07-02" />
+            <meta property="article:section" content="strengths" />
+            <meta property="article:tag" content="python" />
+            <meta property="article:tag" content="strengths" />
+            <meta property="article:tag" content="engineering" />
+            <meta property="article:tag" content="materials science" />
+            <meta property="article:tag" content="jupyter notebook" />
+            <meta property="article:author" content="Peter D. Kazarinoff" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="./theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="./theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="./theme/css/pygments/native.css" rel="stylesheet">
+    <link href="./theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="./theme/css/style.css" type="text/css"/>
+        <link href="./static/css/custom.css" rel="stylesheet">
+
+
+
+</head>
+<body>
+
+<!-- .navbar -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="./" class="navbar-brand">
+Python for Undergraduate Engineers            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="./pages/about.html">
+                             About
+                          </a></li>
+                         <li><a href="./pages/book.html">
+                             Book
+                          </a></li>
+                         <li><a href="./pages/now.html">
+                             Now
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+
+<!-- .navbar-search -->
+<li>
+    <span>
+        <form class="navbar-search" action="/search.html">
+            <input type="text" name="q" id="tipue_search_input">
+        </form>
+    </span>
+</li>
+<!-- /.navbar-search -->              <li><a href="./archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+            <ol class="breadcrumb">
+                <li><a href="." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="./category/strengths.html" title="strengths">strengths</a></li>
+                <li class="active">Estimating the Deflection of a Truncated Cone using Python</li>
+            </ol>
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="./deflection-of-a-truncated-cone-with-python.html"
+                       rel="bookmark"
+                       title="Permalink to Estimating the Deflection of a Truncated Cone using Python">
+                        Estimating the Deflection of a Truncated Cone using Python
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2019-07-02T09:30:00-07:00"> Tue 02 July 2019</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="./tag/python.html">python</a>
+        /
+	<a href="./tag/strengths.html">strengths</a>
+        /
+	<a href="./tag/engineering.html">engineering</a>
+        /
+	<a href="./tag/materials-science.html">materials science</a>
+        /
+	<a href="./tag/jupyter-notebook.html">jupyter notebook</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p><img alt="segmented cone" src="./posts/engr213/images/segmented_cone.png"> </p>
+<p>In this post, we will complete a problem that might come up in a Strength of Materials class. We'll estimate the deflection of a truncated cone given an applied load using Python.</p>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="The-Problem">The Problem<a class="anchor-link" href="#The-Problem">&#182;</a></h3><p>Below is an engineering mechanics problem that can be solved in Python. Follow along this post to see how to solve the problem with code.</p>
+<h4 id="Given:">Given:<a class="anchor-link" href="#Given:">&#182;</a></h4><p>A solid truncated cone is subjected to an axial force $P$ as shown below.</p>
+<p><img src="https://raw.githubusercontent.com/ProfessorKazarinoff/staticsite/master/content/code/ENGR213/problem_diagram.png" alt="problem diagram"></p>
+<p>When load $P$ is applied to the cone, the exact elongation, $\delta$ is:</p>
+$$ \delta = \frac{PL}{2\pi c^{2}E} $$
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Find:">Find:<a class="anchor-link" href="#Find:">&#182;</a></h4><p>By replacing the cone by $n$ circular cylinders of equal thickness, determine the elongation of the the truncated cone. Also calculate the percent error obtained from using $n=6$, $n=12$, and $n=60$ circular cylinders.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Assumptions:">Assumptions:<a class="anchor-link" href="#Assumptions:">&#182;</a></h4><p>This problem can be completed generally, but for this solution, we are going to assume the following:</p>
+<p>load $P=10 \ MPa$</p>
+<p>minor radius $c=5 \ mm$</p>
+<p>major radius $2c=10 \ mm$</p>
+<p>length $L=100 \ mm$</p>
+<p>Elastic Modulus $E=120 \ GPa$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Start-the-solution:-install-Python">Start the solution: install Python<a class="anchor-link" href="#Start-the-solution:-install-Python">&#182;</a></h3><p>We are going to use Python to code the solution to this problem. If you don't already have Python installed on your computer, I recommend installing the <a href="https://www.anaconda.com/distribution/">Anaconda</a> distribution of Python. See <a href="https://pythonforundergradengineers.com/installing-anaconda-on-windows.html">this post</a> to learn how to install Anaconda on your computer.</p>
+<p>I am coding this solution in a <a href="https://jupyter.org/">Jupyter Notebook</a>. Once you install Anaconda, you can open a Jupyter notebook from the Windows Start Menu or the Anaconda Prompt. See <a href="https://pythonforundergradengineers.com/opening-a-jupyter-notebook-on-windows.html">this post</a> to learn about the ways to open a Jupyter notebook.</p>
+<p>Alternatively, instead of using a Jupyter notebook, you could code your solution in a <code>.py</code> file.</p>
+<p><strong>Alright. Let's get coding....</strong></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Calculate-the-exact-value-of-the-deflection-of-the-truncated-cone">Calculate the exact value of the deflection of the truncated cone<a class="anchor-link" href="#Calculate-the-exact-value-of-the-deflection-of-the-truncated-cone">&#182;</a></h3><p>Using the equation for the exact elongation, ($\delta$) above and the assumed values for $P$, $c$, $L$, and $E$, we can calculate $\delta$, which we will call <code>d_exact</code>.</p>
+<p>The equation and assumed values are below.</p>
+$$ \delta = \frac{PL}{2\pi c^{2}E} $$<p>$P=10 \ MPa$</p>
+<p>$c=5 \ mm$</p>
+<p>$L=100 \ mm$</p>
+<p>$E=120 \ GPa$</p>
+<p>To code this solution in Python, first we need to import the <code>math</code> module. From the <code>math</code> module we will use <code>math.pi</code> as our value for $\pi$. We can print our calculated <code>d_exact</code> using a Python <em>f-string</em>. Python f-strings allow us to put variables on the inside of print statements. Variables inside Python f-strings need to be surrounded by curly braces <code>{ }</code>. Make sure to pre-pend the f-string with the letter <code>"f"</code>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+
+<span class="n">P</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">c</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">L</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">E</span> <span class="o">=</span> <span class="mi">120</span><span class="o">*</span><span class="mi">1000</span> <span class="c1">#120 GPa = 120 * 1000 MPa</span>
+
+<span class="n">d_exact</span> <span class="o">=</span> <span class="p">(</span><span class="n">P</span><span class="o">*</span><span class="n">L</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="p">(</span><span class="n">c</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">E</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;The exact value for delfection of the cone is d_exact = </span><span class="si">{d_exact}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Model-a-truncated-cone-as-a-series-of-disks">Model a truncated cone as a series of disks<a class="anchor-link" href="#Model-a-truncated-cone-as-a-series-of-disks">&#182;</a></h3><p>Next we'll see how the approximations of the elongation of the cone compare to the exact elongation <code>d_exact</code> calculated above. We'll calculate the approximate elongation by dividing the cone into separate "<em>disks</em>". Below is a picture of a children's toy to illustrate the concept of modeling a truncated cone as a set of stacked disks. In the picture below, the truncated cone is modeled as 5 disks stacked on top of each other.</p>
+<p><img src="https://raw.githubusercontent.com/ProfessorKazarinoff/staticsite/master/content/code/ENGR213/child_toy.png" alt="children&#39;s toy"></p>
+<p>The elongation $\delta$ of each "disk" is equal to:</p>
+$$ \delta = \frac{PL}{AE} $$<p>where</p>
+<p>$\delta$ = deformation, or change in thickness of the disk</p>
+<p>$P$ = load</p>
+<p>$L$ = original length or thickness of the disk</p>
+<p>$A$ = cross-sectional area of the disk</p>
+<p>$E$ = elastic modulus (a material property)</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can plot the upper surface of our truncated cone in two dimensions. The x-axis on the plot is the cone length $L$ and the y-axis on the plot is the cone radius $r$. The resulting plot looks like the hand-drawn plot below.</p>
+<p>According to our assumed parameters $r = c = 5 \ mm$, $2r = 2c = 10 \ mm$, and $L_0 = 100 \ mm$.</p>
+<p><img src="https://raw.githubusercontent.com/ProfessorKazarinoff/staticsite/master/content/code/ENGR213/r_2r.png" alt="r vs L"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>OK. Let's make our first approximation for the deflection of the truncated cone.</p>
+<h3 id="Approximate-the-truncated-cone-as-one-disk">Approximate the truncated cone as one disk<a class="anchor-link" href="#Approximate-the-truncated-cone-as-one-disk">&#182;</a></h3><p>If the truncated cone is modeled as a single disk (something that kind of looks like a can of soup), the radius of that single disk should be the average of the minor radius $r = 5 \ mm$ and the major radius $2r = 10 \ mm$. The plot below shows this approximation. Note how the upper surface of the cone (the line on the plot) has been approximated as a single horizontal line at a value of $r = 7.5 \ mm$ (the average of $5$ and $10$).</p>
+<p><img src="https://raw.githubusercontent.com/ProfessorKazarinoff/staticsite/master/content/code/ENGR213/divide_by_n_equals1.png" alt="divide cone by 1"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can calculate the the elongation of this single cylinder (single disk) which has a radius of $r = 7.5$ using the standard equation for elongation in engineering mechanics.</p>
+$$ \delta_1 = \frac{PL}{A_{1}E} $$<p>$\delta_1$ = deformation, or change in thickness of the one disk</p>
+<p>$P = 10 \ MPa$</p>
+<p>$r_1 =7.5 \ mm$ (radius of the one disk)</p>
+<p>$A_1 = \pi r^2$ (area of the one disk)</p>
+<p>$L = 100 \ mm$</p>
+<p>$E = 120 \ GPa$</p>
+<p>Let's code this approximation of the elongation (modeling the truncated cone as a single thick disk) in Python.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+
+<span class="n">P</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">r_1</span> <span class="o">=</span> <span class="mf">7.5</span>
+<span class="n">A_1</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">r_1</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">L</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">E</span> <span class="o">=</span> <span class="mi">120</span><span class="o">*</span><span class="mi">1000</span> <span class="c1">#120 GPa = 120 * 1000 MPa</span>
+
+<span class="n">d_1</span> <span class="o">=</span> <span class="p">(</span><span class="n">P</span><span class="o">*</span><span class="n">L</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">A_1</span><span class="o">*</span><span class="n">E</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;The approximate value for delfection of the cone modeled as one disk is d_1 = </span><span class="si">{d_1}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The approximate value calculated value of <code>d_1</code> is around $4.72 \times 10^{-5}$. This approximate value is in the same order of magnitude as the previously calculated exact value of deflection <code>d_exact</code> which was about $5.31 \times 10^{-5}$.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Approximate-the-deflection-of-the-truncated-cone-by-modeling-it-as-multiple-disks">Approximate the deflection of the truncated cone by modeling it as multiple disks<a class="anchor-link" href="#Approximate-the-deflection-of-the-truncated-cone-by-modeling-it-as-multiple-disks">&#182;</a></h3><p>We can more closely approximate the deformation of our truncated cone by dividing the cone into more numerous and successively thinner disks. The plot below shows the progression of using two disks, then three disks, then four disks.</p>
+<p><img src="https://raw.githubusercontent.com/ProfessorKazarinoff/staticsite/master/content/code/ENGR213/divide_by_n.png" alt="3 approximations"></p>
+<p>Note that as the number of disks increases, the thickness of each disk also increases.</p>
+<h3 id="Find-the-thickness-of-each-disk">Find the thickness of each disk<a class="anchor-link" href="#Find-the-thickness-of-each-disk">&#182;</a></h3><p>The thickness of each disk $L_n$ can be calculated by taking the thickness (or Length) of the entire truncated cone and dividing it by the number of disks.</p>
+$$ L_n = \frac{L}{n} $$<p>$L_n$ = thickness of each disk</p>
+<p>$L$ = thickness of the whole truncated cone</p>
+<p>$n$ = number of disks the truncated cone is approximated by</p>
+<h3 id="Find-the-L-value-for-each-disk">Find the L value for each disk<a class="anchor-link" href="#Find-the-L-value-for-each-disk">&#182;</a></h3><p>Half of the disk thickness is where we will set our disk radius (the dotted vertical lines in the plot above). If we take the $L$ value (x-value) as the right-hand edge of each disk (solid vertical lines in the plot above), we need to back up half-way through the disk to set the location of the disk radius.</p>
+$$ L_i = \frac{n_i}{L} - (L_n/2) $$<p>$L_i$ = $L$ value that's the center of disk $i$</p>
+<p>$n_i$ = disk number</p>
+<p>$L$ = thickness of the whole truncated cone</p>
+<p>$L_n$ = thickness of each disk</p>
+<p>$L_n/2$ = half the thickness of each disk (need to back up half-way through a disk to arrive at the $L$ value to set the radius)</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Great! We have an equation for the $L_i$ value of each disk. However, we still need the radius $r$ of each disk to calculate the area of each disk and ultimately the deformation $\delta$ of each disk.</p>
+<p>So what we need is an equation that spits out radius $r$ given length $L$.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Radius,-r-in-terms-of-length,-L">Radius, r in terms of length, L<a class="anchor-link" href="#Radius,-r-in-terms-of-length,-L">&#182;</a></h3><p>We can write the equation with the help of a plot. The plot below shows how radius $r$ changes based on length $L$. The relationship is a simple line that we can approximate using the form $y = mx+b$. Where $y = r$, $m = slope$, and $b = y-intercept$. The hand-drawn plot below shows the equation for our assumed values.</p>
+<p><img src="http://localhost:8888/files/ENGR213/r_2r_with_10_5_100.png" alt="plot with equation"></p>
+<p>So our equation for $r$ in terms of $L_i$ is:</p>
+$$ r = \frac{-5}{100}L_i + 10 $$<p>$\frac{-5}{100}$ = slope of $r$ vs. $L$</p>
+<p>$L_i$ = L value (distance relative to the bottom of the truncated cone)</p>
+<p>10 = y-intercept (the major radius)</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Approximate-truncated-cone-as-two-disks">Approximate truncated cone as two disks<a class="anchor-link" href="#Approximate-truncated-cone-as-two-disks">&#182;</a></h2><p>Now let's use our formula for disk radius $r$ and approximate the elongation of the truncated cone using two disks ($n=2$).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+
+<span class="n">P</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">c</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">L</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">E</span> <span class="o">=</span> <span class="mi">120</span><span class="o">*</span><span class="mi">1000</span> <span class="c1">#120 GPa = 120 * 1000 MPa</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">2</span> <span class="c1"># two disks</span>
+<span class="n">L_n</span> <span class="o">=</span> <span class="n">L</span><span class="o">/</span><span class="n">n</span> <span class="c1"># thickness of each disk</span>
+
+<span class="c1"># calculate elgongation of the first disk (the disk with the larger radius)</span>
+<span class="n">i</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">L_1</span> <span class="o">=</span> <span class="n">i</span><span class="o">*</span><span class="n">L</span><span class="o">/</span><span class="n">n</span><span class="o">-</span><span class="p">(</span><span class="n">L_n</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;L(</span><span class="si">{i}</span><span class="s2">) position: </span><span class="si">{L_1}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">r_1</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">c</span><span class="o">/</span><span class="n">L</span><span class="p">)</span><span class="o">*</span><span class="n">L_1</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">c</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;r(</span><span class="si">{i}</span><span class="s2">) length: </span><span class="si">{r_1}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">A_1</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">r_1</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">d_1</span> <span class="o">=</span> <span class="p">(</span><span class="n">P</span><span class="o">*</span><span class="n">L</span><span class="o">/</span><span class="n">n</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">A_1</span><span class="o">*</span><span class="n">E</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;The delfection of the first disk d_1 = </span><span class="si">{d_1}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># calculate elgongation of the second disk (the disk with the larger radius)</span>
+<span class="n">i</span><span class="o">=</span><span class="mi">2</span>
+<span class="n">L_2</span> <span class="o">=</span> <span class="n">i</span><span class="o">*</span><span class="n">L</span><span class="o">/</span><span class="n">n</span><span class="o">-</span><span class="p">(</span><span class="n">L_n</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;L(</span><span class="si">{i}</span><span class="s2">) position: </span><span class="si">{L_2}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">r_2</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">c</span><span class="o">/</span><span class="n">L</span><span class="p">)</span><span class="o">*</span><span class="n">L_2</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">c</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;r(</span><span class="si">{i}</span><span class="s2">) length: </span><span class="si">{r_2}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">A_2</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">r_2</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">d_2</span> <span class="o">=</span> <span class="p">(</span><span class="n">P</span><span class="o">*</span><span class="n">L</span><span class="o">/</span><span class="n">n</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">A_2</span><span class="o">*</span><span class="n">E</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;The delfection of the second disk d_2 = </span><span class="si">{d_2}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># add the two deflections together to calculate the total deflection</span>
+<span class="n">d_t</span> <span class="o">=</span> <span class="n">d_1</span> <span class="o">+</span> <span class="n">d_2</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;The total estimated deflections using </span><span class="si">{n}</span><span class="s2"> disks is d_t = </span><span class="si">{d_t}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>L(1) position: 25.0
+r(1) length: 8.75
+The delfection of the first disk d_1 = 1.7322987003199492e-05
+L(2) position: 75.0
+r(2) length: 6.25
+The delfection of the second disk d_2 = 3.395305452627101e-05
+The total estimated deflections using 2 disks is d_t = 5.12760415294705e-05
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Great! We can see our approximation using two disks which is about $5.13 \times 10^{-5}$ is closer to the exact value than our first approximation using one disk.</p>
+<p>But hand coding in <code>L_1</code>, <code>r_1</code>, <code>A_1</code>, <code>d_1</code> followed by <code>L_2</code>, <code>r_2</code>, <code>A_2</code>, <code>d_2</code> even though we are doing the same operations each time is repetative. If we have 5 or 60 disks, we would end up with a lot of code.</p>
+<h3 id="Approximate-truncated-cone-as-n-disks-using-a-for-loop">Approximate truncated cone as n-disks using a for loop<a class="anchor-link" href="#Approximate-truncated-cone-as-n-disks-using-a-for-loop">&#182;</a></h3><p>To make our calculation work for $n$ disks, we'll use a <em>for loop</em>. We want to start our loop at <code>i=1</code> and end our loop at <code>i=n</code>. We can do this with Python's <code>range()</code> function. Note that we set <code>for i in range(1,n+1):</code> (start at <code>1</code> end at <code>n</code>) because Python counting starts at zero and ends at n-1.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+
+<span class="n">P</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">c</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">L</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">E</span> <span class="o">=</span> <span class="mi">120</span><span class="o">*</span><span class="mi">1000</span> <span class="c1">#120 GPa = 120 * 1000 MPa</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">2</span> <span class="c1"># two disks</span>
+<span class="n">L_n</span> <span class="o">=</span> <span class="n">L</span><span class="o">/</span><span class="n">n</span> <span class="c1">#thickness of each disk</span>
+
+<span class="c1"># calculate elgongation of the first disk (the disk with the larger radius)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">L_i</span> <span class="o">=</span> <span class="n">i</span><span class="o">*</span><span class="n">L</span><span class="o">/</span><span class="n">n</span><span class="o">-</span><span class="p">(</span><span class="n">L_n</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;L(</span><span class="si">{i}</span><span class="s2">) position: </span><span class="si">{L_i}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">r_i</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">c</span><span class="o">/</span><span class="n">L</span><span class="p">)</span><span class="o">*</span><span class="n">L_i</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">c</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;r(</span><span class="si">{i}</span><span class="s2">) length: </span><span class="si">{r_i}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">A_i</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">r_i</span><span class="o">**</span><span class="mi">2</span>
+    <span class="n">d_i</span> <span class="o">=</span> <span class="p">(</span><span class="n">P</span><span class="o">*</span><span class="n">L</span><span class="o">/</span><span class="n">n</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">A_i</span><span class="o">*</span><span class="n">E</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;The delfection of the disk </span><span class="si">{i}</span><span class="s2"> = </span><span class="si">{d_i}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>L(1) position: 25.0
+r(1) length: 8.75
+The delfection of the disk 1 = 1.7322987003199492e-05
+L(2) position: 75.0
+r(2) length: 6.25
+The delfection of the disk 2 = 3.395305452627101e-05
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The deflection calculated using the Python <em>for loop</em> is the same as the deflection when we hard coded in each disk. Now we need to add these deflections together to calculate the total estimated deflection.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Sum-disk-deflections-to-find-total-deflection">Sum disk deflections to find total deflection<a class="anchor-link" href="#Sum-disk-deflections-to-find-total-deflection">&#182;</a></h3><p>We can add all of the individual disk deflections together into one variable called <code>d_t</code>. We'll use Python's <code>+=</code> operator to add each disk's deflection to <code>d_t</code> each time we go through the <em>for loop</em>. The code below calculates the total deflection.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+
+<span class="n">P</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">c</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">L</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">E</span> <span class="o">=</span> <span class="mi">120</span><span class="o">*</span><span class="mi">1000</span> <span class="c1">#120 GPa = 120 * 1000 MPa</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">2</span> <span class="c1"># two disks</span>
+<span class="n">L_n</span> <span class="o">=</span> <span class="n">L</span><span class="o">/</span><span class="n">n</span> <span class="c1">#thickness of each disk</span>
+<span class="n">d_t</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="c1"># calculate elgongation of the first disk (the disk with the larger radius)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">L_i</span> <span class="o">=</span> <span class="n">i</span><span class="o">*</span><span class="n">L</span><span class="o">/</span><span class="n">n</span><span class="o">-</span><span class="p">(</span><span class="n">L_n</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;L(</span><span class="si">{i}</span><span class="s2">) position: </span><span class="si">{L_i}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">r_i</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">c</span><span class="o">/</span><span class="n">L</span><span class="p">)</span><span class="o">*</span><span class="n">L_i</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">c</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;r(</span><span class="si">{i}</span><span class="s2">) length: </span><span class="si">{r_i}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">A_i</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">r_i</span><span class="o">**</span><span class="mi">2</span>
+    <span class="n">d_i</span> <span class="o">=</span> <span class="p">(</span><span class="n">P</span><span class="o">*</span><span class="n">L</span><span class="o">/</span><span class="n">n</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">A_i</span><span class="o">*</span><span class="n">E</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;The delfection of the disk </span><span class="si">{i}</span><span class="s2"> = </span><span class="si">{d_i}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">d_t</span> <span class="o">+=</span> <span class="n">d_i</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;The total estimated deflection using </span><span class="si">{n}</span><span class="s2"> disks d_t = </span><span class="si">{d_t}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>L(1) position: 25.0
+r(1) length: 8.75
+The delfection of the disk 1 = 1.7322987003199492e-05
+L(2) position: 75.0
+r(2) length: 6.25
+The delfection of the disk 2 = 3.395305452627101e-05
+The total estimated deflection using 2 disks d_t = 5.12760415294705e-05
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The total estimated deflection using a 2 disk approximation is $5.127 \times 10^{-5}$. This is a closer to the exact value than our estimated deflection using a 1 disk approximation.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Calculate-the-estimated-deflection-using-6,-12,-and-60-disks">Calculate the estimated deflection using 6, 12, and 60 disks<a class="anchor-link" href="#Calculate-the-estimated-deflection-using-6,-12,-and-60-disks">&#182;</a></h3><p>Now that the code works for 2 disks, we can easily approximate the deflection using a 6 disk, a 12 disk and a 60 disk approximation.</p>
+<h3 id="Approximate-with-6-disks">Approximate with 6 disks<a class="anchor-link" href="#Approximate-with-6-disks">&#182;</a></h3><p>The code below corresponds to a 6 disk approximation. Note how <code>n=6</code> and how the variable <code>d_6</code> is used to store the total deflection instead of <code>d_t</code>. We'll use this <code>d_6</code> value later, so we want to set it to a unique variable name.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+
+<span class="n">P</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">c</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">L</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">E</span> <span class="o">=</span> <span class="mi">120</span><span class="o">*</span><span class="mi">1000</span> <span class="c1">#120 GPa = 120 * 1000 MPa</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">6</span> <span class="c1"># two disks</span>
+<span class="n">L_n</span> <span class="o">=</span> <span class="n">L</span><span class="o">/</span><span class="n">n</span> <span class="c1">#thickness of each disk</span>
+<span class="n">d_6</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="c1"># calculate elgongation of the first disk (the disk with the larger radius)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">L_i</span> <span class="o">=</span> <span class="n">i</span><span class="o">*</span><span class="n">L</span><span class="o">/</span><span class="n">n</span><span class="o">-</span><span class="p">(</span><span class="n">L_n</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;L(</span><span class="si">{i}</span><span class="s2">) position: </span><span class="si">{L_i}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">r_i</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">c</span><span class="o">/</span><span class="n">L</span><span class="p">)</span><span class="o">*</span><span class="n">L_i</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">c</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;r(</span><span class="si">{i}</span><span class="s2">) length: </span><span class="si">{r_i}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">A_i</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">r_i</span><span class="o">**</span><span class="mi">2</span>
+    <span class="n">d_i</span> <span class="o">=</span> <span class="p">(</span><span class="n">P</span><span class="o">*</span><span class="n">L</span><span class="o">/</span><span class="n">n</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">A_i</span><span class="o">*</span><span class="n">E</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;The delfection of the disk </span><span class="si">{i}</span><span class="s2"> = </span><span class="si">{d_i}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">d_6</span> <span class="o">+=</span> <span class="n">d_i</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;The total estimated deflection using </span><span class="si">{n}</span><span class="s2"> disks d_</span><span class="si">{n}</span><span class="s2"> = </span><span class="si">{d_6}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>L(1) position: 8.333333333333334
+r(1) length: 9.583333333333334
+The delfection of the disk 1 = 4.813760093516683e-06
+L(2) position: 25.0
+r(2) length: 8.75
+The delfection of the disk 2 = 5.774329001066498e-06
+L(3) position: 41.666666666666664
+r(3) length: 7.916666666666666
+The delfection of the disk 3 = 7.0539586965937e-06
+L(4) position: 58.333333333333336
+r(4) length: 7.083333333333333
+The delfection of the disk 4 = 8.811346330347146e-06
+L(5) position: 75.0
+r(5) length: 6.25
+The delfection of the disk 5 = 1.1317684842090335e-05
+L(6) position: 91.66666666666667
+r(6) length: 5.416666666666666
+The delfection of the disk 6 = 1.506792360633329e-05
+The total estimated deflection using 6 disks d_6 = 5.283900256994765e-05
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Approximate-with-12-disks">Approximate with 12 disks<a class="anchor-link" href="#Approximate-with-12-disks">&#182;</a></h3><p>The same code can be used to approximate the deflection using 12 disks. This time we change <code>n=12</code> and change <code>d_6</code> to <code>d_12</code>. I also commented out some of the print statements so that the output wouldn't be so long.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+
+<span class="n">P</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">c</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">L</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">E</span> <span class="o">=</span> <span class="mi">120</span><span class="o">*</span><span class="mi">1000</span> <span class="c1">#120 GPa = 120 * 1000 MPa</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">12</span> <span class="c1"># twelve disks</span>
+<span class="n">L_n</span> <span class="o">=</span> <span class="n">L</span><span class="o">/</span><span class="n">n</span> <span class="c1">#thickness of each disk</span>
+<span class="n">d_12</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="c1"># calculate elgongation of the first disk (the disk with the larger radius)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">L_i</span> <span class="o">=</span> <span class="n">i</span><span class="o">*</span><span class="n">L</span><span class="o">/</span><span class="n">n</span><span class="o">-</span><span class="p">(</span><span class="n">L_n</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
+    <span class="c1">#print(f&quot;L({i}) position: {L_i}&quot;)</span>
+    <span class="n">r_i</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">c</span><span class="o">/</span><span class="n">L</span><span class="p">)</span><span class="o">*</span><span class="n">L_i</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">c</span>
+    <span class="c1">#print(f&quot;r({i}) length: {r_i}&quot;)</span>
+    <span class="n">A_i</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">r_i</span><span class="o">**</span><span class="mi">2</span>
+    <span class="n">d_i</span> <span class="o">=</span> <span class="p">(</span><span class="n">P</span><span class="o">*</span><span class="n">L</span><span class="o">/</span><span class="n">n</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">A_i</span><span class="o">*</span><span class="n">E</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;The delfection of the disk </span><span class="si">{i}</span><span class="s2"> = </span><span class="si">{d_i}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">d_12</span> <span class="o">+=</span> <span class="n">d_i</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;The total estimated deflection using </span><span class="si">{n}</span><span class="s2"> disks d_</span><span class="si">{n}</span><span class="s2"> = </span><span class="si">{d_12}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>The delfection of the disk 1 = 2.305549198252898e-06
+The delfection of the disk 2 = 2.5150410760200742e-06
+The delfection of the disk 3 = 2.75443925307769e-06
+The delfection of the disk 4 = 3.0297193212020534e-06
+The delfection of the disk 5 = 3.3484274680740634e-06
+The delfection of the disk 6 = 3.72020319864182e-06
+The delfection of the disk 7 = 4.157516880767878e-06
+The delfection of the disk 8 = 4.676729273591047e-06
+The delfection of the disk 9 = 5.299644306910146e-06
+The delfection of the disk 10 = 6.055836122402675e-06
+The delfection of the disk 11 = 6.986225211166873e-06
+The delfection of the disk 12 = 8.148733086305042e-06
+The total estimated deflection using 12 disks d_12 = 5.299806439641226e-05
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Using an approximation of 12 disks, we are even closer than our previous approximations.</p>
+<h3 id="Approximate-with-60-disks">Approximate with 60 disks<a class="anchor-link" href="#Approximate-with-60-disks">&#182;</a></h3><p>One more approximation to make, 60 disks. Let's comment out all of the print statements except for the final one. Remember to change <code>n=60</code> and use the variable <code>d_60</code>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+
+<span class="n">P</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">c</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">L</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">E</span> <span class="o">=</span> <span class="mi">120</span><span class="o">*</span><span class="mi">1000</span> <span class="c1">#120 GPa = 120 * 1000 MPa</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">60</span> <span class="c1"># sixty disks</span>
+<span class="n">L_n</span> <span class="o">=</span> <span class="n">L</span><span class="o">/</span><span class="n">n</span> <span class="c1">#thickness of each disk</span>
+<span class="n">d_60</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="c1"># calculate elgongation of the first disk (the disk with the larger radius)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">L_i</span> <span class="o">=</span> <span class="n">i</span><span class="o">*</span><span class="n">L</span><span class="o">/</span><span class="n">n</span><span class="o">-</span><span class="p">(</span><span class="n">L_n</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
+    <span class="c1">#print(f&quot;L({i}) position: {L_i}&quot;)</span>
+    <span class="n">r_i</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">c</span><span class="o">/</span><span class="n">L</span><span class="p">)</span><span class="o">*</span><span class="n">L_i</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">c</span>
+    <span class="c1">#print(f&quot;r({i}) length: {r_i}&quot;)</span>
+    <span class="n">A_i</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">r_i</span><span class="o">**</span><span class="mi">2</span>
+    <span class="n">d_i</span> <span class="o">=</span> <span class="p">(</span><span class="n">P</span><span class="o">*</span><span class="n">L</span><span class="o">/</span><span class="n">n</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">A_i</span><span class="o">*</span><span class="n">E</span><span class="p">)</span>
+    <span class="c1">#print(f&quot;The delfection of the disk {i} = {d_i}&quot;)</span>
+    <span class="n">d_60</span> <span class="o">+=</span> <span class="n">d_i</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;The total estimated deflection using </span><span class="si">{n}</span><span class="s2"> disks d_</span><span class="si">{n}</span><span class="s2"> = </span><span class="si">{d_60}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>The total estimated deflection using 60 disks d_60 = 5.3049498845620634e-05
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>That's the closest approximation of them all. How close was each approximation? Let's quantify that using percent error.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Calculate-Percent-Error">Calculate Percent Error<a class="anchor-link" href="#Calculate-Percent-Error">&#182;</a></h3><p>To calculate the percent error we'll use:</p>
+$$ \%error = \frac{\delta_{approx}-\delta_{exact}}{\delta_{exact}} \times 100\% $$
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">e_6</span> <span class="o">=</span> <span class="p">(</span><span class="n">d_6</span><span class="o">-</span><span class="n">d_exact</span><span class="p">)</span><span class="o">/</span><span class="n">d_exact</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot; The error using an approximation of 6 disks is {e_6*100}%&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> The error using an approximation of 6 disks is -0.4008266219441551%
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">e_12</span> <span class="o">=</span> <span class="p">(</span><span class="n">d_12</span><span class="o">-</span><span class="n">d_exact</span><span class="p">)</span><span class="o">/</span><span class="n">d_exact</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot; The error using an approximation of 12 disks is {e_12*100}%&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> The error using an approximation of 12 disks is -0.10100214265148796%
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">e_60</span> <span class="o">=</span> <span class="p">(</span><span class="n">d_60</span><span class="o">-</span><span class="n">d_exact</span><span class="p">)</span><span class="o">/</span><span class="n">d_exact</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot; The error using an approximation of 60 disks is {e_60*100}%&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> The error using an approximation of 60 disks is -0.004050489986805123%
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Summary">Summary<a class="anchor-link" href="#Summary">&#182;</a></h3><p>In this post we calculated and estimated the deflection of a truncated cone under an applied load. We calculated the exact value of deflection using an equation. Then we used a Python <em>for loop</em> to estimate the truncated cone deflection by modeling the cone as a series of disks. Modeling the cone as 60 disks gave us the lowest percent error.</p>
+
+</div>
+</div>
+</div>
+            </div>
+            <!-- /.entry-content -->
+<section class="well" id="related-posts">
+    <h4>Related Posts:</h4>
+    <ul>
+        <li><a href="./bar-plot-with-error-bars-jupyter-matplotlib.html">Bar charts with error bars using Python, jupyter notebooks and matplotlib</a></li>
+        <li><a href="./plotting-bond-energy-with-matplotlib-and-python.html">Plotting Bond Energy vs. Distance with Python and Matplotlib</a></li>
+        <li><a href="./quiver-plot-with-matplotlib-and-jupyter-notebooks.html">Quiver plots using Python, matplotlib and Jupyter notebooks</a></li>
+        <li><a href="./histogram-plots-with-matplotlib-and-python.html">Plotting Histograms with matplotlib and Python</a></li>
+        <li><a href="./python-matplotlib-error-bars.html">Bar charts with error bars using Python and matplotlib</a></li>
+    </ul>
+</section>
+    <hr />
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style">
+            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+            <a class="addthis_button_tweet"></a>
+    </div>
+    <!-- AddThis Button END -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<div id="aboutme">
+        <p>
+            <img width="100%" class="img-thumbnail" src="./extra/gear-wrench-icon-512-278694.png"/>
+        </p>
+    <p>
+      <strong>About Peter Kazarinoff</strong><br/>
+        I teach engineering at a community college in the Pacific Northwest. I am interested in programming and how to help students. Here I mostly blog about Python, and how programing can be incorporated into engineering education.
+    </p>
+</div><!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Recent Posts -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+  <ul class="list-group" id="recentposts">
+    <li class="list-group-item"><a href="./thoughts-on-how-to-test-science-code.html">Thoughts on Software Design in Scientific Code</a></li>
+    <li class="list-group-item"><a href="./stream-S01-E01-jupyterhub-intro.html">My first Twitch Stream: S01-E01 JupyterHub Intro and Tools</a></li>
+    <li class="list-group-item"><a href="./jupyterhub-deployment-on-running-in-production.html">Hear my story about deploying JupyterHub on the Running in Production Podcast</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Recent Posts -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="./"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-2">
+      <a href="./tag/engineering.html">engineering</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/esp8266.html">esp8266</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="./tag/jupyter.html">jupyter</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="./tag/jupyter-notebook.html">jupyter notebook</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="./tag/matplotlib.html">matplotlib</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/micropython.html">micropython</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/pelican.html">pelican</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="./tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/sensor.html">sensor</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Github -->
+<li class="list-group-item">
+  <h4><i class="fa fa-github fa-lg"></i><span class="icon-label">GitHub Repos</span></h4>
+  <div id="gh_repos">
+    <p class="list-group-item">Status updating...</p>
+  </div>
+  <a href="https://github.com/professorkazarinoff">@professorkazarinoff</a> on GitHub
+</li>
+<!-- End Sidebar/Github -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2021 Peter Kazarinoff
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="./theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="./theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="./theme/js/respond.min.js"></script>
+
+    <script src="./static/js/custom.js"></script>
+
+
+<!-- GitHub JS Code -->
+<script type="text/javascript">
+$(document).ready(function () {
+  if (!window.jXHR) {
+    var jxhr = document.createElement('script');
+    jxhr.type = 'text/javascript';
+    jxhr.src = './theme/js/jXHR.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(jxhr, s);
+  }
+
+  github.showRepos({
+    user: 'professorkazarinoff',
+    count: 5,
+    skip_forks: true,
+    target: '#gh_repos'
+  });
+});
+</script>
+<script src="./theme/js/github.js" type="text/javascript"></script>
+<!-- End GitHub JS Code -->
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-116330557-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+    $("div.collapseheader").click(function () {
+    $header = $(this).children("span").first();
+    $codearea = $(this).children(".input_area");
+    console.log($(this).children());
+    $codearea.slideToggle(500, function () {
+        $header.text(function () {
+            return $codearea.is(":visible") ? "Collapse Code" : "Expand Code";
+        });
+    });
+});
+});
+</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cdd8eb4e16bf94c"></script>
+</body>
+</html>

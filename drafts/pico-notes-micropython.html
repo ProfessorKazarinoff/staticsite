@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Trying out Pico-Notes- a MicroPython web app - Python for Undergraduate Engineers</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
+<style type="text/css">
+
+    /*some stuff for output/input prompts*/
+    div.cell{border:1px solid transparent;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}div.cell.selected{border-radius:4px;border:thin #ababab solid}
+    div.cell.edit_mode{border-radius:4px;border:thin #008000 solid}
+    div.cell{width:100%;padding:5px 5px 5px 0;margin:0;outline:none}
+    div.prompt{min-width:11ex;padding:.4em;margin:0;font-family:monospace;text-align:right;line-height:1.21429em}
+    @media (max-width:480px){div.prompt{text-align:left}}div.inner_cell{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
+    div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;line-height:1.21429em}
+    div.prompt:empty{padding-top:0;padding-bottom:0}
+    div.input{page-break-inside:avoid;display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;}
+    div.inner_cell{width:90%;}
+    div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;}
+    div.input_prompt{color:navy;border-top:1px solid transparent;}
+    div.output_wrapper{margin-top:5px;position:relative;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+    div.output_scroll{height:24em;width:100%;overflow:auto;border-radius:4px;-webkit-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);-moz-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);}
+    div.output_collapsed{margin:0px;padding:0px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+    div.out_prompt_overlay{height:100%;padding:0px 0.4em;position:absolute;border-radius:4px;}
+    div.out_prompt_overlay:hover{-webkit-box-shadow:inset 0 0 1px #000000;-moz-box-shadow:inset 0 0 1px #000000;box-shadow:inset 0 0 1px #000000;background:rgba(240, 240, 240, 0.5);}
+    div.output_prompt{color:darkred;}
+    
+    a.anchor-link:link{text-decoration:none;padding:0px 20px;visibility:hidden;}
+    h1:hover .anchor-link,h2:hover .anchor-link,h3:hover .anchor-link,h4:hover .anchor-link,h5:hover .anchor-link,h6:hover .anchor-link{visibility:visible;}
+    /* end stuff for output/input prompts*/
+    
+    
+    .highlight-ipynb .hll { background-color: #ffffcc }
+    .highlight-ipynb  { background: #f8f8f8; }
+    .highlight-ipynb .c { color: #408080; font-style: italic } /* Comment */
+    .highlight-ipynb .err { border: 1px solid #FF0000 } /* Error */
+    .highlight-ipynb .k { color: #008000; font-weight: bold } /* Keyword */
+    .highlight-ipynb .o { color: #666666 } /* Operator */
+    .highlight-ipynb .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+    .highlight-ipynb .cp { color: #BC7A00 } /* Comment.Preproc */
+    .highlight-ipynb .c1 { color: #408080; font-style: italic } /* Comment.Single */
+    .highlight-ipynb .cs { color: #408080; font-style: italic } /* Comment.Special */
+    .highlight-ipynb .gd { color: #A00000 } /* Generic.Deleted */
+    .highlight-ipynb .ge { font-style: italic } /* Generic.Emph */
+    .highlight-ipynb .gr { color: #FF0000 } /* Generic.Error */
+    .highlight-ipynb .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+    .highlight-ipynb .gi { color: #00A000 } /* Generic.Inserted */
+    .highlight-ipynb .go { color: #888888 } /* Generic.Output */
+    .highlight-ipynb .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+    .highlight-ipynb .gs { font-weight: bold } /* Generic.Strong */
+    .highlight-ipynb .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+    .highlight-ipynb .gt { color: #0044DD } /* Generic.Traceback */
+    .highlight-ipynb .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+    .highlight-ipynb .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+    .highlight-ipynb .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+    .highlight-ipynb .kp { color: #008000 } /* Keyword.Pseudo */
+    .highlight-ipynb .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+    .highlight-ipynb .kt { color: #B00040 } /* Keyword.Type */
+    .highlight-ipynb .m { color: #666666 } /* Literal.Number */
+    .highlight-ipynb .s { color: #BA2121 } /* Literal.String */
+    .highlight-ipynb .na { color: #7D9029 } /* Name.Attribute */
+    .highlight-ipynb .nb { color: #008000 } /* Name.Builtin */
+    .highlight-ipynb .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+    .highlight-ipynb .no { color: #880000 } /* Name.Constant */
+    .highlight-ipynb .nd { color: #AA22FF } /* Name.Decorator */
+    .highlight-ipynb .ni { color: #999999; font-weight: bold } /* Name.Entity */
+    .highlight-ipynb .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+    .highlight-ipynb .nf { color: #0000FF } /* Name.Function */
+    .highlight-ipynb .nl { color: #A0A000 } /* Name.Label */
+    .highlight-ipynb .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+    .highlight-ipynb .nt { color: #008000; font-weight: bold } /* Name.Tag */
+    .highlight-ipynb .nv { color: #19177C } /* Name.Variable */
+    .highlight-ipynb .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+    .highlight-ipynb .w { color: #bbbbbb } /* Text.Whitespace */
+    .highlight-ipynb .mf { color: #666666 } /* Literal.Number.Float */
+    .highlight-ipynb .mh { color: #666666 } /* Literal.Number.Hex */
+    .highlight-ipynb .mi { color: #666666 } /* Literal.Number.Integer */
+    .highlight-ipynb .mo { color: #666666 } /* Literal.Number.Oct */
+    .highlight-ipynb .sb { color: #BA2121 } /* Literal.String.Backtick */
+    .highlight-ipynb .sc { color: #BA2121 } /* Literal.String.Char */
+    .highlight-ipynb .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+    .highlight-ipynb .s2 { color: #BA2121 } /* Literal.String.Double */
+    .highlight-ipynb .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+    .highlight-ipynb .sh { color: #BA2121 } /* Literal.String.Heredoc */
+    .highlight-ipynb .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+    .highlight-ipynb .sx { color: #008000 } /* Literal.String.Other */
+    .highlight-ipynb .sr { color: #BB6688 } /* Literal.String.Regex */
+    .highlight-ipynb .s1 { color: #BA2121 } /* Literal.String.Single */
+    .highlight-ipynb .ss { color: #19177C } /* Literal.String.Symbol */
+    .highlight-ipynb .bp { color: #008000 } /* Name.Builtin.Pseudo */
+    .highlight-ipynb .vc { color: #19177C } /* Name.Variable.Class */
+    .highlight-ipynb .vg { color: #19177C } /* Name.Variable.Global */
+    .highlight-ipynb .vi { color: #19177C } /* Name.Variable.Instance */
+    .highlight-ipynb .il { color: #666666 } /* Literal.Number.Integer.Long */
+    </style>
+    
+    <style type="text/css">
+    /* Overrides of notebook CSS for static HTML export */
+    div.entry-content {
+      overflow: visible;
+      padding: 8px;
+    }
+    .input_area {
+      padding: 0.2em;
+    }
+    
+    a.heading-anchor {
+     white-space: normal;
+    }
+    
+    .rendered_html
+    code {
+     font-size: .8em;
+    }
+    
+    pre.ipynb {
+      color: black;
+      background: #f7f7f7;
+      border: none;
+      box-shadow: none;
+      margin-bottom: 0;
+      padding: 0;
+      margin: 0px;
+      font-size: 13px;
+    }
+    
+    /* remove the prompt div from text cells */
+    div.text_cell .prompt {
+        display: none;
+    }
+    
+    /* remove horizontal padding from text cells, */
+    /* so it aligns with outer body text */
+    div.text_cell_render {
+        padding: 0.5em 0em;
+    }
+    
+    img.anim_icon{padding:0; border:0; vertical-align:middle; -webkit-box-shadow:none; -box-shadow:none}
+    
+    div.collapseheader {
+        width=100%;
+        padding: 2px;
+        cursor: pointer;
+        font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+    
+    </style>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+    <script type="text/javascript">
+    init_mathjax = function() {
+        if (window.MathJax) {
+            // MathJax loaded
+            MathJax.Hub.Config({
+                tex2jax: {
+                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+                },
+                displayAlign: 'center', // Change this to 'center' to center equations.
+                "HTML-CSS": {
+                    styles: {'.MathJax_Display': {"margin": 0}}
+                }
+            });
+            MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        }
+    }
+    init_mathjax();
+    </script>
+    
+    <link href="../extra/favicon.ico" rel="icon">
+
+<link rel="canonical" href="../drafts/pico-notes-micropython.html">
+
+        <meta name="author" content="Peter D. Kazarinoff" />
+        <meta name="keywords" content="python,micropython,ESP8266" />
+        <meta name="description" content="This post entails my investigation of a micropython project called picoweb. Picoweb is a micropython micro web framework (cute- a pico web framework). In this post, I will run through installing pico web on an ESP8266." />
+
+        <meta property="og:site_name" content="Python for Undergraduate Engineers" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Trying out Pico-Notes- a MicroPython web app"/>
+        <meta property="og:url" content="../drafts/pico-notes-micropython.html"/>
+        <meta property="og:description" content="This post entails my investigation of a micropython project called picoweb. Picoweb is a micropython micro web framework (cute- a pico web framework). In this post, I will run through installing pico web on an ESP8266."/>
+        <meta property="article:published_time" content="2018-07-18" />
+            <meta property="article:section" content="micopython" />
+            <meta property="article:tag" content="python" />
+            <meta property="article:tag" content="micropython" />
+            <meta property="article:tag" content="ESP8266" />
+            <meta property="article:author" content="Peter D. Kazarinoff" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../theme/css/pygments/native.css" rel="stylesheet">
+    <link href="../theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="../theme/css/style.css" type="text/css"/>
+        <link href="../static/css/custom.css" rel="stylesheet">
+
+
+
+</head>
+<body>
+
+<!-- .navbar -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../" class="navbar-brand">
+Python for Undergraduate Engineers            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="../pages/about.html">
+                             About
+                          </a></li>
+                         <li><a href="../pages/book.html">
+                             Book
+                          </a></li>
+                         <li><a href="../pages/now.html">
+                             Now
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+
+<!-- .navbar-search -->
+<li>
+    <span>
+        <form class="navbar-search" action="/search.html">
+            <input type="text" name="q" id="tipue_search_input">
+        </form>
+    </span>
+</li>
+<!-- /.navbar-search -->              <li><a href="../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+            <ol class="breadcrumb">
+                <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="../category/micopython.html" title="micopython">micopython</a></li>
+                <li class="active">Trying out Pico-Notes- a MicroPython web app</li>
+            </ol>
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="../drafts/pico-notes-micropython.html"
+                       rel="bookmark"
+                       title="Permalink to Trying out Pico-Notes- a MicroPython web app">
+                        Trying out Pico-Notes- a MicroPython web app
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2018-07-18T10:15:00-07:00"> Wed 18 July 2018</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="../tag/python.html">python</a>
+        /
+	<a href="../tag/micropython.html">micropython</a>
+        /
+	<a href="../tag/esp8266.html">ESP8266</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <h2 id="what-is-picoweb">What is picoweb</h2>
+<p>Picoweb is micro web framework that is sort of like flask or bottle. Picoweb runs on smaller microcontrollers with micropython.</p>
+<h2 id="what-is-pico-notes">What is pico-notes</h2>
+<p>Pico-notes is a web app using the picoweb framework. It is a notes app where users can type notes and save them for later.</p>
+<h2 id="microcontroller-vs-unix-distribution-of-pico-notes">Microcontroller vs. Unix distribution of pico-notes</h2>
+<p>Pico-notes can run on a microcontroller, but there is also a version of Micropython that runs on Unix systems. First we'll try to get the pico-notes running on Unix. Then we will get it pico-notes going on an ESP8266 board.</p>
+<h2 id="picoweb-on-unix">Picoweb on Unix</h2>
+<p>To get picoweb going on Unix, in particular my desktop running Ubuntu 16.04, I first cloned pfalcon's micropython github repository <a href="https://github.com/pfalcon/micropython">https://github.com/pfalcon/micropython</a>. I already cloned the micropython repo, so I used a different directory name for pfalcon's branch. In the pico-notes README, it mentions that running pfalcon's micropython fork is needed to get the application running</p>
+<blockquote>
+<p>NOTE: Recent versions of uasyncio async framework and Picoweb web framework, and thus Notes Pico, require "advanced" fork of MicroPython at https://github.com/pfalcon/micropython .</p>
+</blockquote>
+<div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~
+$ git clone git@github.com:pfalcon/micropython.git micropython-pfalcon
+$ <span class="nb">cd</span> micropython-pfalcon
+$ git submodule update --init
+</pre></div>
+
+
+<p>To get the micropython REPL on Ubuntu, you need to <code>cd</code> into the micropython unix port and run the micropython executable</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/micropython-pfalcon
+$ <span class="nb">cd</span> ports/unix
+$ make axtls
+$ make
+$ ./micropython
+</pre></div>
+
+
+<p>When the Micropython REPL comes up, I tested out typical Python commands, then tried some commands that only work in Micropython.</p>
+<div class="highlight"><pre><span></span><span class="nv">MicroPython</span> <span class="nv">v1</span>.<span class="mi">9</span>.<span class="mi">3</span><span class="o">-</span><span class="mi">902</span><span class="o">-</span><span class="nv">gd880d5b</span> <span class="nv">on</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">18</span><span class="c1">; linux version</span>
+<span class="nv">Use</span> <span class="nv">Ctrl</span><span class="o">-</span><span class="nv">D</span> <span class="nv">to</span> <span class="k">exit</span>, <span class="nv">Ctrl</span><span class="o">-</span><span class="nv">E</span> <span class="k">for</span> <span class="nv">paste</span> <span class="nv">mode</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nv">a</span> <span class="o">=</span> [<span class="nv">x</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="nv">x</span> <span class="nv">in</span> <span class="nv">range</span><span class="ss">(</span><span class="mi">5</span><span class="ss">)</span>]
+<span class="o">&gt;&gt;&gt;</span> <span class="nv">print</span><span class="ss">(</span><span class="nv">a</span><span class="ss">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nv">sys</span>.<span class="nv">implementation</span>
+<span class="ss">(</span><span class="nv">name</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">micropython</span><span class="s1">&#39;</span>, <span class="nv">version</span><span class="o">=</span><span class="ss">(</span><span class="mi">1</span>, <span class="mi">9</span>, <span class="mi">3</span><span class="ss">))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nv">sys</span>.<span class="nv">version</span>
+<span class="s1">&#39;</span><span class="s">3.4.0</span><span class="s1">&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nv">sys</span>.<span class="nv">platform</span>
+<span class="s1">&#39;</span><span class="s">linux</span><span class="s1">&#39;</span>
+# [<span class="nv">ctrl</span><span class="o">-</span><span class="nv">d</span>] <span class="nv">to</span> <span class="nv">ext</span> <span class="nv">it</span> <span class="nv">the</span> <span class="nv">REPL</span>
+</pre></div>
+
+
+<p>Next, I installed pico-notes into the unix version of Micropython with <code>upip</code></p>
+<div class="highlight"><pre><span></span>$ <span class="nb">pwd</span>
+~/micropython-pfalcon/ports/unix
+$ ./micropython -m upip install -p app notes-pico
+</pre></div>
+
+
+<p>pfalcon notes that that the <code>-p app</code> flag and argument install notes-pico in the app directory</p>
+<blockquote>
+<p>app (argument of -p option) is a subdirectory into which to install the application.</p>
+</blockquote>
+<p>Starting pico-notes entails being in the same directory that houses the <code>app</code> directory assigned above and running Micropython with an environmental variable set.</p>
+<div class="highlight"><pre><span></span>$ <span class="nv">MICROPYPATH</span><span class="o">=</span>app ./micropython -m notes_pico
+mem: <span class="nv">total</span><span class="o">=</span><span class="m">268751</span>, <span class="nv">current</span><span class="o">=</span><span class="m">62135</span>, <span class="nv">peak</span><span class="o">=</span><span class="m">76674</span>
+stack: <span class="m">5712</span> out of <span class="m">80000</span>
+GC: total: <span class="m">2072832</span>, used: <span class="m">55712</span>, free: <span class="m">2017120</span>
+ No. of <span class="m">1</span>-blocks: <span class="m">551</span>, <span class="m">2</span>-blocks: <span class="m">118</span>, max blk sz: <span class="m">81</span>, max free sz: <span class="m">62498</span>
+* Running on http://127.0.0.1:8081/
+
+<span class="c1"># [ctrl-c] to quit</span>
+</pre></div>
+
+
+<p>Then we can browse on over to <a href="http://127.0.0.1:8081/">http://127.0.0.1:8081/</a> and see pico-notes in action.</p>
+<p><img alt="pico-notes on unix" src="/posts/fairtalk/pico-notes-on-unix.png"></p>
+<p>The app is pretty neat. Type in the text field and click add note. It puts the note below.</p>
+<p><img alt="pico-notes on unix" src="/posts/fairtalk/pico-note-added.png"></p>
+<p>After playing around with the notes application, I tried out what it would look like on a phone:</p>
+<p><img alt="pico-notes on unix" src="/posts/fairtalk/pico-note-on-phone.png"></p>
+<p>I pulled up a different web browser (chrome) and connected to the same IP address <a href="http://127.0.0.1:8081/">http://127.0.0.1:8081/</a> with pico-note running. </p>
+<p><img alt="pico-notes on unix" src="/posts/fairtalk/pico-note-on-chrome.png"></p>
+<p>The notes added on chrome were reflected in the notes shown in firefox. Pretty neat!</p>
+<p><img alt="pico-notes on unix" src="/posts/fairtalk/pico-note-back-on-firefox.png"></p>
+<h2 id="picoweb-on-an-esp8266">picoweb on an ESP8266</h2>
+<p>Now it is time to build some custom firmware for the ESP8266 because the pico-notes app is too big just to dump as regular .py files, it needs to be built into the firmware that we flash on the ESP8266. This got a little tricky.</p>
+<p>First I made sure that I could do a regular build of the Micropython firmware using the official Micropython repository. I pulled down this repo a while ago, but the commands to do it again are:</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~
+$ git clone git@github.com:micropython/micropython.git
+$ git submodule update --init
+</pre></div>
+
+
+<p>Next, I built the mpy-cross too in the main micropython directory then moved into the exp8266 port and built the firmware.</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/micropython
+$ make -C mpy-cross
+$ <span class="nb">cd</span> ~/micropython/ports/esp8266
+$ make axtls
+$ make
+</pre></div>
+
+
+<p>The the make process works, the resulting .bin file shows up in the <code>/micropython/ports/esp8266/build</code> directory.</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/micropython/ports/esp8266
+$ <span class="nb">cd</span> build
+$ ls
+</pre></div>
+
+
+<p>There are a lot of files in the directory, but the file we are looking for is named <code>firmware-combined.bin</code>. The micropython docs say that you should erase the flash memory of the ESP8266 before putting on the new firmware. This is done with esptool.</p>
+<div class="highlight"><pre><span></span>$ esptool.py --port /dev/ttyUSB0 erase_flash
+esptool.py v1.2
+Connecting...
+Running Cesanta flasher stub...
+Erasing flash <span class="o">(</span>this may take a <span class="k">while</span><span class="o">)</span>...
+Erase took <span class="m">2</span>.6 seconds
+</pre></div>
+
+
+<p>Now we can put the new firmware onto the ESP8266. I initially had a lot of trouble with this and it came down to an esptool option shown in the micropython docs. My esp8266 board must be a particular NodeMCU board that needs this option:</p>
+<blockquote>
+<p>For some boards with a particular FlashROM configuration (e.g. some variants of a NodeMCU board) you may need to use the following command to deploy the firmware (note the -fm dio option):</p>
+</blockquote>
+<div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/micropython/ports/esp8266/build
+$ esptool.py --port /dev/ttyUSB0 --baud <span class="m">460800</span> write_flash --flash_size<span class="o">=</span>detect -fm dio <span class="m">0</span> firmware-combined.bin
+esptool.py v1.2
+Connecting...
+Auto-detected Flash size: 32m
+Running Cesanta flasher stub...
+Flash params <span class="nb">set</span> to 0x0240
+Writing <span class="m">581632</span> @ 0x0... <span class="o">()</span><span class="m">1632</span> <span class="o">(</span><span class="m">100</span> %<span class="o">)</span>
+Wrote <span class="m">581632</span> bytes at 0x0 in <span class="m">12</span>.7 seconds <span class="o">(</span><span class="m">367</span>.5 kbit/s<span class="o">)</span>...
+Leaving...
+</pre></div>
+
+
+<p>Now let's try and bring up the Micropython REPL with screen</p>
+<div class="highlight"><pre><span></span>$ screen /dev/ttyUSBO 115200
+# at first nothing, [ctrl-c] brought up the prompt
+&gt;&gt;&gt; import sys
+&gt;&gt;&gt; sys.platform
+&#39;esp8266&#39;
+&gt;&gt;&gt; sys.implementation
+(name=&#39;micropython&#39;, version=(1, 9, 3))
+&gt;&gt;&gt; import uasyncio
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+ImportError: no module named &#39;uasyncio&#39;
+</pre></div>
+
+
+<p>I have to unplug the ESP8266 in order to get out of screen. So now that the regular micropython build process seems to work, it is time to try the specialized pfalcon build. Note that with the regular esp8266 build, the uasyncio module was not available. </p>
+<p>Next I manually moved all the files that upip downloaded when pico-note was installed on the unix port. These files came from the /micropythonover to the /micropython-pfalcon/ports/esp8266/modules directory. These files came from the ~/micropython-pfalcon/ports/unix/app directory where upip downloaded to. The file list includes:</p>
+<div class="highlight"><pre><span></span>~/micropython-pfalcon/ports/unix/app/
+├── btreedb.py
+├── logging.py
+├── notes_pico
+│   ├── app.py
+│   ├── config.py
+│   ├── ijson.py
+│   ├── __main__.py
+│   ├── models_btree.py
+│   ├── models_filedb.py
+│   ├── models.py
+│   ├── models_sqlite.py
+│   ├── R.py
+│   ├── static
+│   ├── templates
+│   └── views.py
+├── picoweb
+│   ├── __init__.py
+│   └── utils.py
+├── pkg_resources.py
+├── uasyncio
+│   ├── core.py
+│   └── __init__.py
+└── utemplate
+    ├── compiled.py
+    └── source.py
+</pre></div>
+
+
+<p>These were all moved into the /micropython-pfalcon/ports/esp8266/modules directory, so now it's conents looks like:</p>
+<div class="highlight"><pre><span></span>.
+├── apa102.py
+├── _boot.py
+├── btreedb.py
+├── dht.py
+├── ds18x20.py
+├── flashbdev.py
+├── inisetup.py
+├── logging.py
+├── neopixel.py
+├── notes_pico
+│   ├── app.py
+│   ├── config.py
+│   ├── ijson.py
+│   ├── __main__.py
+│   ├── models_btree.py
+│   ├── models_filedb.py
+│   ├── models.py
+│   ├── models_sqlite.py
+│   ├── R.py
+│   ├── static
+│   ├── templates
+│   └── views.py
+├── ntptime.py
+├── onewire.py
+├── picoweb
+│   ├── __init__.py
+│   └── utils.py
+├── pkg_resources.py
+├── port_diag.py
+├── uasyncio
+│   ├── core.py
+│   └── __init__.py
+├── upip.py
+├── upip_utarfile.py
+├── utemplate
+│   ├── compiled.py
+│   └── source.py
+├── webrepl.py
+├── webrepl_setup.py
+└── websocket_helper.py
+</pre></div>
+
+
+<p>Then I went into the pfalcon esp8266 port and ran make to build the firmware.</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/micropython-pfalcon
+$ <span class="nb">cd</span> ports/esp8266
+$ make
+</pre></div>
+
+
+<p>Then I plugged the ESP8266 and ran <strong>esptool</strong> to erase the ESP's flash memory.</p>
+<div class="highlight"><pre><span></span>$ esptool.py --port /dev/ttyUSB0 erase_flash
+</pre></div>
+
+
+<p>With the flash memory erased, now it's time to upload the newly built firmware. The firmware file ends up in /ports/esp8266/build. Again, since I was using some sort of version of the NodeMCU board, I had to include the extra flag</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/micropython-pfalcon
+$ <span class="nb">cd</span> ports/esp8266/build
+$ esptool.py --port /dev/ttyUSB0 --baud <span class="m">460800</span> write_flash --flash_size<span class="o">=</span>detect -fm dio <span class="m">0</span> firmware-combined.bin
+esptool.py v1.2
+Connecting...
+Auto-detected Flash size: 32m
+Running Cesanta flasher stub...
+Flash params <span class="nb">set</span> to 0x0240
+Writing <span class="m">581632</span> @ 0x0... <span class="o">()</span><span class="m">1632</span> <span class="o">(</span><span class="m">100</span> %<span class="o">)</span>
+Wrote <span class="m">581632</span> bytes at 0x0 in <span class="m">12</span>.7 seconds <span class="o">(</span><span class="m">367</span>.5 kbit/s<span class="o">)</span>...
+Leaving...
+</pre></div>
+
+
+<p>I had some very limited success getting <strong>pico-note</strong> to run on the ESP8266 as an access point. This is the default state that the ESP8266 starts with when loaded with Micropython firmware. I used screen to log into the ESP8226 and start the pico-notes app.</p>
+<div class="highlight"><pre><span></span>$ screen /dev/ttyUS0 <span class="m">115200</span>
+<span class="c1"># [ctrl-c] or reset on ESP8266</span>
+&gt;&gt;&gt; import notes_pico.__main__
+&gt;&gt;&gt; notes_pico.__main__.main<span class="o">(</span><span class="nv">host</span><span class="o">=</span><span class="s2">&quot;0.0.0.0&quot;</span><span class="o">)</span>
+</pre></div>
+
+
+<p>Connected to the Micropython Wifi network with a laptop, and used the password micropythoN to join the Wifi network. Pointed a web browser to 192.168.4.1:8081 and tried to use the app. It was very slow and the css didn't load. Many times it timed out. Getting the response back after adding a note showed what looked like json instead of the front facing web app.</p>
+<p>Connecting the ESP8266 to the house WiFi worked a lot better. At the micropython REPL on the ESP8266, I stopped the pico-notes app and logged into the house Wifi. Note the IP is different when connected to the house Wifi</p>
+<div class="highlight"><pre><span></span># [ctrl-c] to stop process
+# [ctrl-d] to restart board
+&gt;&gt;&gt; import network
+&gt;&gt;&gt; sta_if = network.WLAN(network.STA_IF)
+&gt;&gt;&gt; sta_if.active()
+False
+&gt;&gt;&gt; sta_if.active(True)
+&gt;&gt;&gt; sta_if.connect(&#39;SSID&#39;, &#39;password&#39;)
+&gt;&gt;&gt; sta_if.isconnected()
+&gt;&gt;&gt; sta_if.ifconfig()
+(&#39;10.0.0.26&#39;, &#39;255.255.255.0&#39;, &#39;192.168.0.1&#39;, &#39;8.8.8.8&#39;)
+</pre></div>
+
+
+<p>After connected to the house WiFi, I started the pico-note app again</p>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; import notes_pico.__main__
+&gt;&gt;&gt; notes_pico.__main__.main(host=&quot;0.0.0.0&quot;)
+</pre></div>
+
+
+<p>Then I brought my house desktop running Ubunutu over to the ESP's IP address of 10.0.0.26:8081</p>
+<p>The pico-note app looked great! I tried adding notes from devices all over the house. Pico-note looked good on the Ubunutu desktop, bad on the Mac Laptop, bad on the Windows laptop, good on two iphones and good on a kindle tablet. For some reason, it looked like the css didn't get loaded on the two laptops.</p>
+            </div>
+            <!-- /.entry-content -->
+<section class="well" id="related-posts">
+    <h4>Related Posts:</h4>
+    <ul>
+        <li><a href="../upload-py-files-to-esp8266-running-micropython.html">How to upload .py-files onto an ESP8266 running MicroPython</a></li>
+        <li><a href="../micropython-upload-code.html">Upload Micropython Code to an Adafruit Feather Huzzah ESP8266</a></li>
+        <li><a href="../micropython-wifi.html">Using Micropython to connect an Adafruit Feather Huzzah ESP8266 to WiFi</a></li>
+        <li><a href="../micropython-temp-sensor.html">Using a Temperature Sensor with Micropython running on an Adafruit Feather Huzzah ESP8266</a></li>
+        <li><a href="../micropython-REPL.html">Using the Micropython REPL on an Adafruit Feather Huzzah ESP8266</a></li>
+    </ul>
+</section>
+    <hr />
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style">
+            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+            <a class="addthis_button_tweet"></a>
+    </div>
+    <!-- AddThis Button END -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<div id="aboutme">
+        <p>
+            <img width="100%" class="img-thumbnail" src="../extra/gear-wrench-icon-512-278694.png"/>
+        </p>
+    <p>
+      <strong>About Peter Kazarinoff</strong><br/>
+        I teach engineering at a community college in the Pacific Northwest. I am interested in programming and how to help students. Here I mostly blog about Python, and how programing can be incorporated into engineering education.
+    </p>
+</div><!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Recent Posts -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+  <ul class="list-group" id="recentposts">
+    <li class="list-group-item"><a href="../thoughts-on-how-to-test-science-code.html">Thoughts on Software Design in Scientific Code</a></li>
+    <li class="list-group-item"><a href="../stream-S01-E01-jupyterhub-intro.html">My first Twitch Stream: S01-E01 JupyterHub Intro and Tools</a></li>
+    <li class="list-group-item"><a href="../jupyterhub-deployment-on-running-in-production.html">Hear my story about deploying JupyterHub on the Running in Production Podcast</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Recent Posts -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="../"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-2">
+      <a href="../tag/engineering.html">engineering</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="../tag/esp8266.html">esp8266</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="../tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="../tag/jupyter.html">jupyter</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="../tag/jupyter-notebook.html">jupyter notebook</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="../tag/matplotlib.html">matplotlib</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="../tag/micropython.html">micropython</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="../tag/pelican.html">pelican</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="../tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="../tag/sensor.html">sensor</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Github -->
+<li class="list-group-item">
+  <h4><i class="fa fa-github fa-lg"></i><span class="icon-label">GitHub Repos</span></h4>
+  <div id="gh_repos">
+    <p class="list-group-item">Status updating...</p>
+  </div>
+  <a href="https://github.com/professorkazarinoff">@professorkazarinoff</a> on GitHub
+</li>
+<!-- End Sidebar/Github -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2021 Peter Kazarinoff
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="../theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../theme/js/respond.min.js"></script>
+
+    <script src="../static/js/custom.js"></script>
+
+
+<!-- GitHub JS Code -->
+<script type="text/javascript">
+$(document).ready(function () {
+  if (!window.jXHR) {
+    var jxhr = document.createElement('script');
+    jxhr.type = 'text/javascript';
+    jxhr.src = '../theme/js/jXHR.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(jxhr, s);
+  }
+
+  github.showRepos({
+    user: 'professorkazarinoff',
+    count: 5,
+    skip_forks: true,
+    target: '#gh_repos'
+  });
+});
+</script>
+<script src="../theme/js/github.js" type="text/javascript"></script>
+<!-- End GitHub JS Code -->
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-116330557-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+    $("div.collapseheader").click(function () {
+    $header = $(this).children("span").first();
+    $codearea = $(this).children(".input_area");
+    console.log($(this).children());
+    $codearea.slideToggle(500, function () {
+        $header.text(function () {
+            return $codearea.is(":visible") ? "Collapse Code" : "Expand Code";
+        });
+    });
+});
+});
+</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cdd8eb4e16bf94c"></script>
+</body>
+</html>

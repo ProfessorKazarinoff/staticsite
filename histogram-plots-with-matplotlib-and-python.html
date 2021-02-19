@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Plotting Histograms with matplotlib and Python - Python for Undergraduate Engineers</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
+<style type="text/css">
+
+    /*some stuff for output/input prompts*/
+    div.cell{border:1px solid transparent;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}div.cell.selected{border-radius:4px;border:thin #ababab solid}
+    div.cell.edit_mode{border-radius:4px;border:thin #008000 solid}
+    div.cell{width:100%;padding:5px 5px 5px 0;margin:0;outline:none}
+    div.prompt{min-width:11ex;padding:.4em;margin:0;font-family:monospace;text-align:right;line-height:1.21429em}
+    @media (max-width:480px){div.prompt{text-align:left}}div.inner_cell{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
+    div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;line-height:1.21429em}
+    div.prompt:empty{padding-top:0;padding-bottom:0}
+    div.input{page-break-inside:avoid;display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;}
+    div.inner_cell{width:90%;}
+    div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;}
+    div.input_prompt{color:navy;border-top:1px solid transparent;}
+    div.output_wrapper{margin-top:5px;position:relative;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+    div.output_scroll{height:24em;width:100%;overflow:auto;border-radius:4px;-webkit-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);-moz-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);}
+    div.output_collapsed{margin:0px;padding:0px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+    div.out_prompt_overlay{height:100%;padding:0px 0.4em;position:absolute;border-radius:4px;}
+    div.out_prompt_overlay:hover{-webkit-box-shadow:inset 0 0 1px #000000;-moz-box-shadow:inset 0 0 1px #000000;box-shadow:inset 0 0 1px #000000;background:rgba(240, 240, 240, 0.5);}
+    div.output_prompt{color:darkred;}
+    
+    a.anchor-link:link{text-decoration:none;padding:0px 20px;visibility:hidden;}
+    h1:hover .anchor-link,h2:hover .anchor-link,h3:hover .anchor-link,h4:hover .anchor-link,h5:hover .anchor-link,h6:hover .anchor-link{visibility:visible;}
+    /* end stuff for output/input prompts*/
+    
+    
+    .highlight-ipynb .hll { background-color: #ffffcc }
+    .highlight-ipynb  { background: #f8f8f8; }
+    .highlight-ipynb .c { color: #408080; font-style: italic } /* Comment */
+    .highlight-ipynb .err { border: 1px solid #FF0000 } /* Error */
+    .highlight-ipynb .k { color: #008000; font-weight: bold } /* Keyword */
+    .highlight-ipynb .o { color: #666666 } /* Operator */
+    .highlight-ipynb .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+    .highlight-ipynb .cp { color: #BC7A00 } /* Comment.Preproc */
+    .highlight-ipynb .c1 { color: #408080; font-style: italic } /* Comment.Single */
+    .highlight-ipynb .cs { color: #408080; font-style: italic } /* Comment.Special */
+    .highlight-ipynb .gd { color: #A00000 } /* Generic.Deleted */
+    .highlight-ipynb .ge { font-style: italic } /* Generic.Emph */
+    .highlight-ipynb .gr { color: #FF0000 } /* Generic.Error */
+    .highlight-ipynb .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+    .highlight-ipynb .gi { color: #00A000 } /* Generic.Inserted */
+    .highlight-ipynb .go { color: #888888 } /* Generic.Output */
+    .highlight-ipynb .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+    .highlight-ipynb .gs { font-weight: bold } /* Generic.Strong */
+    .highlight-ipynb .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+    .highlight-ipynb .gt { color: #0044DD } /* Generic.Traceback */
+    .highlight-ipynb .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+    .highlight-ipynb .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+    .highlight-ipynb .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+    .highlight-ipynb .kp { color: #008000 } /* Keyword.Pseudo */
+    .highlight-ipynb .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+    .highlight-ipynb .kt { color: #B00040 } /* Keyword.Type */
+    .highlight-ipynb .m { color: #666666 } /* Literal.Number */
+    .highlight-ipynb .s { color: #BA2121 } /* Literal.String */
+    .highlight-ipynb .na { color: #7D9029 } /* Name.Attribute */
+    .highlight-ipynb .nb { color: #008000 } /* Name.Builtin */
+    .highlight-ipynb .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+    .highlight-ipynb .no { color: #880000 } /* Name.Constant */
+    .highlight-ipynb .nd { color: #AA22FF } /* Name.Decorator */
+    .highlight-ipynb .ni { color: #999999; font-weight: bold } /* Name.Entity */
+    .highlight-ipynb .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+    .highlight-ipynb .nf { color: #0000FF } /* Name.Function */
+    .highlight-ipynb .nl { color: #A0A000 } /* Name.Label */
+    .highlight-ipynb .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+    .highlight-ipynb .nt { color: #008000; font-weight: bold } /* Name.Tag */
+    .highlight-ipynb .nv { color: #19177C } /* Name.Variable */
+    .highlight-ipynb .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+    .highlight-ipynb .w { color: #bbbbbb } /* Text.Whitespace */
+    .highlight-ipynb .mf { color: #666666 } /* Literal.Number.Float */
+    .highlight-ipynb .mh { color: #666666 } /* Literal.Number.Hex */
+    .highlight-ipynb .mi { color: #666666 } /* Literal.Number.Integer */
+    .highlight-ipynb .mo { color: #666666 } /* Literal.Number.Oct */
+    .highlight-ipynb .sb { color: #BA2121 } /* Literal.String.Backtick */
+    .highlight-ipynb .sc { color: #BA2121 } /* Literal.String.Char */
+    .highlight-ipynb .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+    .highlight-ipynb .s2 { color: #BA2121 } /* Literal.String.Double */
+    .highlight-ipynb .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+    .highlight-ipynb .sh { color: #BA2121 } /* Literal.String.Heredoc */
+    .highlight-ipynb .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+    .highlight-ipynb .sx { color: #008000 } /* Literal.String.Other */
+    .highlight-ipynb .sr { color: #BB6688 } /* Literal.String.Regex */
+    .highlight-ipynb .s1 { color: #BA2121 } /* Literal.String.Single */
+    .highlight-ipynb .ss { color: #19177C } /* Literal.String.Symbol */
+    .highlight-ipynb .bp { color: #008000 } /* Name.Builtin.Pseudo */
+    .highlight-ipynb .vc { color: #19177C } /* Name.Variable.Class */
+    .highlight-ipynb .vg { color: #19177C } /* Name.Variable.Global */
+    .highlight-ipynb .vi { color: #19177C } /* Name.Variable.Instance */
+    .highlight-ipynb .il { color: #666666 } /* Literal.Number.Integer.Long */
+    </style>
+    
+    <style type="text/css">
+    /* Overrides of notebook CSS for static HTML export */
+    div.entry-content {
+      overflow: visible;
+      padding: 8px;
+    }
+    .input_area {
+      padding: 0.2em;
+    }
+    
+    a.heading-anchor {
+     white-space: normal;
+    }
+    
+    .rendered_html
+    code {
+     font-size: .8em;
+    }
+    
+    pre.ipynb {
+      color: black;
+      background: #f7f7f7;
+      border: none;
+      box-shadow: none;
+      margin-bottom: 0;
+      padding: 0;
+      margin: 0px;
+      font-size: 13px;
+    }
+    
+    /* remove the prompt div from text cells */
+    div.text_cell .prompt {
+        display: none;
+    }
+    
+    /* remove horizontal padding from text cells, */
+    /* so it aligns with outer body text */
+    div.text_cell_render {
+        padding: 0.5em 0em;
+    }
+    
+    img.anim_icon{padding:0; border:0; vertical-align:middle; -webkit-box-shadow:none; -box-shadow:none}
+    
+    div.collapseheader {
+        width=100%;
+        padding: 2px;
+        cursor: pointer;
+        font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+    
+    </style>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+    <script type="text/javascript">
+    init_mathjax = function() {
+        if (window.MathJax) {
+            // MathJax loaded
+            MathJax.Hub.Config({
+                tex2jax: {
+                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+                },
+                displayAlign: 'center', // Change this to 'center' to center equations.
+                "HTML-CSS": {
+                    styles: {'.MathJax_Display': {"margin": 0}}
+                }
+            });
+            MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        }
+    }
+    init_mathjax();
+    </script>
+    
+    <link href="./extra/favicon.ico" rel="icon">
+
+<link rel="canonical" href="./histogram-plots-with-matplotlib-and-python.html">
+
+        <meta name="author" content="Peter D. Kazarinoff" />
+        <meta name="keywords" content="python,matplotlib,engineering,statistics,plotting,jupyter notebook" />
+        <meta name="description" content="Histograms are a useful type of statistics plot for engineers. A histogram is a type of bar plot that shows the frequency or number of values compared to a set of value ranges. Histogram plots can be created with Python and the plotting package matplotlib. The plt.hist() function creates …" />
+
+        <meta property="og:site_name" content="Python for Undergraduate Engineers" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Plotting Histograms with matplotlib and Python"/>
+        <meta property="og:url" content="./histogram-plots-with-matplotlib-and-python.html"/>
+        <meta property="og:description" content="Histograms are a useful type of statistics plot for engineers. A histogram is a type of bar plot that shows the frequency or number of values compared to a set of value ranges. Histogram plots can be created with Python and the plotting package matplotlib. The plt.hist() function creates …"/>
+        <meta property="article:published_time" content="2018-10-08" />
+            <meta property="article:section" content="matplotlib" />
+            <meta property="article:tag" content="python" />
+            <meta property="article:tag" content="matplotlib" />
+            <meta property="article:tag" content="engineering" />
+            <meta property="article:tag" content="statistics" />
+            <meta property="article:tag" content="plotting" />
+            <meta property="article:tag" content="jupyter notebook" />
+            <meta property="article:author" content="Peter D. Kazarinoff" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="./theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="./theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="./theme/css/pygments/native.css" rel="stylesheet">
+    <link href="./theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="./theme/css/style.css" type="text/css"/>
+        <link href="./static/css/custom.css" rel="stylesheet">
+
+
+
+</head>
+<body>
+
+<!-- .navbar -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="./" class="navbar-brand">
+Python for Undergraduate Engineers            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="./pages/about.html">
+                             About
+                          </a></li>
+                         <li><a href="./pages/book.html">
+                             Book
+                          </a></li>
+                         <li><a href="./pages/now.html">
+                             Now
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+
+<!-- .navbar-search -->
+<li>
+    <span>
+        <form class="navbar-search" action="/search.html">
+            <input type="text" name="q" id="tipue_search_input">
+        </form>
+    </span>
+</li>
+<!-- /.navbar-search -->              <li><a href="./archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+            <ol class="breadcrumb">
+                <li><a href="." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="./category/matplotlib.html" title="matplotlib">matplotlib</a></li>
+                <li class="active">Plotting Histograms with matplotlib and Python</li>
+            </ol>
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="./histogram-plots-with-matplotlib-and-python.html"
+                       rel="bookmark"
+                       title="Permalink to Plotting Histograms with matplotlib and Python">
+                        Plotting Histograms with matplotlib and Python
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2018-10-08T09:01:00-07:00"> Mon 08 October 2018</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="./tag/python.html">python</a>
+        /
+	<a href="./tag/matplotlib.html">matplotlib</a>
+        /
+	<a href="./tag/engineering.html">engineering</a>
+        /
+	<a href="./tag/statistics.html">statistics</a>
+        /
+	<a href="./tag/plotting.html">plotting</a>
+        /
+	<a href="./tag/jupyter-notebook.html">jupyter notebook</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p><img alt="histogram" src="./posts/matplotlib/histogram.png"></p>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Histograms are a useful type of statistics plot for engineers. A histogram is a type of bar plot that shows the frequency or number of values compared to a set of value ranges. Histogram plots can be created with Python and the plotting package <strong>matplotlib</strong>. The <code>plt.hist()</code> function creates histogram plots.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Before <strong>matplotlib</strong> can be used, <strong>matplotlib</strong> must first be installed. To install <strong>matplotlib</strong> open the <strong>Anaconda Prompt</strong> (or use a terminal and <strong>pip</strong>) and type:</p>
+<div class="highlight"><pre><span></span>&gt; conda install matplotlib
+</pre></div>
+<p>or</p>
+<div class="highlight"><pre><span></span>$ pip install matplotlib
+</pre></div>
+<p>If you are using the Anaconda distribution of Python, <strong>matplotlib</strong> is already installed.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To create a histogram with <strong>matplotlib</strong>, first import <strong>matplotlib</strong> with the standard line:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+</pre></div>
+<p>The alias <code>plt</code> is commonly used for <strong>matplotlib's</strong> <code>pyplot</code> library and will look familiar to other programmers.</p>
+<p>In our first example, we will also import <strong>numpy</strong> with the line <code>import numpy as np</code>. We'll use <strong>numpy's</strong> random number generator to create a dataset for us to plot. If using a Jupyter notebook, include the line <code>%matplotlib inline</code> below the imports.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="c1"># if using a Jupyter notebook, includue:</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For our dataset, let's define a mean (average) <code>mu = 80</code> and a standard deviation (spread) <code>sigma = 7</code>. Then we'll use <strong>numpy's</strong> <code>np.random.normal()</code> function to produce an array of random numbers with a normal distribution. 200 random numbers is a sufficient quantity to plot. The general format of the <code>np.random.normal()</code> function is below:</p>
+<div class="highlight"><pre><span></span><span class="n">var</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">mean</span><span class="p">,</span> <span class="n">stdev</span><span class="p">,</span> <span class="n">size</span><span class="o">=&lt;</span><span class="n">number</span> <span class="n">of</span> <span class="n">values</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mu</span> <span class="o">=</span> <span class="mi">80</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Matplotlib's</strong> <code>plt.hist()</code> function produces histogram plots. The first positional argument passed to <code>plt.hist()</code> is a list or array of values, the second positional argument denotes the number of bins on the histogram.</p>
+<div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">num_bins</span><span class="p">)</span>
+</pre></div>
+<p>Similar to <strong>matplotlib</strong> line plots, bar plots and pie charts, a set of keyword arguments can be included in the <code>plt.hist()</code> function call. Specifying values for the keyword arguments customizes the histogram. Some keyword arguments we can use with <code>plt.hist()</code> are:</p>
+<ul>
+<li><code>density=</code></li>
+<li><code>histtype=</code></li>
+<li><code>facecolor=</code></li>
+<li><code>alpha=</code>(opacity).</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span>
+         <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+         <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span>
+         <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span>
+         <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Our next histogram example involves a list of commute times. Suppose the following commute times were recorded in a survey:</p>
+<div class="highlight"><pre><span></span>23, 25, 40, 35, 36, 47, 33, 28, 48, 34,
+20, 37, 36, 23, 33, 36, 20, 27, 50, 34,
+47, 18, 28, 52, 21, 44, 34, 13, 40, 49
+</pre></div>
+<p>Let's plot a histogram of these commute times. First, import <strong>matplotlib</strong> as in the previous example, and include <code>%matplotib inline</code> if using a Jupyter notebook. Then build a Python list of commute times from the survey data above.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="c1"># if using a Jupyter notebook, include:</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="n">commute_times</span> <span class="o">=</span> <span class="p">[</span><span class="mi">23</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">47</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">48</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span>
+                 <span class="mi">20</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span>
+                 <span class="mi">47</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">52</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">44</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">49</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now we'll call <code>plt.hist()</code> and include our <code>commute_times</code> list and specify <code>5</code> bins.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">commute_times</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAW4AAAD8CAYAAABXe05zAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAADl0RVh0U29mdHdhcmUAbWF0cGxvdGxpYiB2ZXJzaW9uIDIuMS4xLCBodHRwOi8vbWF0cGxvdGxpYi5vcmcvAOZPmwAAC8ZJREFUeJzt3X+snQddx/H3h3YIG5iBu5K5rt5pFoWQOMiVTJuQWYiZjIAmmIw4goakmgAOQ4TOxEwTTUai/PjDmNTxYwmTScaIZCPIwrYY/6m0W3U/ChGhjrFKSxSBf5hzX/84T5Nre+69z7o+95xvfb+Sm95z+rT3kyc975779J7bVBWSpD6et+gBkqRnx3BLUjOGW5KaMdyS1IzhlqRmDLckNWO4JakZwy1JzRhuSWpm5xS/6SWXXFKrq6tT/NaSdF46fPjwd6pqZcyxk4R7dXWVQ4cOTfFbS9J5Kcm/jT3WSyWS1IzhlqRmDLckNWO4JakZwy1JzRhuSWrGcEtSM4Zbkpox3JLUzCSvnJS2srr/nkVP2FbHbrlu0RN0HvEZtyQ1Y7glqRnDLUnNGG5JasZwS1IzhluSmjHcktSM4ZakZgy3JDVjuCWpGcMtSc0YbklqxnBLUjOGW5KaMdyS1IzhlqRmDLckNWO4JamZUeFO8ntJHk3ySJJPJXnB1MMkSfNtGe4klwG/C6xV1SuBHcD1Uw+TJM039lLJTuCFSXYCFwJPTjdJkrSZLcNdVd8C/gx4HDgO/FdVfXHqYZKk+cZcKnkJ8GbgCuAngIuS3DDnuH1JDiU5dPLkyXO/VJIEjLtU8nrgG1V1sqr+G7gL+MXTD6qqA1W1VlVrKysr53qnJGkwJtyPA1cnuTBJgNcBR6edJUnayJhr3AeBO4EHgYeHX3Ng4l2SpA3sHHNQVd0M3DzxFknSCL5yUpKaMdyS1IzhlqRmDLckNWO4JakZwy1JzRhuSWrGcEtSM4Zbkpox3JLUjOGWpGYMtyQ1Y7glqRnDLUnNGG5JasZwS1IzhluSmjHcktTMqP+6TNNa3X/PoidIasRn3JLUjOGWpGYMtyQ1Y7glqRnDLUnNGG5JasZwS1IzhluSmjHcktSM4ZakZgy3JDVjuCWpGcMtSc0YbklqxnBLUjOGW5KaMdyS1IzhlqRmRoU7ycVJ7kzylSRHk/zC1MMkSfON/T8nPwJ8oarekuT5wIUTbpIkbWLLcCf5UeC1wG8CVNVTwFPTzpIkbWTMpZKfAk4CH0/yUJJbk1w08S5J0gbGXCrZCbwaeHdVHUzyEWA/8IfrD0qyD9gHsHv37nO9U1Izq/vvWfSEbXfsluu25eOMecb9BPBEVR0cbt/JLOT/R1UdqKq1qlpbWVk5lxslSetsGe6q+nfgm0l+ZrjrdcBjk66SJG1o7FeVvBu4ffiKkq8DvzXdJEnSZkaFu6qOAGsTb5EkjeArJyWpGcMtSc0YbklqxnBLUjOGW5KaMdyS1IzhlqRmDLckNWO4JakZwy1JzRhuSWrGcEtSM4Zbkpox3JLUjOGWpGYMtyQ1Y7glqRnDLUnNGG5JasZwS1IzhluSmjHcktSM4ZakZgy3JDVjuCWpGcMtSc0YbklqxnBLUjOGW5KaMdyS1IzhlqRmDLckNWO4JakZwy1JzRhuSWrGcEtSM4ZbkpoZHe4kO5I8lOTuKQdJkjb3bJ5x3wgcnWqIJGmcUeFOsgu4Drh12jmSpK2Mfcb9YeB9wDMTbpEkjbBzqwOSvBE4UVWHk1yzyXH7gH0Au3fvPutBq/vvOetfKy0r/1zrXBrzjHsP8KYkx4A7gL1JPnn6QVV1oKrWqmptZWXlHM+UJJ2yZbir6qaq2lVVq8D1wH1VdcPkyyRJc/l13JLUzJbXuNerqgeAByZZIkkaxWfcktSM4ZakZgy3JDVjuCWpGcMtSc0YbklqxnBLUjOGW5KaMdyS1IzhlqRmDLckNWO4JakZwy1JzRhuSWrGcEtSM4Zbkpox3JLUjOGWpGYMtyQ1Y7glqRnDLUnNGG5JasZwS1IzhluSmjHcktSM4ZakZgy3JDVjuCWpGcMtSc0YbklqxnBLUjOGW5KaMdyS1IzhlqRmDLckNWO4JakZwy1JzWwZ7iSXJ7k/ydEkjya5cTuGSZLm2znimKeB91bVg0leDBxOcm9VPTbxNknSHFs+466q41X14PD+94GjwGVTD5MkzfesrnEnWQVeBRycYowkaWujw53kRcBngPdU1ffm/Py+JIeSHDp58uS53ChJWmdUuJNcwCzat1fVXfOOqaoDVbVWVWsrKyvncqMkaZ0xX1US4KPA0ar64PSTJEmbGfOMew/wNmBvkiPD2xsm3iVJ2sCWXw5YVf8AZBu2SJJG8JWTktSM4ZakZgy3JDVjuCWpGcMtSc0YbklqxnBLUjOGW5KaMdyS1IzhlqRmDLckNWO4JakZwy1JzRhuSWrGcEtSM4Zbkpox3JLUjOGWpGYMtyQ1Y7glqRnDLUnNGG5JasZwS1IzhluSmjHcktSM4ZakZgy3JDVjuCWpGcMtSc0YbklqxnBLUjOGW5KaMdyS1IzhlqRmDLckNWO4JakZwy1JzYwKd5Jrk3w1ydeS7J96lCRpY1uGO8kO4C+AXwFeAbw1ySumHiZJmm/MM+7XAF+rqq9X1VPAHcCbp50lSdrImHBfBnxz3e0nhvskSQuwc8QxmXNfnXFQsg/YN9z8QZKvPpdhZ+kS4DsL+LhjuO3suO3sLfO+83JbPvCcPu5Pjj1wTLifAC5fd3sX8OTpB1XVAeDA2A88hSSHqmptkRs24raz47azt8z73PbcjLlU8mXgyiRXJHk+cD3wuWlnSZI2suUz7qp6Osm7gL8DdgAfq6pHJ18mSZprzKUSqurzwOcn3nIuLPRSzRbcdnbcdvaWeZ/bnoNUnfHvjJKkJeZL3iWpmbbhTvKxJCeSPLLuvj9K8q0kR4a3Nyxo2+VJ7k9yNMmjSW4c7n9pknuT/Mvw40uWaNvCz12SFyT5xyT/NGz74+H+K5IcHM7b3wz/SL4s2z6R5BvrzttV271t3cYdSR5Kcvdwe+HnbZNtS3HekhxL8vCw4dBw38Ifp1tpG27gE8C1c+7/UFVdNbwt6rr808B7q+rlwNXAO4dvE7Af+FJVXQl8abi9LNtg8efuh8Deqvo54Crg2iRXAx8Ytl0J/CfwjiXaBvD7687bkQVsO+VG4Oi628tw3k45fRssz3n7pWHDqS8BXIbH6abahruq/h74j0XvmKeqjlfVg8P732f2B/YyZt8q4LbhsNuAX12ibQtXMz8Ybl4wvBWwF7hzuH9R522jbUshyS7gOuDW4XZYgvM2b1sDC3+cbqVtuDfxriT/PFxKWfinOElWgVcBB4GXVdVxmAUU+PHFLTtjGyzBuRs+pT4CnADuBf4V+G5VPT0csrBvuXD6tqo6dd7+dDhvH0ryI4vYBnwYeB/wzHD7x1iS88aZ205ZhvNWwBeTHB5e/Q1L9jid53wL918CP83sU9njwJ8vckySFwGfAd5TVd9b5JbTzdm2FOeuqv6nqq5i9grd1wAvn3fY9q4aPuhp25K8ErgJ+Fng54GXAu/f7l1J3gicqKrD6++ec+i2n7cNtsESnLfBnqp6NbPvfvrOJK9d0I5n5bwKd1V9e3hwPQP8FbMH/kIkuYBZGG+vqruGu7+d5NLh5y9l9sxtKbYt07kb9nwXeIDZdfiLk5x6zcHcb7mwndZtu3a49FRV9UPg4yzmvO0B3pTkGLPv3rmX2bPcZThvZ2xL8sklOW9U1ZPDjyeAzw47luJxupnzKtynTvbg14BHNjp24h0BPgocraoPrvupzwFvH95/O/C3y7JtGc5dkpUkFw/vvxB4PbNr8PcDbxkOW9R5m7ftK+se4GF2LXTbz1tV3VRVu6pqldm3pLivqn6DJThvG2y7YRnOW5KLkrz41PvALw87Fv443cqoV04uoySfAq4BLknyBHAzcM3wZUUFHAN+e0Hz9gBvAx4erokC/AFwC/DpJO8AHgd+fYm2vXUJzt2lwG2Z/ecdzwM+XVV3J3kMuCPJnwAPMfuLZ1m23ZdkhdmliSPA7yxg20bez+LP20ZuX4Lz9jLgs7O/O9gJ/HVVfSHJl1n843RTvnJSkpo5ry6VSNL/B4Zbkpox3JLUjOGWpGYMtyQ1Y7glqRnDLUnNGG5JauZ/Ad5OQC1zQ/WCAAAAAElFTkSuQmCC
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If we want our bins to have specific bin ranges, we can specify a list or array of bin edges in the keyword argument <code>bins=</code>. Let's also add some axis labels and a title to the histogram. A table of some keyword arguments used with <code>plt.hist()</code> is below:</p>
+<table class="table table-striped table-bordered table-hover">
+<thead><tr>
+<th>keyword argument</th>
+<th>description</th>
+<th>example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bins=</code></td>
+<td>list of bin edges</td>
+<td><code>bins=[5, 10, 20, 30]</code></td>
+</tr>
+<tr>
+<td><code>density=</code></td>
+<td>if <code>true</code>, data is normalized</td>
+<td><code>density=false</code></td>
+</tr>
+<tr>
+<td><code>histtype=</code></td>
+<td>type of histogram: bar, stacked, step or step-filled</td>
+<td><code>histtype='bar'</code></td>
+</tr>
+<tr>
+<td><code>color=</code></td>
+<td>bar color</td>
+<td><code>color='b'</code></td>
+</tr>
+<tr>
+<td><code>edgecolor=</code></td>
+<td>bar edge color</td>
+<td><code>color='k'</code></td>
+</tr>
+<tr>
+<td><code>alpha=</code></td>
+<td>bar opacity</td>
+<td><code>alpha=0.5</code></td>
+</tr>
+</tbody>
+</table>
+<p>Let's specify our bins in 15 min increments. This means our bin edges are <code>[0,15,30,45,60]</code>. We'll also specify <code>density=False</code>, <code>color='b'</code>(blue), <code>edgecolor='k'</code>(black), and <code>alpha=0.5</code>(half transparent). The lines <code>plt.xlabel()</code>, <code>plt.ylabel()</code>, and <code>plt.title()</code> give our histogram axis labels and a title. <code>plt.xticks()</code> defines the location of the x-axis tick labels. If the bins are spaced out at 15 minute intervals, it makes sense to label the x-axis at these same intervals.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bin_edges</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mi">60</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">commute_times</span><span class="p">,</span>
+         <span class="n">bins</span><span class="o">=</span><span class="n">bin_edges</span><span class="p">,</span>
+         <span class="n">density</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+         <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span>
+         <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span>
+         <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
+         <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Commute time (min)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mi">60</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Number of commuters&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Histogram of commute times&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Summary">Summary<a class="anchor-link" href="#Summary">&#182;</a></h2><p>In this post we built two histograms with the <strong>matplotlib</strong> plotting package and Python. The first histogram contained an array of random numbers with a normal distribution. The second histogram was constructed from a list of commute times. The <code>plt.hist()</code> function takes a number of keyword arguments that allows us to customize the histogram.</p>
+
+</div>
+</div>
+</div>
+            </div>
+            <!-- /.entry-content -->
+<section class="well" id="related-posts">
+    <h4>Related Posts:</h4>
+    <ul>
+        <li><a href="./bar-plot-with-error-bars-jupyter-matplotlib.html">Bar charts with error bars using Python, jupyter notebooks and matplotlib</a></li>
+        <li><a href="./plotting-bond-energy-with-matplotlib-and-python.html">Plotting Bond Energy vs. Distance with Python and Matplotlib</a></li>
+        <li><a href="./quiver-plot-with-matplotlib-and-jupyter-notebooks.html">Quiver plots using Python, matplotlib and Jupyter notebooks</a></li>
+        <li><a href="./python-matplotlib-error-bars.html">Bar charts with error bars using Python and matplotlib</a></li>
+        <li><a href="./plotting-normal-curve-with-python.html">Plotting a Gaussian normal curve with Python and Matplotlib</a></li>
+    </ul>
+</section>
+    <hr />
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style">
+            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+            <a class="addthis_button_tweet"></a>
+    </div>
+    <!-- AddThis Button END -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<div id="aboutme">
+        <p>
+            <img width="100%" class="img-thumbnail" src="./extra/gear-wrench-icon-512-278694.png"/>
+        </p>
+    <p>
+      <strong>About Peter Kazarinoff</strong><br/>
+        I teach engineering at a community college in the Pacific Northwest. I am interested in programming and how to help students. Here I mostly blog about Python, and how programing can be incorporated into engineering education.
+    </p>
+</div><!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Recent Posts -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+  <ul class="list-group" id="recentposts">
+    <li class="list-group-item"><a href="./thoughts-on-how-to-test-science-code.html">Thoughts on Software Design in Scientific Code</a></li>
+    <li class="list-group-item"><a href="./stream-S01-E01-jupyterhub-intro.html">My first Twitch Stream: S01-E01 JupyterHub Intro and Tools</a></li>
+    <li class="list-group-item"><a href="./jupyterhub-deployment-on-running-in-production.html">Hear my story about deploying JupyterHub on the Running in Production Podcast</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Recent Posts -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="./"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-2">
+      <a href="./tag/engineering.html">engineering</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/esp8266.html">esp8266</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="./tag/jupyter.html">jupyter</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="./tag/jupyter-notebook.html">jupyter notebook</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="./tag/matplotlib.html">matplotlib</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/micropython.html">micropython</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/pelican.html">pelican</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="./tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/sensor.html">sensor</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Github -->
+<li class="list-group-item">
+  <h4><i class="fa fa-github fa-lg"></i><span class="icon-label">GitHub Repos</span></h4>
+  <div id="gh_repos">
+    <p class="list-group-item">Status updating...</p>
+  </div>
+  <a href="https://github.com/professorkazarinoff">@professorkazarinoff</a> on GitHub
+</li>
+<!-- End Sidebar/Github -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2021 Peter Kazarinoff
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="./theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="./theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="./theme/js/respond.min.js"></script>
+
+    <script src="./static/js/custom.js"></script>
+
+
+<!-- GitHub JS Code -->
+<script type="text/javascript">
+$(document).ready(function () {
+  if (!window.jXHR) {
+    var jxhr = document.createElement('script');
+    jxhr.type = 'text/javascript';
+    jxhr.src = './theme/js/jXHR.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(jxhr, s);
+  }
+
+  github.showRepos({
+    user: 'professorkazarinoff',
+    count: 5,
+    skip_forks: true,
+    target: '#gh_repos'
+  });
+});
+</script>
+<script src="./theme/js/github.js" type="text/javascript"></script>
+<!-- End GitHub JS Code -->
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-116330557-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+    $("div.collapseheader").click(function () {
+    $header = $(this).children("span").first();
+    $codearea = $(this).children(".input_area");
+    console.log($(this).children());
+    $codearea.slideToggle(500, function () {
+        $header.text(function () {
+            return $codearea.is(":visible") ? "Collapse Code" : "Expand Code";
+        });
+    });
+});
+});
+</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cdd8eb4e16bf94c"></script>
+</body>
+</html>

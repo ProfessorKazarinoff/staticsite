@@ -1,0 +1,2750 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Solving a Circuit Diagram Problem with Python and SchemDraw - Python for Undergraduate Engineers</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
+<style type="text/css">
+
+    /*some stuff for output/input prompts*/
+    div.cell{border:1px solid transparent;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}div.cell.selected{border-radius:4px;border:thin #ababab solid}
+    div.cell.edit_mode{border-radius:4px;border:thin #008000 solid}
+    div.cell{width:100%;padding:5px 5px 5px 0;margin:0;outline:none}
+    div.prompt{min-width:11ex;padding:.4em;margin:0;font-family:monospace;text-align:right;line-height:1.21429em}
+    @media (max-width:480px){div.prompt{text-align:left}}div.inner_cell{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
+    div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;line-height:1.21429em}
+    div.prompt:empty{padding-top:0;padding-bottom:0}
+    div.input{page-break-inside:avoid;display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;}
+    div.inner_cell{width:90%;}
+    div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;}
+    div.input_prompt{color:navy;border-top:1px solid transparent;}
+    div.output_wrapper{margin-top:5px;position:relative;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+    div.output_scroll{height:24em;width:100%;overflow:auto;border-radius:4px;-webkit-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);-moz-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);}
+    div.output_collapsed{margin:0px;padding:0px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+    div.out_prompt_overlay{height:100%;padding:0px 0.4em;position:absolute;border-radius:4px;}
+    div.out_prompt_overlay:hover{-webkit-box-shadow:inset 0 0 1px #000000;-moz-box-shadow:inset 0 0 1px #000000;box-shadow:inset 0 0 1px #000000;background:rgba(240, 240, 240, 0.5);}
+    div.output_prompt{color:darkred;}
+    
+    a.anchor-link:link{text-decoration:none;padding:0px 20px;visibility:hidden;}
+    h1:hover .anchor-link,h2:hover .anchor-link,h3:hover .anchor-link,h4:hover .anchor-link,h5:hover .anchor-link,h6:hover .anchor-link{visibility:visible;}
+    /* end stuff for output/input prompts*/
+    
+    
+    .highlight-ipynb .hll { background-color: #ffffcc }
+    .highlight-ipynb  { background: #f8f8f8; }
+    .highlight-ipynb .c { color: #408080; font-style: italic } /* Comment */
+    .highlight-ipynb .err { border: 1px solid #FF0000 } /* Error */
+    .highlight-ipynb .k { color: #008000; font-weight: bold } /* Keyword */
+    .highlight-ipynb .o { color: #666666 } /* Operator */
+    .highlight-ipynb .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+    .highlight-ipynb .cp { color: #BC7A00 } /* Comment.Preproc */
+    .highlight-ipynb .c1 { color: #408080; font-style: italic } /* Comment.Single */
+    .highlight-ipynb .cs { color: #408080; font-style: italic } /* Comment.Special */
+    .highlight-ipynb .gd { color: #A00000 } /* Generic.Deleted */
+    .highlight-ipynb .ge { font-style: italic } /* Generic.Emph */
+    .highlight-ipynb .gr { color: #FF0000 } /* Generic.Error */
+    .highlight-ipynb .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+    .highlight-ipynb .gi { color: #00A000 } /* Generic.Inserted */
+    .highlight-ipynb .go { color: #888888 } /* Generic.Output */
+    .highlight-ipynb .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+    .highlight-ipynb .gs { font-weight: bold } /* Generic.Strong */
+    .highlight-ipynb .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+    .highlight-ipynb .gt { color: #0044DD } /* Generic.Traceback */
+    .highlight-ipynb .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+    .highlight-ipynb .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+    .highlight-ipynb .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+    .highlight-ipynb .kp { color: #008000 } /* Keyword.Pseudo */
+    .highlight-ipynb .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+    .highlight-ipynb .kt { color: #B00040 } /* Keyword.Type */
+    .highlight-ipynb .m { color: #666666 } /* Literal.Number */
+    .highlight-ipynb .s { color: #BA2121 } /* Literal.String */
+    .highlight-ipynb .na { color: #7D9029 } /* Name.Attribute */
+    .highlight-ipynb .nb { color: #008000 } /* Name.Builtin */
+    .highlight-ipynb .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+    .highlight-ipynb .no { color: #880000 } /* Name.Constant */
+    .highlight-ipynb .nd { color: #AA22FF } /* Name.Decorator */
+    .highlight-ipynb .ni { color: #999999; font-weight: bold } /* Name.Entity */
+    .highlight-ipynb .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+    .highlight-ipynb .nf { color: #0000FF } /* Name.Function */
+    .highlight-ipynb .nl { color: #A0A000 } /* Name.Label */
+    .highlight-ipynb .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+    .highlight-ipynb .nt { color: #008000; font-weight: bold } /* Name.Tag */
+    .highlight-ipynb .nv { color: #19177C } /* Name.Variable */
+    .highlight-ipynb .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+    .highlight-ipynb .w { color: #bbbbbb } /* Text.Whitespace */
+    .highlight-ipynb .mf { color: #666666 } /* Literal.Number.Float */
+    .highlight-ipynb .mh { color: #666666 } /* Literal.Number.Hex */
+    .highlight-ipynb .mi { color: #666666 } /* Literal.Number.Integer */
+    .highlight-ipynb .mo { color: #666666 } /* Literal.Number.Oct */
+    .highlight-ipynb .sb { color: #BA2121 } /* Literal.String.Backtick */
+    .highlight-ipynb .sc { color: #BA2121 } /* Literal.String.Char */
+    .highlight-ipynb .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+    .highlight-ipynb .s2 { color: #BA2121 } /* Literal.String.Double */
+    .highlight-ipynb .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+    .highlight-ipynb .sh { color: #BA2121 } /* Literal.String.Heredoc */
+    .highlight-ipynb .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+    .highlight-ipynb .sx { color: #008000 } /* Literal.String.Other */
+    .highlight-ipynb .sr { color: #BB6688 } /* Literal.String.Regex */
+    .highlight-ipynb .s1 { color: #BA2121 } /* Literal.String.Single */
+    .highlight-ipynb .ss { color: #19177C } /* Literal.String.Symbol */
+    .highlight-ipynb .bp { color: #008000 } /* Name.Builtin.Pseudo */
+    .highlight-ipynb .vc { color: #19177C } /* Name.Variable.Class */
+    .highlight-ipynb .vg { color: #19177C } /* Name.Variable.Global */
+    .highlight-ipynb .vi { color: #19177C } /* Name.Variable.Instance */
+    .highlight-ipynb .il { color: #666666 } /* Literal.Number.Integer.Long */
+    </style>
+    
+    <style type="text/css">
+    /* Overrides of notebook CSS for static HTML export */
+    div.entry-content {
+      overflow: visible;
+      padding: 8px;
+    }
+    .input_area {
+      padding: 0.2em;
+    }
+    
+    a.heading-anchor {
+     white-space: normal;
+    }
+    
+    .rendered_html
+    code {
+     font-size: .8em;
+    }
+    
+    pre.ipynb {
+      color: black;
+      background: #f7f7f7;
+      border: none;
+      box-shadow: none;
+      margin-bottom: 0;
+      padding: 0;
+      margin: 0px;
+      font-size: 13px;
+    }
+    
+    /* remove the prompt div from text cells */
+    div.text_cell .prompt {
+        display: none;
+    }
+    
+    /* remove horizontal padding from text cells, */
+    /* so it aligns with outer body text */
+    div.text_cell_render {
+        padding: 0.5em 0em;
+    }
+    
+    img.anim_icon{padding:0; border:0; vertical-align:middle; -webkit-box-shadow:none; -box-shadow:none}
+    
+    div.collapseheader {
+        width=100%;
+        padding: 2px;
+        cursor: pointer;
+        font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+    
+    </style>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+    <script type="text/javascript">
+    init_mathjax = function() {
+        if (window.MathJax) {
+            // MathJax loaded
+            MathJax.Hub.Config({
+                tex2jax: {
+                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+                },
+                displayAlign: 'center', // Change this to 'center' to center equations.
+                "HTML-CSS": {
+                    styles: {'.MathJax_Display': {"margin": 0}}
+                }
+            });
+            MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        }
+    }
+    init_mathjax();
+    </script>
+    
+    <link href="./extra/favicon.ico" rel="icon">
+
+<link rel="canonical" href="./circuit-diagram-problem-with-schemdraw.html">
+
+        <meta name="author" content="Peter D. Kazarinoff" />
+        <meta name="keywords" content="python,jupyter,notebook,matplotlib,schemdraw,engineering" />
+        <meta name="description" content="In this post we will solve a circuit diagram problem using a Python package called SchemDraw" />
+
+        <meta property="og:site_name" content="Python for Undergraduate Engineers" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Solving a Circuit Diagram Problem with Python and SchemDraw"/>
+        <meta property="og:url" content="./circuit-diagram-problem-with-schemdraw.html"/>
+        <meta property="og:description" content="In this post we will solve a circuit diagram problem using a Python package called SchemDraw"/>
+        <meta property="article:published_time" content="2018-08-26" />
+            <meta property="article:section" content="matplotlib" />
+            <meta property="article:tag" content="python" />
+            <meta property="article:tag" content="jupyter" />
+            <meta property="article:tag" content="notebook" />
+            <meta property="article:tag" content="matplotlib" />
+            <meta property="article:tag" content="schemdraw" />
+            <meta property="article:tag" content="engineering" />
+            <meta property="article:author" content="Peter D. Kazarinoff" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="./theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="./theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="./theme/css/pygments/native.css" rel="stylesheet">
+    <link href="./theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="./theme/css/style.css" type="text/css"/>
+        <link href="./static/css/custom.css" rel="stylesheet">
+
+
+
+</head>
+<body>
+
+<!-- .navbar -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="./" class="navbar-brand">
+Python for Undergraduate Engineers            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="./pages/about.html">
+                             About
+                          </a></li>
+                         <li><a href="./pages/book.html">
+                             Book
+                          </a></li>
+                         <li><a href="./pages/now.html">
+                             Now
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+
+<!-- .navbar-search -->
+<li>
+    <span>
+        <form class="navbar-search" action="/search.html">
+            <input type="text" name="q" id="tipue_search_input">
+        </form>
+    </span>
+</li>
+<!-- /.navbar-search -->              <li><a href="./archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+            <ol class="breadcrumb">
+                <li><a href="." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="./category/matplotlib.html" title="matplotlib">matplotlib</a></li>
+                <li class="active">Solving a Circuit Diagram Problem with Python and SchemDraw</li>
+            </ol>
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="./circuit-diagram-problem-with-schemdraw.html"
+                       rel="bookmark"
+                       title="Permalink to Solving a Circuit Diagram Problem with Python and SchemDraw">
+                        Solving a Circuit Diagram Problem with Python and SchemDraw
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2018-08-26T10:30:00-07:00"> Sun 26 August 2018</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="./tag/python.html">python</a>
+        /
+	<a href="./tag/jupyter.html">jupyter</a>
+        /
+	<a href="./tag/notebook.html">notebook</a>
+        /
+	<a href="./tag/matplotlib.html">matplotlib</a>
+        /
+	<a href="./tag/schemdraw.html">schemdraw</a>
+        /
+	<a href="./tag/engineering.html">engineering</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>In this post we will create a circuit diagram using a using a Python package called <strong>SchemDraw</strong>. Then we'll solve a problem using this circuit diagram and Python.</p>
+<p><img alt="circuit diagram 7 resistors 3 loops" src="./posts/schemdraw/7_resistors_3_loops.png"></p>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In this post, we are going to solve a circuit diagram problem using Python and a package called <strong>SchemDraw</strong>.  <strong>SchemDraw</strong> is a specialized Python package for drawing circuit diagrams. For <strong>SchemDraw</strong> documentation see:</p>
+<p><a href="https://cdelker.bitbucket.io/SchemDraw/SchemDraw.html">https://cdelker.bitbucket.io/SchemDraw/SchemDraw.html</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Given:"><strong>Given:</strong><a class="anchor-link" href="#Given:">&#182;</a></h3><p>The circuit diagram below with a driving voltage $V_t = 5.20 V$ and resistor values in the table below.</p>
+<p><img src="./posts/schemdraw/7_resistors_3_loops.png" alt="7_resistors_3_loops.png"></p>
+<p>A table of resistance values is below:</p>
+<table class="table table-striped table-bordered table-hover">
+<thead><tr>
+<th>V<sub>t</sub> =</th>
+<th>5.20 V</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R<sub>1</sub> =</td>
+<td>13.2 m&Omega;</td>
+</tr>
+<tr>
+<td>R<sub>2</sub> =</td>
+<td>21.0 m&Omega;</td>
+</tr>
+<tr>
+<td>R<sub>3</sub> =</td>
+<td>3.60 m&Omega;</td>
+</tr>
+<tr>
+<td>R<sub>4</sub> =</td>
+<td>15.2 m&Omega;</td>
+</tr>
+<tr>
+<td>R<sub>5</sub> =</td>
+<td>11.9 m&Omega;</td>
+</tr>
+<tr>
+<td>R<sub>6</sub> =</td>
+<td>2.20 m&Omega;</td>
+</tr>
+<tr>
+<td>R<sub>7</sub> =</td>
+<td>7.40 m&Omega;</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Find:"><strong>Find:</strong><a class="anchor-link" href="#Find:">&#182;</a></h3><p>V<sub>6</sub> and V<sub>7</sub>, the voltage drop across resistors R<sub>6</sub> and R<sub>7</sub></p>
+<p>I<sub>3</sub> and I<sub>6</sub>, the current running through resistors R<sub>3</sub> and R<sub>6</sub></p>
+<p>P<sub>4</sub> and P<sub>7</sub>, the power dissipated by resistors R<sub>4</sub> and R<sub>7</sub></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Solution:"><strong>Solution:</strong><a class="anchor-link" href="#Solution:">&#182;</a></h3><p>First we'll import the necessary packages. I'm using a jupyter notebook, so the <code>%matplotlib inline</code> command is included. If you want high-resolution circuit diagrams, include the line:</p>
+
+<pre><code>%config InlineBackend.figure_format = 'svg'</code></pre>
+<p>at the top of the notebook will ensure high-resolution images.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="c1"># if using a jupyter notebook: include %matplotlib inline. If constructing a .py-file: comment out</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="c1"># if high-resolution images are desired: include %config InlineBackend.figure_format = &#39;svg&#39;</span>
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;svg&#39;
+<span class="kn">import</span> <span class="nn">SchemDraw</span> <span class="k">as</span> <span class="nn">schem</span>
+<span class="kn">import</span> <span class="nn">SchemDraw.elements</span> <span class="k">as</span> <span class="nn">e</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now we'll build the circuit diagram by creating a SchemDraw <code>Drawing</code> object and adding elements to it.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">schem</span><span class="o">.</span><span class="n">Drawing</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
+<span class="n">R7</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">RES</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">botlabel</span><span class="o">=</span><span class="s1">&#39;$R_7$&#39;</span><span class="p">)</span>
+<span class="n">R6</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">RES</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">botlabel</span><span class="o">=</span><span class="s1">&#39;$R_6$&#39;</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">R5</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">RES</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;up&#39;</span> <span class="p">,</span> <span class="n">botlabel</span><span class="o">=</span><span class="s1">&#39;$R_5$&#39;</span><span class="p">)</span>
+<span class="n">R4</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">RES</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;up&#39;</span><span class="p">,</span> <span class="n">botlabel</span><span class="o">=</span><span class="s1">&#39;$R_4$&#39;</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">push</span><span class="p">()</span>
+<span class="n">R3</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">RES</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;down&#39;</span><span class="p">,</span> <span class="n">toy</span><span class="o">=</span><span class="n">R6</span><span class="o">.</span><span class="n">end</span><span class="p">,</span> <span class="n">botlabel</span><span class="o">=</span><span class="s1">&#39;$R_3$&#39;</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">push</span><span class="p">()</span>
+<span class="n">R2</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">RES</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;down&#39;</span><span class="p">,</span> <span class="n">toy</span><span class="o">=</span><span class="n">R6</span><span class="o">.</span><span class="n">end</span><span class="p">,</span> <span class="n">botlabel</span><span class="o">=</span><span class="s1">&#39;$R_2$&#39;</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="n">R1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">RES</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">tox</span><span class="o">=</span><span class="n">R7</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$R_1$&#39;</span><span class="p">)</span>
+<span class="n">Vt</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">BATTERY</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;up&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">R7</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">toy</span><span class="o">=</span><span class="n">R1</span><span class="o">.</span><span class="n">end</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$V_t$&#39;</span><span class="p">,</span> <span class="n">lblofst</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">labelI</span><span class="p">(</span><span class="n">Vt</span><span class="p">,</span> <span class="n">arrowlen</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">arrowofst</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+<span class="n">d</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;7_resistors_3_loops.png&#39;</span><span class="p">)</span>
+<span class="c1">#d.save(&#39;7_resistors_3_loops.pdf&#39;)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_svg output_subarea ">
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Created with matplotlib (http://matplotlib.org/) -->
+<svg height="204pt" version="1.1" viewBox="0 0 374 204" width="374pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+*{stroke-linecap:butt;stroke-linejoin:round;}
+  </style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 204.4 
+L 374.3025 204.4 
+L 374.3025 0 
+L 0 0 
+z
+" style="fill:none;"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path clip-path="url(#p482abae7f5)" d="M 28.87 81.275 
+L 32.11 89.645 
+L 28.8862 89.645 
+L 28.8862 123.125 
+L 28.8538 123.125 
+L 28.8538 89.645 
+L 25.63 89.645 
+z
+" style="stroke:#000000;stroke-linejoin:miter;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_1">
+    <path clip-path="url(#p482abae7f5)" d="M 45.07 171.95 
+L 69.37 171.95 
+L 72.07 164.975 
+L 77.47 178.925 
+L 82.87 164.975 
+L 88.27 178.925 
+L 93.67 164.975 
+L 99.07 178.925 
+L 101.77 171.95 
+L 126.07 171.95 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_2">
+    <path clip-path="url(#p482abae7f5)" d="M 126.07 171.95 
+L 150.37 171.95 
+L 153.07 164.975 
+L 158.47 178.925 
+L 163.87 164.975 
+L 169.27 178.925 
+L 174.67 164.975 
+L 180.07 178.925 
+L 182.77 171.95 
+L 207.07 171.95 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_3">
+    <path clip-path="url(#p482abae7f5)" d="M 207.07 171.95 
+L 239.47 171.95 
+L 271.87 171.95 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_4">
+    <path clip-path="url(#p482abae7f5)" d="M 271.87 171.95 
+L 304.27 171.95 
+L 336.67 171.95 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_5">
+    <path clip-path="url(#p482abae7f5)" d="M 336.67 171.95 
+L 336.67 151.025 
+L 328.57 148.7 
+L 344.77 144.05 
+L 328.57 139.4 
+L 344.77 134.75 
+L 328.57 130.1 
+L 344.77 125.45 
+L 336.67 123.125 
+L 336.67 102.2 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_6">
+    <path clip-path="url(#p482abae7f5)" d="M 336.67 102.2 
+L 336.67 81.275 
+L 328.57 78.95 
+L 344.77 74.3 
+L 328.57 69.65 
+L 344.77 65 
+L 328.57 60.35 
+L 344.77 55.7 
+L 336.67 53.375 
+L 336.67 32.45 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_7">
+    <path clip-path="url(#p482abae7f5)" d="M 336.67 32.45 
+L 304.27 32.45 
+L 271.87 32.45 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_8">
+    <path clip-path="url(#p482abae7f5)" d="M 271.87 32.45 
+L 271.87 88.25 
+L 279.97 90.575 
+L 263.77 95.225 
+L 279.97 99.875 
+L 263.77 104.525 
+L 279.97 109.175 
+L 263.77 113.825 
+L 271.87 116.15 
+L 271.87 171.95 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_9">
+    <path clip-path="url(#p482abae7f5)" d="M 271.87 32.45 
+L 239.47 32.45 
+L 207.07 32.45 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_10">
+    <path clip-path="url(#p482abae7f5)" d="M 207.07 32.45 
+L 207.07 88.25 
+L 215.17 90.575 
+L 198.97 95.225 
+L 215.17 99.875 
+L 198.97 104.525 
+L 215.17 109.175 
+L 198.97 113.825 
+L 207.07 116.15 
+L 207.07 171.95 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_11">
+    <path clip-path="url(#p482abae7f5)" d="M 207.07 32.45 
+L 142.27 32.45 
+L 139.57 39.425 
+L 134.17 25.475 
+L 128.77 39.425 
+L 123.37 25.475 
+L 117.97 39.425 
+L 112.57 25.475 
+L 109.87 32.45 
+L 45.07 32.45 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_12">
+    <path clip-path="url(#p482abae7f5)" d="M 45.07 171.95 
+L 45.07 110.046875 
+M 45.07 94.353125 
+L 45.07 32.45 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_13">
+    <path clip-path="url(#p482abae7f5)" d="M 32.92 110.046875 
+L 57.22 110.046875 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_14">
+    <path clip-path="url(#p482abae7f5)" d="M 38.995 104.815625 
+L 51.145 104.815625 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_15">
+    <path clip-path="url(#p482abae7f5)" d="M 32.92 99.584375 
+L 57.22 99.584375 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_16">
+    <path clip-path="url(#p482abae7f5)" d="M 38.995 94.353125 
+L 51.145 94.353125 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="text_1">
+    <!-- $R_7$ -->
+    <defs>
+     <path d="M 44.390625 34.1875 
+Q 47.5625 33.109375 50.5625 29.59375 
+Q 53.5625 26.078125 56.59375 19.921875 
+L 66.609375 0 
+L 56 0 
+L 46.6875 18.703125 
+Q 43.0625 26.03125 39.671875 28.421875 
+Q 36.28125 30.8125 30.421875 30.8125 
+L 19.671875 30.8125 
+L 19.671875 0 
+L 9.8125 0 
+L 9.8125 72.90625 
+L 32.078125 72.90625 
+Q 44.578125 72.90625 50.734375 67.671875 
+Q 56.890625 62.453125 56.890625 51.90625 
+Q 56.890625 45.015625 53.6875 40.46875 
+Q 50.484375 35.9375 44.390625 34.1875 
+z
+M 19.671875 64.796875 
+L 19.671875 38.921875 
+L 32.078125 38.921875 
+Q 39.203125 38.921875 42.84375 42.21875 
+Q 46.484375 45.515625 46.484375 51.90625 
+Q 46.484375 58.296875 42.84375 61.546875 
+Q 39.203125 64.796875 32.078125 64.796875 
+z
+" id="DejaVuSans-52"/>
+     <path d="M 8.203125 72.90625 
+L 55.078125 72.90625 
+L 55.078125 68.703125 
+L 28.609375 0 
+L 18.3125 0 
+L 43.21875 64.59375 
+L 8.203125 64.59375 
+z
+" id="DejaVuSans-37"/>
+    </defs>
+    <g transform="translate(76.13 193.8725)scale(0.16 -0.16)">
+     <use transform="translate(0 0.09375)" xlink:href="#DejaVuSans-52"/>
+     <use transform="translate(70.439453 -16.3125)scale(0.7)" xlink:href="#DejaVuSans-37"/>
+    </g>
+   </g>
+   <g id="text_2">
+    <!-- $R_6$ -->
+    <defs>
+     <path d="M 33.015625 40.375 
+Q 26.375 40.375 22.484375 35.828125 
+Q 18.609375 31.296875 18.609375 23.390625 
+Q 18.609375 15.53125 22.484375 10.953125 
+Q 26.375 6.390625 33.015625 6.390625 
+Q 39.65625 6.390625 43.53125 10.953125 
+Q 47.40625 15.53125 47.40625 23.390625 
+Q 47.40625 31.296875 43.53125 35.828125 
+Q 39.65625 40.375 33.015625 40.375 
+z
+M 52.59375 71.296875 
+L 52.59375 62.3125 
+Q 48.875 64.0625 45.09375 64.984375 
+Q 41.3125 65.921875 37.59375 65.921875 
+Q 27.828125 65.921875 22.671875 59.328125 
+Q 17.53125 52.734375 16.796875 39.40625 
+Q 19.671875 43.65625 24.015625 45.921875 
+Q 28.375 48.1875 33.59375 48.1875 
+Q 44.578125 48.1875 50.953125 41.515625 
+Q 57.328125 34.859375 57.328125 23.390625 
+Q 57.328125 12.15625 50.6875 5.359375 
+Q 44.046875 -1.421875 33.015625 -1.421875 
+Q 20.359375 -1.421875 13.671875 8.265625 
+Q 6.984375 17.96875 6.984375 36.375 
+Q 6.984375 53.65625 15.1875 63.9375 
+Q 23.390625 74.21875 37.203125 74.21875 
+Q 40.921875 74.21875 44.703125 73.484375 
+Q 48.484375 72.75 52.59375 71.296875 
+z
+" id="DejaVuSans-36"/>
+    </defs>
+    <g transform="translate(157.13 193.8725)scale(0.16 -0.16)">
+     <use transform="translate(0 0.09375)" xlink:href="#DejaVuSans-52"/>
+     <use transform="translate(70.439453 -16.3125)scale(0.7)" xlink:href="#DejaVuSans-36"/>
+    </g>
+   </g>
+   <g id="text_3">
+    <!-- $R_5$ -->
+    <defs>
+     <path d="M 10.796875 72.90625 
+L 49.515625 72.90625 
+L 49.515625 64.59375 
+L 19.828125 64.59375 
+L 19.828125 46.734375 
+Q 21.96875 47.46875 24.109375 47.828125 
+Q 26.265625 48.1875 28.421875 48.1875 
+Q 40.625 48.1875 47.75 41.5 
+Q 54.890625 34.8125 54.890625 23.390625 
+Q 54.890625 11.625 47.5625 5.09375 
+Q 40.234375 -1.421875 26.90625 -1.421875 
+Q 22.3125 -1.421875 17.546875 -0.640625 
+Q 12.796875 0.140625 7.71875 1.703125 
+L 7.71875 11.625 
+Q 12.109375 9.234375 16.796875 8.0625 
+Q 21.484375 6.890625 26.703125 6.890625 
+Q 35.15625 6.890625 40.078125 11.328125 
+Q 45.015625 15.765625 45.015625 23.390625 
+Q 45.015625 31 40.078125 35.4375 
+Q 35.15625 39.890625 26.703125 39.890625 
+Q 22.75 39.890625 18.8125 39.015625 
+Q 14.890625 38.140625 10.796875 36.28125 
+z
+" id="DejaVuSans-35"/>
+    </defs>
+    <g transform="translate(348.01 141.49)scale(0.16 -0.16)">
+     <use transform="translate(0 0.09375)" xlink:href="#DejaVuSans-52"/>
+     <use transform="translate(70.439453 -16.3125)scale(0.7)" xlink:href="#DejaVuSans-35"/>
+    </g>
+   </g>
+   <g id="text_4">
+    <!-- $R_4$ -->
+    <defs>
+     <path d="M 37.796875 64.3125 
+L 12.890625 25.390625 
+L 37.796875 25.390625 
+z
+M 35.203125 72.90625 
+L 47.609375 72.90625 
+L 47.609375 25.390625 
+L 58.015625 25.390625 
+L 58.015625 17.1875 
+L 47.609375 17.1875 
+L 47.609375 0 
+L 37.796875 0 
+L 37.796875 17.1875 
+L 4.890625 17.1875 
+L 4.890625 26.703125 
+z
+" id="DejaVuSans-34"/>
+    </defs>
+    <g transform="translate(348.01 71.74)scale(0.16 -0.16)">
+     <use transform="translate(0 0.09375)" xlink:href="#DejaVuSans-52"/>
+     <use transform="translate(70.439453 -16.3125)scale(0.7)" xlink:href="#DejaVuSans-34"/>
+    </g>
+   </g>
+   <g id="text_5">
+    <!-- $R_3$ -->
+    <defs>
+     <path d="M 40.578125 39.3125 
+Q 47.65625 37.796875 51.625 33 
+Q 55.609375 28.21875 55.609375 21.1875 
+Q 55.609375 10.40625 48.1875 4.484375 
+Q 40.765625 -1.421875 27.09375 -1.421875 
+Q 22.515625 -1.421875 17.65625 -0.515625 
+Q 12.796875 0.390625 7.625 2.203125 
+L 7.625 11.71875 
+Q 11.71875 9.328125 16.59375 8.109375 
+Q 21.484375 6.890625 26.8125 6.890625 
+Q 36.078125 6.890625 40.9375 10.546875 
+Q 45.796875 14.203125 45.796875 21.1875 
+Q 45.796875 27.640625 41.28125 31.265625 
+Q 36.765625 34.90625 28.71875 34.90625 
+L 20.21875 34.90625 
+L 20.21875 43.015625 
+L 29.109375 43.015625 
+Q 36.375 43.015625 40.234375 45.921875 
+Q 44.09375 48.828125 44.09375 54.296875 
+Q 44.09375 59.90625 40.109375 62.90625 
+Q 36.140625 65.921875 28.71875 65.921875 
+Q 24.65625 65.921875 20.015625 65.03125 
+Q 15.375 64.15625 9.8125 62.3125 
+L 9.8125 71.09375 
+Q 15.4375 72.65625 20.34375 73.4375 
+Q 25.25 74.21875 29.59375 74.21875 
+Q 40.828125 74.21875 47.359375 69.109375 
+Q 53.90625 64.015625 53.90625 55.328125 
+Q 53.90625 49.265625 50.4375 45.09375 
+Q 46.96875 40.921875 40.578125 39.3125 
+z
+" id="DejaVuSans-33"/>
+    </defs>
+    <g transform="translate(283.21 106.615)scale(0.16 -0.16)">
+     <use transform="translate(0 0.09375)" xlink:href="#DejaVuSans-52"/>
+     <use transform="translate(70.439453 -16.3125)scale(0.7)" xlink:href="#DejaVuSans-33"/>
+    </g>
+   </g>
+   <g id="text_6">
+    <!-- $R_2$ -->
+    <defs>
+     <path d="M 19.1875 8.296875 
+L 53.609375 8.296875 
+L 53.609375 0 
+L 7.328125 0 
+L 7.328125 8.296875 
+Q 12.9375 14.109375 22.625 23.890625 
+Q 32.328125 33.6875 34.8125 36.53125 
+Q 39.546875 41.84375 41.421875 45.53125 
+Q 43.3125 49.21875 43.3125 52.78125 
+Q 43.3125 58.59375 39.234375 62.25 
+Q 35.15625 65.921875 28.609375 65.921875 
+Q 23.96875 65.921875 18.8125 64.3125 
+Q 13.671875 62.703125 7.8125 59.421875 
+L 7.8125 69.390625 
+Q 13.765625 71.78125 18.9375 73 
+Q 24.125 74.21875 28.421875 74.21875 
+Q 39.75 74.21875 46.484375 68.546875 
+Q 53.21875 62.890625 53.21875 53.421875 
+Q 53.21875 48.921875 51.53125 44.890625 
+Q 49.859375 40.875 45.40625 35.40625 
+Q 44.1875 33.984375 37.640625 27.21875 
+Q 31.109375 20.453125 19.1875 8.296875 
+z
+" id="DejaVuSans-32"/>
+    </defs>
+    <g transform="translate(218.41 106.615)scale(0.16 -0.16)">
+     <use transform="translate(0 0.09375)" xlink:href="#DejaVuSans-52"/>
+     <use transform="translate(70.439453 -16.3125)scale(0.7)" xlink:href="#DejaVuSans-32"/>
+    </g>
+   </g>
+   <g id="text_7">
+    <!-- $R_1$ -->
+    <defs>
+     <path d="M 12.40625 8.296875 
+L 28.515625 8.296875 
+L 28.515625 63.921875 
+L 10.984375 60.40625 
+L 10.984375 69.390625 
+L 28.421875 72.90625 
+L 38.28125 72.90625 
+L 38.28125 8.296875 
+L 54.390625 8.296875 
+L 54.390625 0 
+L 12.40625 0 
+z
+" id="DejaVuSans-31"/>
+    </defs>
+    <g transform="translate(116.63 19.3575)scale(0.16 -0.16)">
+     <use transform="translate(0 0.09375)" xlink:href="#DejaVuSans-52"/>
+     <use transform="translate(70.439453 -16.3125)scale(0.7)" xlink:href="#DejaVuSans-31"/>
+    </g>
+   </g>
+   <g id="text_8">
+    <!-- $V_t$ -->
+    <defs>
+     <path d="M 28.609375 0 
+L 0.78125 72.90625 
+L 11.078125 72.90625 
+L 34.1875 11.53125 
+L 57.328125 72.90625 
+L 67.578125 72.90625 
+L 39.796875 0 
+z
+" id="DejaVuSans-56"/>
+     <path d="M 18.3125 70.21875 
+L 18.3125 54.6875 
+L 36.8125 54.6875 
+L 36.8125 47.703125 
+L 18.3125 47.703125 
+L 18.3125 18.015625 
+Q 18.3125 11.328125 20.140625 9.421875 
+Q 21.96875 7.515625 27.59375 7.515625 
+L 36.8125 7.515625 
+L 36.8125 0 
+L 27.59375 0 
+Q 17.1875 0 13.234375 3.875 
+Q 9.28125 7.765625 9.28125 18.015625 
+L 9.28125 47.703125 
+L 2.6875 47.703125 
+L 2.6875 54.6875 
+L 9.28125 54.6875 
+L 9.28125 70.21875 
+z
+" id="DejaVuSans-74"/>
+    </defs>
+    <g transform="translate(7.2 106.615)scale(0.16 -0.16)">
+     <use transform="translate(0 0.09375)" xlink:href="#DejaVuSans-56"/>
+     <use transform="translate(69.365234 -16.3125)scale(0.7)" xlink:href="#DejaVuSans-74"/>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p482abae7f5">
+   <rect height="174.375" width="349.515" x="14.0875" y="15.0125"/>
+  </clipPath>
+ </defs>
+</svg>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Find-Rt">Find R<sub>t</sub><a class="anchor-link" href="#Find-Rt">&#182;</a></h3><p>Now we'll find the total resistance of the circuit R<sub>t</sub> using the individual resistances. First, define the resistances and driving voltage as variables.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Vt</span> <span class="o">=</span> <span class="mf">5.2</span>
+
+<span class="n">R1</span> <span class="o">=</span> <span class="mf">0.0132</span>
+<span class="n">R2</span> <span class="o">=</span> <span class="mf">0.021</span>
+<span class="n">R3</span> <span class="o">=</span> <span class="mf">0.00360</span>
+<span class="n">R4</span> <span class="o">=</span> <span class="mf">0.0152</span>
+<span class="n">R5</span> <span class="o">=</span> <span class="mf">0.0119</span>
+<span class="n">R6</span> <span class="o">=</span> <span class="mf">0.0022</span>
+<span class="n">R7</span> <span class="o">=</span> <span class="mf">0.00740</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Find-R45-and-R67">Find R<sub>45</sub> and R<sub>67</sub><a class="anchor-link" href="#Find-R45-and-R67">&#182;</a></h3><p>To simplify the circuit diagram, we'll combine the resistors in series.</p>
+<p>For resistors in a simple series circuit:</p>
+$$ R_t = R_1 + R_2 + R_3 ... + R_n $$<p>Since resistors $R_4$ and $R_5$ are in simple series:</p>
+$$ R_{45} = R_4 + R_5 $$<p>Since resistors $R_6$ and $R_7$ are in simple series:</p>
+$$ R_{67} = R_6 + R_7 $$<p>We can easily calculate this with Python. After the calculation, we can use an <code>fstring</code> to print the results. Note the <code>round()</code> function is used on the inside of the fstring curly braces <code>{ }</code>, in case there are some floating point math errors that lead to the values printing out as long floats.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">R45</span> <span class="o">=</span> <span class="n">R4</span> <span class="o">+</span> <span class="n">R5</span>
+<span class="n">R67</span> <span class="o">=</span> <span class="n">R6</span> <span class="o">+</span> <span class="n">R7</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;R45 = {round(R45,7)} Ohm, R67 = {round(R67,5)} Ohm&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>R45 = 0.0271 Ohm, R67 = 0.0096 Ohm
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's redraw our circuit diagram to show the combined resistors.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">schem</span><span class="o">.</span><span class="n">Drawing</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
+<span class="n">R67</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">RES</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">botlabel</span><span class="o">=</span><span class="s1">&#39;$R_</span><span class="si">{67}</span><span class="s1">$&#39;</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">R45</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">RES</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;up&#39;</span><span class="p">,</span> <span class="n">botlabel</span><span class="o">=</span><span class="s1">&#39;$R_</span><span class="si">{45}</span><span class="s1">$&#39;</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">push</span><span class="p">()</span>
+<span class="n">R3</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">RES</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;down&#39;</span><span class="p">,</span> <span class="n">toy</span><span class="o">=</span><span class="n">R67</span><span class="o">.</span><span class="n">end</span><span class="p">,</span> <span class="n">botlabel</span><span class="o">=</span><span class="s1">&#39;$R_3$&#39;</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">push</span><span class="p">()</span>
+<span class="n">R2</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">RES</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;down&#39;</span><span class="p">,</span> <span class="n">toy</span><span class="o">=</span><span class="n">R67</span><span class="o">.</span><span class="n">end</span><span class="p">,</span> <span class="n">botlabel</span><span class="o">=</span><span class="s1">&#39;$R_2$&#39;</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="n">R1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">RES</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">tox</span><span class="o">=</span><span class="n">R67</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$R_1$&#39;</span><span class="p">)</span>
+<span class="n">Vt</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">BATTERY</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;up&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">R67</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">toy</span><span class="o">=</span><span class="n">R1</span><span class="o">.</span><span class="n">end</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$V_t$&#39;</span><span class="p">,</span> <span class="n">lblofst</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">labelI</span><span class="p">(</span><span class="n">Vt</span><span class="p">,</span> <span class="n">arrowlen</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">arrowofst</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+<span class="n">d</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;5_resistors_3_loops.png&#39;</span><span class="p">)</span>
+<span class="c1">#d.save(&#39;5_resistors_3_loops.pdf&#39;)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_svg output_subarea ">
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Created with matplotlib (http://matplotlib.org/) -->
+<svg height="134pt" version="1.1" viewBox="0 0 300 134" width="300pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+*{stroke-linecap:butt;stroke-linejoin:round;}
+  </style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 134.65 
+L 300.29 134.65 
+L 300.29 0 
+L 0 0 
+z
+" style="fill:none;"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path clip-path="url(#p9d68a109f6)" d="M 28.87 46.4 
+L 32.11 54.77 
+L 28.8862 54.77 
+L 28.8862 88.25 
+L 28.8538 88.25 
+L 28.8538 54.77 
+L 25.63 54.77 
+z
+" style="stroke:#000000;stroke-linejoin:miter;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_1">
+    <path clip-path="url(#p9d68a109f6)" d="M 45.07 102.2 
+L 69.37 102.2 
+L 72.07 95.225 
+L 77.47 109.175 
+L 82.87 95.225 
+L 88.27 109.175 
+L 93.67 95.225 
+L 99.07 109.175 
+L 101.77 102.2 
+L 126.07 102.2 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_2">
+    <path clip-path="url(#p9d68a109f6)" d="M 126.07 102.2 
+L 158.47 102.2 
+L 190.87 102.2 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_3">
+    <path clip-path="url(#p9d68a109f6)" d="M 190.87 102.2 
+L 223.27 102.2 
+L 255.67 102.2 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_4">
+    <path clip-path="url(#p9d68a109f6)" d="M 255.67 102.2 
+L 255.67 81.275 
+L 247.57 78.95 
+L 263.77 74.3 
+L 247.57 69.65 
+L 263.77 65 
+L 247.57 60.35 
+L 263.77 55.7 
+L 255.67 53.375 
+L 255.67 32.45 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_5">
+    <path clip-path="url(#p9d68a109f6)" d="M 255.67 32.45 
+L 223.27 32.45 
+L 190.87 32.45 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_6">
+    <path clip-path="url(#p9d68a109f6)" d="M 190.87 32.45 
+L 190.87 53.375 
+L 198.97 55.7 
+L 182.77 60.35 
+L 198.97 65 
+L 182.77 69.65 
+L 198.97 74.3 
+L 182.77 78.95 
+L 190.87 81.275 
+L 190.87 102.2 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_7">
+    <path clip-path="url(#p9d68a109f6)" d="M 190.87 32.45 
+L 158.47 32.45 
+L 126.07 32.45 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_8">
+    <path clip-path="url(#p9d68a109f6)" d="M 126.07 32.45 
+L 126.07 53.375 
+L 134.17 55.7 
+L 117.97 60.35 
+L 134.17 65 
+L 117.97 69.65 
+L 134.17 74.3 
+L 117.97 78.95 
+L 126.07 81.275 
+L 126.07 102.2 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_9">
+    <path clip-path="url(#p9d68a109f6)" d="M 126.07 32.45 
+L 101.77 32.45 
+L 99.07 39.425 
+L 93.67 25.475 
+L 88.27 39.425 
+L 82.87 25.475 
+L 77.47 39.425 
+L 72.07 25.475 
+L 69.37 32.45 
+L 45.07 32.45 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_10">
+    <path clip-path="url(#p9d68a109f6)" d="M 45.07 102.2 
+L 45.07 75.171875 
+M 45.07 59.478125 
+L 45.07 32.45 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_11">
+    <path clip-path="url(#p9d68a109f6)" d="M 32.92 75.171875 
+L 57.22 75.171875 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_12">
+    <path clip-path="url(#p9d68a109f6)" d="M 38.995 69.940625 
+L 51.145 69.940625 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_13">
+    <path clip-path="url(#p9d68a109f6)" d="M 32.92 64.709375 
+L 57.22 64.709375 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_14">
+    <path clip-path="url(#p9d68a109f6)" d="M 38.995 59.478125 
+L 51.145 59.478125 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="text_1">
+    <!-- $R_{67}$ -->
+    <defs>
+     <path d="M 44.390625 34.1875 
+Q 47.5625 33.109375 50.5625 29.59375 
+Q 53.5625 26.078125 56.59375 19.921875 
+L 66.609375 0 
+L 56 0 
+L 46.6875 18.703125 
+Q 43.0625 26.03125 39.671875 28.421875 
+Q 36.28125 30.8125 30.421875 30.8125 
+L 19.671875 30.8125 
+L 19.671875 0 
+L 9.8125 0 
+L 9.8125 72.90625 
+L 32.078125 72.90625 
+Q 44.578125 72.90625 50.734375 67.671875 
+Q 56.890625 62.453125 56.890625 51.90625 
+Q 56.890625 45.015625 53.6875 40.46875 
+Q 50.484375 35.9375 44.390625 34.1875 
+z
+M 19.671875 64.796875 
+L 19.671875 38.921875 
+L 32.078125 38.921875 
+Q 39.203125 38.921875 42.84375 42.21875 
+Q 46.484375 45.515625 46.484375 51.90625 
+Q 46.484375 58.296875 42.84375 61.546875 
+Q 39.203125 64.796875 32.078125 64.796875 
+z
+" id="DejaVuSans-52"/>
+     <path d="M 33.015625 40.375 
+Q 26.375 40.375 22.484375 35.828125 
+Q 18.609375 31.296875 18.609375 23.390625 
+Q 18.609375 15.53125 22.484375 10.953125 
+Q 26.375 6.390625 33.015625 6.390625 
+Q 39.65625 6.390625 43.53125 10.953125 
+Q 47.40625 15.53125 47.40625 23.390625 
+Q 47.40625 31.296875 43.53125 35.828125 
+Q 39.65625 40.375 33.015625 40.375 
+z
+M 52.59375 71.296875 
+L 52.59375 62.3125 
+Q 48.875 64.0625 45.09375 64.984375 
+Q 41.3125 65.921875 37.59375 65.921875 
+Q 27.828125 65.921875 22.671875 59.328125 
+Q 17.53125 52.734375 16.796875 39.40625 
+Q 19.671875 43.65625 24.015625 45.921875 
+Q 28.375 48.1875 33.59375 48.1875 
+Q 44.578125 48.1875 50.953125 41.515625 
+Q 57.328125 34.859375 57.328125 23.390625 
+Q 57.328125 12.15625 50.6875 5.359375 
+Q 44.046875 -1.421875 33.015625 -1.421875 
+Q 20.359375 -1.421875 13.671875 8.265625 
+Q 6.984375 17.96875 6.984375 36.375 
+Q 6.984375 53.65625 15.1875 63.9375 
+Q 23.390625 74.21875 37.203125 74.21875 
+Q 40.921875 74.21875 44.703125 73.484375 
+Q 48.484375 72.75 52.59375 71.296875 
+z
+" id="DejaVuSans-36"/>
+     <path d="M 8.203125 72.90625 
+L 55.078125 72.90625 
+L 55.078125 68.703125 
+L 28.609375 0 
+L 18.3125 0 
+L 43.21875 64.59375 
+L 8.203125 64.59375 
+z
+" id="DejaVuSans-37"/>
+    </defs>
+    <g transform="translate(72.53 124.1225)scale(0.16 -0.16)">
+     <use transform="translate(0 0.09375)" xlink:href="#DejaVuSans-52"/>
+     <use transform="translate(70.439453 -16.3125)scale(0.7)" xlink:href="#DejaVuSans-36"/>
+     <use transform="translate(114.975586 -16.3125)scale(0.7)" xlink:href="#DejaVuSans-37"/>
+    </g>
+   </g>
+   <g id="text_2">
+    <!-- $R_{45}$ -->
+    <defs>
+     <path d="M 37.796875 64.3125 
+L 12.890625 25.390625 
+L 37.796875 25.390625 
+z
+M 35.203125 72.90625 
+L 47.609375 72.90625 
+L 47.609375 25.390625 
+L 58.015625 25.390625 
+L 58.015625 17.1875 
+L 47.609375 17.1875 
+L 47.609375 0 
+L 37.796875 0 
+L 37.796875 17.1875 
+L 4.890625 17.1875 
+L 4.890625 26.703125 
+z
+" id="DejaVuSans-34"/>
+     <path d="M 10.796875 72.90625 
+L 49.515625 72.90625 
+L 49.515625 64.59375 
+L 19.828125 64.59375 
+L 19.828125 46.734375 
+Q 21.96875 47.46875 24.109375 47.828125 
+Q 26.265625 48.1875 28.421875 48.1875 
+Q 40.625 48.1875 47.75 41.5 
+Q 54.890625 34.8125 54.890625 23.390625 
+Q 54.890625 11.625 47.5625 5.09375 
+Q 40.234375 -1.421875 26.90625 -1.421875 
+Q 22.3125 -1.421875 17.546875 -0.640625 
+Q 12.796875 0.140625 7.71875 1.703125 
+L 7.71875 11.625 
+Q 12.109375 9.234375 16.796875 8.0625 
+Q 21.484375 6.890625 26.703125 6.890625 
+Q 35.15625 6.890625 40.078125 11.328125 
+Q 45.015625 15.765625 45.015625 23.390625 
+Q 45.015625 31 40.078125 35.4375 
+Q 35.15625 39.890625 26.703125 39.890625 
+Q 22.75 39.890625 18.8125 39.015625 
+Q 14.890625 38.140625 10.796875 36.28125 
+z
+" id="DejaVuSans-35"/>
+    </defs>
+    <g transform="translate(267.01 71.74)scale(0.16 -0.16)">
+     <use transform="translate(0 0.09375)" xlink:href="#DejaVuSans-52"/>
+     <use transform="translate(70.439453 -16.3125)scale(0.7)" xlink:href="#DejaVuSans-34"/>
+     <use transform="translate(114.975586 -16.3125)scale(0.7)" xlink:href="#DejaVuSans-35"/>
+    </g>
+   </g>
+   <g id="text_3">
+    <!-- $R_3$ -->
+    <defs>
+     <path d="M 40.578125 39.3125 
+Q 47.65625 37.796875 51.625 33 
+Q 55.609375 28.21875 55.609375 21.1875 
+Q 55.609375 10.40625 48.1875 4.484375 
+Q 40.765625 -1.421875 27.09375 -1.421875 
+Q 22.515625 -1.421875 17.65625 -0.515625 
+Q 12.796875 0.390625 7.625 2.203125 
+L 7.625 11.71875 
+Q 11.71875 9.328125 16.59375 8.109375 
+Q 21.484375 6.890625 26.8125 6.890625 
+Q 36.078125 6.890625 40.9375 10.546875 
+Q 45.796875 14.203125 45.796875 21.1875 
+Q 45.796875 27.640625 41.28125 31.265625 
+Q 36.765625 34.90625 28.71875 34.90625 
+L 20.21875 34.90625 
+L 20.21875 43.015625 
+L 29.109375 43.015625 
+Q 36.375 43.015625 40.234375 45.921875 
+Q 44.09375 48.828125 44.09375 54.296875 
+Q 44.09375 59.90625 40.109375 62.90625 
+Q 36.140625 65.921875 28.71875 65.921875 
+Q 24.65625 65.921875 20.015625 65.03125 
+Q 15.375 64.15625 9.8125 62.3125 
+L 9.8125 71.09375 
+Q 15.4375 72.65625 20.34375 73.4375 
+Q 25.25 74.21875 29.59375 74.21875 
+Q 40.828125 74.21875 47.359375 69.109375 
+Q 53.90625 64.015625 53.90625 55.328125 
+Q 53.90625 49.265625 50.4375 45.09375 
+Q 46.96875 40.921875 40.578125 39.3125 
+z
+" id="DejaVuSans-33"/>
+    </defs>
+    <g transform="translate(202.21 71.74)scale(0.16 -0.16)">
+     <use transform="translate(0 0.09375)" xlink:href="#DejaVuSans-52"/>
+     <use transform="translate(70.439453 -16.3125)scale(0.7)" xlink:href="#DejaVuSans-33"/>
+    </g>
+   </g>
+   <g id="text_4">
+    <!-- $R_2$ -->
+    <defs>
+     <path d="M 19.1875 8.296875 
+L 53.609375 8.296875 
+L 53.609375 0 
+L 7.328125 0 
+L 7.328125 8.296875 
+Q 12.9375 14.109375 22.625 23.890625 
+Q 32.328125 33.6875 34.8125 36.53125 
+Q 39.546875 41.84375 41.421875 45.53125 
+Q 43.3125 49.21875 43.3125 52.78125 
+Q 43.3125 58.59375 39.234375 62.25 
+Q 35.15625 65.921875 28.609375 65.921875 
+Q 23.96875 65.921875 18.8125 64.3125 
+Q 13.671875 62.703125 7.8125 59.421875 
+L 7.8125 69.390625 
+Q 13.765625 71.78125 18.9375 73 
+Q 24.125 74.21875 28.421875 74.21875 
+Q 39.75 74.21875 46.484375 68.546875 
+Q 53.21875 62.890625 53.21875 53.421875 
+Q 53.21875 48.921875 51.53125 44.890625 
+Q 49.859375 40.875 45.40625 35.40625 
+Q 44.1875 33.984375 37.640625 27.21875 
+Q 31.109375 20.453125 19.1875 8.296875 
+z
+" id="DejaVuSans-32"/>
+    </defs>
+    <g transform="translate(137.41 71.74)scale(0.16 -0.16)">
+     <use transform="translate(0 0.09375)" xlink:href="#DejaVuSans-52"/>
+     <use transform="translate(70.439453 -16.3125)scale(0.7)" xlink:href="#DejaVuSans-32"/>
+    </g>
+   </g>
+   <g id="text_5">
+    <!-- $R_1$ -->
+    <defs>
+     <path d="M 12.40625 8.296875 
+L 28.515625 8.296875 
+L 28.515625 63.921875 
+L 10.984375 60.40625 
+L 10.984375 69.390625 
+L 28.421875 72.90625 
+L 38.28125 72.90625 
+L 38.28125 8.296875 
+L 54.390625 8.296875 
+L 54.390625 0 
+L 12.40625 0 
+z
+" id="DejaVuSans-31"/>
+    </defs>
+    <g transform="translate(76.13 19.3575)scale(0.16 -0.16)">
+     <use transform="translate(0 0.09375)" xlink:href="#DejaVuSans-52"/>
+     <use transform="translate(70.439453 -16.3125)scale(0.7)" xlink:href="#DejaVuSans-31"/>
+    </g>
+   </g>
+   <g id="text_6">
+    <!-- $V_t$ -->
+    <defs>
+     <path d="M 28.609375 0 
+L 0.78125 72.90625 
+L 11.078125 72.90625 
+L 34.1875 11.53125 
+L 57.328125 72.90625 
+L 67.578125 72.90625 
+L 39.796875 0 
+z
+" id="DejaVuSans-56"/>
+     <path d="M 18.3125 70.21875 
+L 18.3125 54.6875 
+L 36.8125 54.6875 
+L 36.8125 47.703125 
+L 18.3125 47.703125 
+L 18.3125 18.015625 
+Q 18.3125 11.328125 20.140625 9.421875 
+Q 21.96875 7.515625 27.59375 7.515625 
+L 36.8125 7.515625 
+L 36.8125 0 
+L 27.59375 0 
+Q 17.1875 0 13.234375 3.875 
+Q 9.28125 7.765625 9.28125 18.015625 
+L 9.28125 47.703125 
+L 2.6875 47.703125 
+L 2.6875 54.6875 
+L 9.28125 54.6875 
+L 9.28125 70.21875 
+z
+" id="DejaVuSans-74"/>
+    </defs>
+    <g transform="translate(7.2 71.74)scale(0.16 -0.16)">
+     <use transform="translate(0 0.09375)" xlink:href="#DejaVuSans-56"/>
+     <use transform="translate(69.365234 -16.3125)scale(0.7)" xlink:href="#DejaVuSans-74"/>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p9d68a109f6">
+   <rect height="97.65" width="260.415" x="18.1375" y="18.5"/>
+  </clipPath>
+ </defs>
+</svg>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Find-R2345">Find R<sub>2345</sub><a class="anchor-link" href="#Find-R2345">&#182;</a></h3><p>Next we can combine the resistors in parallel. The resistors in parallel are $R_2$, $R_3$ and $R_{45}$. For a resistors in a simple parallel circuit:</p>
+$$ \frac{1}{R_t} = \frac{1}{R_1} + \frac{1}{R_2} + \frac{1}{R_3} ... + \frac{1}{R_n} $$<p>Since $R_2$, $R_3$ and $R_{45}$ are in parallel:</p>
+$$ \frac{1}{R_{2345}} = \frac{1}{R_2} + \frac{1}{R_3} + \frac{1}{R_{45}} $$$$ R_{2345} = \frac{1}{\frac{1}{R_2} + \frac{1}{R_3} + \frac{1}{R_{45}}} $$<p>We can code this calculation in Python. To find the reciprocal, raise the combined sum to the negative one power. Remember, exponentiation is performed with a double asterisk <code>**</code> in Python.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Vt</span> <span class="o">=</span> <span class="mf">5.2</span>
+
+<span class="n">R1</span> <span class="o">=</span> <span class="mf">0.0132</span>
+<span class="n">R2</span> <span class="o">=</span> <span class="mf">0.021</span>
+<span class="n">R3</span> <span class="o">=</span> <span class="mf">0.00360</span>
+<span class="n">R4</span> <span class="o">=</span> <span class="mf">0.0152</span>
+<span class="n">R5</span> <span class="o">=</span> <span class="mf">0.0119</span>
+<span class="n">R6</span> <span class="o">=</span> <span class="mf">0.0022</span>
+<span class="n">R7</span> <span class="o">=</span> <span class="mf">0.00740</span>
+
+<span class="n">R45</span> <span class="o">=</span> <span class="n">R4</span> <span class="o">+</span> <span class="n">R5</span>
+<span class="n">R67</span> <span class="o">=</span> <span class="n">R6</span> <span class="o">+</span> <span class="n">R7</span>
+
+<span class="n">R2345</span> <span class="o">=</span> <span class="p">((</span><span class="mi">1</span><span class="o">/</span><span class="n">R2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">R3</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">R45</span><span class="p">))</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;R2345 = {round(R2345,7)} Ohm&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>R2345 = 0.0027602 Ohm
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>OK, now let's construct a new <strong>SchemDraw</strong> diagram of the simplified the circuit. In this diagram, we'll combine $R_2$, $R_3$ and $R_{45}$ into one big resistor, $R_{2345}$.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">schem</span><span class="o">.</span><span class="n">Drawing</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
+<span class="n">R67</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">RES</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">botlabel</span><span class="o">=</span><span class="s1">&#39;$R_</span><span class="si">{67}</span><span class="s1">$&#39;</span><span class="p">)</span>
+<span class="n">R345</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">RES</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;up&#39;</span> <span class="p">,</span> <span class="n">botlabel</span><span class="o">=</span><span class="s1">&#39;$R_</span><span class="si">{2345}</span><span class="s1">$&#39;</span><span class="p">)</span>
+<span class="n">R1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">RES</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">tox</span><span class="o">=</span><span class="n">R67</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$R_1$&#39;</span><span class="p">)</span>
+<span class="n">Vt</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">BATTERY</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;up&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">R67</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">toy</span><span class="o">=</span><span class="n">R1</span><span class="o">.</span><span class="n">end</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$V_t$&#39;</span><span class="p">,</span> <span class="n">lblofst</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">labelI</span><span class="p">(</span><span class="n">Vt</span><span class="p">,</span> <span class="n">arrowlen</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">arrowofst</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+<span class="n">d</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;3_resistors_1_loop.png&#39;</span><span class="p">)</span>
+<span class="c1">#d.save(&#39;3_resistors_1_loop.pdf&#39;)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_svg output_subarea ">
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Created with matplotlib (http://matplotlib.org/) -->
+<svg height="134pt" version="1.1" viewBox="0 0 184 134" width="184pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+*{stroke-linecap:butt;stroke-linejoin:round;}
+  </style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 134.65 
+L 184.93 134.65 
+L 184.93 0 
+L 0 0 
+z
+" style="fill:none;"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path clip-path="url(#p6535802e5d)" d="M 28.87 46.4 
+L 32.11 54.77 
+L 28.8862 54.77 
+L 28.8862 88.25 
+L 28.8538 88.25 
+L 28.8538 54.77 
+L 25.63 54.77 
+z
+" style="stroke:#000000;stroke-linejoin:miter;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_1">
+    <path clip-path="url(#p6535802e5d)" d="M 45.07 102.2 
+L 69.37 102.2 
+L 72.07 95.225 
+L 77.47 109.175 
+L 82.87 95.225 
+L 88.27 109.175 
+L 93.67 95.225 
+L 99.07 109.175 
+L 101.77 102.2 
+L 126.07 102.2 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_2">
+    <path clip-path="url(#p6535802e5d)" d="M 126.07 102.2 
+L 126.07 81.275 
+L 117.97 78.95 
+L 134.17 74.3 
+L 117.97 69.65 
+L 134.17 65 
+L 117.97 60.35 
+L 134.17 55.7 
+L 126.07 53.375 
+L 126.07 32.45 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_3">
+    <path clip-path="url(#p6535802e5d)" d="M 126.07 32.45 
+L 101.77 32.45 
+L 99.07 39.425 
+L 93.67 25.475 
+L 88.27 39.425 
+L 82.87 25.475 
+L 77.47 39.425 
+L 72.07 25.475 
+L 69.37 32.45 
+L 45.07 32.45 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_4">
+    <path clip-path="url(#p6535802e5d)" d="M 45.07 102.2 
+L 45.07 75.171875 
+M 45.07 59.478125 
+L 45.07 32.45 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_5">
+    <path clip-path="url(#p6535802e5d)" d="M 32.92 75.171875 
+L 57.22 75.171875 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_6">
+    <path clip-path="url(#p6535802e5d)" d="M 38.995 69.940625 
+L 51.145 69.940625 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_7">
+    <path clip-path="url(#p6535802e5d)" d="M 32.92 64.709375 
+L 57.22 64.709375 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_8">
+    <path clip-path="url(#p6535802e5d)" d="M 38.995 59.478125 
+L 51.145 59.478125 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="text_1">
+    <!-- $R_{67}$ -->
+    <defs>
+     <path d="M 44.390625 34.1875 
+Q 47.5625 33.109375 50.5625 29.59375 
+Q 53.5625 26.078125 56.59375 19.921875 
+L 66.609375 0 
+L 56 0 
+L 46.6875 18.703125 
+Q 43.0625 26.03125 39.671875 28.421875 
+Q 36.28125 30.8125 30.421875 30.8125 
+L 19.671875 30.8125 
+L 19.671875 0 
+L 9.8125 0 
+L 9.8125 72.90625 
+L 32.078125 72.90625 
+Q 44.578125 72.90625 50.734375 67.671875 
+Q 56.890625 62.453125 56.890625 51.90625 
+Q 56.890625 45.015625 53.6875 40.46875 
+Q 50.484375 35.9375 44.390625 34.1875 
+z
+M 19.671875 64.796875 
+L 19.671875 38.921875 
+L 32.078125 38.921875 
+Q 39.203125 38.921875 42.84375 42.21875 
+Q 46.484375 45.515625 46.484375 51.90625 
+Q 46.484375 58.296875 42.84375 61.546875 
+Q 39.203125 64.796875 32.078125 64.796875 
+z
+" id="DejaVuSans-52"/>
+     <path d="M 33.015625 40.375 
+Q 26.375 40.375 22.484375 35.828125 
+Q 18.609375 31.296875 18.609375 23.390625 
+Q 18.609375 15.53125 22.484375 10.953125 
+Q 26.375 6.390625 33.015625 6.390625 
+Q 39.65625 6.390625 43.53125 10.953125 
+Q 47.40625 15.53125 47.40625 23.390625 
+Q 47.40625 31.296875 43.53125 35.828125 
+Q 39.65625 40.375 33.015625 40.375 
+z
+M 52.59375 71.296875 
+L 52.59375 62.3125 
+Q 48.875 64.0625 45.09375 64.984375 
+Q 41.3125 65.921875 37.59375 65.921875 
+Q 27.828125 65.921875 22.671875 59.328125 
+Q 17.53125 52.734375 16.796875 39.40625 
+Q 19.671875 43.65625 24.015625 45.921875 
+Q 28.375 48.1875 33.59375 48.1875 
+Q 44.578125 48.1875 50.953125 41.515625 
+Q 57.328125 34.859375 57.328125 23.390625 
+Q 57.328125 12.15625 50.6875 5.359375 
+Q 44.046875 -1.421875 33.015625 -1.421875 
+Q 20.359375 -1.421875 13.671875 8.265625 
+Q 6.984375 17.96875 6.984375 36.375 
+Q 6.984375 53.65625 15.1875 63.9375 
+Q 23.390625 74.21875 37.203125 74.21875 
+Q 40.921875 74.21875 44.703125 73.484375 
+Q 48.484375 72.75 52.59375 71.296875 
+z
+" id="DejaVuSans-36"/>
+     <path d="M 8.203125 72.90625 
+L 55.078125 72.90625 
+L 55.078125 68.703125 
+L 28.609375 0 
+L 18.3125 0 
+L 43.21875 64.59375 
+L 8.203125 64.59375 
+z
+" id="DejaVuSans-37"/>
+    </defs>
+    <g transform="translate(72.53 124.1225)scale(0.16 -0.16)">
+     <use transform="translate(0 0.09375)" xlink:href="#DejaVuSans-52"/>
+     <use transform="translate(70.439453 -16.3125)scale(0.7)" xlink:href="#DejaVuSans-36"/>
+     <use transform="translate(114.975586 -16.3125)scale(0.7)" xlink:href="#DejaVuSans-37"/>
+    </g>
+   </g>
+   <g id="text_2">
+    <!-- $R_{2345}$ -->
+    <defs>
+     <path d="M 19.1875 8.296875 
+L 53.609375 8.296875 
+L 53.609375 0 
+L 7.328125 0 
+L 7.328125 8.296875 
+Q 12.9375 14.109375 22.625 23.890625 
+Q 32.328125 33.6875 34.8125 36.53125 
+Q 39.546875 41.84375 41.421875 45.53125 
+Q 43.3125 49.21875 43.3125 52.78125 
+Q 43.3125 58.59375 39.234375 62.25 
+Q 35.15625 65.921875 28.609375 65.921875 
+Q 23.96875 65.921875 18.8125 64.3125 
+Q 13.671875 62.703125 7.8125 59.421875 
+L 7.8125 69.390625 
+Q 13.765625 71.78125 18.9375 73 
+Q 24.125 74.21875 28.421875 74.21875 
+Q 39.75 74.21875 46.484375 68.546875 
+Q 53.21875 62.890625 53.21875 53.421875 
+Q 53.21875 48.921875 51.53125 44.890625 
+Q 49.859375 40.875 45.40625 35.40625 
+Q 44.1875 33.984375 37.640625 27.21875 
+Q 31.109375 20.453125 19.1875 8.296875 
+z
+" id="DejaVuSans-32"/>
+     <path d="M 40.578125 39.3125 
+Q 47.65625 37.796875 51.625 33 
+Q 55.609375 28.21875 55.609375 21.1875 
+Q 55.609375 10.40625 48.1875 4.484375 
+Q 40.765625 -1.421875 27.09375 -1.421875 
+Q 22.515625 -1.421875 17.65625 -0.515625 
+Q 12.796875 0.390625 7.625 2.203125 
+L 7.625 11.71875 
+Q 11.71875 9.328125 16.59375 8.109375 
+Q 21.484375 6.890625 26.8125 6.890625 
+Q 36.078125 6.890625 40.9375 10.546875 
+Q 45.796875 14.203125 45.796875 21.1875 
+Q 45.796875 27.640625 41.28125 31.265625 
+Q 36.765625 34.90625 28.71875 34.90625 
+L 20.21875 34.90625 
+L 20.21875 43.015625 
+L 29.109375 43.015625 
+Q 36.375 43.015625 40.234375 45.921875 
+Q 44.09375 48.828125 44.09375 54.296875 
+Q 44.09375 59.90625 40.109375 62.90625 
+Q 36.140625 65.921875 28.71875 65.921875 
+Q 24.65625 65.921875 20.015625 65.03125 
+Q 15.375 64.15625 9.8125 62.3125 
+L 9.8125 71.09375 
+Q 15.4375 72.65625 20.34375 73.4375 
+Q 25.25 74.21875 29.59375 74.21875 
+Q 40.828125 74.21875 47.359375 69.109375 
+Q 53.90625 64.015625 53.90625 55.328125 
+Q 53.90625 49.265625 50.4375 45.09375 
+Q 46.96875 40.921875 40.578125 39.3125 
+z
+" id="DejaVuSans-33"/>
+     <path d="M 37.796875 64.3125 
+L 12.890625 25.390625 
+L 37.796875 25.390625 
+z
+M 35.203125 72.90625 
+L 47.609375 72.90625 
+L 47.609375 25.390625 
+L 58.015625 25.390625 
+L 58.015625 17.1875 
+L 47.609375 17.1875 
+L 47.609375 0 
+L 37.796875 0 
+L 37.796875 17.1875 
+L 4.890625 17.1875 
+L 4.890625 26.703125 
+z
+" id="DejaVuSans-34"/>
+     <path d="M 10.796875 72.90625 
+L 49.515625 72.90625 
+L 49.515625 64.59375 
+L 19.828125 64.59375 
+L 19.828125 46.734375 
+Q 21.96875 47.46875 24.109375 47.828125 
+Q 26.265625 48.1875 28.421875 48.1875 
+Q 40.625 48.1875 47.75 41.5 
+Q 54.890625 34.8125 54.890625 23.390625 
+Q 54.890625 11.625 47.5625 5.09375 
+Q 40.234375 -1.421875 26.90625 -1.421875 
+Q 22.3125 -1.421875 17.546875 -0.640625 
+Q 12.796875 0.140625 7.71875 1.703125 
+L 7.71875 11.625 
+Q 12.109375 9.234375 16.796875 8.0625 
+Q 21.484375 6.890625 26.703125 6.890625 
+Q 35.15625 6.890625 40.078125 11.328125 
+Q 45.015625 15.765625 45.015625 23.390625 
+Q 45.015625 31 40.078125 35.4375 
+Q 35.15625 39.890625 26.703125 39.890625 
+Q 22.75 39.890625 18.8125 39.015625 
+Q 14.890625 38.140625 10.796875 36.28125 
+z
+" id="DejaVuSans-35"/>
+    </defs>
+    <g transform="translate(137.41 71.74)scale(0.16 -0.16)">
+     <use transform="translate(0 0.09375)" xlink:href="#DejaVuSans-52"/>
+     <use transform="translate(70.439453 -16.3125)scale(0.7)" xlink:href="#DejaVuSans-32"/>
+     <use transform="translate(114.975586 -16.3125)scale(0.7)" xlink:href="#DejaVuSans-33"/>
+     <use transform="translate(159.511719 -16.3125)scale(0.7)" xlink:href="#DejaVuSans-34"/>
+     <use transform="translate(204.047852 -16.3125)scale(0.7)" xlink:href="#DejaVuSans-35"/>
+    </g>
+   </g>
+   <g id="text_3">
+    <!-- $R_1$ -->
+    <defs>
+     <path d="M 12.40625 8.296875 
+L 28.515625 8.296875 
+L 28.515625 63.921875 
+L 10.984375 60.40625 
+L 10.984375 69.390625 
+L 28.421875 72.90625 
+L 38.28125 72.90625 
+L 38.28125 8.296875 
+L 54.390625 8.296875 
+L 54.390625 0 
+L 12.40625 0 
+z
+" id="DejaVuSans-31"/>
+    </defs>
+    <g transform="translate(76.13 19.3575)scale(0.16 -0.16)">
+     <use transform="translate(0 0.09375)" xlink:href="#DejaVuSans-52"/>
+     <use transform="translate(70.439453 -16.3125)scale(0.7)" xlink:href="#DejaVuSans-31"/>
+    </g>
+   </g>
+   <g id="text_4">
+    <!-- $V_t$ -->
+    <defs>
+     <path d="M 28.609375 0 
+L 0.78125 72.90625 
+L 11.078125 72.90625 
+L 34.1875 11.53125 
+L 57.328125 72.90625 
+L 67.578125 72.90625 
+L 39.796875 0 
+z
+" id="DejaVuSans-56"/>
+     <path d="M 18.3125 70.21875 
+L 18.3125 54.6875 
+L 36.8125 54.6875 
+L 36.8125 47.703125 
+L 18.3125 47.703125 
+L 18.3125 18.015625 
+Q 18.3125 11.328125 20.140625 9.421875 
+Q 21.96875 7.515625 27.59375 7.515625 
+L 36.8125 7.515625 
+L 36.8125 0 
+L 27.59375 0 
+Q 17.1875 0 13.234375 3.875 
+Q 9.28125 7.765625 9.28125 18.015625 
+L 9.28125 47.703125 
+L 2.6875 47.703125 
+L 2.6875 54.6875 
+L 9.28125 54.6875 
+L 9.28125 70.21875 
+z
+" id="DejaVuSans-74"/>
+    </defs>
+    <g transform="translate(7.2 71.74)scale(0.16 -0.16)">
+     <use transform="translate(0 0.09375)" xlink:href="#DejaVuSans-56"/>
+     <use transform="translate(69.365234 -16.3125)scale(0.7)" xlink:href="#DejaVuSans-74"/>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p6535802e5d">
+   <rect height="97.65" width="117.855" x="24.6175" y="18.5"/>
+  </clipPath>
+ </defs>
+</svg>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Find-Rt">Find R<sub>t</sub><a class="anchor-link" href="#Find-Rt">&#182;</a></h3><p>To find $R_t$, we again combine the resistors in series. The remaining resistors $R_1$, $R_{2345}$ and $R_{67}$ are in series:</p>
+$$ R_{1234567} = R_1 + R_{2345} + R_{67} $$<p>We'll call the total resistance of the circuit $R_t$ which is equal to  $R_{1234567}$</p>
+$$ R_t = R_{1234567} $$<p>Another calculation in Python.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Vt</span> <span class="o">=</span> <span class="mf">5.2</span>
+
+<span class="n">R1</span> <span class="o">=</span> <span class="mf">0.0132</span>
+<span class="n">R2</span> <span class="o">=</span> <span class="mf">0.021</span>
+<span class="n">R3</span> <span class="o">=</span> <span class="mf">0.00360</span>
+<span class="n">R4</span> <span class="o">=</span> <span class="mf">0.0152</span>
+<span class="n">R5</span> <span class="o">=</span> <span class="mf">0.0119</span>
+<span class="n">R6</span> <span class="o">=</span> <span class="mf">0.0022</span>
+<span class="n">R7</span> <span class="o">=</span> <span class="mf">0.00740</span>
+
+<span class="n">R45</span> <span class="o">=</span> <span class="n">R4</span> <span class="o">+</span> <span class="n">R5</span>
+<span class="n">R67</span> <span class="o">=</span> <span class="n">R6</span> <span class="o">+</span> <span class="n">R7</span>
+
+<span class="n">R2345</span> <span class="o">=</span> <span class="p">((</span><span class="mi">1</span><span class="o">/</span><span class="n">R2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">R3</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">R45</span><span class="p">))</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">Rt</span> <span class="o">=</span> <span class="n">R1</span> <span class="o">+</span> <span class="n">R2345</span> <span class="o">+</span> <span class="n">R67</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Rt = {round(Rt,7)} Ohm&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Rt = 0.0255602 Ohm
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Last circuit diagram. The simplest one. This <strong>SchemDraw</strong> diagram just includes $V_t$ and $R_t$.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">schem</span><span class="o">.</span><span class="n">Drawing</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
+<span class="n">L2</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
+<span class="n">Rt</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">RES</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;up&#39;</span> <span class="p">,</span> <span class="n">botlabel</span><span class="o">=</span><span class="s1">&#39;$R_</span><span class="si">{t}</span><span class="s1">$&#39;</span><span class="p">)</span>
+<span class="n">L1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">tox</span><span class="o">=</span><span class="n">L2</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+<span class="n">Vt</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">BATTERY</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="s1">&#39;up&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">L2</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">toy</span><span class="o">=</span><span class="n">L1</span><span class="o">.</span><span class="n">end</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$V_t$&#39;</span><span class="p">,</span> <span class="n">lblofst</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">labelI</span><span class="p">(</span><span class="n">Vt</span><span class="p">,</span> <span class="n">arrowlen</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">arrowofst</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+<span class="n">d</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;1_resistor_no_loops.png&#39;</span><span class="p">)</span>
+<span class="c1">#d.save(&#39;1_resistor_no_loops.pdf&#39;)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_svg output_subarea ">
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Created with matplotlib (http://matplotlib.org/) -->
+<svg height="103pt" version="1.1" viewBox="0 0 160 103" width="160pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+*{stroke-linecap:butt;stroke-linejoin:round;}
+  </style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 103.705 
+L 160.77 103.705 
+L 160.77 0 
+L 0 0 
+z
+" style="fill:none;"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path clip-path="url(#p15f4370cc2)" d="M 28.87 30.9275 
+L 32.11 39.2975 
+L 28.8862 39.2975 
+L 28.8862 72.7775 
+L 28.8538 72.7775 
+L 28.8538 39.2975 
+L 25.63 39.2975 
+z
+" style="stroke:#000000;stroke-linejoin:miter;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_1">
+    <path clip-path="url(#p15f4370cc2)" d="M 45.07 86.7275 
+L 85.57 86.7275 
+L 126.07 86.7275 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_2">
+    <path clip-path="url(#p15f4370cc2)" d="M 126.07 86.7275 
+L 126.07 65.8025 
+L 117.97 63.4775 
+L 134.17 58.8275 
+L 117.97 54.1775 
+L 134.17 49.5275 
+L 117.97 44.8775 
+L 134.17 40.2275 
+L 126.07 37.9025 
+L 126.07 16.9775 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_3">
+    <path clip-path="url(#p15f4370cc2)" d="M 126.07 16.9775 
+L 85.57 16.9775 
+L 45.07 16.9775 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_4">
+    <path clip-path="url(#p15f4370cc2)" d="M 45.07 86.7275 
+L 45.07 59.699375 
+M 45.07 44.005625 
+L 45.07 16.9775 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_5">
+    <path clip-path="url(#p15f4370cc2)" d="M 32.92 59.699375 
+L 57.22 59.699375 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_6">
+    <path clip-path="url(#p15f4370cc2)" d="M 38.995 54.468125 
+L 51.145 54.468125 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_7">
+    <path clip-path="url(#p15f4370cc2)" d="M 32.92 49.236875 
+L 57.22 49.236875 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="line2d_8">
+    <path clip-path="url(#p15f4370cc2)" d="M 38.995 44.005625 
+L 51.145 44.005625 
+" style="fill:none;stroke:#000000;stroke-linecap:round;stroke-width:1.5;"/>
+   </g>
+   <g id="text_1">
+    <!-- $R_{t}$ -->
+    <defs>
+     <path d="M 44.390625 34.1875 
+Q 47.5625 33.109375 50.5625 29.59375 
+Q 53.5625 26.078125 56.59375 19.921875 
+L 66.609375 0 
+L 56 0 
+L 46.6875 18.703125 
+Q 43.0625 26.03125 39.671875 28.421875 
+Q 36.28125 30.8125 30.421875 30.8125 
+L 19.671875 30.8125 
+L 19.671875 0 
+L 9.8125 0 
+L 9.8125 72.90625 
+L 32.078125 72.90625 
+Q 44.578125 72.90625 50.734375 67.671875 
+Q 56.890625 62.453125 56.890625 51.90625 
+Q 56.890625 45.015625 53.6875 40.46875 
+Q 50.484375 35.9375 44.390625 34.1875 
+z
+M 19.671875 64.796875 
+L 19.671875 38.921875 
+L 32.078125 38.921875 
+Q 39.203125 38.921875 42.84375 42.21875 
+Q 46.484375 45.515625 46.484375 51.90625 
+Q 46.484375 58.296875 42.84375 61.546875 
+Q 39.203125 64.796875 32.078125 64.796875 
+z
+" id="DejaVuSans-52"/>
+     <path d="M 18.3125 70.21875 
+L 18.3125 54.6875 
+L 36.8125 54.6875 
+L 36.8125 47.703125 
+L 18.3125 47.703125 
+L 18.3125 18.015625 
+Q 18.3125 11.328125 20.140625 9.421875 
+Q 21.96875 7.515625 27.59375 7.515625 
+L 36.8125 7.515625 
+L 36.8125 0 
+L 27.59375 0 
+Q 17.1875 0 13.234375 3.875 
+Q 9.28125 7.765625 9.28125 18.015625 
+L 9.28125 47.703125 
+L 2.6875 47.703125 
+L 2.6875 54.6875 
+L 9.28125 54.6875 
+L 9.28125 70.21875 
+z
+" id="DejaVuSans-74"/>
+    </defs>
+    <g transform="translate(137.41 56.2675)scale(0.16 -0.16)">
+     <use transform="translate(0 0.09375)" xlink:href="#DejaVuSans-52"/>
+     <use transform="translate(70.439453 -16.3125)scale(0.7)" xlink:href="#DejaVuSans-74"/>
+    </g>
+   </g>
+   <g id="text_2">
+    <!-- $V_t$ -->
+    <defs>
+     <path d="M 28.609375 0 
+L 0.78125 72.90625 
+L 11.078125 72.90625 
+L 34.1875 11.53125 
+L 57.328125 72.90625 
+L 67.578125 72.90625 
+L 39.796875 0 
+z
+" id="DejaVuSans-56"/>
+    </defs>
+    <g transform="translate(7.2 56.2675)scale(0.16 -0.16)">
+     <use transform="translate(0 0.09375)" xlink:href="#DejaVuSans-56"/>
+     <use transform="translate(69.365234 -16.3125)scale(0.7)" xlink:href="#DejaVuSans-74"/>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p15f4370cc2">
+   <rect height="82.305" width="117.855" x="24.6175" y="10.7"/>
+  </clipPath>
+ </defs>
+</svg>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Find-V6-and-V7">Find V<sub>6</sub> and V<sub>7</sub><a class="anchor-link" href="#Find-V6-and-V7">&#182;</a></h3><p>Now that we've solved for the total resistance of the circuit $R_t$, we can find the total current running through the circuit using Ohm's Law $V = IR $.</p>
+$$ V = IR $$$$ I = \frac{V}{R} $$$$ I_t = \frac{V_t}{R_t} $$
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Vt</span> <span class="o">=</span> <span class="mf">5.2</span>
+
+<span class="n">R1</span> <span class="o">=</span> <span class="mf">0.0132</span>
+<span class="n">R2</span> <span class="o">=</span> <span class="mf">0.021</span>
+<span class="n">R3</span> <span class="o">=</span> <span class="mf">0.00360</span>
+<span class="n">R4</span> <span class="o">=</span> <span class="mf">0.0152</span>
+<span class="n">R5</span> <span class="o">=</span> <span class="mf">0.0119</span>
+<span class="n">R6</span> <span class="o">=</span> <span class="mf">0.0022</span>
+<span class="n">R7</span> <span class="o">=</span> <span class="mf">0.00740</span>
+
+<span class="n">R45</span> <span class="o">=</span> <span class="n">R4</span> <span class="o">+</span> <span class="n">R5</span>
+<span class="n">R67</span> <span class="o">=</span> <span class="n">R6</span> <span class="o">+</span> <span class="n">R7</span>
+
+<span class="n">R2345</span> <span class="o">=</span> <span class="p">((</span><span class="mi">1</span><span class="o">/</span><span class="n">R2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">R3</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">R45</span><span class="p">))</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">Rt</span> <span class="o">=</span> <span class="n">R1</span> <span class="o">+</span> <span class="n">R2345</span> <span class="o">+</span> <span class="n">R67</span>
+
+<span class="n">It</span> <span class="o">=</span> <span class="n">Vt</span><span class="o">/</span><span class="n">Rt</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;It = {round(It,2)} A&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>It = 203.44 A
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The total current of the circuit, $I_t$ is the same as the current running through resistor $R_6$ and resistor $R_7$.</p>
+$$ I_t = I_6 = I_7 $$<p>We can apply Ohm's law to find $V_6$ now that we have $I_6$ and $I_7$.</p>
+$$ V_6 = I_6 R_6 $$$$ V_7 = I_7 R_7 $$
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">I6</span> <span class="o">=</span> <span class="n">It</span>
+<span class="n">I7</span> <span class="o">=</span> <span class="n">It</span>
+<span class="n">V6</span> <span class="o">=</span> <span class="n">I6</span> <span class="o">*</span> <span class="n">R6</span>
+<span class="n">V7</span> <span class="o">=</span> <span class="n">I7</span> <span class="o">*</span> <span class="n">R7</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;V6 = {round(V6,5)} V, V7 = {round(V7,5)} V&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>V6 = 0.44757 V, V7 = 1.50547 V
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Find-I3-and-I6">Find I<sub>3</sub> and I<sub>6</sub><a class="anchor-link" href="#Find-I3-and-I6">&#182;</a></h3><p>The total current of the circuit, $I_t$ is the same as the current running through resistor $R_{2345}$.</p>
+$$ I_t = I_{2345} $$<p>We can apply Ohm's law to find $V_{2345}$ now that we have $I_{2345}$.</p>
+$$ V_{2345} = I_{2345} R_{2345} $$
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">I2345</span> <span class="o">=</span> <span class="n">It</span>
+<span class="n">V2345</span> <span class="o">=</span> <span class="n">I2345</span> <span class="o">*</span> <span class="n">R2345</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;V2345 = {round(V2345,5)} V&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>V2345 = 0.56153 V
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The voltage drop across resistor $R_3$ is the same as the voltage drop across resistor $R_{2345}$.</p>
+$$ V_3 = V_{2345} $$<p>Since $V_3$ and $R_3$ are known, we can solve for $I_3$ using Ohm's law:</p>
+$$ V = IR $$$$ I = \frac{V}{R} $$$$ I_3 = \frac{V_3}{R_3} $$<p>The current $I_6$ running through resistor $R_6$ is the same as the total current $I_t$.</p>
+$$ I_6 = I_t $$
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">V3</span> <span class="o">=</span> <span class="n">V2345</span>
+<span class="n">I3</span> <span class="o">=</span> <span class="n">V3</span> <span class="o">/</span> <span class="n">R3</span>
+
+<span class="n">I6</span> <span class="o">=</span> <span class="n">It</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;I3 = {round(I3,2)} A, I6 = {round(I6,2)} A&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>I3 = 155.98 A, I6 = 203.44 A
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Find-P7-and-P4">Find P<sub>7</sub> and P<sub>4</sub><a class="anchor-link" href="#Find-P7-and-P4">&#182;</a></h3><p>Power is equal to voltage times current:</p>
+$$ P = VI $$<p>According to Ohm's law:</p>
+$$V = IR$$<p>If we substitute $V$ as $IR$ in the power equation we get:</p>
+$$ P = (IR)(I) $$$$ P = I^2 R $$<p>With a known $R_7$ and $I_7 = I_t$:</p>
+$$ P_7 = {I_7}^2 R_7 $$<p></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">I7</span> <span class="o">=</span> <span class="n">It</span>
+<span class="n">P7</span> <span class="o">=</span> <span class="n">R7</span> <span class="o">*</span> <span class="n">I7</span><span class="o">**</span><span class="mi">2</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;P7 = {round(P7,2)} W&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>P7 = 306.27 W
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Current $I_{45}$ is equal to current $I_4$. Voltage $V_{45} = V_{2345}$. Using Ohm's Law again:</p>
+$$ V = IR $$$$ I = \frac{V}{R} $$$$ I_{45} = \frac{V_{45}}{R_{45}} $$
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">V45</span> <span class="o">=</span> <span class="n">V2345</span>
+<span class="n">I45</span> <span class="o">=</span> <span class="n">V45</span><span class="o">/</span><span class="n">R45</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;I45 = {round(I45,3)} A&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>I45 = 20.721 A
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>One more time using the power law:</p>
+$$ P = I^2 R $$<p>With a known $R_4$ and $I_4 = I_{45}$:</p>
+$$ P_4 = {I_4}^2 R_4 $$<p></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">I4</span> <span class="o">=</span> <span class="n">I45</span>
+<span class="n">P4</span> <span class="o">=</span> <span class="n">R4</span> <span class="o">*</span> <span class="n">I4</span><span class="o">**</span><span class="mi">2</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;P4 = {round(P4,4)} W&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>P4 = 6.5261 W
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Final-Answer">Final Answer<a class="anchor-link" href="#Final-Answer">&#182;</a></h3><p>Let's print out all of the final values to three significant figures including units:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;V6 = {round(V6,3)} V&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;V7 = {round(V7,2)} V&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;I3 = {round(I3,0)} A&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;I6 = {round(I6,0)} A&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;P4 = {round(P4,2)} W&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;P7 = {round(P7,0)} W&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>V6 = 0.448 V
+V7 = 1.51 V
+I3 = 156.0 A
+I6 = 203.0 A
+P4 = 6.53 W
+P7 = 306.0 W
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">&#182;</a></h2><p><strong>SchemDraw</strong> is a great package for making circuit diagrams in Python. Python is also useful for doing calculations that involve lots of different values. Although none of the calculations in this problem were particularly difficult, keeping track of all the values as variables in Python can cut down on errors when there multiple calculations and many parameters to keep track of.</p>
+
+</div>
+</div>
+</div>
+            </div>
+            <!-- /.entry-content -->
+<section class="well" id="related-posts">
+    <h4>Related Posts:</h4>
+    <ul>
+        <li><a href="./stress-strain-curve-with-python-and-matpotlib.html">Plotting a Stress Strain Curve with Python and Matplotlib</a></li>
+        <li><a href="./stress-strain-curve-with-4-libraries.html">Plotting a stress-strain curve with four libraries: matplotlib, pandas, altair and bokeh</a></li>
+        <li><a href="./diffusion-problem-python-pint.html">Diffusion Calculation with Python and Pint</a></li>
+        <li><a href="./unit-conversions-with-pint.html">Unit conversions with Python and Pint</a></li>
+        <li><a href="./plotting-bond-energy-with-matplotlib-and-python.html">Plotting Bond Energy vs. Distance with Python and Matplotlib</a></li>
+    </ul>
+</section>
+    <hr />
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style">
+            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+            <a class="addthis_button_tweet"></a>
+    </div>
+    <!-- AddThis Button END -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<div id="aboutme">
+        <p>
+            <img width="100%" class="img-thumbnail" src="./extra/gear-wrench-icon-512-278694.png"/>
+        </p>
+    <p>
+      <strong>About Peter Kazarinoff</strong><br/>
+        I teach engineering at a community college in the Pacific Northwest. I am interested in programming and how to help students. Here I mostly blog about Python, and how programing can be incorporated into engineering education.
+    </p>
+</div><!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Recent Posts -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+  <ul class="list-group" id="recentposts">
+    <li class="list-group-item"><a href="./thoughts-on-how-to-test-science-code.html">Thoughts on Software Design in Scientific Code</a></li>
+    <li class="list-group-item"><a href="./stream-S01-E01-jupyterhub-intro.html">My first Twitch Stream: S01-E01 JupyterHub Intro and Tools</a></li>
+    <li class="list-group-item"><a href="./jupyterhub-deployment-on-running-in-production.html">Hear my story about deploying JupyterHub on the Running in Production Podcast</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Recent Posts -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="./"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-2">
+      <a href="./tag/engineering.html">engineering</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/esp8266.html">esp8266</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="./tag/jupyter.html">jupyter</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="./tag/jupyter-notebook.html">jupyter notebook</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="./tag/matplotlib.html">matplotlib</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/micropython.html">micropython</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/pelican.html">pelican</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="./tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/sensor.html">sensor</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Github -->
+<li class="list-group-item">
+  <h4><i class="fa fa-github fa-lg"></i><span class="icon-label">GitHub Repos</span></h4>
+  <div id="gh_repos">
+    <p class="list-group-item">Status updating...</p>
+  </div>
+  <a href="https://github.com/professorkazarinoff">@professorkazarinoff</a> on GitHub
+</li>
+<!-- End Sidebar/Github -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2021 Peter Kazarinoff
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="./theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="./theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="./theme/js/respond.min.js"></script>
+
+    <script src="./static/js/custom.js"></script>
+
+
+<!-- GitHub JS Code -->
+<script type="text/javascript">
+$(document).ready(function () {
+  if (!window.jXHR) {
+    var jxhr = document.createElement('script');
+    jxhr.type = 'text/javascript';
+    jxhr.src = './theme/js/jXHR.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(jxhr, s);
+  }
+
+  github.showRepos({
+    user: 'professorkazarinoff',
+    count: 5,
+    skip_forks: true,
+    target: '#gh_repos'
+  });
+});
+</script>
+<script src="./theme/js/github.js" type="text/javascript"></script>
+<!-- End GitHub JS Code -->
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-116330557-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+    $("div.collapseheader").click(function () {
+    $header = $(this).children("span").first();
+    $codearea = $(this).children(".input_area");
+    console.log($(this).children());
+    $codearea.slideToggle(500, function () {
+        $header.text(function () {
+            return $codearea.is(":visible") ? "Collapse Code" : "Expand Code";
+        });
+    });
+});
+});
+</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cdd8eb4e16bf94c"></script>
+</body>
+</html>

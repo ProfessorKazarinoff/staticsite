@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Stress Strain Curve in Python using a simple bokeh plot - Python for Undergraduate Engineers</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
+<style type="text/css">
+
+    /*some stuff for output/input prompts*/
+    div.cell{border:1px solid transparent;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}div.cell.selected{border-radius:4px;border:thin #ababab solid}
+    div.cell.edit_mode{border-radius:4px;border:thin #008000 solid}
+    div.cell{width:100%;padding:5px 5px 5px 0;margin:0;outline:none}
+    div.prompt{min-width:11ex;padding:.4em;margin:0;font-family:monospace;text-align:right;line-height:1.21429em}
+    @media (max-width:480px){div.prompt{text-align:left}}div.inner_cell{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
+    div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;line-height:1.21429em}
+    div.prompt:empty{padding-top:0;padding-bottom:0}
+    div.input{page-break-inside:avoid;display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;}
+    div.inner_cell{width:90%;}
+    div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;}
+    div.input_prompt{color:navy;border-top:1px solid transparent;}
+    div.output_wrapper{margin-top:5px;position:relative;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+    div.output_scroll{height:24em;width:100%;overflow:auto;border-radius:4px;-webkit-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);-moz-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);}
+    div.output_collapsed{margin:0px;padding:0px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+    div.out_prompt_overlay{height:100%;padding:0px 0.4em;position:absolute;border-radius:4px;}
+    div.out_prompt_overlay:hover{-webkit-box-shadow:inset 0 0 1px #000000;-moz-box-shadow:inset 0 0 1px #000000;box-shadow:inset 0 0 1px #000000;background:rgba(240, 240, 240, 0.5);}
+    div.output_prompt{color:darkred;}
+    
+    a.anchor-link:link{text-decoration:none;padding:0px 20px;visibility:hidden;}
+    h1:hover .anchor-link,h2:hover .anchor-link,h3:hover .anchor-link,h4:hover .anchor-link,h5:hover .anchor-link,h6:hover .anchor-link{visibility:visible;}
+    /* end stuff for output/input prompts*/
+    
+    
+    .highlight-ipynb .hll { background-color: #ffffcc }
+    .highlight-ipynb  { background: #f8f8f8; }
+    .highlight-ipynb .c { color: #408080; font-style: italic } /* Comment */
+    .highlight-ipynb .err { border: 1px solid #FF0000 } /* Error */
+    .highlight-ipynb .k { color: #008000; font-weight: bold } /* Keyword */
+    .highlight-ipynb .o { color: #666666 } /* Operator */
+    .highlight-ipynb .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+    .highlight-ipynb .cp { color: #BC7A00 } /* Comment.Preproc */
+    .highlight-ipynb .c1 { color: #408080; font-style: italic } /* Comment.Single */
+    .highlight-ipynb .cs { color: #408080; font-style: italic } /* Comment.Special */
+    .highlight-ipynb .gd { color: #A00000 } /* Generic.Deleted */
+    .highlight-ipynb .ge { font-style: italic } /* Generic.Emph */
+    .highlight-ipynb .gr { color: #FF0000 } /* Generic.Error */
+    .highlight-ipynb .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+    .highlight-ipynb .gi { color: #00A000 } /* Generic.Inserted */
+    .highlight-ipynb .go { color: #888888 } /* Generic.Output */
+    .highlight-ipynb .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+    .highlight-ipynb .gs { font-weight: bold } /* Generic.Strong */
+    .highlight-ipynb .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+    .highlight-ipynb .gt { color: #0044DD } /* Generic.Traceback */
+    .highlight-ipynb .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+    .highlight-ipynb .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+    .highlight-ipynb .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+    .highlight-ipynb .kp { color: #008000 } /* Keyword.Pseudo */
+    .highlight-ipynb .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+    .highlight-ipynb .kt { color: #B00040 } /* Keyword.Type */
+    .highlight-ipynb .m { color: #666666 } /* Literal.Number */
+    .highlight-ipynb .s { color: #BA2121 } /* Literal.String */
+    .highlight-ipynb .na { color: #7D9029 } /* Name.Attribute */
+    .highlight-ipynb .nb { color: #008000 } /* Name.Builtin */
+    .highlight-ipynb .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+    .highlight-ipynb .no { color: #880000 } /* Name.Constant */
+    .highlight-ipynb .nd { color: #AA22FF } /* Name.Decorator */
+    .highlight-ipynb .ni { color: #999999; font-weight: bold } /* Name.Entity */
+    .highlight-ipynb .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+    .highlight-ipynb .nf { color: #0000FF } /* Name.Function */
+    .highlight-ipynb .nl { color: #A0A000 } /* Name.Label */
+    .highlight-ipynb .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+    .highlight-ipynb .nt { color: #008000; font-weight: bold } /* Name.Tag */
+    .highlight-ipynb .nv { color: #19177C } /* Name.Variable */
+    .highlight-ipynb .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+    .highlight-ipynb .w { color: #bbbbbb } /* Text.Whitespace */
+    .highlight-ipynb .mf { color: #666666 } /* Literal.Number.Float */
+    .highlight-ipynb .mh { color: #666666 } /* Literal.Number.Hex */
+    .highlight-ipynb .mi { color: #666666 } /* Literal.Number.Integer */
+    .highlight-ipynb .mo { color: #666666 } /* Literal.Number.Oct */
+    .highlight-ipynb .sb { color: #BA2121 } /* Literal.String.Backtick */
+    .highlight-ipynb .sc { color: #BA2121 } /* Literal.String.Char */
+    .highlight-ipynb .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+    .highlight-ipynb .s2 { color: #BA2121 } /* Literal.String.Double */
+    .highlight-ipynb .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+    .highlight-ipynb .sh { color: #BA2121 } /* Literal.String.Heredoc */
+    .highlight-ipynb .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+    .highlight-ipynb .sx { color: #008000 } /* Literal.String.Other */
+    .highlight-ipynb .sr { color: #BB6688 } /* Literal.String.Regex */
+    .highlight-ipynb .s1 { color: #BA2121 } /* Literal.String.Single */
+    .highlight-ipynb .ss { color: #19177C } /* Literal.String.Symbol */
+    .highlight-ipynb .bp { color: #008000 } /* Name.Builtin.Pseudo */
+    .highlight-ipynb .vc { color: #19177C } /* Name.Variable.Class */
+    .highlight-ipynb .vg { color: #19177C } /* Name.Variable.Global */
+    .highlight-ipynb .vi { color: #19177C } /* Name.Variable.Instance */
+    .highlight-ipynb .il { color: #666666 } /* Literal.Number.Integer.Long */
+    </style>
+    
+    <style type="text/css">
+    /* Overrides of notebook CSS for static HTML export */
+    div.entry-content {
+      overflow: visible;
+      padding: 8px;
+    }
+    .input_area {
+      padding: 0.2em;
+    }
+    
+    a.heading-anchor {
+     white-space: normal;
+    }
+    
+    .rendered_html
+    code {
+     font-size: .8em;
+    }
+    
+    pre.ipynb {
+      color: black;
+      background: #f7f7f7;
+      border: none;
+      box-shadow: none;
+      margin-bottom: 0;
+      padding: 0;
+      margin: 0px;
+      font-size: 13px;
+    }
+    
+    /* remove the prompt div from text cells */
+    div.text_cell .prompt {
+        display: none;
+    }
+    
+    /* remove horizontal padding from text cells, */
+    /* so it aligns with outer body text */
+    div.text_cell_render {
+        padding: 0.5em 0em;
+    }
+    
+    img.anim_icon{padding:0; border:0; vertical-align:middle; -webkit-box-shadow:none; -box-shadow:none}
+    
+    div.collapseheader {
+        width=100%;
+        padding: 2px;
+        cursor: pointer;
+        font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+    
+    </style>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+    <script type="text/javascript">
+    init_mathjax = function() {
+        if (window.MathJax) {
+            // MathJax loaded
+            MathJax.Hub.Config({
+                tex2jax: {
+                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+                },
+                displayAlign: 'center', // Change this to 'center' to center equations.
+                "HTML-CSS": {
+                    styles: {'.MathJax_Display': {"margin": 0}}
+                }
+            });
+            MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        }
+    }
+    init_mathjax();
+    </script>
+    
+    <link href="../extra/favicon.ico" rel="icon">
+
+<link rel="canonical" href="../drafts/stress-strain-curve-with-simple-bokeh-plot.html">
+
+        <meta name="author" content="Peter D. Kazarinoff" />
+        <meta name="keywords" content="python,matplotlib,engineering,jupyter,notebook,bokeh,altair" />
+        <meta name="description" content="A post with a simple bokeh plot" />
+
+        <meta property="og:site_name" content="Python for Undergraduate Engineers" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Stress Strain Curve in Python using a simple bokeh plot"/>
+        <meta property="og:url" content="../drafts/stress-strain-curve-with-simple-bokeh-plot.html"/>
+        <meta property="og:description" content="A post with a simple bokeh plot"/>
+        <meta property="article:published_time" content="2017-12-21" />
+            <meta property="article:section" content="Python" />
+            <meta property="article:tag" content="python" />
+            <meta property="article:tag" content="matplotlib" />
+            <meta property="article:tag" content="engineering" />
+            <meta property="article:tag" content="jupyter" />
+            <meta property="article:tag" content="notebook" />
+            <meta property="article:tag" content="bokeh" />
+            <meta property="article:tag" content="altair" />
+            <meta property="article:author" content="Peter D. Kazarinoff" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../theme/css/pygments/native.css" rel="stylesheet">
+    <link href="../theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="../theme/css/style.css" type="text/css"/>
+        <link href="../static/css/custom.css" rel="stylesheet">
+
+
+
+</head>
+<body>
+
+<!-- .navbar -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../" class="navbar-brand">
+Python for Undergraduate Engineers            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="../pages/about.html">
+                             About
+                          </a></li>
+                         <li><a href="../pages/book.html">
+                             Book
+                          </a></li>
+                         <li><a href="../pages/now.html">
+                             Now
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+
+<!-- .navbar-search -->
+<li>
+    <span>
+        <form class="navbar-search" action="/search.html">
+            <input type="text" name="q" id="tipue_search_input">
+        </form>
+    </span>
+</li>
+<!-- /.navbar-search -->              <li><a href="../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+            <ol class="breadcrumb">
+                <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="../category/python.html" title="Python">Python</a></li>
+                <li class="active">Stress Strain Curve in Python using a simple bokeh plot</li>
+            </ol>
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="../drafts/stress-strain-curve-with-simple-bokeh-plot.html"
+                       rel="bookmark"
+                       title="Permalink to Stress Strain Curve in Python using a simple bokeh plot">
+                        Stress Strain Curve in Python using a simple bokeh plot
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2017-12-21T10:33:00-08:00"> Thu 21 December 2017</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="../tag/python.html">python</a>
+        /
+	<a href="../tag/matplotlib.html">matplotlib</a>
+        /
+	<a href="../tag/engineering.html">engineering</a>
+        /
+	<a href="../tag/jupyter.html">jupyter</a>
+        /
+	<a href="../tag/notebook.html">notebook</a>
+        /
+	<a href="../tag/bokeh.html">bokeh</a>
+        /
+	<a href="../tag/altair.html">altair</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <h2 id="code-pulled-from-a-jupyter-notebook-using-liquid-tags">Code pulled from a jupyter notebook using liquid tags</h2>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">bokeh.plotting</span> <span class="k">import</span> <span class="n">figure</span><span class="p">,</span> <span class="n">output_file</span><span class="p">,</span> <span class="n">show</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">output_file</span><span class="p">(</span><span class="s2">&quot;line.html&quot;</span><span class="p">)</span>
+
+<span class="n">p</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">plot_width</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">plot_height</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;stress_strain_data.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;strain&#39;</span><span class="p">,</span> <span class="s1">&#39;stress&#39;</span><span class="p">]</span>
+
+<span class="c1"># add a line renderer</span>
+<span class="n">p</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;strain&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;stress&#39;</span><span class="p">],</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1">#show(p)</span>
+<span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="k">import</span> <span class="n">HTML</span>
+<span class="n">HTML</span><span class="p">(</span><span class="s1">&#39;line.html&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[3]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Bokeh Plot</title>
+        
+<link rel="stylesheet" href="https://cdn.pydata.org/bokeh/release/bokeh-0.12.13.min.css" type="text/css" />
+        
+<script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-0.12.13.min.js"></script>
+<script type="text/javascript">
+    Bokeh.set_log_level("info");
+</script>
+        <style>
+          html {
+            width: 100%;
+            height: 100%;
+          }
+          body {
+            width: 90%;
+            height: 100%;
+            margin: auto;
+          }
+        </style>
+    </head>
+    <body>
+        
+        <div class="bk-root">
+            <div class="bk-plotdiv" id="3b7cae58-8b8f-4ad2-ad0b-82a9b926dbb2"></div>
+        </div>
+        
+        <script type="application/json" id="c06f8f7a-1b1d-49d6-a254-e31550b90400">
+          {"ed4e65ca-6af9-4832-868a-c4a9f03fdd02":{"roots":{"references":[{"attributes":{},"id":"9bc613fb-1117-41b1-868e-a2c3b58e9c04","type":"WheelZoomTool"},{"attributes":{"plot":{"id":"59e48602-a3e8-4eee-af3d-94a5b1a5980f","subtype":"Figure","type":"Plot"},"ticker":{"id":"3d8b0b25-a6e3-4c6d-8f0d-e27ad2659a07","type":"BasicTicker"}},"id":"13cab33b-ce21-4702-a48f-42fc81d6a3bb","type":"Grid"},{"attributes":{"overlay":{"id":"2f1699dd-9698-4441-92b9-cf11869aad72","type":"BoxAnnotation"}},"id":"03b906b7-5509-48d2-8453-2b0ad33d0571","type":"BoxZoomTool"},{"attributes":{"data_source":{"id":"a4166659-2506-4a37-be39-61430a27e29b","type":"ColumnDataSource"},"glyph":{"id":"103ee152-e9f1-4b86-b961-b946b5063437","type":"Line"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"80012463-b452-4008-baaf-99221bb35550","type":"Line"},"selection_glyph":null,"view":{"id":"6b8f137e-94e5-4550-99cf-7c852be6f397","type":"CDSView"}},"id":"3ad05b8b-7a2a-420f-bdaf-a9a2e3b2e766","type":"GlyphRenderer"},{"attributes":{},"id":"3d4870a1-5cbd-4bf0-b510-6b6664a7ab41","type":"SaveTool"},{"attributes":{"dimension":1,"plot":{"id":"59e48602-a3e8-4eee-af3d-94a5b1a5980f","subtype":"Figure","type":"Plot"},"ticker":{"id":"c0860751-3682-4efc-8fac-a594d8c6dc51","type":"BasicTicker"}},"id":"d3261c14-e053-4ee1-b66d-714070a0dea3","type":"Grid"},{"attributes":{},"id":"2dcee466-4804-4752-b169-7e5ef001875a","type":"BasicTickFormatter"},{"attributes":{},"id":"7a8d783f-c8ea-451d-a90a-0bd4aed71cbf","type":"ResetTool"},{"attributes":{"below":[{"id":"e114f9a2-a619-49f4-8c37-2a943a0bfe04","type":"LinearAxis"}],"left":[{"id":"0581142b-114b-4adf-80af-a94cd700ab42","type":"LinearAxis"}],"plot_height":400,"plot_width":400,"renderers":[{"id":"e114f9a2-a619-49f4-8c37-2a943a0bfe04","type":"LinearAxis"},{"id":"13cab33b-ce21-4702-a48f-42fc81d6a3bb","type":"Grid"},{"id":"0581142b-114b-4adf-80af-a94cd700ab42","type":"LinearAxis"},{"id":"d3261c14-e053-4ee1-b66d-714070a0dea3","type":"Grid"},{"id":"826caa28-9ca8-4b99-98ba-48c5643806cb","type":"BoxAnnotation"},{"id":"3ad05b8b-7a2a-420f-bdaf-a9a2e3b2e766","type":"GlyphRenderer"}],"title":{"id":"229966cd-3e98-4adc-be19-8719e164d496","type":"Title"},"toolbar":{"id":"90be74ee-7e41-4a92-8ce9-b9e0b9186b7d","type":"Toolbar"},"x_range":{"id":"09eb9b2a-1143-49d3-a839-10de39e08800","type":"DataRange1d"},"x_scale":{"id":"70fb9fb1-1363-4554-8e60-4beabca950f0","type":"LinearScale"},"y_range":{"id":"920851bc-849d-4a8e-9ec5-2f97cd062009","type":"DataRange1d"},"y_scale":{"id":"6cadf7e8-487c-4441-8ba4-aafc55d3996a","type":"LinearScale"}},"id":"59e48602-a3e8-4eee-af3d-94a5b1a5980f","subtype":"Figure","type":"Plot"},{"attributes":{},"id":"4b287ee1-ec45-419f-b3b4-1beae88e4375","type":"HelpTool"},{"attributes":{"source":{"id":"a4166659-2506-4a37-be39-61430a27e29b","type":"ColumnDataSource"}},"id":"6b8f137e-94e5-4550-99cf-7c852be6f397","type":"CDSView"},{"attributes":{"callback":null},"id":"b1fb2ae3-d769-4550-871b-e35fbe92859e","type":"DataRange1d"},{"attributes":{"active_drag":"auto","active_inspect":"auto","active_scroll":"auto","active_tap":"auto","tools":[{"id":"ac2afe28-ed45-4533-a563-942b5c4e3f0e","type":"PanTool"},{"id":"11791fd7-87a6-43c4-8c25-ff2a2785bdc5","type":"WheelZoomTool"},{"id":"56c1f8ee-b452-4126-960f-ea2200a051bc","type":"BoxZoomTool"},{"id":"de80d3d2-b438-4ae2-919f-64607d4d6de7","type":"SaveTool"},{"id":"2d0188a9-0a05-40d6-b2e9-7e8d2ffc8a9c","type":"ResetTool"},{"id":"1116f2a8-fe06-443d-b0b1-456cd28d5f65","type":"HelpTool"}]},"id":"5d50e8a5-d85e-4fec-9a4f-b22b3255599a","type":"Toolbar"},{"attributes":{"bottom_units":"screen","fill_alpha":{"value":0.5},"fill_color":{"value":"lightgrey"},"left_units":"screen","level":"overlay","line_alpha":{"value":1.0},"line_color":{"value":"black"},"line_dash":[4,4],"line_width":{"value":2},"plot":null,"render_mode":"css","right_units":"screen","top_units":"screen"},"id":"826caa28-9ca8-4b99-98ba-48c5643806cb","type":"BoxAnnotation"},{"attributes":{"source":{"id":"90f270a3-c859-4a5c-8d37-2ec1545c11fe","type":"ColumnDataSource"}},"id":"be46a123-4219-451a-ad5d-8c73580810ab","type":"CDSView"},{"attributes":{"below":[{"id":"8c1d2d1d-09c9-4254-85fd-dc06f40c7967","type":"LinearAxis"}],"left":[{"id":"3427b043-e97c-4a76-b79f-db6f00688a91","type":"LinearAxis"}],"plot_height":400,"plot_width":400,"renderers":[{"id":"8c1d2d1d-09c9-4254-85fd-dc06f40c7967","type":"LinearAxis"},{"id":"6f02c3ae-2085-48de-ae19-3d38838d7043","type":"Grid"},{"id":"3427b043-e97c-4a76-b79f-db6f00688a91","type":"LinearAxis"},{"id":"2524496e-3fb7-49b4-8e8b-233b221667c8","type":"Grid"},{"id":"2f1699dd-9698-4441-92b9-cf11869aad72","type":"BoxAnnotation"},{"id":"cb07222b-489c-4dc6-ae16-96f75f558714","type":"GlyphRenderer"}],"title":{"id":"4d597b54-ab23-4fce-8f9d-2d90e9fe15d3","type":"Title"},"toolbar":{"id":"4e217424-c409-4673-8685-b82fd49b2c70","type":"Toolbar"},"x_range":{"id":"94002da3-bc12-4934-993b-733375663bbc","type":"DataRange1d"},"x_scale":{"id":"3fc4832c-3d2e-4bd5-8da6-31a963807d6c","type":"LinearScale"},"y_range":{"id":"1cc7fc9f-83aa-4555-b14a-bd58170c6299","type":"DataRange1d"},"y_scale":{"id":"16c90838-c247-4cb0-b981-6143bf676d4a","type":"LinearScale"}},"id":"e956a394-d193-4444-8df1-083a4b9ef76a","subtype":"Figure","type":"Plot"},{"attributes":{"plot":null,"text":""},"id":"eb1f921d-e784-4f0d-b5ae-728560267782","type":"Title"},{"attributes":{},"id":"a301607d-f74e-4d52-8c80-b4b847ef5aef","type":"BasicTickFormatter"},{"attributes":{},"id":"6a4eb175-c0df-470b-b5a1-a8692102385c","type":"BasicTickFormatter"},{"attributes":{},"id":"d056f7a3-6d07-4588-85d4-e04de03c4f99","type":"BasicTickFormatter"},{"attributes":{"callback":null,"column_names":["x","y"],"data":{"x":{"__ndarray__":"AAAAAAAAAACZbisgYdZDP9fl7zkL1lM/Og7NhkbBXT9dsAqK1dVjPwl6XuCoy2g/Og7NhkbBbT/za5DujFtxP1Ab1elA1nM/45rxbEVRdj8+SjZo+ct4PyLElbN3Rns/Og7NhkbBfT/M3ghB/R2AP6nHEcaqnIE/FOl+TkF+hj+12sNeKGCLP1TjpZvEIJA/TdnpB3WRkj8dUgyQaAKVPxdIUPwYc5c/ED6UaMnjmT/htrbwvFScP9qs+lxtxZ4/1ZKOcjCboD/SjbCoiNOhP86I0t7gC6M/NsXjolpEpD80wAXZsnylP5z8Fp0staY/mPc404Ttpz8BNEqX/iWpP+AM/n4xW6o/3gcgtYmTqz9GRDF5A8ysP0I/U69bBK4/q3tkc9U8rz9UO8PUljqwP4jZy7bT1rA/Btfc0f9ysT+F1O3sKw+yP7hy9s5oq7I/N3AH6pRHsz9rDhDM0eOzP+kLIef9f7Q/aAkyAioctT+cpzrkZri1PxqlS/+SVLY/TkNU4c/wtj/NQGX8+4y3P0s+dhcoKbg/f9x++WTFuD/+2Y8UkWG5P+cYkL3e/bk/QzS6g9iZuj+8lpAPeja7PxiyutVz0rs/dM3km21uvD/sL7snDwu9P0hL5e0Ip70/pWYPtAJDvj8dyeU/pN++P3nkDwaee78/6/8c5ssLwD8nMQisHFrAP9U+HY8ZqMA/g0wychb2wD+/fR04Z0TBP22LMhtkksE/G5lH/mDgwT9YyjLEsS7CPwbYR6eufMI/tOVciqvKwj8=","dtype":"float64","shape":[73]},"y":{"__ndarray__":"AAAAAAAAAAANAiuHFulFQBFYObTIllJA7FG4HoU7WkC4HoXrUTBhQArXo3A9MmVA7FG4HoV7aEBSuB6F60lqQD0K16NwTWtAFK5H4XoEbEAzMzMzM5tsQK5H4XoUHm1APQrXo3CVbUBmZmZmZv5tQKRwPQrXc25Aw/UoXI/Kb0CF61G4Hn1wQI/C9ShcC3FAAAAAAACQcUBSuB6F6w1yQDMzMzMzg3JAzczMzMz0ckDsUbgehV9zQD0K16NwxXNAKVyPwvUkdEBcj8L1KIB0QJqZmZmZ1XRAMzMzMzMndUDXo3A9CnN1QAAAAAAAvHVApHA9Ctf/dUBxPQrXo0B2QKRwPQrXe3ZAPQrXo3C1dkA9CtejcOl2QEjhehSuG3dA7FG4HoVLd0C4HoXrUXh3QClcj8L1oHdAcT0K16PId0A9CtejcO13QK5H4XoUEnhA16NwPQozeEAzMzMzM1N4QAAAAAAAcHhArkfhehSOeEBI4XoUrqd4QK5H4XoUwnhApHA9CtfbeEDD9Shcj/J4QLgehetRCHlAPQrXo3AdeUCkcD0K1y95QM3MzMzMRHlASOF6FK5XeUDsUbgehWd5QGZmZmZmdnlACtejcD2GeUAzMzMzM5N5QBSuR+F6oHlAj8L1KFyreUD2KFyPwrV5QGZmZmZmvnlA7FG4HoXHeUCF61G4Hs15QHsUrkfh0nlAexSuR+HWeUAAAAAAANh5QDMzMzMz03lApHA9CtfHeUDD9Shcj6Z5QOxRuB6FN3lAexSuR+Gyd0A=","dtype":"float64","shape":[73]}}},"id":"3ccc68fb-fa67-465d-9e18-0386e59b5490","type":"ColumnDataSource"},{"attributes":{},"id":"6a898b88-9559-459d-acad-9f72474f2848","type":"ResetTool"},{"attributes":{"callback":null,"column_names":["x","y"],"data":{"x":{"__ndarray__":"AAAAAAAAAACZbisgYdZDP9fl7zkL1lM/Og7NhkbBXT9dsAqK1dVjPwl6XuCoy2g/Og7NhkbBbT/za5DujFtxP1Ab1elA1nM/45rxbEVRdj8+SjZo+ct4PyLElbN3Rns/Og7NhkbBfT/M3ghB/R2AP6nHEcaqnIE/FOl+TkF+hj+12sNeKGCLP1TjpZvEIJA/TdnpB3WRkj8dUgyQaAKVPxdIUPwYc5c/ED6UaMnjmT/htrbwvFScP9qs+lxtxZ4/1ZKOcjCboD/SjbCoiNOhP86I0t7gC6M/NsXjolpEpD80wAXZsnylP5z8Fp0staY/mPc404Ttpz8BNEqX/iWpP+AM/n4xW6o/3gcgtYmTqz9GRDF5A8ysP0I/U69bBK4/q3tkc9U8rz9UO8PUljqwP4jZy7bT1rA/Btfc0f9ysT+F1O3sKw+yP7hy9s5oq7I/N3AH6pRHsz9rDhDM0eOzP+kLIef9f7Q/aAkyAioctT+cpzrkZri1PxqlS/+SVLY/TkNU4c/wtj/NQGX8+4y3P0s+dhcoKbg/f9x++WTFuD/+2Y8UkWG5P+cYkL3e/bk/QzS6g9iZuj+8lpAPeja7PxiyutVz0rs/dM3km21uvD/sL7snDwu9P0hL5e0Ip70/pWYPtAJDvj8dyeU/pN++P3nkDwaee78/6/8c5ssLwD8nMQisHFrAP9U+HY8ZqMA/g0wychb2wD+/fR04Z0TBP22LMhtkksE/G5lH/mDgwT9YyjLEsS7CPwbYR6eufMI/tOVciqvKwj8=","dtype":"float64","shape":[73]},"y":{"__ndarray__":"AAAAAAAAAAANAiuHFulFQBFYObTIllJA7FG4HoU7WkC4HoXrUTBhQArXo3A9MmVA7FG4HoV7aEBSuB6F60lqQD0K16NwTWtAFK5H4XoEbEAzMzMzM5tsQK5H4XoUHm1APQrXo3CVbUBmZmZmZv5tQKRwPQrXc25Aw/UoXI/Kb0CF61G4Hn1wQI/C9ShcC3FAAAAAAACQcUBSuB6F6w1yQDMzMzMzg3JAzczMzMz0ckDsUbgehV9zQD0K16NwxXNAKVyPwvUkdEBcj8L1KIB0QJqZmZmZ1XRAMzMzMzMndUDXo3A9CnN1QAAAAAAAvHVApHA9Ctf/dUBxPQrXo0B2QKRwPQrXe3ZAPQrXo3C1dkA9CtejcOl2QEjhehSuG3dA7FG4HoVLd0C4HoXrUXh3QClcj8L1oHdAcT0K16PId0A9CtejcO13QK5H4XoUEnhA16NwPQozeEAzMzMzM1N4QAAAAAAAcHhArkfhehSOeEBI4XoUrqd4QK5H4XoUwnhApHA9CtfbeEDD9Shcj/J4QLgehetRCHlAPQrXo3AdeUCkcD0K1y95QM3MzMzMRHlASOF6FK5XeUDsUbgehWd5QGZmZmZmdnlACtejcD2GeUAzMzMzM5N5QBSuR+F6oHlAj8L1KFyreUD2KFyPwrV5QGZmZmZmvnlA7FG4HoXHeUCF61G4Hs15QHsUrkfh0nlAexSuR+HWeUAAAAAAANh5QDMzMzMz03lApHA9CtfHeUDD9Shcj6Z5QOxRuB6FN3lAexSuR+Gyd0A=","dtype":"float64","shape":[73]}}},"id":"90f270a3-c859-4a5c-8d37-2ec1545c11fe","type":"ColumnDataSource"},{"attributes":{},"id":"97699a4b-5281-40d3-91d4-071d628deee2","type":"BasicTickFormatter"},{"attributes":{},"id":"a5779f69-4de0-435c-b7bc-bc426140330b","type":"WheelZoomTool"},{"attributes":{},"id":"3fc4832c-3d2e-4bd5-8da6-31a963807d6c","type":"LinearScale"},{"attributes":{"below":[{"id":"5f14e428-74f5-486c-9c25-1164d85c3f1c","type":"LinearAxis"}],"left":[{"id":"812f6f1d-78b0-43cc-8e91-ed880f87ecfd","type":"LinearAxis"}],"plot_height":400,"plot_width":400,"renderers":[{"id":"5f14e428-74f5-486c-9c25-1164d85c3f1c","type":"LinearAxis"},{"id":"5ae3693d-b47b-4929-9eaa-e0947fb1e931","type":"Grid"},{"id":"812f6f1d-78b0-43cc-8e91-ed880f87ecfd","type":"LinearAxis"},{"id":"8f993170-d5f3-4f28-94f8-ddd3246a7b52","type":"Grid"},{"id":"e34ccdc1-0138-4689-854d-18807684f5b5","type":"BoxAnnotation"},{"id":"8155e323-8753-485f-b4c1-03ac35c2797d","type":"GlyphRenderer"}],"title":{"id":"eb1f921d-e784-4f0d-b5ae-728560267782","type":"Title"},"toolbar":{"id":"5d50e8a5-d85e-4fec-9a4f-b22b3255599a","type":"Toolbar"},"x_range":{"id":"b1fb2ae3-d769-4550-871b-e35fbe92859e","type":"DataRange1d"},"x_scale":{"id":"25dd5977-9b5a-415b-99c9-ae891559a2fb","type":"LinearScale"},"y_range":{"id":"a04b6720-937b-43e0-953f-eb9aff741d36","type":"DataRange1d"},"y_scale":{"id":"94f51976-4568-438f-99bd-522d01e2d341","type":"LinearScale"}},"id":"4d738ae8-db2b-4279-8bc1-5bdbeb7451db","subtype":"Figure","type":"Plot"},{"attributes":{"formatter":{"id":"d90c9b4f-bc4b-4d25-9a1e-74b8688a8b32","type":"BasicTickFormatter"},"plot":{"id":"59e48602-a3e8-4eee-af3d-94a5b1a5980f","subtype":"Figure","type":"Plot"},"ticker":{"id":"3d8b0b25-a6e3-4c6d-8f0d-e27ad2659a07","type":"BasicTicker"}},"id":"e114f9a2-a619-49f4-8c37-2a943a0bfe04","type":"LinearAxis"},{"attributes":{"formatter":{"id":"6a4eb175-c0df-470b-b5a1-a8692102385c","type":"BasicTickFormatter"},"plot":{"id":"59e48602-a3e8-4eee-af3d-94a5b1a5980f","subtype":"Figure","type":"Plot"},"ticker":{"id":"c0860751-3682-4efc-8fac-a594d8c6dc51","type":"BasicTicker"}},"id":"0581142b-114b-4adf-80af-a94cd700ab42","type":"LinearAxis"},{"attributes":{},"id":"6cadf7e8-487c-4441-8ba4-aafc55d3996a","type":"LinearScale"},{"attributes":{"overlay":{"id":"e34ccdc1-0138-4689-854d-18807684f5b5","type":"BoxAnnotation"}},"id":"56c1f8ee-b452-4126-960f-ea2200a051bc","type":"BoxZoomTool"},{"attributes":{"callback":null},"id":"a04b6720-937b-43e0-953f-eb9aff741d36","type":"DataRange1d"},{"attributes":{},"id":"c0860751-3682-4efc-8fac-a594d8c6dc51","type":"BasicTicker"},{"attributes":{"active_drag":"auto","active_inspect":"auto","active_scroll":"auto","active_tap":"auto","tools":[{"id":"9792d3ea-cb95-4888-acf0-1cbfa3f836bb","type":"PanTool"},{"id":"9bc613fb-1117-41b1-868e-a2c3b58e9c04","type":"WheelZoomTool"},{"id":"03b906b7-5509-48d2-8453-2b0ad33d0571","type":"BoxZoomTool"},{"id":"3d4870a1-5cbd-4bf0-b510-6b6664a7ab41","type":"SaveTool"},{"id":"7a8d783f-c8ea-451d-a90a-0bd4aed71cbf","type":"ResetTool"},{"id":"4b287ee1-ec45-419f-b3b4-1beae88e4375","type":"HelpTool"}]},"id":"4e217424-c409-4673-8685-b82fd49b2c70","type":"Toolbar"},{"attributes":{},"id":"3b1c4642-9f60-4acb-aa9d-95f359c20a39","type":"PanTool"},{"attributes":{"source":{"id":"3ccc68fb-fa67-465d-9e18-0386e59b5490","type":"ColumnDataSource"}},"id":"ff697bad-4e29-4934-ad04-a2815e16cee8","type":"CDSView"},{"attributes":{"plot":null,"text":""},"id":"229966cd-3e98-4adc-be19-8719e164d496","type":"Title"},{"attributes":{},"id":"16c90838-c247-4cb0-b981-6143bf676d4a","type":"LinearScale"},{"attributes":{"plot":null,"text":""},"id":"4d597b54-ab23-4fce-8f9d-2d90e9fe15d3","type":"Title"},{"attributes":{},"id":"f221c742-a0f8-4253-aaa9-fb8ff91680fb","type":"BasicTicker"},{"attributes":{},"id":"3d8b0b25-a6e3-4c6d-8f0d-e27ad2659a07","type":"BasicTicker"},{"attributes":{"formatter":{"id":"a301607d-f74e-4d52-8c80-b4b847ef5aef","type":"BasicTickFormatter"},"plot":{"id":"4d738ae8-db2b-4279-8bc1-5bdbeb7451db","subtype":"Figure","type":"Plot"},"ticker":{"id":"ff273adb-26ab-4762-aa73-e75c1faadf06","type":"BasicTicker"}},"id":"812f6f1d-78b0-43cc-8e91-ed880f87ecfd","type":"LinearAxis"},{"attributes":{"callback":null},"id":"94002da3-bc12-4934-993b-733375663bbc","type":"DataRange1d"},{"attributes":{},"id":"25dd5977-9b5a-415b-99c9-ae891559a2fb","type":"LinearScale"},{"attributes":{"callback":null},"id":"1cc7fc9f-83aa-4555-b14a-bd58170c6299","type":"DataRange1d"},{"attributes":{"bottom_units":"screen","fill_alpha":{"value":0.5},"fill_color":{"value":"lightgrey"},"left_units":"screen","level":"overlay","line_alpha":{"value":1.0},"line_color":{"value":"black"},"line_dash":[4,4],"line_width":{"value":2},"plot":null,"render_mode":"css","right_units":"screen","top_units":"screen"},"id":"e34ccdc1-0138-4689-854d-18807684f5b5","type":"BoxAnnotation"},{"attributes":{},"id":"94f51976-4568-438f-99bd-522d01e2d341","type":"LinearScale"},{"attributes":{"callback":null},"id":"920851bc-849d-4a8e-9ec5-2f97cd062009","type":"DataRange1d"},{"attributes":{"data_source":{"id":"3ccc68fb-fa67-465d-9e18-0386e59b5490","type":"ColumnDataSource"},"glyph":{"id":"abd6ef6e-a5ba-461f-87b9-a40dd5519bd8","type":"Line"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"fb995f1e-6afa-433e-88a3-fadb388b6eb7","type":"Line"},"selection_glyph":null,"view":{"id":"ff697bad-4e29-4934-ad04-a2815e16cee8","type":"CDSView"}},"id":"8155e323-8753-485f-b4c1-03ac35c2797d","type":"GlyphRenderer"},{"attributes":{"line_alpha":0.1,"line_color":"#1f77b4","line_width":2,"x":{"field":"x"},"y":{"field":"y"}},"id":"57d03c67-2518-4114-aa81-ba506e0496e0","type":"Line"},{"attributes":{"plot":{"id":"4d738ae8-db2b-4279-8bc1-5bdbeb7451db","subtype":"Figure","type":"Plot"},"ticker":{"id":"f221c742-a0f8-4253-aaa9-fb8ff91680fb","type":"BasicTicker"}},"id":"5ae3693d-b47b-4929-9eaa-e0947fb1e931","type":"Grid"},{"attributes":{"formatter":{"id":"d056f7a3-6d07-4588-85d4-e04de03c4f99","type":"BasicTickFormatter"},"plot":{"id":"e956a394-d193-4444-8df1-083a4b9ef76a","subtype":"Figure","type":"Plot"},"ticker":{"id":"efcc56a7-af79-4589-a715-7c8fd613c17d","type":"BasicTicker"}},"id":"8c1d2d1d-09c9-4254-85fd-dc06f40c7967","type":"LinearAxis"},{"attributes":{"line_alpha":0.1,"line_color":"#1f77b4","line_width":2,"x":{"field":"x"},"y":{"field":"y"}},"id":"fb995f1e-6afa-433e-88a3-fadb388b6eb7","type":"Line"},{"attributes":{},"id":"ff273adb-26ab-4762-aa73-e75c1faadf06","type":"BasicTicker"},{"attributes":{"active_drag":"auto","active_inspect":"auto","active_scroll":"auto","active_tap":"auto","tools":[{"id":"3b1c4642-9f60-4acb-aa9d-95f359c20a39","type":"PanTool"},{"id":"a5779f69-4de0-435c-b7bc-bc426140330b","type":"WheelZoomTool"},{"id":"d334b95d-ad0e-4557-9c81-84ccd937bb15","type":"BoxZoomTool"},{"id":"917b01f1-4192-404c-b4c0-62fe59097e91","type":"SaveTool"},{"id":"6a898b88-9559-459d-acad-9f72474f2848","type":"ResetTool"},{"id":"03a0e8fc-ef88-4f39-b633-1808197816cb","type":"HelpTool"}]},"id":"90be74ee-7e41-4a92-8ce9-b9e0b9186b7d","type":"Toolbar"},{"attributes":{},"id":"efcc56a7-af79-4589-a715-7c8fd613c17d","type":"BasicTicker"},{"attributes":{"dimension":1,"plot":{"id":"4d738ae8-db2b-4279-8bc1-5bdbeb7451db","subtype":"Figure","type":"Plot"},"ticker":{"id":"ff273adb-26ab-4762-aa73-e75c1faadf06","type":"BasicTicker"}},"id":"8f993170-d5f3-4f28-94f8-ddd3246a7b52","type":"Grid"},{"attributes":{"line_color":"#1f77b4","line_width":2,"x":{"field":"x"},"y":{"field":"y"}},"id":"103ee152-e9f1-4b86-b961-b946b5063437","type":"Line"},{"attributes":{"plot":{"id":"e956a394-d193-4444-8df1-083a4b9ef76a","subtype":"Figure","type":"Plot"},"ticker":{"id":"efcc56a7-af79-4589-a715-7c8fd613c17d","type":"BasicTicker"}},"id":"6f02c3ae-2085-48de-ae19-3d38838d7043","type":"Grid"},{"attributes":{},"id":"d90c9b4f-bc4b-4d25-9a1e-74b8688a8b32","type":"BasicTickFormatter"},{"attributes":{},"id":"2d0188a9-0a05-40d6-b2e9-7e8d2ffc8a9c","type":"ResetTool"},{"attributes":{},"id":"03a0e8fc-ef88-4f39-b633-1808197816cb","type":"HelpTool"},{"attributes":{"formatter":{"id":"97699a4b-5281-40d3-91d4-071d628deee2","type":"BasicTickFormatter"},"plot":{"id":"e956a394-d193-4444-8df1-083a4b9ef76a","subtype":"Figure","type":"Plot"},"ticker":{"id":"337735ca-7df8-47c0-beb6-a870e5f5143a","type":"BasicTicker"}},"id":"3427b043-e97c-4a76-b79f-db6f00688a91","type":"LinearAxis"},{"attributes":{},"id":"1116f2a8-fe06-443d-b0b1-456cd28d5f65","type":"HelpTool"},{"attributes":{"callback":null},"id":"09eb9b2a-1143-49d3-a839-10de39e08800","type":"DataRange1d"},{"attributes":{},"id":"337735ca-7df8-47c0-beb6-a870e5f5143a","type":"BasicTicker"},{"attributes":{"line_alpha":0.1,"line_color":"#1f77b4","line_width":2,"x":{"field":"x"},"y":{"field":"y"}},"id":"80012463-b452-4008-baaf-99221bb35550","type":"Line"},{"attributes":{"callback":null,"column_names":["x","y"],"data":{"x":{"__ndarray__":"AAAAAAAAAACZbisgYdZDP9fl7zkL1lM/Og7NhkbBXT9dsAqK1dVjPwl6XuCoy2g/Og7NhkbBbT/za5DujFtxP1Ab1elA1nM/45rxbEVRdj8+SjZo+ct4PyLElbN3Rns/Og7NhkbBfT/M3ghB/R2AP6nHEcaqnIE/FOl+TkF+hj+12sNeKGCLP1TjpZvEIJA/TdnpB3WRkj8dUgyQaAKVPxdIUPwYc5c/ED6UaMnjmT/htrbwvFScP9qs+lxtxZ4/1ZKOcjCboD/SjbCoiNOhP86I0t7gC6M/NsXjolpEpD80wAXZsnylP5z8Fp0staY/mPc404Ttpz8BNEqX/iWpP+AM/n4xW6o/3gcgtYmTqz9GRDF5A8ysP0I/U69bBK4/q3tkc9U8rz9UO8PUljqwP4jZy7bT1rA/Btfc0f9ysT+F1O3sKw+yP7hy9s5oq7I/N3AH6pRHsz9rDhDM0eOzP+kLIef9f7Q/aAkyAioctT+cpzrkZri1PxqlS/+SVLY/TkNU4c/wtj/NQGX8+4y3P0s+dhcoKbg/f9x++WTFuD/+2Y8UkWG5P+cYkL3e/bk/QzS6g9iZuj+8lpAPeja7PxiyutVz0rs/dM3km21uvD/sL7snDwu9P0hL5e0Ip70/pWYPtAJDvj8dyeU/pN++P3nkDwaee78/6/8c5ssLwD8nMQisHFrAP9U+HY8ZqMA/g0wychb2wD+/fR04Z0TBP22LMhtkksE/G5lH/mDgwT9YyjLEsS7CPwbYR6eufMI/tOVciqvKwj8=","dtype":"float64","shape":[73]},"y":{"__ndarray__":"AAAAAAAAAAANAiuHFulFQBFYObTIllJA7FG4HoU7WkC4HoXrUTBhQArXo3A9MmVA7FG4HoV7aEBSuB6F60lqQD0K16NwTWtAFK5H4XoEbEAzMzMzM5tsQK5H4XoUHm1APQrXo3CVbUBmZmZmZv5tQKRwPQrXc25Aw/UoXI/Kb0CF61G4Hn1wQI/C9ShcC3FAAAAAAACQcUBSuB6F6w1yQDMzMzMzg3JAzczMzMz0ckDsUbgehV9zQD0K16NwxXNAKVyPwvUkdEBcj8L1KIB0QJqZmZmZ1XRAMzMzMzMndUDXo3A9CnN1QAAAAAAAvHVApHA9Ctf/dUBxPQrXo0B2QKRwPQrXe3ZAPQrXo3C1dkA9CtejcOl2QEjhehSuG3dA7FG4HoVLd0C4HoXrUXh3QClcj8L1oHdAcT0K16PId0A9CtejcO13QK5H4XoUEnhA16NwPQozeEAzMzMzM1N4QAAAAAAAcHhArkfhehSOeEBI4XoUrqd4QK5H4XoUwnhApHA9CtfbeEDD9Shcj/J4QLgehetRCHlAPQrXo3AdeUCkcD0K1y95QM3MzMzMRHlASOF6FK5XeUDsUbgehWd5QGZmZmZmdnlACtejcD2GeUAzMzMzM5N5QBSuR+F6oHlAj8L1KFyreUD2KFyPwrV5QGZmZmZmvnlA7FG4HoXHeUCF61G4Hs15QHsUrkfh0nlAexSuR+HWeUAAAAAAANh5QDMzMzMz03lApHA9CtfHeUDD9Shcj6Z5QOxRuB6FN3lAexSuR+Gyd0A=","dtype":"float64","shape":[73]}}},"id":"a4166659-2506-4a37-be39-61430a27e29b","type":"ColumnDataSource"},{"attributes":{},"id":"70fb9fb1-1363-4554-8e60-4beabca950f0","type":"LinearScale"},{"attributes":{"dimension":1,"plot":{"id":"e956a394-d193-4444-8df1-083a4b9ef76a","subtype":"Figure","type":"Plot"},"ticker":{"id":"337735ca-7df8-47c0-beb6-a870e5f5143a","type":"BasicTicker"}},"id":"2524496e-3fb7-49b4-8e8b-233b221667c8","type":"Grid"},{"attributes":{"data_source":{"id":"90f270a3-c859-4a5c-8d37-2ec1545c11fe","type":"ColumnDataSource"},"glyph":{"id":"b26a8cac-6353-454e-bd61-b3986f36a21d","type":"Line"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"57d03c67-2518-4114-aa81-ba506e0496e0","type":"Line"},"selection_glyph":null,"view":{"id":"be46a123-4219-451a-ad5d-8c73580810ab","type":"CDSView"}},"id":"cb07222b-489c-4dc6-ae16-96f75f558714","type":"GlyphRenderer"},{"attributes":{},"id":"ac2afe28-ed45-4533-a563-942b5c4e3f0e","type":"PanTool"},{"attributes":{"bottom_units":"screen","fill_alpha":{"value":0.5},"fill_color":{"value":"lightgrey"},"left_units":"screen","level":"overlay","line_alpha":{"value":1.0},"line_color":{"value":"black"},"line_dash":[4,4],"line_width":{"value":2},"plot":null,"render_mode":"css","right_units":"screen","top_units":"screen"},"id":"2f1699dd-9698-4441-92b9-cf11869aad72","type":"BoxAnnotation"},{"attributes":{"line_color":"#1f77b4","line_width":2,"x":{"field":"x"},"y":{"field":"y"}},"id":"b26a8cac-6353-454e-bd61-b3986f36a21d","type":"Line"},{"attributes":{"overlay":{"id":"826caa28-9ca8-4b99-98ba-48c5643806cb","type":"BoxAnnotation"}},"id":"d334b95d-ad0e-4557-9c81-84ccd937bb15","type":"BoxZoomTool"},{"attributes":{},"id":"917b01f1-4192-404c-b4c0-62fe59097e91","type":"SaveTool"},{"attributes":{"line_color":"#1f77b4","line_width":2,"x":{"field":"x"},"y":{"field":"y"}},"id":"abd6ef6e-a5ba-461f-87b9-a40dd5519bd8","type":"Line"},{"attributes":{},"id":"de80d3d2-b438-4ae2-919f-64607d4d6de7","type":"SaveTool"},{"attributes":{},"id":"9792d3ea-cb95-4888-acf0-1cbfa3f836bb","type":"PanTool"},{"attributes":{},"id":"11791fd7-87a6-43c4-8c25-ff2a2785bdc5","type":"WheelZoomTool"},{"attributes":{"formatter":{"id":"2dcee466-4804-4752-b169-7e5ef001875a","type":"BasicTickFormatter"},"plot":{"id":"4d738ae8-db2b-4279-8bc1-5bdbeb7451db","subtype":"Figure","type":"Plot"},"ticker":{"id":"f221c742-a0f8-4253-aaa9-fb8ff91680fb","type":"BasicTicker"}},"id":"5f14e428-74f5-486c-9c25-1164d85c3f1c","type":"LinearAxis"}],"root_ids":["e956a394-d193-4444-8df1-083a4b9ef76a","4d738ae8-db2b-4279-8bc1-5bdbeb7451db","59e48602-a3e8-4eee-af3d-94a5b1a5980f"]},"title":"Bokeh Application","version":"0.12.13"}}
+        </script>
+        <script type="text/javascript">
+          (function() {
+            var fn = function() {
+              Bokeh.safely(function() {
+                (function(root) {
+                  function embed_document(root) {
+                    
+                  var docs_json = document.getElementById('c06f8f7a-1b1d-49d6-a254-e31550b90400').textContent;
+                  var render_items = [{"docid":"ed4e65ca-6af9-4832-868a-c4a9f03fdd02","elementid":"3b7cae58-8b8f-4ad2-ad0b-82a9b926dbb2","modelid":"59e48602-a3e8-4eee-af3d-94a5b1a5980f"}];
+                  root.Bokeh.embed.embed_items(docs_json, render_items);
+                
+                  }
+                  if (root.Bokeh !== undefined) {
+                    embed_document(root);
+                  } else {
+                    var attempts = 0;
+                    var timer = setInterval(function(root) {
+                      if (root.Bokeh !== undefined) {
+                        embed_document(root);
+                        clearInterval(timer);
+                      }
+                      attempts++;
+                      if (attempts > 100) {
+                        console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing")
+                        clearInterval(timer);
+                      }
+                    }, 10, root)
+                  }
+                })(window);
+              });
+            };
+            if (document.readyState != "loading") fn();
+            else document.addEventListener("DOMContentLoaded", fn);
+          })();
+        </script>
+    </body>
+</html>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+            </div>
+            <!-- /.entry-content -->
+<section class="well" id="related-posts">
+    <h4>Related Posts:</h4>
+    <ul>
+        <li><a href="../stress-strain-curve-with-4-libraries.html">Plotting a stress-strain curve with four libraries: matplotlib, pandas, altair and bokeh</a></li>
+        <li><a href="../stress-strain-curve-with-python-and-matpotlib.html">Plotting a Stress Strain Curve with Python and Matplotlib</a></li>
+        <li><a href="../circuit-diagram-problem-with-schemdraw.html">Solving a Circuit Diagram Problem with Python and SchemDraw</a></li>
+        <li><a href="../diffusion-problem-python-pint.html">Diffusion Calculation with Python and Pint</a></li>
+        <li><a href="../unit-conversions-with-pint.html">Unit conversions with Python and Pint</a></li>
+    </ul>
+</section>
+    <hr />
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style">
+            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+            <a class="addthis_button_tweet"></a>
+    </div>
+    <!-- AddThis Button END -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<div id="aboutme">
+        <p>
+            <img width="100%" class="img-thumbnail" src="../extra/gear-wrench-icon-512-278694.png"/>
+        </p>
+    <p>
+      <strong>About Peter Kazarinoff</strong><br/>
+        I teach engineering at a community college in the Pacific Northwest. I am interested in programming and how to help students. Here I mostly blog about Python, and how programing can be incorporated into engineering education.
+    </p>
+</div><!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Recent Posts -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+  <ul class="list-group" id="recentposts">
+    <li class="list-group-item"><a href="../thoughts-on-how-to-test-science-code.html">Thoughts on Software Design in Scientific Code</a></li>
+    <li class="list-group-item"><a href="../stream-S01-E01-jupyterhub-intro.html">My first Twitch Stream: S01-E01 JupyterHub Intro and Tools</a></li>
+    <li class="list-group-item"><a href="../jupyterhub-deployment-on-running-in-production.html">Hear my story about deploying JupyterHub on the Running in Production Podcast</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Recent Posts -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="../"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-2">
+      <a href="../tag/engineering.html">engineering</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="../tag/esp8266.html">esp8266</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="../tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="../tag/jupyter.html">jupyter</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="../tag/jupyter-notebook.html">jupyter notebook</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="../tag/matplotlib.html">matplotlib</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="../tag/micropython.html">micropython</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="../tag/pelican.html">pelican</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="../tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="../tag/sensor.html">sensor</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Github -->
+<li class="list-group-item">
+  <h4><i class="fa fa-github fa-lg"></i><span class="icon-label">GitHub Repos</span></h4>
+  <div id="gh_repos">
+    <p class="list-group-item">Status updating...</p>
+  </div>
+  <a href="https://github.com/professorkazarinoff">@professorkazarinoff</a> on GitHub
+</li>
+<!-- End Sidebar/Github -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2021 Peter Kazarinoff
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="../theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../theme/js/respond.min.js"></script>
+
+    <script src="../static/js/custom.js"></script>
+
+
+<!-- GitHub JS Code -->
+<script type="text/javascript">
+$(document).ready(function () {
+  if (!window.jXHR) {
+    var jxhr = document.createElement('script');
+    jxhr.type = 'text/javascript';
+    jxhr.src = '../theme/js/jXHR.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(jxhr, s);
+  }
+
+  github.showRepos({
+    user: 'professorkazarinoff',
+    count: 5,
+    skip_forks: true,
+    target: '#gh_repos'
+  });
+});
+</script>
+<script src="../theme/js/github.js" type="text/javascript"></script>
+<!-- End GitHub JS Code -->
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-116330557-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+    $("div.collapseheader").click(function () {
+    $header = $(this).children("span").first();
+    $codearea = $(this).children(".input_area");
+    console.log($(this).children());
+    $codearea.slideToggle(500, function () {
+        $header.text(function () {
+            return $codearea.is(":visible") ? "Collapse Code" : "Expand Code";
+        });
+    });
+});
+});
+</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cdd8eb4e16bf94c"></script>
+</body>
+</html>

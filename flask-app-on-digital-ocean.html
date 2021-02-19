@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Building a single page Flask App on Digital Ocean - Python for Undergraduate Engineers</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
+<style type="text/css">
+
+    /*some stuff for output/input prompts*/
+    div.cell{border:1px solid transparent;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}div.cell.selected{border-radius:4px;border:thin #ababab solid}
+    div.cell.edit_mode{border-radius:4px;border:thin #008000 solid}
+    div.cell{width:100%;padding:5px 5px 5px 0;margin:0;outline:none}
+    div.prompt{min-width:11ex;padding:.4em;margin:0;font-family:monospace;text-align:right;line-height:1.21429em}
+    @media (max-width:480px){div.prompt{text-align:left}}div.inner_cell{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
+    div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;line-height:1.21429em}
+    div.prompt:empty{padding-top:0;padding-bottom:0}
+    div.input{page-break-inside:avoid;display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;}
+    div.inner_cell{width:90%;}
+    div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;}
+    div.input_prompt{color:navy;border-top:1px solid transparent;}
+    div.output_wrapper{margin-top:5px;position:relative;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+    div.output_scroll{height:24em;width:100%;overflow:auto;border-radius:4px;-webkit-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);-moz-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);}
+    div.output_collapsed{margin:0px;padding:0px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+    div.out_prompt_overlay{height:100%;padding:0px 0.4em;position:absolute;border-radius:4px;}
+    div.out_prompt_overlay:hover{-webkit-box-shadow:inset 0 0 1px #000000;-moz-box-shadow:inset 0 0 1px #000000;box-shadow:inset 0 0 1px #000000;background:rgba(240, 240, 240, 0.5);}
+    div.output_prompt{color:darkred;}
+    
+    a.anchor-link:link{text-decoration:none;padding:0px 20px;visibility:hidden;}
+    h1:hover .anchor-link,h2:hover .anchor-link,h3:hover .anchor-link,h4:hover .anchor-link,h5:hover .anchor-link,h6:hover .anchor-link{visibility:visible;}
+    /* end stuff for output/input prompts*/
+    
+    
+    .highlight-ipynb .hll { background-color: #ffffcc }
+    .highlight-ipynb  { background: #f8f8f8; }
+    .highlight-ipynb .c { color: #408080; font-style: italic } /* Comment */
+    .highlight-ipynb .err { border: 1px solid #FF0000 } /* Error */
+    .highlight-ipynb .k { color: #008000; font-weight: bold } /* Keyword */
+    .highlight-ipynb .o { color: #666666 } /* Operator */
+    .highlight-ipynb .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+    .highlight-ipynb .cp { color: #BC7A00 } /* Comment.Preproc */
+    .highlight-ipynb .c1 { color: #408080; font-style: italic } /* Comment.Single */
+    .highlight-ipynb .cs { color: #408080; font-style: italic } /* Comment.Special */
+    .highlight-ipynb .gd { color: #A00000 } /* Generic.Deleted */
+    .highlight-ipynb .ge { font-style: italic } /* Generic.Emph */
+    .highlight-ipynb .gr { color: #FF0000 } /* Generic.Error */
+    .highlight-ipynb .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+    .highlight-ipynb .gi { color: #00A000 } /* Generic.Inserted */
+    .highlight-ipynb .go { color: #888888 } /* Generic.Output */
+    .highlight-ipynb .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+    .highlight-ipynb .gs { font-weight: bold } /* Generic.Strong */
+    .highlight-ipynb .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+    .highlight-ipynb .gt { color: #0044DD } /* Generic.Traceback */
+    .highlight-ipynb .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+    .highlight-ipynb .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+    .highlight-ipynb .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+    .highlight-ipynb .kp { color: #008000 } /* Keyword.Pseudo */
+    .highlight-ipynb .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+    .highlight-ipynb .kt { color: #B00040 } /* Keyword.Type */
+    .highlight-ipynb .m { color: #666666 } /* Literal.Number */
+    .highlight-ipynb .s { color: #BA2121 } /* Literal.String */
+    .highlight-ipynb .na { color: #7D9029 } /* Name.Attribute */
+    .highlight-ipynb .nb { color: #008000 } /* Name.Builtin */
+    .highlight-ipynb .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+    .highlight-ipynb .no { color: #880000 } /* Name.Constant */
+    .highlight-ipynb .nd { color: #AA22FF } /* Name.Decorator */
+    .highlight-ipynb .ni { color: #999999; font-weight: bold } /* Name.Entity */
+    .highlight-ipynb .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+    .highlight-ipynb .nf { color: #0000FF } /* Name.Function */
+    .highlight-ipynb .nl { color: #A0A000 } /* Name.Label */
+    .highlight-ipynb .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+    .highlight-ipynb .nt { color: #008000; font-weight: bold } /* Name.Tag */
+    .highlight-ipynb .nv { color: #19177C } /* Name.Variable */
+    .highlight-ipynb .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+    .highlight-ipynb .w { color: #bbbbbb } /* Text.Whitespace */
+    .highlight-ipynb .mf { color: #666666 } /* Literal.Number.Float */
+    .highlight-ipynb .mh { color: #666666 } /* Literal.Number.Hex */
+    .highlight-ipynb .mi { color: #666666 } /* Literal.Number.Integer */
+    .highlight-ipynb .mo { color: #666666 } /* Literal.Number.Oct */
+    .highlight-ipynb .sb { color: #BA2121 } /* Literal.String.Backtick */
+    .highlight-ipynb .sc { color: #BA2121 } /* Literal.String.Char */
+    .highlight-ipynb .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+    .highlight-ipynb .s2 { color: #BA2121 } /* Literal.String.Double */
+    .highlight-ipynb .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+    .highlight-ipynb .sh { color: #BA2121 } /* Literal.String.Heredoc */
+    .highlight-ipynb .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+    .highlight-ipynb .sx { color: #008000 } /* Literal.String.Other */
+    .highlight-ipynb .sr { color: #BB6688 } /* Literal.String.Regex */
+    .highlight-ipynb .s1 { color: #BA2121 } /* Literal.String.Single */
+    .highlight-ipynb .ss { color: #19177C } /* Literal.String.Symbol */
+    .highlight-ipynb .bp { color: #008000 } /* Name.Builtin.Pseudo */
+    .highlight-ipynb .vc { color: #19177C } /* Name.Variable.Class */
+    .highlight-ipynb .vg { color: #19177C } /* Name.Variable.Global */
+    .highlight-ipynb .vi { color: #19177C } /* Name.Variable.Instance */
+    .highlight-ipynb .il { color: #666666 } /* Literal.Number.Integer.Long */
+    </style>
+    
+    <style type="text/css">
+    /* Overrides of notebook CSS for static HTML export */
+    div.entry-content {
+      overflow: visible;
+      padding: 8px;
+    }
+    .input_area {
+      padding: 0.2em;
+    }
+    
+    a.heading-anchor {
+     white-space: normal;
+    }
+    
+    .rendered_html
+    code {
+     font-size: .8em;
+    }
+    
+    pre.ipynb {
+      color: black;
+      background: #f7f7f7;
+      border: none;
+      box-shadow: none;
+      margin-bottom: 0;
+      padding: 0;
+      margin: 0px;
+      font-size: 13px;
+    }
+    
+    /* remove the prompt div from text cells */
+    div.text_cell .prompt {
+        display: none;
+    }
+    
+    /* remove horizontal padding from text cells, */
+    /* so it aligns with outer body text */
+    div.text_cell_render {
+        padding: 0.5em 0em;
+    }
+    
+    img.anim_icon{padding:0; border:0; vertical-align:middle; -webkit-box-shadow:none; -box-shadow:none}
+    
+    div.collapseheader {
+        width=100%;
+        padding: 2px;
+        cursor: pointer;
+        font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+    
+    </style>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+    <script type="text/javascript">
+    init_mathjax = function() {
+        if (window.MathJax) {
+            // MathJax loaded
+            MathJax.Hub.Config({
+                tex2jax: {
+                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+                },
+                displayAlign: 'center', // Change this to 'center' to center equations.
+                "HTML-CSS": {
+                    styles: {'.MathJax_Display': {"margin": 0}}
+                }
+            });
+            MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        }
+    }
+    init_mathjax();
+    </script>
+    
+    <link href="./extra/favicon.ico" rel="icon">
+
+<link rel="canonical" href="./flask-app-on-digital-ocean.html">
+
+        <meta name="author" content="Peter D. Kazarinoff" />
+        <meta name="keywords" content="python,flask,thingspeak,mobile,IoT" />
+        <meta name="description" content="In this post, we&#39;ll run through how to set up a single page flask app that shows a temperature pulled from ThingSpeak.com. ThingSpeak has nice looking graphs, but on ThingSpeak it is actually kind of hard to see the value of an individual data point. I want to be able to see the most recent temperature point recorded by my ESP8266 WiFi weather station project on a phone or tablet. By building a flask app and hosting it on Digital Ocean, I can now view the current temperature in a nice big font from anywhere." />
+
+        <meta property="og:site_name" content="Python for Undergraduate Engineers" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Building a single page Flask App on Digital Ocean"/>
+        <meta property="og:url" content="./flask-app-on-digital-ocean.html"/>
+        <meta property="og:description" content="In this post, we&#39;ll run through how to set up a single page flask app that shows a temperature pulled from ThingSpeak.com. ThingSpeak has nice looking graphs, but on ThingSpeak it is actually kind of hard to see the value of an individual data point. I want to be able to see the most recent temperature point recorded by my ESP8266 WiFi weather station project on a phone or tablet. By building a flask app and hosting it on Digital Ocean, I can now view the current temperature in a nice big font from anywhere."/>
+        <meta property="article:published_time" content="2018-08-02" />
+            <meta property="article:section" content="flask" />
+            <meta property="article:tag" content="python" />
+            <meta property="article:tag" content="flask" />
+            <meta property="article:tag" content="thingspeak" />
+            <meta property="article:tag" content="mobile" />
+            <meta property="article:tag" content="IoT" />
+            <meta property="article:author" content="Peter D. Kazarinoff" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="./theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="./theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="./theme/css/pygments/native.css" rel="stylesheet">
+    <link href="./theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="./theme/css/style.css" type="text/css"/>
+        <link href="./static/css/custom.css" rel="stylesheet">
+
+
+
+</head>
+<body>
+
+<!-- .navbar -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="./" class="navbar-brand">
+Python for Undergraduate Engineers            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="./pages/about.html">
+                             About
+                          </a></li>
+                         <li><a href="./pages/book.html">
+                             Book
+                          </a></li>
+                         <li><a href="./pages/now.html">
+                             Now
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+
+<!-- .navbar-search -->
+<li>
+    <span>
+        <form class="navbar-search" action="/search.html">
+            <input type="text" name="q" id="tipue_search_input">
+        </form>
+    </span>
+</li>
+<!-- /.navbar-search -->              <li><a href="./archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+            <ol class="breadcrumb">
+                <li><a href="." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="./category/flask.html" title="flask">flask</a></li>
+                <li class="active">Building a single page Flask App on Digital Ocean</li>
+            </ol>
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="./flask-app-on-digital-ocean.html"
+                       rel="bookmark"
+                       title="Permalink to Building a single page Flask App on Digital Ocean">
+                        Building a single page Flask App on Digital Ocean
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2018-08-02T09:01:00-07:00"> Thu 02 August 2018</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="./tag/python.html">python</a>
+        /
+	<a href="./tag/flask.html">flask</a>
+        /
+	<a href="./tag/thingspeak.html">thingspeak</a>
+        /
+	<a href="./tag/mobile.html">mobile</a>
+        /
+	<a href="./tag/iot.html">IoT</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>In this post, we'll run through how to set up a single page <a href="http://flask.pocoo.org/docs/1.0/"><strong>flask</strong></a> app that shows a temperature pulled from <a href="https://thingspeak.com/">ThingSpeak.com</a>. ThingSpeak has nice looking graphs, but on ThingSpeak it is actually kind of hard to see the value of an individual data point. I want to be able to see the most recent temperature point recorded by my <a href="./posts/micropython/micropython_upload_code.md">ESP8266 WiFi weather station project</a> on a phone or tablet. By building a flask app and hosting it on Digital Ocean, I can now view the current temperature in a nice big font from anywhere.</p>
+<div class="toc"><span class="toctitle">Table of contents:</span><ul>
+<li><a href="#set-up-a-new-digital-ocean-droplet">Set up a new Digital Ocean Droplet</a><ul>
+<li><a href="#create-a-new-droplet">Create a new Droplet</a></li>
+<li><a href="#login-to-server-with-putty">Login to server with PuTTY</a></li>
+<li><a href="#create-a-non-root-sudo-user">Create a non-root sudo user</a></li>
+<li><a href="#copy-ssh-keys-to-the-non-root-sudo-user">Copy SSH keys to the non-root sudo user</a></li>
+</ul>
+</li>
+<li><a href="#acquire-and-configure-a-domain-name">Acquire and configure a domain name</a><ul>
+<li><a href="#purchase-a-domain-name">Purchase a domain name</a></li>
+<li><a href="#point-dns-severs-at-digital-ocean">Point DNS severs at Digital Ocean</a></li>
+<li><a href="#link-the-domain-name-to-the-server-ip-address">Link the domain name to the server IP address</a></li>
+</ul>
+</li>
+<li><a href="#build-the-flask-app">Build the Flask App</a><ul>
+<li><a href="#install-packages">Install packages</a></li>
+<li><a href="#create-a-virtual-environment-and-install-flask">Create a virtual environment and install flask</a></li>
+<li><a href="#build-the-first-simple-flask-app">Build the first simple flask app</a></li>
+<li><a href="#testing-the-first-simple-flask-app">Testing the first simple flask app</a></li>
+</ul>
+</li>
+<li><a href="#set-up-uwsgi-and-systemctl">Set up uWSGI and systemctl</a><ul>
+<li><a href="#configuring-uwsgi">Configuring uWSGI</a><ul>
+<li><a href="#testing-uwsgi">Testing uWSGI</a></li>
+<li><a href="#construct-the-uwsgi-configuration-file">Construct the uWSGI configuration file</a></li>
+</ul>
+</li>
+<li><a href="#construct-a-systemd-file">Construct a systemd file</a><ul>
+<li><a href="#test-with-systemctl">Test with systemctl</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#configure-nginx-and-apply-ssl-security">Configure NGINX and apply SSL security</a><ul>
+<li><a href="#install-nginx">Install NGINX</a></li>
+<li><a href="#configure-nginx">Configure NGINX</a></li>
+<li><a href="#apply-ssl-security">Apply SSL Security</a></li>
+</ul>
+</li>
+<li><a href="#add-bootstrap-styling">Add Bootstrap styling</a></li>
+<li><a href="#pull-the-temperature-from-thingspeakcom-with-requests">Pull the temperature from ThingSpeak.com with requests</a></li>
+<li><a href="#view-the-final-flask-app-online">View the final flask app online</a></li>
+<li><a href="#summary">Summary</a></li>
+</ul>
+</div>
+<h2 id="set-up-a-new-digital-ocean-droplet">Set up a new Digital Ocean Droplet</h2>
+<p>The flask app needs a server to run on. I choose <a href="https://www.digitalocean.com/">Digital Ocean</a> as my cloud server provider. Digital Ocean hosts virtual private servers that run in the cloud. Setting up a server on Digital Ocean is pretty cheap ($5/month) and quick. I host <a href="./posts/jupyterhub/why_jupyter_hub.md">my <strong>Jupyter Hub</strong> server</a> on Digital Ocean, so I am also more familiar with spinning up their servers compared to other cloud providers like Linode or AWS. I like their documentation. It is clear, concise and easy to follow. </p>
+<p>To set up the server for the flask app, I created a new Droplet on Digital Ocean. After creating a new server, it is best practice to create a non-root sudo user.</p>
+<h3 id="create-a-new-droplet">Create a new Droplet</h3>
+<p>Our <a href="http://flask.pocoo.org/docs/1.0/"><strong>flask</strong></a> single page web app built with Python will be hosted on <a href="https://www.digitalocean.com/">Digital Ocean</a>. </p>
+<p>To create a new cloud server, called a <em>Droplet</em> in DigitalOcean-speak, create an account on Digital Ocean. Once logged in select Create &rarr; Droplets in the upper right menu.</p>
+<p><img alt="DO create new droplet" src="./posts/flask/DO_create_new_droplet.PNG"></p>
+<p>The Digital Ocean Droplet options I choose were:</p>
+<ul>
+<li>Ubuntu 18.04.1 x64</li>
+<li>Size: Memory 1G, SSD 25 GB, Transfer 1 TB, Price $5/mo</li>
+<li>Datacenter Region: San Fransisco 2</li>
+<li>Additional Options: None</li>
+<li>SSH keys: <strong>Added all of <a href="./posts/jupyterhub/PuTTYgen_ssh_key.md">my saved SSH keys</a>. You need this to log into the server with PuTTY!</strong></li>
+</ul>
+<p>Create the server with the big green [<strong>Create</strong>] button.</p>
+<p>After the Droplet is created, note the IP address of the server. We'll need the IP address of the droplet for the next step.</p>
+<h3 id="login-to-server-with-putty">Login to server with PuTTY</h3>
+<p>Our first interaction with the server is to log in as root. Then we'll create a non-root sudo user to interact with the server from then on out.</p>
+<p>Open PuTTY and log onto the server as root. See a <a href="./posts/jupyterhub/new_DO_droplet.md">previous post</a> on how to set up PuTTY on Windows 10. To log into the server as root, set the following in PuTYY:</p>
+<ul>
+<li>Hostname (or IP Address): The IP address of the server</li>
+<li>Port: 22</li>
+<li>Connection Type: SSH</li>
+<li>Connection:</li>
+<li>Data:<ul>
+<li>Auto-login username: root</li>
+</ul>
+</li>
+<li>Connection:</li>
+<li>SSH:<ul>
+<li>Auth:</li>
+<li>Private keyfile for Authentication: your saved private SSH key</li>
+</ul>
+</li>
+</ul>
+<p><img alt="PuTTY IP Address" src="./posts/jupyterhub/puTTY_IP_and_Port.png"></p>
+<p><img alt="PuTTY IP Login name" src="./posts/jupyterhub/putty_login_details.png"></p>
+<p><img alt="PuTTY IP Login name" src="./posts/jupyterhub/putty_Auth_SSH_private_key.png"></p>
+<h3 id="create-a-non-root-sudo-user">Create a non-root sudo user</h3>
+<p>I followed the <a href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04">Digital Ocean Initial Server Setup Tutorial</a> to create a non-root sudo user. The commands entered into the PuTTY SSH terminal are below. Note you should change the username to something other than <code>peter</code>. Here and in the <a href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04">Digital Ocean tutorial</a>, a hash symbol <code>#</code> is shown before the commands. The hash <code>#</code> symbol should not be typed, it just represents the fact we are operating as root.</p>
+<div class="highlight"><pre><span></span># adduser peter
+# usermod -aG sudo peter
+# ufw allow OpenSSH
+# ufw enable
+</pre></div>
+
+
+<h3 id="copy-ssh-keys-to-the-non-root-sudo-user">Copy SSH keys to the non-root sudo user</h3>
+<p>Next we'll move the SSH keys stored in the root user's profile to the new sudo user's profile (in my case <code>peter</code>). I've had trouble moving SSH key files and setting permissions correctly in Linux. A <a href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04">Digital Ocean tutorial</a> has a great line that copies the SSH Keys and sets the permissions correctly in one step. If you skip this step, you won't be able to log into the server as the new non-root sudo user you just created. Note you should change the user name from <code>peter</code> to whatever username you picked in the previous step.</p>
+<div class="highlight"><pre><span></span># rsync --archive --chown=peter:peter ~/.ssh /home/peter
+</pre></div>
+
+
+<p>Now let's check if we can log into the server as the new user.</p>
+<p>Exit the PuTTY window by typing <code>exit</code> at the prompt. Open up a new SSH session in PuTTY. Set Connection &rarr; Data &rarr; Auto-login username as the non-root sudo user. (I put <code>peter</code> in the Auto-login username box).</p>
+<p><img alt="PuTTY IP Login name" src="./posts/flask/peter_as_auto_login_username.png"></p>
+<p>When the terminal window opens, you should see your username listed before the prompt. At the prompt, try the following command. Note the dollar sign <code>$</code> does not need to be typed. The dollar sign <code>$</code> is there to indicate the command prompt.</p>
+<div class="highlight"><pre><span></span>$ sudo -l
+User peter may run the following commands on flask-app-server:
+    <span class="o">(</span>ALL : ALL<span class="o">)</span> ALL
+</pre></div>
+
+
+<p>You can type the command <code>exit</code> to close the PuTTY terminal.</p>
+<h2 id="acquire-and-configure-a-domain-name">Acquire and configure a domain name</h2>
+<p>To use secure SSL connections and https with our flask single page app, we need a real domain name.</p>
+<h3 id="purchase-a-domain-name">Purchase a domain name</h3>
+<p>I bought my domain name at <a href="https://domains.google/">Google Domains</a> for $12/year. The price seems reasonable and Digital Ocean has a tutorial that shows how to connect a google domains to Digital Ocean DNS servers.</p>
+<h3 id="point-dns-severs-at-digital-ocean">Point DNS severs at Digital Ocean</h3>
+<p>Once the domain is purchased, the domain's Name Server needs to be pointed at Digital Ocean.</p>
+<p><img alt="Google Domains DNS Routing" src="./posts/jupyterhub/google_domains_dns_routing.png"></p>
+<h3 id="link-the-domain-name-to-the-server-ip-address">Link the domain name to the server IP address</h3>
+<p>On Digital Ocean, login and click [Create] &rarr; [Domains/DNS]. Type in the newly purchased domain name in the box and click [Add Domain]. </p>
+<p><img alt="Digital Ocean Domains-DNS" src="./posts/jupyterhub/DO_manage_domains.png"></p>
+<p>Link the new Domain to the Digital Ocean Droplet by typing in the <code>@</code> symbol in the [HOSTNAME] box and selecting the new Droplet name in the [WILL DIRECT TO] drop down box. Click [Create Record] to link the domain name to the server. You can also link <code>www</code> in the [HOSTNAME] box and select the new Droplet in the [WILL DIRECT TO] dropdown box to link <code>www.yourdomain.com</code> to the server.</p>
+<h2 id="build-the-flask-app">Build the Flask App</h2>
+<p>Now that the server is set up and the domain name is routed to the server, it's time to actually build the flask single page web app.</p>
+<h3 id="install-packages">Install packages</h3>
+<p>Before the single page flask app can be built, a number of packages need to be installed on the server. I followed along with <a href="https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-uswgi-and-nginx-on-ubuntu-18-04">this tutorial</a> from Digital Ocean. </p>
+<p>Log onto the server with PuTTY and type the following commands:</p>
+<div class="highlight"><pre><span></span>$ sudo apt-get update
+$ sudo apt-get upgrade
+$ sudo apt-get install python3-pip
+$ sudo apt-get install python3-dev
+$ sudo apt-get install python3-setuptools
+$ sudo apt-get install python3-venv
+$ sudo apt-get install build-essential libssl-dev libffi-dev 
+</pre></div>
+
+
+<h3 id="create-a-virtual-environment-and-install-flask">Create a virtual environment and install <strong>flask</strong></h3>
+<p>Once the necessary libraries are installed, I created a virtual environment to run the flask app. I usually use <strong>conda</strong> to create virtual environments (see <a href="./posts/virtual_environments/new_virtualenv_conda.md">this post</a>), but since I'm not using the Anaconda distribution of Python for this flask app, <strong>venv</strong> will have to do instead.</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~
+$ mkdir flaskapp
+$ <span class="nb">cd</span> flaskapp
+$ python3.6 -m venv flaskappenv
+$ <span class="nb">source</span> flaskappenv/bin/activate
+</pre></div>
+
+
+<p>With the virtual environment created and activated, install <strong>wheel</strong>, <strong>flask</strong>, <strong>uwsgi</strong> and <strong>requests</strong> with <strong>pip</strong>. We'll use <strong>requests</strong> a little later to pull down temperature data from ThingSpeak.com. Note that <code>(flaskappenv)</code> is shown before the command prompt when the virtual environment is active. Make sure to only <code>pip install</code> within the <code>(flaskappenv)</code> virtual environment.</p>
+<div class="highlight"><pre><span></span><span class="o">(</span>flaskappenv<span class="o">)</span>$ pip install wheel
+<span class="o">(</span>flaskappenv<span class="o">)</span>$ pip install flask
+<span class="o">(</span>flaskappenv<span class="o">)</span>$ pip install uwsgi
+<span class="o">(</span>flaskappenv<span class="o">)</span>$ pip install requests
+</pre></div>
+
+
+<h3 id="build-the-first-simple-flask-app">Build the first simple <strong>flask</strong> app</h3>
+<p>With the Python packages installed, next we'll build a very simple version of the flask app and viewed it in a web browser.</p>
+<div class="highlight"><pre><span></span><span class="o">(</span>flaskappenv<span class="o">)</span>$ <span class="nb">pwd</span>
+<span class="c1"># ~/flaskapp</span>
+<span class="o">(</span>flaskappenv<span class="o">)</span>$ nano flaskapp.py
+</pre></div>
+
+
+<p>In the <strong><em>flaskapp.py</em></strong> file,  I included the bare minimum flask app to test the server:</p>
+<div class="highlight"><pre><span></span><span class="c1"># flaskapp.py</span>
+
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="nd">@app.route</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s2">&quot;&lt;h1&gt;The temperature is 91.2 F&lt;/h1&gt;&quot;</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">&#39;0.0.0.0&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>A note about editing code in the <strong>nano</strong> text editor thru PuTTY: You can paste into a PuTTY terminal window using the right mouse button. Selecting text in PuTTY copies the text to the clip board. Don't use [ctrl-c] or [ctrl-v] to copy and paste in PuTTY. Exit the nano text editor with [ctrl-x].</p>
+<h3 id="testing-the-first-simple-flask-app">Testing the first simple flask app</h3>
+<p>With the first version of <strong><em>flaskapp.py</em></strong> complete, Let's run the <strong>flask</strong> app for the first time to test that everything is working properly.</p>
+<p>To run the <strong>flask</strong> app, I had to make sure I was in the virtual environment built earlier. I also needed to allow port 5000 open on the <strong>ufw</strong> firewall. Port 5000 is the default port <strong>flask</strong> runs on.</p>
+<div class="highlight"><pre><span></span>(flaskappenv)$ sudo ufw allow 5000
+(flaskappenv)$ python flaskapp.py
+</pre></div>
+
+
+<p>It works! By pointing a browser to the Droplet IP address followed by <code>:5000</code>, I can see the simple message: "The temperature is 91.2 F".</p>
+<blockquote>
+<p>124.822.76.209:5000</p>
+</blockquote>
+<p><img alt="flask app no styling" src="./posts/flask/flask_app_no_template.png"></p>
+<h2 id="set-up-uwsgi-and-systemctl">Set up uWSGI and systemctl</h2>
+<p>There are going to be two layers between the flask app and the outside internet. Get requests from web browsers will first come into <strong>NGINX</strong> then go to <strong>uWSGI</strong> before being passed to <strong>flask</strong>. </p>
+<h3 id="configuring-uwsgi">Configuring uWSGI</h3>
+<p>We installed <strong>uWSGI</strong> earlier when we <code>pip</code> installed <strong>flask</strong>. Now <strong>uWSGI</strong> needs to be configured and tested. I followed the <a href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04">Digital Ocean tutorial</a> closely for this step.</p>
+<div class="highlight"><pre><span></span><span class="o">(</span>flaskappenv<span class="o">)</span>$ <span class="nb">pwd</span>
+<span class="c1"># ~/flaskapp</span>
+<span class="o">(</span>flaskappenv<span class="o">)</span>$ nano wsgi.py
+</pre></div>
+
+
+<p>In the <strong><em>wsgi.py</em></strong> file, include:</p>
+<div class="highlight"><pre><span></span><span class="c1"># wsgi.py</span>
+
+<span class="kn">from</span> <span class="nn">flaskapp</span> <span class="kn">import</span> <span class="n">app</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+
+
+<h4 id="testing-uwsgi">Testing uWSGI</h4>
+<p>Next, let's test the configuration. <strong>uWSGI</strong> can be run from the command line with a couple flags:</p>
+<div class="highlight"><pre><span></span><span class="o">(</span>flaskappenv<span class="o">)</span>$ uwsgi --socket <span class="m">0</span>.0.0.0:5000 --protocol<span class="o">=</span>http -w wsgi:app
+</pre></div>
+
+
+<p>When I point a browser to the droplet IP address followed by <code>:5000</code>, I see the simple message  again: "The temperature is 91.2 F". The flask app still seems to be working!</p>
+<p><img alt="flask app no styling" src="./posts/flask/flask_app_no_template.png"></p>
+<h4 id="construct-the-uwsgi-configuration-file">Construct the uWSGI configuration file</h4>
+<p>Now for another layer of <strong>uWSGI</strong> goodness- building a uWSGI <strong><em>.ini</em></strong> configuration file.</p>
+<div class="highlight"><pre><span></span><span class="o">(</span>flaskappenv<span class="o">)</span>$ deactivate
+$ <span class="nb">pwd</span>
+<span class="c1"># ~/flaskapp</span>
+$ nano flaskapp.ini
+</pre></div>
+
+
+<p>Inside the <strong><em>flaskapp.ini</em></strong> file, include the following:</p>
+<div class="highlight"><pre><span></span>[uwsgi]
+module = wsgi:app
+
+master = true
+processes = 5
+
+socket = flaskapp.sock
+chmod-socket = 660
+vacuum = true
+
+die-on-term = true
+</pre></div>
+
+
+<h3 id="construct-a-systemd-file">Construct a <strong>systemd</strong> file</h3>
+<p>Because we want to have the flask app running all the time, let's create a <strong>systemd</strong> control file to get the flask app running as a system service on the server.</p>
+<div class="highlight"><pre><span></span>$ sudo nano /etc/systemd/system/flaskapp.service
+</pre></div>
+
+
+<p>In the <strong><em>flaskapp.service</em></strong> file, I included the following as described in the <a href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04">Digital Ocean tutorial</a>. Note the username <code>peter</code> should be replaced with your non-root sudo user.</p>
+<div class="highlight"><pre><span></span>[Unit]
+Description=uWSGI instance to serve flaskapp
+After=network.target
+
+[Service]
+User=peter
+Group=www-data
+WorkingDirectory=/home/peter/flaskapp
+Environment=&quot;PATH=/home/peter/flaskapp/flaskappenv/bin&quot;
+ExecStart=/home/peter/flaskapp/flaskappenv/bin/uwsgi --ini flaskapp.ini
+
+[Install]
+WantedBy=multi-user.target
+</pre></div>
+
+
+<h4 id="test-with-systemctl">Test with systemctl</h4>
+<p>After the <strong><em>flaskapp.service</em></strong> file is created, we need to reload the systemctl daemon before starting the <code>flaskapp</code> service.</p>
+<div class="highlight"><pre><span></span>$ sudo systemctl daemon-reload
+$ sudo systemctl start flaskapp
+$ sudo systemctl status flaskapp
+</pre></div>
+
+
+<p>The <code>status</code> call should show the service as <code>active (running)</code>. Something like the message below.</p>
+<div class="highlight"><pre><span></span>flaskapp.service - uWSGI instance to serve flaskapp
+   Loaded: loaded (/etc/systemd/system/flaskapp.service; disabled; vendor preset
+   Active: active (running) since Wed 2018-09-12 18:09:15 UTC; 7s ago
+</pre></div>
+
+
+<p>Use [ctrl-c] to exit the status screen. [ctrl-c] will not stop the service.</p>
+<h2 id="configure-nginx-and-apply-ssl-security">Configure NGINX and apply SSL security</h2>
+<p>We'll use NGINX as a proxy server to work with uWSGI and the flask app. The general control flow resulting from GET request will be:</p>
+<p>GET request &rarr; NGINX &rarr; uWSGI &rarr; flaskapp</p>
+<h3 id="install-nginx">Install NGINX</h3>
+<p>Before we can use NGINX, NGINX needs to be installed on the server. Installation is a simple <code>apt-get</code> command. Note that NGINX starts running as soon as it is installed.</p>
+<div class="highlight"><pre><span></span>$ sudo apt-get install nginx
+</pre></div>
+
+
+<h3 id="configure-nginx">Configure NGINX</h3>
+<p>To use NGINX as part of the web stack, we need to create a configuration file in the <code>/etc/nginx/sites-available/</code> directory. The <a href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04">Digital Ocean tutorial</a> was really helpful for this step. NGINX configuration was something I struggled with when I built <a href="./posts/jupyterhub/why_jupyter_hub.md">my <strong>Jupyter Hub</strong> server</a> .</p>
+<div class="highlight"><pre><span></span>$ sudo nano /etc/nginx/sites-available/flaskapp
+</pre></div>
+
+
+<p>Edit the <strong><em>flaskapp</em></strong> NGINX config file the <code>/sites-available</code> directory to include the following. Make sure to change the <code>your_domain</code> and <code>www.your_domain</code> fields:</p>
+<div class="highlight"><pre><span></span>server {
+    listen 80;
+    server_name your_domain wwww.your_domain;
+
+    location / {
+        include uwsgi_params;
+        uwsgi_pass unix:/home/peter/flaskapp/flaskapp.sock;
+    }
+}
+</pre></div>
+
+
+<p>Now we'll link the NGINX config file to the <code>/etc/nginx/sites-enabled</code> directory and restart NGINX with the new configuration. If something doesn't look right on the systemctl status screen, you can check for problems with the command <code>sudo nginx -t</code>. </p>
+<div class="highlight"><pre><span></span>$ sudo ln -s /etc/nginx/sites-available/flaskapp /etc/nginx/sites-enabled
+$ sudo systemctl restart nginx
+$ sudo systemctl status nginx
+<span class="c1">#ctrl-c to exit</span>
+</pre></div>
+
+
+<p>Now that NGINX and uWSGI are running, let's also shut off the <code>:5000</code> development port.</p>
+<div class="highlight"><pre><span></span>$ sudo ufw delete allow <span class="m">5000</span>
+$ sudo ufw allow <span class="s1">&#39;Nginx Full&#39;</span>
+</pre></div>
+
+
+<p>Browse to the web address of the server. This time you won't need to append the address with <code>:5000</code>. Also the web address can be your domain name, not just the server IP address You should see the message: "The temperature is 91.2 F".</p>
+<blockquote>
+<p>http://mydomain.com/</p>
+</blockquote>
+<p><img alt="flask app no styling" src="./posts/flask/flask_app_no_template.png"></p>
+<h3 id="apply-ssl-security">Apply SSL Security</h3>
+<p>One of the reasons for getting a real domain name is so the server can run with SSL security and https. Adding SSL can be done with <strong>certbot</strong>, a Python program that assists with generating SSL certificates. I followed the <a href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04">Digital Ocean tutorial</a> steps to acquire the certificate. Make sure to replace <code>your_domain</code> with your actual domain name.</p>
+<div class="highlight"><pre><span></span>$ sudo add-apt-repository ppa:certbot/certbot
+$ sudo apt install python-certbot-nginx
+$ sudo certbot --nginx -d mydomain.com -d www.mydomain.com
+</pre></div>
+
+
+<p>As part of the <strong>certbot</strong> setup, I selected option <code>2.</code></p>
+<div class="highlight"><pre><span></span>2: Redirect - Make all requests redirect to secure HTTPS access. Choose this for
+new sites, or if you&#39;re confident your site works on HTTPS. You can undo this
+change by editing your web server&#39;s configuration.
+</pre></div>
+
+
+<p>If certbot is successful, you will see a message similar to this:</p>
+<div class="highlight"><pre><span></span><span class="n">IMPORTANT</span> <span class="n">NOTES</span><span class="p">:</span>
+ <span class="o">-</span> <span class="n">Congratulations</span><span class="o">!</span> <span class="n">Your</span> <span class="n">certificate</span> <span class="k">and</span> <span class="k">chain</span> <span class="n">have</span> <span class="n">been</span> <span class="n">saved</span> <span class="k">at</span><span class="p">:</span>
+   <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">letsencrypt</span><span class="o">/</span><span class="n">live</span><span class="o">/</span><span class="n">mydomain</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">fullchain</span><span class="p">.</span><span class="n">pem</span>
+   <span class="n">Your</span> <span class="k">key</span> <span class="n">file</span> <span class="n">has</span> <span class="n">been</span> <span class="n">saved</span> <span class="k">at</span><span class="p">:</span>
+   <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">letsencrypt</span><span class="o">/</span><span class="n">live</span><span class="o">/</span><span class="n">mydomain</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">privkey</span><span class="p">.</span><span class="n">pem</span>
+ <span class="o">```</span>
+
+<span class="n">Now</span> <span class="n">we</span> <span class="k">no</span> <span class="n">longer</span> <span class="n">need</span> <span class="k">to</span> <span class="n">run</span> <span class="n">NGINX</span> <span class="k">with</span> <span class="n">HTTP</span><span class="p">,</span> <span class="n">since</span> <span class="n">we</span> <span class="n">can</span> <span class="n">now</span> <span class="n">run</span> <span class="n">NGINX</span> <span class="k">with</span> <span class="n">HTTPS</span><span class="p">.</span> <span class="k">All</span> <span class="n">the</span> <span class="n">HTTP</span> <span class="n">traffic</span> <span class="n">will</span> <span class="n">be</span> <span class="n">forwarded</span> <span class="k">to</span> <span class="n">HTTPS</span><span class="p">.</span>
+
+<span class="o">```</span><span class="n">bash</span>
+<span class="err">$</span> <span class="n">sudo</span> <span class="n">ufw</span> <span class="k">delete</span> <span class="n">allow</span> <span class="s1">&#39;Nginx Full&#39;</span>
+<span class="err">$</span> <span class="n">sudo</span> <span class="n">ufw</span> <span class="n">allow</span> <span class="s1">&#39;Nginx HTTPS&#39;</span>
+</pre></div>
+
+
+<h2 id="add-bootstrap-styling">Add Bootstrap styling</h2>
+<p>The single page app is pretty basic right now. It also isn't designed to look good on phones or tablets. I plan on using my phone to view the flask app most of the time, so I decided to use bootstrap styling and the jumbotron component from bootstrap in the flask app.</p>
+<p>To keep things simple, I used the bootstrap CDN instead of installing the whole bootstrap package to the server. On the <a href="https://getbootstrap.com/docs/3.3/getting-started/">bootstrap3 install page</a> is the content we need to add to the top of our <strong><em>.html</em></strong> template.</p>
+<p>To make the temperature display look nicer, I utilized the <a href="https://github.com/heimrichhannot/bootstrap/blob/master/docs/4.0/examples/jumbotron/index.html">bootstrap jumbotron component</a>. If you follow the link, you will see a couple lines of html that need to be included first in the <code>&lt;header&gt;</code> portion of the template.</p>
+<p>To add the bootstrap styling I created a jinga template called <strong><em>index.html</em></strong> and placed a modified version of the html for the jumbotron component and bootstrap CDN inside. On the server, we need to create a <code>templates</code> directory to store the jinja template. <code>&lt;main_app&gt;/templates</code> is the default location for jinga templates when running <strong>flask</strong>.</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/flaskapp
+$ mkdir templates
+$ <span class="nb">cd</span> templates
+$ nano index.html
+</pre></div>
+
+
+<p>The <strong><em>index.html</em></strong> template contains a <code>&lt;header&gt;</code> with the bootstrap3 CDN and a <code>&lt;body&gt;</code> which contains the jumbotron component.</p>
+<div class="highlight"><pre><span></span><span class="c">&lt;!-- index.html --&gt;</span>
+<span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;en&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;UTF-8&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">meta</span> <span class="na">http-equiv</span><span class="o">=</span><span class="s">&quot;X-UA-Compatible&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;IE=edge&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1&quot;</span><span class="p">&gt;</span>    
+<span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>show temp<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+
+<span class="c">&lt;!-- Latest compiled and minified CSS --&gt;</span>
+<span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span><span class="p">&gt;</span>
+
+<span class="c">&lt;!-- Optional theme --&gt;</span>
+<span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span><span class="p">&gt;</span>
+
+<span class="c">&lt;!-- Latest compiled and minified JavaScript --&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container-fluid&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;jumbotron&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">hr</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;my-4&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">h1</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;display-4&quot;</span><span class="p">&gt;</span> 91.4 F<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;lead&quot;</span><span class="p">&gt;</span>temperature inside<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">hr</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;my-4&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>        
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+
+
+<p>Now we need to modify the <strong><em>flaskapp.py</em></strong> file to point to our <strong><em>index.html</em></strong> template. A new <strong>flask</strong> function, <code>render_template()</code> is used. <code>render_template</code> must be included in the imports and is used as the <code>return</code> action of the <code>@app.route("/")</code> <code>index()</code> function.</p>
+<div class="highlight"><pre><span></span>$ nano ~/flaskapp/flaskapp.py
+</pre></div>
+
+
+<p>The revised <strong><em>flaskapp.py</em></strong> file is below.</p>
+<div class="highlight"><pre><span></span><span class="c1"># flaskapp.py</span>
+
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="nd">@app.route</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;index.html&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">&#39;0.0.0.0&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>We can view our changes by reloading the flaskapp system service and browsing to the server domain's main page.</p>
+<div class="highlight"><pre><span></span>$ sudo systemctl stop flaskapp
+$ sudo systemctl start flaskapp
+$ sudo systemctl status flaskapp
+<span class="c1"># [ctrl-c] to exit</span>
+</pre></div>
+
+
+<p><img alt="temp inside" src="./posts/flask/temp_inside.png"></p>
+<h2 id="pull-the-temperature-from-thingspeakcom-with-requests">Pull the temperature from ThingSpeak.com with <strong>requests</strong></h2>
+<p>The final step of this flask single page app project is to dynamically pull the temperature from ThingSpeak.com and show it as a web page.</p>
+<p>Right now the flask app only shows the static temperature <code>91.4 F</code>.  However, the whole point of the app is to see the current temperatures the WiFi weather stations measure.</p>
+<p>To grab the temperatures off of ThingSpeak.com, we'll use the <strong>requests</strong> package. According to the <a href="https://www.mathworks.com/help/thingspeak/rest-api.html">ThingSpeak.com web API documentation</a>, the format of our GET request needs to be:</p>
+<div class="highlight"><pre><span></span>https://api.thingspeak.com/channels/&lt;channel_id&gt;/fields/&lt;field_id&gt;/last.&lt;format&gt;
+</pre></div>
+
+
+<p><code>&lt;channel_id&gt;</code> corresponds to the channel number on ThingSpeak.com. My WiFi weather stations are on a public channel. <code>&lt;field_id&gt;</code> is the field number held by the ThingSpeak channel. Each ThingSpeak channel can have multiple fields. The temperature we care about is in field <code>1</code>. The <code>&lt;format&gt;</code> we want is <code>.txt</code>. We could grab <code>.json</code> or a <code>.csv</code> off of ThingSpeak, but since we only need one temperature reading at a time, <code>.txt</code> is the easiest. </p>
+<p>Let's try out the ThingSpeak web API using the Python REPL. Make sure <strong>requests</strong> is installed in the virtual environment before importing it. On the server try:</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">source</span> ~/flaskapp/flaskappenv/bin/activate
+<span class="o">(</span>flaskappenv<span class="o">)</span>$ python
+
+&gt;&gt;&gt; import requests
+&gt;&gt;&gt; <span class="nv">r</span> <span class="o">=</span> requests.get<span class="o">(</span><span class="s1">&#39;https://api.thingspeak.com/channels/266256/fields/2/last.txt&#39;</span><span class="o">)</span>
+&gt;&gt;&gt; print<span class="o">(</span>r.text<span class="o">)</span>
+-1
+&gt;&gt;&gt; exit<span class="o">()</span>
+
+<span class="o">(</span>flaskappenv<span class="o">)</span>$ deactivate
+$
+</pre></div>
+
+
+<p>Now we need to use this same web API call shown above in the flask app. Modify <strong><em>flaskapp.py</em></strong> to include the <strong>requests</strong> package and include the web API request as a line the <code>index()</code> function. I also included a line to convert the temperature from &deg;F to &deg;C. When the temperature value comes in from ThingSpeak, it is a string. The temperature value needs to be converted to a float before the &deg;C to &deg;F conversion can be accomplished. After the conversion, the temperature in &deg;F needs to be converted back to a string. A string is needed because the temperature in &deg;F is passed to the <code>render_template()</code> function as the parameter <code>temp</code> will be used in a revised version of our jinja template <strong><em>index.html</em></strong>. The extra argument in the <code>render_template()</code> function transfers the variable <code>temp_f</code> from the <strong><em>flaskapp.py</em></strong> file to the jinja template <strong><em>index.html</em></strong>.</p>
+<div class="highlight"><pre><span></span>$ nano ~/flaskapp/flaskapp.py
+</pre></div>
+
+
+<p>The modified <strong><em>flaskapp.py</em></strong> script is below:</p>
+<div class="highlight"><pre><span></span><span class="c1"># flaskapp.py</span>
+
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="nd">@app.route</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://api.thingspeak.com/channels/254616/fields/1/last.txt&#39;</span><span class="p">)</span>
+    <span class="n">temp_c_in</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">text</span>
+    <span class="n">temp_f</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(((</span><span class="mf">9.0</span> <span class="o">/</span> <span class="mf">5.0</span><span class="p">)</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">temp_c_in</span><span class="p">)</span> <span class="o">+</span> <span class="mi">32</span><span class="p">),</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; F&#39;</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;index.html&quot;</span><span class="p">,</span> <span class="n">temp</span><span class="o">=</span><span class="n">temp_f</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">&#39;0.0.0.0&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Finally, we need to modify the <strong><em>index.html</em></strong> template and test the whole flask app. We passed a parameter <code>temp</code> from <strong><em>flaskapp.py</em></strong> to this template. The <code>temp</code> parameter can be used programmatically in the jinja <strong><em>index.html</em></strong> template. The value stored in <code>temp</code> will end up displayed on the working web page. Jinja templates use code blocks that start and end with double curly brackets <code>{{ }}</code>. Our <code>temp</code> parameter goes into one of these blocks.</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/flaskapp/templates
+$ nano index.html
+</pre></div>
+
+
+<p>The revised <strong><em>index.html</em></strong> file is below:</p>
+<div class="highlight"><pre><span></span><span class="c">&lt;!-- index.html --&gt;</span>
+<span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;en&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;UTF-8&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">meta</span> <span class="na">http-equiv</span><span class="o">=</span><span class="s">&quot;X-UA-Compatible&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;IE=edge&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1&quot;</span><span class="p">&gt;</span>    
+<span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>show temp<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+
+<span class="c">&lt;!-- Latest compiled and minified CSS --&gt;</span>
+<span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span><span class="p">&gt;</span>
+
+<span class="c">&lt;!-- Optional theme --&gt;</span>
+<span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span><span class="p">&gt;</span>
+
+<span class="c">&lt;!-- Latest compiled and minified JavaScript --&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container-fluid&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;jumbotron&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">hr</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;my-4&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">h1</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;display-4&quot;</span><span class="p">&gt;</span> {{ temp }} <span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;lead&quot;</span><span class="p">&gt;</span>temperature inside<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">hr</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;my-4&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>        
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+
+
+<h2 id="view-the-final-flask-app-online">View the final flask app online</h2>
+<p>With the changes to <strong><em>readtemp.py</em></strong> and <strong><em>index.html</em></strong> complete, we can restart the flask app system service and view our app with a web browser.</p>
+<div class="highlight"><pre><span></span>$ sudo systemctl stop flaskapp
+$ sudo systemctl start flaskapp
+$ sudo systemctl status flaskapp
+<span class="c1"># [ctrl-c] to exit</span>
+</pre></div>
+
+
+<p>The final single page flask web app is complete!</p>
+<p>If everything is working correctly, you should see the working app running on your domain looks like this.</p>
+<p><img alt="flask app running" src="./posts/flask/simple_index.png"></p>
+<h2 id="summary">Summary</h2>
+<p>It was a long process to construct this <strong>flask</strong> single page webapp project. A lot for technologies and languages were used.</p>
+<p>An incomplete list is below:</p>
+<ul>
+<li>cloud servers</li>
+<li>DNS Servers</li>
+<li>Linux</li>
+<li>SSH and SSH keys</li>
+<li>PuTTY</li>
+<li>Python</li>
+<li>Flask</li>
+<li>systemd</li>
+<li>uWSGI</li>
+<li>NGINX</li>
+<li>SSL and certbot</li>
+<li>web API's</li>
+<li>jinja templates</li>
+<li>html</li>
+<li>bootstrap</li>
+</ul>
+<p>That's a lot of stuff to go in one project. </p>
+<p>The next thing I'm thinking about is building a <strong>flask</strong> IoT (internet of things) server that accepts GET requests from <a href="./posts/micropython/micropython_upload_code.md">ESP8266 weather stations</a>. ThingSpeak.com works great as an IoT sever, but there are limits to how often data can be posted and how often data can be accessed. I think writing my own IoT server in <strong>flask</strong> would be fun too!</p>
+            </div>
+            <!-- /.entry-content -->
+<section class="well" id="related-posts">
+    <h4>Related Posts:</h4>
+    <ul>
+        <li><a href="./flask-iot-server-validation-time-stamps.html">Building an IoT Server with flask and Python - Part 4 Validation and Timestamps</a></li>
+        <li><a href="./flask-iot-server-setup.html">Building an IoT Server with flask and Python - Part 2 Set Up</a></li>
+        <li><a href="./flask-iot-server-motivation.html">Building an IoT Server with Flask and Python - Part 1 Motivation</a></li>
+        <li><a href="./flask-iot-server-upload-code-to-esp8266.html">Building an IoT Server with flask and Python - Part 6 - upload code to ESP8266-based WiFi weather stations</a></li>
+        <li><a href="./flask-iot-server-database.html">Building an IoT Server with flask and Python - Part 5 Adding a Database</a></li>
+    </ul>
+</section>
+    <hr />
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style">
+            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+            <a class="addthis_button_tweet"></a>
+    </div>
+    <!-- AddThis Button END -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<div id="aboutme">
+        <p>
+            <img width="100%" class="img-thumbnail" src="./extra/gear-wrench-icon-512-278694.png"/>
+        </p>
+    <p>
+      <strong>About Peter Kazarinoff</strong><br/>
+        I teach engineering at a community college in the Pacific Northwest. I am interested in programming and how to help students. Here I mostly blog about Python, and how programing can be incorporated into engineering education.
+    </p>
+</div><!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Recent Posts -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+  <ul class="list-group" id="recentposts">
+    <li class="list-group-item"><a href="./thoughts-on-how-to-test-science-code.html">Thoughts on Software Design in Scientific Code</a></li>
+    <li class="list-group-item"><a href="./stream-S01-E01-jupyterhub-intro.html">My first Twitch Stream: S01-E01 JupyterHub Intro and Tools</a></li>
+    <li class="list-group-item"><a href="./jupyterhub-deployment-on-running-in-production.html">Hear my story about deploying JupyterHub on the Running in Production Podcast</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Recent Posts -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="./"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-2">
+      <a href="./tag/engineering.html">engineering</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/esp8266.html">esp8266</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="./tag/jupyter.html">jupyter</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="./tag/jupyter-notebook.html">jupyter notebook</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="./tag/matplotlib.html">matplotlib</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/micropython.html">micropython</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/pelican.html">pelican</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="./tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/sensor.html">sensor</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Github -->
+<li class="list-group-item">
+  <h4><i class="fa fa-github fa-lg"></i><span class="icon-label">GitHub Repos</span></h4>
+  <div id="gh_repos">
+    <p class="list-group-item">Status updating...</p>
+  </div>
+  <a href="https://github.com/professorkazarinoff">@professorkazarinoff</a> on GitHub
+</li>
+<!-- End Sidebar/Github -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2021 Peter Kazarinoff
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="./theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="./theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="./theme/js/respond.min.js"></script>
+
+    <script src="./static/js/custom.js"></script>
+
+
+<!-- GitHub JS Code -->
+<script type="text/javascript">
+$(document).ready(function () {
+  if (!window.jXHR) {
+    var jxhr = document.createElement('script');
+    jxhr.type = 'text/javascript';
+    jxhr.src = './theme/js/jXHR.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(jxhr, s);
+  }
+
+  github.showRepos({
+    user: 'professorkazarinoff',
+    count: 5,
+    skip_forks: true,
+    target: '#gh_repos'
+  });
+});
+</script>
+<script src="./theme/js/github.js" type="text/javascript"></script>
+<!-- End GitHub JS Code -->
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-116330557-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+    $("div.collapseheader").click(function () {
+    $header = $(this).children("span").first();
+    $codearea = $(this).children(".input_area");
+    console.log($(this).children());
+    $codearea.slideToggle(500, function () {
+        $header.text(function () {
+            return $codearea.is(":visible") ? "Collapse Code" : "Expand Code";
+        });
+    });
+});
+});
+</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cdd8eb4e16bf94c"></script>
+</body>
+</html>

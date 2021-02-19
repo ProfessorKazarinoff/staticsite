@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Installing Micropython on an Adafruit Feather Huzzah ESP8266 - Python for Undergraduate Engineers</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
+<style type="text/css">
+
+    /*some stuff for output/input prompts*/
+    div.cell{border:1px solid transparent;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}div.cell.selected{border-radius:4px;border:thin #ababab solid}
+    div.cell.edit_mode{border-radius:4px;border:thin #008000 solid}
+    div.cell{width:100%;padding:5px 5px 5px 0;margin:0;outline:none}
+    div.prompt{min-width:11ex;padding:.4em;margin:0;font-family:monospace;text-align:right;line-height:1.21429em}
+    @media (max-width:480px){div.prompt{text-align:left}}div.inner_cell{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
+    div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;line-height:1.21429em}
+    div.prompt:empty{padding-top:0;padding-bottom:0}
+    div.input{page-break-inside:avoid;display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;}
+    div.inner_cell{width:90%;}
+    div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;}
+    div.input_prompt{color:navy;border-top:1px solid transparent;}
+    div.output_wrapper{margin-top:5px;position:relative;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+    div.output_scroll{height:24em;width:100%;overflow:auto;border-radius:4px;-webkit-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);-moz-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);}
+    div.output_collapsed{margin:0px;padding:0px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+    div.out_prompt_overlay{height:100%;padding:0px 0.4em;position:absolute;border-radius:4px;}
+    div.out_prompt_overlay:hover{-webkit-box-shadow:inset 0 0 1px #000000;-moz-box-shadow:inset 0 0 1px #000000;box-shadow:inset 0 0 1px #000000;background:rgba(240, 240, 240, 0.5);}
+    div.output_prompt{color:darkred;}
+    
+    a.anchor-link:link{text-decoration:none;padding:0px 20px;visibility:hidden;}
+    h1:hover .anchor-link,h2:hover .anchor-link,h3:hover .anchor-link,h4:hover .anchor-link,h5:hover .anchor-link,h6:hover .anchor-link{visibility:visible;}
+    /* end stuff for output/input prompts*/
+    
+    
+    .highlight-ipynb .hll { background-color: #ffffcc }
+    .highlight-ipynb  { background: #f8f8f8; }
+    .highlight-ipynb .c { color: #408080; font-style: italic } /* Comment */
+    .highlight-ipynb .err { border: 1px solid #FF0000 } /* Error */
+    .highlight-ipynb .k { color: #008000; font-weight: bold } /* Keyword */
+    .highlight-ipynb .o { color: #666666 } /* Operator */
+    .highlight-ipynb .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+    .highlight-ipynb .cp { color: #BC7A00 } /* Comment.Preproc */
+    .highlight-ipynb .c1 { color: #408080; font-style: italic } /* Comment.Single */
+    .highlight-ipynb .cs { color: #408080; font-style: italic } /* Comment.Special */
+    .highlight-ipynb .gd { color: #A00000 } /* Generic.Deleted */
+    .highlight-ipynb .ge { font-style: italic } /* Generic.Emph */
+    .highlight-ipynb .gr { color: #FF0000 } /* Generic.Error */
+    .highlight-ipynb .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+    .highlight-ipynb .gi { color: #00A000 } /* Generic.Inserted */
+    .highlight-ipynb .go { color: #888888 } /* Generic.Output */
+    .highlight-ipynb .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+    .highlight-ipynb .gs { font-weight: bold } /* Generic.Strong */
+    .highlight-ipynb .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+    .highlight-ipynb .gt { color: #0044DD } /* Generic.Traceback */
+    .highlight-ipynb .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+    .highlight-ipynb .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+    .highlight-ipynb .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+    .highlight-ipynb .kp { color: #008000 } /* Keyword.Pseudo */
+    .highlight-ipynb .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+    .highlight-ipynb .kt { color: #B00040 } /* Keyword.Type */
+    .highlight-ipynb .m { color: #666666 } /* Literal.Number */
+    .highlight-ipynb .s { color: #BA2121 } /* Literal.String */
+    .highlight-ipynb .na { color: #7D9029 } /* Name.Attribute */
+    .highlight-ipynb .nb { color: #008000 } /* Name.Builtin */
+    .highlight-ipynb .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+    .highlight-ipynb .no { color: #880000 } /* Name.Constant */
+    .highlight-ipynb .nd { color: #AA22FF } /* Name.Decorator */
+    .highlight-ipynb .ni { color: #999999; font-weight: bold } /* Name.Entity */
+    .highlight-ipynb .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+    .highlight-ipynb .nf { color: #0000FF } /* Name.Function */
+    .highlight-ipynb .nl { color: #A0A000 } /* Name.Label */
+    .highlight-ipynb .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+    .highlight-ipynb .nt { color: #008000; font-weight: bold } /* Name.Tag */
+    .highlight-ipynb .nv { color: #19177C } /* Name.Variable */
+    .highlight-ipynb .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+    .highlight-ipynb .w { color: #bbbbbb } /* Text.Whitespace */
+    .highlight-ipynb .mf { color: #666666 } /* Literal.Number.Float */
+    .highlight-ipynb .mh { color: #666666 } /* Literal.Number.Hex */
+    .highlight-ipynb .mi { color: #666666 } /* Literal.Number.Integer */
+    .highlight-ipynb .mo { color: #666666 } /* Literal.Number.Oct */
+    .highlight-ipynb .sb { color: #BA2121 } /* Literal.String.Backtick */
+    .highlight-ipynb .sc { color: #BA2121 } /* Literal.String.Char */
+    .highlight-ipynb .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+    .highlight-ipynb .s2 { color: #BA2121 } /* Literal.String.Double */
+    .highlight-ipynb .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+    .highlight-ipynb .sh { color: #BA2121 } /* Literal.String.Heredoc */
+    .highlight-ipynb .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+    .highlight-ipynb .sx { color: #008000 } /* Literal.String.Other */
+    .highlight-ipynb .sr { color: #BB6688 } /* Literal.String.Regex */
+    .highlight-ipynb .s1 { color: #BA2121 } /* Literal.String.Single */
+    .highlight-ipynb .ss { color: #19177C } /* Literal.String.Symbol */
+    .highlight-ipynb .bp { color: #008000 } /* Name.Builtin.Pseudo */
+    .highlight-ipynb .vc { color: #19177C } /* Name.Variable.Class */
+    .highlight-ipynb .vg { color: #19177C } /* Name.Variable.Global */
+    .highlight-ipynb .vi { color: #19177C } /* Name.Variable.Instance */
+    .highlight-ipynb .il { color: #666666 } /* Literal.Number.Integer.Long */
+    </style>
+    
+    <style type="text/css">
+    /* Overrides of notebook CSS for static HTML export */
+    div.entry-content {
+      overflow: visible;
+      padding: 8px;
+    }
+    .input_area {
+      padding: 0.2em;
+    }
+    
+    a.heading-anchor {
+     white-space: normal;
+    }
+    
+    .rendered_html
+    code {
+     font-size: .8em;
+    }
+    
+    pre.ipynb {
+      color: black;
+      background: #f7f7f7;
+      border: none;
+      box-shadow: none;
+      margin-bottom: 0;
+      padding: 0;
+      margin: 0px;
+      font-size: 13px;
+    }
+    
+    /* remove the prompt div from text cells */
+    div.text_cell .prompt {
+        display: none;
+    }
+    
+    /* remove horizontal padding from text cells, */
+    /* so it aligns with outer body text */
+    div.text_cell_render {
+        padding: 0.5em 0em;
+    }
+    
+    img.anim_icon{padding:0; border:0; vertical-align:middle; -webkit-box-shadow:none; -box-shadow:none}
+    
+    div.collapseheader {
+        width=100%;
+        padding: 2px;
+        cursor: pointer;
+        font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+    
+    </style>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+    <script type="text/javascript">
+    init_mathjax = function() {
+        if (window.MathJax) {
+            // MathJax loaded
+            MathJax.Hub.Config({
+                tex2jax: {
+                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+                },
+                displayAlign: 'center', // Change this to 'center' to center equations.
+                "HTML-CSS": {
+                    styles: {'.MathJax_Display': {"margin": 0}}
+                }
+            });
+            MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        }
+    }
+    init_mathjax();
+    </script>
+    
+    <link href="./extra/favicon.ico" rel="icon">
+
+<link rel="canonical" href="./micropython-install.html">
+
+        <meta name="author" content="Peter D. Kazarinoff" />
+        <meta name="keywords" content="python,micropython,esp8266,microcontroller,REPL" />
+        <meta name="description" content="This is the second part of a multipart series on Micropython. Micropython is a port of the Python programming language that runs on small, inexpensive microcontrollers. In this post, we will install Micropython on an Adafruit Feather Huzzah ESP8266 board using Python and a package called esptool. In subsequent posts …" />
+
+        <meta property="og:site_name" content="Python for Undergraduate Engineers" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Installing Micropython on an Adafruit Feather Huzzah ESP8266"/>
+        <meta property="og:url" content="./micropython-install.html"/>
+        <meta property="og:description" content="This is the second part of a multipart series on Micropython. Micropython is a port of the Python programming language that runs on small, inexpensive microcontrollers. In this post, we will install Micropython on an Adafruit Feather Huzzah ESP8266 board using Python and a package called esptool. In subsequent posts …"/>
+        <meta property="article:published_time" content="2018-03-01" />
+            <meta property="article:section" content="micropython" />
+            <meta property="article:tag" content="python" />
+            <meta property="article:tag" content="micropython" />
+            <meta property="article:tag" content="esp8266" />
+            <meta property="article:tag" content="microcontroller" />
+            <meta property="article:tag" content="REPL" />
+            <meta property="article:author" content="Peter D. Kazarinoff" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="./theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="./theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="./theme/css/pygments/native.css" rel="stylesheet">
+    <link href="./theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="./theme/css/style.css" type="text/css"/>
+        <link href="./static/css/custom.css" rel="stylesheet">
+
+
+
+</head>
+<body>
+
+<!-- .navbar -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="./" class="navbar-brand">
+Python for Undergraduate Engineers            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="./pages/about.html">
+                             About
+                          </a></li>
+                         <li><a href="./pages/book.html">
+                             Book
+                          </a></li>
+                         <li><a href="./pages/now.html">
+                             Now
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+
+<!-- .navbar-search -->
+<li>
+    <span>
+        <form class="navbar-search" action="/search.html">
+            <input type="text" name="q" id="tipue_search_input">
+        </form>
+    </span>
+</li>
+<!-- /.navbar-search -->              <li><a href="./archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+            <ol class="breadcrumb">
+                <li><a href="." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="./category/micropython.html" title="micropython">micropython</a></li>
+                <li class="active">Installing Micropython on an Adafruit Feather Huzzah ESP8266</li>
+            </ol>
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="./micropython-install.html"
+                       rel="bookmark"
+                       title="Permalink to Installing Micropython on an Adafruit Feather Huzzah ESP8266">
+                        Installing Micropython on an Adafruit Feather Huzzah ESP8266
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2018-03-01T14:20:00-08:00"> Thu 01 March 2018</time>
+    </span>
+
+            <span class="label label-default">Series</span>
+            Part 2 of micropython
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="./tag/python.html">python</a>
+        /
+	<a href="./tag/micropython.html">micropython</a>
+        /
+	<a href="./tag/esp8266.html">esp8266</a>
+        /
+	<a href="./tag/microcontroller.html">microcontroller</a>
+        /
+	<a href="./tag/repl.html">REPL</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>This is the second part of a multipart series on Micropython. Micropython is a port of the Python programming language that runs on small, inexpensive microcontrollers. In this post, we will install Micropython on an Adafruit Feather Huzzah ESP8266 board using Python and a package called esptool. In subsequent posts we will build our Feather Huzzah microcontroller into a WiFi-enabled weather station. The posts in this series:</p>
+<ol>
+<li><a href="./what-is-micropython.html">What is Micropython?</a></li>
+<li>Installing Micropython on an Adafruit Feather Huzzah ESP8266 (This post)</li>
+<li>Blink an LED on an Adafruit Feather Huzzah ESP8266 using Micropython</li>
+<li>Read the temperature from a MCP9808 breakout board using Micropyton</li>
+<li>Use Micropython to connect an Adafruit Feather Huzzah to a WiFi network</li>
+<li>Upload Micropython code to turn an Adafruit Feather Huzzah into a WiFi-enabled IoT weather station</li>
+</ol>
+<p>To install Micropython on a microcontroller, like the Adafruit Feather Huzzah ESP8266, we need the following hardware:</p>
+<table class="table table-striped table-bordered table-hover">
+<thead>
+<tr>
+<th>Hardware</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Windows 10 Laptop</td>
+<td>Used to download Micropython and install Micropython on the microcontroller</td>
+</tr>
+<tr>
+<td>Adafruit Feather Huzzah ESP8266</td>
+<td>Microcontroller that will run Microphythonn</td>
+</tr>
+<tr>
+<td>microUSB Cable</td>
+<td>Used to connect the laptop to the microcontroller</td>
+</tr>
+</tbody>
+</table>
+<p>To install Micropython we will use the following software and tools:</p>
+<table class="table table-striped table-bordered table-hover">
+<thead>
+<tr>
+<th>Software</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Windows 10</td>
+<td>Download Micropython</td>
+</tr>
+<tr>
+<td>Anaconda distribution of Python</td>
+<td>Run the esptool that installs Micropython</td>
+</tr>
+<tr>
+<td>Anaconda Prompt</td>
+<td>Install the esptool package using pip</td>
+</tr>
+<tr>
+<td>esptool</td>
+<td>a pip installable package used to install Micropython</td>
+</tr>
+<tr>
+<td>firmware .bin file</td>
+<td>the version of Micropython will run on the Feather Huzzah board</td>
+</tr>
+</tbody>
+</table>
+<h3 id="summary-of-steps">Summary of Steps:</h3>
+<ol>
+<li>Install the <a href="https://www.anaconda.com/download/">Anaconda distribution</a> of Python</li>
+<li>Create a new conda environment and <code>pip install esptool</code></li>
+<li>Download the <a href="http://micropython.org/download#esp8266">latest Micropython .bin firmware file</a></li>
+<li>Install the <a href="https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers">SiLabs driver</a> for the Adafruit Feather Huzzah ESP8266</li>
+<li>Connect the Adafruit Feather Huzzah ESP8266 board to the laptop using a microUSB cable</li>
+<li>Determine which serial port the Feather Huzzah is connected to</li>
+<li>Run the esptool to upload the .bin firmware file to the Feather Huzzah</li>
+<li>Download and install <a href="https://www.putty.org/">Putty</a>, a serial monitor</li>
+<li>Use Putty to connect to the Feather Huzzah and run commands in the Micropython REPL</li>
+</ol>
+<h3 id="1-install-the-anaconda-distribution-of-python">1. Install the Anaconda distribution of Python</h3>
+<p>If you don't have Anaconda installed already, go to <a href="https://www.anaconda.com/download/">Anaconda.com/download</a> and install the latest version. The Anaconda distribution of Python is the Python distribution I recommend for undergraduate engineers. You want to download and install the Python 3.6 Version (the Python 2.7 Version is legacy Python). Most laptops and desktops run a 64-bit version of Windows 10. If in doubt, you can check your Windows installation, or just go with the 64-bit version. </p>
+<h3 id="2-create-a-new-conda-environment-and-install-esptoolpy">2. Create a new conda environment and install esptool.py</h3>
+<p>It's best practice when using Python to work in virtual environments. We'll create a new virtual environment with conda to use with our Micropython projects. Open the Anaconda prompt and create a new virtual environment named <code>micropython</code>. Activate the environment with the <code>conda activate</code> command. After activating the virtual environment you should see <code>(micropython)</code> before the Anaconda Prompt.  Once inside the virtual environment, use <code>pip</code> to install <code>esptool</code>. The <code>esptool</code> will be used to upload the Micropython .bin firmware file onto the Adafruit Feather Huzzah board. Confirm that <code>esptool</code> is installed in the <code>(micropython)</code> virtual environment with <code>conda list</code>. I also created a new directory in the <strong>Documents</strong> folder called <strong>micropython</strong> to store all the project files. </p>
+<div class="highlight"><pre><span></span><span class="n">conda</span> <span class="k">create</span> <span class="o">-</span><span class="n">n</span> <span class="n">micropython</span> <span class="n">python</span><span class="o">=</span><span class="mi">3</span><span class="p">.</span><span class="mi">6</span>
+<span class="n">conda</span> <span class="n">activate</span> <span class="n">micropython</span>
+<span class="p">(</span><span class="n">micropython</span><span class="p">)</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">esptool</span>
+<span class="p">(</span><span class="n">micropython</span><span class="p">)</span> <span class="n">conda</span> <span class="n">list</span>
+<span class="p">(</span><span class="n">micropython</span><span class="p">)</span> <span class="n">cd</span> <span class="n">Documents</span>
+<span class="p">(</span><span class="n">micropython</span><span class="p">)</span> <span class="n">mkdir</span> <span class="n">micropthon</span>
+<span class="p">(</span><span class="n">micropython</span><span class="p">)</span> <span class="n">cd</span> <span class="n">micropython</span>
+</pre></div>
+
+
+<h3 id="3-download-the-latest-micropython-firmware-bin-file">3. Download the latest micropython firmware .bin file</h3>
+<p>Go to github and <a href="https://micropython.org/download#esp8266">download the latest .bin firmware</a> file. Move the .bin firmware file to a new <strong>micropython</strong> directory. The .bin firmware file is the version of Micropython that will run on the Adafruit Feather Huzzah ESP8266. Straight from Adafruit, the little microcontroller does not have Micropyton installed, so we need to install Micropython ourselves. After installing the Micropython .bin firmware file onto the board, we will be able to bring up the Micropython REPL prompt, type commands into the Micropython REPL and run Micropython .py scripts on the board.</p>
+<p><img alt=".bin firmware on github" src="./posts/micropython/firmware_download_page.PNG"></p>
+<h3 id="4-install-the-silabs-driver-for-the-adafruit-feather-huzzah-esp8266">4. Install the SiLabs driver for the Adafruit Feather Huzzah ESP8266</h3>
+<p>Before we can connect the Adafruit Feather Huzzah to the computer, we need a specific driver installed. For my Windows 10 laptop to see the Adafruit Feather Huzzah board, the <a href="https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers">CP210x USB to UART Bridge VCP driver</a> needs to be downloaded from SiLabs and installed. This is quick and easy, but does require admin privileges.</p>
+<p><img alt="SiLabs Driver" src="./posts/micropython/download_silabs_driver.PNG"></p>
+<h3 id="5-connect-the-adafruit-feather-huzzah-esp8266-board-to-the-laptop">5. Connect the Adafruit Feather Huzzah ESP8266 board to the laptop</h3>
+<p>Use a microUSB cable (the same kind of cable that charges many mobile phones) to connect the Feather Huzzah to the computer. Make sure that the microUSB cable is a full USB <strong>data cable</strong> and not just a simple power cable. I had trouble getting the Feather Huzzah to work, and it turned out the reason was the micoUSB cable was only a charging cable and could not transfer data. </p>
+<h3 id="6-determine-which-serial-port-the-feather-huzzah-is-connected-to">6. Determine which serial port the Feather Huzzah is connected to</h3>
+<p>Use Windows Device Manager to determine which serial port the Feather Huzzah board is connected to. We will need the serial port as one of the parameters when we upload the .bin firmware file on the board. Look for something like <strong>Silicon Labs CP210x USB to UART Bridge (COM4)</strong> in the <strong>Ports (COM &amp; LPT)</strong> menu. The USB to UART bridge is actually the Feather Huzzah board. CP210x refers to the chip that handles serial communication on the Feather Huzzah, not the esp8266 chip itself. Make note of the number after <strong>(COM )</strong>. It often comes up as <strong>(COM4)</strong> but it may be different on your computer. </p>
+<p><img alt="Find Device Manager" src="./posts/micropython/find_device_manager.png"></p>
+<p><img alt="Device Manager Menu" src="./posts/micropython/device_manager_menu.png"></p>
+<p>The first time I plugged the board into my laptop, Windows could't see the board. I looked through the Device Manager under the Ports menu and the Feather board just didn't show up. Turns out the first USB cable I used was just a charging only cable. When I switched this out for a microUSB data cable, the board came right up under <strong>Ports (COM &amp; LPT)</strong>. </p>
+<h3 id="6-run-esptool-to-upload-the-bin-file-to-the-feather-huzzah">6. Run esptool to upload the .bin file to the Feather Huzzah</h3>
+<p>Open the Anaconda Prompt and <code>cd</code> into the <strong>micropython</strong> directory with the .bin file. You can use the <code>dir</code> command to see the directory contents. Make sure the .bin firmware file is in the directory. It will be called something like <code>esp8266-20171101-v1.9.3.bin</code>. Activate the micropython environment with <code>conda activate micropython</code>. Run <code>esptool --help</code> to ensure esptool is installed properly. Note there is no <strong>.py</strong> extension after <code>esptool</code>. On my Windows laptop, the command <code>esptool</code> worked, but the command <code>esptool.py</code> did not (this is different than the commands shown on the <a href="https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/intro.html#deploying-the-firmware">Micropython docs</a>). If you try to run esptool and you are not in the <code>(micropython)</code> virtual environment, you will get an error. </p>
+<div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">Documents</span>
+<span class="n">cd</span> <span class="n">micropython</span>
+<span class="n">pwd</span>
+<span class="n">Documents</span><span class="o">/</span><span class="n">micropython</span>
+<span class="n">dir</span>
+<span class="n">conda</span> <span class="n">activate</span> <span class="n">micropython</span>
+<span class="p">(</span><span class="n">micropython</span><span class="p">)</span> <span class="n">esptool</span> <span class="c1">--help</span>
+</pre></div>
+
+
+<p><img alt="esptool help" src="./posts/micropython/esptool_help.PNG"></p>
+<p>Before we write the .bin firmware file to the board, we should first erase the flash memory on the Feather Huzzah using the <code>esptool erase_flash</code> command. Make sure to specify the <code>--port</code>. This is the <code>COM</code> port you found in the Windows Device Manager.  In my case the port was <code>COM4</code>.</p>
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">micropython</span><span class="p">)</span> <span class="n">esptool</span> <span class="c1">--port COM4 erase_flash</span>
+</pre></div>
+
+
+<p><img alt="esptool erase flash" src="./posts/micropython/esptool_erase_flash.PNG"></p>
+<p>Now it's time to write the .bin firmware file to the flash memory on the board using the <code>esptool write_flash</code> command. Make sure to use the exact .bin firmware file name you see sitting in the <strong>micropython</strong> directory. The port has to be set as the port you found in the Windows Device Manager. <code>---baud</code> is the baud rate, or upload speed. I found that <code>--baud 460800</code> worked, but you could also specify <code>--baud 115200</code> which is slower. The upload time was a matter of seconds with either baud rate. The <code>0</code> after <code>--flash_size=dectect</code> means we want the firmware to be written at the start of the flash memory (the 0<sup>th</sup> position) on the board. Again, make sure the .bin firmware file name is correct. It is easy to mistype. Another issue I ran into was that I tried to use the command <code>esptool.py</code> instead of <code>esptool</code> as shown on the <a href="https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/intro.html#deploying-the-firmware">Micropython docs</a>. The documentation for <a href="https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/intro.html#deploying-the-firmware">Micropython on the ESP8266</a> specifies the command <code>esptool.py</code> (including the <strong>.py</strong> file extension). This did work on my Windows 10 machine. Omitting the <strong>.py</strong> file extension, and running <code>esptool</code> worked instead. </p>
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">micropython</span><span class="p">)</span> <span class="n">esptool</span> <span class="c1">--port COM4 --baud 460800 write_flash --flash_size=detect 0 esp8266-20171101-v1.9.3.bin</span>
+</pre></div>
+
+
+<p><img alt="esptool write flash" src="./posts/micropython/esptool_write_flash.PNG"></p>
+<h3 id="7-download-and-install-putty-a-serial-monitor">7. Download and install Putty, a serial monitor</h3>
+<p>Now that Micropthon is installed on the board, we need to talk to our board over a serial connection. Windows 10 doesn't have a built-in serial monitor (like screen on OSX and Linux). So we need to download and install <strong>Putty</strong>. Putty is a lightweight SSH and serial client for Windows. Putty will allow us to communicate with the Adafruit Feather Huzzah board. <a href="https://www.putty.org/">Putty can be downloaded here</a>. Putty is pretty small and the download and install should be pretty quick.</p>
+<p><img alt="Download Putty" src="./posts/micropython/download_putty.PNG"></p>
+<h3 id="8-use-putty-to-connect-to-the-feather-huzzah">8. Use Putty to connect to the Feather Huzzah</h3>
+<p>Ensure the Feather board is connected to the computer with a USB cable and ensure you can see the board in the Windows Device Manager. Then use Putty to connect to the board over serial.  Make sure you specify the correct serial port in the <strong>Serial line</strong> box and <strong>115200</strong> baud in the Speed box. <strong>Micropython is set to run at 115200 baud</strong>, other baud rates will lead to junk characters in the serial monitor. I had trouble finding the serial connection option in Putty. When I opened Putty, the default was an SSH connection. We can't connect to the Feather Huzzah over SSH. You need to select the <strong>Serial</strong> radio button below the header <strong>Connection type:</strong> near the top of the Putty window. </p>
+<p><img alt="Putty in start menu" src="./posts/micropython/putty_in_start_menu.png"></p>
+<p><img alt="Putty config" src="./posts/micropython/putty_settings.png"></p>
+<p>If you see <code>&gt;&gt;&gt;</code> the Micropython REPL (the Micropython prompt) is running and the Adafruit Feather Huzzah ESP8266 is working! This version of Python isn't running on your computer, it's Micropython running on the little microcontroller! Sometimes I had to type [Enter] or Ctrl-D to get the <code>&gt;&gt;&gt;</code> REPL prompt to show up. A few times I needed to close Putty, unplug then replug the board and try Putty again. The Feather Huzzah also has a tiny little black RESET button that can be pressed to restart the board.  </p>
+<p><img alt="REPL Prompt" src="./posts/micropython/REPL_prompt.PNG"></p>
+<p>At the <code>&gt;&gt;&gt;</code> Micropython REPL prompt try the following commands:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Micropython for Engineers!&#39;</span><span class="p">)</span>
+<span class="n">Micropython</span> <span class="k">for</span> <span class="n">Engineers</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">sys</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span>
+<span class="s1">&#39;esp8266&#39;</span>
+</pre></div>
+
+
+<p><img alt="sys_dot_platform" src="./posts/micropython/sys_dot_platform.PNG"></p>
+<h2 id="next-steps">Next steps:</h2>
+<p>In the next post of the series, we will use the Micropython REPL running on the Adafruit Feather Huzzah to blink an LED.</p>
+            </div>
+            <!-- /.entry-content -->
+<section class="well" id="related-posts">
+    <h4>Related Posts:</h4>
+    <ul>
+        <li><a href="./what-is-micropython.html">What is Micropython?</a></li>
+        <li><a href="./upload-py-files-to-esp8266-running-micropython.html">How to upload .py-files onto an ESP8266 running MicroPython</a></li>
+        <li><a href="./micropython-upload-code.html">Upload Micropython Code to an Adafruit Feather Huzzah ESP8266</a></li>
+        <li><a href="./micropython-wifi.html">Using Micropython to connect an Adafruit Feather Huzzah ESP8266 to WiFi</a></li>
+        <li><a href="./micropython-temp-sensor.html">Using a Temperature Sensor with Micropython running on an Adafruit Feather Huzzah ESP8266</a></li>
+    </ul>
+</section>
+<section class="well" id="related-posts">
+    <h4>Article 2 of the micropython series</h4>
+       <h5>Previous articles</h5>
+       <ul>
+           <li><a href="./what-is-micropython.html">What is Micropython?</a></li>
+       </ul>
+       <h5>Next articles</h5>
+       <ul>
+           <li><a href="./micropython-REPL.html">Using the Micropython REPL on an Adafruit Feather Huzzah ESP8266</a></li>
+           <li><a href="./micropython-temp-sensor.html">Using a Temperature Sensor with Micropython running on an Adafruit Feather Huzzah ESP8266</a></li>
+           <li><a href="./micropython-wifi.html">Using Micropython to connect an Adafruit Feather Huzzah ESP8266 to WiFi</a></li>
+           <li><a href="./micropython-upload-code.html">Upload Micropython Code to an Adafruit Feather Huzzah ESP8266</a></li>
+           <li><a href="./upload-py-files-to-esp8266-running-micropython.html">How to upload .py-files onto an ESP8266 running MicroPython</a></li>
+       </ul>
+</section>
+    <hr />
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style">
+            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+            <a class="addthis_button_tweet"></a>
+    </div>
+    <!-- AddThis Button END -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<div id="aboutme">
+        <p>
+            <img width="100%" class="img-thumbnail" src="./extra/gear-wrench-icon-512-278694.png"/>
+        </p>
+    <p>
+      <strong>About Peter Kazarinoff</strong><br/>
+        I teach engineering at a community college in the Pacific Northwest. I am interested in programming and how to help students. Here I mostly blog about Python, and how programing can be incorporated into engineering education.
+    </p>
+</div><!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Recent Posts -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+  <ul class="list-group" id="recentposts">
+    <li class="list-group-item"><a href="./thoughts-on-how-to-test-science-code.html">Thoughts on Software Design in Scientific Code</a></li>
+    <li class="list-group-item"><a href="./stream-S01-E01-jupyterhub-intro.html">My first Twitch Stream: S01-E01 JupyterHub Intro and Tools</a></li>
+    <li class="list-group-item"><a href="./jupyterhub-deployment-on-running-in-production.html">Hear my story about deploying JupyterHub on the Running in Production Podcast</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Recent Posts -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="./"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-2">
+      <a href="./tag/engineering.html">engineering</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/esp8266.html">esp8266</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="./tag/jupyter.html">jupyter</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="./tag/jupyter-notebook.html">jupyter notebook</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="./tag/matplotlib.html">matplotlib</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/micropython.html">micropython</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/pelican.html">pelican</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="./tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/sensor.html">sensor</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Series -->
+<li class="list-group-item">
+  <h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Series</span></h4>
+  <ul class="list-group">
+    <li class="list-group-item">
+      <h5></i>Previous article</h5>
+      <a href="./what-is-micropython.html">What is Micropython?</a>
+    </li>
+    <li class="list-group-item">
+      <h5>Next article</h5>
+      <a href="./micropython-REPL.html">Using the Micropython REPL on an Adafruit Feather Huzzah ESP8266</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Series -->
+
+
+<!-- Sidebar/Github -->
+<li class="list-group-item">
+  <h4><i class="fa fa-github fa-lg"></i><span class="icon-label">GitHub Repos</span></h4>
+  <div id="gh_repos">
+    <p class="list-group-item">Status updating...</p>
+  </div>
+  <a href="https://github.com/professorkazarinoff">@professorkazarinoff</a> on GitHub
+</li>
+<!-- End Sidebar/Github -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2021 Peter Kazarinoff
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="./theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="./theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="./theme/js/respond.min.js"></script>
+
+    <script src="./static/js/custom.js"></script>
+
+
+<!-- GitHub JS Code -->
+<script type="text/javascript">
+$(document).ready(function () {
+  if (!window.jXHR) {
+    var jxhr = document.createElement('script');
+    jxhr.type = 'text/javascript';
+    jxhr.src = './theme/js/jXHR.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(jxhr, s);
+  }
+
+  github.showRepos({
+    user: 'professorkazarinoff',
+    count: 5,
+    skip_forks: true,
+    target: '#gh_repos'
+  });
+});
+</script>
+<script src="./theme/js/github.js" type="text/javascript"></script>
+<!-- End GitHub JS Code -->
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-116330557-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+    $("div.collapseheader").click(function () {
+    $header = $(this).children("span").first();
+    $codearea = $(this).children(".input_area");
+    console.log($(this).children());
+    $codearea.slideToggle(500, function () {
+        $header.text(function () {
+            return $codearea.is(":visible") ? "Collapse Code" : "Expand Code";
+        });
+    });
+});
+});
+</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cdd8eb4e16bf94c"></script>
+</body>
+</html>

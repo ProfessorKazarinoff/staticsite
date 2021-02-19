@@ -4,10 +4,10 @@ Modified: 2021-02-19 08:11
 Status: published
 Category: Python
 Tags: engineering, testing
-Slug: thoughts-on-how-to-test-science-code
+Slug: thoughts-on-software-design-in-scientific-code
 Authors: Peter D. Kazarinoff
 
-[![fishing net]({static}/posts/testing_science_code/images/fishing-net.jpg)]({filename}/posts/testing_science_code/testing_science_code.md)
+[![fishing net]({static}/posts/testing_science_code/images/fishing-net.jpg)]({filename}/posts/testing_science_code/thoughts-on-software-design-in-science.md)
 
 I listened to a few podcasts (TalkPython, Test and Code) that had a theme of:
 

@@ -6,9 +6,8 @@ Category: statistics
 Tags: python, engineering, statistics
 Slug: probability-under-normal-curve-with-python
 Authors: Peter D. Kazarinoff
-Summary: ![gaussian_curve]({static}/images/gaussian_curve.png) Calculating the probability under a normal curve is useful for engineers. This type of calculation can be helpful to predict the likely hood of a part coming off an assembly line being within a given specification. The probability can be calculated when the statistical properties of all the parts that have come of the assembly line are known.
 
-![gaussian_curve]({static}/images/gaussian_curve.png)
+[![gaussian_curve]({static}/images/gaussian_curve.png)]({filename}/posts/statistics/probability_under_a_normal_curve_with_python.md)
 
 Calculating the probability under a normal curve is useful for engineers. This type of calculation can be helpful to predict the likely hood of a part coming off an assembly line being within a given specification. The probability can be calculated when the statistical properties of all the parts that have come of the assembly line are known.
 

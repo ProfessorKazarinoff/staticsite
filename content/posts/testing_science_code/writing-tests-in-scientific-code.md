@@ -1,10 +1,10 @@
-Title: Writing Tests in Scientific Code
+Title: Writing Tests for Scientific Code
 Date: 2021-02-19 08:11
 Modified: 2021-02-19 08:11
 Status: draft
 Category: Python
 Tags: engineering,testing
-Slug: writing-tests-in-scientific-code
+Slug: writing-tests-for-scientific-code
 Authors: Peter D. Kazarinoff
 
 ![science lab]({static}/posts/testing_science_code/images/lab.jpg)
@@ -19,14 +19,14 @@ Below are some practical ideas about how to incorporate software testing in scie
 
 Below is a sample Jupyter notebook with Python code that reads an excel file of data, plots the data, and then outputs two calculated values. In this case, the data is from a mechanical test frame (a piece of equipment that tests the strength of materials), but the same testing ideas could be applied to a script that analyzes data in another subject area.
 
-Very often scientific code includes a couple of common steps:
+Very often, scientific code includes a couple of common steps:
 
- * Read in data
+ * Read in the data
  * Clean or reorganize the data
  * Run calculations on the data
  * Create a figure or plot
 
-The code below is one long script. In the rest of this post, we are going work on adding tests to this script.
+The example scientific code we will be working with is made up of one long script. In the rest of this post, we are going work on adding tests to this scientific script.
 
 ```python
 import numpy as np
@@ -52,10 +52,13 @@ fig, ax = plt.subplots()
 ax.plot(strain,stress)
 ax.set_xlabel("Strain (mm/mm)")
 ax.set_ylabel("Stress (MPa)")
+plt.savefig("output/plot.png")
 plt.show()
 ```
 
 In the top section of code, a few packages are imported. The next section of code reads in data from a .csv file, converts it to an array and cleans it up. The next section of code includes some analysis to calculate two values. The final section of code creates a plot.
+
+Note that the .csv data file isn't in the same directory as the script. The .csv file is in a sub-directory called ```data/```. In scientific code, it's a good idea to keep the data seperate from the script that uses it. In addition, the plot that's produced is saved in a directory called ```output/```. It's also a good idea to keep the output of a script separate from the script itself.
 
 So how can we possibly write software tests for this script?
 
@@ -69,17 +72,25 @@ The first idea isn't code or a specific test, it's the idea that **testing scien
 
 ## Use a .py-file instead of a Jupyter notebook
 
-The second idea is to write scientific code in a **.py-file** instead of writing code in a Jupyter notebook. Now, I love Jupyter notebooks. Jupyter notebooks are great for data exploration, plot creation and presentation. But... after the initial exploration, move code from a Jupyter notebook into a .py-file. Within the Jupyter notebook interface, you can select File --> Download As and select .py as the file type. 
+The second idea is to write scientific code in a **.py-file** instead of writing the code in a Jupyter notebook. Now, I love Jupyter notebooks as much as the next Engineer. Jupyter notebooks are great for data exploration, plot creation and presentation. But... after initial data exploration, move code from a Jupyter notebook into a .py-file. 
+
+Within the Jupyter notebook interface, you can select File --> Download As and select .py as the file type. 
 
 ![Download As in Jupyter notebook]({static}/posts/testing_science_code/images/jupyter_notebook_download_as.jpg)
 
-After the Jupyter notebook is saved as a .py-file, run the .py-file from the command line. See if the same output is produced by the .py-file and the Jupyter notebook. Jupyter notebook cells can be run in any order. The execution order of a Jupyter notebook sometimes effects the output of the code. When the code is in a .py-file, the execution order of the lines of Python code are set by your programming logic. So idealy, each time your run the .py-file, the output is the same. In the next section, we'll deal with Python versions and dependancies.
+After the Jupyter notebook is saved as a .py-file, run the .py-file from the command line. 
+
+```
+> python -m analysis.py
+```
+
+See if the same output is produced by the .py-file and the Jupyter notebook. Jupyter notebook cells can be run in any order. The execution order of a Jupyter notebook sometimes effects the output of the code. When the code is in a .py-file, the execution order of the lines of Python code are set by your programming logic. So idealy, each time your run the .py-file, the output is the same. In the next section, we'll deal with Python versions and dependancies.
 
 ![pack mule]({static}/posts/testing_science_code/images/pack_mule.jpg)
 
 ## Define Package Dependancies and Python Version
 
-After the scientific script is saved as a .py-file, the next step is to define the Python version and package dependancies needed to run the script. This can be accomplished by creating a ```requirements.txt``` file that contains the specific versions of the packages your script is run with. These packages just need to be the high-level dependancies that are imported by your script. The contents of a sample ```requirements.txt``` file are below. Note that **pytest** is also included as a dependancy. We are going to use pytests a little later.
+After the scientific script is saved in a .py-file, the next step is to define the Python version and package dependancies needed to run the script. This can be accomplished by creating a ```requirements.txt``` file that contains the specific versions of the packages your script is run with. These packages just need to be the high-level dependancies that are imported by your script. The contents of a sample ```requirements.txt``` file are below. Note that **pytest** is also included as a dependancy. We are going to use pytests a little later to test the script.
 
 ```text
 matplotib==3.3.2
@@ -98,13 +109,13 @@ If you don't know what version of matplotlib you are using, open the Python REPL
 
 The ```.__version__``` attribute is commonly defined for popular Python packages. 
 
-In addition to the packages used by your script, you can also define which version of Python you are using. The Python version can be stored in a file called ```runtime.txt```. The contents of an example ```runtime.txt``` file are below:
+In addition to the packages used by your script, you can also define which version of Python you are using. The Python version can be stored in a file called ```runtime.txt```. The contents of a ```runtime.txt``` file is below:
 
 ```text
 python-3.8.3
 ```
 
-The python version you are using is shown when you enter the Python REPL. In a termial type ```python``` and the version is printed out above the REPL prompt.
+If you don't know what version of Python you are using, it's easy to figure out. The Python version is shown when you enter the Python REPL. In a termial type ```python``` and the version is printed out above the REPL prompt.
 
 ```text
 > python
@@ -113,7 +124,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 >>>
 ```
 
-At this point, we have now converted an originol Jupyter notebook into a Python script. We have also included a ```requirements.txt``` file and a ```runtime.txt``` file. The directory structure of our growing project is shown below.
+At this point, we have converted an originol Jupyter notebook into a Python script. We have also included a ```requirements.txt``` file and a ```runtime.txt``` file along side our script. The directory structure of our growing project is shown below.
 
 ```text
 project/
@@ -127,11 +138,13 @@ project/
         plot.png
 ```
 
+With our dependanies and Python version defined, we can write our first tests.
+
 ## Test the Dependancy Package Versions and the Python Version
 
-Now that we defined our package versions and Python runtime version, we can write tests to confirm these are the same versions that are used when our script is run. If another researcher wants to run our script, they can confirm through our tests that they are using the same dependancy versions. Create a new directory called ```tests``` and inside create a new file called ```test_dependancies.py```. In addition, create a blank ```__init__.py``` file along side the ```test_dependancies.py``` file. This defines the ```tests/``` directory as a package.
+Now that we defined our package versions and Python version, we can write tests to confirm these are the same versions that are used when our script is run. If another researcher wants to run our script, they can confirm through our tests that they are using the same dependancy versions. Create a new directory called ```tests``` and inside the ```tests``` directory, create a new file called ```test_dependancies.py```. In addition, create a blank ```__init__.py``` file along side the ```test_dependancies.py``` file. This defines the ```tests/``` directory as a package.
 
-The directory structure of our project should now look like:
+The directory structure of our project now looks like:
 
 ```text
 project/
@@ -148,7 +161,7 @@ project/
         test_dependancies.py
 ```
 
-Inside the ```test_dependancies.py``` file, we can write tests that confirm the versions of the packages we say are necessary in our ```requirements.txt``` file. Examples of these tests are below.
+Inside the ```test_dependancies.py``` file, we can write tests that confirm the versions of the packages we say are necessary in our ```requirements.txt``` file. Examples of these tests are below. The tests are written using pytest, an excellent testing framework that is pretty easy to use.
 
 ```python
 # test_dependancies.py
@@ -178,7 +191,13 @@ def test_matplotlib_version():
 
 ```
 
-We can run these tests from the command line as long as pytest is installed. The command below runs the tests we defined in ```test_dependancies.py```
+We can run these tests from the command line as long as pytest is installed. If pytest isn't installed, it can be installed with **pip**
+
+```
+> pip install pytest
+```
+
+The command below runs the tests we defined in ```test_dependancies.py```
 
 ```text
 > python -m pytest tests/test_dependancies.py
@@ -187,10 +206,32 @@ We can run these tests from the command line as long as pytest is installed. The
 The output should be something like below:
 
 ```text
-# pytest output
+======================== test session starts =========================
+platform linux -- Python 3.8.3, pytest-5.4.3, py-1.10.0, pluggy-0.13.1
+rootdir: /home/peter/Documents/testing-scientific-code
+collected 3 items                                                    
+
+tests/test_dependancies.py .....                               [100%]
+
 ```
 
-We can also write a test for the version of Python we're using in ```test_dependancies.py```. The test below ensure Python verison 3.8.3 is used. Make sure to import the ```platform``` module from the standard library or the test won't work.
+If we wanted more information about the tests, we could use the ```-v``` flag when we call pytest.
+
+```text
+> python -m pytest -v tests/test_dependancies.py
+```
+
+Addition information is shown in the output:
+
+```text
+
+tests/test_dependancies.py::test_numpy_version PASSED          [ 40%]
+tests/test_dependancies.py::test_pandas_version PASSED         [ 60%]
+tests/test_dependancies.py::test_matplotlib_version PASSED     [ 80%]
+
+```
+
+We can also write a test for the version of Python we're using. Let's add another test in ```test_dependancies.py```. The test below ensures Python verison 3.8.3 is used. Make sure to import the ```platform``` module from the standard library or the test won't work.
 
 ```python
 import platorm
@@ -211,12 +252,19 @@ Now all four tests can be run on the command line with pytest:
 The output should look something like below:
 
 ```text
-pytest output
+collected 4 items                                                    
+
+tests/test_dependancies.py .....                               [100%]
+
 ```
 
-One more test we can write is for what character encoding is being used. If you are using a regular computer, this character encodeing should be utf-8. Make sure to add the ```sys``` module import at the top of the ```test_dependancies.py``` file.
+This means all four tests passed.
+
+One more test we can write is test what character encoding is used. If you are using a regular computer, this character encodeing should be **utf-8**. This test uses the ```sys``` module. Make sure to add the ```sys``` import at the top of the ```test_dependancies.py``` file.
 
 ```python
+import sys
+
 def test_system_encoding():
     expected = "utf-8"
     actual = sys.getfilesystemencoding()
@@ -226,16 +274,13 @@ def test_system_encoding():
 
 We can run all tests with pytest. They should all pass. If they don't, that means some trouble shooting. *Are you sure those are the package versions you are using?*
 
-Now that we've written tests to ensure the versions of Python and our dependancies are what we think they are, we can make sure our script doesn't modify the data.
+```text
+> python -m pytest tests/test_dependancies.py
 
-## Test if your code should modifies the data
+collected 5 items                                                    
 
-![holding hands]({static}/posts/testing_science_code/images/ice.jpeg)
+tests/test_dependancies.py .....                               [100%]
 
-When your code runs, it should not modify, rename, rewrite or otherwise change the originol data. If that happens as a result of your script, take it out. 
-
-```python
-# pytest code that shows data isn't modified.
 ```
 
 We want to start testing the script ```analysis.py``` itself. But before we can test the script, we need to break the script up into functions.
@@ -313,15 +358,125 @@ if __name__ == "__main__":
 
 Run the script from the command line. A plot should be produced and the output should be the same as when the script didn't contain any user-defined fuctions.
 
+Now that we've written tests to ensure the versions of Python and our dependancies are what we think they are, we can make sure our script doesn't modify the data.
+
+## Test if your code should modifies the data
+
+![ice]({static}/posts/testing_science_code/images/ice.jpeg)
+
+When your code runs, it should not modify, rename, rewrite or otherwise change the originol data. Let's create a new test file in the ```tests/``` directory called ```test_data_unchanged.py```. The directory structure should now look like:
+
+```text
+project/
+    analysis.ipynb
+    analysis.py
+    requirements.txt
+    runtime.txt
+    data/
+        raw_data.csv
+    output/
+        plot.png
+    tests/
+        __init__.py
+        test_dependancies.py
+        test_data_unchanged.py
+```
+
+The test to make sure the file is unchanged is below. All the the attributes listed in the test of the ```os.stat``` object should be the same before the script is run and after the script is run.
+
+```python
+# test_data_unchanged.py
+
+from pathlib import Path
+
+import pytest
+
+import analysis
+
+
+def test_data_is_unchanged():
+    fp1 = Path("data/raw_data.csv")
+    d1 = os.stat(fp1)
+    analysis.main()
+    fp2 = Path("data/raw_data.csv")
+    d2 = os.stat(fp2)
+    assert (
+        d1.st_mode == d2.st_mode
+        and d1.st_ino == d2.st_ino
+        and d1.st_dev == d2.st_dev
+        and d1.st_nlink == d1.st_nlink
+        and d1.st_uid == d2.st_uid
+        and d1.st_gid == d2.st_gid
+        and d1.st_size == d2.st_size
+        and d1.st_mtime == d2.st_mtime
+        and d1.st_ctime == d2.st_ctime
+    )
+```
+
+Run this new test from the command line. If the test passes, that mean the data file ```data.csv``` is not modified by our script.
+
+```text
+python -m pytest tests/test_data_unchanged.py
+
+collected 1 item                                                     
+
+tests/test_data_unchanged.py .                                 [100%]
+
+==================== 1 passed in 3.53s ====================
+
+```
+
+In order to test the script itself, it is helpful for the functions that make up our script include inputs and output. Therefore, next we'll modify the functions of our script to include inputs and outputs.
+
 ## Consider the inputs and outputs of your functions
 
 ![pipe]({static}/posts/testing_science_code/images/pipe.jpeg)
 
-Now that we removed all hard-coded file names and made sure that the data wasn't modified by the code, is it any clearer what the input and output of our functions should be? At the very least, modify your functions to return ```True``` at the end. For a function that produces a plot, assign the outputs as Matplotlib ```fig``` and ```ax``` objects.
+Now that we know our script doesn't modify the data it uses, we are going to modify the functions of our script to be more testable. To make these functions more testable, we'll add imputs and output where possible.
+
+Is it any clearer what the input and output of our functions should be? For a function that produces a plot, assign the outputs as Matplotlib ```fig``` and ```ax``` objects. The code below includes modifications to ```analysis.py```.
 
 ```python
-# code that have function inputs and outputs
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+def import_data(f_name):
+    df = pd.read_csv(f_name)
+    np_raw_array = np.array(df)
+    np_array = np_raw_array[1:, :]
+    return np_array
+
+
+def get_stress_and_strain(cleaned_data_array):
+    d = 0.506
+    A0 = np.pi * (d / 2) ** 2
+    F = cleaned_data_array[:, 4]
+    stress = F / A0
+    strain = cleaned_data_array[:, 5] * 0.01
+    return stress, strain
+
+
+def plot(x, y, title, x_label, y_label):
+    fig, ax = plt.subplots()
+    ax.plot(x, y)
+    ax.set_title(title)
+    ax.set_xlabel(x_label)
+    ax.set_ylabel(y_label)
+    plt.show()
+    return fig, ax
+
+
+def get_tensile_strength(stress, strain):
+    return np.max(stress).round(3)
+
+
+def get_total_extension(stress, strain):
+    return np.max(strain) - np.min(strain)
 ```
+
+No we can modify the ```main()```
+
 
 ## Test each function
 

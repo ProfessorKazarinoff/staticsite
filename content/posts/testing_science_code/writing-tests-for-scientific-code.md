@@ -193,7 +193,7 @@ def test_matplotlib_version():
 
 We can run these tests from the command line as long as pytest is installed. If pytest isn't installed, it can be installed with **pip**
 
-```
+```text
 > pip install pytest
 ```
 
@@ -221,13 +221,14 @@ If we wanted more information about the tests, we could use the ```-v``` flag wh
 > python -m pytest -v tests/test_dependancies.py
 ```
 
-Addition information is shown in the output:
+Additional information is shown in the output:
 
 ```text
+collected 3 items
 
-tests/test_dependancies.py::test_numpy_version PASSED          [ 40%]
-tests/test_dependancies.py::test_pandas_version PASSED         [ 60%]
-tests/test_dependancies.py::test_matplotlib_version PASSED     [ 80%]
+tests/test_dependancies.py::test_python_version PASSED                 [ 33%]
+tests/test_dependancies.py::test_numpy_version PASSED                  [ 66%]
+tests/test_dependancies.py::test_pandas_version PASSED                 [100%]
 
 ```
 
@@ -272,7 +273,7 @@ def test_system_encoding():
 
 ```
 
-We can run all tests with pytest. They should all pass. If they don't, that means some trouble shooting. *Are you sure those are the package versions you are using?*
+We can run all the tests with pytest. They should all pass. If they don't, that means some trouble shooting. *Are you sure those are the package versions you are using?*
 
 ```text
 > python -m pytest tests/test_dependancies.py
@@ -283,7 +284,7 @@ tests/test_dependancies.py .....                               [100%]
 
 ```
 
-We want to start testing the script ```analysis.py``` itself. But before we can test the script, we need to break the script up into functions.
+Those tests are great right? Yes, yes they were great. But how can we test the scientific code in the script ```analysis.py``` itself? Before we can test the script, we need to break the script up into functions.
 
 ## Break the script up into functions
 

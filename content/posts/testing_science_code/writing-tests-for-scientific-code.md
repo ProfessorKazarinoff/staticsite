@@ -30,10 +30,12 @@ Below is a sample Jupyter notebook (that we'll use in the rest of this post) wit
 
 
 ```python
+# analysis.ipynb
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-%matplotlib inline
+
 
 raw_data_df = pd.read_csv('data/raw_data.csv')
 
@@ -54,15 +56,16 @@ fig, ax = plt.subplots()
 ax.plot(strain,stress)
 ax.set_xlabel("Strain (mm/mm)")
 ax.set_ylabel("Stress (MPa)")
-plt.savefig("output/plot.png")
+plt.savefig("plot.png")
 plt.show()
+
 ```
 
 When the code is run, the plot produced looks like the plot below:
 
 ![plot]({static}/posts/testing_science_code/images/plot.png)
 
-Notice how in the code above the .csv data file isn't in the same directory as the script. The .csv file is in a sub-directory called ```data/```. In addition, the plot that's produced by the script is saved in a directory called ```output/```. In scientific code, it's a good idea to keep the data seperate from the script that analyzes the data. It's also a good idea to keep the output of the script (the plot) separate from the script itself.
+Notice how in the code above the .csv data file isn't in the same directory as the script. The .csv file is in a sub-directory called ```data/```. In scientific code, it's a good idea to keep the data seperate from the script that analyzes the data.
 
 *How can we possibly write software tests for this script?*
 
@@ -84,6 +87,23 @@ Within the Jupyter notebook interface, you can select File --> Download As and s
 
 ![Download As in Jupyter notebook]({static}/posts/testing_science_code/images/jupyter_notebook_download_as.jpg)
 
+Move the downloaded ```analysis.py``` file to the main project directory where the ```data``` folder is, at the same level as ```analysis.ipynb```. The top of ```analysis.py``` looks like the code below. Notice how Jupyter adds a shebang and encoding line.
+
+```python
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[1]:
+
+
+# analysis.ipynb
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+...
+```
+
 After the Jupyter notebook is saved as a .py-file, run the .py-file from the command line. 
 
 ```
@@ -99,10 +119,10 @@ See if the same output is produced by the .py-file and the Jupyter notebook. In 
 After the scientific script is saved in a .py-file, the next step is to define the Python version and dependancies needed to run the script. This can be accomplished by creating a ```requirements.txt``` file that contains the specific versions of the packages your script is run with. These packages just need to be the high-level dependancies that are imported by your script. The contents of a sample ```requirements.txt``` file are below. Note that **pytest** is also included as a dependancy. We are going to use pytests a little later to test the script.
 
 ```text
-matplotib==3.3.2
-numpy==1.19.2
-pandas==1.1.3
-pytest==6.1.1
+numpy==1.18.5
+pandas==1.0.5
+matplotlib==3.2.2
+pytest==5.4.3
 ```
 
 If you don't know what version of matplotlib you are using, open the Python REPL and type:
@@ -110,7 +130,7 @@ If you don't know what version of matplotlib you are using, open the Python REPL
 ```text
 >>> import matplotlib
 >>> matplotlib.__version__
-3.3.2
+'3.2.2'
 ```
 
 The ```.__version__``` attribute is commonly defined for popular Python packages. 
@@ -138,10 +158,9 @@ project/
     analysis.py
     requirements.txt
     runtime.txt
+    plot.png
     data/
         raw_data.csv
-    output/
-        plot.png
 ```
 
 Our dependanies and Python version defined, let's write our first tests.

@@ -1,13 +1,13 @@
 Title: Writing Tests for Scientific Code
 Date: 2021-02-25 08:11
 Modified: 2021-02-25 08:11
-Status: draft
+Status: published
 Category: Python
 Tags: engineering, testing
 Slug: writing-tests-for-scientific-code
 Authors: Peter D. Kazarinoff
 
-![science lab]({static}/posts/testing_science_code/images/lab.jpg)
+[![science lab]({static}/posts/testing_science_code/images/lab.jpg)]({filename}/posts/testing_science_code/writing-tests-for-scientific-code.md)
 
 In a [previous blog post]({filename}/posts/testing_science_code/thoughts-on-software-design-in-science.md), I wrote about how to incorporate a few software design principals into the code written by scientists. This post is a follow up on one specific software design principle that can be used by scientists: **testing**
 
@@ -26,7 +26,7 @@ Very often, scientific code includes a couple of common steps:
  * Run calculations on the data
  * Create a figure or plot
 
-Below is a sample Jupyter notebook (that we'll use in the rest of this post) with Python code that reads in an .csv file of data, cleans up the data, runs a calculation, then produces a plot. The data in this example is from a mechanical test frame (a piece of equipment that tests the strength of materials), but the same testing ideas in this post could be applied to a script that analyzes data in another subject area. You can find the Jupyter notebook here: [analysis.ipynb](https://github.com/ProfessorKazarinoff/testing-scientific-code/blob/master/analysis.ipynb) and the raw data here: [raw_data.csv](https://github.com/ProfessorKazarinoff/testing-scientific-code/blob/master/data/raw_data.csv)
+Below is a sample Jupyter notebook (that we'll use in the rest of this post) with Python code that reads in a .csv file of data, cleans up the data, runs a calculation, then produces a plot. The data in this example is from a mechanical test frame (a piece of equipment that tests the strength of materials), but the same testing ideas in this post could be applied to a script that analyzes data in another subject area. You can find the Jupyter notebook here: [analysis.ipynb](https://github.com/ProfessorKazarinoff/testing-scientific-code/blob/master/analysis.ipynb) and the raw data here: [raw_data.csv](https://github.com/ProfessorKazarinoff/testing-scientific-code/blob/master/data/raw_data.csv)
 
 
 ```python
@@ -257,7 +257,7 @@ platform linux -- Python 3.8.5, pytest-6.2.2, py-1.10.0, pluggy-0.13.1
 rootdir: /home/peter/Documents/testing-scientific-code
 collected 3 items                                                                
 
-tests/test_dependancies.py ...                                             [100%]
+tests/test_dependencies.py ...                                             [100%]
 
 =============================== 3 passed in 0.25s ================================
 ```
@@ -268,7 +268,7 @@ If you want more information about the tests, use the ```-v``` flag.
 > python -m pytest -v tests/test_dependencies.py
 ```
 
-Using the ```-v``` flage provides additional information in the test output:
+Using the ```-v``` flag provides additional information in the test output:
 
 ```text
 collected 3 items                                                                
@@ -373,7 +373,7 @@ project/
         raw_data.csv
     tests/
         __init__.py
-        test_dependancies.py
+        test_dependencies.py
         test_python_version.py
         test_system_encoding.py
 ```
@@ -467,9 +467,9 @@ Now that we've divided our script up into functions, we can make sure our script
 
 ![ice]({static}/posts/testing_science_code/images/ice.jpeg)
 
-When our code runs, it should not modify, rename, rewrite or otherwise change our originol data. 
+When our code runs, it should not modify, rename, rewrite or otherwise change our original data. 
 
- > Scientific code should not modify, rename or rewrite the originol data
+ > Scientific code should not modify, rename or rewrite the original data
 
 Let's create a new test file in the ```tests/``` directory called ```test_data_unchanged.py```. The directory structure should now look like:
 
@@ -484,7 +484,7 @@ project/
         raw_data.csv
     tests/
         __init__.py
-        test_dependancies.py
+        test_dependencies.py
         test_python_version.py
         test_system_encoding.py
         test_data_unchanged.py
@@ -511,7 +511,7 @@ def test_data_is_unchanged():
         d1.st_mode == d2.st_mode
         and d1.st_ino == d2.st_ino
         and d1.st_dev == d2.st_dev
-        and d1.st_nlink == d1.st_nlink
+        and d1.st_nlink == d2.st_nlink
         and d1.st_uid == d2.st_uid
         and d1.st_gid == d2.st_gid
         and d1.st_size == d2.st_size
@@ -663,7 +663,7 @@ x = np.array([1, 2, 3])
 y = np.array([6, 7, 10])
 ```
 
-Below the imports and data. We can write a test for each one of our analysis functions.
+Below the imports and data, we can write a test for each one of our analysis functions.
 
 ```python
 def test_tensile_strength():
@@ -717,7 +717,7 @@ tests/
     test_system_encoding.py
 ```
 
-At the top of ```test_plot.py``` we include our imports and define our fixture function called ```set_up_plot()```. Notice the pytest ```@pytest.fixture``` decorator attached to the fixture funciton.
+At the top of ```test_plot.py``` we include our imports and define our fixture function called ```set_up_plot()```. Notice the pytest ```@pytest.fixture``` decorator attached to the fixture function.
 
 ```python
 # tests/test_plot.py
@@ -732,7 +732,7 @@ import analysis
 
 
 @pytest.fixture
-def set_up_plot(tmpdir):
+def set_up_plot():
     x = np.array([1, 2, 3])
     y = np.array([6, 7, 10])
     fig, ax = analysis.plot(
@@ -766,7 +766,7 @@ def test_axes_object(set_up_plot):
     assert set_up_plot[0] == set_up_plot[1].get_figure()
 ```
 
-Run the tests with pytest
+Run the tests with pytest:
 
 ```text
 > python -m pytest tests/test_plot.py

@@ -1,6 +1,6 @@
 Title: Writing Tests for Scientific Code
-Date: 2021-02-23 08:11
-Modified: 2021-02-23 08:11
+Date: 2021-02-25 08:11
+Modified: 2021-02-25 08:11
 Status: draft
 Category: Python
 Tags: engineering, testing
@@ -201,20 +201,21 @@ Inside the ```test_dependencies.py``` file, we can write tests that confirm the 
 ```python
 # tests/test_dependencies.py
 
-import numpy as np
-import pandas as pd
-import matplotlib as mpl
-
 from pathlib import Path
 
-fp = Path(Path.cwd(),'requirements.txt')
-with open(fp,'r') as f:
+import matplotlib as mpl
+import numpy as np
+import pandas as pd
+
+fp = Path(Path.cwd(), "requirements.txt")
+with open(fp, "r") as f:
     v = f.readlines()
-d={}
+d = {}
 for l in v:
     r = l.split("==")[0]
     ver = l.split("==")[1].strip()
-    d[r]=ver
+    d[r] = ver
+
 
 def test_numpy_version():
     expected = d["numpy"]
@@ -229,10 +230,9 @@ def test_pandas_version():
 
 
 def test_matplotlib_version():
-     expected = d["matplotlib"]
-     actual = mpl.__version__
-     assert actual == expected
-
+    expected = d["matplotlib"]
+    actual = mpl.__version__
+    assert actual == expected
 ```
 
 The code at the top of the file reads our ```requirements.txt``` file and parses our required packages and versions into a Python dictionary. Below are three tests, one test for each required package.
@@ -262,13 +262,13 @@ tests/test_dependancies.py ...                                             [100%
 =============================== 3 passed in 0.25s ================================
 ```
 
-If you want more information about the tests, use the ```-v``` flag when running the tests.
+If you want more information about the tests, use the ```-v``` flag.
 
 ```text
 > python -m pytest -v tests/test_dependencies.py
 ```
 
-Additional information is shown in the output:
+Using the ```-v``` flage provides additional information in the test output:
 
 ```text
 collected 3 items                                                                
@@ -296,8 +296,6 @@ Create a new file called ```test_python_version.py``` in the ```tests/``` direct
 from pathlib import Path
 import platform
 
-import pytest
-
 
 def test_python_version():
     rt_fp = Path(Path.cwd(), "runtime.txt")
@@ -306,7 +304,6 @@ def test_python_version():
     expected = v
     actual = platform.python_version()
     assert actual == expected
-
 ```
 
 The new test can be run on the command line with pytest.
@@ -336,14 +333,11 @@ One more test we can write is to test what character encoding is used. On most c
 
 import sys
 
-import pytest
-
 
 def test_system_encoding():
     expected = "utf-8"
     actual = sys.getfilesystemencoding()
     assert actual == expected
-
 ```
 
 We can run the test with pytest. 
@@ -440,7 +434,6 @@ def plot(x,y):
     ax.set_ylabel("Stress (MPa)")
     ax.set_title("Stress Strain Curve")
     plt.show()
-
 ```
 
 Let's end the script by defining a ```main()``` function that calls the functions defined above in the proper order. Then we can call the ```main()``` function with an ```if __name__ == "__main__":``` line.
@@ -458,7 +451,6 @@ def main():
 
 if __name__ == "__main__":
     main()
-
 ```
 
 Run the script from the command line. 
@@ -506,8 +498,6 @@ The test to make sure our script doesn't change the raw data file is below. All 
 import os
 from pathlib import Path
 
-import pytest
-
 import analysis
 
 
@@ -528,7 +518,6 @@ def test_data_is_unchanged():
         and d1.st_mtime == d2.st_mtime
         and d1.st_ctime == d2.st_ctime
     )
-
 ```
 
 Run the ```data_is_unchanged()``` test from the command line. If the test passes, that means the data file ```raw_data.csv``` is not modified by our script.
@@ -666,7 +655,6 @@ At the top of ```test_analysis.py``` let's add our imports and some sample data 
 ```python
 # tests/test_analysis.py
 
-import pytest
 import numpy as np
 
 import analysis
@@ -688,10 +676,9 @@ def test_total_extension():
     expected = 3 - 1
     actual = analysis.get_total_extension(y, x)
     assert round(expected, 3) == round(actual, 3)
-
 ```
 
-These test can be run from the command line with pytest.
+Our two analysis tests can be run from the command line with pytest.
 
 ```text
 > python -m pytest tests/test_analysis.py
@@ -733,12 +720,13 @@ tests/
 At the top of ```test_plot.py``` we include our imports and define our fixture function called ```set_up_plot()```. Notice the pytest ```@pytest.fixture``` decorator attached to the fixture funciton.
 
 ```python
- tests/test_plot.py
+# tests/test_plot.py
 
 from pathlib import Path
 
-import pytest
+import matplotlib
 import numpy as np
+import pytest
 
 import analysis
 

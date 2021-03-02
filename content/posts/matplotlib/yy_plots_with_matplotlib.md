@@ -1,7 +1,7 @@
 Title: How to make y-y plots with Matplotlib
-Date: 2021-03-01 09:01
-Modified: 2021-03-01 09:01
-Status: draft
+Date: 2021-03-02 08:50
+Modified: 2021-03-02 08:50
+Status: published
 Category: matplotlib
 Tags: python, matplotlib, engineering, plotting, jupyter notebook
 Slug: how-to-make-y-y-plots-with-matplotlib

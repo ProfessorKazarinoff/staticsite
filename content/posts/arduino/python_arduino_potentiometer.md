@@ -1,9 +1,9 @@
 Title: Using Python and an Arduino to Read a Sensor
-Date: 2021-02-26 20:20
-Modified: 2018-02-26 20:20
+Date: 2021-03-02 11:00
+Modified: 2021-03-02 11:00
 Status: draft
 Category: python and arduino
-Tags: python, arduino, serial, hardware, sensor, matplotlib
+Tags: python, Arduino, serial, hardware, sensor, matplotlib
 Slug: python-arduino-potentiometer
 Authors: Peter D. Kazarinoff
 
@@ -78,7 +78,7 @@ If you are working on a company or school computer that won't allow you to insta
 
 ## Wire the potentiometer and an LED to the Arduino
 
-Take out the little blue potentiometer, an LED (any color), a 330 Ohm resistor, five jumper wires (2x red, 2x black, 1x yellow, 1x orange), the Arduino, and a white breadboard. Connect the potentiometer, LED, resistor, and colored jumper wires as shown below. Note the LED has two different sized "legs." Ensure the LED is wired in the correct orientation. Current can only flow in one direction through an LED. It does not matter which outside leg of the potentiometer goes to 5V and which outside leg of the potentiometer goes to ground. However, it is important that the center leg of the potentiometer is connected to pin ```A0``` on the Arduino. 
+Take out the little blue potentiometer, an LED (any color), a 330 Ohm resistor, five jumper wires (2x red, 2x black, 1x yellow, 1x orange), the Arduino, and a white breadboard. Connect the potentiometer, LED, resistor, and colored jumper wires as shown below. Note the LED has two different sized "legs." Ensure the LED is wired in the correct orientation. Current can only flow in one direction through an LED. It does not matter which outside leg of the potentiometer goes to 5V and which outside leg of the potentiometer goes to ground. However, the center leg of the potentiometer must be connected to pin ```A0``` on the Arduino. 
 
  * outside potentiometer leg --> 5V
  * middle potentiometer leg --> A0 on Arduino

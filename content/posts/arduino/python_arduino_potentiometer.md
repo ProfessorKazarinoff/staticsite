@@ -1,13 +1,15 @@
 Title: Using Python and an Arduino to Read a Sensor
-Date: 2021-03-02 11:00
-Modified: 2021-03-02 11:00
+Date: 2021-03-05 11:00
+Modified: 2021-03-05 11:00
 Status: draft
 Category: python and arduino
 Tags: python, Arduino, serial, hardware, sensor, matplotlib
 Slug: python-arduino-potentiometer
 Authors: Peter D. Kazarinoff
 
-In this post, you will see how to use Python to read a sensor. In particular, the sensor we'll use is a *potentiometer*.  The potentiometer will connect to an Arduino microcontroller and the Arduino will communicate with a Python script using the **PySerial** package. Python running on our computer will read the sensor data, then we will use **Matplotlib** to plot the sensor output.
+[![python logo and arduino with potentiometer]({static}/posts/arduino/images/python_logo_and_redboard_and_potentiometer.png)]({filename}/posts/arduino/python_arduino_potentiometer.md)
+
+In this post, you will see how to use **Python** to communicate with an **Arduino** and read a **sensor**. In particular, the sensor we'll use is a *potentiometer*.  The potentiometer will connect to an Arduino microcontroller and the Arduino will communicate with a Python script using the **PySerial** package. Python running on our computer will read the sensor data, then we will use **Matplotlib** to plot the sensor output. This is going to be a fun project. Let's dive in!
 
 [TOC]
 
@@ -24,6 +26,8 @@ In this project, we are going to use a couple of pieces of hardware. Below is th
 | 330 Ohm Resistor | [Resistor 330 Ohm 1/6 Watt PTH - 20 pack](https://www.sparkfun.com/products/11507) |
 | Breadboard | [Breadboard - Self-Adhesive (White)](https://www.sparkfun.com/products/12002) |
 | USB cable | [SparkFun USB Mini-B Cable - 6 Foot](https://www.sparkfun.com/products/11301) |
+
+![individual parts]({static}/posts/arduino/images/individual_potentiometer_kit_parts.png)
 
 ## Create a virtual environment and install PySerial
 
@@ -49,13 +53,13 @@ You know you are in the ```arduino``` virtual environment when ```(arduino)``` i
 (arduino) >
 ```
 
-To communicate with the Arduino using Python over a serial line, we need to have the **PySerial** package installed. In a [previous]({static}/posts/arduino/python_arduino_LED.md) we installed **PySerial** from the **Anaconda Prompt** using the command ```conda install pyserial```.
+To communicate with the Arduino using Python over a serial line, we need to have the **PySerial** package installed. In a [previous post]({filename}/posts/arduino/python_arduino_LED.md) we installed **PySerial** from the **Anaconda Prompt** using the command ```conda install pyserial```.
 
 ```text
 (arduino) > conda install pyserial
 ```
 
-To confirm that **PySerial** is installed in the ```(arduino)``` virtual environment, enter the Python REPL and try to import the **PySerial** package.
+To confirm that **PySerial** is installed in the ```(arduino)``` virtual environment, enter the Python REPL and try to import the **PySerial** package. Then call the ```.__version__``` attribute on the ```serial``` package. Note that even though the package is called **PySerial** the import command is ```import serial```.
 
 ```text
 (arduino) > python
@@ -68,17 +72,17 @@ To confirm that **PySerial** is installed in the ```(arduino)``` virtual environ
 
 ## Download the Arduino IDE
 
-As shown in the [a previous post]({static}/posts/arduino/python_arduino_LED.md), download and install the Arduino IDE found at the link below. 
+As shown in a [previous post]({static}/posts/arduino/python_arduino_LED.md), download and install the Arduino IDE found at the link below. 
 
  > [https://www.arduino.cc/en/Main/Software](https://www.arduino.cc/en/Main/Software)
 
 If you are working on a company or school computer that won't allow you to install software, choose the **Windows ZIP file for non-admin install** option.
 
-![Arduino Download Page]({static}/posts/arduino/images/arduino_download_page.png)
+[![Arduino Download Page]({static}/posts/arduino/images/arduino_download_page.png)](https://www.arduino.cc/en/software)
 
 ## Wire the potentiometer and an LED to the Arduino
 
-Take out the little blue potentiometer, an LED (any color), a 330 Ohm resistor, five jumper wires (2x red, 2x black, 1x yellow, 1x orange), the Arduino, and a white breadboard. Connect the potentiometer, LED, resistor, and colored jumper wires as shown below. Note the LED has two different sized "legs." Ensure the LED is wired in the correct orientation. Current can only flow in one direction through an LED. It does not matter which outside leg of the potentiometer goes to 5V and which outside leg of the potentiometer goes to ground. However, the center leg of the potentiometer must be connected to pin ```A0``` on the Arduino. 
+Take out the little blue potentiometer, an LED (any color), a 330 Ohm resistor, five jumper wires (2x red, 2x black, 1x yellow, 1x orange), the Arduino, and the white breadboard. Connect the potentiometer, LED, resistor, and colored jumper wires as shown below. Note the LED has two different sized "legs." Ensure the LED is wired in the correct orientation. Current can only flow in one direction through an LED. It does not matter which outside leg of the potentiometer goes to 5V and which outside leg of the potentiometer goes to ground. However, the center leg of the potentiometer must be connected to pin ```A0``` on the Arduino. 
 
  * outside potentiometer leg --> 5V
  * middle potentiometer leg --> A0 on Arduino
@@ -96,9 +100,9 @@ Take out the little blue potentiometer, an LED (any color), a 330 Ohm resistor, 
 
 In this step, we are going to connect the Arduino to the computer and determine which **COM port** it is connected to.
 
-Connect the Arduino to the computer using a USB cable. On SparkFun Redboards (a type of Arduino), the cable needs to be a USB 2.0 type A to Mini-B 5-pin cable. One end of the cable looks like a regular USB cable. Connect that end to the computer. The other end of the cable has a small connector that sort of looks like a phone charging cable, but a little different. Connect this smaller end of the cable to the Arduino.
+Connect the Arduino to the computer using a USB cable. On SparkFun Redboards (a type of Arduino), the cable needs to be a USB 2.0 type A to Mini-B cable. One end of the cable looks like a regular USB cable. Connect that end to the computer. The other end of the cable has a small connector that sort of looks like a phone charging cable, but a little different. Connect this smaller end of the cable to the Arduino.
 
-Now we need to determine which **COM Port** the Arduino is connected to. Later, when we upload code to the Arduino we need to know which **COM Port** the Arduino is connected to.
+Now we need to determine which **COM Port** the Arduino is connected to. Later, when we upload code to the Arduino we will need to know which **COM Port** the Arduino is connected to.
 
 We can use the Windows Device Manager to determine which serial port the Arduino is connected to. On my Windows 10 laptop, the Arduino is usually connected to port ```COM15```. You can find the port number by looking in the **Ports (COM & LPT)** category of the Windows Device Manager. Look for something like **USB Serial Port (COM15)** in the **Ports (COM & LPT)** menu. It is the **COM#** that you are looking for. Remember, your **COM#** will probably not be **COM15**.
 
@@ -140,9 +144,9 @@ Use the Arduino IDE to create a new sketch by going to File --> New. This opens 
 // potentiometer.ino
 // reads a potentiometer sensor and sends the reading over serial
 
-int sensorPin = A0; // The potentiometer is connected to analog pin 0
-int ledPin = 13; // The LED is connected to digital pin 13
-int sensorValue; // An integer variable to store the potentiometer reading
+int sensorPin = A0; // the potentiometer is connected to analog pin 0
+int ledPin = 13; // the LED is connected to digital pin 13
+int sensorValue; // an integer variable to store the potentiometer reading
 void setup() { // this function runs once when the sketch starts up
   pinMode (ledPin, OUTPUT);
   // initialize serial communication :
@@ -150,12 +154,12 @@ void setup() { // this function runs once when the sketch starts up
 }
 
 void loop() { // this loop runs repeatedly after setup() finishes
-  sensorValue = analogRead(sensorPin); // Read the sensor
-  Serial.println(sensorValue); // Output reading to the serial line
+  sensorValue = analogRead(sensorPin); // read the sensor
+  Serial.println(sensorValue); // output reading to the serial line
   if (sensorValue < 500){
-    digitalWrite(ledPin , LOW );} // Turn the LED off
+    digitalWrite(ledPin , LOW );} // turn the LED off
   else {
-    digitalWrite(ledPin , HIGH );} // Keep the LED on
+    digitalWrite(ledPin , HIGH );} // keep the LED on
   delay (100); // Pause in milliseconds before next reading
 }
 ```
@@ -192,7 +196,7 @@ If the **potentiometer.ino** sketch is working properly, you will see numbers sc
 
 Now close the Serial Monitor. The Arduino Serial Monitor and Arduino Serial Plotter can not communicate with the Arduino at the same time.
 
- > Be Careful: The Arduino Serial Monitor and the Arduino Serial Plotter can't be open at the same time.
+ > **Be careful**: The Arduino Serial Monitor and the Arduino Serial Plotter can't be open at the same time.
 
 ### View the potentiometer reading in the Arduino Serial Plotter
 
@@ -220,7 +224,7 @@ It is time to use Python to read and record the potentiometer reading.
 
 Open the **Anaconda Prompt** and activate the ```(arduino)``` virtual environment (if it is not currently active). Then start the Python REPL by typing ```python``` at the prompt.
 
-Type the following commands to read the potentiometer connected to the Arduino. Note the arrow symbols ```>``` and ```>>>``` should not be typed. The arrow symbols ```>``` and ```>>>``` are just shown to indicate the prompt. Make sure to change the COM Port from ```'COM4'``` to the Port number you found in the Windows Device Manager. The command ```ser.readline()``` reads the incoming data from the serial line. Note that the data looks kind of funny, not like the numbers we saw in the Arduino Serial Monitor. Twist the potentiometer and run ```ser.readline()``` again. The observe how the output changes.
+Type the following commands below to read the potentiometer connected to the Arduino. Note the arrow symbols ```>``` and ```>>>``` should not be typed. The arrow symbols ```>``` and ```>>>``` are just shown to indicate the prompt. Make sure to change the COM Port from ```'COM4'``` to the Port number you found in the Windows Device Manager. The command ```ser.readline()``` reads the incoming data from the serial line. Note that the data looks kind of funny, not like the numbers we saw in the Arduino Serial Monitor. Twist the potentiometer and run ```ser.readline()``` again. Observe how the output changes.
 
 ```text
 > conda activate arduino
@@ -285,7 +289,7 @@ b'481\r\n'
 <class 'str'>
 ```
 
-OK, now we have a Python string, but what about the ```\r\n``` at the end? These are the return and new line characters. ```\r\n``` are sent by the Arduino because the **potentiometer.ino** sketch used the ```println()``` function, which prints a new line every time it is called. Not to worry, ```\r\n``` can be stripped off the ```string``` object with the Python's ```.strip()``` method. Then let's convert the "stripped" string to an integer, using Python's ```int()``` function. Make sure to close the serial line with the ```ser.close()``` method before you ```exit()``` the Python REPL. 
+OK, now we have a Python string, but what about the ```\r\n``` at the end? These are the return and new line characters. ```\r\n``` are sent by the Arduino because the **potentiometer.ino** sketch used the ```println()``` function, which prints a new line each time the data is printed out. Not to worry, ```\r\n``` can be stripped off the ```string``` object with the Python's ```.strip()``` method. Then let's convert the "stripped" string to an integer, using Python's ```int()``` function. Make sure to close the serial line with the ```ser.close()``` method before you ```exit()``` the Python REPL. 
 
 ```text
 >>> string
@@ -338,7 +342,7 @@ ser.close()
 
 Run the **potentiometer.py** script and twist the little blue potentiometer back and forth. You should see numbers running down the terminal. The numbers change as you dial the potentiometer back and forth. 
 
-## Write a Python Script to record the potentiometer readings and plot the readings over time
+## Write a Python script to record the potentiometer readings and plot the readings over time
 
 Now let's write a Python script that records the potentiometer readings and plots the potentiometer readings over time. 
 
@@ -402,20 +406,20 @@ Fantastic! We used Python to read a sensor! When the Python script is run and th
 
 ## Summary
 
-In this post, we used Python to read a potentiometer. There were many technologies needed to complete this project.
+In this post, we used Python to read a potentiometer. We used a bunch of technologies to complete this project.
 
  * Arduino Hardware: we wired a potentiometer and an LED to an Arduino using jumper wires, a resistor, and a breadboard.
  * Arduino IDE: we used the Arduino IDE to upload code to the Arduino.
- * Arduino sketches: we used a couple of Arduino sketches (Arduino scripts), code that runs on an Arduino. Arduino sketches end in the ```.ino``` file extension.
+ * Arduino sketches: we used a couple of Arduino sketches (Arduino programs). Arduino sketches end in the ```.ino``` file extension.
  * Arduino Serial Monitor and Arduino Serial Plotter: we used the Arduino Serial Monitor and Arduino Serial Plotter to see if the potentiometer reading was sent over the serial line.
  * Windows Device Manager: We used the Windows Device Manager to see which COM Port the Arduino was connected to.
  * Anaconda Prompt: We used the Anaconda Prompt to create a virtual environment and install Python packages.
- * Virtual Environments: We created a virtual environment with the Anaconda prompt to house all the Python packages we used in the project.
+ * Virtual Environments: We created a virtual environment with the Anaconda Prompt to house all the Python packages we used in the project.
  * Python REPL: We used the Python REPL (the Python Prompt) to confirm Python packages were installed correctly and run quick commands to confirm Python could communicate with the Arduino.
  * Python Scripts: We wrote a couple of Python scripts. Python scripts end in the ```.py``` file extension and contain Python code. The Python scripts recorded the potentiometer readings.
  * PySerial: The PySerial Python package was used to read data coming from the Arduino.
  * Matplotlib: The Matplotlib Python package was used to plot the data recorded by the Python script.
 
-## Going Further
+## Going further
 
 This project can be extended in several ways. For example, a different type of sensor could replace the potentiometer. A light sensor, temperature sensor, or pressure sensor could be used instead of a potentiometer. Two or three sensors could be connected to the Arduino at the same time as well. The plotting script can also be extended. The script could ask the user for the amount of time they wanted to record data. Or the script could produce an animated plot of the data mimicking the Arduino Serial Monitor.

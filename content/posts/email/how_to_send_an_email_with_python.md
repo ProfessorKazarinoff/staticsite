@@ -15,11 +15,64 @@ In this post, I'll go over how to send an email with Python. First we'll go over
 
 ## Why send email with Python
 
-Why send email with Python? The use case I have is that each week, I have class that starts on the same days at the same time. About an hour before class, I send a reminder email to the students that class will start soon and include the Zoom link for the class. This is a repedative task. There must be a way to automate this with Python. 
+Why send email with Python? The use case I have is that each week, I have class that starts on the same days at the same time. About an hour before class, I send a reminder email to the students that class will start soon and include the Zoom link for the class. This is a repedative task. There must be a way to automate this with Python.
+
+## Prerequisits
 
 ## Send an email to the command line
 
+First, we are going to send an email from a Python script to the command line. This is a good first step because it doesn't require us to set up an email account. The code below is a modification of the code from a Real Python article [Sending Emails with Python](https://realpython.com/python-send-email/).
+
+From the Anaconda Prompt, start an email server on your local computer with the command below. This local email server running on your computer is where we will send our first email to. Instead of going to a real email address, our outgoing email will be printed to the command line.
+
+```text
+python -m smtpd -c DebuggingServer -n localhost:1025
+```
+![start local email server]({static}/posts/email/images/start_local_email_server_in_anaconda_prompt.PNG)
+
+The terminal will just hang out until an email is sent to it. Don't expect any output until we send our first email.
+
+Copy the Python code below into a file called ```local_email.py```. This script will send an email to the local server we started from the command line above.
+
+```python
+# local_email.py
+
+import smtplib
+
+port = 1025
+sender = 'from@fromdomain.com'
+receivers = ['to@todomain.com']
+message = """From: From Person <from@fromdomain.com>
+To: To Person <to@todomain.com>
+Subject: SMTP e-mail test
+
+This is a test e-mail message.
+"""
+
+try:
+   smtpObj = smtplib.SMTP('localhost', port=port)
+   smtpObj.sendmail(sender, receivers, message)         
+   print("Successfully sent email")
+except:
+   print("Error: unable to send email")
+
+```
+
+Run the script above called ```local_email.py``` from a seperate terminal.
+
+```text
+python local_email.py
+```
+
+You should see an email pop up in the first terminal. 
+
+![email recieved in anaconda prompt]({static}/posts/email/images/email_received_in_anaconda_prompt.PNG)
+
+Great! We were able to send an email locally with our Python script. Next we are going to send an email to a real email address.
+
 ## Set up a Google email address
+
+
 
 ## Send an email using a Google email address
 

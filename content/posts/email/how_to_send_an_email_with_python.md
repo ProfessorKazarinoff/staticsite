@@ -72,14 +72,58 @@ Great! We were able to send an email locally with our Python script. Next we are
 
 ## Set up a Google email address
 
+Next we are going to set up a "throw away" gmail account to use for testing. Sign up for a new gmail account and make sure you remember the email address and password.
 
+![email recieved in anaconda prompt]({static}/posts/email/images/gmail_signup_page1.PNG)
+
+After the "throw away" email account is set up, you need to change an account setting to allow less secure apps.
+
+Turn [Allow less secure apps](https://myaccount.google.com/lesssecureapps) to ON. This makes it easier for others to gain access to your account. Only make this security change for your "throw away" email accout.
+
+![email recieved in anaconda prompt]({static}/posts/email/images/gmail_allow_less_secure_apps_on.PNG)
+
+Now we are reay to send an email to a real email address.
 
 ## Send an email using a Google email address
 
-## Send an email to a group
+Now that we have a "throw away" email account and changed the account settings to allow less secure apps, we can try sending emails with this account.
 
-## Schedule email with a cron job
+Create a new Python script called ```send_gmail.py```. Copy the code below into the script.
+
+```python
+# send_gmail.py
+
+import smtplib, ssl
+
+port = 465  # For SSL
+smtp_server = "smtp.gmail.com"
+sender_email = "mythrowawayemail@gmail.com"  # your throw away gmail address
+receiver_email = "mythrowawayemail@gmail.com"  # your throw away gamil address
+password = input("Enter throw away gmail account password: ")
+message = """\
+Subject: Test Email from Python
+
+This message was sent from Python.
+"""
+
+context = ssl.create_default_context()
+with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
+    server.login(sender_email, password)
+    server.sendmail(sender_email, receiver_email, message)
+```
+
+Go to your "throw away" gmail inbox and see the message you sent.
+
+![throw away gmail inbox]({static}/posts/email/images/see_email_in_gmail_inbox.PNG)
+
+This method works to send emails, but the problem is we are entering a plain text password and using an insecure gmail account. Next, we'll see how to use a service called mailgun (that has a pretty generous free tier) to send emails for us.
+
+## Sign up for a Mailgun account
+
+## Send an email with Mailgun
 
 ## Run the email program on a server
+
+## Schedule the email program with a cron job on a server
 
 ## Wrap Up

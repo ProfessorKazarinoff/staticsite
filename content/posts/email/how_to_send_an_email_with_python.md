@@ -118,9 +118,101 @@ Go to your "throw away" gmail inbox and see the message you sent.
 
 This method works to send emails, but the problem is we are entering a plain text password and using an insecure gmail account. Next, we'll see how to use a service called mailgun (that has a pretty generous free tier) to send emails for us.
 
-## Sign up for a Mailgun account
+## Sign up for a Sendgrid account
 
-## Send an email with Mailgun
+Next, we are going to use a service called Sendgrid to send emails using Python. Sendgrid has a free tier that you can use to test out sending emails. There is a limit to the number of emails you can send per month, but the limit is pretty high. So for a practice project the free tier will work just fine.
+
+![email recieved in anaconda prompt]({static}/posts/email/images/sendgrid_pricing.png)
+
+## Get a Sendgrid API Key
+
+After you sign up for a Sendgrid account, the next thing to do is secure a Sendgrid API key. The API key is the thing we'll use in our Python script so that Sendgrid knows were the email is coming from and that we have a Sendgrid account.
+
+In order to get an API key, first we need to create a Sendgrid *sender*. I'm not exactly sure what a *sender* is, but we need to create one.
+
+![email recieved in anaconda prompt]({static}/posts/email/images/create_sendgrid_sender.png)
+
+After the *sender* is created, we can get our API key. Use the left-hand menu and scroll down to Settings. Under Settings, click API Keys.
+
+![email recieved in anaconda prompt]({static}/posts/email/images/settings_api_keys.png)
+
+Copy the API key to somewhere safe on your computer. Make sure not to share the API key in version control or on GitHub.
+
+## Create a virtual environment and install the Sendgrid package
+
+Next, we're going to create a virtual environment and install the sendgrid package. It's best practice to create a seperate virtual environment for each project. I use the Anaconda distribution of Python and the Anaconda Prompt to create and manage virtual environments. You could also create a virtual environment using Python's venv module instead.
+
+```text
+conda create -y -n email python=3.8
+```
+
+Next activate the virtual environment and install the sendgrid package.
+
+```text
+conda activate sendgrid
+python -m pip install sendgrid
+```
+
+## Send an email with Sendgrid
+
+Great, now we can send an email with Sendgrid. Creat a new Python file called ```config.py```. If you are following along and keeping your code in a GitHub repo or another public place, make sure to keep this file out of version control. Add ```config.py``` to your ```.gitignore``` file.
+
+```python
+# config.py
+# KEEP OUT OF VERSION CONTROL
+# ADD TO .gitignore
+
+# config.py
+SENDGRID_API_KEY = "SG.XXXXXXXXXXXXXXXXXXXXXXXX"
+FROM_EMAIL = "first.last@college.edu"
+TO_EMAIL = "first.last@domain.com"
+```
+
+Now we'll make the script that will send the email. Copy the code below into a Python file called ```sendgrid_email.py```
+
+```python
+# sendgrid_email.py
+
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
+
+from config import SENDGRID_API_KEY, FROM_EMAIL, TO_EMAIL
+
+message = Mail(
+    from_email=FROM_EMAIL,
+    to_emails=TO_EMAIL,
+    subject='Subject for a test email',
+    html_content="""This is a reminder:\n\n
+    Remember to do that thing.
+    """
+    )
+
+def main():
+    try:
+        sg = SendGridAPIClient(SENDGRID_API_KEY)
+        response = sg.send(message)
+        print(response.status_code)
+        print(response.body)
+        print(response.headers)
+    except Exception as e:
+        print(e.message)
+
+if __name__ == "__main__":
+    main()
+
+```
+
+To send the email, run the ```sendgrid_email.py``` script. Make sure the ```(email)``` virtual environment is active when the script is run.
+
+```text
+> python sendgrid_email.py
+```
+
+Now pop over to your email and see the awesome email you just sent. Pretty cool right?
+
+It's great that we can run the email reminder program from our computer. But the point of this project is to send automated reminder emails. If I have to run the program each time I want to send an email reminder, that sort of takes away the point of scripting this all in Python.
+
+Therefore, what we are going to do next is deploy our Python script to a cloud server and have the cloud server send the reminder emails for us.
 
 ## Run the email program on a server
 

@@ -4,7 +4,7 @@ import serial
 import time
 
 # make sure the 'COM#' is set according the Windows Device Manager
-ser = serial.Serial('COM15', 9800, timeout=1)
+ser = serial.Serial('COM4', 9800, timeout=1)
 time.sleep(2)
 
 for i in range(50):

@@ -1,7 +1,7 @@
 Title: Using Python and an Arduino to Read a Sensor
-Date: 2021-03-05 11:00
-Modified: 2021-03-05 11:00
-Status: draft
+Date: 2021-03-11 11:00
+Modified: 2021-03-11 11:00
+Status: published
 Category: python and arduino
 Tags: python, Arduino, serial, hardware, sensor, matplotlib
 Slug: python-arduino-potentiometer
@@ -35,7 +35,7 @@ To complete this Python project, it is best practice to use a virtual environmen
 
 ![anaconda in start menu]({static}/images/anaconda_from_start_menu.png)
 
-In a [previous post]({static}/posts/arduino/python_arduino_LED.md), we reviewed how to create a new virtual environment called ```(arduino)```. Open the Anaconda Prompt and use the command below to create the virtual environment.
+In a [previous post]({static}/posts/arduino/python_arduino_LED.md), we reviewed how to create a new virtual environment called ```(arduino)```. We'll follow the same process here. Open the Anaconda Prompt and use the command below to create the virtual environment.
 
 ```text
 > conda create -y -n arduino python=3.8
@@ -53,7 +53,7 @@ You know you are in the ```arduino``` virtual environment when ```(arduino)``` i
 (arduino) >
 ```
 
-To communicate with the Arduino using Python over a serial line, we need to have the **PySerial** package installed. In a [previous post]({filename}/posts/arduino/python_arduino_LED.md) we installed **PySerial** from the **Anaconda Prompt** using the command ```conda install pyserial```.
+To communicate with the Arduino using Python over a serial line, we need to have the **PySerial** package installed. Install **PySerial** from the **Anaconda Prompt** using the command ```conda install pyserial```.
 
 ```text
 (arduino) > conda install pyserial
@@ -72,7 +72,9 @@ To confirm that **PySerial** is installed in the ```(arduino)``` virtual environ
 
 ## Download the Arduino IDE
 
-As shown in a [previous post]({static}/posts/arduino/python_arduino_LED.md), download and install the Arduino IDE found at the link below. 
+We need to upload code to our Arduino in order to communicate with our Arduino using Python. Therefore, the next step is to dowload and install the Arduino IDE (**I**ntgrated **D**evelopment **E**nvironment)
+
+As shown in a [previous post]({filename}/posts/arduino/python_arduino_LED.md), download and install the Arduino IDE found at the link below. 
 
  > [https://www.arduino.cc/en/Main/Software](https://www.arduino.cc/en/Main/Software)
 
@@ -113,7 +115,7 @@ We can use the Windows Device Manager to determine which serial port the Arduino
 
 ## "Blink" the Arduino to confirm it is working
 
-In the next step, we are going to upload the **Blink.ino** *sketch* to the Arduino and make sure the sketch uploads and the Arduino blinks. A sketch is an Arduino program.
+In the next step, we are going to upload the **Blink.ino** *sketch* to the Arduino and make sure the sketch uploads and the Arduino blinks. A *sketch* is an Arduino program.
 
 Double-click the **Arduino.exe** program. Open the Arduino **Blink.ino** sketch by going to: File --> Examples --> 01.Basics --> Blink
 
@@ -272,7 +274,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 >>> ser.close()
 ```
 
-**When we store the line coming in from the Arduino, we aren't storing an int, a float, or a string.** The ```ser.readline()``` method returns a _byte_ object. The "byte string" can be converted to a regular Python string using the ```.decode()``` method.
+**When we store the line coming in from the Arduino, we aren't storing an int, a float, or a string.** The ```ser.readline()``` method returns a _byte_ object. The "byte object" can be converted to a regular Python string using the ```.decode()``` method.
 
 ```text
 >>> import serial
@@ -289,7 +291,7 @@ b'481\r\n'
 <class 'str'>
 ```
 
-OK, now we have a Python string, but what about the ```\r\n``` at the end? These are the return and new line characters. ```\r\n``` are sent by the Arduino because the **potentiometer.ino** sketch used the ```println()``` function, which prints a new line each time the data is printed out. Not to worry, ```\r\n``` can be stripped off the ```string``` object with the Python's ```.strip()``` method. Then let's convert the "stripped" string to an integer, using Python's ```int()``` function. Make sure to close the serial line with the ```ser.close()``` method before you ```exit()``` the Python REPL. 
+OK, now we have a Python string, but what about the ```\r\n``` at the end? These are the *return* and *new line* characters. ```\r\n``` are sent by the Arduino because the **potentiometer.ino** sketch used the ```Serial.println()``` function, which prints a new line each time the data is printed out. Not to worry, ```\r\n``` can be stripped off the ```string``` object with the Python's ```.strip()``` method. Then let's convert the "stripped" string to an integer, using Python's ```int()``` function. Make sure to close the serial line with the ```ser.close()``` method before you ```exit()``` the Python REPL. 
 
 ```text
 >>> string
@@ -307,7 +309,7 @@ OK, now we have a Python string, but what about the ```\r\n``` at the end? These
 (arduino) >
 ```
 
-Let's sum up the data type conversions above. Starting from the data that comes in from the Arduino that is a *byte string* to finally ending up with an *integer*:
+Let's sum up the data type conversions above. Starting from the data that comes in from the Arduino that is a *byte* to finally ending up with an *integer*:
 
  * ```ser.readline()``` returns a byte string: ```b'481\r\n'```
  * ```.decode()``` converts the byte string to a Python string: ```'481\r\n'```
@@ -326,11 +328,12 @@ Create a new Python script called **potentiometer.py**. Include the code below i
 import serial
 import time
 
+# make sure the 'COM#' is set according the Windows Device Manager
 ser = serial.Serial('COM4', 9800, timeout=1)
 time.sleep(2)
 
 for i in range(50):
-    line = ser.readline()   # read a byte string
+    line = ser.readline()   # read a byte
     if line:
         string = line.decode()  # convert the byte string to a unicode string
         num = int(string) # convert the unicode string to an int
@@ -362,7 +365,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 >>> import matplotlib
 >>> matplotlib.__version__
-'3.0.2'
+'3.3.4'
 >>> exit()
 (arduino) >
 ```
@@ -376,6 +379,7 @@ import serial
 import time
 import matplotlib.pyplot as plt
 
+# make sure the 'COM#' is set according the Windows Device Manager
 ser = serial.Serial('COM4', 9800, timeout=1)
 time.sleep(2)
 
@@ -386,7 +390,7 @@ for i in range(50):
         string = line.decode()  # convert the byte string to a unicode string
         num = int(string) # convert the unicode string to an int
         print(num)
-        data.append(num) # add the int to the data list
+        data.append(num) # add int to data list
 ser.close()
 
 # build the plot

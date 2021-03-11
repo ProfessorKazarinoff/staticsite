@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>How to send an email with Python - Python for Undergraduate Engineers</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
+<style type="text/css">
+
+    /*some stuff for output/input prompts*/
+    div.cell{border:1px solid transparent;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}div.cell.selected{border-radius:4px;border:thin #ababab solid}
+    div.cell.edit_mode{border-radius:4px;border:thin #008000 solid}
+    div.cell{width:100%;padding:5px 5px 5px 0;margin:0;outline:none}
+    div.prompt{min-width:11ex;padding:.4em;margin:0;font-family:monospace;text-align:right;line-height:1.21429em}
+    @media (max-width:480px){div.prompt{text-align:left}}div.inner_cell{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
+    div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;line-height:1.21429em}
+    div.prompt:empty{padding-top:0;padding-bottom:0}
+    div.input{page-break-inside:avoid;display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;}
+    div.inner_cell{width:90%;}
+    div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;}
+    div.input_prompt{color:navy;border-top:1px solid transparent;}
+    div.output_wrapper{margin-top:5px;position:relative;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+    div.output_scroll{height:24em;width:100%;overflow:auto;border-radius:4px;-webkit-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);-moz-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);}
+    div.output_collapsed{margin:0px;padding:0px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+    div.out_prompt_overlay{height:100%;padding:0px 0.4em;position:absolute;border-radius:4px;}
+    div.out_prompt_overlay:hover{-webkit-box-shadow:inset 0 0 1px #000000;-moz-box-shadow:inset 0 0 1px #000000;box-shadow:inset 0 0 1px #000000;background:rgba(240, 240, 240, 0.5);}
+    div.output_prompt{color:darkred;}
+    
+    a.anchor-link:link{text-decoration:none;padding:0px 20px;visibility:hidden;}
+    h1:hover .anchor-link,h2:hover .anchor-link,h3:hover .anchor-link,h4:hover .anchor-link,h5:hover .anchor-link,h6:hover .anchor-link{visibility:visible;}
+    /* end stuff for output/input prompts*/
+    
+    
+    .highlight-ipynb .hll { background-color: #ffffcc }
+    .highlight-ipynb  { background: #f8f8f8; }
+    .highlight-ipynb .c { color: #408080; font-style: italic } /* Comment */
+    .highlight-ipynb .err { border: 1px solid #FF0000 } /* Error */
+    .highlight-ipynb .k { color: #008000; font-weight: bold } /* Keyword */
+    .highlight-ipynb .o { color: #666666 } /* Operator */
+    .highlight-ipynb .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+    .highlight-ipynb .cp { color: #BC7A00 } /* Comment.Preproc */
+    .highlight-ipynb .c1 { color: #408080; font-style: italic } /* Comment.Single */
+    .highlight-ipynb .cs { color: #408080; font-style: italic } /* Comment.Special */
+    .highlight-ipynb .gd { color: #A00000 } /* Generic.Deleted */
+    .highlight-ipynb .ge { font-style: italic } /* Generic.Emph */
+    .highlight-ipynb .gr { color: #FF0000 } /* Generic.Error */
+    .highlight-ipynb .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+    .highlight-ipynb .gi { color: #00A000 } /* Generic.Inserted */
+    .highlight-ipynb .go { color: #888888 } /* Generic.Output */
+    .highlight-ipynb .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+    .highlight-ipynb .gs { font-weight: bold } /* Generic.Strong */
+    .highlight-ipynb .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+    .highlight-ipynb .gt { color: #0044DD } /* Generic.Traceback */
+    .highlight-ipynb .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+    .highlight-ipynb .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+    .highlight-ipynb .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+    .highlight-ipynb .kp { color: #008000 } /* Keyword.Pseudo */
+    .highlight-ipynb .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+    .highlight-ipynb .kt { color: #B00040 } /* Keyword.Type */
+    .highlight-ipynb .m { color: #666666 } /* Literal.Number */
+    .highlight-ipynb .s { color: #BA2121 } /* Literal.String */
+    .highlight-ipynb .na { color: #7D9029 } /* Name.Attribute */
+    .highlight-ipynb .nb { color: #008000 } /* Name.Builtin */
+    .highlight-ipynb .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+    .highlight-ipynb .no { color: #880000 } /* Name.Constant */
+    .highlight-ipynb .nd { color: #AA22FF } /* Name.Decorator */
+    .highlight-ipynb .ni { color: #999999; font-weight: bold } /* Name.Entity */
+    .highlight-ipynb .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+    .highlight-ipynb .nf { color: #0000FF } /* Name.Function */
+    .highlight-ipynb .nl { color: #A0A000 } /* Name.Label */
+    .highlight-ipynb .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+    .highlight-ipynb .nt { color: #008000; font-weight: bold } /* Name.Tag */
+    .highlight-ipynb .nv { color: #19177C } /* Name.Variable */
+    .highlight-ipynb .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+    .highlight-ipynb .w { color: #bbbbbb } /* Text.Whitespace */
+    .highlight-ipynb .mf { color: #666666 } /* Literal.Number.Float */
+    .highlight-ipynb .mh { color: #666666 } /* Literal.Number.Hex */
+    .highlight-ipynb .mi { color: #666666 } /* Literal.Number.Integer */
+    .highlight-ipynb .mo { color: #666666 } /* Literal.Number.Oct */
+    .highlight-ipynb .sb { color: #BA2121 } /* Literal.String.Backtick */
+    .highlight-ipynb .sc { color: #BA2121 } /* Literal.String.Char */
+    .highlight-ipynb .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+    .highlight-ipynb .s2 { color: #BA2121 } /* Literal.String.Double */
+    .highlight-ipynb .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+    .highlight-ipynb .sh { color: #BA2121 } /* Literal.String.Heredoc */
+    .highlight-ipynb .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+    .highlight-ipynb .sx { color: #008000 } /* Literal.String.Other */
+    .highlight-ipynb .sr { color: #BB6688 } /* Literal.String.Regex */
+    .highlight-ipynb .s1 { color: #BA2121 } /* Literal.String.Single */
+    .highlight-ipynb .ss { color: #19177C } /* Literal.String.Symbol */
+    .highlight-ipynb .bp { color: #008000 } /* Name.Builtin.Pseudo */
+    .highlight-ipynb .vc { color: #19177C } /* Name.Variable.Class */
+    .highlight-ipynb .vg { color: #19177C } /* Name.Variable.Global */
+    .highlight-ipynb .vi { color: #19177C } /* Name.Variable.Instance */
+    .highlight-ipynb .il { color: #666666 } /* Literal.Number.Integer.Long */
+    </style>
+    
+    <style type="text/css">
+    /* Overrides of notebook CSS for static HTML export */
+    div.entry-content {
+      overflow: visible;
+      padding: 8px;
+    }
+    .input_area {
+      padding: 0.2em;
+    }
+    
+    a.heading-anchor {
+     white-space: normal;
+    }
+    
+    .rendered_html
+    code {
+     font-size: .8em;
+    }
+    
+    pre.ipynb {
+      color: black;
+      background: #f7f7f7;
+      border: none;
+      box-shadow: none;
+      margin-bottom: 0;
+      padding: 0;
+      margin: 0px;
+      font-size: 13px;
+    }
+    
+    /* remove the prompt div from text cells */
+    div.text_cell .prompt {
+        display: none;
+    }
+    
+    /* remove horizontal padding from text cells, */
+    /* so it aligns with outer body text */
+    div.text_cell_render {
+        padding: 0.5em 0em;
+    }
+    
+    img.anim_icon{padding:0; border:0; vertical-align:middle; -webkit-box-shadow:none; -box-shadow:none}
+    
+    div.collapseheader {
+        width=100%;
+        padding: 2px;
+        cursor: pointer;
+        font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+    
+    </style>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+    <script type="text/javascript">
+    init_mathjax = function() {
+        if (window.MathJax) {
+            // MathJax loaded
+            MathJax.Hub.Config({
+                tex2jax: {
+                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+                },
+                displayAlign: 'center', // Change this to 'center' to center equations.
+                "HTML-CSS": {
+                    styles: {'.MathJax_Display': {"margin": 0}}
+                }
+            });
+            MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        }
+    }
+    init_mathjax();
+    </script>
+    
+    <link href="../extra/favicon.ico" rel="icon">
+
+<link rel="canonical" href="../drafts/how-to-send-an-email-with-python.html">
+
+        <meta name="author" content="Peter D. Kazarinoff" />
+        <meta name="keywords" content="python,email,cronjob" />
+        <meta name="description" content="In this post, I&#39;ll go over how to send an email with Python. First we&#39;ll go over how to send one email, then we&#39;ll set up a server to send emails on a schedule. By the end of the post, you&#39;ll learn how to automate sending reminder emails to a …" />
+
+        <meta property="og:site_name" content="Python for Undergraduate Engineers" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="How to send an email with Python"/>
+        <meta property="og:url" content="../drafts/how-to-send-an-email-with-python.html"/>
+        <meta property="og:description" content="In this post, I&#39;ll go over how to send an email with Python. First we&#39;ll go over how to send one email, then we&#39;ll set up a server to send emails on a schedule. By the end of the post, you&#39;ll learn how to automate sending reminder emails to a …"/>
+        <meta property="article:published_time" content="2021-03-06" />
+            <meta property="article:section" content="python" />
+            <meta property="article:tag" content="python" />
+            <meta property="article:tag" content="email" />
+            <meta property="article:tag" content="cronjob" />
+            <meta property="article:author" content="Peter D. Kazarinoff" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../theme/css/pygments/native.css" rel="stylesheet">
+    <link href="../theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="../theme/css/style.css" type="text/css"/>
+        <link href="../static/css/custom.css" rel="stylesheet">
+
+
+
+</head>
+<body>
+
+<!-- .navbar -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../" class="navbar-brand">
+Python for Undergraduate Engineers            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="../pages/about.html">
+                             About
+                          </a></li>
+                         <li><a href="../pages/book.html">
+                             Book
+                          </a></li>
+                         <li><a href="../pages/now.html">
+                             Now
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+
+<!-- .navbar-search -->
+<li>
+    <span>
+        <form class="navbar-search" action="/search.html">
+            <input type="text" name="q" id="tipue_search_input">
+        </form>
+    </span>
+</li>
+<!-- /.navbar-search -->              <li><a href="../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+            <ol class="breadcrumb">
+                <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="../category/python.html" title="python">python</a></li>
+                <li class="active">How to send an email with Python</li>
+            </ol>
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="../drafts/how-to-send-an-email-with-python.html"
+                       rel="bookmark"
+                       title="Permalink to How to send an email with Python">
+                        How to send an email with Python
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2021-03-06T09:30:00-08:00"> Sat 06 March 2021</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="../tag/python.html">python</a>
+        /
+	<a href="../tag/email.html">email</a>
+        /
+	<a href="../tag/cronjob.html">cronjob</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p><img alt="segmented cone" src="../posts/engr213/images/segmented_cone.png"> </p>
+<p>In this post, I'll go over how to send an email with Python. First we'll go over how to send one email, then we'll set up a server to send emails on a schedule. By the end of the post, you'll learn how to automate sending reminder emails to a group of people. </p>
+<div class="toc"><span class="toctitle">Table of contents:</span><ul>
+<li><a href="#why-send-email-with-python">Why send email with Python</a></li>
+<li><a href="#prerequisits">Prerequisits</a></li>
+<li><a href="#send-an-email-to-the-command-line">Send an email to the command line</a></li>
+<li><a href="#set-up-a-google-email-address">Set up a Google email address</a></li>
+<li><a href="#send-an-email-using-a-google-email-address">Send an email using a Google email address</a></li>
+<li><a href="#sign-up-for-a-sendgrid-account">Sign up for a Sendgrid account</a></li>
+<li><a href="#get-a-sendgrid-api-key">Get a Sendgrid API Key</a></li>
+<li><a href="#create-a-virtual-environment-and-install-the-sendgrid-package">Create a virtual environment and install the Sendgrid package</a></li>
+<li><a href="#send-an-email-with-sendgrid">Send an email with Sendgrid</a></li>
+<li><a href="#run-the-email-program-on-a-server">Run the email program on a server</a></li>
+<li><a href="#schedule-the-email-program-with-a-cron-job-on-a-server">Schedule the email program with a cron job on a server</a></li>
+<li><a href="#wrap-up">Wrap Up</a></li>
+</ul>
+</div>
+<h2 id="why-send-email-with-python">Why send email with Python</h2>
+<p>Why send email with Python? The use case I have is that each week, I have class that starts on the same days at the same time. About an hour before class, I send a reminder email to the students that class will start soon and include the Zoom link for the class. This is a repedative task. There must be a way to automate this with Python.</p>
+<h2 id="prerequisits">Prerequisits</h2>
+<h2 id="send-an-email-to-the-command-line">Send an email to the command line</h2>
+<p>First, we are going to send an email from a Python script to the command line. This is a good first step because it doesn't require us to set up an email account. The code below is a modification of the code from a Real Python article <a href="https://realpython.com/python-send-email/">Sending Emails with Python</a>.</p>
+<p>From the Anaconda Prompt, start an email server on your local computer with the command below. This local email server running on your computer is where we will send our first email to. Instead of going to a real email address, our outgoing email will be printed to the command line.</p>
+<div class="highlight"><pre><span></span>python -m smtpd -c DebuggingServer -n localhost:1025
+</pre></div>
+
+
+<p><img alt="start local email server" src="../posts/email/images/start_local_email_server_in_anaconda_prompt.PNG"></p>
+<p>The terminal will just hang out until an email is sent to it. Don't expect any output until we send our first email.</p>
+<p>Copy the Python code below into a file called <code>local_email.py</code>. This script will send an email to the local server we started from the command line above.</p>
+<div class="highlight"><pre><span></span><span class="c1"># local_email.py</span>
+
+<span class="kn">import</span> <span class="nn">smtplib</span>
+
+<span class="n">port</span> <span class="o">=</span> <span class="mi">1025</span>
+<span class="n">sender</span> <span class="o">=</span> <span class="s1">&#39;from@fromdomain.com&#39;</span>
+<span class="n">receivers</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;to@todomain.com&#39;</span><span class="p">]</span>
+<span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;From: From Person &lt;from@fromdomain.com&gt;</span>
+<span class="s2">To: To Person &lt;to@todomain.com&gt;</span>
+<span class="s2">Subject: SMTP e-mail test</span>
+
+<span class="s2">This is a test e-mail message.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="k">try</span><span class="p">:</span>
+   <span class="n">smtpObj</span> <span class="o">=</span> <span class="n">smtplib</span><span class="o">.</span><span class="n">SMTP</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">)</span>
+   <span class="n">smtpObj</span><span class="o">.</span><span class="n">sendmail</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">receivers</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>         
+   <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Successfully sent email&quot;</span><span class="p">)</span>
+<span class="k">except</span><span class="p">:</span>
+   <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Error: unable to send email&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Run the script above called <code>local_email.py</code> from a seperate terminal.</p>
+<div class="highlight"><pre><span></span>python local_email.py
+</pre></div>
+
+
+<p>You should see an email pop up in the first terminal. </p>
+<p><img alt="email recieved in anaconda prompt" src="../posts/email/images/email_received_in_anaconda_prompt.PNG"></p>
+<p>Great! We were able to send an email locally with our Python script. Next we are going to send an email to a real email address.</p>
+<h2 id="set-up-a-google-email-address">Set up a Google email address</h2>
+<p>Next we are going to set up a "throw away" gmail account to use for testing. Sign up for a new gmail account and make sure you remember the email address and password.</p>
+<p><img alt="email recieved in anaconda prompt" src="../posts/email/images/gmail_signup_page1.PNG"></p>
+<p>After the "throw away" email account is set up, you need to change an account setting to allow less secure apps.</p>
+<p>Turn <a href="https://myaccount.google.com/lesssecureapps">Allow less secure apps</a> to ON. This makes it easier for others to gain access to your account. Only make this security change for your "throw away" email accout.</p>
+<p><img alt="email recieved in anaconda prompt" src="../posts/email/images/gmail_allow_less_secure_apps_on.PNG"></p>
+<p>Now we are reay to send an email to a real email address.</p>
+<h2 id="send-an-email-using-a-google-email-address">Send an email using a Google email address</h2>
+<p>Now that we have a "throw away" email account and changed the account settings to allow less secure apps, we can try sending emails with this account.</p>
+<p>Create a new Python script called <code>send_gmail.py</code>. Copy the code below into the script.</p>
+<div class="highlight"><pre><span></span><span class="c1"># send_gmail.py</span>
+
+<span class="kn">import</span> <span class="nn">smtplib</span><span class="o">,</span> <span class="nn">ssl</span>
+
+<span class="n">port</span> <span class="o">=</span> <span class="mi">465</span>  <span class="c1"># For SSL</span>
+<span class="n">smtp_server</span> <span class="o">=</span> <span class="s2">&quot;smtp.gmail.com&quot;</span>
+<span class="n">sender_email</span> <span class="o">=</span> <span class="s2">&quot;mythrowawayemail@gmail.com&quot;</span>  <span class="c1"># your throw away gmail address</span>
+<span class="n">receiver_email</span> <span class="o">=</span> <span class="s2">&quot;mythrowawayemail@gmail.com&quot;</span>  <span class="c1"># your throw away gamil address</span>
+<span class="n">password</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Enter throw away gmail account password: &quot;</span><span class="p">)</span>
+<span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
+<span class="s2">Subject: Test Email from Python</span>
+
+<span class="s2">This message was sent from Python.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">context</span> <span class="o">=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">create_default_context</span><span class="p">()</span>
+<span class="k">with</span> <span class="n">smtplib</span><span class="o">.</span><span class="n">SMTP_SSL</span><span class="p">(</span><span class="n">smtp_server</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">)</span> <span class="k">as</span> <span class="n">server</span><span class="p">:</span>
+    <span class="n">server</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">sender_email</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+    <span class="n">server</span><span class="o">.</span><span class="n">sendmail</span><span class="p">(</span><span class="n">sender_email</span><span class="p">,</span> <span class="n">receiver_email</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Go to your "throw away" gmail inbox and see the message you sent.</p>
+<p><img alt="throw away gmail inbox" src="../posts/email/images/see_email_in_gmail_inbox.PNG"></p>
+<p>This method works to send emails, but the problem is we are entering a plain text password and using an insecure gmail account. Next, we'll see how to use a service called mailgun (that has a pretty generous free tier) to send emails for us.</p>
+<h2 id="sign-up-for-a-sendgrid-account">Sign up for a Sendgrid account</h2>
+<p>Next, we are going to use a service called Sendgrid to send emails using Python. Sendgrid has a free tier that you can use to test out sending emails. There is a limit to the number of emails you can send per month, but the limit is pretty high. So for a practice project the free tier will work just fine.</p>
+<p><img alt="email recieved in anaconda prompt" src="../posts/email/images/sendgrid_pricing.png"></p>
+<h2 id="get-a-sendgrid-api-key">Get a Sendgrid API Key</h2>
+<p>After you sign up for a Sendgrid account, the next thing to do is secure a Sendgrid API key. The API key is the thing we'll use in our Python script so that Sendgrid knows were the email is coming from and that we have a Sendgrid account.</p>
+<p>In order to get an API key, first we need to create a Sendgrid <em>sender</em>. I'm not exactly sure what a <em>sender</em> is, but we need to create one.</p>
+<p><img alt="email recieved in anaconda prompt" src="../posts/email/images/create_sendgrid_sender.png"></p>
+<p>After the <em>sender</em> is created, we can get our API key. Use the left-hand menu and scroll down to Settings. Under Settings, click API Keys.</p>
+<p><img alt="email recieved in anaconda prompt" src="../posts/email/images/settings_api_keys.png"></p>
+<p>Copy the API key to somewhere safe on your computer. Make sure not to share the API key in version control or on GitHub.</p>
+<h2 id="create-a-virtual-environment-and-install-the-sendgrid-package">Create a virtual environment and install the Sendgrid package</h2>
+<p>Next, we're going to create a virtual environment and install the sendgrid package. It's best practice to create a seperate virtual environment for each project. I use the Anaconda distribution of Python and the Anaconda Prompt to create and manage virtual environments. You could also create a virtual environment using Python's venv module instead.</p>
+<div class="highlight"><pre><span></span>conda create -y -n email python=3.8
+</pre></div>
+
+
+<p>Next activate the virtual environment and install the sendgrid package.</p>
+<div class="highlight"><pre><span></span>conda activate sendgrid
+python -m pip install sendgrid
+</pre></div>
+
+
+<h2 id="send-an-email-with-sendgrid">Send an email with Sendgrid</h2>
+<p>Great, now we can send an email with Sendgrid. Creat a new Python file called <code>config.py</code>. If you are following along and keeping your code in a GitHub repo or another public place, make sure to keep this file out of version control. Add <code>config.py</code> to your <code>.gitignore</code> file.</p>
+<div class="highlight"><pre><span></span><span class="c1"># config.py</span>
+<span class="c1"># KEEP OUT OF VERSION CONTROL</span>
+<span class="c1"># ADD TO .gitignore</span>
+
+<span class="c1"># config.py</span>
+<span class="n">SENDGRID_API_KEY</span> <span class="o">=</span> <span class="s2">&quot;SG.XXXXXXXXXXXXXXXXXXXXXXXX&quot;</span>
+<span class="n">FROM_EMAIL</span> <span class="o">=</span> <span class="s2">&quot;first.last@college.edu&quot;</span>
+<span class="n">TO_EMAIL</span> <span class="o">=</span> <span class="s2">&quot;first.last@domain.com&quot;</span>
+</pre></div>
+
+
+<p>Now we'll make the script that will send the email. Copy the code below into a Python file called <code>sendgrid_email.py</code></p>
+<div class="highlight"><pre><span></span><span class="c1"># sendgrid_email.py</span>
+
+<span class="kn">from</span> <span class="nn">sendgrid</span> <span class="kn">import</span> <span class="n">SendGridAPIClient</span>
+<span class="kn">from</span> <span class="nn">sendgrid.helpers.mail</span> <span class="kn">import</span> <span class="n">Mail</span>
+
+<span class="kn">from</span> <span class="nn">config</span> <span class="kn">import</span> <span class="n">SENDGRID_API_KEY</span><span class="p">,</span> <span class="n">FROM_EMAIL</span><span class="p">,</span> <span class="n">TO_EMAIL</span>
+
+<span class="n">message</span> <span class="o">=</span> <span class="n">Mail</span><span class="p">(</span>
+    <span class="n">from_email</span><span class="o">=</span><span class="n">FROM_EMAIL</span><span class="p">,</span>
+    <span class="n">to_emails</span><span class="o">=</span><span class="n">TO_EMAIL</span><span class="p">,</span>
+    <span class="n">subject</span><span class="o">=</span><span class="s1">&#39;Subject for a test email&#39;</span><span class="p">,</span>
+    <span class="n">html_content</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;This is a reminder:</span><span class="se">\n\n</span><span class="s2"></span>
+<span class="s2">    Remember to do that thing.</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+    <span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">sg</span> <span class="o">=</span> <span class="n">SendGridAPIClient</span><span class="p">(</span><span class="n">SENDGRID_API_KEY</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">sg</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">body</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+
+<p>To send the email, run the <code>sendgrid_email.py</code> script. Make sure the <code>(email)</code> virtual environment is active when the script is run.</p>
+<div class="highlight"><pre><span></span>&gt; python sendgrid_email.py
+</pre></div>
+
+
+<p>Now pop over to your email and see the awesome email you just sent. Pretty cool right?</p>
+<p>It's great that we can run the email reminder program from our computer. But the point of this project is to send automated reminder emails. If I have to run the program each time I want to send an email reminder, that sort of takes away the point of scripting this all in Python.</p>
+<p>Therefore, what we are going to do next is deploy our Python script to a cloud server and have the cloud server send the reminder emails for us.</p>
+<h2 id="run-the-email-program-on-a-server">Run the email program on a server</h2>
+<h2 id="schedule-the-email-program-with-a-cron-job-on-a-server">Schedule the email program with a cron job on a server</h2>
+<h2 id="wrap-up">Wrap Up</h2>
+            </div>
+            <!-- /.entry-content -->
+<section class="well" id="related-posts">
+    <h4>Related Posts:</h4>
+    <ul>
+        <li><a href="../python-arduino-potentiometer.html">Using Python and an Arduino to Read a Sensor</a></li>
+        <li><a href="../how-to-make-y-y-plots-with-matplotlib.html">How to make y-y plots with Matplotlib</a></li>
+        <li><a href="../stream-S01-E01-jupyterhub-intro.html">My first Twitch Stream: S01-E01 JupyterHub Intro and Tools</a></li>
+        <li><a href="../jupyterhub-deployment-on-running-in-production.html">Hear my story about deploying JupyterHub on the Running in Production Podcast</a></li>
+        <li><a href="../deploy-jupyter-notebook-voila-heroku.html">Deploy a Jupyter Notebook Online with Voila and Heroku</a></li>
+    </ul>
+</section>
+    <hr />
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style">
+            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+            <a class="addthis_button_tweet"></a>
+    </div>
+    <!-- AddThis Button END -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<div id="aboutme">
+        <p>
+            <img width="100%" class="img-thumbnail" src="../extra/gear-wrench-icon-512-278694.png"/>
+        </p>
+    <p>
+      <strong>About Peter Kazarinoff</strong><br/>
+        I teach engineering at a community college in the Pacific Northwest. I am interested in programming and how to help students. Here I mostly blog about Python, and how programing can be incorporated into engineering education.
+    </p>
+</div><!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Recent Posts -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+  <ul class="list-group" id="recentposts">
+    <li class="list-group-item"><a href="../python-arduino-potentiometer.html">Using Python and an Arduino to Read a Sensor</a></li>
+    <li class="list-group-item"><a href="../how-to-make-y-y-plots-with-matplotlib.html">How to make y-y plots with Matplotlib</a></li>
+    <li class="list-group-item"><a href="../writing-tests-for-scientific-code.html">Writing Tests for Scientific Code</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Recent Posts -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="../"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-2">
+      <a href="../tag/engineering.html">engineering</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="../tag/esp8266.html">esp8266</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="../tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="../tag/jupyter.html">jupyter</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="../tag/jupyter-notebook.html">jupyter notebook</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="../tag/matplotlib.html">matplotlib</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="../tag/micropython.html">micropython</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="../tag/pelican.html">pelican</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="../tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="../tag/sensor.html">sensor</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Github -->
+<li class="list-group-item">
+  <h4><i class="fa fa-github fa-lg"></i><span class="icon-label">GitHub Repos</span></h4>
+  <div id="gh_repos">
+    <p class="list-group-item">Status updating...</p>
+  </div>
+  <a href="https://github.com/professorkazarinoff">@professorkazarinoff</a> on GitHub
+</li>
+<!-- End Sidebar/Github -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2021 Peter Kazarinoff
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="../theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../theme/js/respond.min.js"></script>
+
+    <script src="../static/js/custom.js"></script>
+
+
+<!-- GitHub JS Code -->
+<script type="text/javascript">
+$(document).ready(function () {
+  if (!window.jXHR) {
+    var jxhr = document.createElement('script');
+    jxhr.type = 'text/javascript';
+    jxhr.src = '../theme/js/jXHR.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(jxhr, s);
+  }
+
+  github.showRepos({
+    user: 'professorkazarinoff',
+    count: 5,
+    skip_forks: true,
+    target: '#gh_repos'
+  });
+});
+</script>
+<script src="../theme/js/github.js" type="text/javascript"></script>
+<!-- End GitHub JS Code -->
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-116330557-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+    $("div.collapseheader").click(function () {
+    $header = $(this).children("span").first();
+    $codearea = $(this).children(".input_area");
+    console.log($(this).children());
+    $codearea.slideToggle(500, function () {
+        $header.text(function () {
+            return $codearea.is(":visible") ? "Collapse Code" : "Expand Code";
+        });
+    });
+});
+});
+</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cdd8eb4e16bf94c"></script>
+</body>
+</html>

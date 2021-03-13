@@ -42,7 +42,7 @@ Tesseract is a command-line application created by Google that can be used to pu
 
 ## Create a virtual environment
 
-![anaconda icon]({static}/posts/tesseract/images/container_ships.png)
+![anaconda icon]({static}/posts/tesseract/images/container_ships.jpg)
 
 Next, we are going to create a virtual environment to install pytesseract into. It's a good idea to create a new virtual environment for each Python project.
 
@@ -110,7 +110,7 @@ OK - one more step before we can use pytesseract, we need to figure out where ou
 
 ## Determine the location of your tesseract executable
 
-![island]({static}/posts/tesseract/images/island.png)
+![island]({static}/posts/tesseract/images/island.jpg)
 
 The next step is to determine where the tesseract program is located on our computer. We need this location when we use pytesseract in a python program. Typing the ```where <executable>``` command into the Anaconda Prompt shows the location of that ```<exectable>```. ```where``` on Windows is sort of like the ```which``` command in MacOS and Linux.
 
@@ -128,6 +128,8 @@ Make note of this file path. We need the file path to use pytesseract in a Pytho
 Create a Python script (a .py-file), or start up a Jupyter notebook. At the top of the file, import ```pytesseract``` , then point pytesseract at the tesseract installation you discovered in the previous step.
 
 ```python
+# test_pytesseract.py
+
 try:
     from PIL import Image
 except ImportError:
@@ -143,13 +145,15 @@ Now we can use pytesseract to extract some text from a picture.
 
 ## Use pytesseract
 
-OK! Now it's time to pull text out of a picture. You are going to need a picture to pull text out of. The picture I'm using can be found [here](https://github.com/ProfessorKazarinoff/staticsite/blob/master/content/posts/tesseract/images/tesseract_plus_python.png)
+OK! Now it's time to pull text out of a picture. You are going to need a picture to pull text out of. The picture I'm using can be found [here](https://github.com/ProfessorKazarinoff/staticsite/blob/master/content/posts/tesseract/images/tesseract_plus_python.png) and is shown below.
 
 ![map.jpg]({static}/posts/tesseract/images/test_image.png)
 
 Make sure the ```test_image.png``` is in the same folder as your Python program.
 
 ```python
+# test_pytesseract.py
+
 try:
     from PIL import Image
 except ImportError:
@@ -163,9 +167,26 @@ text_from_image = pytesseract.image_to_string(Image.open('test_image.png'))
 print(text_from_image)
 ```
 
-Run the program or Jupyter notebook code cell and see the output.
+Run the Python program or Jupyter notebook code cell and see the output.
+
+The output produced should look something like below:
+
+```text
+This is a lot of 12 point text to test the
+ocr code and see if it works on all types
+of file format.
+
+The quick brown dog jumped over the
+lazy fox. The quick brown dog jumped
+over the lazy fox. The quick brown dog
+jumped over the lazy fox. The quick
+brown dog jumped over the lazy fox.
+♀
+```
 
 ## Going Further
+
+![map.jpg]({static}/posts/tesseract/images/bricks.jpg)
 
 Now that pytesseract is installed what are you going to build? There are so many possibilities for projects:
 

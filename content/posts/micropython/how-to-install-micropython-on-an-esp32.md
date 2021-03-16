@@ -1,6 +1,6 @@
 Title: How to install MicroPython on an ESP32 microcontroller
-Date: 2021-03-12 09:01
-Modified: 2021-03-12 09:01
+Date: 2021-03-16 09:01
+Modified: 2021-03-16 09:01
 Status: draft
 Category: micropython
 Tags: python, micropython, esp32, microcontroller
@@ -9,7 +9,7 @@ Authors: Peter D. Kazarinoff
 
 [![micropython and esp32]({static}/posts/micropython/images/micropython_plus_esp32.png)]({filename}/posts/micropython/how-to-install-micropython-on-an-esp32.md)
 
-In this post, you'll learn how to install MicroPython on an ESP32 microcontroller. [Micropython](http://micropython.org/) is a port, or version of Python designed to run on small, inexpensive, low-power microcontrollers. Examples of microcontrollers that MicroPython can run on include the [pyboard](https://store.micropython.org/), the [WiPy](https://pycom.io/development-boards) and ESP8266-based boards like the [Adafruit Feather Huzzah](https://learn.adafruit.com/adafruit-feather-huzzah-esp8266). Also, MicroPython can be installed on ESP32-based microcontrollers and that's what this post is about. 
+In this post, you'll learn how to install MicroPython on an ESP32 microcontroller. [Micropython](http://micropython.org/) is a port, or version of Python designed to run on small, inexpensive, low-power microcontrollers. Examples of microcontrollers that MicroPython can run on include the [pyboard](https://store.micropython.org/), the [WiPy](https://pycom.io/development-boards) and ESP8266-based boards like the [Adafruit Feather Huzzah](https://learn.adafruit.com/adafruit-feather-huzzah-esp8266). Also, **MicroPython can be installed on ESP32-based microcontrollers -** and that's what this post is about. 
 
 If you want to know more about MicroPython, you can read about it in [this post]({filename}/posts/micropython/what_is_micropython.md) and check out the [MicroPython Main Page](https://micropython.org/) and the [MicroPython Documentation](http://docs.micropython.org/en/latest/)
 
@@ -17,20 +17,20 @@ If you want to know more about MicroPython, you can read about it in [this post]
 
 ## Prerequisites
 
-To install MicroPython on an ESP32 microcontroller, there are a couple of prerequisites:
+Before you can install MicroPython on an ESP32 microcontroller, there are a couple of prerequisites:
 
  * a computer with a USB port and internet connection
  * an ESP32 microcontroller
- * a USB cable to connect the ESP32 to your computer
+ * a USB cable to connect the ESP32 microcontroller to your computer
  * the [Anaconda Distribution](https://www.anaconda.com/products/individual) of Python installed on your computer
 
 We will install MicroPython on our ESP32 microcontroller with our computer. This computer can be Windows10, MacOS, or Linux. These instructions are written assuming you have a Windows 10 computer, but the same general steps can be used on other operating systems. Your computer needs to be connected to the internet.
 
-You need an ESP32-based microcontroller. There are a couple of different variations. Boards you could use include the [Adafruit HUZZAH32 – ESP32 Feather Board](https://www.adafruit.com/product/3405) and the [HiLetgo ESP-WROOM-32 ESP32 ESP-32S Development Board](https://www.amazon.com/HiLetgo-ESP-WROOM-32-Development-Microcontroller-Integrated/dp/B0718T232Z/) found on Amazon. This tutorial assumes you have one of these development boards that has a USB port on it.
+You'll need an ESP32-based microcontroller. There are a couple of different varients. Boards you could use include the [Adafruit HUZZAH32 – ESP32 Feather Board](https://www.adafruit.com/product/3405) and the [HiLetgo ESP-WROOM-32 ESP32 ESP-32S Development Board](https://www.amazon.com/HiLetgo-ESP-WROOM-32-Development-Microcontroller-Integrated/dp/B0718T232Z/) found on Amazon. This tutorial assumes you have one of these development boards that has a USB port on it.
 
 ![feather32 and hiletgo32]({static}/posts/micropython/images/feather32_hiletgo32.png)
 
-You need a USB cable to connect your ESP32 microcontroller to your computer. Both the [Adafruit Feather Huzzah 32 board](https://www.adafruit.com/product/3405) and the [HiLetgo ESP32 board](https://www.amazon.com/HiLetgo-ESP-WROOM-32-Development-Microcontroller-Integrated/dp/B0718T232Z/) board use a micro-USB connector. Therefore, you need a micro-USB to USB-A (regular USB) cable. The cable needs to be a USB data cable and not just a USB charging cable.
+You also need a USB cable to connect your ESP32 microcontroller to your computer. Both the [Adafruit Feather Huzzah 32 board](https://www.adafruit.com/product/3405) and the [HiLetgo ESP32 board](https://www.amazon.com/HiLetgo-ESP-WROOM-32-Development-Microcontroller-Integrated/dp/B0718T232Z/) board use a micro-USB connector. Therefore, you need a micro-USB to USB-A (regular USB) cable. The cable needs to be a USB data cable and not just a USB charging cable.
 
  > **Make sure the micro-USB cable is a data cable.** If the ESP32 isn't recognized by your computer (and the SiLabs driver is installed) try a different USB cable.
 

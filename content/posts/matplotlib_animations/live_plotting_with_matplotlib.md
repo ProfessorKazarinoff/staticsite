@@ -1,8 +1,8 @@
 Title: Live Plotting with Matplotlib and Python
-Date: 2020-03-06 08:40
-Modified: 2020-03-06 08:40
+Date: 2021-03-17 08:40
+Modified: 2021-03-17 08:40
 Status: draft
-Category: Plotting
+Category: matplotlib
 Tags: python, matplotlib, animation, arduino, api
 Slug: live-plotting-with-matplotlib
 Authors: Peter D. Kazarinoff
@@ -15,15 +15,15 @@ Python and Matplotlib can be used to create static 2D plots. But it **Matplotlib
 
 ## Pre-requisits
 
-To follow along with this tutorial, a couple pre-requisits need to be in place:
+To follow along with this tutorial, a couple of pre-requisites need to be in place:
 
  * Python needs to be installed on your computer. I recommend installing the [Anaconda Distribution](https://anaconda.com/distribution) of Python.
- * You are running a version of Python 3.6 or above. Python version 3.7 or 3.8 are more up to date and recommended.
+ * You are running a version of Python 3.6 or above. Python version 3.7 or 3.8 are more up-to-date and recommended.
  * You know how to open the Anaconda Prompt on Windows10 or know how to open a terminal on MacOS or Linux.
  * You have a general idea of what Python packages are and have installed a Python package before using **conda** or **pip**.
  * You know how to create a text file in an editor or an IDE (integrated development environment) such as [Visual Studio Code](https://code.visualstudio.com/download), PyCharm, Sublime Text, vim, emacs, etc. I will be using Visual Studio Code (also called VS Code) in this post, but any regular code editor will work. 
- * You know how to run a Python program (exectute a .py file) using a terminal prompt, like the Anaconda Prompt or know how to run a Python program using your IDE.
- * You have general understanding of how files are organized on your computer into directories and sub-directories.
+ * You know how to run a Python program (execute a .py file) using a terminal prompt, like the Anaconda Prompt, or know how to run a Python program using your IDE.
+ * You have a general understanding of how files are organized on your computer into directories and sub-directories.
  * You have some familiarity with navigating through directories and files using a terminal or the Anaconda Prompt with commands like ```cd```, ```cd ..```, ```dir``` or ```ls```, and ```mdkir```.
 
 Now that the pre-requisites are out of the way, let's start coding! 
@@ -97,7 +97,7 @@ Let's start our ```static_plot.py``` script by importing the packages we'll use 
 import matplotlib.pyplot as plt
 ```
 
-We need some data to plot. For this first static plot, we'll plot the temperature in Portland, OR in degrees fahrenheit over seven day. We'll save the temperatures in a Python list called ```data_lst```.
+We need some data to plot. For this first static plot, we'll plot the temperature in Portland, OR in degrees Fahrenheit over seven days. We'll save the temperatures in a Python list called ```data_lst```.
 
 ```python
 # data
@@ -111,7 +111,7 @@ Next, we'll create a figure object ```fig``` and an axis object ```ax``` using M
 fig, ax = plt.subplots()
 ```
 
-Now we can plot the temperature data on the axis object ```ax``` and customize the plot. Let's include plot title, and axis labels.
+Now we can plot the temperature data on the axis object ```ax``` and customize the plot. Let's include plot title and axis labels.
 
 ```python
 # plot the data and customize
@@ -139,7 +139,7 @@ Run the ```static_plot.py``` script using the Anaconda Prompt of a terminal. Ens
 
 ![run static plot]({static}/posts/matplotlib_animations/images/run_static_plot_dot_py.PNG) 
 
-The plot should look something like image below:
+The plot should look something like the image below:
 
 ![static plot]({static}/posts/matplotlib_animations/images/static_plot.png) 
 
@@ -190,7 +190,7 @@ y = []
 fig, ax = plt.subplots()
 ```
 
-In our first static line plot, we started the plot at this point, but for the animated line plot, we need to **_build the plot in a function_**. At a minimum the function that builds the plot needs to accept one argument that corresponds to the frame number in the animation. This frame number argument can be given a simple parameter like ```i```. That parameter does not have to be used in the function that draws the plot. It just has to be included in the function definition. Note the line ```ax.clear()``` in the middle of the function. This line clears the figure window so that the next frame of the animation can be drawn. ```ax.clear()``` needs to be included before the data is plotted with the ```ax.plot()``` method. Also note that ```plt.show()``` is not part of the function. ```plt.show()``` will be called outside the function at the end of the script.
+In our first static line plot, we started the plot at this point, but for the animated line plot, we need to **_build the plot in a function_**. At a minimum, the function that builds the plot needs to accept one argument that corresponds to the frame number in the animation. This frame number argument can be given a simple parameter like ```i```. That parameter does not have to be used in the function that draws the plot. It just has to be included in the function definition. Note the line ```ax.clear()``` in the middle of the function. This line clears the figure window so that the next frame of the animation can be drawn. ```ax.clear()``` needs to be included before the data is plotted with the ```ax.plot()``` method. Also, note that ```plt.show()``` is not part of the function. ```plt.show()``` will be called outside the function at the end of the script.
 
 ```python
 # function that draws each frame of the animation
@@ -205,7 +205,7 @@ def animate(i):
     ax.set_ylim([0,10])
 ```
 
-OK- our ```animate()``` function is defined, now we need to _call_ the animation. Matplotlib's ```FuncAnimation``` class can accept a number of arguments. At a minimum, we need to pass in the figure object ```fig```, and our animation function that draws the plot ```animate``` to the ```FuncAnimation``` class. We'll also add a ```frames=``` keyword aregument that sets many times the plot is re-drawn meaning how many times the animation function is called. ```interval=500``` specifies the time between frames (time between ```animate()``` function calls) in miliseconds. ```interval=500``` means 500 milliseconds between each frame, which is half a second. ```repeat=False``` means that after all the frames are drawn, the animation will not repeat. Note how the ```plt.show()``` line is called after the ```FuncAnimation``` line. 
+OK- our ```animate()``` function is defined, now we need to _call_ the animation. Matplotlib's ```FuncAnimation``` class can accept several input arguments. At a minimum, we need to pass in the figure object ```fig```, and our animation function that draws the plot ```animate``` to the ```FuncAnimation``` class. We'll also add a ```frames=``` keyword argument that sets many times the plot is re-drawn meaning how many times the animation function is called. ```interval=500``` specifies the time between frames (time between ```animate()``` function calls) in milliseconds. ```interval=500``` means 500 milliseconds between each frame, which is half a second. ```repeat=False``` means that after all the frames are drawn, the animation will not repeat. Note how the ```plt.show()``` line is called after the ```FuncAnimation``` line. 
 
 ```python
 # run the animation
@@ -242,7 +242,7 @@ import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 ```
 
-Next we'll pre-populate a list called ```data``` with a couple of data points. This will gives our plot a couple of points to start off with. When our script runs, we'll include functionality to add more points.
+Next, we'll pre-populate a list called ```data``` with a couple of data points. This will gives our plot a couple of points to start off with. When our script runs, we'll include functionality to add more points.
 
 ```python
 # initial data
@@ -264,11 +264,11 @@ def animate(i):
     ax.plot(data[-5:]) # plot the last 5 data points
 ```
 
-The last section of code in the ```live_plot_user_input.py``` script calls the ```FuncAnimation``` class. When we intantiate an instance of this class, we pass in a couple arguments:
+The last section of code in the ```live_plot_user_input.py``` script calls the ```FuncAnimation``` class. When we instantiate an instance of this class, we pass in a couple of arguments:
 
  * ```fig``` - the figure object we created with the ```plt.subplots()``` method
  * ```animate``` - the function we wrote above that pulls lines out of a ```data.txt``` file and plots 5 points at a time.
- * ```interval=1000``` - the time interval in milliseconds (1000 miliseconds = 1 second) between frames or between ```animate()``` function calls.
+ * ```interval=1000``` - the time interval in milliseconds (1000 milliseconds = 1 second) between frames or between ```animate()``` function calls.
 
 ```python
 # call the animation
@@ -278,7 +278,7 @@ ani = FuncAnimation(fig, animate, interval=1000)
 plt.show()
 ```
 
-Before you run the script, create a new file in the ```live_plot``` directory along side our ```live_plot_user_input.py``` script called ```data.txt```. Inside the file add a couple numbers, each number on it's own line.
+Before you run the script, create a new file in the ```live_plot``` directory alongside our ```live_plot_user_input.py``` script called ```data.txt```. Inside the file add a couple of numbers, each number on one line.
 
 ```text
 5
@@ -294,15 +294,15 @@ Save ```live_plot_user_input.py``` and run it. You should see a plot pop up.
 
 ![run live user plot]({static}/posts/matplotlib_animations/images/run_live_plot_user_input_py.PNG)
 
-Now add a number to the bottom of the ```data.txt``` on it's own line. Save ```data.txt```. The plot should update with a new data point. I added the number ```16``` to ```data.txt``` and saw the line on the plot go upwards. Add another number at the end of ```data.txt```. Save ```data.txt``` and watch the plot update.
+Now add a number to the bottom of the ```data.txt``` on a new line. Save ```data.txt```. The plot should update with a new data point. I added the number ```16``` to ```data.txt``` and saw the line on the plot go upwards. Add another number at the end of ```data.txt```. Save ```data.txt``` and watch the plot update.
 
 ![animated user plot]({static}/posts/matplotlib_animations/images/user_input_live_plot.gif)
 
-Great! We built a live updating plot based on user input! Next, let's build a live auto-updating plot using data pulled from the web.
+Great! We built a live-updating plot based on user input! Next, let's build a live auto-updating plot using data pulled from the web.
 
 ## Build a live plot using data from the web
 
-The third plot we are going to build is a plot that pulls data from the web. The basic structure of the script is the same as the last two animated plots. We need to create figure and axis objects, write an animation fuction and create the animation with ```FuncAnimation```.
+The third plot we are going to build is a plot that pulls data from the web. The basic structure of the script is the same as the last two animated plots. We need to create figure and axis objects, write an animation function and create the animation with ```FuncAnimation```.
 
  > [https://qrng.anu.edu.au/API/api-demo.php](https://qrng.anu.edu.au/API/api-demo.php)
 
@@ -310,9 +310,9 @@ The website notes:
 
  > This website offers true random numbers to anyone on the internet. The random numbers are generated in real-time in our lab by measuring the quantum fluctuations of the vacuum.
 
-Having true random numbers for an example animated plot isn't absolutely necessary. The reason I picked this web API is that the random numbers can be polled every second, and since you can specify an 8-bit integer, the random numbers have a fixed range between 0 and 255.
+Having true random numbers for an animated plot isn't absolutely necessary. The reason I picked this web API is that the random numbers can be polled every second, and since you can specify an 8-bit integer, the random numbers have a fixed range between 0 and 255.
 
-The code below calls the web API for one 8-bit random integer. A little fuction converts the web API's json reponse into a float. The raw json that comes back from the API looks like below:
+The code below calls the web API for one 8-bit random integer. A little function converts the web API's JSON response into a float. The raw JSON that comes back from the API looks like below:
 
 ```json
 {
@@ -323,7 +323,7 @@ The code below calls the web API for one 8-bit random integer. A little fuction 
     }
 ```
 
-Once the json is converted to a Python dictionary, we can pull the random number out (in this case ```53```) with the following Python code.
+Once the JSON is converted to a Python dictionary, we can pull the random number out (in this case ```53```) with the following Python code.
 
 ```python
 json_dict["data"][0]
@@ -438,7 +438,7 @@ delay(100); // Pause 100 milliseconds before next reading
 
 ### Python Code
 
-The PySerial library needs to be installed before we can use PySerial to read the sensor data the Arduino spits out over the serial line. Install PySerial with the command below. Make sure you activated the ```(live_plot)``` virtual environment when the install commmand is entered.
+The PySerial library needs to be installed before we can use PySerial to read the sensor data the Arduino spits out over the serial line. Install PySerial with the command below. Make sure you activated the ```(live_plot)``` virtual environment when the install command is entered.
 
 ```text
 (live_plot)> conda install -y pyserial
@@ -461,7 +461,7 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 ```
 
-Next, we need to build an ```animate()``` function like we did above when we build our live plot from a data file and our live plot from a web api. 
+Next, we need to build an ```animate()``` function like we did above when we build our live plot from a data file and our live plot from a web API. 
 
 ```python
 # animation function
@@ -485,7 +485,7 @@ def animate(i, data_lst, ser):  # ser is the serial object
     ax.set_ylabel('Potentiometer Reading')
 ```
 
-Now we need to create our ```data_lst```, ```fig``` and ```ax``` objects, as well as intantiate the serial object ```ser```. Note that the ```COM#``` will may be different for you based on which ```COM``` port the Arduino is connected to. On MacOS or Linux, the com port will be something like ```/dev/ttyUSB0``` instead of ```COM7```. If you are using MacOS or Linux, you many need to modify the permissions of the com port before the script will run. The command ```sudo chown root:peter /dev/ttyUSB0``` changes the group corresponding to ```ttyUSB0``` to ```peter```. You will have to modify this command based on your MacOS or Linux username and port number.
+Now we need to create our ```data_lst```, ```fig``` and ```ax``` objects, as well as instantiate the serial object ```ser```. Note that the ```COM#``` will may be different for you based on which ```COM``` port the Arduino is connected to. On MacOS or Linux, the com port will be something like ```/dev/ttyUSB0``` instead of ```COM7```. If you are using MacOS or Linux, you may need to modify the permissions of the com port before the script will run. The command ```sudo chown root:peter /dev/ttyUSB0``` changes the group corresponding to ```ttyUSB0``` to ```peter```. You will have to modify this command based on your MacOS or Linux username and port number.
 
 ```python
 # create empty list to store data
@@ -583,4 +583,4 @@ Twist the little blue potentiometer while the script is running and watch the an
 
 ## Summary
 
-In this post, we created a couple live auto-updating animated line plots with Matplotlib.
+In this post, we created a couple of live auto-updating animated line plots with Matplotlib. The key to building animated plots with Matplotlib is to define the plot in an animation function and then call your animation function with Matplotlib's ```FuncAnimation``` class.

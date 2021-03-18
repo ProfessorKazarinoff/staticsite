@@ -1,7 +1,7 @@
 Title: How to install MicroPython on an ESP32 microcontroller
-Date: 2021-03-16 09:01
-Modified: 2021-03-16 09:01
-Status: draft
+Date: 2021-03-24 06:30
+Modified: 2021-03-24 06:30
+Status: published
 Category: micropython
 Tags: python, micropython, esp32, microcontroller
 Slug: how-to-install-micropython-on-an-esp32
@@ -34,7 +34,7 @@ You also need a USB cable to connect your ESP32 microcontroller to your computer
 
  > **Make sure the micro-USB cable is a data cable.** If the ESP32 isn't recognized by your computer (and the SiLabs driver is installed) try a different USB cable.
 
-This type of cable is common to many older Android phones and tablets. If you don't have a micro-USB to USB-A cable, you buy them at [Adafruit](https://www.adafruit.com/product/592) or [Amazon](https://www.amazon.com/Amazon-Micro-USB-designed-tablets-readers/dp/B0741WGQ36).
+This type of cable is common to many older Android phones and tablets. If you don't have a micro-USB to USB-A cable, you can buy one at [Adafruit](https://www.adafruit.com/product/592) or [Amazon](https://www.amazon.com/Amazon-Micro-USB-designed-tablets-readers/dp/B0741WGQ36).
 
 Python needs to be installed on your computer so that you can use a command-line program called **esptool**. I suggest you download and install the [Anaconda Distribution](https://www.anaconda.com/products/individual) of Python. You can also download Python onto your computer from [Python.org](https://python.org). See [this post]({filename}/posts/installation/installing_anaconda_on_windows.md) to learn how to install the Anaconda distribution of Python on Windows.
 
@@ -44,7 +44,7 @@ Now that we have our prerequisites setup, it's time to download the MicroPython 
 
 The first step to installing MicroPython on an ESP32 microcontroller is to download the MicroPython firmware from [micropython.org](http://micropython.org/).
 
-Click on the [Downloads](https://micropython.org/download/) link.
+Click on the [DOWNLOAD](https://micropython.org/download/) link at the top of the page.
 
 ![micropython downloads page]({static}/posts/micropython/images/micropython_downloads_tab.jpg)
 
@@ -127,7 +127,7 @@ The next step is to connect the ESP8266 microcontroller to the computer. Connect
 
 Now we need to make sure that our computer can "see" our ESP32.
 
-## Confirm the ESP32 is connected in the Windows Device Manager and determine the COM#
+## Confirm the ESP32 is connected in the Windows Device Manager and determine the COM Port
 
 You should be able to see the ESP8266 in the Windows Device Manager when the ESP32 is connected to your computer. You can open the Windows Device Manager from the Windows Start Menu.
 
@@ -182,7 +182,7 @@ Use the command below to erase the flash memory on the ESP32. Make sure to modif
 > esptool --chip esp32 --port COM4 erase_flash
 ```
 
-Now it's time to write the .bin firmware file to the flash memory on the board using the ```write_flash``` command. Make sure to use the exact .bin firmware file name you see sitting in the **Downloads** directory. The port has to be set as the port you found in the Windows Device Manager. ```---baud``` is the baud rate or upload speed. I found that ```--baud 460800``` works just fine. Make sure the .bin firmware file name is correct. It is easy to mistype. The latest version may not be ```esp32-20210312-unstable-v1.14-108-ge98ff3f08.bin```. You can start typing the .bin file name and then use the [TAB] key to auto-complete the rest of the filename.
+Now it's time to write the .bin firmware file to the flash memory on the board using the ```write_flash``` command. Make sure to use the exact .bin firmware file name you see in the **Downloads** directory. The port has to be set as the port you found in the Windows Device Manager. ```---baud``` is the baud rate or upload speed. I found that ```--baud 460800``` works just fine. Make sure the .bin firmware file name is correct. It is easy to mistype. The latest version may not be ```esp32-20210312-unstable-v1.14-108-ge98ff3f08.bin```. You can start typing the .bin file name and then use the [TAB] key to auto-complete the rest of the filename.
 
 ```text
 > esptool --chip esp32 --port COM4 --baud 460800 write_flash -z 0x1000 esp32-20210312-unstable-v1.14-108-ge98ff3f08.bin
@@ -198,7 +198,9 @@ Now that Micropthon is installed on our ESP32 microcontroller, we can communicat
 
 ## Use PuTTY to send commands to the ESP32
 
-Ensure the ESP32 microcontroller is connected with a USB cable and make sure you can see the ESP32 in the Windows Device Manager. Then use PuTTY to connect to the board over serial.  
+Ensure the ESP32 microcontroller is connected with a USB cable and make sure you can see the ESP32 in the Windows Device Manager. Then use PuTTY to connect to the board over serial.
+
+Search for PuTTY in the Windows Start Menu.
 
 ![PuTTY in start menu]({static}/posts/micropython/putty_in_start_menu.png)
 

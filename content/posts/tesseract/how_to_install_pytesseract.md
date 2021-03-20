@@ -1,7 +1,7 @@
 Title: How to install pytesseract
-Date: 2021-03-12 10:50
-Modified: 2021-03-12 10:50
-Status: draft
+Date: 2021-03-31 06:30
+Modified: 2021-03-31 06:30
+Status: published
 Category: python
 Tags: python, tesseract, pytesseract, ocr
 Slug: how-to-install-pytesseract
@@ -9,7 +9,7 @@ Authors: Peter D. Kazarinoff
 
 [![tesseract and python]({static}/posts/tesseract/images/tesseract_plus_python.png)]({filename}/posts/tesseract/how_to_install_pytesseract.md)
 
-In this post, you'll see how to install pytesseract. You can use pytesseract to convert images into text. Pytesseract is a Python package that works with tesseract, which is a command-line OCR optical character recognition (OCR) program.  It's a super cool package. Let's get to it.
+In this post, you'll see how to install pytesseract. You can use pytesseract to convert images into text. Pytesseract is a Python package that works with **tesseract**, which is a command-line optical character recognition (OCR) program.  It's a super cool package that can read text contained in pictures. Let's get to it.
 
 ## Prerequisites
 
@@ -20,25 +20,25 @@ Before you can install pytesseract, you need to have a couple of things in place
  * A computer with an internet connection
  * Anaconda distribution of Python
 
-You are going to need a computer with an internet connection. If you are reading this post, there is a good chance there is one in front of you right now. As far as I know, you can't install pytesseract on a phone, tablet, or Chromebook. You are also going to need the [Anaconda](https://www.anaconda.com/products/individual) distribution of Python. Why Anaconda?
+You are going to need a computer with an internet connection. If you are reading this post, there is a good chance there is a computer in front of you right now. As far as I know, you can't install pytesseract on a phone, tablet, or Chromebook. You are also going to need the [Anaconda](https://www.anaconda.com/products/individual) distribution of Python. Why Anaconda?
 
 ### Why Anaconda?
 
 ![anaconda icon]({static}/posts/tesseract/images/anaconda_icon.png)
 
-You might be wondering, why do I need Anaconda to install Pytesseract? Well, you *don't have to* use the Anaconda distribution of Python when you install Pytesseract, but I think it's a lot easier than other installation methods. You can install Python packages, but also non-Python packages with the Anaconda Prompt. Since a non-Python package is needed to use pytesseract, I think the Anaconda distribution of Python and the **conda** package manager is the way to go.
+You might be wondering, why do I need **Anaconda** to install Pytesseract? Well, you *don't have to* use the Anaconda distribution of Python when you install pytesseract, but I think it's a lot easier than other installation methods. You can install Python packages, but also non-Python packages with the Anaconda Prompt. Since **tesseract** is non-Python package needed to use pytesseract, I think the Anaconda distribution of Python and the **conda** package manager is the way to go.
 
 ## What is pytesseract?
 
 ![anaconda icon]({static}/posts/tesseract/images/pytesseract_at_pypi.png)
 
-[Pytesseract](https://github.com/madmaze/pytesseract) is a Python package that allows you to extract text from images. If you have a picture that has some text in it, py can pull out the text into a Python program. That's pretty cool. Pytesseract is a wrapper around a program from Google called **tesseract**. It's tesseract that extracts the text from pictures. Pytesseract is there to help you use tesseract in your Python programs.
+[Pytesseract](https://github.com/madmaze/pytesseract) is a Python package that allows you to extract text from images. If you have a picture that has some text in it, pytesseract can pull out the text into a Python program. That's pretty cool. Pytesseract is a wrapper around a program from Google called **tesseract**. It's tesseract that extracts the text from pictures. Pytesseract is there to help you use tesseract in your Python programs.
 
 ### What is tesseract?
 
 ![anaconda icon]({static}/posts/tesseract/images/tesseract_icon.png)
 
-[Tesseract](https://opensource.google/projects/tesseract) is a command-line application created by Google that can be used to pull text out of pictures. It is an example of an OCR application, which stands for optical character recognition. Which is just a fancy way of saying using a computer to read text. Tesseract is capable of reading text in many different languages. It works best with computer-generated text like in PDFs or pictures of receipts and invoices. It has a tougher time with images that contain handwritten words.
+[Tesseract](https://opensource.google/projects/tesseract) is a command-line application created by Google that can be used to pull text out of pictures. It is an example of an OCR application, which stands for **O**ptical **C**haracter **R**ecognition. Which is just a fancy way of saying using a computer to read text. Tesseract is capable of reading text in many different languages. It works best with computer-generated text like text in PDFs or pictures of receipts and invoices. It has a tougher time with images that contain handwritten words.
 
 Before we get started with installation, we need to do something else first: create a virtual environment.
 
@@ -50,7 +50,7 @@ Next, we are going to create a virtual environment to install pytesseract into. 
 
 ![anaconda in start menu]({static}/images/anaconda_from_start_menu.png)
 
-Open up the Anaconda Prompt from the Windows start menu and type the command below.
+Open up the Anaconda Prompt from the Windows Start Menu and type the command below. You do not need to type ```>```. The ```>``` is shown to indicate the prompt, not a character to type.
 
 ```text
 > conda create -y -n tesseract python=3.8
@@ -67,11 +67,11 @@ You know the ```(tesseract)``` virtual environment is active when you see the en
 
 ## Install pytesseract
 
-Now we are going to install pytesseract into our virtual environment. Make sure the ```(tesseract)``` environment is active. You can install pytesseract from PyPI, the Python package index using **pip**. But I suggest installing pytesseract with **conda**. Conda can manage non-python dependencies and we want to be sure that pytesseract plays well with the other packages we install.
+Now we are going to install pytesseract into our virtual environment. Make sure the ```(tesseract)``` environment is active. You can install pytesseract from PyPI, the Python package index using **pip**. But I suggest installing pytesseract with **conda**. Conda can manage non-Python dependencies and we want to be sure that pytesseract plays well with the other packages we install.
 
  > **conda** can install Python and non-Python packages. This makes it a great tool to install tesseract and pytesseract.
 
- Use the command below to install pytesseract. Note the ```-c conda-forge``` portion of the command. This means we are installing pytesseract from the **conda-forge** channel. If you don't specify the channel, the installation will fail.
+Use the command below to install pytesseract. Note the ```-c conda-forge``` portion of the command. This means we are installing pytesseract from the **conda-forge** channel. If you don't specify the channel, the installation will fail.
 
 ```text
 > conda install -c conda-forge pytesseract
@@ -114,7 +114,7 @@ You can confirm that tesseract is installed in your virtual environment by runni
 > tesseract -h
 ```
 
-OK - one more step before we can use pytesseract, we need to figure out where our tesseract executable was installed. The tesseract executable location is needed or pytesseract won't work properly.
+OK - one more step before we can use pytesseract, we need to figure out where our tesseract executable is installed. The tesseract executable location is needed for pytesseract to work properly.
 
 ## Determine the location of your tesseract executable
 

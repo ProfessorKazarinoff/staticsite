@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>How to install pytesseract - Python for Undergraduate Engineers</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
+<style type="text/css">
+
+    /*some stuff for output/input prompts*/
+    div.cell{border:1px solid transparent;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}div.cell.selected{border-radius:4px;border:thin #ababab solid}
+    div.cell.edit_mode{border-radius:4px;border:thin #008000 solid}
+    div.cell{width:100%;padding:5px 5px 5px 0;margin:0;outline:none}
+    div.prompt{min-width:11ex;padding:.4em;margin:0;font-family:monospace;text-align:right;line-height:1.21429em}
+    @media (max-width:480px){div.prompt{text-align:left}}div.inner_cell{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
+    div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;line-height:1.21429em}
+    div.prompt:empty{padding-top:0;padding-bottom:0}
+    div.input{page-break-inside:avoid;display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;}
+    div.inner_cell{width:90%;}
+    div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;}
+    div.input_prompt{color:navy;border-top:1px solid transparent;}
+    div.output_wrapper{margin-top:5px;position:relative;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+    div.output_scroll{height:24em;width:100%;overflow:auto;border-radius:4px;-webkit-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);-moz-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);}
+    div.output_collapsed{margin:0px;padding:0px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+    div.out_prompt_overlay{height:100%;padding:0px 0.4em;position:absolute;border-radius:4px;}
+    div.out_prompt_overlay:hover{-webkit-box-shadow:inset 0 0 1px #000000;-moz-box-shadow:inset 0 0 1px #000000;box-shadow:inset 0 0 1px #000000;background:rgba(240, 240, 240, 0.5);}
+    div.output_prompt{color:darkred;}
+    
+    a.anchor-link:link{text-decoration:none;padding:0px 20px;visibility:hidden;}
+    h1:hover .anchor-link,h2:hover .anchor-link,h3:hover .anchor-link,h4:hover .anchor-link,h5:hover .anchor-link,h6:hover .anchor-link{visibility:visible;}
+    /* end stuff for output/input prompts*/
+    
+    
+    .highlight-ipynb .hll { background-color: #ffffcc }
+    .highlight-ipynb  { background: #f8f8f8; }
+    .highlight-ipynb .c { color: #408080; font-style: italic } /* Comment */
+    .highlight-ipynb .err { border: 1px solid #FF0000 } /* Error */
+    .highlight-ipynb .k { color: #008000; font-weight: bold } /* Keyword */
+    .highlight-ipynb .o { color: #666666 } /* Operator */
+    .highlight-ipynb .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+    .highlight-ipynb .cp { color: #BC7A00 } /* Comment.Preproc */
+    .highlight-ipynb .c1 { color: #408080; font-style: italic } /* Comment.Single */
+    .highlight-ipynb .cs { color: #408080; font-style: italic } /* Comment.Special */
+    .highlight-ipynb .gd { color: #A00000 } /* Generic.Deleted */
+    .highlight-ipynb .ge { font-style: italic } /* Generic.Emph */
+    .highlight-ipynb .gr { color: #FF0000 } /* Generic.Error */
+    .highlight-ipynb .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+    .highlight-ipynb .gi { color: #00A000 } /* Generic.Inserted */
+    .highlight-ipynb .go { color: #888888 } /* Generic.Output */
+    .highlight-ipynb .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+    .highlight-ipynb .gs { font-weight: bold } /* Generic.Strong */
+    .highlight-ipynb .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+    .highlight-ipynb .gt { color: #0044DD } /* Generic.Traceback */
+    .highlight-ipynb .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+    .highlight-ipynb .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+    .highlight-ipynb .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+    .highlight-ipynb .kp { color: #008000 } /* Keyword.Pseudo */
+    .highlight-ipynb .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+    .highlight-ipynb .kt { color: #B00040 } /* Keyword.Type */
+    .highlight-ipynb .m { color: #666666 } /* Literal.Number */
+    .highlight-ipynb .s { color: #BA2121 } /* Literal.String */
+    .highlight-ipynb .na { color: #7D9029 } /* Name.Attribute */
+    .highlight-ipynb .nb { color: #008000 } /* Name.Builtin */
+    .highlight-ipynb .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+    .highlight-ipynb .no { color: #880000 } /* Name.Constant */
+    .highlight-ipynb .nd { color: #AA22FF } /* Name.Decorator */
+    .highlight-ipynb .ni { color: #999999; font-weight: bold } /* Name.Entity */
+    .highlight-ipynb .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+    .highlight-ipynb .nf { color: #0000FF } /* Name.Function */
+    .highlight-ipynb .nl { color: #A0A000 } /* Name.Label */
+    .highlight-ipynb .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+    .highlight-ipynb .nt { color: #008000; font-weight: bold } /* Name.Tag */
+    .highlight-ipynb .nv { color: #19177C } /* Name.Variable */
+    .highlight-ipynb .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+    .highlight-ipynb .w { color: #bbbbbb } /* Text.Whitespace */
+    .highlight-ipynb .mf { color: #666666 } /* Literal.Number.Float */
+    .highlight-ipynb .mh { color: #666666 } /* Literal.Number.Hex */
+    .highlight-ipynb .mi { color: #666666 } /* Literal.Number.Integer */
+    .highlight-ipynb .mo { color: #666666 } /* Literal.Number.Oct */
+    .highlight-ipynb .sb { color: #BA2121 } /* Literal.String.Backtick */
+    .highlight-ipynb .sc { color: #BA2121 } /* Literal.String.Char */
+    .highlight-ipynb .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+    .highlight-ipynb .s2 { color: #BA2121 } /* Literal.String.Double */
+    .highlight-ipynb .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+    .highlight-ipynb .sh { color: #BA2121 } /* Literal.String.Heredoc */
+    .highlight-ipynb .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+    .highlight-ipynb .sx { color: #008000 } /* Literal.String.Other */
+    .highlight-ipynb .sr { color: #BB6688 } /* Literal.String.Regex */
+    .highlight-ipynb .s1 { color: #BA2121 } /* Literal.String.Single */
+    .highlight-ipynb .ss { color: #19177C } /* Literal.String.Symbol */
+    .highlight-ipynb .bp { color: #008000 } /* Name.Builtin.Pseudo */
+    .highlight-ipynb .vc { color: #19177C } /* Name.Variable.Class */
+    .highlight-ipynb .vg { color: #19177C } /* Name.Variable.Global */
+    .highlight-ipynb .vi { color: #19177C } /* Name.Variable.Instance */
+    .highlight-ipynb .il { color: #666666 } /* Literal.Number.Integer.Long */
+    </style>
+    
+    <style type="text/css">
+    /* Overrides of notebook CSS for static HTML export */
+    div.entry-content {
+      overflow: visible;
+      padding: 8px;
+    }
+    .input_area {
+      padding: 0.2em;
+    }
+    
+    a.heading-anchor {
+     white-space: normal;
+    }
+    
+    .rendered_html
+    code {
+     font-size: .8em;
+    }
+    
+    pre.ipynb {
+      color: black;
+      background: #f7f7f7;
+      border: none;
+      box-shadow: none;
+      margin-bottom: 0;
+      padding: 0;
+      margin: 0px;
+      font-size: 13px;
+    }
+    
+    /* remove the prompt div from text cells */
+    div.text_cell .prompt {
+        display: none;
+    }
+    
+    /* remove horizontal padding from text cells, */
+    /* so it aligns with outer body text */
+    div.text_cell_render {
+        padding: 0.5em 0em;
+    }
+    
+    img.anim_icon{padding:0; border:0; vertical-align:middle; -webkit-box-shadow:none; -box-shadow:none}
+    
+    div.collapseheader {
+        width=100%;
+        padding: 2px;
+        cursor: pointer;
+        font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+    
+    </style>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+    <script type="text/javascript">
+    init_mathjax = function() {
+        if (window.MathJax) {
+            // MathJax loaded
+            MathJax.Hub.Config({
+                tex2jax: {
+                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+                },
+                displayAlign: 'center', // Change this to 'center' to center equations.
+                "HTML-CSS": {
+                    styles: {'.MathJax_Display': {"margin": 0}}
+                }
+            });
+            MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        }
+    }
+    init_mathjax();
+    </script>
+    
+    <link href="../extra/favicon.ico" rel="icon">
+
+<link rel="canonical" href="../drafts/how-to-install-pytesseract.html">
+
+        <meta name="author" content="Peter D. Kazarinoff" />
+        <meta name="keywords" content="python,tesseract,pytesseract,ocr" />
+        <meta name="description" content="In this post, you&#39;ll see how to install pytesseract. You can use pytesseract to convert images into text. Pytesseract is a Python package that works with tesseract, which is a command-line optical character recognition (OCR) program. It&#39;s a super cool package that can read text contained in pictures. Let&#39;s get …" />
+
+        <meta property="og:site_name" content="Python for Undergraduate Engineers" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="How to install pytesseract"/>
+        <meta property="og:url" content="../drafts/how-to-install-pytesseract.html"/>
+        <meta property="og:description" content="In this post, you&#39;ll see how to install pytesseract. You can use pytesseract to convert images into text. Pytesseract is a Python package that works with tesseract, which is a command-line optical character recognition (OCR) program. It&#39;s a super cool package that can read text contained in pictures. Let&#39;s get …"/>
+        <meta property="article:published_time" content="2021-03-31" />
+            <meta property="article:section" content="python" />
+            <meta property="article:tag" content="python" />
+            <meta property="article:tag" content="tesseract" />
+            <meta property="article:tag" content="pytesseract" />
+            <meta property="article:tag" content="ocr" />
+            <meta property="article:author" content="Peter D. Kazarinoff" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../theme/css/pygments/native.css" rel="stylesheet">
+    <link href="../theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="../theme/css/style.css" type="text/css"/>
+        <link href="../static/css/custom.css" rel="stylesheet">
+
+
+
+</head>
+<body>
+
+<!-- .navbar -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../" class="navbar-brand">
+Python for Undergraduate Engineers            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="../pages/about.html">
+                             About
+                          </a></li>
+                         <li><a href="../pages/book.html">
+                             Book
+                          </a></li>
+                         <li><a href="../pages/now.html">
+                             Now
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+
+<!-- .navbar-search -->
+<li>
+    <span>
+        <form class="navbar-search" action="/search.html">
+            <input type="text" name="q" id="tipue_search_input">
+        </form>
+    </span>
+</li>
+<!-- /.navbar-search -->              <li><a href="../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+            <ol class="breadcrumb">
+                <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="../category/python.html" title="python">python</a></li>
+                <li class="active">How to install pytesseract</li>
+            </ol>
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="../drafts/how-to-install-pytesseract.html"
+                       rel="bookmark"
+                       title="Permalink to How to install pytesseract">
+                        How to install pytesseract
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2021-03-31T06:30:00-07:00"> Wed 31 March 2021</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="../tag/python.html">python</a>
+        /
+	<a href="../tag/tesseract.html">tesseract</a>
+        /
+	<a href="../tag/pytesseract.html">pytesseract</a>
+        /
+	<a href="../tag/ocr.html">ocr</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p><a href="../drafts/how-to-install-pytesseract.html"><img alt="tesseract and python" src="../posts/tesseract/images/tesseract_plus_python.png"></a></p>
+<p>In this post, you'll see how to install pytesseract. You can use pytesseract to convert images into text. Pytesseract is a Python package that works with <strong>tesseract</strong>, which is a command-line optical character recognition (OCR) program.  It's a super cool package that can read text contained in pictures. Let's get to it.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<p><img alt="briefcase" src="../posts/tesseract/images/briefcase.jpg"></p>
+<p>Before you can install pytesseract, you need to have a couple of things in place:</p>
+<ul>
+<li>A computer with an internet connection</li>
+<li>Anaconda distribution of Python</li>
+</ul>
+<p>You are going to need a computer with an internet connection. If you are reading this post, there is a good chance there is a computer in front of you right now. As far as I know, you can't install pytesseract on a phone, tablet, or Chromebook. You are also going to need the <a href="https://www.anaconda.com/products/individual">Anaconda</a> distribution of Python. Why Anaconda?</p>
+<h3 id="why-anaconda">Why Anaconda?</h3>
+<p><img alt="anaconda icon" src="../posts/tesseract/images/anaconda_icon.png"></p>
+<p>You might be wondering, why do I need <strong>Anaconda</strong> to install Pytesseract? Well, you <em>don't have to</em> use the Anaconda distribution of Python when you install pytesseract, but I think it's a lot easier than other installation methods. You can install Python packages, but also non-Python packages with the Anaconda Prompt. Since <strong>tesseract</strong> is non-Python package needed to use pytesseract, I think the Anaconda distribution of Python and the <strong>conda</strong> package manager is the way to go.</p>
+<h2 id="what-is-pytesseract">What is pytesseract?</h2>
+<p><img alt="anaconda icon" src="../posts/tesseract/images/pytesseract_at_pypi.png"></p>
+<p><a href="https://github.com/madmaze/pytesseract">Pytesseract</a> is a Python package that allows you to extract text from images. If you have a picture that has some text in it, pytesseract can pull out the text into a Python program. That's pretty cool. Pytesseract is a wrapper around a program from Google called <strong>tesseract</strong>. It's tesseract that extracts the text from pictures. Pytesseract is there to help you use tesseract in your Python programs.</p>
+<h3 id="what-is-tesseract">What is tesseract?</h3>
+<p><img alt="anaconda icon" src="../posts/tesseract/images/tesseract_icon.png"></p>
+<p><a href="https://opensource.google/projects/tesseract">Tesseract</a> is a command-line application created by Google that can be used to pull text out of pictures. It is an example of an OCR application, which stands for <strong>O</strong>ptical <strong>C</strong>haracter <strong>R</strong>ecognition. Which is just a fancy way of saying using a computer to read text. Tesseract is capable of reading text in many different languages. It works best with computer-generated text like text in PDFs or pictures of receipts and invoices. It has a tougher time with images that contain handwritten words.</p>
+<p>Before we get started with installation, we need to do something else first: create a virtual environment.</p>
+<h2 id="create-a-virtual-environment">Create a virtual environment</h2>
+<p><img alt="anaconda icon" src="../posts/tesseract/images/container_ships.jpg"></p>
+<p>Next, we are going to create a virtual environment to install pytesseract into. It's a good idea to create a new virtual environment for each Python project.</p>
+<p><img alt="anaconda in start menu" src="../images/anaconda_from_start_menu.png"></p>
+<p>Open up the Anaconda Prompt from the Windows Start Menu and type the command below. You do not need to type <code>&gt;</code>. The <code>&gt;</code> is shown to indicate the prompt, not a character to type.</p>
+<div class="highlight"><pre><span></span>&gt; conda create -y -n tesseract python=3.8
+</pre></div>
+
+
+<p>Now we have a new virtual environment called <code>(tesseract)</code>. Before we can install packages into this environment, it needs to be activated. Activate the <code>(tesseract)</code> environment with the command below:</p>
+<div class="highlight"><pre><span></span>&gt; conda activate tesseract
+(tesseract) &gt;
+</pre></div>
+
+
+<p>You know the <code>(tesseract)</code> virtual environment is active when you see the environment name <code>(tesseract)</code> before the prompt. In the next few steps, we are going to install packages into our <code>(tesseract)</code> environment. Make sure the environment is active when you run any <code>conda install</code> commands.</p>
+<h2 id="install-pytesseract">Install pytesseract</h2>
+<p>Now we are going to install pytesseract into our virtual environment. Make sure the <code>(tesseract)</code> environment is active. You can install pytesseract from PyPI, the Python package index using <strong>pip</strong>. But I suggest installing pytesseract with <strong>conda</strong>. Conda can manage non-Python dependencies and we want to be sure that pytesseract plays well with the other packages we install.</p>
+<blockquote>
+<p><strong>conda</strong> can install Python and non-Python packages. This makes it a great tool to install tesseract and pytesseract.</p>
+</blockquote>
+<p>Use the command below to install pytesseract. Note the <code>-c conda-forge</code> portion of the command. This means we are installing pytesseract from the <strong>conda-forge</strong> channel. If you don't specify the channel, the installation will fail.</p>
+<div class="highlight"><pre><span></span>&gt; conda install -c conda-forge pytesseract
+</pre></div>
+
+
+<p>You can confirm that pytesseract is installed in your virtual environment by hopping into the Python REPL and trying to import it.</p>
+<div class="highlight"><pre><span></span>&gt; python
+&gt;&gt;&gt; import pytesseract
+&gt;&gt;&gt; help(pytesseract)
+
+Help on package pytesseract:
+
+NAME
+    pytesseract - # flake8: noqa: F401
+...
+
+&gt;&gt;&gt; exit()
+</pre></div>
+
+
+<p>pytesseract is installed. Great! But before we can use it, we need to install the tesseract application.</p>
+<h2 id="install-tesseract">Install tesseract</h2>
+<p>Now that pytesseract is installed, there are two more things we need to do before we can use it.</p>
+<ul>
+<li>install tesseract</li>
+<li>figure out where the tesseract executable is located</li>
+</ul>
+<p>We can install tesseract using conda at the Anaconda Prompt, just like we installed pytesseract. Again, make sure the <code>(tesseract)</code> virtual environment is active before you run the <code>conda install</code> command. Type the command below to install tesseract.</p>
+<div class="highlight"><pre><span></span>&gt; conda install -c conda-forge tesseract
+</pre></div>
+
+
+<p>You can confirm that tesseract is installed in your virtual environment by running the command below. The command calls up the tesseract help screen.</p>
+<div class="highlight"><pre><span></span>&gt; tesseract -h
+</pre></div>
+
+
+<p>OK - one more step before we can use pytesseract, we need to figure out where our tesseract executable is installed. The tesseract executable location is needed for pytesseract to work properly.</p>
+<h2 id="determine-the-location-of-your-tesseract-executable">Determine the location of your tesseract executable</h2>
+<p><img alt="island" src="../posts/tesseract/images/island.jpg"></p>
+<p>The next step is to determine where the tesseract program is located on our computer. We need this location when we use pytesseract in a Python program. Typing the <code>where &lt;executable&gt;</code> command into the Anaconda Prompt shows the location of that <code>&lt;exectable&gt;</code>. <code>where</code> on Windows is sort of like the <code>which</code> command in MacOS and Linux.</p>
+<div class="highlight"><pre><span></span>&gt; where tesseract
+C:\Users\Peter\Anaconda3\envs\tesseract\Library\bin\tesseract.exe
+</pre></div>
+
+
+<p>Make note of this file path. We need the file path to use pytesseract in our Python program.</p>
+<h2 id="point-pytesseract-at-your-tesseract-installation">Point pytesseract at your tesseract installation</h2>
+<p><img alt="map.jpg" src="../posts/tesseract/images/map.jpg"></p>
+<p>Create a Python script (a .py-file), or start up a Jupyter notebook. At the top of the file, import <code>pytesseract</code> , then point pytesseract at the tesseract installation you discovered in the previous step. Note the <code>r' '</code> at the start of the string that defines the file location. The <code>r</code> indicates the string is a <em>raw</em> string. Raw strings don't include excape characters like <code>\n</code> for a new line. Therefore, we don't have to use double <code>\\</code> backslashes in the Windows file path.</p>
+<div class="highlight"><pre><span></span><span class="c1"># test_pytesseract.py</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">Image</span>
+<span class="kn">import</span> <span class="nn">pytesseract</span>
+
+
+<span class="n">pytesseract</span><span class="o">.</span><span class="n">pytesseract</span><span class="o">.</span><span class="n">tesseract_cmd</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;C:\Users\Peter\Anaconda3\envs\tesseract\Library\bin\tesseract.exe&#39;</span>
+</pre></div>
+
+
+<p>Now we can use pytesseract to extract some text from a picture.</p>
+<h2 id="use-pytesseract">Use pytesseract</h2>
+<p>OK! Now it's time to pull text out of a picture. You are going to need a picture to pull text out of. The picture I'm using can be found <a href="https://github.com/ProfessorKazarinoff/staticsite/blob/master/content/posts/tesseract/images/test_image.png">here</a> and is shown below.</p>
+<p><img alt="map.jpg" src="../posts/tesseract/images/test_image.png"></p>
+<p>Make sure <code>test_image.png</code> is in the same folder as your Python program.</p>
+<div class="highlight"><pre><span></span><span class="c1"># test_pytesseract.py</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">Image</span>
+<span class="kn">import</span> <span class="nn">pytesseract</span>
+
+
+<span class="n">pytesseract</span><span class="o">.</span><span class="n">pytesseract</span><span class="o">.</span><span class="n">tesseract_cmd</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;C:\Users\Peter\Anaconda3\envs\tesseract\Library\bin\tesseract.exe&#39;</span>
+
+<span class="n">text_from_image</span> <span class="o">=</span> <span class="n">pytesseract</span><span class="o">.</span><span class="n">image_to_string</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;test_image.png&#39;</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">text_from_image</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Run the Python program or Jupyter notebook code cell and see the output.</p>
+<p>The output produced should look something like below:</p>
+<div class="highlight"><pre><span></span>This is a lot of 12 point text to test the
+ocr code and see if it works on all types
+of file format.
+
+The quick brown dog jumped over the
+lazy fox. The quick brown dog jumped
+over the lazy fox. The quick brown dog
+jumped over the lazy fox. The quick
+brown dog jumped over the lazy fox.
+♀
+</pre></div>
+
+
+<h2 id="going-further">Going Further</h2>
+<p><img alt="map.jpg" src="../posts/tesseract/images/bricks.jpg"></p>
+<p>Now that pytesseract is installed what are you going to build? There are so many possibilities for projects:</p>
+<ul>
+<li>Use pytesseract to read different languages</li>
+<li>Run pytesseract on a stack of pdf's</li>
+<li>Try to see if pytesseract can read your handwriting</li>
+<li>See if pytesseract can read junk mail</li>
+<li>Incorporate pytesseract into a web application</li>
+</ul>
+<p><strong>Happy coding!</strong></p>
+            </div>
+            <!-- /.entry-content -->
+<section class="well" id="related-posts">
+    <h4>Related Posts:</h4>
+    <ul>
+        <li><a href="../how-to-install-micropython-on-an-esp32.html">How to install MicroPython on an ESP32 microcontroller</a></li>
+        <li><a href="../python-arduino-potentiometer.html">Using Python and an Arduino to Read a Sensor</a></li>
+        <li><a href="../how-to-make-y-y-plots-with-matplotlib.html">How to make y-y plots with Matplotlib</a></li>
+        <li><a href="../stream-S01-E01-jupyterhub-intro.html">My first Twitch Stream: S01-E01 JupyterHub Intro and Tools</a></li>
+        <li><a href="../jupyterhub-deployment-on-running-in-production.html">Hear my story about deploying JupyterHub on the Running in Production Podcast</a></li>
+    </ul>
+</section>
+    <hr />
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style">
+            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+            <a class="addthis_button_tweet"></a>
+    </div>
+    <!-- AddThis Button END -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<div id="aboutme">
+        <p>
+            <img width="100%" class="img-thumbnail" src="../extra/gear-wrench-icon-512-278694.png"/>
+        </p>
+    <p>
+      <strong>About Peter Kazarinoff</strong><br/>
+        I teach engineering at a community college in the Pacific Northwest. I am interested in programming and how to help students. Here I mostly blog about Python, and how programing can be incorporated into engineering education.
+    </p>
+</div><!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Recent Posts -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+  <ul class="list-group" id="recentposts">
+    <li class="list-group-item"><a href="../how-to-install-micropython-on-an-esp32.html">How to install MicroPython on an ESP32 microcontroller</a></li>
+    <li class="list-group-item"><a href="../python-arduino-potentiometer.html">Using Python and an Arduino to Read a Sensor</a></li>
+    <li class="list-group-item"><a href="../how-to-make-y-y-plots-with-matplotlib.html">How to make y-y plots with Matplotlib</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Recent Posts -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="../"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-2">
+      <a href="../tag/engineering.html">engineering</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="../tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="../tag/jupyter.html">jupyter</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="../tag/jupyter-notebook.html">jupyter notebook</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="../tag/matplotlib.html">matplotlib</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="../tag/microcontroller.html">microcontroller</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="../tag/micropython.html">micropython</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="../tag/pelican.html">pelican</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="../tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="../tag/sensor.html">sensor</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Github -->
+<li class="list-group-item">
+  <h4><i class="fa fa-github fa-lg"></i><span class="icon-label">GitHub Repos</span></h4>
+  <div id="gh_repos">
+    <p class="list-group-item">Status updating...</p>
+  </div>
+  <a href="https://github.com/professorkazarinoff">@professorkazarinoff</a> on GitHub
+</li>
+<!-- End Sidebar/Github -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2021 Peter Kazarinoff
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="../theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../theme/js/respond.min.js"></script>
+
+    <script src="../static/js/custom.js"></script>
+
+
+<!-- GitHub JS Code -->
+<script type="text/javascript">
+$(document).ready(function () {
+  if (!window.jXHR) {
+    var jxhr = document.createElement('script');
+    jxhr.type = 'text/javascript';
+    jxhr.src = '../theme/js/jXHR.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(jxhr, s);
+  }
+
+  github.showRepos({
+    user: 'professorkazarinoff',
+    count: 5,
+    skip_forks: true,
+    target: '#gh_repos'
+  });
+});
+</script>
+<script src="../theme/js/github.js" type="text/javascript"></script>
+<!-- End GitHub JS Code -->
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-116330557-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+    $("div.collapseheader").click(function () {
+    $header = $(this).children("span").first();
+    $codearea = $(this).children(".input_area");
+    console.log($(this).children());
+    $codearea.slideToggle(500, function () {
+        $header.text(function () {
+            return $codearea.is(":visible") ? "Collapse Code" : "Expand Code";
+        });
+    });
+});
+});
+</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cdd8eb4e16bf94c"></script>
+</body>
+</html>

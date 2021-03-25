@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>How to install MicroPython on an ESP32 microcontroller - Python for Undergraduate Engineers</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
+<style type="text/css">
+
+    /*some stuff for output/input prompts*/
+    div.cell{border:1px solid transparent;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}div.cell.selected{border-radius:4px;border:thin #ababab solid}
+    div.cell.edit_mode{border-radius:4px;border:thin #008000 solid}
+    div.cell{width:100%;padding:5px 5px 5px 0;margin:0;outline:none}
+    div.prompt{min-width:11ex;padding:.4em;margin:0;font-family:monospace;text-align:right;line-height:1.21429em}
+    @media (max-width:480px){div.prompt{text-align:left}}div.inner_cell{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
+    div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;line-height:1.21429em}
+    div.prompt:empty{padding-top:0;padding-bottom:0}
+    div.input{page-break-inside:avoid;display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;}
+    div.inner_cell{width:90%;}
+    div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;}
+    div.input_prompt{color:navy;border-top:1px solid transparent;}
+    div.output_wrapper{margin-top:5px;position:relative;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+    div.output_scroll{height:24em;width:100%;overflow:auto;border-radius:4px;-webkit-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);-moz-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);}
+    div.output_collapsed{margin:0px;padding:0px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+    div.out_prompt_overlay{height:100%;padding:0px 0.4em;position:absolute;border-radius:4px;}
+    div.out_prompt_overlay:hover{-webkit-box-shadow:inset 0 0 1px #000000;-moz-box-shadow:inset 0 0 1px #000000;box-shadow:inset 0 0 1px #000000;background:rgba(240, 240, 240, 0.5);}
+    div.output_prompt{color:darkred;}
+    
+    a.anchor-link:link{text-decoration:none;padding:0px 20px;visibility:hidden;}
+    h1:hover .anchor-link,h2:hover .anchor-link,h3:hover .anchor-link,h4:hover .anchor-link,h5:hover .anchor-link,h6:hover .anchor-link{visibility:visible;}
+    /* end stuff for output/input prompts*/
+    
+    
+    .highlight-ipynb .hll { background-color: #ffffcc }
+    .highlight-ipynb  { background: #f8f8f8; }
+    .highlight-ipynb .c { color: #408080; font-style: italic } /* Comment */
+    .highlight-ipynb .err { border: 1px solid #FF0000 } /* Error */
+    .highlight-ipynb .k { color: #008000; font-weight: bold } /* Keyword */
+    .highlight-ipynb .o { color: #666666 } /* Operator */
+    .highlight-ipynb .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+    .highlight-ipynb .cp { color: #BC7A00 } /* Comment.Preproc */
+    .highlight-ipynb .c1 { color: #408080; font-style: italic } /* Comment.Single */
+    .highlight-ipynb .cs { color: #408080; font-style: italic } /* Comment.Special */
+    .highlight-ipynb .gd { color: #A00000 } /* Generic.Deleted */
+    .highlight-ipynb .ge { font-style: italic } /* Generic.Emph */
+    .highlight-ipynb .gr { color: #FF0000 } /* Generic.Error */
+    .highlight-ipynb .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+    .highlight-ipynb .gi { color: #00A000 } /* Generic.Inserted */
+    .highlight-ipynb .go { color: #888888 } /* Generic.Output */
+    .highlight-ipynb .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+    .highlight-ipynb .gs { font-weight: bold } /* Generic.Strong */
+    .highlight-ipynb .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+    .highlight-ipynb .gt { color: #0044DD } /* Generic.Traceback */
+    .highlight-ipynb .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+    .highlight-ipynb .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+    .highlight-ipynb .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+    .highlight-ipynb .kp { color: #008000 } /* Keyword.Pseudo */
+    .highlight-ipynb .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+    .highlight-ipynb .kt { color: #B00040 } /* Keyword.Type */
+    .highlight-ipynb .m { color: #666666 } /* Literal.Number */
+    .highlight-ipynb .s { color: #BA2121 } /* Literal.String */
+    .highlight-ipynb .na { color: #7D9029 } /* Name.Attribute */
+    .highlight-ipynb .nb { color: #008000 } /* Name.Builtin */
+    .highlight-ipynb .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+    .highlight-ipynb .no { color: #880000 } /* Name.Constant */
+    .highlight-ipynb .nd { color: #AA22FF } /* Name.Decorator */
+    .highlight-ipynb .ni { color: #999999; font-weight: bold } /* Name.Entity */
+    .highlight-ipynb .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+    .highlight-ipynb .nf { color: #0000FF } /* Name.Function */
+    .highlight-ipynb .nl { color: #A0A000 } /* Name.Label */
+    .highlight-ipynb .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+    .highlight-ipynb .nt { color: #008000; font-weight: bold } /* Name.Tag */
+    .highlight-ipynb .nv { color: #19177C } /* Name.Variable */
+    .highlight-ipynb .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+    .highlight-ipynb .w { color: #bbbbbb } /* Text.Whitespace */
+    .highlight-ipynb .mf { color: #666666 } /* Literal.Number.Float */
+    .highlight-ipynb .mh { color: #666666 } /* Literal.Number.Hex */
+    .highlight-ipynb .mi { color: #666666 } /* Literal.Number.Integer */
+    .highlight-ipynb .mo { color: #666666 } /* Literal.Number.Oct */
+    .highlight-ipynb .sb { color: #BA2121 } /* Literal.String.Backtick */
+    .highlight-ipynb .sc { color: #BA2121 } /* Literal.String.Char */
+    .highlight-ipynb .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+    .highlight-ipynb .s2 { color: #BA2121 } /* Literal.String.Double */
+    .highlight-ipynb .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+    .highlight-ipynb .sh { color: #BA2121 } /* Literal.String.Heredoc */
+    .highlight-ipynb .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+    .highlight-ipynb .sx { color: #008000 } /* Literal.String.Other */
+    .highlight-ipynb .sr { color: #BB6688 } /* Literal.String.Regex */
+    .highlight-ipynb .s1 { color: #BA2121 } /* Literal.String.Single */
+    .highlight-ipynb .ss { color: #19177C } /* Literal.String.Symbol */
+    .highlight-ipynb .bp { color: #008000 } /* Name.Builtin.Pseudo */
+    .highlight-ipynb .vc { color: #19177C } /* Name.Variable.Class */
+    .highlight-ipynb .vg { color: #19177C } /* Name.Variable.Global */
+    .highlight-ipynb .vi { color: #19177C } /* Name.Variable.Instance */
+    .highlight-ipynb .il { color: #666666 } /* Literal.Number.Integer.Long */
+    </style>
+    
+    <style type="text/css">
+    /* Overrides of notebook CSS for static HTML export */
+    div.entry-content {
+      overflow: visible;
+      padding: 8px;
+    }
+    .input_area {
+      padding: 0.2em;
+    }
+    
+    a.heading-anchor {
+     white-space: normal;
+    }
+    
+    .rendered_html
+    code {
+     font-size: .8em;
+    }
+    
+    pre.ipynb {
+      color: black;
+      background: #f7f7f7;
+      border: none;
+      box-shadow: none;
+      margin-bottom: 0;
+      padding: 0;
+      margin: 0px;
+      font-size: 13px;
+    }
+    
+    /* remove the prompt div from text cells */
+    div.text_cell .prompt {
+        display: none;
+    }
+    
+    /* remove horizontal padding from text cells, */
+    /* so it aligns with outer body text */
+    div.text_cell_render {
+        padding: 0.5em 0em;
+    }
+    
+    img.anim_icon{padding:0; border:0; vertical-align:middle; -webkit-box-shadow:none; -box-shadow:none}
+    
+    div.collapseheader {
+        width=100%;
+        padding: 2px;
+        cursor: pointer;
+        font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+    
+    </style>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+    <script type="text/javascript">
+    init_mathjax = function() {
+        if (window.MathJax) {
+            // MathJax loaded
+            MathJax.Hub.Config({
+                tex2jax: {
+                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+                },
+                displayAlign: 'center', // Change this to 'center' to center equations.
+                "HTML-CSS": {
+                    styles: {'.MathJax_Display': {"margin": 0}}
+                }
+            });
+            MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        }
+    }
+    init_mathjax();
+    </script>
+    
+    <link href="./extra/favicon.ico" rel="icon">
+
+<link rel="canonical" href="./how-to-install-micropython-on-an-esp32.html">
+
+        <meta name="author" content="Peter D. Kazarinoff" />
+        <meta name="keywords" content="python,micropython,esp32,microcontroller" />
+        <meta name="description" content="In this post, you&#39;ll learn how to install MicroPython on an ESP32 microcontroller. Micropython is a port, or version of Python designed to run on small, inexpensive, low-power microcontrollers. Examples of microcontrollers that MicroPython can run on include the pyboard, the WiPy and ESP8266-based boards like the Adafruit Feather Huzzah …" />
+
+        <meta property="og:site_name" content="Python for Undergraduate Engineers" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="How to install MicroPython on an ESP32 microcontroller"/>
+        <meta property="og:url" content="./how-to-install-micropython-on-an-esp32.html"/>
+        <meta property="og:description" content="In this post, you&#39;ll learn how to install MicroPython on an ESP32 microcontroller. Micropython is a port, or version of Python designed to run on small, inexpensive, low-power microcontrollers. Examples of microcontrollers that MicroPython can run on include the pyboard, the WiPy and ESP8266-based boards like the Adafruit Feather Huzzah …"/>
+        <meta property="article:published_time" content="2021-03-24" />
+            <meta property="article:section" content="micropython" />
+            <meta property="article:tag" content="python" />
+            <meta property="article:tag" content="micropython" />
+            <meta property="article:tag" content="esp32" />
+            <meta property="article:tag" content="microcontroller" />
+            <meta property="article:author" content="Peter D. Kazarinoff" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="./theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="./theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="./theme/css/pygments/native.css" rel="stylesheet">
+    <link href="./theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="./theme/css/style.css" type="text/css"/>
+        <link href="./static/css/custom.css" rel="stylesheet">
+
+
+
+</head>
+<body>
+
+<!-- .navbar -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="./" class="navbar-brand">
+Python for Undergraduate Engineers            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="./pages/about.html">
+                             About
+                          </a></li>
+                         <li><a href="./pages/book.html">
+                             Book
+                          </a></li>
+                         <li><a href="./pages/now.html">
+                             Now
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+
+<!-- .navbar-search -->
+<li>
+    <span>
+        <form class="navbar-search" action="/search.html">
+            <input type="text" name="q" id="tipue_search_input">
+        </form>
+    </span>
+</li>
+<!-- /.navbar-search -->              <li><a href="./archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+            <ol class="breadcrumb">
+                <li><a href="." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="./category/micropython.html" title="micropython">micropython</a></li>
+                <li class="active">How to install MicroPython on an ESP32 microcontroller</li>
+            </ol>
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="./how-to-install-micropython-on-an-esp32.html"
+                       rel="bookmark"
+                       title="Permalink to How to install MicroPython on an ESP32 microcontroller">
+                        How to install MicroPython on an ESP32 microcontroller
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2021-03-24T06:30:00-07:00"> Wed 24 March 2021</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="./tag/python.html">python</a>
+        /
+	<a href="./tag/micropython.html">micropython</a>
+        /
+	<a href="./tag/esp32.html">esp32</a>
+        /
+	<a href="./tag/microcontroller.html">microcontroller</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p><a href="./how-to-install-micropython-on-an-esp32.html"><img alt="micropython and esp32" src="./posts/micropython/images/micropython_plus_esp32.png"></a></p>
+<p>In this post, you'll learn how to install MicroPython on an ESP32 microcontroller. <a href="http://micropython.org/">Micropython</a> is a port, or version of Python designed to run on small, inexpensive, low-power microcontrollers. Examples of microcontrollers that MicroPython can run on include the <a href="https://store.micropython.org/">pyboard</a>, the <a href="https://pycom.io/webshop/#dev">WiPy</a> and ESP8266-based boards like the <a href="https://learn.adafruit.com/adafruit-feather-huzzah-esp8266">Adafruit Feather Huzzah</a>. Also, <strong>MicroPython can be installed on ESP32-based microcontrollers -</strong> and that's what this post is about. </p>
+<p>If you want to know more about MicroPython, you can read about it in <a href="./what-is-micropython.html">this post</a> and check out the <a href="https://micropython.org/">MicroPython Main Page</a> and the <a href="http://docs.micropython.org/en/latest/">MicroPython Documentation</a></p>
+<div class="toc"><span class="toctitle">Table of contents:</span><ul>
+<li><a href="#prerequisites">Prerequisites</a></li>
+<li><a href="#download-the-firmware">Download the firmware</a></li>
+<li><a href="#create-a-virtual-environment-and-install-esptool">Create a virtual environment and install esptool</a></li>
+<li><a href="#install-the-silabs-driver-for-the-cp210x-chip">Install the SiLabs driver for the CP210x chip</a></li>
+<li><a href="#connect-esp32-microcontroller-to-computer">Connect ESP32 microcontroller to computer</a></li>
+<li><a href="#confirm-the-esp32-is-connected-in-the-windows-device-manager-and-determine-the-com-port">Confirm the ESP32 is connected in the Windows Device Manager and determine the COM Port</a></li>
+<li><a href="#install-micropython-with-esptool">Install MicroPython with esptool</a></li>
+<li><a href="#download-and-install-putty-a-serial-monitor">Download and install PuTTY, a serial monitor</a></li>
+<li><a href="#use-putty-to-send-commands-to-the-esp32">Use PuTTY to send commands to the ESP32</a></li>
+<li><a href="#run-a-few-commands-to-turn-the-built-in-led-on-and-off">Run a few commands to turn the built-in LED on and off</a></li>
+<li><a href="#going-further">Going Further</a></li>
+</ul>
+</div>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>Before you can install MicroPython on an ESP32 microcontroller, there are a couple of prerequisites:</p>
+<ul>
+<li>a computer with a USB port and internet connection</li>
+<li>an ESP32 microcontroller</li>
+<li>a USB cable to connect the ESP32 microcontroller to your computer</li>
+<li>the <a href="https://www.anaconda.com/products/individual">Anaconda Distribution</a> of Python installed on your computer</li>
+</ul>
+<p>We will install MicroPython on our ESP32 microcontroller with our computer. This computer can be Windows10, MacOS, or Linux. These instructions are written assuming you have a Windows 10 computer, but the same general steps can be used on other operating systems. Your computer needs to be connected to the internet.</p>
+<p>You'll need an ESP32-based microcontroller. There are a couple of different varients. Boards you could use include the <a href="https://www.adafruit.com/product/3405">Adafruit HUZZAH32 – ESP32 Feather Board</a> and the <a href="https://www.amazon.com/HiLetgo-ESP-WROOM-32-Development-Microcontroller-Integrated/dp/B0718T232Z/">HiLetgo ESP-WROOM-32 ESP32 ESP-32S Development Board</a> found on Amazon. This tutorial assumes you have one of these development boards that has a USB port on it.</p>
+<p><img alt="feather32 and hiletgo32" src="./posts/micropython/images/feather32_hiletgo32.png"></p>
+<p>You also need a USB cable to connect your ESP32 microcontroller to your computer. Both the <a href="https://www.adafruit.com/product/3405">Adafruit Feather Huzzah 32 board</a> and the <a href="https://www.amazon.com/HiLetgo-ESP-WROOM-32-Development-Microcontroller-Integrated/dp/B0718T232Z/">HiLetgo ESP32 board</a> board use a micro-USB connector. Therefore, you need a micro-USB to USB-A (regular USB) cable. The cable needs to be a USB data cable and not just a USB charging cable.</p>
+<blockquote>
+<p><strong>Make sure the micro-USB cable is a data cable.</strong> If the ESP32 isn't recognized by your computer (and the SiLabs driver is installed) try a different USB cable.</p>
+</blockquote>
+<p>This type of cable is common to many older Android phones and tablets. If you don't have a micro-USB to USB-A cable, you can buy one at <a href="https://www.adafruit.com/product/592">Adafruit</a> or <a href="https://www.amazon.com/Amazon-Micro-USB-designed-tablets-readers/dp/B0741WGQ36">Amazon</a>.</p>
+<p>Python needs to be installed on your computer so that you can use a command-line program called <strong>esptool</strong>. I suggest you download and install the <a href="https://www.anaconda.com/products/individual">Anaconda Distribution</a> of Python. You can also download Python onto your computer from <a href="https://python.org">Python.org</a>. See <a href="./installing-anaconda-on-windows.html">this post</a> to learn how to install the Anaconda distribution of Python on Windows.</p>
+<p>Now that we have our prerequisites setup, it's time to download the MicroPython firmware for our ESP32 microcontroller.</p>
+<h2 id="download-the-firmware">Download the firmware</h2>
+<p>The first step to installing MicroPython on an ESP32 microcontroller is to download the MicroPython firmware from <a href="http://micropython.org/">micropython.org</a>.</p>
+<p>Click on the <a href="https://micropython.org/download/">DOWNLOAD</a> link at the top of the page.</p>
+<p><img alt="micropython downloads page" src="./posts/micropython/images/micropython_downloads_tab.jpg"></p>
+<p>On the downloads page, scroll down the page until you get to the <strong>Espressif ESP-based boards</strong> section.  </p>
+<p><img alt="espressif downloads section" src="./posts/micropython/images/espressif_section.jpg"></p>
+<p>Select the <a href="https://micropython.org/download/esp32/"><strong>Generic ESP32 module</strong></a>. This brings you to the page containing <strong>Firmware for Generic ESP32 module</strong></p>
+<p><img alt="firmware_for_esp32_boards_top_of_page.png" src="./posts/micropython/images/firmware_for_esp32_boards_top_of_page.png"></p>
+<p>Scroll down and select the most recent .bin file. In the picture below, that is <code>esp32-20210312-unstable-v1.14-108-ge98ff3f08.bin</code>. </p>
+<p><img alt="firmware_for_esp32_boards_firmware_listing.png" src="./posts/micropython/images/firmware_for_esp32_boards_listing_portion.png"></p>
+<p>Click on the link to the .bin file. Save the file to your Downloads folder.</p>
+<p><img alt="save esp32 firmware dialog" src="./posts/micropython/images/save_esp32_firmware_dialog.PNG"></p>
+<p>After the .bin file downloads, you should be able to see it in your Downloads folder.</p>
+<p><img alt="esp32 bin file in downloads folder" src="./posts/micropython/images/esp32_bin_file_in_downloads_folder.png"></p>
+<p>Great! We've got the ESP32 firmware .bin file saved on our computer. Next, we need to install a Python package called <strong>esptool</strong> so that we can move the firmware onto our ESP32 microcontroller.</p>
+<h2 id="create-a-virtual-environment-and-install-esptool">Create a virtual environment and install esptool</h2>
+<p>Now that the .bin file is download, the next thing we need to do is install a command-line tool called <strong>esptool</strong>. esptool is a Python package that we can run from the Anaconda Prompt or a terminal to flash our firmware onto our ESP32 microcontroller. Before we install esptool, let's first create a <strong>virtual environment</strong> for our ESP32 work. The commands below assume you are using the Anaconda distribution of Python and the Anaconda Prompt for your terminal. Using the MacOS or Linux terminal and Python's <strong>venv</strong> module is another option.</p>
+<p>Go to the Windows Start Menu and type <code>Anaconda</code></p>
+<p><img alt="anaconda in windows start menu" src="./posts/jupyter/anaconda_start_menu.png"></p>
+<p>Open the Anaconda Prompt and type the command below to create a new virtual environment called <code>esp32</code>. Note that the <code>&gt;</code> prompt character doesn't need to be typed. <code>&gt;</code> is included to represent the terminal prompt, not as a character to type.</p>
+<div class="highlight"><pre><span></span>&gt; conda create -y -n esp32 python=3.8
+</pre></div>
+
+
+<p>After the virtual environment is created, it needs to be <em>activated</em> before we install esptool. Activate the <code>esp32</code> virtual environment we just created with the command below. Note that after the activation command is entered, <code>(esp32)</code> appears before the prompt. This means the <code>esp32</code> virtual environment is active.</p>
+<div class="highlight"><pre><span></span>&gt; conda activate esp32
+</pre></div>
+
+
+<p>Once the <code>esp32</code> environment is activated (you can see <code>(esp32)</code> before the prompt), use the command below to install esptool.</p>
+<div class="highlight"><pre><span></span>&gt; python -m pip install esptool
+</pre></div>
+
+
+<p>You can confirm the installation of esptool by typing the command below. The result should be the version of esptool that you installed.</p>
+<div class="highlight"><pre><span></span>&gt; esptool version
+esptool.py v3.0
+3.0
+</pre></div>
+
+
+<p>Now that esptool is installed, we need to install a driver to make sure our computer recognizes our ESP32 microcontroller when we connect it.</p>
+<h2 id="install-the-silabs-driver-for-the-cp210x-chip">Install the SiLabs driver for the CP210x chip</h2>
+<p>Before we can connect our ESP32 microcontroller to our computer, we need a specific driver installed. For my Windows 10 laptop to see my ESP32, the <a href="https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers">CP210x USB to UART Bridge VCP driver</a> needs to be downloaded from SiLabs and installed. This is quick and easy but does require admin privileges.</p>
+<p><img alt="SiLabs Driver" src="./posts/micropython/download_silabs_driver.PNG"></p>
+<p>Now, we can connect our ESP32 microcontroller to our computer.</p>
+<h2 id="connect-esp32-microcontroller-to-computer">Connect ESP32 microcontroller to computer</h2>
+<p>Let's review the steps we have completed so far:</p>
+<ul>
+<li>downloaded the firmware .bin file into our downloads folder</li>
+<li>created a virtual environment using the Anaconda Prompt</li>
+<li>installed esptool using the Anaconda Prompt</li>
+<li>installed the SiLabs CP210x drivers</li>
+</ul>
+<p>The next step is to connect the ESP8266 microcontroller to the computer. Connect one end of the USB cable to the microcontroller and connect the other end of the cable to a USB port on your computer. Note that <strong>it does make a difference which way is up</strong> for both sides of the USB cable.</p>
+<p>Now we need to make sure that our computer can "see" our ESP32.</p>
+<h2 id="confirm-the-esp32-is-connected-in-the-windows-device-manager-and-determine-the-com-port">Confirm the ESP32 is connected in the Windows Device Manager and determine the COM Port</h2>
+<p>You should be able to see the ESP8266 in the Windows Device Manager when the ESP32 is connected to your computer. You can open the Windows Device Manager from the Windows Start Menu.</p>
+<p><img alt="find device manager" src="./posts/micropython/find_device_manager.png"></p>
+<p>In the Windows Device Manager, look in the <strong>Ports (COM &amp; LPT)</strong> section. You should see something like <strong>Silicon Labs CP201x USB to UART Bridge (COM4)</strong>. Make note of which COM# is in parenthesis after UART Bridge. We'll need this COM# in the next step.</p>
+<p><img alt="UART Bridge in Device Manager" src="./posts/micropython/device_manager_menu.png"></p>
+<blockquote>
+<p>If you can't see the <strong>Silicon Labs CP201x USB to UART Bridge (COM4)</strong> entry in the Windows Device Manager, make sure the SiLabs driver is installed and try a different USB cable.</p>
+</blockquote>
+<p>After the ESP32 is connected to your computer and you know which COM# it corresponds to, you can close the Windows Device Manager and move back to the Anaconda Prompt. <strong>It's time to install MicroPython on our ESP32!</strong></p>
+<h2 id="install-micropython-with-esptool">Install MicroPython with esptool</h2>
+<p>Everything should now be in place. Let's review our steps so far:</p>
+<ul>
+<li>Downloaded .bin firmware file from the MicroPython downloads page</li>
+<li>Confirmed the .bin file is in our Downloads folder</li>
+<li>Created a virtual environment using the Anaconda Prompt</li>
+<li>Activated the virtual environment</li>
+<li>Installed esptool (into the virtual environment)</li>
+<li>Confirmed esptool was installed with <code>esptool version</code></li>
+<li>Installed the SiLabs CP210x driver</li>
+<li>Attached the ESP32 to the computer with a USB cable</li>
+<li>Confirmed the ESP8266 was connected in the Windows Device Manager</li>
+<li>Determined which COM# Port corresponds to the ESP32</li>
+</ul>
+<p>Now the only steps left are to install MicroPython on our ESP32 and confirm that MicroPython works. We are almost there.</p>
+<p>Go back to the Anaconda Prompt and make sure the <code>(esp32)</code> virtual environment is active. Remember in the commands below, you do not need to type <code>&gt;</code>. The <code>&gt;</code> character is shown to indicate the Anaconda Prompt.</p>
+<p>Navigate the Downloads folder:</p>
+<div class="highlight"><pre><span></span>&gt; cd Downloads
+</pre></div>
+
+
+<p>You can run the <code>dir</code> command in the Anaconda Prompt to see the contents of the Downloads directory. This will print out the directory name and list the directory contents.</p>
+<div class="highlight"><pre><span></span>&gt; dir
+</pre></div>
+
+
+<p>On the <a href="https://micropython.org/download/esp32/">MicroPython ESP32 firmware downloads page</a>, we can see the commands we need to run to install MicroPython on our ESP32:</p>
+<p><img alt="esptool erase flash" src="./posts/micropython/images/esp32_program_board_instructions_from_micropython.PNG"></p>
+<p>Use the command below to erase the flash memory on the ESP32. Make sure to modify <code>COM4</code> to correspond to the COM# from the Windows Device Manager.</p>
+<div class="highlight"><pre><span></span>&gt; esptool --chip esp32 --port COM4 erase_flash
+</pre></div>
+
+
+<p>Now it's time to write the .bin firmware file to the flash memory on the board using the <code>write_flash</code> command. Make sure to use the exact .bin firmware file name you see in the <strong>Downloads</strong> directory. The port has to be set as the port you found in the Windows Device Manager. <code>---baud</code> is the baud rate or upload speed. I found that <code>--baud 460800</code> works just fine. Make sure the .bin firmware file name is correct. It is easy to mistype. The latest version may not be <code>esp32-20210312-unstable-v1.14-108-ge98ff3f08.bin</code>. You can start typing the .bin file name and then use the [TAB] key to auto-complete the rest of the filename.</p>
+<div class="highlight"><pre><span></span>&gt; esptool --chip esp32 --port COM4 --baud 460800 write_flash -z 0x1000 esp32-20210312-unstable-v1.14-108-ge98ff3f08.bin
+</pre></div>
+
+
+<p>Congratulations! MicroPython should now be installed on your ESP32 microcontroller. To make sure the MicroPython installation was successful, we'll connect to our ESP32 using a tool called <a href="https://www.putty.org/">PuTTY</a>.</p>
+<h2 id="download-and-install-putty-a-serial-monitor">Download and install PuTTY, a serial monitor</h2>
+<p>Now that Micropthon is installed on our ESP32 microcontroller, we can communicate with our ESP32 over a serial connection. Windows 10 doesn't have a built-in serial monitor (like screen on MacOS and Linux). So we need to download and install <strong>PuTTY</strong>. PuTTY is a lightweight SSH and serial client that works on Windows. PuTTY allows us to send and receive commands between our computer and our ESP32 microcontroller. <a href="https://www.putty.org/">PuTTY can be downloaded here</a>. PuTTY is pretty lightweight. The download and installation are pretty quick.</p>
+<p><a href="https://www.putty.org/"><img alt="Download Putty" src="./posts/micropython/download_putty.PNG"></a></p>
+<h2 id="use-putty-to-send-commands-to-the-esp32">Use PuTTY to send commands to the ESP32</h2>
+<p>Ensure the ESP32 microcontroller is connected with a USB cable and make sure you can see the ESP32 in the Windows Device Manager. Then use PuTTY to connect to the board over serial.</p>
+<p>Search for PuTTY in the Windows Start Menu.</p>
+<p><img alt="PuTTY in start menu" src="./posts/micropython/putty_in_start_menu.png"></p>
+<p>You can't connect to the ESP32 over SSH. You need to select the <strong>Serial</strong> radio button below the header <strong>Connection type:</strong> near the top of the PuTTY window to connect to your ESP32.</p>
+<p>In the PuTTY window, make sure to specify the correct COM# port in the <strong>Serial line</strong> box and include <strong>115200</strong> baud in the <strong>Speed</strong> box.</p>
+<blockquote>
+<p><strong>MicroPython runs at 115200 baud</strong>- other baud rates will lead to junk characters in the serial monitor.</p>
+</blockquote>
+<p><img alt="PuTTY config" src="./posts/micropython/putty_settings.png"></p>
+<p>Now click [Open]. If you see <code>&gt;&gt;&gt;</code> the MicroPython REPL (the MicroPython prompt) is running and the ESP32 is working! This version of Python isn't running on your computer, it's MicroPython running on the little ESP32 microcontroller! Sometimes you might have to type [Enter] or [Ctrl-D] to get the <code>&gt;&gt;&gt;</code> REPL prompt to show up. A few times I needed to close PuTTY, unplug then replug the board and try PuTTY again. Many ESP32 microcontrollers have a tiny little black RESET button that can be pressed to restart the board. If you can't connect to the ESP32 with PuTTY, you can try pressing the RESET button. </p>
+<p><img alt="REPL Prompt" src="./posts/micropython/images/esp32_startup_in_putty_window.PNG"></p>
+<p>At the <code>&gt;&gt;&gt;</code> MicroPython REPL prompt try the following commands:</p>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; print(&#39;MicroPython for Engineers!&#39;)
+MicroPython for Engineers
+&gt;&gt;&gt; import sys
+&gt;&gt;&gt; sys.platform
+&#39;esp32&#39;
+</pre></div>
+
+
+<h2 id="run-a-few-commands-to-turn-the-built-in-led-on-and-off">Run a few commands to turn the built-in LED on and off</h2>
+<p><strong>Let's celebrate! Micropython is running on our ESP32 microcontroller!</strong></p>
+<p>If the commands above worked, you can try and turn the built-in LED that's on many ESP32-based boards to turn on and off.</p>
+<blockquote>
+<p>On most ESP32 microcontrollers, the built-in LED is connected to Pin 2</p>
+</blockquote>
+<p>At the MicroPython REPL (in the PuTTY window), try the commands below:</p>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; from machine import Pin
+&gt;&gt;&gt; p2 = Pin(2, Pin.OUT)
+&gt;&gt;&gt; p2.on()
+&gt;&gt;&gt; p2.off()
+</pre></div>
+
+
+<p><img alt="esp32 LED on LED off" src="./posts/micropython/images/esp32_led_off_led_on.png"></p>
+<h2 id="going-further">Going Further</h2>
+<p>In this post, we installed MicroPython on an ESP32 microcontroller. After MicroPython is installed, you can use a tool like <a href="https://pypi.org/project/adafruit-ampy/"><strong>ampy</strong></a> to move .py-files onto the board. You can program your ESP32 to do a wide variety of things. Some project ideas are below:</p>
+<ul>
+<li>Connect an LED to the ESP32 and blink the LED on and off using a for loop</li>
+<li>Connect a sensor to the ESP32 and read the sensor using the ESP32's built-in analog-to-digital converter (ADC)</li>
+<li>Connect the ESP32 to your WiFi network and turn the ESP32 into a remote weather station</li>
+</ul>
+<p>I hope you had fun installing MicroPython on your ESP32. </p>
+<p><strong>Now get out there and write some MicroPython code!</strong></p>
+            </div>
+            <!-- /.entry-content -->
+<section class="well" id="related-posts">
+    <h4>Related Posts:</h4>
+    <ul>
+        <li><a href="./upload-py-files-to-esp8266-running-micropython.html">How to upload .py-files onto an ESP8266 running MicroPython</a></li>
+        <li><a href="./flask-iot-server-web-API.html">Building an IoT Server with flask and Python - Part 3 Web API</a></li>
+        <li><a href="./micropython-upload-code.html">Upload Micropython Code to an Adafruit Feather Huzzah ESP8266</a></li>
+        <li><a href="./micropython-wifi.html">Using Micropython to connect an Adafruit Feather Huzzah ESP8266 to WiFi</a></li>
+        <li><a href="./micropython-temp-sensor.html">Using a Temperature Sensor with Micropython running on an Adafruit Feather Huzzah ESP8266</a></li>
+    </ul>
+</section>
+    <hr />
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style">
+            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+            <a class="addthis_button_tweet"></a>
+    </div>
+    <!-- AddThis Button END -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<div id="aboutme">
+        <p>
+            <img width="100%" class="img-thumbnail" src="./extra/gear-wrench-icon-512-278694.png"/>
+        </p>
+    <p>
+      <strong>About Peter Kazarinoff</strong><br/>
+        I teach engineering at a community college in the Pacific Northwest. I am interested in programming and how to help students. Here I mostly blog about Python, and how programing can be incorporated into engineering education.
+    </p>
+</div><!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Recent Posts -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+  <ul class="list-group" id="recentposts">
+    <li class="list-group-item"><a href="./how-to-install-micropython-on-an-esp32.html">How to install MicroPython on an ESP32 microcontroller</a></li>
+    <li class="list-group-item"><a href="./python-arduino-potentiometer.html">Using Python and an Arduino to Read a Sensor</a></li>
+    <li class="list-group-item"><a href="./how-to-make-y-y-plots-with-matplotlib.html">How to make y-y plots with Matplotlib</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Recent Posts -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="./"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-2">
+      <a href="./tag/engineering.html">engineering</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="./tag/jupyter.html">jupyter</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="./tag/jupyter-notebook.html">jupyter notebook</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="./tag/matplotlib.html">matplotlib</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/microcontroller.html">microcontroller</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="./tag/micropython.html">micropython</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="./tag/pelican.html">pelican</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="./tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="./tag/sensor.html">sensor</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Github -->
+<li class="list-group-item">
+  <h4><i class="fa fa-github fa-lg"></i><span class="icon-label">GitHub Repos</span></h4>
+  <div id="gh_repos">
+    <p class="list-group-item">Status updating...</p>
+  </div>
+  <a href="https://github.com/professorkazarinoff">@professorkazarinoff</a> on GitHub
+</li>
+<!-- End Sidebar/Github -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2021 Peter Kazarinoff
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="./theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="./theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="./theme/js/respond.min.js"></script>
+
+    <script src="./static/js/custom.js"></script>
+
+
+<!-- GitHub JS Code -->
+<script type="text/javascript">
+$(document).ready(function () {
+  if (!window.jXHR) {
+    var jxhr = document.createElement('script');
+    jxhr.type = 'text/javascript';
+    jxhr.src = './theme/js/jXHR.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(jxhr, s);
+  }
+
+  github.showRepos({
+    user: 'professorkazarinoff',
+    count: 5,
+    skip_forks: true,
+    target: '#gh_repos'
+  });
+});
+</script>
+<script src="./theme/js/github.js" type="text/javascript"></script>
+<!-- End GitHub JS Code -->
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-116330557-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+    $("div.collapseheader").click(function () {
+    $header = $(this).children("span").first();
+    $codearea = $(this).children(".input_area");
+    console.log($(this).children());
+    $codearea.slideToggle(500, function () {
+        $header.text(function () {
+            return $codearea.is(":visible") ? "Collapse Code" : "Expand Code";
+        });
+    });
+});
+});
+</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cdd8eb4e16bf94c"></script>
+</body>
+</html>

@@ -186,8 +186,8 @@
         <meta property="og:title" content="Live Plotting with Matplotlib and Python"/>
         <meta property="og:url" content="../drafts/live-plotting-with-matplotlib.html"/>
         <meta property="og:description" content="Python and Matplotlib can be used to create static 2D plots. But it Matplotlib can also be used to create dynamic auto-updating live plots. In this post, you learn how to create a live auto-updating animated plot using Python and Matplotlib. Table of contents: Pre-requisits Set up a Python virtual …"/>
-        <meta property="article:published_time" content="2020-03-06" />
-            <meta property="article:section" content="Plotting" />
+        <meta property="article:published_time" content="2021-03-17" />
+            <meta property="article:section" content="matplotlib" />
             <meta property="article:tag" content="python" />
             <meta property="article:tag" content="matplotlib" />
             <meta property="article:tag" content="animation" />
@@ -261,7 +261,7 @@ Python for Undergraduate Engineers            </a>
         <div class="col-sm-9">
             <ol class="breadcrumb">
                 <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="../category/plotting.html" title="Plotting">Plotting</a></li>
+                <li><a href="../category/matplotlib.html" title="matplotlib">matplotlib</a></li>
                 <li class="active">Live Plotting with Matplotlib and Python</li>
             </ol>
     <section id="content">
@@ -281,7 +281,7 @@ Python for Undergraduate Engineers            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2020-03-06T08:40:00-08:00"> Fri 06 March 2020</time>
+        <i class="fa fa-calendar"></i><time datetime="2021-03-17T08:40:00-07:00"> Wed 17 March 2021</time>
     </span>
 
 
@@ -324,15 +324,15 @@ Python for Undergraduate Engineers            </a>
 </ul>
 </div>
 <h2 id="pre-requisits">Pre-requisits</h2>
-<p>To follow along with this tutorial, a couple pre-requisits need to be in place:</p>
+<p>To follow along with this tutorial, a couple of pre-requisites need to be in place:</p>
 <ul>
 <li>Python needs to be installed on your computer. I recommend installing the <a href="https://anaconda.com/distribution">Anaconda Distribution</a> of Python.</li>
-<li>You are running a version of Python 3.6 or above. Python version 3.7 or 3.8 are more up to date and recommended.</li>
+<li>You are running a version of Python 3.6 or above. Python version 3.7 or 3.8 are more up-to-date and recommended.</li>
 <li>You know how to open the Anaconda Prompt on Windows10 or know how to open a terminal on MacOS or Linux.</li>
 <li>You have a general idea of what Python packages are and have installed a Python package before using <strong>conda</strong> or <strong>pip</strong>.</li>
 <li>You know how to create a text file in an editor or an IDE (integrated development environment) such as <a href="https://code.visualstudio.com/download">Visual Studio Code</a>, PyCharm, Sublime Text, vim, emacs, etc. I will be using Visual Studio Code (also called VS Code) in this post, but any regular code editor will work. </li>
-<li>You know how to run a Python program (exectute a .py file) using a terminal prompt, like the Anaconda Prompt or know how to run a Python program using your IDE.</li>
-<li>You have general understanding of how files are organized on your computer into directories and sub-directories.</li>
+<li>You know how to run a Python program (execute a .py file) using a terminal prompt, like the Anaconda Prompt, or know how to run a Python program using your IDE.</li>
+<li>You have a general understanding of how files are organized on your computer into directories and sub-directories.</li>
 <li>You have some familiarity with navigating through directories and files using a terminal or the Anaconda Prompt with commands like <code>cd</code>, <code>cd ..</code>, <code>dir</code> or <code>ls</code>, and <code>mdkir</code>.</li>
 </ul>
 <p>Now that the pre-requisites are out of the way, let's start coding! </p>
@@ -386,7 +386,7 @@ $ python3 -m venv venv
 </pre></div>
 
 
-<p>We need some data to plot. For this first static plot, we'll plot the temperature in Portland, OR in degrees fahrenheit over seven day. We'll save the temperatures in a Python list called <code>data_lst</code>.</p>
+<p>We need some data to plot. For this first static plot, we'll plot the temperature in Portland, OR in degrees Fahrenheit over seven days. We'll save the temperatures in a Python list called <code>data_lst</code>.</p>
 <div class="highlight"><pre><span></span><span class="c1"># data</span>
 <span class="n">data_lst</span> <span class="o">=</span> <span class="p">[</span><span class="mi">60</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="mi">49</span><span class="p">,</span> <span class="mi">51</span><span class="p">,</span> <span class="mi">49</span><span class="p">,</span> <span class="mi">52</span><span class="p">,</span> <span class="mi">53</span><span class="p">]</span>
 </pre></div>
@@ -398,7 +398,7 @@ $ python3 -m venv venv
 </pre></div>
 
 
-<p>Now we can plot the temperature data on the axis object <code>ax</code> and customize the plot. Let's include plot title, and axis labels.</p>
+<p>Now we can plot the temperature data on the axis object <code>ax</code> and customize the plot. Let's include plot title and axis labels.</p>
 <div class="highlight"><pre><span></span><span class="c1"># plot the data and customize</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data_lst</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Day Number&#39;</span><span class="p">)</span>
@@ -421,7 +421,7 @@ $ python3 -m venv venv
 
 
 <p><img alt="run static plot" src="../posts/matplotlib_animations/images/run_static_plot_dot_py.PNG"> </p>
-<p>The plot should look something like image below:</p>
+<p>The plot should look something like the image below:</p>
 <p><img alt="static plot" src="../posts/matplotlib_animations/images/static_plot.png"> </p>
 <p>The complete script is below:</p>
 <div class="highlight"><pre><span></span><span class="c1"># static_plot.py</span>
@@ -466,7 +466,7 @@ $ python3 -m venv venv
 </pre></div>
 
 
-<p>In our first static line plot, we started the plot at this point, but for the animated line plot, we need to <strong><em>build the plot in a function</em></strong>. At a minimum the function that builds the plot needs to accept one argument that corresponds to the frame number in the animation. This frame number argument can be given a simple parameter like <code>i</code>. That parameter does not have to be used in the function that draws the plot. It just has to be included in the function definition. Note the line <code>ax.clear()</code> in the middle of the function. This line clears the figure window so that the next frame of the animation can be drawn. <code>ax.clear()</code> needs to be included before the data is plotted with the <code>ax.plot()</code> method. Also note that <code>plt.show()</code> is not part of the function. <code>plt.show()</code> will be called outside the function at the end of the script.</p>
+<p>In our first static line plot, we started the plot at this point, but for the animated line plot, we need to <strong><em>build the plot in a function</em></strong>. At a minimum, the function that builds the plot needs to accept one argument that corresponds to the frame number in the animation. This frame number argument can be given a simple parameter like <code>i</code>. That parameter does not have to be used in the function that draws the plot. It just has to be included in the function definition. Note the line <code>ax.clear()</code> in the middle of the function. This line clears the figure window so that the next frame of the animation can be drawn. <code>ax.clear()</code> needs to be included before the data is plotted with the <code>ax.plot()</code> method. Also, note that <code>plt.show()</code> is not part of the function. <code>plt.show()</code> will be called outside the function at the end of the script.</p>
 <div class="highlight"><pre><span></span><span class="c1"># function that draws each frame of the animation</span>
 <span class="k">def</span> <span class="nf">animate</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
     <span class="n">pt</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">9</span><span class="p">)</span> <span class="c1"># grab a random integer to be the next y-value in the animation</span>
@@ -480,7 +480,7 @@ $ python3 -m venv venv
 </pre></div>
 
 
-<p>OK- our <code>animate()</code> function is defined, now we need to <em>call</em> the animation. Matplotlib's <code>FuncAnimation</code> class can accept a number of arguments. At a minimum, we need to pass in the figure object <code>fig</code>, and our animation function that draws the plot <code>animate</code> to the <code>FuncAnimation</code> class. We'll also add a <code>frames=</code> keyword aregument that sets many times the plot is re-drawn meaning how many times the animation function is called. <code>interval=500</code> specifies the time between frames (time between <code>animate()</code> function calls) in miliseconds. <code>interval=500</code> means 500 milliseconds between each frame, which is half a second. <code>repeat=False</code> means that after all the frames are drawn, the animation will not repeat. Note how the <code>plt.show()</code> line is called after the <code>FuncAnimation</code> line. </p>
+<p>OK- our <code>animate()</code> function is defined, now we need to <em>call</em> the animation. Matplotlib's <code>FuncAnimation</code> class can accept several input arguments. At a minimum, we need to pass in the figure object <code>fig</code>, and our animation function that draws the plot <code>animate</code> to the <code>FuncAnimation</code> class. We'll also add a <code>frames=</code> keyword argument that sets many times the plot is re-drawn meaning how many times the animation function is called. <code>interval=500</code> specifies the time between frames (time between <code>animate()</code> function calls) in milliseconds. <code>interval=500</code> means 500 milliseconds between each frame, which is half a second. <code>repeat=False</code> means that after all the frames are drawn, the animation will not repeat. Note how the <code>plt.show()</code> line is called after the <code>FuncAnimation</code> line. </p>
 <div class="highlight"><pre><span></span><span class="c1"># run the animation</span>
 <span class="n">ani</span> <span class="o">=</span> <span class="n">FuncAnimation</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">animate</span><span class="p">,</span> <span class="n">frames</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 
@@ -508,7 +508,7 @@ $ python3 -m venv venv
 </pre></div>
 
 
-<p>Next we'll pre-populate a list called <code>data</code> with a couple of data points. This will gives our plot a couple of points to start off with. When our script runs, we'll include functionality to add more points.</p>
+<p>Next, we'll pre-populate a list called <code>data</code> with a couple of data points. This will gives our plot a couple of points to start off with. When our script runs, we'll include functionality to add more points.</p>
 <div class="highlight"><pre><span></span><span class="c1"># initial data</span>
 <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
 
@@ -528,11 +528,11 @@ $ python3 -m venv venv
 </pre></div>
 
 
-<p>The last section of code in the <code>live_plot_user_input.py</code> script calls the <code>FuncAnimation</code> class. When we intantiate an instance of this class, we pass in a couple arguments:</p>
+<p>The last section of code in the <code>live_plot_user_input.py</code> script calls the <code>FuncAnimation</code> class. When we instantiate an instance of this class, we pass in a couple of arguments:</p>
 <ul>
 <li><code>fig</code> - the figure object we created with the <code>plt.subplots()</code> method</li>
 <li><code>animate</code> - the function we wrote above that pulls lines out of a <code>data.txt</code> file and plots 5 points at a time.</li>
-<li><code>interval=1000</code> - the time interval in milliseconds (1000 miliseconds = 1 second) between frames or between <code>animate()</code> function calls.</li>
+<li><code>interval=1000</code> - the time interval in milliseconds (1000 milliseconds = 1 second) between frames or between <code>animate()</code> function calls.</li>
 </ul>
 <div class="highlight"><pre><span></span><span class="c1"># call the animation</span>
 <span class="n">ani</span> <span class="o">=</span> <span class="n">FuncAnimation</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">animate</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
@@ -542,7 +542,7 @@ $ python3 -m venv venv
 </pre></div>
 
 
-<p>Before you run the script, create a new file in the <code>live_plot</code> directory along side our <code>live_plot_user_input.py</code> script called <code>data.txt</code>. Inside the file add a couple numbers, each number on it's own line.</p>
+<p>Before you run the script, create a new file in the <code>live_plot</code> directory alongside our <code>live_plot_user_input.py</code> script called <code>data.txt</code>. Inside the file add a couple of numbers, each number on one line.</p>
 <div class="highlight"><pre><span></span>5
 9
 3
@@ -554,11 +554,11 @@ $ python3 -m venv venv
 <p>Save <code>data.txt</code> and leave the file open. This is the file that we will add numbers to and watch our live plot update.</p>
 <p>Save <code>live_plot_user_input.py</code> and run it. You should see a plot pop up. </p>
 <p><img alt="run live user plot" src="../posts/matplotlib_animations/images/run_live_plot_user_input_py.PNG"></p>
-<p>Now add a number to the bottom of the <code>data.txt</code> on it's own line. Save <code>data.txt</code>. The plot should update with a new data point. I added the number <code>16</code> to <code>data.txt</code> and saw the line on the plot go upwards. Add another number at the end of <code>data.txt</code>. Save <code>data.txt</code> and watch the plot update.</p>
+<p>Now add a number to the bottom of the <code>data.txt</code> on a new line. Save <code>data.txt</code>. The plot should update with a new data point. I added the number <code>16</code> to <code>data.txt</code> and saw the line on the plot go upwards. Add another number at the end of <code>data.txt</code>. Save <code>data.txt</code> and watch the plot update.</p>
 <p><img alt="animated user plot" src="../posts/matplotlib_animations/images/user_input_live_plot.gif"></p>
-<p>Great! We built a live updating plot based on user input! Next, let's build a live auto-updating plot using data pulled from the web.</p>
+<p>Great! We built a live-updating plot based on user input! Next, let's build a live auto-updating plot using data pulled from the web.</p>
 <h2 id="build-a-live-plot-using-data-from-the-web">Build a live plot using data from the web</h2>
-<p>The third plot we are going to build is a plot that pulls data from the web. The basic structure of the script is the same as the last two animated plots. We need to create figure and axis objects, write an animation fuction and create the animation with <code>FuncAnimation</code>.</p>
+<p>The third plot we are going to build is a plot that pulls data from the web. The basic structure of the script is the same as the last two animated plots. We need to create figure and axis objects, write an animation function and create the animation with <code>FuncAnimation</code>.</p>
 <blockquote>
 <p><a href="https://qrng.anu.edu.au/API/api-demo.php">https://qrng.anu.edu.au/API/api-demo.php</a></p>
 </blockquote>
@@ -566,8 +566,8 @@ $ python3 -m venv venv
 <blockquote>
 <p>This website offers true random numbers to anyone on the internet. The random numbers are generated in real-time in our lab by measuring the quantum fluctuations of the vacuum.</p>
 </blockquote>
-<p>Having true random numbers for an example animated plot isn't absolutely necessary. The reason I picked this web API is that the random numbers can be polled every second, and since you can specify an 8-bit integer, the random numbers have a fixed range between 0 and 255.</p>
-<p>The code below calls the web API for one 8-bit random integer. A little fuction converts the web API's json reponse into a float. The raw json that comes back from the API looks like below:</p>
+<p>Having true random numbers for an animated plot isn't absolutely necessary. The reason I picked this web API is that the random numbers can be polled every second, and since you can specify an 8-bit integer, the random numbers have a fixed range between 0 and 255.</p>
+<p>The code below calls the web API for one 8-bit random integer. A little function converts the web API's JSON response into a float. The raw JSON that comes back from the API looks like below:</p>
 <div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;uint8&quot;</span><span class="p">,</span>
     <span class="nt">&quot;length&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
@@ -577,7 +577,7 @@ $ python3 -m venv venv
 </pre></div>
 
 
-<p>Once the json is converted to a Python dictionary, we can pull the random number out (in this case <code>53</code>) with the following Python code.</p>
+<p>Once the JSON is converted to a Python dictionary, we can pull the random number out (in this case <code>53</code>) with the following Python code.</p>
 <div class="highlight"><pre><span></span><span class="n">json_dict</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 
@@ -679,7 +679,7 @@ delay(100); // Pause 100 milliseconds before next reading
 
 
 <h3 id="python-code">Python Code</h3>
-<p>The PySerial library needs to be installed before we can use PySerial to read the sensor data the Arduino spits out over the serial line. Install PySerial with the command below. Make sure you activated the <code>(live_plot)</code> virtual environment when the install commmand is entered.</p>
+<p>The PySerial library needs to be installed before we can use PySerial to read the sensor data the Arduino spits out over the serial line. Install PySerial with the command below. Make sure you activated the <code>(live_plot)</code> virtual environment when the install command is entered.</p>
 <div class="highlight"><pre><span></span>(live_plot)&gt; conda install -y pyserial
 </pre></div>
 
@@ -699,7 +699,7 @@ delay(100); // Pause 100 milliseconds before next reading
 </pre></div>
 
 
-<p>Next, we need to build an <code>animate()</code> function like we did above when we build our live plot from a data file and our live plot from a web api. </p>
+<p>Next, we need to build an <code>animate()</code> function like we did above when we build our live plot from a data file and our live plot from a web API. </p>
 <div class="highlight"><pre><span></span><span class="c1"># animation function</span>
 <span class="k">def</span> <span class="nf">animate</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">data_lst</span><span class="p">,</span> <span class="n">ser</span><span class="p">):</span>  <span class="c1"># ser is the serial object</span>
     <span class="n">b</span> <span class="o">=</span> <span class="n">ser</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
@@ -722,7 +722,7 @@ delay(100); // Pause 100 milliseconds before next reading
 </pre></div>
 
 
-<p>Now we need to create our <code>data_lst</code>, <code>fig</code> and <code>ax</code> objects, as well as intantiate the serial object <code>ser</code>. Note that the <code>COM#</code> will may be different for you based on which <code>COM</code> port the Arduino is connected to. On MacOS or Linux, the com port will be something like <code>/dev/ttyUSB0</code> instead of <code>COM7</code>. If you are using MacOS or Linux, you many need to modify the permissions of the com port before the script will run. The command <code>sudo chown root:peter /dev/ttyUSB0</code> changes the group corresponding to <code>ttyUSB0</code> to <code>peter</code>. You will have to modify this command based on your MacOS or Linux username and port number.</p>
+<p>Now we need to create our <code>data_lst</code>, <code>fig</code> and <code>ax</code> objects, as well as instantiate the serial object <code>ser</code>. Note that the <code>COM#</code> will may be different for you based on which <code>COM</code> port the Arduino is connected to. On MacOS or Linux, the com port will be something like <code>/dev/ttyUSB0</code> instead of <code>COM7</code>. If you are using MacOS or Linux, you may need to modify the permissions of the com port before the script will run. The command <code>sudo chown root:peter /dev/ttyUSB0</code> changes the group corresponding to <code>ttyUSB0</code> to <code>peter</code>. You will have to modify this command based on your MacOS or Linux username and port number.</p>
 <div class="highlight"><pre><span></span><span class="c1"># create empty list to store data</span>
 <span class="c1"># create figure and axes objects</span>
 <span class="n">data_lst</span> <span class="o">=</span> <span class="p">[]</span>
@@ -808,7 +808,7 @@ delay(100); // Pause 100 milliseconds before next reading
 <p>Twist the little blue potentiometer while the script is running and watch the animated line on the plot update.</p>
 <p><img alt="animated sensor plot" src="../posts/matplotlib_animations/images/animated_sensor_plot.gif"></p>
 <h2 id="summary">Summary</h2>
-<p>In this post, we created a couple live auto-updating animated line plots with Matplotlib.</p>
+<p>In this post, we created a couple of live auto-updating animated line plots with Matplotlib. The key to building animated plots with Matplotlib is to define the plot in an animation function and then call your animation function with Matplotlib's <code>FuncAnimation</code> class.</p>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">
@@ -850,9 +850,9 @@ delay(100); // Pause 100 milliseconds before next reading
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
+    <li class="list-group-item"><a href="../how-to-install-micropython-on-an-esp32.html">How to install MicroPython on an ESP32 microcontroller</a></li>
     <li class="list-group-item"><a href="../python-arduino-potentiometer.html">Using Python and an Arduino to Read a Sensor</a></li>
     <li class="list-group-item"><a href="../how-to-make-y-y-plots-with-matplotlib.html">How to make y-y plots with Matplotlib</a></li>
-    <li class="list-group-item"><a href="../writing-tests-for-scientific-code.html">Writing Tests for Scientific Code</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
@@ -863,9 +863,6 @@ delay(100); // Pause 100 milliseconds before next reading
   <ul class="list-group list-inline tagcloud" id="tags">
     <li class="list-group-item tag-2">
       <a href="../tag/engineering.html">engineering</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="../tag/esp8266.html">esp8266</a>
     </li>
     <li class="list-group-item tag-4">
       <a href="../tag/flask.html">flask</a>
@@ -880,6 +877,9 @@ delay(100); // Pause 100 milliseconds before next reading
       <a href="../tag/matplotlib.html">matplotlib</a>
     </li>
     <li class="list-group-item tag-4">
+      <a href="../tag/microcontroller.html">microcontroller</a>
+    </li>
+    <li class="list-group-item tag-3">
       <a href="../tag/micropython.html">micropython</a>
     </li>
     <li class="list-group-item tag-4">

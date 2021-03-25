@@ -9,7 +9,7 @@ Authors: Peter D. Kazarinoff
 
 [![micropython and esp32]({static}/posts/micropython/images/micropython_plus_esp32.png)]({filename}/posts/micropython/how-to-install-micropython-on-an-esp32.md)
 
-In this post, you'll learn how to install MicroPython on an ESP32 microcontroller. [Micropython](http://micropython.org/) is a port, or version of Python designed to run on small, inexpensive, low-power microcontrollers. Examples of microcontrollers that MicroPython can run on include the [pyboard](https://store.micropython.org/), the [WiPy](https://pycom.io/development-boards) and ESP8266-based boards like the [Adafruit Feather Huzzah](https://learn.adafruit.com/adafruit-feather-huzzah-esp8266). Also, **MicroPython can be installed on ESP32-based microcontrollers -** and that's what this post is about. 
+In this post, you'll learn how to install MicroPython on an ESP32 microcontroller. [Micropython](http://micropython.org/) is a port, or version of Python designed to run on small, inexpensive, low-power microcontrollers. Examples of microcontrollers that MicroPython can run on include the [pyboard](https://store.micropython.org/), the [WiPy](https://pycom.io/webshop/#dev) and ESP8266-based boards like the [Adafruit Feather Huzzah](https://learn.adafruit.com/adafruit-feather-huzzah-esp8266). Also, **MicroPython can be installed on ESP32-based microcontrollers -** and that's what this post is about. 
 
 If you want to know more about MicroPython, you can read about it in [this post]({filename}/posts/micropython/what_is_micropython.md) and check out the [MicroPython Main Page](https://micropython.org/) and the [MicroPython Documentation](http://docs.micropython.org/en/latest/)
 

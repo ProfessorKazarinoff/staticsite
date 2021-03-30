@@ -9,7 +9,7 @@ Authors: Peter D. Kazarinoff
 
 [![tesseract and python]({static}/posts/tesseract/images/tesseract_plus_python.png)]({filename}/posts/tesseract/how_to_install_pytesseract.md)
 
-In this post, you'll see how to install pytesseract. You can use pytesseract to convert images into text. Pytesseract is a Python package that works with **tesseract**, which is a command-line optical character recognition (OCR) program.  It's a super cool package that can read text contained in pictures. Let's get to it.
+In this post, you'll see how to install pytesseract. You can use pytesseract to convert images into text. Pytesseract is a Python package that works with **tesseract**, which is a command-line optical character recognition (OCR) program.  It's a super cool package that can read the text contained in pictures. Let's get to it.
 
 ## Prerequisites
 
@@ -133,7 +133,7 @@ Make note of this file path. We need the file path to use pytesseract in our Pyt
 
 ![map.jpg]({static}/posts/tesseract/images/map.jpg)
 
-Create a Python script (a .py-file), or start up a Jupyter notebook. At the top of the file, import ```pytesseract``` , then point pytesseract at the tesseract installation you discovered in the previous step. Note the ```r' '``` at the start of the string that defines the file location. The ```r``` indicates the string is a *raw* string. Raw strings don't include excape characters like ```\n``` for a new line. Therefore, we don't have to use double ```\\``` backslashes in the Windows file path.
+Create a Python script (a .py-file), or start up a Jupyter notebook. At the top of the file, import ```pytesseract``` , then point pytesseract at the tesseract installation you discovered in the previous step. Note the ```r' '``` at the start of the string that defines the file location. The ```r``` indicates the string is a *raw* string. Raw strings don't include escape characters like ```\n``` for a new line. Therefore, we don't have to use double ```\\``` backslashes in the Windows file path.
 
 ```python
 # test_pytesseract.py

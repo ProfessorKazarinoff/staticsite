@@ -15,13 +15,13 @@ I built my desktop computer out of the components below:
  * Processor: [Ryzen 3400G (4 Core 8 Thread) APU](https://amzn.to/31Doup5) 
  * Motherboard: [MSI B450I Mini-ITX Gaming Plus AC](https://amzn.to/2Ocpqxw) 
  * Ram: [Corsair Vengeance DDR4 3000 MHz 16GB (2x8GB)](https://amzn.to/3cDzusN)
- * [Power Supply: 450 Watt Semi-modular](#)
+ * Power Supply: [Corsair CX Series 450 Watt 80 Plus Bronze Certified Modular Power Supply](https://amzn.to/3sOr2MW)
  * Case: [SilverStone Technology SST-SG13B-V2 Ultra Compact Mini-ITX Computer Case with Mesh Front Panel, Black](https://amzn.to/3cHad0T)
  * Fan: [Noctua NF-P14s redux-1500 PWM High Performance Cooling Fan](https://amzn.to/3mjfAXh)
- * Monitor: [Lenovo L22e20 21.5" LCD Monitor](#)
- * HDMI Cable: []()
+ * Monitor: [Lenovo ThinkVision S22e-19 21.5-Inch LED Backlit LCD Monitor](https://amzn.to/2PSiJkG)
+ * HDMI Cable: [Amazon Basics Braided HDMI Cable - 3 Foot](https://amzn.to/39BjdCK)
  * Mouse: [Wireless Vertical Mouse Jelly Comb](https://amzn.to/3uaxyOv)
- * Keyboard: [Ergonomic Keyboard](#)
+ * Keyboard: [Logitech K350 Wireless Wave Keyboard](https://amzn.to/3sN7s3M)
 
 ## Audio
 

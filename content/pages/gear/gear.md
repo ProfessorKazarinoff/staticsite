@@ -4,7 +4,7 @@ Want to see what gear I use to write and run Python code? You're in the right pl
 
 Below are Amazon Affiliate Links to the gear I use. 
 
-**NOTE (FULL DISCLOSURE): If you purchase any of the items below using my Amazon links, it provides me a small referral fee and there is no additional cost for you**
+**NOTE (FULL DISCLOSURE): If you purchase any of the items below using my Amazon links, it provides me a small referral fee , and there is no additional cost for you**
 
 ## Computer
 
@@ -25,17 +25,17 @@ I built my desktop computer out of the components below:
 
 ## Audio
 
-![desktop computer]({static}/pages/gear/images/audio_setup.png)
+![audio setup]({static}/pages/gear/images/audio_setup.png)
 
 The audio gear I use to record live streams (as well as remote classes) is below:
 
- * Microphone: Audio Technica AT2100 USB Dynamic Microphone - no longer available, try the [AT2100x USB Dynamic Microphone]() instead
- * Headphones: [Sony MDR1605 Studio Headphones](#)
- * Boom Arm: Rode SUG20
- * Shock Mount: Dynamic microphone shock mount
- * Pop Filter: Dynamic microphone pop filter
- * Case: Caseling
- * Webcam: Logitech Webcam
+ * Microphone: Audio Technica AT2100 USB Dynamic Microphone - no longer available, try the [Audio-Technica ATR2100x-USB Cardioid Dynamic Microphone](https://amzn.to/31L7GMV) instead
+ * Headphones: [Sony MDR7506 Professional Large Diaphragm Headphone](https://amzn.to/3uklb2d)
+ * Microphone Boom Arm: [RODE PSA 1 Swivel Mount Studio Microphone Boom Arm](https://amzn.to/3wrIitF)
+ * Shock Mount: [Knox Microphone Shock Mount for Audio-Technica ATR2100-USB and Samson Q2U](https://amzn.to/2Op2eMK)
+ * Pop Filter: [On-Stage Foam Ball-Type Microphone Windscreen, Black](https://amzn.to/3wt0OC4)
+ * Microphone Case: [Hard Case Compatible with Audio-Technica ATR2100 USB Cardioid Dynamic USB XLR Microphone / Shure SM58 / Samson Q2U](https://amzn.to/39JaCxV)
+ * Webcam: [Logitech HD Webcam C310](https://amzn.to/39JyIZz)
 
 ## Standing Desk
 
@@ -43,18 +43,11 @@ The audio gear I use to record live streams (as well as remote classes) is below
 
 My standing desk setup was a real game changer. My neck and back ached at night if I sat at my old sitting desk all day long. See below for links to my new standing desk setup:
 
- * Standing Desk:
- * Laptop:
- * Monitor:
- * Monitor Stand:
- * Keyboard:
- * Wrist Rest:
+ * Standing Desk: [Hadulcet Mobile Standing Desk](https://amzn.to/3dzE5vf)
+ * Laptop: [Dell Latitude 5410 14” Laptop - Intel Core i7-8665u - 256GB SSD - 8GB DDR4 SDRAM](https://amzn.to/3dyK6Zd)
+ * Monitor: [Lenovo ThinkVision S22e-19 21.5-Inch LED Backlit LCD Monitor](https://amzn.to/2PSiJkG)
+ * Monitor Stand: [Laptop Monitor Mount Stand with Keyboard Tray, Adjustable Notebook Desk Mount with Clamp and Grommet Mounting Base for 13 to 27 Inch LCD Computer Screens](https://amzn.to/39F41oa)
+ * Keyboard: [Logitech K350 Wireless Wave Keyboard](https://amzn.to/3sN7s3M)
+ * Wrist Rest: [Belkin F8E263-BLK WaveRest Gel Wrist Pad for Keyboards](https://amzn.to/3rRBvpH)
  * Mouse: [Wireless Vertical Mouse Jelly Comb](https://amzn.to/3uaxyOv)
- * Mouse Pad: [Amazon Basics Ergonomic Mouse pad](#)
- * Webcam: [Logitech Webcam](#)
- * Headset: [Logitech Headset](#)
- * Headset hanger:
- * USB docking station:
- * Ethernet cable: [40 foot Ethernet Cable](#)
- * Extension cord:
- * HDMI cable:
+ * Mouse Pad: [Amazon Basics Gel Computer Mouse Pad with Wrist Support Rest](https://amzn.to/39H

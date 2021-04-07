@@ -1,13 +1,13 @@
-Title: Ryzen 5 Linux PC Build
-Date: 2019-05-10 09:21
-Modified: 2019-05-10 09:21
+Title: Ryzen 5 APY Linux PC Build
+Date: 2021-04-06 09:21
+Modified: 2021-04-06 09:21
 Status: draft
 Category: diy
 Tags: hardware, diy
-Slug: ryzen5-linux-pc-build
+Slug: ryzen5-apu-linux-pc-build
 Authors: Peter D. Kazarinoff
 
-In this post, I am going to describe my PC build. The computer I built runs Linux (Ubuntu 20.04). The parts I used in the build are shown below.
+In this post, I am going to describe my PC build. This is the computer that I use for a lot of programming work as well as some live streams. The computer I built runs Linux (Ubuntu 20.04). The parts I used in the build are shown below.
 
 [TOC]
 
@@ -15,25 +15,24 @@ In this post, I am going to describe my PC build. The computer I built runs Linu
 
 I use a couple different computers to write this blog, write my [book](https://www.amazon.com/Problem-Solving-Python-3-7-open-source/dp/1693405415), and work on [Python projects](https://github.com/ProfessorKazarinoff/). Below is a partial list:
 
- * Windows 10 desktop at work
+ * Windows 10 desktop at work (back when we were were in person. Ah.. those were the days)
  * Windows 10 laptop at home
  * MacBook Air at home
- * Chromebook at home
  * Linux desktop at home
 
-The computer that is on the fritz right now is the Linux desktop in my home office. I use this computer for writing, editing and general Python programming. In particular, I use the Linux desktop to build software, such as building custom MicroPython firmware or building Python from source. It is useful to have a Linux system for these sorts of tasks. I have also stream from this Linux desktop PC as it is the only PC in the house that is connected using hard-wired ethernet.
+The computer that is on the fritz right now is the Linux desktop in my home office. I use this computer for writing, editing and general Python programming. In particular, I use the Linux desktop to build software, such as building custom MicroPython firmware or building Python from source. It is useful to have a Linux system for these sorts of tasks. I have also streamed from this Linux desktop PC as it is the only PC in the house that is connected using hard-wired ethernet.
 
 ## Parts List
 
-Below is a table of the parts I'm using for the build.
+Below is a table of the parts used in the PC build. Please note that the links below are Amazon Affiliate links. If you purchase one of these items, I recieve a small commission. There is no additional cost to you.
 
 | Component | Part | Link |
 | --- | --- | --- |
-| processor | AMD Ryzen 5 2400G | [amzn.to/2VyVqyB](https://amzn.to/2VyVqyB) |
+| processor | AMD Ryzen 5 3400G | [Ryzen 3400G (4 Core 8 Thread) APU](https://amzn.to/31Doup5) |
 | motherboard | MSI B450I Mini-ITX Gaming Plus AC | [amzn.to/2Vzhuco](https://amzn.to/2Vzhuco) |
 | hard drive | Crucial P1 1TB M.2 NVMe SSD | [amzn.to/2WEup9e](https://amzn.to/2WEup9e) |
 | RAM | Corsair Vengeance DDR4 3000 MHz 16GB (2x8GB) | [amzn.to/2WzXsLh](https://amzn.to/2WzXsLh)  |
-| power supply | Corsair 450SF | (no longer available) |
+| power supply | Corsair CX Series 450 Watt 80 Plus Bronze Certified Semi-Modular][https://amzn.to/3sOr2MW (https://amzn.to/3sOr2MW) |
 | case | Silverstone SG13B-V2 | [amazon.com/dp/B00U8IS89E/](https://www.amazon.com/dp/B00U8IS89E/) |
 
 The following is an overview of each component

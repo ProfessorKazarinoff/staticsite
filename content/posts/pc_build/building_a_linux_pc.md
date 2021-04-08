@@ -1,15 +1,15 @@
-Title: Ryzen 5 APY Linux PC Build
-Date: 2021-04-06 09:21
-Modified: 2021-04-06 09:21
-Status: draft
+Title: My Linux PC Build
+Date: 2021-04-09 08:21
+Modified: 2021-04-09 08:21
+Status: published
 Category: DIY
 Tags: hardware, DIY
-Slug: ryzen5-apu-linux-pc-build
+Slug: my-linux-pc-build
 Authors: Peter D. Kazarinoff
 
-![desktop computer]({static}/pages/gear/images/desktop_computer.png)
+[![desktop computer]({static}/pages/gear/images/desktop_computer.png)]({filename}/posts/pc_build/building_a_linux_pc.md)
 
-In this post, I am going to describe my PC build. This is the computer that I use for a lot of programming work as well as some live streams. The computer I built runs Linux (Ubuntu 20.04). The parts I used in the build are shown below.
+In this post, I am going to describe my PC build. This is the computer that I use for a lot of programming work as well as some live streams. The computer I built runs Linux (Ubuntu 20.04).
 
 [TOC]
 
@@ -55,11 +55,13 @@ The motherboard I choose is the MSI B450I Mini-ITX Gaming Plus AC. This motherbo
 
 <a target="_blank"  href="https://www.amazon.com/gp/product/B07J2Q4SWZ/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B07J2Q4SWZ&linkCode=as2&tag=peterkazarino-20&linkId=f915682c7663248f1ccf02dc82e6871a"><img border="0" src="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&MarketPlace=US&ASIN=B07J2Q4SWZ&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL250_&tag=peterkazarino-20" ></a>
 
-I picked the Crucial P1 1TB M.2 NVMe SSD for this Linux PC build. The SSD was a component I had trouble deciding on. My old system has a 60GB SSD and a 1TB spinning hard drive. This was a cheap way to equip the system. The problem I had with it is that there had to be two SATA data cables and two SATA power cables, plus two drives needed to be mounted in the case.
+I picked the Crucial P1 1TB M.2 NVMe SSD for this Linux PC build. The SSD was a component I had trouble deciding on. My old system had a 60GB SSD and a 1TB spinning rust hard drive. This was a cheap way to equip the system. The problem was the system had two SATA data cables, and two SATA power cables, plus two drives were mounted in the case.
 
-I wanted to keep this build simple and clutter-free. M.2 drives plug directly into the motherboard and do not require any cables. The Crucial P1 drive I selected is 80 mm long, which is the most common M.2 length. The MSI motherboard I picked has one M.2 slot on the back that the drive plugs into. I choose 1GB of capacity because I just feel like **you always need more storage**.
+I want to keep this build simple and clutter-free. M.2 drives plug directly into the motherboard and do not require any cables. The Crucial P1 drive I selected is 80 mm long, which is the most common M.2 length. The MSI motherboard I picked has one M.2 slot on the back that the drive plugs into. I choose 1GB of capacity.
 
-The old system had a 60GB SSD about 8 years ago. Then I added a 1TB spinning hard disk because I ran out of storage space. I want this build to last at least 5 years, so I splurged on extra SSD capacity. I also went with a drive that runs the super fast NMV3e PCIe communication standard. An NVMe SSD drive probably won't have any practical performance benefits compared to a SATA SSD for the things I use the new PC for, but I guess I just like to know that I have really fast storage. Plus, long boot times bug me.
+ > I just feel like **you always need more storage**.
+
+The old system started out with only a  60GB SSD about 8 years ago. Then I added a 1TB spinning hard disk because I ran out of storage space. I want this PC build to last at least 5 years, so I splurged on extra SSD capacity. I also went with a drive that runs the super fast NMV3e PCIe communication standard. An NVMe SSD drive probably won't have any practical performance benefits compared to a SATA SSD for the things I use the new PC for. I guess I just like to know that I have fast storage. Plus, long boot times bug me.
 
 ### Corsair Vengeance DDR4 3000 MHz 16GB (2x8GB)
 
@@ -73,7 +75,7 @@ I choose 16 GB of DDR4 RAM for my new system. The Corsair Vengeance DDR4 3000 MH
 
 The power supply I went with this the Corsair CX Series 450 Watt 80 Plus Bronze Semi-Modular Power Supply.
 
-For this build, I am only going to need the cable for the motherboard power and the cable for the CPU power. The power supply is semi-modular which means some of the cables are permanently attached and some of the cables are removable. The cables I need for the build are cables that are permanently attached. I don't need any of the detachable cables. This means that I save a little money compared to a fully modular power supply, but still get the benefits of as few cables as possible.
+For this build, I am only going to need a 24-pin cable for the motherboard power and supplemental CPU power. The power supply I bought is semi-modular which means some of the cables are permanently attached and some of the cables are removable. The cables I need for the build are cables that are permanently attached. I don't need any of the detachable cables. This means that I save a little money compared to a fully modular power supply (all detachable cables), but still get the benefits of as few cables as possible.
 
 ### Case
 
@@ -85,7 +87,7 @@ I put all the components inside the Silverstone SG13B-V2 Mini ITX case. This cas
 
 <a target="_blank"  href="https://www.amazon.com/gp/product/B00KF7O58G/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B00KF7O58G&linkCode=as2&tag=peterkazarino-20&linkId=eb03ba23b789f7ffa24a2527fd64e141"><img border="0" src="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&MarketPlace=US&ASIN=B00KF7O58G&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL250_&tag=peterkazarino-20" ></a>
 
-I bought a fan for the SilverStone case because it doesn't come with one. I mounted the fan in the front of the case. One thing I think I would do differently is to buy a 120 mm fan, which is more common, than the larger 140 mmm fan I bought. The Silverstone case fits a 120 mm fan just fine and the 140 mm fan mount only has three screw locations.
+I bought a fan for the SilverStone case because it doesn't come with one. I mounted the fan in the front of the case. One thing I think I would do differently is to buy a 120 mm fan (which is a more common size), rather than the larger 140 mmm fan I bought (which is a less common size). The Silverstone case fits a 120 mm fan just fine and the 140 mm fan mount only has three screw locations.
 
 That's all the parts. Below is a description of the build and installation process.
 
@@ -105,13 +107,15 @@ Next, I attached the RAM to the motherboard. There are two clips on the side of 
 
 ### Add the CPU cooler
 
-The Ryzen 5 2400G CPU comes with a CPU cooler included in the box. The included cooler has thermal paste pre-applied, so no thermal paste needs to be added to the top of the processor before the cooler is mounted. There are two plastic brackets, one on each side of the processor that need to be removed from the motherboard before the CPU cooler is attached. When the plastic brackets come off, the plate on the back of the motherboard falls off. Make sure that plate on the back of the motherboard is aligned when the cooler is screwed in. I've heard that you can hold the plate on the back of the motherboard with painter's tape. I just had to re-align mine after I took the plastic brackets off.
+The Ryzen 5 2400G CPU comes with a CPU cooler included in the box. The included cooler has thermal paste pre-applied, so no thermal paste needs to be added to the top of the processor before the cooler is mounted. There are two plastic brackets, one on each side of the processor that need to be removed from the motherboard before the CPU cooler is attached. When the plastic brackets come off, the plate on the back of the motherboard falls off. I've heard you can hold the plate on the back of the motherboard with painter's tape. I just had to re-align the metal backplate after I took the plastic brackets off.
 
-I put the cooler on top of the processor and just seated the screws before I tightened it down. I used a cross pattern and tightened each screw about a turn at a time until the cooler was screwed down tight.
+I put the cooler on top of the processor and just seated the screws before I tightened it down. I used a cross pattern to tighten each screw about a turn at a time until the cooler was screwed down tight.
 
 ### Attach the M.2 SSD drive
 
-Next, I flipped the motherboard over and attached the M.2 SSD. The baggie of screw that came with the motherboard contained a tiny M.2 standoff and a tiny M.2 screw. The standoff goes "below" the M.2 drive and the little screw goes "above" the M.2 drive. I slid the drive into the M.2 slot at about a 30-degree angle, then pushed it down till hit was horizontal and tightened the end down to the standoff with the tiny screw. When I first got the motherboard out of the box I couldn't figure out where an M.2 drive goes. There didn't seem to be any on the top of the motherboard. The trick was the M.2 drive mount is on the back of the motherboard.
+Next, I flipped the motherboard over and attached the M.2 SSD. The baggie of screw that came with the motherboard contained a tiny M.2 standoff and a tiny M.2 screw. The standoff goes "below" the M.2 drive and the little screw goes "above" the M.2 drive. I slid the drive into the M.2 slot at about a 30-degree angle, then pushed it down till hit was horizontal and tightened down the end of the M.2 SSD to the standoff with the tiny screw. 
+
+When I first got the motherboard out of the box I couldn't figure out where an M.2 drive goes. There didn't seem to be any on the top of the motherboard. The trick was the M.2 drive mount is on the back of the motherboard.
 
 ### Attach the motherboard power and CPU power. 
 
@@ -119,7 +123,7 @@ Finally, I attached the big 24-pin motherboard power cable from the power supply
 
 All these steps were accomplished outside the case.
 
-## Start-Up and Software
+## Start-Up
 
 After the system was fully assembled, I plugged a monitor into the HDMI port and plugged a mouse and keyboard into USB ports. I also plugged in an ethernet cable. I could use the motherboard's onboard WiFi, but the wired ethernet is faster and won't require any setup. I started the system for the first time by shorting the POWER pins on the motherboard with a screwdriver. After the power turned on, I hit the DELETE key rapidly to bring up the motherboard BIOS.
 
@@ -131,7 +135,7 @@ I downloaded the latest firmware for my motherboard from the MSI website. The do
 
 Next, I checked my new system's specs in the BIOS. I wanted to make sure the CPU and SSD were recognized. I didn't overclock the CPU or the RAM. I would like to see if the XMP profile for the RAM will run on my setup. For the first start-up, I left the RAM at stock speed.
 
-### Install Linux
+## Install Linux
 
 With the system still outside the case and the motherboard sitting on top of the motherboard box, I installed Ubuntu 20.04 from a USB drive. 
 
@@ -141,7 +145,7 @@ When I turned the power back on, I pushed F11 over and over to bring up the boot
 
 The Ubuntu installer takes a while to complete and downloads a bunch of stuff during the installation. The total install time was around 20 minutes.
 
-### Try it out!
+## Try it out!
 
 After Ubuntu was set up, I tried the new system out. It worked great! Firefox opens quickly and YouTube videos stream no problem. I also entered those standard Linux command-line update commands:
 

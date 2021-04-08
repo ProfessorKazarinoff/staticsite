@@ -40,5 +40,4 @@ Title: Now
 
 
 ### Netflix
-* Nothing right now - just don't have the time for TV
-invo
+* Nothing right now - don't have time for TV

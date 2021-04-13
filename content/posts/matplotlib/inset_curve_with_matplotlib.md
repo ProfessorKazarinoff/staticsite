@@ -34,7 +34,7 @@ Once you have the Anaconda Prompt open, type the following command to log into y
 To make sure that ```numpy``` and ```matplotlib``` and ```pandas``` are installed in our ```tensiletest``` virtual environemnt, type:
 
 ```
-(tensiletest) C:\Users\peter.kazarinoff\Documents\staticsite\content\code\tensiletest>pip freeze
+(tensiletest) C:\Users\Peter\Documents\staticsite\content\code\tensiletest>pip freeze
 certifi==2017.7.27.1
 chardet==3.0.4
 cycler==0.10.0
@@ -69,7 +69,7 @@ A0 = np.pi*(d/2)**2 # original cross-sectional area of sample in mm^2
 L0 = 18.002   # original gauge length of sample (lenth of narrowest section)
 
 # calcuate stress and strain
-stress = (force/A0)
+stress = force/A0
 strain = delta_L/L0
 
 # plot the stress strain curve

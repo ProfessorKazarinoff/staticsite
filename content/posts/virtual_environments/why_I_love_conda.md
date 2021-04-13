@@ -9,6 +9,7 @@ Authors: Peter D. Kazarinoff
 Summary: This post is a love letter of sorts to the conda prompt. All the reasons I love to use conda and why I think conda is often a better way to go than using pip.
 
 ### The conda prompt works in Windows
+
 Conda prompt, how I love thee. Conda prompt, you work on windows. My machine at work is a Windows 10 Desktop. From the windows start menu it always available:
 
 ![conda prompt on windows start menu]({static}/images/conda_in_windows_start_menu.png)

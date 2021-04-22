@@ -1,6 +1,6 @@
 """
 Offset Piston Motion Animation using Matplotlib.
-Author: Peter D. Kazarinoff, 2019
+Author: Peter D. Kazarinoff, 2021
 MIT License
 """
 
@@ -13,8 +13,7 @@ import matplotlib.animation as animation
 # input parameters
 r = 1.0  # crank radius
 l = 4.0  # connecting rod length
-d = 0.5
-# offset distance
+d = 0.5  # offset distance
 rot_num = 6  # number of crank rotations
 increment = 0.1  # angle incremement
 

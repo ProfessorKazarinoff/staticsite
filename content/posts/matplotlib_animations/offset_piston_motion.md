@@ -1,19 +1,19 @@
-Title: Offset Piston Motion with Python and matplotlib
-Date: 2019-12-21 20:40
-Modified: 2017-12-21 20:40
-Status: Draft
+Title: Offset Piston Motion with Python and Matplotlib
+Date: 2021-04-22 08:40
+Modified: 2021-04-22 08:40
+Status: published
 Category: matplotlib
 Tags: python, matplotlib, animation, engineering
 Slug: offset-piston-motion-animation-matplotlib
 Authors: Peter D. Kazarinoff
 
-![Offset piston motion still]({static}/posts/matplotlib_animations/images/offset_piston_motion_still.png)
+[![Offset piston motion still]({static}/posts/matplotlib_animations/images/offset_piston_motion_still.png)]({filename}/posts/matplotlib_animations/offset_piston_motion.md)
 
 Offset piston motion is one of the classic types of engineering dynamics motion that belong to a category of 4-bar motion. Piston motion is the type of motion that the piston in a cylinder of a car engine goes through as the crankshaft rotates.
 
-_Offset_ pistion motion has the same type of motion, but the center line of the piston is not inline with the center of the crankshaft.
+_Offset_ piston motion has the same type of motion, but the centerline of the piston is not in line with the center of the crankshaft.
 
-This type of offset piston/crankshaft geometry is sometimes used in automobile engines. For example, some Toyota engines have an offset piston geometry.
+This type of offset piston/crankshaft geometry is sometimes used in automobile engines. For example, some Toyota automobile engines have an offset piston geometry.
 
 [TOC]
 
@@ -47,7 +47,7 @@ $ python3 -m venv venv
 
 ## Install Python packages
 
-Now that we have the a new clean virtual environment with Python 3 installed, we need to install the a couple Python packages: Matplotlib and NumPy. Before the Python packages are installed, we have to make sure that the virtual environment we just created is **active**. The active virtual environment is the virtual environment the packages will be installed into.
+Now that we have a new clean virtual environment with Python 3 installed, we need to install a couple of Python packages: Matplotlib and NumPy. Before the Python packages are installed, we have to make sure that the virtual environment we just created is **active**. The active virtual environment is the virtual environment the packages will be installed into.
 
 ### Windows 10
 
@@ -71,43 +71,43 @@ $ source venv/bin/activate
 
 Open a text editor (like [VS Code](https://code.visualstudio.com/) or [PyCharm](https://www.jetbrains.com/pycharm/download/#section=windows)) and create a new Python file called ```offset_piston_motion.py```
 
-At the top of the ```offset_piston_motion.py``` script, we'll start by importing the necessary modules. In this section of code, we import NumPy as ```np``` and also import a couple trig fuctions from NumPy. We will use NumPy's trig functions (instead of the trig functions in Python's Standard Library math module) because the trig functions need to operate on arrays of numbers. From Matplotlib, a Python plotting library, we'll import the ```pyplot``` and ```animation``` modules.
+At the top of the ```offset_piston_motion.py``` script, we'll start by importing the necessary modules. In this section of code, we import NumPy as ```np``` and also import a couple of trig functions from NumPy. We will use NumPy's trig functions (instead of the trig functions in Python's Standard Library math module) because the trig functions need to operate on arrays of numbers. From Matplotlib, a Python plotting library, we'll import the ```pyplot``` and ```animation``` modules.
 
 ```python
-#import the necessary packages
+# import the necessary packages
 import numpy as np
 from numpy import pi, sin, cos, sqrt
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 ```
 
-## Initial Paramters
+## Initial Parameters
 
 To model offset piston motion we need to have two moving parts: a crankshaft and a connecting rod.
 
-The crankshaft rotates around a central axis with a constant radius. We'll model this rotation with a line of constant length, one end fixed at the origin and the other rotating in a circle like the hand on a clock. To model this crankshaft line, we just need two points, the origin at ```x=0``` and ```y=0```  and the end of the line at the point ```x1``` and ```y1```.
+The crankshaft rotates around a central axis with a constant radius. We'll model this rotation with a line of constant length, one end fixed at the origin and the other rotating in a circle like a hand on a clock. To model this crankshaft line, we just need two points, the origin at ```x=0``` and ```y=0```  and the end of the line at the point ```x1``` and ```y1```.
 
-We also need to define a crank radius and a connecting rode length. To ensure the animation does not run indefininelty, we will set a fixed number of rotations.  The rotation increment defines how fine the 'ticks' are as our crankshaft arm rotates. A rotation increment of ```0.1``` works to make our animation run smooth enough.
+We also need to define a crank radius and a connecting rode length. To ensure the animation does not run indefinitely, we will set a fixed number of rotations.  The rotation increment defines how fine the 'ticks' there are as our crankshaft arm rotates. A rotation increment of ```0.1``` works to make our animation run smoothly enough.
 
-For offset piston motion (compared to regular piston motion), one last parameter we need to define is the offset distance. The offset distance is the horizontal distance between the vertical line that goes through the center of the crankshaft and the vertical line that goes through the end of the connecting rod. In regular piston motion, the offset distace is zero. In offset pistion motion, this offset distance is non-negative.
+For offset piston motion (compared to regular piston motion), one last parameter we need to define is the offset distance. The offset distance is the horizontal distance between the vertical line that goes through the center of the crankshaft and the vertical line that goes through the end of the connecting rod. In regular piston motion, the offset distance is zero. In offset piston motion, this offset distance is non-negative.
 
 ```python
-#input parameters
+# input parameters
 r = 1.0  # crank radius
 l = 4.0  # connecting rod length
-d = 0.5; # offset distance
+d = 0.5  # offset distance
 rot_num = 6 # number of crank rotations
 increment = 0.1 # angle incremement
 ```
 
 ## Create arrays of angles and points
 
-Next, we will create a couple of arrays of angles and points. NumPy's ```np.arange()``` opptionally accepts three arguments ```(start,stop,step)```. Note that the stop value is not included in the array, so we append our stop value onto the end of the ```angles``` array with NumPy's ```np.append()``` function.
+Next, we will create a couple of arrays of angles and points. NumPy's ```np.arange()``` optionally accepts three arguments ```(start,stop,step)```. Note that the stop value is not included in the array, so we append our stop value onto the end of the ```angles``` array with NumPy's ```np.append()``` function.
 
 After the angles are defined, we create a couple of arrays that contain zeros (the zeros are just place holders) and are the same length as the ```angles``` array.
 
 ```python
-#create the angle array, where the last angle is the number of rotations*2*pi
+# create the angle array, where the last angle is the number of rotations*2*pi
 angle_minus_last = np.arange(0,rot_num*2*pi,increment)
 angles = np.append(angle_minus_last, rot_num*2*pi)
 
@@ -120,18 +120,17 @@ Y2=np.zeros(len(angles)) # connecting rod y-positions: Point 2
 
 ## Loop through angles
 
-After the ```angles``` array is defined, we can loop through the angles and define points which define the location of the end of the crankshaft and the end of the connecting rod.
+After the ```angles``` array is defined, we can loop through the angles and define points that define the location of the end of the crankshaft and the end of the connecting rod.
 
-To keep track of the number of times though the loop, we'll use Python's ```enumerate()``` function. Note that ```enumerate()``` can output two values, the ```index``` and the ```iterable``` (in this case the iterable is the angle theta from the ````angles``` array).
+To keep track of the number of times through the loop, we'll use Python's ```enumerate()``` function. Note that ```enumerate()``` can output two values, the ```index``` and the ```iterable``` (in this case the iterable is the angle theta from the ````angles``` array).
 
 ```python
-#find the crank and connecting rod positions for each angle
+# find the crank and connecting rod positions for each angle
 for index,theta in enumerate(angles, start=0):
     x1 = r*cos(theta) # x-cooridnate of the crank: Point 1
     y1 = r*sin(theta) # y-cooridnate of the crank: Point 1
     x2 = d # x-coordinate of the rod: Point 2
-    # y-coordinate of the rod: Point 2
-    y2 = r*sin(theta) + sqrt(l**2 - (r*cos(theta)-d)**2)
+    y2 = r*sin(theta) + sqrt(l**2 - (r*cos(theta)-d)**2) # y-coordinate of the rod: Point 2
     X1[index]=x1 # crankshaft x-position
     Y1[index]=y1 # crankshaft y-position
     X2[index]=x2 # connecting rod x-position
@@ -188,13 +187,13 @@ ani = animation.FuncAnimation(fig, animate, init_func=init, frames=len(X1), inte
 ## to save animation, uncomment the line below:
 ## ani.save('offset_piston_motion_animation.mp4', fps=30, extra_args=['-vcodec', 'libx264'])
 
-#show the animation
+# show the animation
 plt.show()
 ```
 
 ## Run the script
 
-After the ```offset_piston_motion.py``` script is complete and saved, the script can be run from the **Anaconda Prompt** (on Windows 10) or a terminal (On MacOS or Linux). Make sure the virtual environment we created earlier is active before running the script
+After the ```offset_piston_motion.py``` script is complete and saved, the script can be run from the **Anaconda Prompt** (on Windows 10) or a terminal (On MacOS or Linux). Make sure the virtual environment we created earlier is active before running the script.
 
 ```text
 > python offset_piston_motion.py
@@ -213,24 +212,24 @@ The complete ```offset_piston_motion.py``` script is shown below. You can also f
 ```python
 """
 Offset Piston Motion Animation using Matplotlib.
-Author: Peter D. Kazarinoff, 2019
+Author: Peter D. Kazarinoff, 2021
 MIT License
 """
 
-#import necessary packages
+# import necessary packages
 import numpy as np
 from numpy import pi, sin, cos, sqrt
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
-#input parameters
+# input parameters
 r = 1.0  # crank radius
 l = 4.0  # connecting rod length
-d = 0.5; # offset distance
+d = 0.5  # offset distance
 rot_num = 6 # number of crank rotations
 increment = 0.1 # angle incremement
 
-#create the angle array, where the last angle is the number of rotations*2*pi
+# create the angle array, where the last angle is the number of rotations*2*pi
 angle_minus_last = np.arange(0,rot_num*2*pi,increment)
 angles = np.append(angle_minus_last, rot_num*2*pi)
 
@@ -240,13 +239,12 @@ Y1 = np.zeros(len(angles)) # array of crank y-positions: Point 1
 X2 = np.zeros(len(angles)) # array of rod x-positions: Point 2
 Y2 = np.zeros(len(angles)) # array of rod y-positions: Point 2
 
-#find the crank and connecting rod positions for each angle
+# find the crank and connecting rod positions for each angle
 for index,theta in enumerate(angles, start=0):
     x1 = r*cos(theta) # x-cooridnate of the crank: Point 1
     y1 = r*sin(theta) # y-cooridnate of the crank: Point 1
     x2 = d # x-coordinate of the rod: Point 2
-    # y-coordinate of the rod: Point 2
-    y2 = r*sin(theta) + sqrt(  l**2 - (r*cos(theta)-d)**2  )
+    y2 = r*sin(theta) + sqrt(  l**2 - (r*cos(theta)-d)**2  ) # y-coordinate of the rod: Point 2
     X1[index] = x1 # crankshaft x-position
     Y1[index] = y1 # crankshaft y-position
     X2[index] = x2 # connecting rod x-position
@@ -280,6 +278,6 @@ ani = animation.FuncAnimation(fig, animate, init_func=init, frames=len(X1), inte
 ## to save animation, uncomment the line below:
 ## ani.save('offset_piston_motion_animation.mp4', fps=30, extra_args=['-vcodec', 'libx264'])
 
-#show the animation
+# show the animation
 plt.show()
 ```

@@ -7,7 +7,7 @@ Tags: python, matplotlib, animation, engineering
 Slug: offset-piston-motion-animation-matplotlib
 Authors: Peter D. Kazarinoff
 
-[![Offset piston motion still]({static}/posts/matplotlib_animations/images/offset_piston_motion_still.png)]({filename}/posts/matplotlib_animations/offset_piston_motion.md)
+[![Offset piston motion still]({static}/posts/matplotlib_animations/images/offset_piston_motion.gif)]({filename}/posts/matplotlib_animations/offset_piston_motion.md)
 
 Offset piston motion is one of the classic types of engineering dynamics motion that belong to a category of 4-bar motion. Piston motion is the type of motion that the piston in a cylinder of a car engine goes through as the crankshaft rotates.
 
@@ -111,7 +111,6 @@ After the angles are defined, we create a couple of arrays that contain zeros (t
 angle_minus_last = np.arange(0,rot_num*2*pi,increment)
 angles = np.append(angle_minus_last, rot_num*2*pi)
 
-
 X1=np.zeros(len(angles)) # crank x-positions: Point 1
 Y1=np.zeros(len(angles)) # crank y-positions: Point 1
 X2=np.zeros(len(angles)) # connecting rod x-positions: Point 2
@@ -125,7 +124,7 @@ After the ```angles``` array is defined, we can loop through the angles and defi
 To keep track of the number of times through the loop, we'll use Python's ```enumerate()``` function. Note that ```enumerate()``` can output two values, the ```index``` and the ```iterable``` (in this case the iterable is the angle theta from the ````angles``` array).
 
 ```python
-# find the crank and connecting rod positions for each angle
+# calculate the crank and connecting rod positions for each angle
 for index,theta in enumerate(angles, start=0):
     x1 = r*cos(theta) # x-cooridnate of the crank: Point 1
     y1 = r*sin(theta) # y-cooridnate of the crank: Point 1
@@ -161,7 +160,7 @@ Next, we'll define an initialization function. An initialization function is nee
 # initialization function
 def init():
     line.set_data([], [])
-    eturn line,
+    return line,
 ```
 
 ## Animation function
@@ -210,13 +209,14 @@ A video of the resulting animation is shown below:
 The complete ```offset_piston_motion.py``` script is shown below. You can also find the code on GitHub [here](https://github.com/ProfessorKazarinoff/offset_piston_motion)
 
 ```python
+# offset_piston_motion.py
 """
-Offset Piston Motion Animation using Matplotlib.
+Offset Piston Motion Animation using Matplotlib
 Author: Peter D. Kazarinoff, 2021
 MIT License
 """
 
-# import necessary packages
+# import the necessary packages
 import numpy as np
 from numpy import pi, sin, cos, sqrt
 import matplotlib.pyplot as plt
@@ -233,22 +233,21 @@ increment = 0.1 # angle incremement
 angle_minus_last = np.arange(0,rot_num*2*pi,increment)
 angles = np.append(angle_minus_last, rot_num*2*pi)
 
+X1=np.zeros(len(angles)) # crank x-positions: Point 1
+Y1=np.zeros(len(angles)) # crank y-positions: Point 1
+X2=np.zeros(len(angles)) # connecting rod x-positions: Point 2
+Y2=np.zeros(len(angles)) # connecting rod y-positions: Point 2
 
-X1 = np.zeros(len(angles)) # array of crank x-positions: Point 1
-Y1 = np.zeros(len(angles)) # array of crank y-positions: Point 1
-X2 = np.zeros(len(angles)) # array of rod x-positions: Point 2
-Y2 = np.zeros(len(angles)) # array of rod y-positions: Point 2
-
-# find the crank and connecting rod positions for each angle
+# calculate the crank and connecting rod positions for each angle
 for index,theta in enumerate(angles, start=0):
     x1 = r*cos(theta) # x-cooridnate of the crank: Point 1
     y1 = r*sin(theta) # y-cooridnate of the crank: Point 1
     x2 = d # x-coordinate of the rod: Point 2
-    y2 = r*sin(theta) + sqrt(  l**2 - (r*cos(theta)-d)**2  ) # y-coordinate of the rod: Point 2
-    X1[index] = x1 # crankshaft x-position
-    Y1[index] = y1 # crankshaft y-position
-    X2[index] = x2 # connecting rod x-position
-    Y2[index] = y2 # connecting rod y-position
+    y2 = r*sin(theta) + sqrt(l**2 - (r*cos(theta)-d)**2) # y-coordinate of the rod: Point 2
+    X1[index]=x1 # crankshaft x-position
+    Y1[index]=y1 # crankshaft y-position
+    X2[index]=x2 # connecting rod x-position
+    Y2[index]=y2 # connecting rod y-position
 
 # set up the figure and subplot
 fig = plt.figure()
@@ -264,7 +263,8 @@ line, = ax.plot([], [], 'o-', lw=5, color='#de2d26')
 # initialization function
 def init():
     line.set_data([], [])
-    eturn line,
+    return line,
+
 
 # animation function
 def animate(i):
@@ -272,6 +272,7 @@ def animate(i):
     y_points = [0, Y1[i], Y2[i]]
     line.set_data(x_points, y_points)
     return line,
+
 
 # call the animation
 ani = animation.FuncAnimation(fig, animate, init_func=init, frames=len(X1), interval=40, blit=True, repeat=False)

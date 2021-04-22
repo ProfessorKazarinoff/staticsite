@@ -5,7 +5,7 @@
  * Licensed under the MIT license
  */
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
-
+<script async src="https://media.ethicalads.io/media/client/ethicalads.min.js"></script>
 
   $(document).ready(function () {
     $("article table").addClass("table table-condensed table-bordered table-hover");

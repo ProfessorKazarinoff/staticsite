@@ -185,10 +185,10 @@ SERIES_TEXT = 'Article %(index)s of the %(name)s series'
 DISPLAY_SERIES_ON_SIDEBAR = True
 DISPLAY_TAGS_INLINE = True
 TAG_CLOUD_MAX_ITEMS = 10
-   # Recent Posts in Sidebas
+   # Recent posts in side bar
 DISPLAY_RECENT_POSTS_ON_SIDEBAR = True
 RECENT_POST_COUNT = 3
-   # Series infor on sidebar
+   # Series info on sidebar
 SHOW_SERIES = True
 DISPLAY_ARTICLE_INFO_ON_INDEX = True
     #Github on sidebar
@@ -230,5 +230,8 @@ ADDTHIS_FACEBOOK_LIKE = True
 ADDTHIS_TWEET = True
 ADDTHIS_EMAIL = True
 ADDTHIS_GOOGLE_PLUSONE = False
+
+# Ethical Adds in Sidebar
+ETHICAL_ADS = '<div data-ea-publisher="pythonforundergradengineers-com" data-ea-type="image"></div>'
 
 DEFAULT_PAGINATION = 5

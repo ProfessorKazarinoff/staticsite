@@ -232,6 +232,6 @@ ADDTHIS_EMAIL = True
 ADDTHIS_GOOGLE_PLUSONE = False
 
 # Ethical Adds in Sidebar
-ETHICAL_ADS = '<div data-ea-publisher="pythonforundergradengineers-com" data-ea-type="image"></div>'
+ETHICAL_ADS = True
 
 DEFAULT_PAGINATION = 5

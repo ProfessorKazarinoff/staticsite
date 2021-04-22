@@ -144,6 +144,9 @@
         {% if sidebar_class %}
         <div class="{{ sidebar_class }}" id="sidebar">
             <aside>
+                {% if ETHICAL_ADS %}
+                    {% include 'includes/ethical_ads.html' %}
+                {% endif %}
                 {% if ABOUT_ME or AVATAR %}
                     {% include 'includes/aboutme.html' %}
                 {% endif %}
@@ -181,6 +184,10 @@
 
 {% if 'liquid_tags.notebook' in PLUGINS %}
     {% include 'includes/liquid_tags_nb_footer.html' %}
+{% endif %}
+
+{% if ETHICAL_ADS %}
+    {% include 'includes/ethical_ads_js.html' %}
 {% endif %}
 
 {% block scripts %}{% endblock %}

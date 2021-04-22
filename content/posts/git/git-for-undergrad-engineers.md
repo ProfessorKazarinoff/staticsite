@@ -1,12 +1,12 @@
 Title: Git and GitHub for Undergrad Engineers
-Date: 2018-10-30 12:40
-Modified: 2018-10-30 12:40
+Date: 2021-04-21 12:40
+Modified: 20121-04-21 12:40
 Status: draft
 Category: git
 Tags: git, python, version control
-Slug: git-for-undergrad-engineers
+Slug: git-and-github-for-undergrad-engineers
 Authors: Peter D. Kazarinoff
-Summary: This post is for first-time users of git. Git is command-line version control system that allows programmers to manage file versions and share code. Git can be tricky to use. This post contains solutions to some of the most common use cases.
+Summary: This post is for first-time users of git. Git is a command-line version control system that allows programmers to manage file versions and share code. Git can be tricky to use. This post contains solutions to some of the most common use cases.
 
 ## What is **git**?
 
@@ -24,7 +24,7 @@ Git is installed with the Anaconda distribution of Python. Once Anaconda is inst
 
 Before using **git** and GitHub.com, it is helpful to understand a couple of terms:
 
- * **git** - a command line program used to track file changes and collaborate on code with others.
+ * **git** - a command-line program used to track file changes and collaborate on code with others.
  * **Command Line** a programming terminal where commands are entered as text. 
  * **repo** - short name for "repository". A repo is a directory and its contents that **git** knows about.
  * **local repo** -  a directory and its contents on your computer that **git** knows about. Local repos are folders and the contents of those folders.
@@ -85,7 +85,7 @@ piston_motion/
 
 ## How do I clone a repo into a specific folder?
 
-What if you want all the code from the ```piston_motion``` repo, but you don't want that code to end up in a folder called ```piston_motion```? Running ```git clone``` creates a new folder with the repo contents inside it. ```git clone``` does not copy the contents of the repo into the current folder (it creates a new folder which contains the repo contents). But, you can make the folder that the repo contents get copied into any name you want. Say you want to copy the ```piston_motion``` repo into a folder called ```github_examples```. 
+What if you want all the code from the ```piston_motion``` repo, but you don't want that code to end up in a folder called ```piston_motion```? Running ```git clone``` creates a new folder with the repo contents inside it. ```git clone``` does not copy the contents of the repo into the current folder (it creates a new folder that contains the repo contents). But, you can make the folder that the repo contents get copied into any name you want. Say you want to copy the ```piston_motion``` repo into a folder called ```github_examples```. 
 
 The command below copies the contents of the ```piston_motion``` repo on GitHub.com into a folder on your local computer called ```github_examples```.
 
@@ -93,7 +93,7 @@ The command below copies the contents of the ```piston_motion``` repo on GitHub.
 git clone https://github.com/ProfessorKazarinoff/piston_motion.git github_examples
 ```
 
-If you open the folder ```github examples```, you see the same code you downloaded into the ```piston_motion``` folder.
+If you open the folder ```github_examples```, you see the same code you downloaded into the ```piston_motion``` folder.
 
 ```text
 github_examples/
@@ -106,7 +106,7 @@ github_examples/
 
 ## Creating and synching a remote repo on GitHub.com with a local repo
 
-Another common task to complete with **git** is to synch a remote repo on GitHub.com with a local repo on your local computer. This is useful when you want to keep the files in a particular project synched across multiple computers. Synched remote and local repos are also useful for a group of problem solvers working on the same project. Each team member has access to the same remote repo on GitHub.com and each team member has the same local repo on their computer.
+Another common task to complete with **git** is to synch a remote repo on GitHub.com with a local repo on your local computer. This is useful when you want to keep the files in a particular project synced across multiple computers. Synched remote and local repos are also useful for a group of problem solvers working on the same project. Each team member has access to the same remote repo on GitHub.com and each team member has the same local repo on their computer.
 
 #### Create a remote repo on GitHub.com
 
@@ -114,7 +114,7 @@ First, go to [GitHub.com/join](https://github.com/join) and create a new account
 
 #### Make a new local repo and link the local repo to the remote repo on GitHub.com
 
-Second, create a local directory and ```cd``` into it. Initialize a git repo locally in that directory. Then synch the local folder with the remote repo on GitHub.com.
+Second, create a local directory and ```cd``` into it. Initialize a git repo locally in that directory. Then sync the local folder with the remote repo on GitHub.com.
 
 ```text
 $ mkdir newproject
@@ -124,7 +124,7 @@ $ git remote add origin https://github.com/user/repo.git
 $ git pull origin master
 ```
 
-#### Add, commit and push changes up to Github.com
+#### Add, commit, and push changes up to Github.com
 
 Third, work on the project locally. For example, you could edit one of the files in the directory ```newproject``` or create a new file in the directory ```newproject```.
 
@@ -144,17 +144,14 @@ If using **git** and GitHub.com, remember to pull the most recent version of the
 $ git pull origin master
 ```
 
-After local changes are made, save the changes and push to GitHub.com
+After local changes are made, save the changes and push them to GitHub.com
 
 ```text
 $ git add .
 $ git commit -m "commit message"
-$ git push orign master
+$ git push origin master
 ```
 
 ## What is .gitignore and why do I need it?
 
-The ```.gitignore``` file contains a list of files and folders that git will "ignore". This means the files and folders specified in the ```.gitignore``` files will not be copied up to GitHub.com. This is useful for a couple of reasons. One reason is that Python creates some files automatically when a program runs. These files don't need to be saved as part of the GitHub.com repo. Another reason to add a fit to the ```.gitignore``` file is that you might have files in your local git repo that you don't want to share publicly. A file that contains usernames, passwords, or API keys should never be stored on GitHub.com. You can add a file that contains private information to ```.gitignore``` then the file won't saved up on GitHub where anyone on the internet can see it.
- 
-## What if ```git push``` doesn't work?
-
+The ```.gitignore``` file contains a list of files and folders that git will "ignore". This means the files and folders specified in the ```.gitignore``` files will not be copied up to GitHub.com. This is useful for a couple of reasons. One reason is that Python creates some files automatically when a program runs. These files don't need to be saved as part of the GitHub.com repo. Another reason to add a fit to the ```.gitignore``` file is that you might have files in your local git repo that you don't want to share publicly. A file that contains usernames, passwords, or API keys should never be stored on GitHub.com. You can add a file that contains private information to ```.gitignore``` then the file won't be saved up on GitHub where anyone on the internet can see it.

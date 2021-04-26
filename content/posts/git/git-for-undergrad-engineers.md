@@ -1,6 +1,6 @@
 Title: Git and GitHub for Undergrad Engineers
 Date: 2021-04-21 12:40
-Modified: 20121-04-21 12:40
+Modified: 2021-04-21 12:40
 Status: draft
 Category: git
 Tags: git, python, version control

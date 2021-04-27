@@ -1,13 +1,13 @@
 Title: Live Plotting with Matplotlib and Python
-Date: 2021-03-17 08:40
-Modified: 2021-03-17 08:40
-Status: draft
+Date: 2021-05-03 03:00
+Modified: 2021-05-03 03:00
+Status: published
 Category: matplotlib
 Tags: python, matplotlib, animation, arduino, api
 Slug: live-plotting-with-matplotlib
 Authors: Peter D. Kazarinoff
 
-![animated sensor plot]({static}/posts/matplotlib_animations/images/animated_sensor_plot.gif)
+[![animated sensor plot]({static}/posts/matplotlib_animations/images/animated_sensor_plot.gif)]({filename}/posts/matplotlib_animations/live_plotting_with_matplotlib.md)
 
 Python and Matplotlib can be used to create static 2D plots. But it **Matplotlib can also be used to create dynamic auto-updating live plots**. In this post, you learn how to create a live auto-updating animated plot using Python and Matplotlib.
 
@@ -392,7 +392,7 @@ An example of the resulting plot is below.
 
 ![live plot from web api data]({static}/posts/matplotlib_animations/images/web_api_live_plot.gif)
 
-Next, we will build a live-plot from sensor data
+Next, we will build a live plot from sensor data
 
 ## Build a live plot using data from a sensor
 
@@ -497,7 +497,6 @@ fig, ax = plt.subplots()
 ser = serial.Serial('COM7', 9600) # change COM# if necessary
 time.sleep(2)
 print(ser.name)
-
 ```
 
 Then we need to call our animation using Matplotlib's FuncAnimate class. After the animation is finished, we should close the serial line
@@ -578,8 +577,6 @@ Run the script using the Anaconda Prompt or a terminal:
 Twist the little blue potentiometer while the script is running and watch the animated line on the plot update.
 
 ![animated sensor plot]({static}/posts/matplotlib_animations/images/animated_sensor_plot.gif)
-
-
 
 ## Summary
 

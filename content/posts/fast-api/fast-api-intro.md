@@ -1,21 +1,19 @@
 Title: Introduction to Fast API
-Date: 2021-01-18 09:01
-Modified: 2021-01-18 09:01
+Date: 2021-04-27 09:01
+Modified: 2021-04-27 09:01
 Status: draft
 Category: fast-api
 Tags: python, fast-api
 Slug: introduction-to-fast-api
 Authors: Peter D. Kazarinoff
-Series: Fast-API
-Series_index: 1
 
-This post is the first part of a series on Fast API. Fast API is a Python web framework for building web API's. It is sort of the Django or Flask, except it's primary use is to create web API's instead of creating whole websites.
+Fast API is a Python web framework for building web API's. It is sort of like Django or Flask, except it's primary used to create web API's instead of creating whole websites. In this post, you'll learn how to create a very simple web API with Fast API then we'll build a slightly more complex webpage based on Jinja2 templates with Fast API.
 
 [TOC]
 
 ## Installation
 
-You can install Fast API with **pip** the Python package manager. First, it's a good idea to create a Python virtual environment. Depending on what system you are using, there are different ways to create a new Python virtual environemnt. I'm writing this blog post on Linux (Ubuntu 20.04). The commands I used are below:
+You can install Fast API with **pip**, the Python package manager. First, it's a good idea to create a Python virtual environment. Depending on what system you are using, there are different ways to create a new Python virtual environemnt. I'm writing this blog post on Linux (Ubuntu 20.04). The commands I used are below:
 
 ```text
 python -m venv venv
@@ -53,13 +51,13 @@ Save ```main.py```
 
 ## Run the one-file fast API app
 
-Now we need to run our app. Type the command below into a terminal. Make sure the virtual environment you created earlier is active.
+Now we need to run our app. Type the command below into a terminal. Make sure the virtual environment you created earlier is active and that you are in the root directory of our project where the ```main.py``` file is saved.
 
 ```text
 uvicorn main:app --reload
 ```
 
-You will see output in the terminal similar to the output below:
+You'll see output in the terminal similar to the output below:
 
 ```text
 INFO:     Uvicorn running on http://127.0.01:8000 (Press CTRL+C to quit)
@@ -91,10 +89,7 @@ Now let's change the query string in the URL and view the result. Browse to the 
 ```text
 http://127.0.0.1:8000/items/7?q=maelle
 ```
-{
-  "item_id": 7,
-  "q": "maelle"
-}
+
 Your browser will now return you an updated JSON response.
 
 ```text
@@ -138,8 +133,6 @@ http://127.0.0.1:8000/docs
 ```
 
 You get some pretty good looking docs that show what our web API expects. It shows us that the reason our last request didn't return output as before was that we didn't specifiy an integer in the first part of our URL.
-
-
 
 You can run a requrest right in the docs page and see the output we got in our web browser earlier. 
 

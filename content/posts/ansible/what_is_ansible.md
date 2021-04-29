@@ -149,6 +149,6 @@ In this post, we reviewed what Ansible is: a software package used to set up, co
 
 ## Support
 
-If you find value in this blog and the open source work I do, consider becoming one of my GitHub sponsors:
+Do you find value in blog posts like this? Click the button below to Buy me a Coffee and support the work I do.
 
-<iframe src="https://github.com/sponsors/ProfessorKazarinoff/button" title="Sponsor ProfessorKazarinoff" height="35" width="116" style="border: 0;"></iframe>
+<script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="pythonforengr" data-color="#5F7FFF" data-emoji=""  data-font="Inter" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#ffffff" data-coffee-color="#FFDD00" ></script>

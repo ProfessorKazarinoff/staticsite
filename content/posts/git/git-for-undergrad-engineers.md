@@ -155,3 +155,9 @@ $ git push origin master
 ## What is .gitignore and why do I need it?
 
 The ```.gitignore``` file contains a list of files and folders that git will "ignore". This means the files and folders specified in the ```.gitignore``` files will not be copied up to GitHub.com. This is useful for a couple of reasons. One reason is that Python creates some files automatically when a program runs. These files don't need to be saved as part of the GitHub.com repo. Another reason to add a fit to the ```.gitignore``` file is that you might have files in your local git repo that you don't want to share publicly. A file that contains usernames, passwords, or API keys should never be stored on GitHub.com. You can add a file that contains private information to ```.gitignore``` then the file won't be saved up on GitHub where anyone on the internet can see it.
+
+## Support
+
+If you find value in this blog and the open source work I do, consider becoming one of my GitHub sponsors:
+
+<iframe src="https://github.com/sponsors/ProfessorKazarinoff/button" title="Sponsor ProfessorKazarinoff" height="35" width="116" style="border: 0;"></iframe>

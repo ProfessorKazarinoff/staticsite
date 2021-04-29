@@ -588,6 +588,6 @@ In this post, we created a couple of live auto-updating animated line plots with
 
 ## Support
 
-Do you find value in blog posts like this? Click the button below to Buy me a Coffee and support the work I do.
+What to learn about building other types of plots with Matplotlib. Check out my book Problem Solving with Python on Amazon (Affiliate Link):
 
-<script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="pythonforengr" data-color="#5F7FFF" data-emoji=""  data-font="Inter" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#ffffff" data-coffee-color="#FFDD00" ></script>
+<a target="_blank"  href="https://www.amazon.com/gp/product/1693405415/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1693405415&linkCode=as2&tag=peterkazarino-20&linkId=14354dd726a3531e49b53451b9af1f80"><img border="0" src="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&MarketPlace=US&ASIN=1693405415&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL250_&tag=peterkazarino-20" ></a>

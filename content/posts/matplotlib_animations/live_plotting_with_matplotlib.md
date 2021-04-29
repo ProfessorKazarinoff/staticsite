@@ -1,4 +1,4 @@
-Title: Live Plotting with Matplotlib and Python
+Title: How to make animated plots with Matplotlib and Python
 Date: 2021-05-03 03:00
 Modified: 2021-05-03 03:00
 Status: published
@@ -396,7 +396,11 @@ Next, we will build a live plot from sensor data
 
 ## Build a live plot using data from a sensor
 
-The final live auto-updating animated plot we are going to build will show sensor data streaming in from an Arduino. Since this post is about live plots, I will not go into detail about how to connect the sensor to the Arduino or how an Arduino works. Very briefly, the sensor we are using in this example is a little blue potentiometer. A potentiometer is a dial that you can turn back and forth. When the dial of a potentiometer is turned, the resistance of the potentiometer changes. 
+The final live auto-updating animated plot we are going to build will show sensor data streaming in from an Arduino. Since this post is about live plots, I will not go into detail about how to connect the sensor to the Arduino or how an Arduino works.
+
+ > For more details on Arduinos, see this post on: [Using Python and an Arduino to Read a Sensor](https://pythonforundergradengineers.com/python-arduino-potentiometer.html)
+
+Very briefly, the sensor we are using in this example is a little blue potentiometer. A potentiometer is a dial that you can turn back and forth. When the dial of a potentiometer is turned, the resistance of the potentiometer changes. 
 
 ### Hardware Hookup
 

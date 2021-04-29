@@ -146,3 +146,9 @@ How about a couple of sentences to bring all these words together:
 ## Summary
 
 In this post, we reviewed what Ansible is: a software package used to set up, configure, and manage cloud servers. We reviewed some Ansible-specific vocabulary like control nodes, managed nodes, playbooks, tasks, and modules.
+
+## Support
+
+If you find value in this blog and the open source work I do, consider becoming one of my GitHub sponsors:
+
+<iframe src="https://github.com/sponsors/ProfessorKazarinoff/button" title="Sponsor ProfessorKazarinoff" height="35" width="116" style="border: 0;"></iframe>

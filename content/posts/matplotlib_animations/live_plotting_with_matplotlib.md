@@ -585,3 +585,9 @@ Twist the little blue potentiometer while the script is running and watch the an
 ## Summary
 
 In this post, we created a couple of live auto-updating animated line plots with Matplotlib. The key to building animated plots with Matplotlib is to define the plot in an animation function and then call your animation function with Matplotlib's ```FuncAnimation``` class.
+
+## Support
+
+Do you find value in blog posts like this? Click the button below to Buy me a Coffee and support the work I do.
+
+<script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="pythonforengr" data-color="#5F7FFF" data-emoji=""  data-font="Inter" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#ffffff" data-coffee-color="#FFDD00" ></script>

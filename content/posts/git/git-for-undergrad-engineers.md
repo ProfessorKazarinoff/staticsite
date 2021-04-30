@@ -1,14 +1,18 @@
 Title: Git and GitHub for Undergrad Engineers
-Date: 2021-04-21 12:40
-Modified: 2021-04-21 12:40
+Date: 2021-04-30 12:40
+Modified: 2021-04-30 12:40
 Status: draft
 Category: git
 Tags: git, python, version control
 Slug: git-and-github-for-undergrad-engineers
 Authors: Peter D. Kazarinoff
-Summary: This post is for first-time users of git. Git is a command-line version control system that allows programmers to manage file versions and share code. Git can be tricky to use. This post contains solutions to some of the most common use cases.
+Summary: [![Git and GitHub Logo]({static}/posts/git/images/git_and_github_logo.png)]({filename}/posts/git/git-for-undergrad-engineers.md)This post is for first-time users of git. Git is a command-line version control system that allows programmers and engineers to manage file versions and share code. Git can be tricky to use. This post contains solutions to some of the most common problems you may encounter when using Git.
+
+![Git and GitHub Logo]({static}/posts/git/images/git_and_github_logo.png)
 
 ## What is **git**?
+
+![git scm window]({static}/posts/git/images/git_scm_window.jpg)
 
 **Git** is one of the standard _version-control_ systems used by programmers to save code and work on code collaboratively as a team. **Git** is a program run on the command line or **Anaconda Prompt**. If you use Windows, you can download the **gitbash** program at [git-scm.com/downloads](https://git-scm.com/downloads). **gitbash** on Windows allows you to use the same git commands as MacOS and Linux users. **Git** was created by Linus Torvalds, who also designed the Linux operating system.
 
@@ -16,11 +20,17 @@ Summary: This post is for first-time users of git. Git is a command-line version
 
 Git is installed with the Anaconda distribution of Python. Once Anaconda is installed [Anaconda.com/downloads](https://anaconda.com/downloads), you can run git from the Anaconda Prompt. Git can also be run on Windows using the **gitbash** program. Gitbash can be downloaded from [git-scm.com/downloads](https://git-scm.com/downloads).
 
+![git scm window]({static}/posts/git/images/git_scm_download_page.jpg)
+
 ## What is GitHub?
+
+![GitHub Profile Page]({static}/posts/git/images/github_profile_page.png)
 
 [GitHub.com](https://github.com/) (now owned by Microsoft) is a website and service used by programmers and open source projects to share code and allow contributors to propose changes to existing code. GitHub is free if you are willing to share your code publicly. 
 
 ## git and GitHub terminology
+
+![GitHub Profile Page]({static}/posts/git/images/dictionary_icon.png)
 
 Before using **git** and GitHub.com, it is helpful to understand a couple of terms:
 
@@ -44,9 +54,11 @@ A selection of useful **git** commands are summarized below:
  
  * ```git commit -m "commit message"``` commit the changes in the local repo with the message ```"commit message"```
  
- * ```git push origin master``` push local changes up to the remote repo
+ * ```git push origin main``` push local changes up to the remote repo*
  
- * ```git pull origin master``` pull down the version in the remote repo into the local repo
+ * ```git pull origin main``` pull down the version in the remote repo into the local repo*
+
+ > GitHub, as part of their move to use more enclusive language, re-named the default branch to **main** for any new repo. You can read about the change [here](https://www.theserverside.com/feature/Why-GitHub-renamed-its-master-branch-to-main)
 
 ## How do I copy the contents of a repo on GitHub?
 
@@ -121,7 +133,8 @@ $ mkdir newproject
 $ cd newproject
 $ git init
 $ git remote add origin https://github.com/user/repo.git
-$ git pull origin master
+$ git checkout main
+$ git pull origin main
 ```
 
 #### Add, commit, and push changes up to Github.com
@@ -133,7 +146,7 @@ Finally, save your work and commit the changes you made with **git**. Push those
 ```text
 $ git add .
 $ git commit -m "commit message"
-$ git push origin master
+$ git push origin main
 ```
 
 #### Pull the most recent version from GitHub.com before each work session
@@ -141,7 +154,7 @@ $ git push origin master
 If using **git** and GitHub.com, remember to pull the most recent version of the repo down from GitHub.com before you make any changes locally. If changes are made locally before the version of the repo on GitHub.com is synched, the local repo and remote repo will be out of synch.
 
 ```text
-$ git pull origin master
+$ git pull origin main
 ```
 
 After local changes are made, save the changes and push them to GitHub.com
@@ -149,7 +162,7 @@ After local changes are made, save the changes and push them to GitHub.com
 ```text
 $ git add .
 $ git commit -m "commit message"
-$ git push origin master
+$ git push origin main
 ```
 
 ## What is .gitignore and why do I need it?
@@ -158,6 +171,6 @@ The ```.gitignore``` file contains a list of files and folders that git will "ig
 
 ## Support
 
-If you find value in this blog and the open source work I do, consider becoming one of my GitHub sponsors:
+Thanks for reading! If you find value in this blog and the open source work I do, consider becoming one of my GitHub sponsors:
 
 <iframe src="https://github.com/sponsors/ProfessorKazarinoff/button" title="Sponsor ProfessorKazarinoff" height="35" width="116" style="border: 0;"></iframe>

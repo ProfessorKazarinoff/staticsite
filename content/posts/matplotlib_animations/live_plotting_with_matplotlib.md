@@ -1,6 +1,6 @@
 Title: How to make animated plots with Matplotlib and Python
-Date: 2021-05-03 03:00
-Modified: 2021-05-03 03:00
+Date: 2021-05-02 13:00
+Modified: 2021-05-02 13:00
 Status: published
 Category: matplotlib
 Tags: python, matplotlib, animation, arduino, api
@@ -9,7 +9,7 @@ Authors: Peter D. Kazarinoff
 
 [![animated sensor plot]({static}/posts/matplotlib_animations/images/animated_sensor_plot.gif)]({filename}/posts/matplotlib_animations/live_plotting_with_matplotlib.md)
 
-Python and Matplotlib can be used to create static 2D plots. But it **Matplotlib can also be used to create dynamic auto-updating live plots**. In this post, you learn how to create a live auto-updating animated plot using Python and Matplotlib.
+Python and Matplotlib can be used to create static 2D plots. But it **Matplotlib can also be used to create dynamic auto-updating animated plots**. In this post, you learn how to create a live auto-updating animated plot using Python and Matplotlib.
 
 [TOC]
 
@@ -588,6 +588,6 @@ In this post, we created a couple of live auto-updating animated line plots with
 
 ## Support
 
-What to learn about building other types of plots with Matplotlib. Check out my book Problem Solving with Python on Amazon (Affiliate Link):
+What to learn about building other types of plots with Matplotlib? Check out my book **Problem Solving with Python** on Amazon (Affiliate Link):
 
 <a target="_blank"  href="https://www.amazon.com/gp/product/1693405415/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1693405415&linkCode=as2&tag=peterkazarino-20&linkId=14354dd726a3531e49b53451b9af1f80"><img border="0" src="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&MarketPlace=US&ASIN=1693405415&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL250_&tag=peterkazarino-20" ></a>

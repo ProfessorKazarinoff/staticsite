@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>Automating JupyterHub Deployment with Ansible: Part 1 - What is Ansible? - Python for Undergraduate Engineers</title>
+    <title>What is Ansible? - Python for Undergraduate Engineers</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -179,14 +179,14 @@
 
         <meta name="author" content="Peter D. Kazarinoff" />
         <meta name="keywords" content="python,jupyterhub,ansible,automation" />
-        <meta name="description" content="Ansible is an orchestration tool that can be used to configure cloud servers. In this post, I&#39;ll try and solidify my knowlege of what Ansible is, what Ansible is not and demistify the vocabulary used to describe what Ansible does. Ansible is an IT Orchestration Tool Ansible is a tool …" />
+        <meta name="description" content="Ansible is an orchestration tool that can be used to configure cloud servers. This post is about what Ansible is, what Ansible is not, and demystify the vocabulary used to describe what Ansible does. Ansible is an IT Orchestration Tool Ansible is a tool to automate IT orchestration. What does …" />
 
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
-        <meta property="og:title" content="Automating JupyterHub Deployment with Ansible: Part 1 - What is Ansible?"/>
+        <meta property="og:title" content="What is Ansible?"/>
         <meta property="og:url" content="../drafts/what-is-ansible.html"/>
-        <meta property="og:description" content="Ansible is an orchestration tool that can be used to configure cloud servers. In this post, I&#39;ll try and solidify my knowlege of what Ansible is, what Ansible is not and demistify the vocabulary used to describe what Ansible does. Ansible is an IT Orchestration Tool Ansible is a tool …"/>
-        <meta property="article:published_time" content="2019-10-10" />
+        <meta property="og:description" content="Ansible is an orchestration tool that can be used to configure cloud servers. This post is about what Ansible is, what Ansible is not, and demystify the vocabulary used to describe what Ansible does. Ansible is an IT Orchestration Tool Ansible is a tool to automate IT orchestration. What does …"/>
+        <meta property="article:published_time" content="2021-04-27" />
             <meta property="article:section" content="Python" />
             <meta property="article:tag" content="python" />
             <meta property="article:tag" content="jupyterhub" />
@@ -264,7 +264,7 @@ Python for Undergraduate Engineers            </a>
             <ol class="breadcrumb">
                 <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
                 <li><a href="../category/python.html" title="Python">Python</a></li>
-                <li class="active">Automating JupyterHub Deployment with Ansible: Part 1 - What is Ansible?</li>
+                <li class="active">What is Ansible?</li>
             </ol>
     <section id="content">
         <article>
@@ -272,8 +272,8 @@ Python for Undergraduate Engineers            </a>
                 <h1>
                     <a href="../drafts/what-is-ansible.html"
                        rel="bookmark"
-                       title="Permalink to Automating JupyterHub Deployment with Ansible: Part 1 - What is Ansible?">
-                        Automating JupyterHub Deployment with Ansible: Part 1 - What is Ansible?
+                       title="Permalink to What is Ansible?">
+                        What is Ansible?
                     </a>
                 </h1>
             </header>
@@ -283,11 +283,9 @@ Python for Undergraduate Engineers            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2019-10-10T19:36:00-07:00"> Thu 10 October 2019</time>
+        <i class="fa fa-calendar"></i><time datetime="2021-04-27T19:36:00-07:00"> Tue 27 April 2021</time>
     </span>
 
-            <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x00000296DCFF9C30> of 
 
 
 
@@ -303,18 +301,18 @@ Python for Undergraduate Engineers            </a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p><img alt="conductor" src="../posts/ansible/images/conductor.png"></p>
-<p>Ansible is an orchestration tool that can be used to configure cloud servers. In this post, I'll try and solidify my knowlege of what Ansible is, what Ansible is not and demistify the vocabulary used to describe what Ansible does.</p>
+                <p><a href="../drafts/what-is-ansible.html"><img alt="conductor" src="../posts/ansible/images/conductor.png"></a></p>
+<p>Ansible is an orchestration tool that can be used to configure cloud servers. This post is about what Ansible is, what Ansible is not, and demystify the vocabulary used to describe what Ansible does.</p>
 <h2 id="ansible-is-an-it-orchestration-tool">Ansible is an IT Orchestration Tool</h2>
 <p>Ansible is a tool to automate IT orchestration. What does IT orchestration mean?</p>
-<p><img alt="conductor" src="../posts/ansible/images/robot_factory.jpg"></p>
-<p>With regard to this project: Automating a JupyerHub Deployment, Ansible is a tool to automate setting up the cloud server that runs JupyerHub. So my IT orchestration is setting up JupyerHub to run on a cloud server with all my custom configuration and settings. JupyterHub can be set up by typing all of the commands into a SSH shell and copying over files with FTP. But if JupyterHub gets deployed each quarter, and these commands are the same each quarter, then why not automate the process?</p>
+<p><img alt="robot factory" src="../posts/ansible/images/robot_factory.jpg"></p>
+<p>Concerning a personal project: Automating a JupyerHub Deployment- Ansible is a tool to automate setting up the cloud server that runs JupyerHub. So my IT orchestration is setting up JupyerHub to run on a cloud server with all my custom configuration and settings. JupyterHub can be set up by typing all of the commands into an SSH shell and copying over files with FTP. But if JupyterHub gets deployed each quarter, and these commands are the same each quarter, then why not automate the process?</p>
 <h2 id="ansible-is-a-run-time-that-executes-automation-tasks">Ansible is a run-time that executes automation tasks</h2>
 <p><img alt="runtime" src="../posts/ansible/images/runtime.png"></p>
-<p>Ansible is a program that runs on a desktop, laptop or cloud server that executes automation tasks. The Ansible run-time executes the actions specified by a set of user-defined rules.</p>
+<p>Ansible is a program that runs on a desktop, laptop, or cloud server that executes automation tasks. The Ansible run-time executes the actions specified by a set of user-defined rules.</p>
 <h2 id="ansible-is-a-language-used-to-automate-it-tasks">Ansible is a language used to automate IT tasks</h2>
 <p><img alt="document icon" src="../posts/ansible/images/document_icon.png"></p>
-<p>The steps Ansile goes through to create, configure and customize cloud servers is specified by valid Ansile syntax. The files a user creates and runs using Ansible must conform to this syntax or they will not be executed.</p>
+<p>The steps Ansible goes through to create, configure and customize cloud servers are specified by valid Ansible syntax. The files a user creates and runs using Ansible must conform to this syntax or they will not be executed.</p>
 <h2 id="what-does-ansible-run-on">What does Ansible run on?</h2>
 <p><img alt="operating systems" src="../posts/ansible/images/operating_systems.png"></p>
 <p>Ansible runs on MacOS, Ubuntu or other Linux distros. Ansible can be run on a local desktop or laptop and also run on a cloud server. It's my understanding that Ansible does not have to be installed on the cloud server that Ansible is configuring. In my case, that means that Ansible does not run on the JupyterHub server. Ansible runs on a laptop, desktop, or cloud server that configures the JupyterHub server. </p>
@@ -331,7 +329,7 @@ ImportError: No module named fcntl
 
 
 <p><img alt="ubuntu WSL" src="../posts/ansible/images/ubuntu_wsl.png"></p>
-<p>However, I did get Ansible to successfully install on WSL (Windows Subsystem for Linux). The installation procceeded error-free using the following commands.</p>
+<p>However, I did get Ansible to successfully install on WSL (Windows Subsystem for Linux). The installation proceeded error-free using the following commands.</p>
 <div class="highlight"><pre><span></span>sudo apt-get update
 $ sudo apt update
 $ sudo apt install software-properties-common
@@ -352,7 +350,7 @@ ansible 2.5.1
 
 
 <h2 id="ansible-vocabulary">Ansible Vocabulary</h2>
-<p><img alt="ubuntu WSL" src="../posts/ansible/images/dictionary.png"></p>
+<p><img alt="dictionary" src="../posts/ansible/images/dictionary.png"></p>
 <p>There are a number of words that mean specific things when applied to Ansible. These words include:</p>
 <ul>
 <li><strong>control node</strong></li>
@@ -365,17 +363,17 @@ ansible 2.5.1
 <li><strong>inventory</strong></li>
 </ul>
 <h3 id="control-node">Control node</h3>
-<p>A <em>control node</em> is a computer with Ansible installed on it that runs Ansible playbooks and orchestrates cloud servers. In my case, the control node is a laptop or desktop running Windows10 and Windows Subsystem for Linux or a cloud server that sets up a seperate JupyterHub cloud server. The control node needs to have Ansible installed on it and it must have access to the internet. </p>
+<p>A <em>control node</em> is a computer with Ansible installed on it that runs Ansible playbooks and orchestrates cloud servers. In my case, the control node is a laptop or desktop running Windows10 and Windows Subsystem for Linux or a cloud server that sets up a separate JupyterHub cloud server. The control node needs to have Ansible installed on it and it must have access to the internet. </p>
 <h3 id="managed-node">Managed node</h3>
-<p>A <em>managed node</em>, or host, is a cloud server that is created, configured and customized by a control node and a set of pre-defined rules. In my case, the managed node is the cloud server running JupyterHub. In the past, I have run Digital Ocean Cloud servers, so that's probably what I'll use working with Ansible. </p>
+<p>A <em>managed node</em>, or host, is a cloud server that is created, configured, and customized by a control node and a set of pre-defined rules. In my case, the managed node is the cloud server running JupyterHub. In the past, I have run Digital Ocean Cloud servers, so that's probably what I'll use working with Ansible. </p>
 <h3 id="playbooks">Playbooks</h3>
-<p>An Ansible <em>playbook</em> is a yaml file that contains human and machine readable commands to run IT orchestration tasks. Playbooks are saved and run on control nodes. Playbooks are kind of like <code>.py</code> files that run Python code. They are usually more than 5 lines long and less than 200 lines long. A long playbook can be broken up into several smaller playbooks.</p>
+<p>An Ansible <em>playbook</em> is a yaml file that contains human and machine-readable commands to run IT orchestration tasks. Playbooks are saved and run on control nodes. Playbooks are kind of like <code>.py</code> files that run Python code. They are usually more than 5 lines long and less than 200 lines long. A long playbook can be broken up into several smaller playbooks.</p>
 <h3 id="play">Play</h3>
-<p>A <em>play</em> is a run of an Ansible playbook or a run of part of a playbook.  Running a play is sort of like executing a <code>.py</code> file. Usually Ansible plays end up changing the state of a cloud server.</p>
+<p>A <em>play</em> is a run of an Ansible playbook or a run of part of a playbook.  Running a play is sort of like executing a <code>.py</code> file. Usually, Ansible plays end up changing the state of a cloud server.</p>
 <h3 id="tasks">Tasks</h3>
 <p><em>Tasks</em> are groups of commands in a playbook. A playbook can contain one or many tasks. Tasks in a play run sequentially. Tasks are a way to break up a playbook into smaller chunks.</p>
 <h3 id="modules">Modules</h3>
-<p>Tasks contain <em>modules</em>. A module is one command or function the performs one specific action. Ansible modules are comparable to Python functions. Ansible modules can accept extra arguments like some Python functions. There are Ansible modules for installing software, copying files, creating users, starting services, creating files and directories, setting permissions and a whole host of other tasks. </p>
+<p>Tasks contain <em>modules</em>. A module is one command or function the performs one specific action. Ansible modules are comparable to Python functions. Ansible modules can accept extra arguments like some Python functions. There are Ansible modules for installing software, copying files, creating users, starting services, creating files and directories, setting permissions, and a whole host of other tasks. </p>
 <h3 id="handlers">Handlers</h3>
 <p><em>Handlers</em> are triggered by tasks and are run once at the end of a playbook. A completed play can have one handler or many handlers.</p>
 <h4 id="playbook">Playbook</h4>
@@ -402,16 +400,17 @@ ansible 2.5.1
 <li>&rarr; Handler</li>
 </ul>
 <h3 id="inventory">Inventory</h3>
-<p>An <em>inventory</em> is a list of servers (a list of manged nodes) that Ansible is going to set up and configure. The inventory can contain one server or many servers. In my case, the inventory just contains one server, the Digital Ocean cloud server running JupyterHub.</p>
+<p>An <em>inventory</em> is a list of servers (a list of managed nodes) that Ansible is going to set up and configure. The inventory can contain one server or many servers. In my case, the inventory just contains one server, the Digital Ocean cloud server running JupyterHub.</p>
 <h2 id="summary-of-ansible-vocabulary">Summary of Ansible Vocabulary</h2>
-<p>How about a couple sentences to bring all these words together:</p>
+<p>How about a couple of sentences to bring all these words together:</p>
 <blockquote>
 <p>Ansible runs playbooks on a control node that configures managed nodes in your inventory. Playbooks are made up of tasks. Tasks contain modules. Modules complete one specific function on a managed node like install a package or copy a file.</p>
 </blockquote>
 <h2 id="summary">Summary</h2>
-<p>In this post, we reviewed what Ansible is, a software package used to set-up, configure, and manage cloud servers. We reviewed some Ansible-specific vocabulary like control nodes, managed nodes, playbooks, tasks and modules. </p>
-<h2 id="next-post">Next Post</h2>
-<p>In the next post, we will review how to install Ansible on a control node. Ansible does not need to be installed on managed nodes, just on the control node that is going to manage the orchestration.</p>
+<p>In this post, we reviewed what Ansible is: a software package used to set up, configure, and manage cloud servers. We reviewed some Ansible-specific vocabulary like control nodes, managed nodes, playbooks, tasks, and modules.</p>
+<h2 id="support">Support</h2>
+<p>Do you find value in blog posts like this? Click the button below to Buy me a Coffee and support the work I do.</p>
+<script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="pythonforengr" data-color="#5F7FFF" data-emoji=""  data-font="Inter" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#ffffff" data-coffee-color="#FFDD00" ></script>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">
@@ -423,9 +422,6 @@ ansible 2.5.1
         <li><a href="../slides-from-pypdx-west-presentation.html">Slides from my PyPDX West Presentaion</a></li>
         <li><a href="../moving-from-matlab-to-python-on-talkpython.html">Hear my story about moving from MATLAB to Python on TalkPython</a></li>
     </ul>
-</section>
-<section class="well" id="related-posts">
-    <h4>Article <built-in method index of str object at 0x00000296DCFF9C30> of the  series</h4>
 </section>
     <hr />
     <!-- AddThis Button BEGIN -->
@@ -458,9 +454,9 @@ ansible 2.5.1
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
+    <li class="list-group-item"><a href="../live-plotting-with-matplotlib.html">How to make animated plots with Matplotlib and Python</a></li>
     <li class="list-group-item"><a href="../calculating-vacancy-concentration-with-python.html">Calculating Vacancy Concentration with Python</a></li>
     <li class="list-group-item"><a href="../offset-piston-motion-animation-matplotlib.html">Offset Piston Motion with Python and Matplotlib</a></li>
-    <li class="list-group-item"><a href="../my-linux-pc-build.html">My Linux PC Build</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
@@ -502,15 +498,6 @@ ansible 2.5.1
   </ul>
 </li>
 <!-- End Sidebar/Tag Cloud -->
-
-<!-- Sidebar/Series -->
-<li class="list-group-item">
-  <h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Series</span></h4>
-  <ul class="list-group">
-  </ul>
-</li>
-<!-- End Sidebar/Series -->
-
 
 <!-- Sidebar/Github -->
 <li class="list-group-item">

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>Live Plotting with Matplotlib and Python - Python for Undergraduate Engineers</title>
+    <title>How to make animated plots with Matplotlib and Python - Python for Undergraduate Engineers</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -173,20 +173,20 @@
     init_mathjax();
     </script>
     
-    <link href="../extra/favicon.ico" rel="icon">
+    <link href="./extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="../drafts/live-plotting-with-matplotlib.html">
+<link rel="canonical" href="./live-plotting-with-matplotlib.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
         <meta name="keywords" content="python,matplotlib,animation,arduino,api" />
-        <meta name="description" content="Python and Matplotlib can be used to create static 2D plots. But it Matplotlib can also be used to create dynamic auto-updating live plots. In this post, you learn how to create a live auto-updating animated plot using Python and Matplotlib. Table of contents: Pre-requisits Set up a Python virtual …" />
+        <meta name="description" content="Python and Matplotlib can be used to create static 2D plots. But it Matplotlib can also be used to create dynamic auto-updating animated plots. In this post, you learn how to create a live auto-updating animated plot using Python and Matplotlib. Table of contents: Pre-requisits Set up a Python virtual …" />
 
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
-        <meta property="og:title" content="Live Plotting with Matplotlib and Python"/>
-        <meta property="og:url" content="../drafts/live-plotting-with-matplotlib.html"/>
-        <meta property="og:description" content="Python and Matplotlib can be used to create static 2D plots. But it Matplotlib can also be used to create dynamic auto-updating live plots. In this post, you learn how to create a live auto-updating animated plot using Python and Matplotlib. Table of contents: Pre-requisits Set up a Python virtual …"/>
-        <meta property="article:published_time" content="2021-03-17" />
+        <meta property="og:title" content="How to make animated plots with Matplotlib and Python"/>
+        <meta property="og:url" content="./live-plotting-with-matplotlib.html"/>
+        <meta property="og:description" content="Python and Matplotlib can be used to create static 2D plots. But it Matplotlib can also be used to create dynamic auto-updating animated plots. In this post, you learn how to create a live auto-updating animated plot using Python and Matplotlib. Table of contents: Pre-requisits Set up a Python virtual …"/>
+        <meta property="article:published_time" content="2021-05-02" />
             <meta property="article:section" content="matplotlib" />
             <meta property="article:tag" content="python" />
             <meta property="article:tag" content="matplotlib" />
@@ -198,13 +198,13 @@
 
 
     <!-- Bootstrap -->
-        <link rel="stylesheet" href="../theme/css/bootstrap.flatly.min.css" type="text/css"/>
-    <link href="../theme/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="./theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="./theme/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="../theme/css/pygments/native.css" rel="stylesheet">
-    <link href="../theme/tipuesearch/tipuesearch.css" rel="stylesheet">
-    <link rel="stylesheet" href="../theme/css/style.css" type="text/css"/>
-        <link href="../static/css/custom.css" rel="stylesheet">
+    <link href="./theme/css/pygments/native.css" rel="stylesheet">
+    <link href="./theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="./theme/css/style.css" type="text/css"/>
+        <link href="./static/css/custom.css" rel="stylesheet">
 
 
 
@@ -221,21 +221,21 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="../" class="navbar-brand">
+            <a href="./" class="navbar-brand">
 Python for Undergraduate Engineers            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                         <li><a href="../pages/about.html">
+                         <li><a href="./pages/about.html">
                              About
                           </a></li>
-                         <li><a href="../pages/book.html">
+                         <li><a href="./pages/book.html">
                              Book
                           </a></li>
-                         <li><a href="../pages/gear.html">
+                         <li><a href="./pages/gear.html">
                              Gear
                           </a></li>
-                         <li><a href="../pages/now.html">
+                         <li><a href="./pages/now.html">
                              Now
                           </a></li>
             </ul>
@@ -249,7 +249,7 @@ Python for Undergraduate Engineers            </a>
         </form>
     </span>
 </li>
-<!-- /.navbar-search -->              <li><a href="../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+<!-- /.navbar-search -->              <li><a href="./archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -263,18 +263,18 @@ Python for Undergraduate Engineers            </a>
     <div class="row">
         <div class="col-sm-9">
             <ol class="breadcrumb">
-                <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="../category/matplotlib.html" title="matplotlib">matplotlib</a></li>
-                <li class="active">Live Plotting with Matplotlib and Python</li>
+                <li><a href="." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="./category/matplotlib.html" title="matplotlib">matplotlib</a></li>
+                <li class="active">How to make animated plots with Matplotlib and Python</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="../drafts/live-plotting-with-matplotlib.html"
+                    <a href="./live-plotting-with-matplotlib.html"
                        rel="bookmark"
-                       title="Permalink to Live Plotting with Matplotlib and Python">
-                        Live Plotting with Matplotlib and Python
+                       title="Permalink to How to make animated plots with Matplotlib and Python">
+                        How to make animated plots with Matplotlib and Python
                     </a>
                 </h1>
             </header>
@@ -284,7 +284,7 @@ Python for Undergraduate Engineers            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2021-03-17T08:40:00-07:00"> Wed 17 March 2021</time>
+        <i class="fa fa-calendar"></i><time datetime="2021-05-02T13:00:00-07:00"> Sun 02 May 2021</time>
     </span>
 
 
@@ -292,20 +292,20 @@ Python for Undergraduate Engineers            </a>
 
 
 <span class="label label-default">Tags</span>
-	<a href="../tag/python.html">python</a>
+	<a href="./tag/python.html">python</a>
         /
-	<a href="../tag/matplotlib.html">matplotlib</a>
+	<a href="./tag/matplotlib.html">matplotlib</a>
         /
-	<a href="../tag/animation.html">animation</a>
+	<a href="./tag/animation.html">animation</a>
         /
-	<a href="../tag/arduino.html">arduino</a>
+	<a href="./tag/arduino.html">arduino</a>
         /
-	<a href="../tag/api.html">api</a>
+	<a href="./tag/api.html">api</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p><img alt="animated sensor plot" src="../posts/matplotlib_animations/images/animated_sensor_plot.gif"></p>
-<p>Python and Matplotlib can be used to create static 2D plots. But it <strong>Matplotlib can also be used to create dynamic auto-updating live plots</strong>. In this post, you learn how to create a live auto-updating animated plot using Python and Matplotlib.</p>
+                <p><a href="./live-plotting-with-matplotlib.html"><img alt="animated sensor plot" src="./posts/matplotlib_animations/images/animated_sensor_plot.gif"></a></p>
+<p>Python and Matplotlib can be used to create static 2D plots. But it <strong>Matplotlib can also be used to create dynamic auto-updating animated plots</strong>. In this post, you learn how to create a live auto-updating animated plot using Python and Matplotlib.</p>
 <div class="toc"><span class="toctitle">Table of contents:</span><ul>
 <li><a href="#pre-requisits">Pre-requisits</a></li>
 <li><a href="#set-up-a-python-virtual-environment">Set up a Python virtual environment</a></li>
@@ -324,6 +324,7 @@ Python for Undergraduate Engineers            </a>
 </ul>
 </li>
 <li><a href="#summary">Summary</a></li>
+<li><a href="#support">Support</a></li>
 </ul>
 </div>
 <h2 id="pre-requisits">Pre-requisits</h2>
@@ -350,7 +351,7 @@ Python for Undergraduate Engineers            </a>
 </pre></div>
 
 
-<p><img alt="still of piston motion" src="../posts/matplotlib_animations/images/create_env_conda.PNG"> </p>
+<p><img alt="still of piston motion" src="./posts/matplotlib_animations/images/create_env_conda.PNG"> </p>
 <p>Alternatively, on MacOS or Linux, a virtual environment can be set up with a terminal prompt and <strong>pip</strong> (the Python package manager).</p>
 <p>Using a terminal on MacOS or Linux:</p>
 <div class="highlight"><pre><span></span>$ mkdir live_plot
@@ -367,7 +368,7 @@ $ python3 -m venv venv
 </pre></div>
 
 
-<p><img alt="still of piston motion" src="../posts/matplotlib_animations/images/conda_install_numpy_matplotlib.PNG"> </p>
+<p><img alt="still of piston motion" src="./posts/matplotlib_animations/images/conda_install_numpy_matplotlib.PNG"> </p>
 <p>Alternatively, if you are using MacOS or Linux, the packages can be installed with a terminal <strong>pip</strong>:</p>
 <div class="highlight"><pre><span></span>$ source venv/bin/activate
 (venv) $ pip install matplotlib
@@ -379,7 +380,7 @@ $ python3 -m venv venv
 <h2 id="create-a-static-line-plot">Create a static line plot</h2>
 <p>Before we create a live animated auto-updating plot, let's first create simpler static, non-moving line plot. Our live plots will look a lot like this first static plot, except in the live plot, the line on the plot will move. Coding a simpler plot first gives us some practice and a structure to build upon when we create the more complex live plots.</p>
 <p>Open a text editor or IDE (I like to use <a href="https://code.visualstudio.com/">VS Code</a>) and create a new Python file called <code>static_plot.py</code></p>
-<p><img alt="still of piston motion" src="../posts/matplotlib_animations/images/create_static_plot_dot_py.PNG"> </p>
+<p><img alt="still of piston motion" src="./posts/matplotlib_animations/images/create_static_plot_dot_py.PNG"> </p>
 <h3 id="import-packages">Import packages</h3>
 <p>Let's start our <code>static_plot.py</code> script by importing the packages we'll use later in the script. Matplotlib's <code>pyplot</code> module is imported using the standard alias <code>plt</code>.</p>
 <div class="highlight"><pre><span></span><span class="c1"># static_plot.py</span>
@@ -423,9 +424,9 @@ $ python3 -m venv venv
 </pre></div>
 
 
-<p><img alt="run static plot" src="../posts/matplotlib_animations/images/run_static_plot_dot_py.PNG"> </p>
+<p><img alt="run static plot" src="./posts/matplotlib_animations/images/run_static_plot_dot_py.PNG"> </p>
 <p>The plot should look something like the image below:</p>
-<p><img alt="static plot" src="../posts/matplotlib_animations/images/static_plot.png"> </p>
+<p><img alt="static plot" src="./posts/matplotlib_animations/images/static_plot.png"> </p>
 <p>The complete script is below:</p>
 <div class="highlight"><pre><span></span><span class="c1"># static_plot.py</span>
 
@@ -497,11 +498,11 @@ $ python3 -m venv venv
 
 
 <p>An example of the plot animated line plot produced is below.</p>
-<p><img alt="animated line plot" src="../posts/matplotlib_animations/images/animated_line_plot.gif"></p>
+<p><img alt="animated line plot" src="./posts/matplotlib_animations/images/animated_line_plot.gif"></p>
 <p>Next, we'll build a live auto-updating plot based on user input.</p>
 <h2 id="build-a-live-plot-based-on-user-input">Build a live plot based on user input</h2>
 <p>Create a new Python file called <code>live_plot_user_input.py</code> using a code editor or IDE.</p>
-<p><img alt="create user input module" src="../posts/matplotlib_animations/images/create_live_plot_user_input_dot_py.PNG"></p>
+<p><img alt="create user input module" src="./posts/matplotlib_animations/images/create_live_plot_user_input_dot_py.PNG"></p>
 <p>In the file <code>live_plot_user_input.py</code>, add the same imports we used in our previous plot: Matplotlib's <code>pyplot</code> library is imported as <code>plt</code> and Matplotlib's <code>FuncAnimation</code> class is imported from the <code>matplotlib.animation</code> library. Like the previous plot, we'll use the <code>FuncAnimation</code> class to build our live auto-updating plot and create an <code>animation()</code> function to draw the plot.</p>
 <div class="highlight"><pre><span></span><span class="c1"># live_plot_user_input.py</span>
 
@@ -556,9 +557,9 @@ $ python3 -m venv venv
 
 <p>Save <code>data.txt</code> and leave the file open. This is the file that we will add numbers to and watch our live plot update.</p>
 <p>Save <code>live_plot_user_input.py</code> and run it. You should see a plot pop up. </p>
-<p><img alt="run live user plot" src="../posts/matplotlib_animations/images/run_live_plot_user_input_py.PNG"></p>
+<p><img alt="run live user plot" src="./posts/matplotlib_animations/images/run_live_plot_user_input_py.PNG"></p>
 <p>Now add a number to the bottom of the <code>data.txt</code> on a new line. Save <code>data.txt</code>. The plot should update with a new data point. I added the number <code>16</code> to <code>data.txt</code> and saw the line on the plot go upwards. Add another number at the end of <code>data.txt</code>. Save <code>data.txt</code> and watch the plot update.</p>
-<p><img alt="animated user plot" src="../posts/matplotlib_animations/images/user_input_live_plot.gif"></p>
+<p><img alt="animated user plot" src="./posts/matplotlib_animations/images/user_input_live_plot.gif"></p>
 <p>Great! We built a live-updating plot based on user input! Next, let's build a live auto-updating plot using data pulled from the web.</p>
 <h2 id="build-a-live-plot-using-data-from-the-web">Build a live plot using data from the web</h2>
 <p>The third plot we are going to build is a plot that pulls data from the web. The basic structure of the script is the same as the last two animated plots. We need to create figure and axis objects, write an animation function and create the animation with <code>FuncAnimation</code>.</p>
@@ -644,13 +645,17 @@ $ python3 -m venv venv
 
 
 <p>An example of the resulting plot is below.</p>
-<p><img alt="live plot from web api data" src="../posts/matplotlib_animations/images/web_api_live_plot.gif"></p>
-<p>Next, we will build a live-plot from sensor data</p>
+<p><img alt="live plot from web api data" src="./posts/matplotlib_animations/images/web_api_live_plot.gif"></p>
+<p>Next, we will build a live plot from sensor data</p>
 <h2 id="build-a-live-plot-using-data-from-a-sensor">Build a live plot using data from a sensor</h2>
-<p>The final live auto-updating animated plot we are going to build will show sensor data streaming in from an Arduino. Since this post is about live plots, I will not go into detail about how to connect the sensor to the Arduino or how an Arduino works. Very briefly, the sensor we are using in this example is a little blue potentiometer. A potentiometer is a dial that you can turn back and forth. When the dial of a potentiometer is turned, the resistance of the potentiometer changes. </p>
+<p>The final live auto-updating animated plot we are going to build will show sensor data streaming in from an Arduino. Since this post is about live plots, I will not go into detail about how to connect the sensor to the Arduino or how an Arduino works.</p>
+<blockquote>
+<p>For more details on Arduinos, see this post on: <a href="https://pythonforundergradengineers.com/python-arduino-potentiometer.html">Using Python and an Arduino to Read a Sensor</a></p>
+</blockquote>
+<p>Very briefly, the sensor we are using in this example is a little blue potentiometer. A potentiometer is a dial that you can turn back and forth. When the dial of a potentiometer is turned, the resistance of the potentiometer changes. </p>
 <h3 id="hardware-hookup">Hardware Hookup</h3>
 <p>Hook up a potentiometer up to an Arduino based on the diagram below.</p>
-<p><img alt="Arduino breadboard hookup" src="../posts/matplotlib_animations/images/redboard_pot_led_fritzing.png"></p>
+<p><img alt="Arduino breadboard hookup" src="./posts/matplotlib_animations/images/redboard_pot_led_fritzing.png"></p>
 <h3 id="arduino-code">Arduino Code</h3>
 <p>After the little blue potentiometer is hooked up, Upload the following code on the Arduino. This code reads the potentiometer value and sends the measured value over the serial line.</p>
 <div class="highlight"><pre><span></span>// potentiometer.ino
@@ -809,19 +814,22 @@ delay(100); // Pause 100 milliseconds before next reading
 
 
 <p>Twist the little blue potentiometer while the script is running and watch the animated line on the plot update.</p>
-<p><img alt="animated sensor plot" src="../posts/matplotlib_animations/images/animated_sensor_plot.gif"></p>
+<p><img alt="animated sensor plot" src="./posts/matplotlib_animations/images/animated_sensor_plot.gif"></p>
 <h2 id="summary">Summary</h2>
 <p>In this post, we created a couple of live auto-updating animated line plots with Matplotlib. The key to building animated plots with Matplotlib is to define the plot in an animation function and then call your animation function with Matplotlib's <code>FuncAnimation</code> class.</p>
+<h2 id="support">Support</h2>
+<p>What to learn about building other types of plots with Matplotlib? Check out my book <strong>Problem Solving with Python</strong> on Amazon (Affiliate Link):</p>
+<p><a target="_blank"  href="https://www.amazon.com/gp/product/1693405415/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1693405415&linkCode=as2&tag=peterkazarino-20&linkId=14354dd726a3531e49b53451b9af1f80"><img border="0" src="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&MarketPlace=US&ASIN=1693405415&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL250_&tag=peterkazarino-20" ></a></p>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">
     <h4>Related Posts:</h4>
     <ul>
-        <li><a href="../offset-piston-motion-animation-matplotlib.html">Offset Piston Motion with Python and Matplotlib</a></li>
-        <li><a href="../python-arduino-potentiometer.html">Using Python and an Arduino to Read a Sensor</a></li>
-        <li><a href="../piston-motion-with-python-matplotlib.html">Matplotlib Animation to Demonstrate Piston Motion</a></li>
-        <li><a href="../how-to-make-y-y-plots-with-matplotlib.html">How to make y-y plots with Matplotlib</a></li>
-        <li><a href="../stress-strain-curve-with-python-and-matpotlib.html">Plotting a Stress Strain Curve with Python and Matplotlib</a></li>
+        <li><a href="./offset-piston-motion-animation-matplotlib.html">Offset Piston Motion with Python and Matplotlib</a></li>
+        <li><a href="./python-arduino-potentiometer.html">Using Python and an Arduino to Read a Sensor</a></li>
+        <li><a href="./piston-motion-with-python-matplotlib.html">Matplotlib Animation to Demonstrate Piston Motion</a></li>
+        <li><a href="./how-to-make-y-y-plots-with-matplotlib.html">How to make y-y plots with Matplotlib</a></li>
+        <li><a href="./stress-strain-curve-with-python-and-matpotlib.html">Plotting a Stress Strain Curve with Python and Matplotlib</a></li>
     </ul>
 </section>
     <hr />
@@ -841,7 +849,7 @@ delay(100); // Pause 100 milliseconds before next reading
 <div class="horizontal" data-ea-publisher="pythonforundergradengineers-com" data-ea-type="image"></div>
 <!-- end Ethical Ads --><div id="aboutme">
         <p>
-            <img width="100%" class="img-thumbnail" src="../extra/gear-wrench-icon-512-278694.png"/>
+            <img width="100%" class="img-thumbnail" src="./extra/gear-wrench-icon-512-278694.png"/>
         </p>
     <p>
       <strong>About Peter Kazarinoff</strong><br/>
@@ -855,46 +863,46 @@ delay(100); // Pause 100 milliseconds before next reading
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
-    <li class="list-group-item"><a href="../calculating-vacancy-concentration-with-python.html">Calculating Vacancy Concentration with Python</a></li>
-    <li class="list-group-item"><a href="../offset-piston-motion-animation-matplotlib.html">Offset Piston Motion with Python and Matplotlib</a></li>
-    <li class="list-group-item"><a href="../my-linux-pc-build.html">My Linux PC Build</a></li>
+    <li class="list-group-item"><a href="./live-plotting-with-matplotlib.html">How to make animated plots with Matplotlib and Python</a></li>
+    <li class="list-group-item"><a href="./calculating-vacancy-concentration-with-python.html">Calculating Vacancy Concentration with Python</a></li>
+    <li class="list-group-item"><a href="./offset-piston-motion-animation-matplotlib.html">Offset Piston Motion with Python and Matplotlib</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
 
 <!-- Sidebar/Tag Cloud -->
 <li class="list-group-item">
-  <a href="../"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <a href="./"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
   <ul class="list-group list-inline tagcloud" id="tags">
     <li class="list-group-item tag-2">
-      <a href="../tag/engineering.html">engineering</a>
+      <a href="./tag/engineering.html">engineering</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="../tag/flask.html">flask</a>
+      <a href="./tag/flask.html">flask</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="../tag/jupyter.html">jupyter</a>
+      <a href="./tag/jupyter.html">jupyter</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="../tag/jupyter-notebook.html">jupyter notebook</a>
+      <a href="./tag/jupyter-notebook.html">jupyter notebook</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="../tag/matplotlib.html">matplotlib</a>
+      <a href="./tag/matplotlib.html">matplotlib</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="../tag/microcontroller.html">microcontroller</a>
+      <a href="./tag/microcontroller.html">microcontroller</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="../tag/micropython.html">micropython</a>
+      <a href="./tag/micropython.html">micropython</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="../tag/pelican.html">pelican</a>
+      <a href="./tag/pelican.html">pelican</a>
     </li>
     <li class="list-group-item tag-1">
-      <a href="../tag/python.html">python</a>
+      <a href="./tag/python.html">python</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="../tag/sensor.html">sensor</a>
+      <a href="./tag/sensor.html">sensor</a>
     </li>
   </ul>
 </li>
@@ -929,15 +937,15 @@ delay(100); // Pause 100 milliseconds before next reading
       </div>
    </div>
 </footer>
-<script src="../theme/js/jquery.min.js"></script>
+<script src="./theme/js/jquery.min.js"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="../theme/js/bootstrap.min.js"></script>
+<script src="./theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="../theme/js/respond.min.js"></script>
+<script src="./theme/js/respond.min.js"></script>
 
-    <script src="../static/js/custom.js"></script>
+    <script src="./static/js/custom.js"></script>
 
 
 <!-- GitHub JS Code -->
@@ -946,7 +954,7 @@ $(document).ready(function () {
   if (!window.jXHR) {
     var jxhr = document.createElement('script');
     jxhr.type = 'text/javascript';
-    jxhr.src = '../theme/js/jXHR.js';
+    jxhr.src = './theme/js/jXHR.js';
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(jxhr, s);
   }
@@ -959,7 +967,7 @@ $(document).ready(function () {
   });
 });
 </script>
-<script src="../theme/js/github.js" type="text/javascript"></script>
+<script src="./theme/js/github.js" type="text/javascript"></script>
 <!-- End GitHub JS Code -->
     <!-- Google Analytics -->
     <script type="text/javascript">

@@ -1,6 +1,6 @@
 Title: What is Ansible?
-Date: 2021-04-27 19:36
-Modified: 2021-04-27 19:50
+Date: 2021-05-16 14:01
+Modified: 2021-05-16 14:01
 Status: Draft
 Category: Python
 Tags: python, jupyterhub, ansible, automation 
@@ -151,4 +151,4 @@ In this post, we reviewed what Ansible is: a software package used to set up, co
 
 Do you find value in blog posts like this? Click the button below to Buy me a Coffee and support the work I do.
 
-<script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="pythonforengr" data-color="#5F7FFF" data-emoji=""  data-font="Inter" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#ffffff" data-coffee-color="#FFDD00" ></script>
+<script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="pythonforengr" data-color="#5F7FFF" data-emoji=""  data-font="Inter" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#ffffff" data-coffee-color="#FFDD00"></script>

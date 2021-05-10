@@ -6,9 +6,10 @@ Category: git
 Tags: git, python, version control
 Slug: git-and-github-for-undergrad-engineers
 Authors: Peter D. Kazarinoff
-Summary: [![Git and GitHub Logo]({static}/posts/git/images/git_and_github_logo.png)]({filename}/posts/git/git-for-undergrad-engineers.md)This post is for first-time users of git. Git is a command-line version control system that allows programmers and engineers to manage file versions and share code. Git can be tricky to use. This post contains solutions to some of the most common problems you may encounter when using Git.
 
-![Git and GitHub Logo]({static}/posts/git/images/git_and_github_logo.png)
+[![Git and GitHub Logo]({static}/posts/git/images/git_and_github_logo.png)]({filename}/posts/git/git-for-undergrad-engineers.md)
+
+This post is for first-time users of git. Git is a command-line version control system that allows programmers and engineers to manage file versions and share code. Git can be tricky to use. This post contains solutions to some of the most common problems you may encounter when using Git.
 
 ## What is **git**?
 
@@ -171,6 +172,6 @@ The ```.gitignore``` file contains a list of files and folders that git will "ig
 
 ## Support
 
-Thanks for reading! If you find value in this blog and the open source work I do, consider becoming one of my GitHub sponsors:
+Thanks for reading! If you want to support the open source work I do (like this blog), consider becoming one of my GitHub sponsors:
 
 <iframe src="https://github.com/sponsors/ProfessorKazarinoff/button" title="Sponsor ProfessorKazarinoff" height="35" width="116" style="border: 0;"></iframe>

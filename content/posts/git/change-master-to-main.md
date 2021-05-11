@@ -75,7 +75,7 @@ Next, we need to push the new ```main``` branch up to Github. If you look at Git
 
 ![image of GitHub showing master branch]({static}/posts/git/images/main_repo_showing_master.jpg)
 
-Run the command to push the ```main``` branch up to GitHub.
+Run the command below to push the ```main``` branch up to GitHub.
 
 ```text
 git push -u origin main
@@ -104,7 +104,7 @@ If you go back to GitHub and look at the branch name dropdown (you may have to r
 
 Switch HEAD to the main branch
 
-Next we are going to switch the HEAD of our git repo onto the ```main``` branch (from the ```master``` branch). HEAD is currently attached to ```master``` so if we make any changes to the ```main``` branch we'll be _ahead of the head_.  That's not good and leads to git problems that I don't know how to deal with.
+Next we are going to switch the HEAD of our git repo onto the ```main``` branch (from the ```master``` branch). HEAD is currently attached to ```master``` so if we make any changes to the ```main``` branch, we'll be _ahead of the head_.  That's not good and leads to git problems that I don't know how to deal with.
 
 Type the command below to switch HEAD to the main branch.
 
@@ -114,7 +114,7 @@ git symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main
 
 There won't be any output after running the command. But if you type ```git branch -a``` you should see output like below:
 
-```
+```text
 * main
   remotes/origin/HEAD -> origin/main
   remotes/origin/main
@@ -129,7 +129,11 @@ You need to do this on GitHub not on your local computer.
 
 If you go to the main repo page on GitHub, and select the branches dropdown menu, you will see two branches listed and a checkmark next to ```master```. We are going to change it so the default repo and the checkmark are next to the ```main``` branch.
 
+![Github with main and master both shown]({static}/posts/git/images/master_default_and_main.jpg)
+
 On the main page for your repo, click on settings
+
+![Settings on GitHub]({static}/posts/git/images
 
 Then on the lefthand menu, click on branches
 

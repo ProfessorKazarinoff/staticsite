@@ -7,9 +7,9 @@ Tags: git, version control, GitHub
 Slug: how-to-change-a-github-repo-from-master-to-main
 Authors: Peter D. Kazarinoff
 
-[![Git and GitHub Logo]({static}/posts/git/images/git_and_github_logo.png)]({filename}/posts/git/git-for-undergrad-engineers.md)
+[![GitHub Cover Image]({static}/posts/git/images/cover_master_to_main.png)]({filename}/posts/git/change-master-to-main.md)
 
-This post is for anyone who wants to change their GitHub repos from master to main. GitHub changed the default repo branch name to **main**. I want to change all my GitHub repo's default branch from master to main.
+This post is for anyone who wants to change their **GitHub repos from master to main**. GitHub changed the default repo branch name to **main**. I want to change all my GitHub repo's default branch from master to main.
 
 ## The short version
 
@@ -71,9 +71,9 @@ After you create the new ```main``` branch, you can run the ```git branch -a``` 
 
 Push the new main branch to up to Github 
 
-Next, we need to push the new ```main``` branch up to Github. If you look at GitHub now, you can see under the branch dropdown menu that ```master``` is the only branch. 
+Next, we need to push the new ```main``` branch up to Github. If you look at GitHub now, you can see under the branch dropdown menu that ```master``` is the default branch. 
 
-[image of GitHub showing master branch]
+![image of GitHub showing master branch]({static}/posts/git/images/main_repo_showing_master.jpg)
 
 Run the command to push the ```main``` branch up to GitHub.
 
@@ -98,7 +98,7 @@ If you type ```git branch -a``` again, now you should see two remote branches, o
 
 If you go back to GitHub and look at the branch name dropdown (you may have to refresh the webpage), you should now see there are two branches ```main``` and ```master```.
 
-[image of GitHub showing main and master branches]
+![image of GitHub showing main and master branches]({static}/posts/git/images/master_default_and_main.jpg)
 
 ## Step 3.
 

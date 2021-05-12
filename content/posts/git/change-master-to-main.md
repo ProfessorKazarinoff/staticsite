@@ -1,6 +1,6 @@
 Title: How to change a GitHub repo from master to main
-Date: 2021-05-10 12:40
-Modified: 2021-05-10 12:40
+Date: 2021-05-11 12:40
+Modified: 2021-05-11 12:40
 Status: draft
 Category: git
 Tags: git, version control, GitHub
@@ -28,8 +28,6 @@ git symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main
 git push origin --delete master
 
 ```
-
-## Why did GitHub move from master to main?
 
 ## Why does it matter if I use main?
 
@@ -60,7 +58,7 @@ Next, run the command below to create a new branch called ```main``` and copy al
 git branch -m master main
 ```
 
-After you create the new ```main``` branch, you can run the ```git branch -a``` command again and you should see output similar to below
+After you create the new ```main``` branch, you can run the ```git branch -a``` command again and you should see output similar to below.
 
 ```text
 * main
@@ -133,21 +131,31 @@ If you go to the main repo page on GitHub, and select the branches dropdown menu
 
 On the main page for your repo, click on settings
 
-![Settings on GitHub]({static}/posts/git/images
+![Settings on GitHub]({static}/posts/git/images/settings.jpg)
 
 Then on the lefthand menu, click on branches
 
+![change default branch]({static}/posts/git/images/change_page_default_master.jpg)
+
 Next, click the arrows to change the default branch
+
+![switch default branch]({static}/posts/git/images/switch_default.jpg)
 
 Accept the warning
 
-After the default branch is changes, you can go back to the main repo page 
+![switch default branch]({static}/posts/git/images/confirm_switch.jpg)
+
+After the default branch is changes, you can go back to the main repo page and see that ```main``` is now the default branch.
+
+![switch default branch]({static}/posts/git/images/main_default_and_master.jpg)
+
+Nice job! One more step to get, we just need to get rid of the master branch so that the main branch is the only branch.
 
 ## Step 5.
 
 Delete the master branch on Github.
 
-Now that we have a ```main``` branch on our local computer, a main branch up on GitHub, and the default branch on GitHub is the ```main``` branch. The next step is to delete the master branch on GitHub. RIght now, if you type the ```git branch -a``` command, you'll see output like below:
+Now that we have a ```main``` branch on our local computer, a main branch up on GitHub, and the default branch on GitHub is the ```main``` branch. The next step is to delete the master branch on GitHub. Right now, if you type the ```git branch -a``` command, you'll see output like below:
 
 ```text
 * main
@@ -169,11 +177,11 @@ As a result, you'll see ouput similar to below:
 ```text
 To github.com:user-name/repo-name.git
  - [deleted]         master
- ```
+```
 
  If you go back to Github, refresh the page, and select the branch dropdown menu, you should see that the only branch listed is the ```main``` branch.
 
- [image of only main branch shown]
+![switch default branch]({static}/posts/git/images/only_main.jpg)
 
 Now your ```master``` branch has been converted to ```main```. If you run the command ```git status```, you should see output like below. 
 

@@ -33,7 +33,7 @@ git push origin --delete master
 
 The reason to use the name _main_ as the default branch on Github and in your local git repos is that it's the right thing to do.
 
-Language in programming, like _master_, that supports symbols of raceism have no place. That's the _main_ reason. In addition, the name _main_ just makes more sense. Is the _master_ branch in charge of anything? Are other branches subservient to it? And a very practical reason is that since GitHub moved to using main as the default branch, you have to remember when to use ```git push origin main``` and when to use ```git push origin master``` on a repo-to-repo basis. This is confusing and leads to creating new branches that you don't want. So change all of your GitHub repo names to main.
+Language in programming, like _master_, that supports symbols of racism has no place. That's the _main_ reason. In addition, the name _main_ just makes more sense. Is the _master_ branch in charge of anything? Are other branches subservient to it? And a very practical reason is that since GitHub moved to use main as the default branch, you have to remember when to use ```git push origin main``` and when to use ```git push origin master``` on a repo-to-repo basis. This is confusing and leads to creating new branches that you don't want. So change all of your GitHub repo names to main.
 
 ## Step 1 
 
@@ -52,7 +52,7 @@ If you are on a branch called master, the output will look something like below:
   remotes/origin/master
 ```
 
-Next, run the command below to create a new branch called ```main``` and copy all the history from the ```master``` branch into the new ```main``` branch. The ```-m``` flag stand for ```--move```, which means move the entire history onto the new branch ```main``` from the old branch ```master```.
+Next, run the command below to create a new branch called ```main``` and copy all the history from the ```master``` branch into the new ```main``` branch. The ```-m``` flag stands for ```--move```, which means move the entire history onto the new branch ```main``` from the old branch ```master```.
 
 ```text
 git branch -m master main
@@ -67,7 +67,7 @@ After you create the new ```main``` branch, you can run the ```git branch -a``` 
 
 ## Step 2.
 
-Push the new main branch to up to Github 
+Push the new main branch up to Github 
 
 Next, we need to push the new ```main``` branch up to Github. If you look at GitHub now, you can see under the branch dropdown menu that ```master``` is the default branch. 
 
@@ -102,7 +102,7 @@ If you go back to GitHub and look at the branch name dropdown (you may have to r
 
 Switch HEAD to the main branch
 
-Next we are going to switch the HEAD of our git repo onto the ```main``` branch (from the ```master``` branch). HEAD is currently attached to ```master``` so if we make any changes to the ```main``` branch, we'll be _ahead of the head_.  That's not good and leads to git problems that I don't know how to deal with.
+Next, we are going to switch the HEAD of our git repo onto the ```main``` branch (from the ```master``` branch). HEAD is currently attached to ```master``` so if we make any changes to the ```main``` branch, we'll be _ahead of the head_.  That's not good and leads to git problems that I don't know how to deal with.
 
 Type the command below to switch HEAD to the main branch.
 
@@ -123,13 +123,13 @@ There won't be any output after running the command. But if you type ```git bran
 
 Change the default branch on GitHub to main
 
-You need to do this on GitHub not on your local computer.
+You need to do this on GitHub, not on your local computer.
 
-If you go to the main repo page on GitHub, and select the branches dropdown menu, you will see two branches listed and a checkmark next to ```master```. We are going to change it so the default repo and the checkmark are next to the ```main``` branch.
+If you go to the main repo page on GitHub and select the branches dropdown menu, you will see two branches listed and a checkmark next to ```master```. We are going to change it so the default repo and the checkmark are next to the ```main``` branch.
 
 ![Github with main and master both shown]({static}/posts/git/images/master_default_and_main.jpg)
 
-On the main page for your repo, click on settings
+On the main page for your repo, click on settings.
 
 ![Settings on GitHub]({static}/posts/git/images/settings.jpg)
 
@@ -145,7 +145,7 @@ Accept the warning
 
 ![switch default branch]({static}/posts/git/images/confirm_switch.jpg)
 
-After the default branch is changes, you can go back to the main repo page and see that ```main``` is now the default branch.
+After the default branch change, you can go back to the main repo page and see that ```main``` is now the default branch.
 
 ![switch default branch]({static}/posts/git/images/main_default_and_master.jpg)
 
@@ -172,7 +172,7 @@ This can be accomplished by entering the command below.
 git push origin --delete master
 ```
 
-As a result, you'll see ouput similar to below:
+As a result, you'll see output similar to below:
 
 ```text
 To github.com:user-name/repo-name.git

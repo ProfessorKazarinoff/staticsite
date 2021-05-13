@@ -1,6 +1,6 @@
 Title: Git and GitHub for Undergrad Engineers
-Date: 2021-05-09 12:40
-Modified: 2021-05-09 12:40
+Date: 2021-05-16 12:40
+Modified: 2021-05-16 12:40
 Status: published
 Category: git
 Tags: git, python, version control
@@ -38,7 +38,7 @@ Before using **git** and GitHub.com, it is helpful to understand a couple of ter
  * **git** - a command-line program used to track file changes and collaborate on code with others.
  * **Command Line** a programming terminal where commands are entered as text. 
  * **repo** - short name for "repository". A repo is a directory and its contents that **git** knows about.
- * **local repo** -  a directory and its contents on your computer that **git** knows about. Local repos are folders and the contents of those folders.
+ * **local repo** -  a directory and its contents on your computer that **git** knows about. Local repos are folders and the contents in those folders.
  * **remote repo** - a directory and its contents stored in the cloud that **git** knows about. GitHub.com is a site where remote repos are stored.
  
 ## Common git commands
@@ -59,7 +59,7 @@ A selection of useful **git** commands are summarized below:
  
  * ```git pull origin main``` pull down the version in the remote repo into the local repo*
 
- > GitHub, as part of their move to use more enclusive language, re-named the default branch to **main** for any new repo. You can read about the change [here](https://www.theserverside.com/feature/Why-GitHub-renamed-its-master-branch-to-main)
+ > GitHub, as part of their move to use more inclusive language, re-named the default branch to **main** for any new repo. You can read about the change [here](https://www.theserverside.com/feature/Why-GitHub-renamed-its-master-branch-to-main)
 
 ## How do I copy the contents of a repo on GitHub?
 
@@ -138,7 +138,7 @@ $ git checkout main
 $ git pull origin main
 ```
 
-#### Add, commit, and push changes up to Github.com
+#### Add, commit and push changes up to Github.com
 
 Third, work on the project locally. For example, you could edit one of the files in the directory ```newproject``` or create a new file in the directory ```newproject```.
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>Git and GitHub for Undergrad Engineers - Python for Undergraduate Engineers</title>
+    <title>git - Python for Undergraduate Engineers</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -175,23 +175,16 @@
     
     <link href="../extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="../drafts/git-and-github-for-undergrad-engineers.html">
 
-        <meta name="author" content="Peter D. Kazarinoff" />
-        <meta name="keywords" content="git,python,version control" />
-        <meta name="description" content="This post is for first-time users of git. Git is a command-line version control system that allows programmers and engineers to manage file versions and share code. Git can be tricky to use. This post contains solutions to some of the most common problems you may encounter when using Git." />
+    <meta name="author" content="Peter Kazarinoff" />
+    <meta name="keywords" content="git" />
 
+    <!-- Open Graph tags -->
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
-        <meta property="og:type" content="article"/>
-        <meta property="og:title" content="Git and GitHub for Undergrad Engineers"/>
-        <meta property="og:url" content="../drafts/git-and-github-for-undergrad-engineers.html"/>
-        <meta property="og:description" content="This post is for first-time users of git. Git is a command-line version control system that allows programmers and engineers to manage file versions and share code. Git can be tricky to use. This post contains solutions to some of the most common problems you may encounter when using Git."/>
-        <meta property="article:published_time" content="2021-04-30" />
-            <meta property="article:section" content="git" />
-            <meta property="article:tag" content="git" />
-            <meta property="article:tag" content="python" />
-            <meta property="article:tag" content="version control" />
-            <meta property="article:author" content="Peter D. Kazarinoff" />
+        <meta property="og:type" content="website"/>
+        <meta property="og:title" content="Python for Undergraduate Engineers"/>
+        <meta property="og:url" content=".."/>
+        <meta property="og:description" content="Python for Undergraduate Engineers"/>
 
 
 
@@ -260,29 +253,18 @@ Python for Undergraduate Engineers            </a>
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-9">
-            <ol class="breadcrumb">
-                <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="../category/git.html" title="git">git</a></li>
-                <li class="active">Git and GitHub for Undergrad Engineers</li>
-            </ol>
-    <section id="content">
-        <article>
-            <header class="page-header">
-                <h1>
-                    <a href="../drafts/git-and-github-for-undergrad-engineers.html"
-                       rel="bookmark"
-                       title="Permalink to Git and GitHub for Undergrad Engineers">
-                        Git and GitHub for Undergrad Engineers
-                    </a>
-                </h1>
-            </header>
-            <div class="entry-content">
-                <div class="panel">
-                    <div class="panel-body">
+    <ol class="breadcrumb">
+        <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+        <li><a href="../" title="Python for Undergraduate Engineers Categories">Categories</a></li>
+        <li class="active">git</li>
+    </ol>
+            <article>
+                <h2><a href="../git-and-github-for-undergrad-engineers.html">Git and GitHub for Undergrad Engineers</a></h2>
+                    <div class="well well-sm">
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2021-04-30T12:40:00-07:00"> Fri 30 April 2021</time>
+        <i class="fa fa-calendar"></i><time datetime="2021-05-15T12:40:00-07:00"> Sat 15 May 2021</time>
     </span>
 
 
@@ -297,165 +279,12 @@ Python for Undergraduate Engineers            </a>
 	<a href="../tag/version-control.html">version control</a>
     
 </footer><!-- /.post-info -->                    </div>
+                <div class="summary"><p><a href="../git-and-github-for-undergrad-engineers.html"><img alt="Git and GitHub Logo" src="../posts/git/images/git_and_github_logo.png"></a></p>
+<p>This post is for first-time users of git. Git is a command-line version control system that allows programmers and engineers to manage file versions and share code. Git can be tricky to use. This post contains solutions to some of the most common problems you may encounter when using Git …</p>
+                    <a class="btn btn-default btn-xs" href="../git-and-github-for-undergrad-engineers.html">more ...</a>
                 </div>
-                <p><img alt="Git and GitHub Logo" src="../posts/git/images/git_and_github_logo.png"></p>
-<h2 id="what-is-git">What is <strong>git</strong>?</h2>
-<p><img alt="git scm window" src="../posts/git/images/git_scm_window.jpg"></p>
-<p><strong>Git</strong> is one of the standard <em>version-control</em> systems used by programmers to save code and work on code collaboratively as a team. <strong>Git</strong> is a program run on the command line or <strong>Anaconda Prompt</strong>. If you use Windows, you can download the <strong>gitbash</strong> program at <a href="https://git-scm.com/downloads">git-scm.com/downloads</a>. <strong>gitbash</strong> on Windows allows you to use the same git commands as MacOS and Linux users. <strong>Git</strong> was created by Linus Torvalds, who also designed the Linux operating system.</p>
-<h2 id="how-do-i-install-git">How do I install <strong>git</strong>?</h2>
-<p>Git is installed with the Anaconda distribution of Python. Once Anaconda is installed <a href="https://anaconda.com/downloads">Anaconda.com/downloads</a>, you can run git from the Anaconda Prompt. Git can also be run on Windows using the <strong>gitbash</strong> program. Gitbash can be downloaded from <a href="https://git-scm.com/downloads">git-scm.com/downloads</a>.</p>
-<p><img alt="git scm window" src="../posts/git/images/git_scm_download_page.jpg"></p>
-<h2 id="what-is-github">What is GitHub?</h2>
-<p><img alt="GitHub Profile Page" src="../posts/git/images/github_profile_page.png"></p>
-<p><a href="https://github.com/">GitHub.com</a> (now owned by Microsoft) is a website and service used by programmers and open source projects to share code and allow contributors to propose changes to existing code. GitHub is free if you are willing to share your code publicly. </p>
-<h2 id="git-and-github-terminology">git and GitHub terminology</h2>
-<p><img alt="GitHub Profile Page" src="../posts/git/images/dictionary_icon.png"></p>
-<p>Before using <strong>git</strong> and GitHub.com, it is helpful to understand a couple of terms:</p>
-<ul>
-<li><strong>git</strong> - a command-line program used to track file changes and collaborate on code with others.</li>
-<li><strong>Command Line</strong> a programming terminal where commands are entered as text. </li>
-<li><strong>repo</strong> - short name for "repository". A repo is a directory and its contents that <strong>git</strong> knows about.</li>
-<li><strong>local repo</strong> -  a directory and its contents on your computer that <strong>git</strong> knows about. Local repos are folders and the contents of those folders.</li>
-<li><strong>remote repo</strong> - a directory and its contents stored in the cloud that <strong>git</strong> knows about. GitHub.com is a site where remote repos are stored.</li>
-</ul>
-<h2 id="common-git-commands">Common git commands</h2>
-<p>A selection of useful <strong>git</strong> commands are summarized below:</p>
-<ul>
-<li>
-<p><code>git clone https://github.com/user/repo.git</code> copy a remote repo from GitHub.com into a local directory</p>
-</li>
-<li>
-<p><code>git init</code> create a new local repo in the current folder</p>
-</li>
-<li>
-<p><code>git remote add origin https://github.com/user/repo.git</code> link a local repo to a remote repo on GitHub.com</p>
-</li>
-<li>
-<p><code>git add .</code> add all files and changes to the local repo</p>
-</li>
-<li>
-<p><code>git commit -m "commit message"</code> commit the changes in the local repo with the message <code>"commit message"</code></p>
-</li>
-<li>
-<p><code>git push origin main</code> push local changes up to the remote repo*</p>
-</li>
-<li>
-<p><code>git pull origin main</code> pull down the version in the remote repo into the local repo*</p>
-</li>
-</ul>
-<blockquote>
-<p>GitHub, as part of their move to use more enclusive language, re-named the default branch to <strong>main</strong> for any new repo. You can read about the change <a href="https://www.theserverside.com/feature/Why-GitHub-renamed-its-master-branch-to-main">here</a></p>
-</blockquote>
-<h2 id="how-do-i-copy-the-contents-of-a-repo-on-github">How do I copy the contents of a repo on GitHub?</h2>
-<p>A common task is to accomplish with git is to copy a repo from GitHub.com onto your local computer. In this example, we are going to copy all the files in the <code>piston_motion</code> repo on GitHub.com onto our local computer.</p>
-<p>Go to this link on Github: </p>
-<blockquote>
-<p>https://github.com/ProfessorKazarinoff/piston_motion</p>
-</blockquote>
-<p>You see the Piston Motion repo on GitHub.com. The Piston Motion repo contains a couple of files:</p>
-<ul>
-<li>LICENSE</li>
-<li>README.md</li>
-<li>piston_motion.md</li>
-<li>piston_motion.mp4</li>
-<li>piston_motion.py</li>
-</ul>
-<p>If you want to use the code in Piston Motion remote repo stored on GitHub.com, you can click on <code>piston_motion.py</code> and copy all of the code into a new file and then save the file. You could also click on <code>README.md</code> and copy all of the code into a new file and then save the file. Then click on <code>piston_motion.md</code> and copy all the code into a new file and then save the file... That is a lot of copying and pasting. Kind of a pain.</p>
-<p>An easier way to accomplish the same task is to use the <code>git clone</code> command. Open the Anaconda Prompt, or <strong>gitbash</strong> and type the following command, then press [Enter].</p>
-<div class="highlight"><pre><span></span>git clone https://github.com/ProfessorKazarinoff/piston_motion
-</pre></div>
-
-
-<p>This command copies the repo named <code>piston_motion</code> to your local computer. Now you have a new <code>piston_motion</code> folder on your computer. If you open the <code>piston_motion</code> folder in a file browser, you will see the following files.</p>
-<div class="highlight"><pre><span></span>piston_motion/
-├── LICENSE
-├── README.md
-├── piston_motion.md
-├── piston_motion.mp4
-└── piston_motion.py
-</pre></div>
-
-
-<h2 id="how-do-i-clone-a-repo-into-a-specific-folder">How do I clone a repo into a specific folder?</h2>
-<p>What if you want all the code from the <code>piston_motion</code> repo, but you don't want that code to end up in a folder called <code>piston_motion</code>? Running <code>git clone</code> creates a new folder with the repo contents inside it. <code>git clone</code> does not copy the contents of the repo into the current folder (it creates a new folder that contains the repo contents). But, you can make the folder that the repo contents get copied into any name you want. Say you want to copy the <code>piston_motion</code> repo into a folder called <code>github_examples</code>. </p>
-<p>The command below copies the contents of the <code>piston_motion</code> repo on GitHub.com into a folder on your local computer called <code>github_examples</code>.</p>
-<div class="highlight"><pre><span></span>git clone https://github.com/ProfessorKazarinoff/piston_motion.git github_examples
-</pre></div>
-
-
-<p>If you open the folder <code>github_examples</code>, you see the same code you downloaded into the <code>piston_motion</code> folder.</p>
-<div class="highlight"><pre><span></span>github_examples/
-├── LICENSE
-├── README.md
-├── piston_motion.md
-├── piston_motion.mp4
-└── piston_motion.py
-</pre></div>
-
-
-<h2 id="creating-and-synching-a-remote-repo-on-githubcom-with-a-local-repo">Creating and synching a remote repo on GitHub.com with a local repo</h2>
-<p>Another common task to complete with <strong>git</strong> is to synch a remote repo on GitHub.com with a local repo on your local computer. This is useful when you want to keep the files in a particular project synced across multiple computers. Synched remote and local repos are also useful for a group of problem solvers working on the same project. Each team member has access to the same remote repo on GitHub.com and each team member has the same local repo on their computer.</p>
-<h4 id="create-a-remote-repo-on-githubcom">Create a remote repo on GitHub.com</h4>
-<p>First, go to <a href="https://github.com/join">GitHub.com/join</a> and create a new account. Log in and create a new repo. It is a good idea to include a license and a <strong><em>.gitignore</em></strong> file. For a Python project, the <strong><em>.gitignore</em></strong> file for Python is a good start. Two common licenses for open source projects (projects you are willing to share with others) are the <em>GNU General Public License v3.0</em> and the <em>MIT License</em>.</p>
-<h4 id="make-a-new-local-repo-and-link-the-local-repo-to-the-remote-repo-on-githubcom">Make a new local repo and link the local repo to the remote repo on GitHub.com</h4>
-<p>Second, create a local directory and <code>cd</code> into it. Initialize a git repo locally in that directory. Then sync the local folder with the remote repo on GitHub.com.</p>
-<div class="highlight"><pre><span></span>$ mkdir newproject
-$ cd newproject
-$ git init
-$ git remote add origin https://github.com/user/repo.git
-$ git checkout main
-$ git pull origin main
-</pre></div>
-
-
-<h4 id="add-commit-and-push-changes-up-to-githubcom">Add, commit, and push changes up to Github.com</h4>
-<p>Third, work on the project locally. For example, you could edit one of the files in the directory <code>newproject</code> or create a new file in the directory <code>newproject</code>.</p>
-<p>Finally, save your work and commit the changes you made with <strong>git</strong>. Push those changes up to the remote repo on GitHub.com</p>
-<div class="highlight"><pre><span></span>$ git add .
-$ git commit -m &quot;commit message&quot;
-$ git push origin main
-</pre></div>
-
-
-<h4 id="pull-the-most-recent-version-from-githubcom-before-each-work-session">Pull the most recent version from GitHub.com before each work session</h4>
-<p>If using <strong>git</strong> and GitHub.com, remember to pull the most recent version of the repo down from GitHub.com before you make any changes locally. If changes are made locally before the version of the repo on GitHub.com is synched, the local repo and remote repo will be out of synch.</p>
-<div class="highlight"><pre><span></span>$ git pull origin main
-</pre></div>
-
-
-<p>After local changes are made, save the changes and push them to GitHub.com</p>
-<div class="highlight"><pre><span></span>$ git add .
-$ git commit -m &quot;commit message&quot;
-$ git push origin main
-</pre></div>
-
-
-<h2 id="what-is-gitignore-and-why-do-i-need-it">What is .gitignore and why do I need it?</h2>
-<p>The <code>.gitignore</code> file contains a list of files and folders that git will "ignore". This means the files and folders specified in the <code>.gitignore</code> files will not be copied up to GitHub.com. This is useful for a couple of reasons. One reason is that Python creates some files automatically when a program runs. These files don't need to be saved as part of the GitHub.com repo. Another reason to add a fit to the <code>.gitignore</code> file is that you might have files in your local git repo that you don't want to share publicly. A file that contains usernames, passwords, or API keys should never be stored on GitHub.com. You can add a file that contains private information to <code>.gitignore</code> then the file won't be saved up on GitHub where anyone on the internet can see it.</p>
-<h2 id="support">Support</h2>
-<p>Thanks for reading! If you find value in this blog and the open source work I do, consider becoming one of my GitHub sponsors:</p>
-<iframe src="https://github.com/sponsors/ProfessorKazarinoff/button" title="Sponsor ProfessorKazarinoff" height="35" width="116" style="border: 0;"></iframe>
-            </div>
-            <!-- /.entry-content -->
-<section class="well" id="related-posts">
-    <h4>Related Posts:</h4>
-    <ul>
-        <li><a href="../how-i-built-this-site-7.html">How I Build This Site - Part 7</a></li>
-        <li><a href="../how-i-built-this-site-6.html">How I Build This Site - Part 6</a></li>
-        <li><a href="../live-plotting-with-matplotlib.html">How to make animated plots with Matplotlib and Python</a></li>
-        <li><a href="../calculating-vacancy-concentration-with-python.html">Calculating Vacancy Concentration with Python</a></li>
-        <li><a href="../offset-piston-motion-animation-matplotlib.html">Offset Piston Motion with Python and Matplotlib</a></li>
-    </ul>
-</section>
-    <hr />
-    <!-- AddThis Button BEGIN -->
-    <div class="addthis_toolbox addthis_default_style">
-            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-            <a class="addthis_button_tweet"></a>
-    </div>
-    <!-- AddThis Button END -->
-        </article>
-    </section>
+            </article>
+            <hr/>
 
         </div>
         <div class="col-sm-3" id="sidebar">
@@ -478,9 +307,7 @@ $ git push origin main
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
-    <li class="list-group-item"><a href="../live-plotting-with-matplotlib.html">How to make animated plots with Matplotlib and Python</a></li>
-    <li class="list-group-item"><a href="../calculating-vacancy-concentration-with-python.html">Calculating Vacancy Concentration with Python</a></li>
-    <li class="list-group-item"><a href="../offset-piston-motion-animation-matplotlib.html">Offset Piston Motion with Python and Matplotlib</a></li>
+    <li class="list-group-item"><a href="../git-and-github-for-undergrad-engineers.html">Git and GitHub for Undergrad Engineers</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
@@ -619,6 +446,5 @@ jQuery(document).ready(function($) {
 <!-- Ethical Ads JS-->
 <script async src="https://media.ethicalads.io/media/client/ethicalads.min.js"></script>
 <!-- end Ethical Ads JS -->
-    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cdd8eb4e16bf94c"></script>
 </body>
 </html>

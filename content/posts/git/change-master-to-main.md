@@ -1,7 +1,7 @@
 Title: How to change a GitHub repo from master to main
-Date: 2021-05-11 12:40
-Modified: 2021-05-11 12:40
-Status: draft
+Date: 2021-05-23 08:40
+Modified: 2021-05-23 08:40
+Status: published
 Category: git
 Tags: git, version control, GitHub
 Slug: how-to-change-a-github-repo-from-master-to-main

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>How to change a GitHub repo from master to main - Python for Undergraduate Engineers</title>
+    <title>Articles by Peter D. Kazarinoff - Python for Undergraduate Engineers</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -175,23 +175,15 @@
     
     <link href="../extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="../drafts/how-to-change-a-github-repo-from-master-to-main.html">
 
-        <meta name="author" content="Peter D. Kazarinoff" />
-        <meta name="keywords" content="git,version control,GitHub" />
-        <meta name="description" content="This post is for anyone who wants to change their GitHub repos from master to main. GitHub changed the default repo branch name to main. I want to change all my GitHub repo&#39;s default branch from master to main. The short version If you are comfortable with git and the …" />
+        <meta name="author" content="Peter Kazarinoff" />
 
+    <!-- Open Graph tags -->
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
-        <meta property="og:type" content="article"/>
-        <meta property="og:title" content="How to change a GitHub repo from master to main"/>
-        <meta property="og:url" content="../drafts/how-to-change-a-github-repo-from-master-to-main.html"/>
-        <meta property="og:description" content="This post is for anyone who wants to change their GitHub repos from master to main. GitHub changed the default repo branch name to main. I want to change all my GitHub repo&#39;s default branch from master to main. The short version If you are comfortable with git and the …"/>
-        <meta property="article:published_time" content="2021-05-11" />
-            <meta property="article:section" content="git" />
-            <meta property="article:tag" content="git" />
-            <meta property="article:tag" content="version control" />
-            <meta property="article:tag" content="GitHub" />
-            <meta property="article:author" content="Peter D. Kazarinoff" />
+        <meta property="og:type" content="website"/>
+        <meta property="og:title" content="Python for Undergraduate Engineers"/>
+        <meta property="og:url" content=".."/>
+        <meta property="og:description" content="Python for Undergraduate Engineers"/>
 
 
 
@@ -260,29 +252,18 @@ Python for Undergraduate Engineers            </a>
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-9">
-            <ol class="breadcrumb">
-                <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="../category/git.html" title="git">git</a></li>
-                <li class="active">How to change a GitHub repo from master to main</li>
-            </ol>
-    <section id="content">
-        <article>
-            <header class="page-header">
-                <h1>
-                    <a href="../drafts/how-to-change-a-github-repo-from-master-to-main.html"
-                       rel="bookmark"
-                       title="Permalink to How to change a GitHub repo from master to main">
-                        How to change a GitHub repo from master to main
-                    </a>
-                </h1>
-            </header>
-            <div class="entry-content">
-                <div class="panel">
-                    <div class="panel-body">
+        <ol class="breadcrumb">
+            <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+            <li><a href="../authors.html" title="Authors">Authors</a></li>
+            <li class="active">Peter Kazarinoff</li>
+        </ol>
+            <article>
+                <h2><a href="../installing-anaconda-on-windows.html">Installing Anaconda on Windows</a></h2>
+                    <div class="well well-sm">
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2021-05-11T12:40:00-07:00"> Tue 11 May 2021</time>
+        <i class="fa fa-calendar"></i><time datetime="2017-11-14T09:20:00-08:00"> Tue 14 November 2017</time>
     </span>
 
 
@@ -290,177 +271,62 @@ Python for Undergraduate Engineers            </a>
 
 
 <span class="label label-default">Tags</span>
-	<a href="../tag/git.html">git</a>
+	<a href="../tag/python.html">python</a>
         /
-	<a href="../tag/version-control.html">version control</a>
+	<a href="../tag/anaconda.html">anaconda</a>
         /
-	<a href="../tag/github.html">GitHub</a>
+	<a href="../tag/miniconda.html">miniconda</a>
+        /
+	<a href="../tag/conda.html">conda</a>
+        /
+	<a href="../tag/windows.html">windows</a>
     
 </footer><!-- /.post-info -->                    </div>
+                <div class="summary"><p>In this post, we will run through installing the <a href="https://www.anaconda.com/what-is-anaconda/">Anaconda distribution</a> of Python on Windows 10. I think the Anaconda distribution of Python is the the best option for undergraduate engineers who want to use Python. Anaconda is free (although the download is large which can take time) and can be installed on school or work computers where you don't have administrator access or the ability to install new programs.</p>
+                    <a class="btn btn-default btn-xs" href="../installing-anaconda-on-windows.html">more ...</a>
                 </div>
-                <p><a href="../drafts/how-to-change-a-github-repo-from-master-to-main.html"><img alt="GitHub Cover Image" src="../posts/git/images/cover_master_to_main.png"></a></p>
-<p>This post is for anyone who wants to change their <strong>GitHub repos from master to main</strong>. GitHub changed the default repo branch name to <strong>main</strong>. I want to change all my GitHub repo's default branch from master to main.</p>
-<h2 id="the-short-version">The short version</h2>
-<p>If you are comfortable with git and the command line, use the commands below. If you need some help and explanation, read on.</p>
-<div class="highlight"><pre><span></span>git branch -m master main
+            </article>
+            <hr/>
 
-git push -u origin main
-
-git symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main
-
-# change default branch on GitHub
-
-git push origin --delete master
-</pre></div>
-
-
-<h2 id="why-does-it-matter-if-i-use-main">Why does it matter if I use main?</h2>
-<p>The reason to use the name <em>main</em> as the default branch on Github and in your local git repos is that it's the right thing to do.</p>
-<p>Language in programming, like <em>master</em>, that supports symbols of racism has no place. That's the <em>main</em> reason. In addition, the name <em>main</em> just makes more sense. Is the <em>master</em> branch in charge of anything? Are other branches subservient to it? And a very practical reason is that since GitHub moved to use main as the default branch, you have to remember when to use <code>git push origin main</code> and when to use <code>git push origin master</code> on a repo-to-repo basis. This is confusing and leads to creating new branches that you don't want. So change all of your GitHub repo names to main.</p>
-<h2 id="step-1">Step 1</h2>
-<p>Create a new main branch locally, taking the history from master </p>
-<p>The first step is to create a new branch locally (on your computer) called <code>main</code>. You can see which branch you are on using the command below:</p>
-<div class="highlight"><pre><span></span>git branch -a
-</pre></div>
-
-
-<p>If you are on a branch called master, the output will look something like below:</p>
-<div class="highlight"><pre><span></span>* master
-  remotes/origin/master
-</pre></div>
-
-
-<p>Next, run the command below to create a new branch called <code>main</code> and copy all the history from the <code>master</code> branch into the new <code>main</code> branch. The <code>-m</code> flag stands for <code>--move</code>, which means move the entire history onto the new branch <code>main</code> from the old branch <code>master</code>.</p>
-<div class="highlight"><pre><span></span>git branch -m master main
-</pre></div>
-
-
-<p>After you create the new <code>main</code> branch, you can run the <code>git branch -a</code> command again and you should see output similar to below.</p>
-<div class="highlight"><pre><span></span>* main
-  remotes/origin/master
-</pre></div>
-
-
-<h2 id="step-2">Step 2.</h2>
-<p>Push the new main branch up to Github </p>
-<p>Next, we need to push the new <code>main</code> branch up to Github. If you look at GitHub now, you can see under the branch dropdown menu that <code>master</code> is the default branch. </p>
-<p><img alt="image of GitHub showing master branch" src="../posts/git/images/main_repo_showing_master.jpg"></p>
-<p>Run the command below to push the <code>main</code> branch up to GitHub.</p>
-<div class="highlight"><pre><span></span>git push -u origin main
-</pre></div>
-
-
-<p>You may see a message like the one below in your terminal as a result.</p>
-<div class="highlight"><pre><span></span> * [new branch]      main -&gt; main
-Branch &#39;main&#39; set up to track remote branch &#39;main&#39; from &#39;origin&#39;.
-</pre></div>
-
-
-<p>If you type <code>git branch -a</code> again, now you should see two remote branches, one called <code>main</code> and one called <code>master</code>.</p>
-<div class="highlight"><pre><span></span><span class="o">*</span> <span class="n">main</span>
-  <span class="n">remotes</span><span class="o">/</span><span class="n">origin</span><span class="o">/</span><span class="n">main</span>
-  <span class="n">remotes</span><span class="o">/</span><span class="n">origin</span><span class="o">/</span><span class="n">master</span>
-</pre></div>
-
-
-<p>If you go back to GitHub and look at the branch name dropdown (you may have to refresh the webpage), you should now see there are two branches <code>main</code> and <code>master</code>.</p>
-<p><img alt="image of GitHub showing main and master branches" src="../posts/git/images/master_default_and_main.jpg"></p>
-<h2 id="step-3">Step 3.</h2>
-<p>Switch HEAD to the main branch</p>
-<p>Next, we are going to switch the HEAD of our git repo onto the <code>main</code> branch (from the <code>master</code> branch). HEAD is currently attached to <code>master</code> so if we make any changes to the <code>main</code> branch, we'll be <em>ahead of the head</em>.  That's not good and leads to git problems that I don't know how to deal with.</p>
-<p>Type the command below to switch HEAD to the main branch.</p>
-<div class="highlight"><pre><span></span>git symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main
-</pre></div>
-
-
-<p>There won't be any output after running the command. But if you type <code>git branch -a</code> you should see output like below:</p>
-<div class="highlight"><pre><span></span>* main
-  remotes/origin/HEAD -&gt; origin/main
-  remotes/origin/main
-  remotes/origin/master
-</pre></div>
-
-
-<h2 id="step-4">Step 4.</h2>
-<p>Change the default branch on GitHub to main</p>
-<p>You need to do this on GitHub, not on your local computer.</p>
-<p>If you go to the main repo page on GitHub and select the branches dropdown menu, you will see two branches listed and a checkmark next to <code>master</code>. We are going to change it so the default repo and the checkmark are next to the <code>main</code> branch.</p>
-<p><img alt="Github with main and master both shown" src="../posts/git/images/master_default_and_main.jpg"></p>
-<p>On the main page for your repo, click on settings.</p>
-<p><img alt="Settings on GitHub" src="../posts/git/images/settings.jpg"></p>
-<p>Then on the lefthand menu, click on branches</p>
-<p><img alt="change default branch" src="../posts/git/images/change_page_default_master.jpg"></p>
-<p>Next, click the arrows to change the default branch</p>
-<p><img alt="switch default branch" src="../posts/git/images/switch_default.jpg"></p>
-<p>Accept the warning</p>
-<p><img alt="switch default branch" src="../posts/git/images/confirm_switch.jpg"></p>
-<p>After the default branch change, you can go back to the main repo page and see that <code>main</code> is now the default branch.</p>
-<p><img alt="switch default branch" src="../posts/git/images/main_default_and_master.jpg"></p>
-<p>Nice job! One more step to get, we just need to get rid of the master branch so that the main branch is the only branch.</p>
-<h2 id="step-5">Step 5.</h2>
-<p>Delete the master branch on Github.</p>
-<p>Now that we have a <code>main</code> branch on our local computer, a main branch up on GitHub, and the default branch on GitHub is the <code>main</code> branch. The next step is to delete the master branch on GitHub. Right now, if you type the <code>git branch -a</code> command, you'll see output like below:</p>
-<div class="highlight"><pre><span></span>* main
-  remotes/origin/HEAD -&gt; origin/main
-  remotes/origin/main
-  remotes/origin/master
-</pre></div>
-
-
-<p>We are going to delete <code>remotes/origin/master</code></p>
-<p>This can be accomplished by entering the command below.</p>
-<div class="highlight"><pre><span></span>git push origin --delete master
-</pre></div>
-
-
-<p>As a result, you'll see output similar to below:</p>
-<div class="highlight"><pre><span></span>To github.com:user-name/repo-name.git
- - [deleted]         master
-</pre></div>
-
-
-<p>If you go back to Github, refresh the page, and select the branch dropdown menu, you should see that the only branch listed is the <code>main</code> branch.</p>
-<p><img alt="switch default branch" src="../posts/git/images/only_main.jpg"></p>
-<p>Now your <code>master</code> branch has been converted to <code>main</code>. If you run the command <code>git status</code>, you should see output like below. </p>
-<div class="highlight"><pre><span></span>On branch main
-Your branch is up to date with &#39;origin/main&#39;.
-</pre></div>
-
-
-<p>The output indicates that you are on the <code>main</code> branch and from now on you can use <code>git push origin main</code> and <code>git pull origin main</code> for this repo.</p>
-<p>That's it! You're done. You have successfully moved your GitHub repo from <code>master</code> to <code>main</code>.</p>
-<h2 id="bonus">Bonus</h2>
-<p>What to default to <code>main</code> every time you create a new Git repo locally? Make sure you are on Git version 2.28 or above and use the command below.</p>
-<div class="highlight"><pre><span></span>git --version
-# git version 2.28.0 or above
-
-git config --global init.defaultBranch main
-</pre></div>
-
-
-<h2 id="support">Support</h2>
-<p>Thanks for reading! If you want to support the open source work I do (like this blog), consider becoming one of my GitHub sponsors:</p>
-<iframe src="https://github.com/sponsors/ProfessorKazarinoff/button" title="Sponsor ProfessorKazarinoff" height="35" width="116" style="border: 0;"></iframe>
-            </div>
-            <!-- /.entry-content -->
-<section class="well" id="related-posts">
-    <h4>Related Posts:</h4>
-    <ul>
-        <li><a href="../git-and-github-for-undergrad-engineers.html">Git and GitHub for Undergrad Engineers</a></li>
-        <li><a href="../how-i-built-this-site-7.html">How I Build This Site - Part 7</a></li>
-        <li><a href="../how-i-built-this-site-6.html">How I Build This Site - Part 6</a></li>
-    </ul>
-</section>
-    <hr />
-    <!-- AddThis Button BEGIN -->
-    <div class="addthis_toolbox addthis_default_style">
-            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-            <a class="addthis_button_tweet"></a>
-    </div>
-    <!-- AddThis Button END -->
-        </article>
-    </section>
-
+        <ul class="pagination">
+                <li class="prev"><a href="../author/peter-d-kazarinoff16.html">&laquo;</a>
+                </li>
+                    <li class=""><a
+                            href="../author/peter-d-kazarinoff.html">1</a></li>
+                    <li class=""><a
+                            href="../author/peter-d-kazarinoff2.html">2</a></li>
+                    <li class=""><a
+                            href="../author/peter-d-kazarinoff3.html">3</a></li>
+                    <li class=""><a
+                            href="../author/peter-d-kazarinoff4.html">4</a></li>
+                    <li class=""><a
+                            href="../author/peter-d-kazarinoff5.html">5</a></li>
+                    <li class=""><a
+                            href="../author/peter-d-kazarinoff6.html">6</a></li>
+                    <li class=""><a
+                            href="../author/peter-d-kazarinoff7.html">7</a></li>
+                    <li class=""><a
+                            href="../author/peter-d-kazarinoff8.html">8</a></li>
+                    <li class=""><a
+                            href="../author/peter-d-kazarinoff9.html">9</a></li>
+                    <li class=""><a
+                            href="../author/peter-d-kazarinoff10.html">10</a></li>
+                    <li class=""><a
+                            href="../author/peter-d-kazarinoff11.html">11</a></li>
+                    <li class=""><a
+                            href="../author/peter-d-kazarinoff12.html">12</a></li>
+                    <li class=""><a
+                            href="../author/peter-d-kazarinoff13.html">13</a></li>
+                    <li class=""><a
+                            href="../author/peter-d-kazarinoff14.html">14</a></li>
+                    <li class=""><a
+                            href="../author/peter-d-kazarinoff15.html">15</a></li>
+                    <li class=""><a
+                            href="../author/peter-d-kazarinoff16.html">16</a></li>
+                    <li class="active"><a
+                            href="../author/peter-d-kazarinoff17.html">17</a></li>
+                <li class="next disabled"><a href="#">&raquo;</a></li>
+        </ul>
         </div>
         <div class="col-sm-3" id="sidebar">
             <aside>
@@ -482,9 +348,9 @@ git config --global init.defaultBranch main
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
+    <li class="list-group-item"><a href="../how-to-change-a-github-repo-from-master-to-main.html">How to change a GitHub repo from master to main</a></li>
     <li class="list-group-item"><a href="../git-and-github-for-undergrad-engineers.html">Git and GitHub for Undergrad Engineers</a></li>
     <li class="list-group-item"><a href="../live-plotting-with-matplotlib.html">How to make animated plots with Matplotlib and Python</a></li>
-    <li class="list-group-item"><a href="../calculating-vacancy-concentration-with-python.html">Calculating Vacancy Concentration with Python</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
@@ -623,6 +489,5 @@ jQuery(document).ready(function($) {
 <!-- Ethical Ads JS-->
 <script async src="https://media.ethicalads.io/media/client/ethicalads.min.js"></script>
 <!-- end Ethical Ads JS -->
-    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cdd8eb4e16bf94c"></script>
 </body>
 </html>

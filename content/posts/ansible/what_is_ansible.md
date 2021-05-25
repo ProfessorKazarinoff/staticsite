@@ -1,9 +1,9 @@
 Title: What is Ansible?
-Date: 2021-05-13 14:01
-Modified: 2021-05-13 14:01
-Status: Draft
+Date: 2021-05-30 14:01
+Modified: 2021-05-30 14:01
+Status: published
 Category: Python
-Tags: python, jupyterhub, ansible, automation 
+Tags: python, jupyterhub, ansible, automation, dev ops, depolyment
 Slug: what-is-ansible
 Authors: Peter D. Kazarinoff
 

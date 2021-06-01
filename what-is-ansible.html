@@ -173,37 +173,39 @@
     init_mathjax();
     </script>
     
-    <link href="../extra/favicon.ico" rel="icon">
+    <link href="./extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="../drafts/what-is-ansible.html">
+<link rel="canonical" href="./what-is-ansible.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
-        <meta name="keywords" content="python,jupyterhub,ansible,automation" />
+        <meta name="keywords" content="python,jupyterhub,ansible,automation,dev ops,depolyment" />
         <meta name="description" content="Ansible is an orchestration tool that can be used to configure cloud servers. This post is about what Ansible is, what Ansible is not, and demystify the vocabulary used to describe what Ansible does. Ansible is an IT Orchestration Tool Ansible is a tool to automate IT orchestration. What does …" />
 
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="What is Ansible?"/>
-        <meta property="og:url" content="../drafts/what-is-ansible.html"/>
+        <meta property="og:url" content="./what-is-ansible.html"/>
         <meta property="og:description" content="Ansible is an orchestration tool that can be used to configure cloud servers. This post is about what Ansible is, what Ansible is not, and demystify the vocabulary used to describe what Ansible does. Ansible is an IT Orchestration Tool Ansible is a tool to automate IT orchestration. What does …"/>
-        <meta property="article:published_time" content="2021-05-13" />
+        <meta property="article:published_time" content="2021-05-30" />
             <meta property="article:section" content="Python" />
             <meta property="article:tag" content="python" />
             <meta property="article:tag" content="jupyterhub" />
             <meta property="article:tag" content="ansible" />
             <meta property="article:tag" content="automation" />
+            <meta property="article:tag" content="dev ops" />
+            <meta property="article:tag" content="depolyment" />
             <meta property="article:author" content="Peter D. Kazarinoff" />
 
 
 
     <!-- Bootstrap -->
-        <link rel="stylesheet" href="../theme/css/bootstrap.flatly.min.css" type="text/css"/>
-    <link href="../theme/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="./theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="./theme/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="../theme/css/pygments/native.css" rel="stylesheet">
-    <link href="../theme/tipuesearch/tipuesearch.css" rel="stylesheet">
-    <link rel="stylesheet" href="../theme/css/style.css" type="text/css"/>
-        <link href="../static/css/custom.css" rel="stylesheet">
+    <link href="./theme/css/pygments/native.css" rel="stylesheet">
+    <link href="./theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="./theme/css/style.css" type="text/css"/>
+        <link href="./static/css/custom.css" rel="stylesheet">
 
 
 
@@ -220,21 +222,21 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="../" class="navbar-brand">
+            <a href="./" class="navbar-brand">
 Python for Undergraduate Engineers            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                         <li><a href="../pages/about.html">
+                         <li><a href="./pages/about.html">
                              About
                           </a></li>
-                         <li><a href="../pages/book.html">
+                         <li><a href="./pages/book.html">
                              Book
                           </a></li>
-                         <li><a href="../pages/gear.html">
+                         <li><a href="./pages/gear.html">
                              Gear
                           </a></li>
-                         <li><a href="../pages/now.html">
+                         <li><a href="./pages/now.html">
                              Now
                           </a></li>
             </ul>
@@ -248,7 +250,7 @@ Python for Undergraduate Engineers            </a>
         </form>
     </span>
 </li>
-<!-- /.navbar-search -->              <li><a href="../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+<!-- /.navbar-search -->              <li><a href="./archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -262,15 +264,15 @@ Python for Undergraduate Engineers            </a>
     <div class="row">
         <div class="col-sm-9">
             <ol class="breadcrumb">
-                <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="../category/python.html" title="Python">Python</a></li>
+                <li><a href="." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="./category/python.html" title="Python">Python</a></li>
                 <li class="active">What is Ansible?</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="../drafts/what-is-ansible.html"
+                    <a href="./what-is-ansible.html"
                        rel="bookmark"
                        title="Permalink to What is Ansible?">
                         What is Ansible?
@@ -283,7 +285,7 @@ Python for Undergraduate Engineers            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2021-05-13T14:01:00-07:00"> Thu 13 May 2021</time>
+        <i class="fa fa-calendar"></i><time datetime="2021-05-30T14:01:00-07:00"> Sun 30 May 2021</time>
     </span>
 
 
@@ -291,30 +293,34 @@ Python for Undergraduate Engineers            </a>
 
 
 <span class="label label-default">Tags</span>
-	<a href="../tag/python.html">python</a>
+	<a href="./tag/python.html">python</a>
         /
-	<a href="../tag/jupyterhub.html">jupyterhub</a>
+	<a href="./tag/jupyterhub.html">jupyterhub</a>
         /
-	<a href="../tag/ansible.html">ansible</a>
+	<a href="./tag/ansible.html">ansible</a>
         /
-	<a href="../tag/automation.html">automation</a>
+	<a href="./tag/automation.html">automation</a>
+        /
+	<a href="./tag/dev-ops.html">dev ops</a>
+        /
+	<a href="./tag/depolyment.html">depolyment</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p><a href="../drafts/what-is-ansible.html"><img alt="conductor" src="../posts/ansible/images/conductor.png"></a></p>
+                <p><a href="./what-is-ansible.html"><img alt="conductor" src="./posts/ansible/images/conductor.png"></a></p>
 <p>Ansible is an orchestration tool that can be used to configure cloud servers. This post is about what Ansible is, what Ansible is not, and demystify the vocabulary used to describe what Ansible does.</p>
 <h2 id="ansible-is-an-it-orchestration-tool">Ansible is an IT Orchestration Tool</h2>
 <p>Ansible is a tool to automate IT orchestration. What does IT orchestration mean?</p>
-<p><img alt="robot factory" src="../posts/ansible/images/robot_factory.jpg"></p>
+<p><img alt="robot factory" src="./posts/ansible/images/robot_factory.jpg"></p>
 <p>Concerning a personal project: Automating a JupyerHub Deployment- Ansible is a tool to automate setting up the cloud server that runs JupyerHub. So my IT orchestration is setting up JupyerHub to run on a cloud server with all my custom configuration and settings. JupyterHub can be set up by typing all of the commands into an SSH shell and copying over files with FTP. But if JupyterHub gets deployed each quarter, and these commands are the same each quarter, then why not automate the process?</p>
 <h2 id="ansible-is-a-run-time-that-executes-automation-tasks">Ansible is a run-time that executes automation tasks</h2>
-<p><img alt="runtime" src="../posts/ansible/images/runtime.png"></p>
+<p><img alt="runtime" src="./posts/ansible/images/runtime.png"></p>
 <p>Ansible is a program that runs on a desktop, laptop, or cloud server that executes automation tasks. The Ansible run-time executes the actions specified by a set of user-defined rules.</p>
 <h2 id="ansible-is-a-language-used-to-automate-it-tasks">Ansible is a language used to automate IT tasks</h2>
-<p><img alt="document icon" src="../posts/ansible/images/document_icon.png"></p>
+<p><img alt="document icon" src="./posts/ansible/images/document_icon.png"></p>
 <p>The steps Ansible goes through to create, configure and customize cloud servers are specified by valid Ansible syntax. The files a user creates and runs using Ansible must conform to this syntax or they will not be executed.</p>
 <h2 id="what-does-ansible-run-on">What does Ansible run on?</h2>
-<p><img alt="operating systems" src="../posts/ansible/images/operating_systems.png"></p>
+<p><img alt="operating systems" src="./posts/ansible/images/operating_systems.png"></p>
 <p>Ansible runs on MacOS, Ubuntu or other Linux distros. Ansible can be run on a local desktop or laptop and also run on a cloud server. It's my understanding that Ansible does not have to be installed on the cloud server that Ansible is configuring. In my case, that means that Ansible does not run on the JupyterHub server. Ansible runs on a laptop, desktop, or cloud server that configures the JupyterHub server. </p>
 <p>Ansible does not run on Windows. I tried to install Ansible using both <strong>pip</strong> and <strong>conda</strong> on a Windows 10 machine. The result was unsuccessful.</p>
 <div class="highlight"><pre><span></span>(ansible) C:\Users\student\staticsite&gt;pip install ansible
@@ -328,7 +334,7 @@ ImportError: No module named fcntl
 </pre></div>
 
 
-<p><img alt="ubuntu WSL" src="../posts/ansible/images/ubuntu_wsl.png"></p>
+<p><img alt="ubuntu WSL" src="./posts/ansible/images/ubuntu_wsl.png"></p>
 <p>However, I did get Ansible to successfully install on WSL (Windows Subsystem for Linux). The installation proceeded error-free using the following commands.</p>
 <div class="highlight"><pre><span></span>sudo apt-get update
 $ sudo apt update
@@ -350,7 +356,7 @@ ansible 2.5.1
 
 
 <h2 id="ansible-vocabulary">Ansible Vocabulary</h2>
-<p><img alt="dictionary" src="../posts/ansible/images/dictionary.png"></p>
+<p><img alt="dictionary" src="./posts/ansible/images/dictionary.png"></p>
 <p>There are a number of words that mean specific things when applied to Ansible. These words include:</p>
 <ul>
 <li><strong>control node</strong></li>
@@ -416,11 +422,11 @@ ansible 2.5.1
 <section class="well" id="related-posts">
     <h4>Related Posts:</h4>
     <ul>
-        <li><a href="../stream-S01-E01-jupyterhub-intro.html">My first Twitch Stream: S01-E01 JupyterHub Intro and Tools</a></li>
-        <li><a href="../jupyterhub-deployment-on-running-in-production.html">Hear my story about deploying JupyterHub on the Running in Production Podcast</a></li>
-        <li><a href="../slides-from-pydata-pdx-presentation.html">Slides from my PyDataPDX Presentaion</a></li>
-        <li><a href="../slides-from-pypdx-west-presentation.html">Slides from my PyPDX West Presentaion</a></li>
-        <li><a href="../moving-from-matlab-to-python-on-talkpython.html">Hear my story about moving from MATLAB to Python on TalkPython</a></li>
+        <li><a href="./stream-S01-E01-jupyterhub-intro.html">My first Twitch Stream: S01-E01 JupyterHub Intro and Tools</a></li>
+        <li><a href="./jupyterhub-deployment-on-running-in-production.html">Hear my story about deploying JupyterHub on the Running in Production Podcast</a></li>
+        <li><a href="./slides-from-pydata-pdx-presentation.html">Slides from my PyDataPDX Presentaion</a></li>
+        <li><a href="./slides-from-pypdx-west-presentation.html">Slides from my PyPDX West Presentaion</a></li>
+        <li><a href="./moving-from-matlab-to-python-on-talkpython.html">Hear my story about moving from MATLAB to Python on TalkPython</a></li>
     </ul>
 </section>
     <hr />
@@ -440,7 +446,7 @@ ansible 2.5.1
 <div class="horizontal" data-ea-publisher="pythonforundergradengineers-com" data-ea-type="image"></div>
 <!-- end Ethical Ads --><div id="aboutme">
         <p>
-            <img width="100%" class="img-thumbnail" src="../extra/gear-wrench-icon-512-278694.png"/>
+            <img width="100%" class="img-thumbnail" src="./extra/gear-wrench-icon-512-278694.png"/>
         </p>
     <p>
       <strong>About Peter Kazarinoff</strong><br/>
@@ -454,46 +460,46 @@ ansible 2.5.1
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
-    <li class="list-group-item"><a href="../how-to-change-a-github-repo-from-master-to-main.html">How to change a GitHub repo from master to main</a></li>
-    <li class="list-group-item"><a href="../git-and-github-for-undergrad-engineers.html">Git and GitHub for Undergrad Engineers</a></li>
-    <li class="list-group-item"><a href="../live-plotting-with-matplotlib.html">How to make animated plots with Matplotlib and Python</a></li>
+    <li class="list-group-item"><a href="./what-is-ansible.html">What is Ansible?</a></li>
+    <li class="list-group-item"><a href="./how-to-change-a-github-repo-from-master-to-main.html">How to change a GitHub repo from master to main</a></li>
+    <li class="list-group-item"><a href="./git-and-github-for-undergrad-engineers.html">Git and GitHub for Undergrad Engineers</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
 
 <!-- Sidebar/Tag Cloud -->
 <li class="list-group-item">
-  <a href="../"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <a href="./"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
   <ul class="list-group list-inline tagcloud" id="tags">
     <li class="list-group-item tag-2">
-      <a href="../tag/engineering.html">engineering</a>
+      <a href="./tag/engineering.html">engineering</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="../tag/flask.html">flask</a>
+      <a href="./tag/flask.html">flask</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="../tag/jupyter.html">jupyter</a>
+      <a href="./tag/jupyter.html">jupyter</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="../tag/jupyter-notebook.html">jupyter notebook</a>
+      <a href="./tag/jupyter-notebook.html">jupyter notebook</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="../tag/matplotlib.html">matplotlib</a>
+      <a href="./tag/matplotlib.html">matplotlib</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="../tag/microcontroller.html">microcontroller</a>
+      <a href="./tag/microcontroller.html">microcontroller</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="../tag/micropython.html">micropython</a>
+      <a href="./tag/micropython.html">micropython</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="../tag/pelican.html">pelican</a>
+      <a href="./tag/pelican.html">pelican</a>
     </li>
     <li class="list-group-item tag-1">
-      <a href="../tag/python.html">python</a>
+      <a href="./tag/python.html">python</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="../tag/sensor.html">sensor</a>
+      <a href="./tag/sensor.html">sensor</a>
     </li>
   </ul>
 </li>
@@ -528,15 +534,15 @@ ansible 2.5.1
       </div>
    </div>
 </footer>
-<script src="../theme/js/jquery.min.js"></script>
+<script src="./theme/js/jquery.min.js"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="../theme/js/bootstrap.min.js"></script>
+<script src="./theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="../theme/js/respond.min.js"></script>
+<script src="./theme/js/respond.min.js"></script>
 
-    <script src="../static/js/custom.js"></script>
+    <script src="./static/js/custom.js"></script>
 
 
 <!-- GitHub JS Code -->
@@ -545,7 +551,7 @@ $(document).ready(function () {
   if (!window.jXHR) {
     var jxhr = document.createElement('script');
     jxhr.type = 'text/javascript';
-    jxhr.src = '../theme/js/jXHR.js';
+    jxhr.src = './theme/js/jXHR.js';
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(jxhr, s);
   }
@@ -558,7 +564,7 @@ $(document).ready(function () {
   });
 });
 </script>
-<script src="../theme/js/github.js" type="text/javascript"></script>
+<script src="./theme/js/github.js" type="text/javascript"></script>
 <!-- End GitHub JS Code -->
     <!-- Google Analytics -->
     <script type="text/javascript">

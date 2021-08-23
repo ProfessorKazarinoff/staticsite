@@ -1,6 +1,6 @@
 Title: Oregon Engineering College Transfer App - Part 1: Motivation
-Date: 2020-08-23 12:40
-Modified: 2020-08-23 12:40
+Date: 2021-08-23 12:40
+Modified: 2021-08-23 12:40
 Status: draft
 Category: django
 Tags: python, django, web app

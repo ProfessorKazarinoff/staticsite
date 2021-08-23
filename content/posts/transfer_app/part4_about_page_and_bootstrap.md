@@ -1,6 +1,6 @@
 Title: Oregon Engineering College Transfer App - Part 4: About Page and Bootstrap
-Date: 2018-10-16 12:40
-Modified: 2018-10-16 12:40
+Date: 2021-08-23 12:40
+Modified: 2021-08-23 12:40
 Status: draft
 Category: django
 Tags: python, django, web app

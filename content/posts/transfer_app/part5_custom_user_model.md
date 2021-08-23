@@ -1,10 +1,10 @@
-Title: Oregon Engineering College Transfer App - Part 5: User Model
+Title: Oregon Engineering College Transfer App - Part 5: Custom User Model
 Date: 2018-10-18 12:40
 Modified: 2018-10-18 12:40
 Status: draft
 Category: django
 Tags: python, django, web app
-Slug: oregon-engineering-college-transfer-app-part-5-user-model
+Slug: oregon-engineering-college-transfer-app-part-5-custom-user-model
 Authors: Peter D. Kazarinoff
 Series: Oregon Engineering College Transfer App
 Series_index: 5
@@ -24,11 +24,10 @@ The 4-year University administrators need to be able to do a couple things:
 
 ### Transfer App site privileges
 
- * log into the Transfer App website
- * Create a new 4-year University
- * Classes and edit classes at their 4-year University
- * Create and edit classes at 2-year Community Colleges
- * Create and edit which community College Classes are equivalent to which University classes
+ * log into the Transfer App Admin backend
+ * Create and edit classes at their 4-year University
+ * Create and edit classes at their 2-year Community Colleges
+ * Create and edit which community College Classes are equivalent to which University classes at their college
 
 ### Transfer App user actions
 

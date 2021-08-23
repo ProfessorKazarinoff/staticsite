@@ -1,4 +1,4 @@
-Title: Oregon Engineering College Transfer App - Part 3: Front Page App
+Title: Oregon Engineering College Transfer App - Part 3: Front Page
 Date: 2018-10-16 12:40
 Modified: 2018-10-16 12:40
 Status: draft
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 ## Define a homepage view
 
 in pages/views.py
+
 ```python
 # pages/views.py
 
@@ -57,3 +58,5 @@ def homePageView(request):
 ## Test the server locally
 
 ## Summary
+
+## Next Steps

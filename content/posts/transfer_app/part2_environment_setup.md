@@ -1,6 +1,6 @@
 Title: Oregon Engineering College Transfer App - Part 2: Development Environment
-Date: 2018-10-15 12:40
-Modified: 2018-10-15 12:40
+Date: 2020-08-22 12:40
+Modified: 2020-08-22 12:40
 Status: draft
 Category: django
 Tags: python, django, web app
@@ -12,20 +12,18 @@ Summary: This is the second part of a multi-part series on building a web app wi
 
 This is the second part of a multi-part series on building a web app with Python and Django. The web app will act as a resource for Engineering students at Oregon Community Colleges that want to transfer to 4-year Universities. The transfer web app will show which classes from their community college engineering program will transfer to which classes in a 4-year University engineering program. In this second post, I'll review the development environment I used to set up and build the web app. This includes installing the Anaconda distribution of Python, creating a GitHub repo, synching a local directory to the GitHub repo, installing packages, starting the project and running the project for the first time.
 
-#Setting up the development environment
+# Setting up the development environment
 
-What does that even mean? Before I started building the Oregon College Transfer web app, I needed to make sure the necessary software, packages and settings were in place. This starts with setting up a _development environment_. To me, a development environment is simply the software on a computer that allows me to get work done. In this case the development environment means the tools necessary to build this site. A list of the tools and technologies are below:
+What does that even mean? Before I started building the Oregon College Transfer web app, I needed to make sure the necessary software, packages and settings were in place. This starts with setting up a _development environment_. To me, a development environment is the software on a computer that allows me to get work done. In this case the development environment means the tools necessary to build this site. A list of the tools and technologies are below:
 
-1. An operating system: This website was built on machines running Windows 10, Mac OSX and Linux (Ubuntu 16.04 LTS).
-2. Python: Python 3.7 (legacy Python is version 2.7)
+1. An operating system: This website was built on machines running Windows 10
+2. Python: Python 3.9
 3. Anaconda: The Anaconda Prompt and the Anaconda Python distribution
-4. GitHub.com and git: Four different computers were used build the site. Github is the central place where the most up-to-date version of the site is kept.
+4. GitHub.com and git: We are going to save the code we write on GitHub.com and push the code up to Github using the command line tool git.
 5. A virtual environment: A separate Python virtual environment that the web app will run in.
 6. Django: a Python web framework
-7. Pycharm IDE: a Python Integrated Development that I will use to build and test the web app.
-8. Deployment Target: A place for the web app to run. Initially this will be on the Huroku free tier.
-
-
+7. VS Code: a Python code editor to build and test the web app.
+8. Deployment Target: A place for the web app to run. Initially this will be on the Huroku free tier. Eventually we may run the website on a Digital Ocean droplet or on AWS. 
 
 ## An operating system
 
@@ -55,44 +53,43 @@ The Anaconda distribution of Python comes with an up-to-date and stable version 
 Before downloading Pelican, we should create a new virtual environment. The same virtual environment on each of the computers I use means the same packages are installed on each computer. To create a new virtual environment, open up the Anaconda Prompt (on Windows) or a terminal (on Linux or Mac OSX). Let's call our new virtual environment **_staticsite_**. The ```conda create``` command creates the environment and the ```-n staticsite``` flag adds the name.
 
 ```
-$ conda create -n staticsite
+$ conda create -n transfer-app
 ```
 
 This creates a new virtual environment called **_staticsite_**. Becuase I use four different computers to work on the site, I need to make sure the same Python packages are installed on each computer. Using a virtual environment ensures this consistency. Once the virtual environment **_staticsite_** is created, we need to activate it and start using it with the command:
 
 On Mac OSX or Linux
+
 ```
 $ source activate staticsite
 ```
 
 or on Windows 10
-```
-activate staticsite
-```
-
-We should now see ```(staticsite)``` before the terminal prompt. This means we are using the ```(staticsite)``` virtual environment.
-
-### Install Pelican
-
-Time for some fun! Installing Pelican. Pelican is a Python package that creates static websites. Static sites are websites that only have html, css and javascript. A static site is not connected to a database and there is no code run on the server side. The server just serves static files (html, css, javascript) to the client when the client requests them. In order to install Pelican, we need to install ```pip``` first. On my Linux and Mac OSX machines, the command line tool **git** is already installed. If using Windows 10, **git** may not be available. To keep the development environments the same when using Windows 10, you will also need ```conda``` to ```install git```.
-
 
 ```
-(staticsite)$ conda install pip
-(staticsite)$ conda install git
+conda activate transfer-app
 ```
 
-Once ```pip``` is installed, we can install ```pelican``` and ```markdown```. These are two of the core pieces we need to build the website. ```fabric3``` is also installed because we'll use it to build and demo the site on Windows. ```bs4``` is the beautiful soup package. Some of the pelican plugins to be installed later will depend on ```bs4``` to function properly.
+We should now see ```(transfer-app)``` before the terminal prompt. This means we are using the ```(trasfer-app)``` virtual environment.
+
+### Install Django
+
+Time for some fun! Installing Django. Django is a Python package that builds websites. Django is called a _web framework_. A web framework is a software package that scaffolds a website.
 
 ```
-(staticsite)$ pip install pelican
-(staticsite)$ pip install markdown
-(staticsite)$ pip install fabric3
-(staticsite)$ pip install bs4
-(staticsite)$ pip install ghp-import
+(transfer-app)$ conda install django
 ```
 
-### Create a github account and create a new repository
+We can make sure that Django is installed by opening up the python REPL from the Anaconda Prompt and seeing if we can import Django and invoke the ```.__version__``` atribute that is often defined for popular Python packages.
+
+```
+(transfer-app)$ python
+>>> import django
+>>> django.__version__
+
+```
+
+### Create a GitHub.com account and create a new repository
 
 While I was making the site, it became clear that I had to keep track of **_version control_**. I would make some changes to the site on my computer at work, then come home and make more changes to the site. Bringing a USB thumb drive back and forth was hard. I would forget the thumb drive at work or home and then could not edit the site. Or worse, I'd edit the site in both places and try to remember which changes were made where and which was the best version. Ah!
  

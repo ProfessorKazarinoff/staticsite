@@ -1,6 +1,6 @@
 Title: Oregon Engineering College Transfer App - Part 2: Development Environment
-Date: 2020-08-22 12:40
-Modified: 2020-08-22 12:40
+Date: 2020-08-23 12:40
+Modified: 2020-08-23 12:40
 Status: draft
 Category: django
 Tags: python, django, web app
@@ -8,65 +8,59 @@ Slug: oregon-engineering-college-transfer-app-part-2-development-environment
 Authors: Peter D. Kazarinoff
 Series: Oregon Engineering College Transfer App
 Series_index: 2
-Summary: This is the second part of a multi-part series on building a web app with Python and Django. The web app will act as a resource for Engineering students at Oregon Community Colleges that want to transfer to 4-year Universities. The transfer web app will show which classes from their community college engineering program will transfer to which classes in a 4-year University engineering program. In this second post, I'll review the development environment I used to set up and build the web app. This includes installing the Anaconda distribution of Python, creating a GitHub repo, synching a local directory to the GitHub repo, installing packages, starting the project and running the project for the first time.
+Summary: This is the second part of a multi-part series on building a web app with Python and Django. The web app will act as a resource for Engineering students at Oregon Community Colleges that want to transfer to 4-year Universities. The transfer web app will show which classes from their community college engineering program will transfer to which classes in a 4-year University engineering program. In this second post, we'll review the development environment used to set up and build the web app. This includes installing the Anaconda distribution of Python, creating a GitHub.com repo, synching a local directory to the repo on GitHub, creating a virtual environment, installing packages, starting the project and running the project for the first time.
 
-This is the second part of a multi-part series on building a web app with Python and Django. The web app will act as a resource for Engineering students at Oregon Community Colleges that want to transfer to 4-year Universities. The transfer web app will show which classes from their community college engineering program will transfer to which classes in a 4-year University engineering program. In this second post, I'll review the development environment I used to set up and build the web app. This includes installing the Anaconda distribution of Python, creating a GitHub repo, synching a local directory to the GitHub repo, installing packages, starting the project and running the project for the first time.
+This is the second part of a multi-part series on building a web app with Python and Django. The web app will act as a resource for Engineering students at Oregon Community Colleges that want to transfer to 4-year Universities. The transfer web app will show which classes from their community college engineering program will transfer to which classes in a 4-year University engineering program. In this second post, we'll review the development environment used to set up and build the web app. This includes installing the Anaconda distribution of Python, creating a GitHub.com repo, synching a local directory to the repo on GitHub, creating a virtual environment, installing packages, starting the project and running the project for the first time.
 
 # Setting up the development environment
 
-What does that even mean? Before I started building the Oregon College Transfer web app, I needed to make sure the necessary software, packages and settings were in place. This starts with setting up a _development environment_. To me, a development environment is the software on a computer that allows me to get work done. In this case the development environment means the tools necessary to build this site. A list of the tools and technologies are below:
+What does that even mean? Before we start building the Oregon College Transfer web app, we needed to make sure the necessary software, packages and settings were in place. This starts with setting up a _development environment_. To me, a development environment is the software on a computer that allows me to get work done. In this case the development environment means the tools necessary to build the website. A list of the tools and technologies are below:
 
-1. An operating system: This website was built on machines running Windows 10
-2. Python: Python 3.9
+1. An operating system: This website is going to be built on machines running Windows 10
+2. Python: Python 3.9.6 is the most recent version of Python at the time of writing
 3. Anaconda: The Anaconda Prompt and the Anaconda Python distribution
-4. GitHub.com and git: We are going to save the code we write on GitHub.com and push the code up to Github using the command line tool git.
+4. GitHub.com and git: We are going to save the code we write on GitHub.com and push the code up to Github using the command-line tool **git**.
 5. A virtual environment: A separate Python virtual environment that the web app will run in.
 6. Django: a Python web framework
 7. VS Code: a Python code editor to build and test the web app.
-8. Deployment Target: A place for the web app to run. Initially this will be on the Huroku free tier. Eventually we may run the website on a Digital Ocean droplet or on AWS. 
+8. Deployment Target: A place for the web app to run. Initially this will be on the Huroku free tier. Eventually we may run the website on a Digital Ocean droplet or on an AWS EC2 instance. 
 
 ## An operating system
 
-I am building the web app on at least four different computers depending on where I am. These computers include:
+I am building the web app on at least three different computers depending on where I am. These computers include:
 
-* Windows 10 Desktop at work
+* Windows 10 Work Laptop
 
-* Mac OSX laptop at home
+* Windows 10 Personal Laptop
 
-* Windows 10 laptop at home
+* Linux (Ubuntu 20.04 LTS) Desktop at home. 
 
-* Linux (Ubuntu 16.04 LTS) Desktop at home. 
+Regardless of which computer I am using for development, the files that make up the web app will be the same because I'm using git and GitHub.com to keep everything synced. I will also keep my virtual environments the same on each computer.
 
-Regardless of which computer I am using for development, the files that make up the web app will be the same because I'm using Git and GitHub.com to keep everything synced. I will also keep my virtual environments the same on each computer.
+## Python and Anaconda
 
-An advantage of using the Anaconda distribution of Python is that each of these four computers will have the same stable version of Python. 
+Python is a programming language. The Anaconda distribution of Python is a software download that includes the Python programing language and a couple other software tools. For this project, the Anaconda Prompt that comes with Anaconda is going to be used to set up the virtual environment.
 
-Download the latest release at:
+Download the latest release of Anaconda at:
 
-[https://www.anaconda.com/download](https://www.anaconda.com/download/)
+[https://www.anaconda.com/products/individual](https://www.anaconda.com/products/individual)
 
-The Anaconda distribution of Python comes with an up-to-date and stable version of Python (Python 3.6) and the **Anaconda Prompt**. The **Anaconda Prompt** is useful because it allows me to run shell commands on my Windows 10 machine at work. These are the same commands I would run in the terminal on my Mac OSX or Linux boxes. The **Anaconda Prompt** makes creating and logging into virtual environments easy and allows me to use git on Windows 10. Follow this post to [install the Anaconda on Windows 10.]({static}/posts/installation/installing_anaconda_on_windows.md)
+The Anaconda distribution of Python comes with an up-to-date and stable version of Python and the **Anaconda Prompt**. The **Anaconda Prompt** is useful because it allows me to run shell commands on Windows 10 machines. These are the same commands I would run in the terminal on my Linux desktop. The **Anaconda Prompt** makes creating and activating virtual environments easy and allows me to use git on Windows 10. Follow this post to [install the Anaconda on Windows 10.]({static}/posts/installation/installing_anaconda_on_windows.md)
 
  
-### Create a new virtual environment
+## Create a new virtual environment
 
-Before downloading Pelican, we should create a new virtual environment. The same virtual environment on each of the computers I use means the same packages are installed on each computer. To create a new virtual environment, open up the Anaconda Prompt (on Windows) or a terminal (on Linux or Mac OSX). Let's call our new virtual environment **_staticsite_**. The ```conda create``` command creates the environment and the ```-n staticsite``` flag adds the name.
+It is best practice to create and use a seperate virtual environment for each Python project. To create a new virtual environment, open up the Anaconda Prompt (on Windows) or a terminal (on Linux or MacOS). Let's call our new virtual environment **_transfer-app_**. The ```conda create``` command creates the environment and the ```-n staticsite``` flag adds the name.
 
-```
-$ conda create -n transfer-app
-```
-
-This creates a new virtual environment called **_staticsite_**. Becuase I use four different computers to work on the site, I need to make sure the same Python packages are installed on each computer. Using a virtual environment ensures this consistency. Once the virtual environment **_staticsite_** is created, we need to activate it and start using it with the command:
-
-On Mac OSX or Linux
-
-```
-$ source activate staticsite
+```text
+> conda create -n transfer-app python=3.9
 ```
 
-or on Windows 10
+Note that the ```>``` character should not be typed into the Anaconda Prompt. The ```>``` character is used to show the Anaconda Prompt, not a character for you to type.
 
-```
+The command above creates a new virtual environment called **transfer-app**. Once the virtual environment **_transfer-app_** is created, we need to activate it and start using it with the command below:
+
+```text
 conda activate transfer-app
 ```
 
@@ -74,7 +68,7 @@ We should now see ```(transfer-app)``` before the terminal prompt. This means we
 
 ### Install Django
 
-Time for some fun! Installing Django. Django is a Python package that builds websites. Django is called a _web framework_. A web framework is a software package that scaffolds a website.
+Time for some fun! Installing Django. Django is a Python package that builds websites. Django is called a _web framework_. A web framework is a software package that scaffolds a website. Django is one of the most popular web frameworks for Python. Another popular webframework for Python is called **Flask**. Django is considered more opinionated that Flask and comes with more things included than Flask does.
 
 ```
 (transfer-app)$ conda install django

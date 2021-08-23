@@ -45,6 +45,7 @@ We'll build some of these Transfer App user actions in this post.
 At the Anaconda Prompt activate the ```(transfer)``` virtual environment and run the ```startapp``` command to create a new Django app in our Django project. We already have a **pages** app in our project. Now we need to add a **users** app to the project.
 
 ```text
+> cd Documents
 > cd tranfer_project
 # make sure you are in the project base directory
 > conda activate transfer
@@ -53,11 +54,11 @@ At the Anaconda Prompt activate the ```(transfer)``` virtual environment and run
 
 ## Create a user model
 
-There are a couple steps needed to get our user model working. We need to update the project settings.py file so that our user app is included in the list of install apps. Then we'll create the user model in our users app.
+There are a couple steps needed to get our custom user model working. We need to update the project settings.py file so that our user app is included in the list of install apps. Then we'll create the user model in our users app.
 
 ### Add user app to list of installed apps
 
-Now we'll add our user app to the list of installed apps. To do this, we need to edit the settings.py file in the overall transfer_project folder.
+Now we'll add our user app to the list of installed apps. To do this, we need to edit the ```settings.py``` file in the overall ```transfer_project``` folder.
 
 ```python
 # transfer_project/settings.py

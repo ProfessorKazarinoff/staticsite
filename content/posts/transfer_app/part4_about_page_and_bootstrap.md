@@ -136,7 +136,7 @@ Now we'll build the base template. This template acts as the parent template for
 
 ### Home template
 
-The home template is next. Create a home.html template in the templates directory. The home template extends the base template.
+The home template is next. Create a ```home.html``` template in the templates directory. The home template extends the base template.
 
 ```html
 <!-- templates/home.html -->
@@ -155,7 +155,7 @@ The home template is next. Create a home.html template in the templates director
 
 ### About template
 
-The about template is next. Create an about.html template in the templates directory. The about template also extends the base template.
+The about template is next. Create an ```about.html``` template in the templates directory. The about template also extends the base template.
 
 ```html
 <!-- templates/about.html -->
@@ -187,9 +187,9 @@ The resulting home and about pages should look something like this:
 
 ![About Page no bootstrap]({static}/posts/transfer_app/images/no_bootstrap_about_page.png)
 
-## Add Bootstrap to templates
+## Add Bootstrap styling to templates
 
-Now we'll add bootstrap styling to the templates. I'm going to use the bootstrap CDN for simplicity instead of downloading and using the css and javascript files that make up bootstrap. As long there is an internet connection, the CDN link will work.
+Now we'll add bootstrap styling to the templates. We're going to use the bootstrap CDN for simplicity instead of downloading and using the css and javascript files that make up bootstrap. As long there is an internet connection, the CDN link will work.
 
 ### Create a new bootstrap_base.html template
 

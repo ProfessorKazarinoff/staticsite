@@ -61,35 +61,32 @@ Note that the ```>``` character should not be typed into the Anaconda Prompt. Th
 The command above creates a new virtual environment called **transfer-app**. Once the virtual environment **_transfer-app_** is created, we need to activate it and start using it with the command below:
 
 ```text
-conda activate transfer-app
+> conda activate transfer-app
 ```
 
 We should now see ```(transfer-app)``` before the terminal prompt. This means we are using the ```(trasfer-app)``` virtual environment.
 
 ### Install Django
 
-Time for some fun! Installing Django. Django is a Python package that builds websites. Django is called a _web framework_. A web framework is a software package that scaffolds a website. Django is one of the most popular web frameworks for Python. Another popular webframework for Python is called **Flask**. Django is considered more opinionated that Flask and comes with more things included than Flask does.
+Time for some fun! Installing Django. Django is a Python package for building websites. Django is called a _web framework_. A web framework is a software package that scaffolds a website. Django is one of the most popular web frameworks for Python. Another popular webframework for Python is called **Flask**. Django is considered more opinionated than Flask and comes with more "batteries included" than Flask does. The command below will install Django into our ```transfer-app``` virtual environment.
 
-```
-(transfer-app)$ conda install django
+```text
+(transfer-app) > conda install django
 ```
 
-We can make sure that Django is installed by opening up the python REPL from the Anaconda Prompt and seeing if we can import Django and invoke the ```.__version__``` atribute that is often defined for popular Python packages.
+We can make sure that Django is installed by opening up the python REPL from the Anaconda Prompt and seeing if we can import Django and invoke the ```.__version__``` atribute that is often defined by Python packages.
 
-```
-(transfer-app)$ python
+```text
+(transfer-app) > python
 >>> import django
 >>> django.__version__
-
 ```
 
-### Create a GitHub.com account and create a new repository
+## Create a GitHub.com account and create a new repository
 
-While I was making the site, it became clear that I had to keep track of **_version control_**. I would make some changes to the site on my computer at work, then come home and make more changes to the site. Bringing a USB thumb drive back and forth was hard. I would forget the thumb drive at work or home and then could not edit the site. Or worse, I'd edit the site in both places and try to remember which changes were made where and which was the best version. Ah!
- 
- The solution is to use **git** and **github**. Git is a command line utility that assists with version control. Using git means changes made to files on one computer can be synced with the same files on another computer. Github.com is the where the site content and settings are remotely stored and integrates easily with git. 
+We are going to save the code we write to build the website up on GitHub.com. We'll use git to push the code up to GitHub.com. Git is version control command-line utility. Using git means changes made to files on one computer can be synced with the same files on another computer. Github.com is the where the code and settings are remotely stored and integrates easily with git. 
 
-To sign up for a github.com account go here:
+To sign up for a free github.com account go here:
 
 [https://github.com/join](https://github.com/join)
 
@@ -101,61 +98,73 @@ Once the account is set up, log in and create a new repository. Use the + button
 
 ![new github repo](../images/new_github_repo.png)
 
-I named the new repository: **staticsite** and included both a **README.md** and a **GNU General Public License v3.0**. 
+I named the new repository: **transfer-app** and included both a **README.md** and a **GNU General Public License v3.0**. 
 
 ![new github repo details](../images/create_a_new_repo_details.png)
 
-### Make a directory for the site and link it to github
+### Make a directory for the site and link it to GitHub
 
-Once the github repo (short for repository, basically a folder with files on github.com) is set up, the last step to complete the development environment is to link the remote repo on github to the local version of the site on my computer. 
+Once the GitHub repo (short for repository, basically a folder with files on github.com) is set up, we need to link the remote repo on GitJub to the local version of the site on our computer. 
 
-The local version is in a folder call ```staticsite``` in the ```Documents``` folder. The ```staticsite``` folder will contain all the files used to build the site and the output files created by Pelican that _are_ the site.
+The local version is in a folder call ```transfer-app``` in the ```Documents``` folder. The ```transfer-app``` folder will contain all the files used to build the site.
 
-```
-(staticsite)$ cd ~
-(staticsite)$ cd Documents
-(staticsite)$ mkdir staticsite
-(staticsite)$ cd staticsite
-```
-
-We can set up git to keep the contents of the local staticsite folder in sync with the contents of the staticsite repo on github.com. The command ```git init``` will initiate or create the local repository. The command ```git remote add origin``` followed by the url of our github repo links local folder to the remote repo on github. Note the web address ends in ```.git```. If you are following along and want to build your own static site, make sure to change ```username``` to your github username and ```reponame``` to your github repo name.
-
-```
-git init
-git remote add origin https://github.com/username/reponame.git
+```text
+(transfer-app) > cd ~
+(transfer-app) > cd Documents
+(transfer-app) > mkdir transfer-app
+(transfer-app) > cd transfer-app
 ```
 
-Now for the git magic. On github.com we have a README.md file and a licence. But the local staticsite folder on the computer is empty. So the two folders aren't in sync. To make the contents of each folder identical, we **_pull_** the files from github onto the local computer. A **_pull_** "pulls" or gets the files from github and copies them to the local staticsite folder.
+We can use git to keep the contents of the local transfer-app folder in sync with the contents of the transfer-app repo on github.com. The command ```git init``` initiates or creates the local repository. The command ```git remote add origin``` followed by the url of our GitHub repo links local folder to the remote repo on github.com. Note the web address ends in ```.git```. If you are following along and want to build your own web site, make sure to change ```username``` to your github.com username and ```reponame``` to your github.com repo name.
 
+```text
+> git init
+> git remote add origin https://github.com/username/reponame.git
 ```
-(staticsite)$ git pull origin master
+
+Now for the git magic. On github.com we have a README.md file and a licence. But the local ```transfer-app``` folder on our computer is empty. So the two folders aren't in sync. To make the contents of each folder identical, we **_pull_** the files from github.com down onto our local computer. A git **_pull_** "pulls" or gets the files from github.com and copies them to the local transfer-app folder.
+
+```text
+> git pull origin main
 ```
 
 If you look in the local staticsite folder you should now see the following two files:
 
-```
-staticsite
-├── LICENSE
-├── README.md
-```
-
-The development environment is set! On to building the site!
-
-Now each time I work on the site, I navigate to the **staticsite** folder on whatever computer I am using. Before any editing, I key in the command:
-
-```
-git pull origin master
+```text
+transfer-app/
+├───LICENSE
+└───README.md
 ```
 
-After the _pull_, the staticsite folder is up-to-date with the newest version of all the files on github. Then I go about editing files, writing posts, changing settings, etc. After the edits, the last thing I do before shutting down the computer for the day is add all the changes to git with ```git add .``` (note there is a space between the ```add``` and the period ```.```). Then commit those changes locally with the line ```git commit -m "commit message"``` (note there are double quotes ```"commit message"``` used around the commit message), and finally push the changes up to github.com with ```git push origin master```. Now the version of the site up on github.com is the same as the version of the site on my local machine.
+The development environment is set! On to building the web site with Django!
 
+Now each time we work on the website, navigate to the **transfer-app** folder. Before we modify or write any code, key in the command:
+
+```text
+> git pull origin main
 ```
-git add .
-git commit -m "commit message"
-git push origin master
+
+After the _pull_, the transfer-app folder is up-to-date with the newest version of all the files on github.com. After working on the project, the last thing to do before shutting down the computer for the day is add all the changes to git with the command ```git add .``` (note there is a space between the ```add``` and the period ```.```). Then commit those changes locally with the line ```git commit -m "commit message"``` (note there are double quotes ```"commit message"``` used around the commit message), and finally push the changes up to github.com with ```git push origin main```. Now the version of the site up on github.com is the same as the version of the site on our local computer.
+
+```text
+> git add .
+> git commit -m "commit message"
+> git push origin main
 ```
 
-This ensures all of my computers and the github repo contain the same version of the site.
+These commands ensure all our local computer and the github.com repo contain the same files.
 
+## Summary
 
-In the [next post]({static}/posts/how_i_built_this_site/how_I_built_this_site2.md) we will use the ```pelican-quickstart``` command to get the blog off the ground, write our first post and view a demo version of the site.
+In this post, we reviewed the development environment that needs to be set up to build our website. The development environment included:
+
+ * Windows 10 Laptop
+ * Anaconda distribution of Python
+ * Anaconda Prompt
+ * Virtual environment
+ * Django
+ * git and github.com
+
+## Next Steps
+
+In the next step of building the website will be to start a new django project and make sure that we can run the development server locally.

@@ -68,10 +68,12 @@ We should now see ```(transfer-app)``` before the terminal prompt. This means we
 
 ### Install Django
 
-Time for some fun! Installing Django. Django is a Python package for building websites. Django is called a _web framework_. A web framework is a software package that scaffolds a website. Django is one of the most popular web frameworks for Python. Another popular webframework for Python is called **Flask**. Django is considered more opinionated than Flask and comes with more "batteries included" than Flask does. The command below will install Django into our ```transfer-app``` virtual environment.
+Time for some fun! Installing Django. Django is a Python package for building websites. Django is called a _web framework_. A web framework is a software package that scaffolds a website. Django is one of the most popular web frameworks for Python. Another popular webframework for Python is called **Flask**. Django is considered more opinionated than Flask and comes with more "batteries included" than Flask does. The command below will install Django into our ```transfer-app``` virtual environment. We are also going to install ```django-environ```, a Python package that helps with environment variables when working with Django and ```django-heroku``` which is a package that makes deploying Django apps on Heroku easier.
 
 ```text
 (transfer-app) > conda install django==3.2.5
+(transfer-app) > python -m pip install django-environ==0.4.5
+(transfer-app) > python -m django-heroku==0.3.1
 ```
 
 We can make sure that Django is installed by opening up the python REPL from the Anaconda Prompt and seeing if we can import Django and invoke the ```.__version__``` atribute that is often defined by Python packages.

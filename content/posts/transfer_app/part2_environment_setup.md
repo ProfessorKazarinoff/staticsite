@@ -53,7 +53,7 @@ The Anaconda distribution of Python comes with an up-to-date and stable version 
 It is best practice to create and use a seperate virtual environment for each Python project. To create a new virtual environment, open up the Anaconda Prompt (on Windows) or a terminal (on Linux or MacOS). Let's call our new virtual environment **_transfer-app_**. The ```conda create``` command creates the environment and the ```-n staticsite``` flag adds the name.
 
 ```text
-> conda create -n transfer-app python=3.9
+> conda create -y -n transfer-app python==3.9.6
 ```
 
 Note that the ```>``` character should not be typed into the Anaconda Prompt. The ```>``` character is used to show the Anaconda Prompt, not a character for you to type.
@@ -71,7 +71,7 @@ We should now see ```(transfer-app)``` before the terminal prompt. This means we
 Time for some fun! Installing Django. Django is a Python package for building websites. Django is called a _web framework_. A web framework is a software package that scaffolds a website. Django is one of the most popular web frameworks for Python. Another popular webframework for Python is called **Flask**. Django is considered more opinionated than Flask and comes with more "batteries included" than Flask does. The command below will install Django into our ```transfer-app``` virtual environment.
 
 ```text
-(transfer-app) > conda install django
+(transfer-app) > conda install django==3.2.5
 ```
 
 We can make sure that Django is installed by opening up the python REPL from the Anaconda Prompt and seeing if we can import Django and invoke the ```.__version__``` atribute that is often defined by Python packages.
@@ -80,7 +80,10 @@ We can make sure that Django is installed by opening up the python REPL from the
 (transfer-app) > python
 >>> import django
 >>> django.__version__
+'3.2.5'
 ```
+
+You can type ```exit()``` to exit out of the Python REPL.
 
 ## Create a GitHub.com account and create a new repository
 

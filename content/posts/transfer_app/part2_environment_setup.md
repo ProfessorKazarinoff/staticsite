@@ -50,46 +50,44 @@ The Anaconda distribution of Python comes with an up-to-date and stable version 
  
 ## Create a new virtual environment
 
-It is best practice to create and use a seperate virtual environment for each Python project. To create a new virtual environment, open up the Anaconda Prompt (on Windows) or a terminal (on Linux or MacOS). Let's call our new virtual environment **_transfer-app_**. The ```conda create``` command creates the environment and the ```-n staticsite``` flag adds the name.
+It is best practice to create and use a seperate virtual environment for each Python project. To create a new virtual environment, open up the Anaconda Prompt (on Windows) or a terminal (on Linux or MacOS). Let's call our new virtual environment **_transfer_**. The ```conda create``` command creates the environment and the ```-n staticsite``` flag adds the name.
 
 ```text
-> conda create -y -n transfer-app python==3.9.6
+> conda create -y -n transfer python==3.9.6
 ```
 
 Note that the ```>``` character should not be typed into the Anaconda Prompt. The ```>``` character is used to show the Anaconda Prompt, not a character for you to type.
 
-The command above creates a new virtual environment called **transfer-app**. Once the virtual environment **_transfer-app_** is created, we need to activate it and start using it with the command below:
+The command above creates a new virtual environment called **transfer**. Once the virtual environment **_transfer** is created, we need to activate it and start using it with the command below:
 
 ```text
-> conda activate transfer-app
+> conda activate transfer
 ```
 
-We should now see ```(transfer-app)``` before the terminal prompt. This means we are using the ```(trasfer-app)``` virtual environment.
+We should now see ```(transfer)``` before the terminal prompt. This means we are using the ```(trasfer)``` virtual environment.
 
 ### Install Django
 
-Time for some fun! Installing Django. Django is a Python package for building websites. Django is called a _web framework_. A web framework is a software package that scaffolds a website. Django is one of the most popular web frameworks for Python. Another popular webframework for Python is called **Flask**. Django is considered more opinionated than Flask and comes with more "batteries included" than Flask does. The command below will install Django into our ```transfer-app``` virtual environment. We are also going to install ```django-environ```, a Python package that helps with environment variables when working with Django and ```django-heroku``` which is a package that makes deploying Django apps on Heroku easier.
+Time for some fun! Installing Django. Django is a Python package used to build websites. Django is called a _web framework_. A web framework is a software package that scaffolds a website. Django is one of the most popular web frameworks for Python. Another popular webframework for Python is called **Flask**. Django is considered more opinionated than Flask and comes with more "batteries included" than Flask does. The command below installs Django into our ```transfer``` virtual environment.
 
 ```text
-(transfer-app) > conda install django==3.2.5
-(transfer-app) > python -m pip install django-environ==0.4.5
-(transfer-app) > python -m django-heroku==0.3.1
+(transfer) > python -m pip install pip install Django==3.2.6
 ```
 
-We can make sure that Django is installed by opening up the python REPL from the Anaconda Prompt and seeing if we can import Django and invoke the ```.__version__``` atribute that is often defined by Python packages.
+We can ensure Django is installed by opening up the Python REPL from the Anaconda Prompt and seeing if we can import Django and invoke the ```.__version__``` attribute defined by many Python packages.
 
 ```text
-(transfer-app) > python
+(transfer) > python
 >>> import django
 >>> django.__version__
-'3.2.5'
+'3.2.6'
 ```
 
 You can type ```exit()``` to exit out of the Python REPL.
 
 ## Create a GitHub.com account and create a new repository
 
-We are going to save the code we write to build the website up on GitHub.com. We'll use git to push the code up to GitHub.com. Git is version control command-line utility. Using git means changes made to files on one computer can be synced with the same files on another computer. Github.com is the where the code and settings are remotely stored and integrates easily with git. 
+We are going to save the code we write on GitHub.com. GitHub.com is a website programers use to save and share code. We'll use **git** to push the code up to GitHub.com. Git is version control command-line utility. Using git means changes made to files on one computer can be synced with the same files on another computer. Github.com is the where the code will be stored and integrates easily with git. 
 
 To sign up for a free github.com account go here:
 
@@ -99,49 +97,47 @@ The account activation screen looks something like:
 
 ![Github.com Join](../images/join_github.png)
 
-Once the account is set up, log in and create a new repository. Use the + button on the upper right-hand menu:
+Once the account is set up, log in and create a new repository. Use the [+] button in the upper right-hand menu:
 
 ![new github repo](../images/new_github_repo.png)
 
-I named the new repository: **transfer-app** and included both a **README.md** and a **GNU General Public License v3.0**. 
+I named the new repository: **transfer** and included both a **README.md** and a **GNU General Public License v3.0**. Also include the Python ```.gitignore``` file.
 
 ![new github repo details](../images/create_a_new_repo_details.png)
 
 ### Make a directory for the site and link it to GitHub
 
-Once the GitHub repo (short for repository, basically a folder with files on github.com) is set up, we need to link the remote repo on GitJub to the local version of the site on our computer. 
+Once the GitHub repo (short for repository, basically a folder with files on github.com) is set up, we need to link the remote repo on GitHub to the local version of the code on our computer. 
 
-The local version is in a folder call ```transfer-app``` in the ```Documents``` folder. The ```transfer-app``` folder will contain all the files used to build the site.
+The local version is in a folder call ```transfer``` in the ```Documents``` folder. The ```transfer``` folder will contain all the files used to build the site.
 
 ```text
-(transfer-app) > cd ~
-(transfer-app) > cd Documents
-(transfer-app) > mkdir transfer-app
-(transfer-app) > cd transfer-app
+(transfer) > cd Documents
+(transfer) > mkdir transfer
+(transfer) > cd transfer
 ```
 
-We can use git to keep the contents of the local transfer-app folder in sync with the contents of the transfer-app repo on github.com. The command ```git init``` initiates or creates the local repository. The command ```git remote add origin``` followed by the url of our GitHub repo links local folder to the remote repo on github.com. Note the web address ends in ```.git```. If you are following along and want to build your own web site, make sure to change ```username``` to your github.com username and ```reponame``` to your github.com repo name.
+We can use git to keep the contents of the local ```transfer``` folder in sync with the contents of the transfer repo on github.com. The command ```git init``` initiates or creates the local repository. The command ```git remote add origin``` followed by the url of our GitHub repo links our local folder to the remote repo on github.com. Note the web address ends in ```.git```. If you are following along and want to build your own web site, make sure to change ```username``` to your github.com username and ```reponame``` to your github.com repo name.
 
 ```text
 > git init
 > git remote add origin https://github.com/username/reponame.git
 ```
 
-Now for the git magic. On github.com we have a README.md file and a licence. But the local ```transfer-app``` folder on our computer is empty. So the two folders aren't in sync. To make the contents of each folder identical, we **_pull_** the files from github.com down onto our local computer. A git **_pull_** "pulls" or gets the files from github.com and copies them to the local transfer-app folder.
+Now for the git magic. On github.com we have a README.md file, a licence and a ```.gitignore``` file. But the local ```transfer``` folder on our computer is empty. So the two folders aren't in sync. To make the contents of each folder identical, we **_pull_** the files from github.com down onto our local computer. A git **_pull_** "pulls" or gets the files from github.com and copies them to the local transfer folder.
 
 ```text
 > git pull origin main
 ```
 
-If you look in the local staticsite folder you should now see the following two files:
+If you look in the local transfer folder you should now see the following three files:
 
 ```text
-transfer-app/
-├───LICENSE
-└───README.md
+transfer/
+    ├───.gitignore
+    ├───LICENSE
+    └───README.md
 ```
-
-The development environment is set! On to building the web site with Django!
 
 Now each time we work on the website, navigate to the **transfer-app** folder. Before we modify or write any code, key in the command:
 
@@ -149,7 +145,40 @@ Now each time we work on the website, navigate to the **transfer-app** folder. B
 > git pull origin main
 ```
 
-After the _pull_, the transfer-app folder is up-to-date with the newest version of all the files on github.com. After working on the project, the last thing to do before shutting down the computer for the day is add all the changes to git with the command ```git add .``` (note there is a space between the ```add``` and the period ```.```). Then commit those changes locally with the line ```git commit -m "commit message"``` (note there are double quotes ```"commit message"``` used around the commit message), and finally push the changes up to github.com with ```git push origin main```. Now the version of the site up on github.com is the same as the version of the site on our local computer.
+After the _pull_, the transfer-app folder is up-to-date with the newest version of all the files on github.com.
+
+## Create a requirements.txt file and a runtime.txt file
+
+Our project on Github is in sych with our project on our local computer. Next, let's create two new files that shows which Python version we are using and which packages we have installed into our virtual environment. 
+
+Create a new file in the ```transfer/``` directory called ```runtime.txt```. Inside the file, add the Python version running in our virtual environment as shown below:
+
+```text
+# runtime.txt
+python-3.9.6
+```
+
+Next, we'll create a ```requirements.txt``` file in the ```transfer/``` folder. ```requirements.txt``` shows which packages we installed into our virtual environment. This file can be created by ```pip```, the Python package manager we used to install Django earlier.
+
+Enter the command below into the Ananconda Prompt to create ```requirements.txt```
+
+```text
+(transfer) > python -m pip freeze > requirements.txt
+```
+
+There should now be 4 files in the ```transfer/``` directory. The files are shown below.
+
+```text
+transfer/
+    ├───.gitignore
+    ├───LICENSE
+    ├───README.md
+    └───requirements.txt    
+```
+
+## Push changes up to GitHub.com
+
+After working on the project, the last thing to do before shutting down the computer for the day is add all the changes to git with the command ```git add .``` (note there is a space between the ```add``` and the period ```.```). Then commit those changes locally with the line ```git commit -m "commit message"``` (note there are double quotes ```"commit message"``` used around the commit message), and finally push the changes up to github.com with ```git push origin main```. These commands ensure all our local computer and the github.com repo contain the same files.
 
 ```text
 > git add .
@@ -157,7 +186,7 @@ After the _pull_, the transfer-app folder is up-to-date with the newest version 
 > git push origin main
 ```
 
-These commands ensure all our local computer and the github.com repo contain the same files.
+Now the version of the site up on github.com is the same as the version of the site on our local computer.
 
 ## Summary
 

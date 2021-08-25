@@ -1,198 +1,22 @@
-Title: Oregon Engineering College Transfer App - Part 4: About Page and Bootstrap
-Date: 2021-08-24 12:40
-Modified: 2021-08-24 12:40
+Title: Oregon Engineering College Transfer App - Part 5: Bootstrap Styling
+Date: 2021-08-25 12:40
+Modified: 2021-08-25 12:40
 Status: draft
 Category: django
 Tags: python, django, web app
-Slug: oregon-engineering-college-transfer-app-part-4-about-page-bootstrap
+Slug: oregon-engineering-college-transfer-app-part-5-bootstrap-styling
 Authors: Peter D. Kazarinoff
 Series: Oregon Engineering College Transfer App
-Series_index: 4
-Summary: This is the fourth part of a multi-part series on building a web app with Python and Django. The web app will act as a resource for Engineering students at Oregon Community Colleges that want to transfer to 4-year Universities. It will show which classes from their community college engineering program will transfer for which classes in a 4-year University engineering program. In this four post, we'll review building the about page and use bootstrap to style the pages. 
+Series_index: 5
+Summary: This is the 5th part of a multi-part series on building a web app with Python and Django. The web app will act as a resource for Engineering students at Oregon Community Colleges that want to transfer to 4-year Universities. It will show which classes from their community college engineering program will transfer for which classes in a 4-year University engineering program. In this part of the project, we'll add bootstrap styling to our home and about pages.
 
-This is the fourth part of a multi-part series on building a web app with Python and Django. The web app will act as a resource for Engineering students at Oregon Community Colleges that want to transfer to 4-year Universities. It will show which classes from their community college engineering program will transfer for which classes in a 4-year University engineering program.
-
-In this four post, we'll review building the about page and use bootstrap to style the pages. This includes creating a view, and creating a urlpattern. Then we'll create a template and use django's template engine and boostrap to build the page. Finally we'll run the server locally and see if the about works and is styled correctly.
+This is the 5th part of a multi-part series on building a web app with Python and Django. The web app will act as a resource for Engineering students at Oregon Community Colleges that want to transfer to 4-year Universities. It will show which classes from their community college engineering program will transfer for which classes in a 4-year University engineering program. In this part of the project, we'll add bootstrap styling to our home and about pages.
 
 [TOC]
 
 ## What is Bootstrap?
 
-What is Bootstrap and why add it to the django project? [Bootstrap](https://getbootstrap.com/) is a collection of html, javascript and css that produces mobile-responsive web wages. Bootstrap will make the Oregon Transfer App site look good on phones, tablets and laptops. We'll add bootstrap functionality to our Django templates to produce a navigation menu and styled home and about pages.
-
-## Create an about page URL in the pages app
-
-We need to make sure that both the overall project urls and the page app urls are set up for our new pages (the home page and about page).
-
-First check that the overall project url's are pointing to the pages url's:
-
-### project urls
-
-```python
-# transfer_project/urls.py
-
-from django.contrib import admin
-from django.urls import path, include
-
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('pages.urls')),
-]
-```
-
-### page app urls
-
-Now modify the page app urls. This means modifying the file ```pages/urls.py```. Take a look at the imports at the top of the file. We import the ```HomePageView``` and ```AboutPageView``` from the ```views.py``` file in the same directory (```from .views```). And see how the ```AboutPageView.as_view()``` and ```HomePageView.as_view()``` methods are included in the path functions.
-
-```python
-# pages/urls.py
-
-from django.urls import path
-from .views import HomePageView, AboutPageView
-
-urlpatterns = [
-    path('about/', AboutPageView.as_view(), name='about'),
-    path('', HomePageView.as_view(), name='home'),
-]
-
-```
-
-## Create a view for the home and about page
-
-Now within the pages app, we need to modify the ```pages/views.py``` file. We'll build a class-based view for the home page and build a class-based view for the about page. Take a look at the imports at the top of the file. The class names for the views have to match the class names for the views which we included in the ```pages/urls.py``` file.
-
-```python
-# pages/views.py
-
-from django.views.generic import TemplateView
-
-
-class HomePageView(TemplateView):
-    template_name = 'home.html'
-
-class AboutPageView(TemplateView):
-    template_name = 'about.html'
-
-```
-
-## Create the templates for the home and about pages
-
-Now we'll build three templates which combined will render the home page and the about page. One template will be a _base template_. The home and about page templates will build upon this base template. Before we use the templates, a templates directory has to be created in the base project directory. All three templates will be saved in this ```templates/``` directory.
-
-### Add template path to project settings.py
-
-After the templates directory is created (in the project root directory), the ```transfer_project/setting.py``` file needs to be modified to include the new templates directory. In the ```TEMPLATES``` block of the ```transfer_project/setting.py``` file, add ```Path(BASE_DIR, "templates")``` to ```'DIRS'```. Make sure that ```Path``` is imported from the ```pathlib``` module (part of the Python Standard Library) at the top of the ```settings.py``` file.
-
-
-```python
-# transfer_project/settings.py
-
-from pathlib import Path
-import os
-
-...
-
-TEMPLATES = [
-    {
-        "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [Path(BASE_DIR, "templates")],
-        "APP_DIRS": True,
-        "OPTIONS": {
-            "context_processors": [
-                "django.template.context_processors.debug",
-                "django.template.context_processors.request",
-                "django.contrib.auth.context_processors.auth",
-                "django.contrib.messages.context_processors.messages",
-            ]
-        },
-    }
-]
-```
-
-### Base template
-
-Now we'll build the base template. This template acts as the parent template for the home and about templates. Create a ```base.html``` file in the templates directory.
-
-```html
-<!-- templates/base.html -->
-
-{%  block doctype %}
-<!DOCTYPE html>
-<html lang="en">
-{% endblock %}
-
-{%  block head %}
-<head>
-    <meta charset="UTF-8">
-    {%  block title %}
-    <title>Oregon Transfer App</title>
-    {%  endblock %}
-</head>
-{% endblock %}
-
-{% block header %}
-<header>
-  <a href="{% url 'home' %}">Home</a> | <a href="{% url 'about' %}">About</a>
-</header>
-{% endblock %}
-
-{% block content %}
-{% endblock %}
-
-```
-
-### Home template
-
-The home template is next. Create a ```home.html``` template in the ```templates/``` directory. The home template extends the base template.
-
-```html
-<!-- templates/home.html -->
-
-{% extends 'base.html' %}
-
-{%  block title %}
-    <title>Home</title>
-{%  endblock %}
-
-{% block content %}
-<h1>Home page</h1>
-{% endblock content %}
-
-```
-
-### About template
-
-The about template is next. Create an ```about.html``` template in the templates directory. The about template also extends the base template.
-
-```html
-<!-- templates/about.html -->
-
-{% extends 'base.html' %}
-
-{%  block title %}
-    <title>About</title>
-{%  endblock %}
-
-{% block content %}
-<h1>About page</h1>
-{% endblock %}
-
-```
-
-### Run the local server
-
-Now let's test the site. Run the local server and see our changes. I ran the server from the Anaconda Prompt.
-
-```text
-> conda activate transfer
-(transfer)> python manage.py runserver
-```
-
-The resulting home and about pages should look something like this:
-
-![Home Page no bootstrap]({static}/posts/transfer_app/images/no_bootstrap_home_page.png)
-
-![About Page no bootstrap]({static}/posts/transfer_app/images/no_bootstrap_about_page.png)
+What is Bootstrap and why add it to the django project? [Bootstrap](https://getbootstrap.com/) is a collection of html, javascript and css that produces mobile-responsive web wages. Bootstrap will make the Oregon Transfer App website look good on phones, tablets and laptops. In this part of the project, we'll add bootstrap functionality to our Django templates and produce a navigation menu and styled home and about pages.
 
 ## Add Bootstrap styling to templates
 

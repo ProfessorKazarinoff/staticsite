@@ -1,22 +1,28 @@
-Title: Oregon Engineering College Transfer App - Part 5: Custom User Model
-Date: 2018-10-18 12:40
-Modified: 2018-10-18 12:40
+Title: Oregon Engineering College Transfer App - Part 6: Custom User Model
+Date: 2021-08-25 12:40
+Modified: 2021-08-25 12:40
 Status: draft
 Category: django
 Tags: python, django, web app
-Slug: oregon-engineering-college-transfer-app-part-5-custom-user-model
+Slug: oregon-engineering-college-transfer-app-part-6-custom-user-model
 Authors: Peter D. Kazarinoff
 Series: Oregon Engineering College Transfer App
-Series_index: 5
-Summary: This is the fifth part of a multi-part series on building a web app with Python and Django. The web app will act as a resource for Engineering students at Oregon Community Colleges who want to transfer to 4-year Universities. The transfer web app will show which classes from their Community College Engineering program will transfer to which classes in a 4-year University Engineering program. In this fifth post, we'll build a user model that will allow us to add new users, allow users to login, and allow users to logout. We'll test this user model with the Django admin.
+Series_index: 6
+Summary: This is the 6th part of a multi-part series on building a web app with Python and Django. The web app will act as a resource for Engineering students at Oregon Community Colleges who want to transfer to 4-year Universities. The transfer web app will show which classes from their Community College Engineering program will transfer to which classes in a 4-year University Engineering program. In this 6th post, we'll build a user model that will allow us to add new users, allow users to login, and allow users to logout. We'll test this user model with the Django admin.
 
-Summary: This is the fifth part of a multi-part series on building a web app with Python and Django. The web app will act as a resource for Engineering students at Oregon Community Colleges who want to transfer to 4-year Universities. The transfer web app will show which classes from their Community College Engineering program will transfer to which classes in a 4-year University Engineering program. In this fifth post, we'll build a user model that will allow us to add new users, allow users to login, and allow users to logout. We'll test this user model with the Django admin.
+This is the 6th part of a multi-part series on building a web app with Python and Django. The web app will act as a resource for Engineering students at Oregon Community Colleges who want to transfer to 4-year Universities. The transfer web app will show which classes from their Community College Engineering program will transfer to which classes in a 4-year University Engineering program. In this 6th post, we'll build a user model that will allow us to add new users, allow users to login, and allow users to logout. We'll test this user model with the Django admin.
 
 [TOC]
 
 ## What is a user model?
 
 The Oregon Transfer App has two purposes. The first purpose is to be a website that Community College students can use to see which classes at their Community College transfer to a specific 4-year University in Oregon. The second purpose is to be a place where administrators at 4-year Universities can post transfer class equivalencies. The 4-year University administrators _set_ which classes transfer, and the students _see_ which classes transfer. We need to build a user model so that the 4-year university administrators can login, then build and modify transfer equavalencies. Students (or any other user) will not have to login to see which classes transfer. Students (or any other regular user) will not have the ability to _set_ which classes transfer, just _see_ which classes transfer. So a user model for the 4-year University administrators is needed.
+
+## Why do we need to do this now?
+
+The purpose of the website is to show which classes transfer, but we haven't even entired one class into the site yet. Why build a custom user model first? 
+
+We want to create the custom user model first because when we add a courses model to the site, we will have to migrate the database. If the database is migrated before we create a custom user model, changing the default usermodel is going to be a big pain. So it's better to create the custom user model before we create any other databse related things on our site. After the custom user model is set up, we can migrate the database and then move on to building a courses model.
 
 ## What do users need to be able to do?
 
@@ -46,17 +52,23 @@ At the Anaconda Prompt activate the ```(transfer)``` virtual environment and run
 
 ```text
 > cd Documents
-> cd tranfer_project
+> cd tranfer
 # make sure you are in the project base directory
 > conda activate transfer
-(transfer)> python manage.py startapp users
+(transfer) > python manage.py startapp users
 ```
 
 ## Create a user model
 
-There are a couple steps needed to get our custom user model working. We need to update the project settings.py file so that our user app is included in the list of install apps. Then we'll create the user model in our users app.
+There are a couple steps needed to get our custom user model working. We need to update the project ```settings.py``` file so that our user app is included in the list of install apps. Then we'll create the user model in our users app. I learned about custom user models from Will Vincent's excellent Learn Django site and Matt Herman's TestDriven.io site. Links for these resources are below.
 
-### Add user app to list of installed apps
+[LearnDjango - Django Best Practices: Custom User Model](https://learndjango.com/tutorials/django-custom-user-model)
+
+[LearnDjango - Django Log In with Email not Username](https://learndjango.com/tutorials/django-log-in-email-not-username)
+
+[testdriven.io - Creating a Custom User Model in Django](https://testdriven.io/blog/django-custom-user-model/)
+
+### Add users app to list of installed apps
 
 Now we'll add our user app to the list of installed apps. To do this, we need to edit the ```settings.py``` file in the overall ```transfer_project``` folder.
 
@@ -84,7 +96,7 @@ INSTALLED_APPS = [
 
 ```
 
-Also define the ```AUTH_USER_MODEL``` in the same settings.py file
+Also define the ```AUTH_USER_MODEL``` in the same ```settings.py``` file.
 
 ```python
 # transfer_project/settings.py
@@ -95,10 +107,10 @@ AUTH_USER_MODEL = 'users.CustomUser'
 
 ### Create the users model in the users app
 
-Now we need to create the users model in the users app.  Add a new ```CustomUser``` class derived from the ```AbstractUser``` base class in the users/models.py file
+Now we need to create the users model in the users app.  Add a new ```CustomUser``` class derived from the ```AbstractUser``` base class in the ```users/models.py``` file
 
 ```python
-# users/models.pyu
+# users/models.py
 
 from django.contrib.auth.models import AbstractUser
 from django.db import models
@@ -111,7 +123,7 @@ class CustomUser(AbstractUser):
 
 ## Create a users form in users/forms.py
 
-Now we need to create a form in the users app forms.py file. This form will allow new users to be created and exiting users to change.
+Now we need to create a form in the users app ```forms.py``` file. This form will allow new users to be created and exiting users to change.
 
 ```python
 # users/forms.py
@@ -190,17 +202,16 @@ Commenting out the django.admin app from the list of installed apps didn't work 
     'django.contrib.auth',
 ```
 
-I also tried deleting the  users.0001_initial.py file from the user app migrations folder. That worked for the makemigrations step, but it didn't work for the migrate step.
+I also tried deleting the ```users.0001_initial.py``` file from the user app migrations folder. That worked for the makemigrations step, but it didn't work for the migrate step.
 
-The thing that eventually worked was deleting the db.sqlite3 file in the base project directory and then running the commands again. 
+The thing that eventually worked was deleting the ```db.sqlite3``` file in the base project directory and then running the commands again. 
 
 ```text
 (transfer)> python manage.py makemigrations users
 (transfer)> python manage.py migrate
 ```
 
-Running makemigrations and migtrate created a new db.sqlite3 file and seems to work. Once users are created, this is obviously a poor solution. We don't want to erase the entire database each time we make a change to the app, but erasing the database worked to solve the problem right now. 
-
+Running ```makemigrations``` and ```migtrate``` created a new ```db.sqlite3``` file and seems to work. Once users are created, this is obviously a poor solution. We don't want to erase the entire database each time we make a change to the app, but erasing the database this one time worked to solve the problem right now. 
 
 ## Create a super user at the command line
 
@@ -212,7 +223,7 @@ We need to create a super user at the command line so that we can log into the D
 
 You'll be asked for a username, email address and password. Note that the email address we use has to be different from the email address that will eventually be used with the email service.
 
-# Start the local server and log into the Django Admin
+## Start the local server and log into the Django Admin
 
 Now let's see if our user model worked. Run the Django project locally with:
 
@@ -273,8 +284,8 @@ Browse to the user dashboard and see the new fields presented.
 
 ## Summary
 
-That was a ton of work, but we got the new user model working. We created the users app, added a user model to the users app and then incorporated the user model into the Django admin. Then we ran the Django admin and created a new user. Finally we modified the users/admin.py file so that we could see our custom fields 'university' and 'job' listed on the Django admin users pannel
+That was a ton of work, but we got the new user model working. We created the users app, added a user model to the users app and then incorporated the user model into the Django admin. Then we ran the Django admin and created a new user. Finally we modified the ```users/admin.py``` file so that we could see our custom fields ```'university'``` and ```'job'``` listed on the Django admin users pannel
 
 ## Future Work
 
-Next, we'll incorporate a way for users to log in. We have the ability to create new users through the Django admin pannel. Now we need a way for those users to log in and out of the site. 
+Next, we'll create a college model so that we will be able to add colleges to the site. Our project is really moving along now.

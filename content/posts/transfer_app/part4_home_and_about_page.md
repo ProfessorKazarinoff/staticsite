@@ -66,6 +66,28 @@ Open the ```.gitignore``` file and add ```db.sqlite3``` to the bottom of the fil
 db.sqlite3
 ```
 
+## Add our new pages app to settings.py
+
+We created a new Django app called ```pages```. Since we created a new app, we need to include it in the list of installed apps in ```transfer_project/settings.py```. Open the ```settings.py``` file in the ```transfer_project/``` directory and add the line ```"pages.apps.PagesConfig",``` to the list of INSTALLED_APPS.
+
+```python
+# transfer_project/settings.py
+...
+
+INSTALLED_APPS = [
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+
+    # project specific
+    "pages.apps.PagesConfig",
+]
+
+```
+
 Now let's built thoese two web pages.
 
 ## Project URL's

@@ -1,6 +1,6 @@
 Title: Oregon Engineering College Transfer App - Part 8: Courses App
-Date: 2021-08-23 12:40
-Modified: 2021-08-23 12:40
+Date: 2021-08-26 12:40
+Modified: 2021-08-26 12:40
 Status: draft
 Category: django
 Tags: python, django, web app
@@ -8,9 +8,9 @@ Slug: oregon-engineering-college-transfer-app-part-8-courses-app
 Authors: Peter D. Kazarinoff
 Series: Oregon Engineering College Transfer App
 Series_index: 8
-Summary: This is the 8th part of a multi-part series on building a web app with Python and Django. The web app will act as a resource for Engineering students at Oregon Community Colleges who want to transfer to 4-year Universities. The transfer web app will show which classes from their Community College Engineering program will transfer to which classes in a 4-year University Engineering program. In this 8th part of the series, we are going to create a new Django App to house our courses model.
+Summary: This is the 8th part of a multi-part series on building a web app with Python and Django. The web app will act as a resource for Engineering students at Oregon Community Colleges who want to transfer to 4-year Universities. The website will show which classes from their Community College Engineering program will transfer to which classes in a 4-year University Engineering program. In this 8th part of the series, we will create a new Django App to house our courses model. Then we'll build course list and detail pages and write some tests.
 
-This is the 8th part of a multi-part series on building a web app with Python and Django. The web app will act as a resource for Engineering students at Oregon Community Colleges who want to transfer to 4-year Universities. The transfer web app will show which classes from their Community College Engineering program will transfer to which classes in a 4-year University Engineering program. In this 8th part of the series, we are going to create a new Django App to house our courses model.
+This is the 8th part of a multi-part series on building a web app with Python and Django. The web app will act as a resource for Engineering students at Oregon Community Colleges who want to transfer to 4-year Universities. The website will show which classes from their Community College Engineering program will transfer to which classes in a 4-year University Engineering program. In this 8th part of the series, we will create a new Django App to house our courses model. Then we'll build course list and detail pages and write some tests.
 
 [TOC]
 
@@ -18,22 +18,20 @@ This is the 8th part of a multi-part series on building a web app with Python an
 
 So far, the files we have in our website project are shown below:
 
-```text
+![dir_structure_before_courses_model.png]({static}/posts/transfer_app/images/dir_structure_before_courses_model.png]
 
-```
-
-We have created a Django project called ```transfer_project``` and created three Django Apps, a ```pages``` app, a ```user``` app and a ```colleges``` app. We've created a few html templates and url routes that produces a few web pages. We also created a Colleges model and populated the college model with two colleges using the Django admin.
+We have created a Django project called ```transfer_project``` and created three Django Apps, a ```pages``` app, a ```user``` app and a ```colleges``` app. We've created a few html templates and url routes that produces web pages. We also created a Colleges model and populated the college model with two colleges using the Django admin.
 
 Next we will create a ```courses``` app that will house our Course model.
 
 ## The general django app flow
 
-So far we have created three Django apps. The process of creating a new web page that we used to build our home and about pages is the same steps that we'll use to create our courses page.
+So far we have created three Django apps. The process of creating new web pages for courses are the same steps we used to create our college pages.
 
  * create courses app
  * add courses app to settings.py
  * create a courses model
- * create a courses page template
+ * create courses page templates
  * modify project urls
  * create courses urls
  * create a courses view
@@ -44,43 +42,41 @@ Our courses app will house all of the courses functionality of our website. Crea
 
 ```text
 > cd Documents
-> cd transfer-app
-> conda activate transfer-app
-(transfer-app) > python manage.py startapp courses 
+> cd transfer
+> conda activate transfer
+(transfer) > python manage.py startapp courses 
 ```
 
 This command adds a new app to our project. The directory structure now looks like the file structure below:
 
-```text
-
-```
+![dir_structure_after_courses_app.png]({static}/posts/transfer_app/images/dir_structure_after_courses_app.png]
 
 ## Add courses app to the list of installed apps
 
-Just like what we did with our users, pages and colleges apps, we need to add our new courses app to the list of installed apps in our ```settings.py``` file. Open ```settings.py``` and see the addition below.
+Just like what we did with our users, pages and colleges apps, we need to add our new courses app to the list of installed apps in our project ```settings.py``` file. Open ```settings.py``` and see the addition below.
 
 ```python
 # transfer_project/settings.py
-
-# Application definition
+...
 
 INSTALLED_APPS = [
-    # project specific
-    'pages.apps.PagesConfig',
-    'users.apps.UsersConfig',
-    'colleges.apps.CollegesConfig',
-    'courses.apps.CoursesConfig',
-    
     # django
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "django.contrib.sites",
     # 3rd party
-    
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    # project specific
+    "colleges.apps.CollegesConfig",
+    "courses.apps.CoursesConfig",
+    "pages.apps.PagesConfig",
+    "accounts",
 ]
 
 ```
@@ -97,11 +93,11 @@ Now we need to create the Courses model. This is defined within the courses app 
 
  * Course description: Example A 2nd year engineeirng course for students to learn computer programing to solve engineering problems
 
- * college: Example Portland Community College
+ * college: Example Portland Community College (this comes from our College model)
 
- * Prereqs: Example ENGR101
+ * Prereqs: Example ENGR101 (optional)
 
- * Course outcomes: Example 1. Demonstrate ability to use programming to solve engineering problems
+ * Course outcomes: Example 1. Demonstrate ability to use programming to solve engineering problems (optional)
 
  * Date added: Example Aug 24, 2021
 
@@ -115,7 +111,6 @@ As far the relationship between courses and colleges goes, each course only belo
 # courses/models.py
 
 from django.db import models
-from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
@@ -125,6 +120,7 @@ from colleges.models import College
 class Course(models.Model):
     number = models.CharField(max_length=10)
     name = models.CharField(max_length=50)
+    credits = models.FloatField(null=True, blank=True)
     college = models.ForeignKey(College, on_delete=models.CASCADE)
     pre_reqs = models.CharField(max_length=50, blank=True)
     description = models.TextField(max_length=200, blank=True)
@@ -141,9 +137,24 @@ class Course(models.Model):
 
 ```
 
+## Add Course model to the Django Admin
+
+Next, we'll add our Course model the the Django admin. That way, when we log into the admin side of our site, we'll be able to add a new course. Open ```admin.py``` in the courses app.
+
+```python
+# courses/admin.py
+
+from django.contrib import admin
+
+from .models import Course
+
+admin.site.register(Course)
+
+```
+
 ## Migrate new courses model to the database
 
-Now that the courses model is added, we need to migrate the model to the database.
+Now that the new Course model is added, we need to migrate the database.
 
 ```text
 (transfer) $ python manage.py makemigrations
@@ -152,7 +163,7 @@ Now that the courses model is added, we need to migrate the model to the databas
 
 ## Add a course using the Django Admin
 
-Now that our course model is created, we should be able to add a new courses in the Django admin. Start the local development server with the command below:
+Now that our course model is created, and the course Model is added to the admin, we should be able to add a new courses in the Django admin. Start the local development server with the command below:
 
 ```
 (transfer-app) > python manage.py runserver
@@ -168,55 +179,81 @@ Log in with your super user credentials and add a couple courses. We'll add four
 
 ## Create a courses template
 
-Next, we'll build a courses page that shows all the courses we added to the database in the Django admin. That means we need to create a courses template. Let's put this tempate in the ```templates/courses/``` directory. The directory strucutre of the entire Django project is below:
+Next, we'll build a courses page that shows all the courses we added to the database in the Django admin. That means we need to create a courses template. Let's put this tempate in the ```templates/``` directory.
 
-```text
-├───pages
-│   ├───migrations
-│   │   └───__pycache__
-│   ├───static
-│   │   └───css
-│   └───__pycache__
-├───templates
-│   ├───pages
-│   ├───colleges
-│   ├───courses
-│   │   └───courses.html
-│   └───users
-├───transfer_project
-│   └───__pycache__
-└───users
-```
-
-The html below needs to be pasted into the ```courses.html``` file in the ```templates/courses/``` directory.
+The html below needs to be pasted into the ```course_detail.html``` file in the ```templates/``` directory.
 
 ```html
-<!-- templates/courses/courses.html -->
+<!-- templates/course_detail.html -->
 
-{% extends 'bootstrap_base.html' %}
-{% load crispy_forms_tags %}
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block custom_stylesheets %}
+    <link href="{% static 'css/home.css' %}" rel="stylesheet">
+{% endblock custom_stylesheets %}
 
 {% block content %}
-    <div class="jumbotron">
-        <div class="content-section">
-            <form method="POST">
-                {% csrf_token %}
-                <fieldset class="form-group">
-                    <legend class="border-bottom mb-4"><h1>Log In</h1></legend>
-                    {{ form|crispy }}
-                </fieldset>
-                <div class="form-group">
-                    <button class="btn btn-lg btn-success" type="submit">Login</button>
-                </div>
-            </form>
-            <div class="border-top pt-3">
-                <small class="text-muted">
-                    Need An Account? <a class="ml-2" href="{% url 'home' %}">Sign Up Now</a>
-                </small>
-            </div>
-        </div>
-    </div>
+
+<div class="container">
+    <h3>{{ object.number }} - {{ object.name }}</h3>
+    <hr>
+    <p>Credits: {{ object.credits }} </p>
+    <p>Prereqs: {{ object.pre_reqs }}</p>
+    <hr>
+    <p>Description: {{ object.description }}</p>
+</div>
+
 {% endblock content %}
+
+```
+
+The html below needs to be pasted into the ```course_list.html``` file in the ```templates/``` directory.
+
+```html
+<!-- templates/course_list.html -->
+
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block custom_stylesheets %}
+    <link href="{% static 'css/home.css' %}" rel="stylesheet">
+{% endblock custom_stylesheets %}
+
+{% block content %}
+<div class="container">
+    <h2>All Course Listing</h2>
+    <hr>
+    <h4>Engineering courses</h4>
+
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Course number</th>
+                <th scope="col">Course name</th>
+                <th scope="col">Credits</th>
+                <th scope="col">College</th>
+                <th scope="col">Prerequisites</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for course in object_list %}
+            <tr>
+                <td><a class="course-link-color" href="{% url 'course_detail' course.id %}">{{ course.number }}</a></td>
+                <td>{{ course.name }}</td>
+                <td>{{ course.credits }}</td>
+                <td>{{ course.college }}</td>
+                <td>{{ course.pre_reqs }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+{% endblock content %}
+
 ```
 
 ## Modify project urls
@@ -227,13 +264,14 @@ Now that the course html template is created, we need to create a url pattern th
 # transfer_project/urls.py
 
 from django.contrib import admin
-from django.contrib.auth import views as auth_views
-from django.urls import path, include
+from django.urls import include, path
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
+    path("accounts/", include("allauth.urls")),
+    path("colleges/", include("colleges.urls")),
     path('courses/', include('courses.urls')),
-    path('', include('pages.urls')),
+    path("", include("pages.urls")),
 ]
 
 ```
@@ -251,14 +289,14 @@ from .views import (
 
 urlpatterns = [
     path("course_list/", CourseListView.as_view(), name="course_list"),
-    path("course/<slug:slug>/", CourseDetailView.as_view(), name="course_detail"),
+    path("course/<int:pk>/", CourseDetailView.as_view(), name="course_detail"),
 ]
 
 ```
 
 ## Create a courses view
 
-In our ```courses/urls.py``` file we all the ```CourseListView``` and the ```CourseListView```. Both of these views need to be created in ```courses/views.py```.
+In our ```courses/urls.py``` file we all the ```CourseListView``` and the ```CourseDetailView```. Both of these views need to be created in ```courses/views.py```.
 
 ```python
 # courses/views.py
@@ -276,51 +314,78 @@ class CourseDetailView(DetailView):
 class CourseListView(ListView):
     model = Course
     template_name = "course_list.html"
+
 ```
 
 
 ## Build tests for courses page
 
-Since we have two new pages, we need to write some new tests. We already have a couple tests. There is a test for the homepage and a test for the about page. We can improve these tests by adding an ```assertTemplateUsed()``` test for both pages.
+Since we have two new pages, we need to write some new tests.
 
 ```python
-# pages/tests.py
+# courses/tests.py
 
-from django.test import SimpleTestCase, TestCase
+from django.test import TestCase
+from django.urls import reverse
 
-class HomePageTests(SimpleTestCase):
+from accounts.models import CustomUser
+from colleges.models import College
+from .models import Course
 
-    def test_home_page_status_code(self):
-        response = self.client.get('/')
+
+class CoursesListPageTests(TestCase):
+    def test_courses_list_page_status_code(self):
+        response = self.client.get("/courses/course_list/")
         self.assertEqual(response.status_code, 200)
 
-    def test_home_view_uses_correct_template(self):
-        response = self.client.get(reverse('home')
+    def test_courses_list_view_uses_correct_template(self):
+        response = self.client.get(reverse("course_list"))
+        self.assertTemplateUsed(response, "course_list.html")
+
+
+class CourseTests(TestCase):
+    def setUp(self):
+        self.user = CustomUser.objects.create_user(
+            username="peter", email="peter@peter.com", password="top_secret"
+        )
+        College.objects.create(
+            name="Mt. Hood Community College",
+            abbreviation="MHCC",
+            URL="https://mhcc.edu/",
+            slug="mhcc",
+            description="Mt. Hood Community College is in Gresham, OR",
+            added_by=self.user,
+        )
+        college = College.objects.get(id=1)
+        Course.objects.create(
+            number = "ENGR 114",
+            name = "Engineering Programming",
+            credits = 4.0,
+            college = college,
+            pre_reqs = "ENGR 101",
+            description = "An engineering programming course",
+            course_outcomes = "test outcomes",
+            URL = "https://www.pcc.edu/ccog/engr/114/",
+            added_by = self.user,
+        )
+
+    def test_text_content(self):
+        course = Course.objects.get(id=1)
+        expected_object_name = f"{course.number} {course.name} at {course.college}"
+        self.assertEquals(expected_object_name, "ENGR 114 Engineering Programming at Mt. Hood Community College")
+
+    def test_course_list_view(self):
+        response = self.client.get(reverse("course_list"))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'home.html')
+        self.assertContains(response, "ENGR 114")
+        self.assertTemplateUsed(response, "course_list.html")
 
-
-class AboutPageTests(SimpleTestCase):
-
-    def test_about_page_status_code(self):
-        response = self.client.get('/about/')
+    def test_course_detail_view(self):
+        course = Course.objects.get(id=1)
+        response = self.client.get(reverse("course_detail", args=[str(course.id)]))
         self.assertEqual(response.status_code, 200)
-
-    def test_about_view_uses_correct_template(self):
-        response = self.client.get(reverse('about')
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'about.html')
-
-class LoginPageTests(SimpleTestCase):
-
-        def test_login_page_status_code(self):
-        response = self.client.get('/logout/')
-        self.assertEqual(response.status_code, 200)
-
-    def test_login_view_uses_correct_template(self):
-        response = self.client.get(reverse('logout')
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, '/users/login.html')
+        self.assertContains(response, "ENGR 114")
+        self.assertTemplateUsed(response, "course_detail.html")
 
 ```
 
@@ -330,9 +395,33 @@ Now let's run our tests and see if they all pass. At the Anaconda Prompt, type:
 (transfer) > python manage.py test
 ```
 
+The output should look something like below:
+
+```text
+----------------------------------------------------------------------
+Ran 20 tests in 0.935s
+
+OK
+Destroying test database for alias 'default'...
+```
+
 Everything passes! Great. Another part of the Django project down.
 
 ## Run the development server
+
+```text
+(transfer) > python manage.py runserver
+```
+
+## Format, add, commit and push
+
+```text
+(transfer) > isort .
+(transfer) > black .
+(transfer) > git add .
+(transfer) > git commit -m "commit message"
+(transfer) > git push origin main
+```
 
 ## Summary
 
@@ -345,4 +434,4 @@ In this post we created a courses app. We followed the general Django pattern to
 
 ## Future Work
 
-Next, we are going to think about how to build the database for the website and how our database models are going to work.
+Next, we are going to build a model for college majors. This way, if a student knows they want to major in Mechanical Engineering, they can see all of the courses that go along with that major that are taught at each college.

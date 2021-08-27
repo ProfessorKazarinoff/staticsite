@@ -189,7 +189,7 @@ Next, we'll build a majors page that shows all the majors we added to the databa
 └───users
 ```
 
-The html below needs to be pasted into the ```major_list.html``` and ```major_detail``` files in the ```templates/``` directory.
+The html below needs to be pasted into the ```major_list.html``` and ```major_detail``` files in the ```templates/``` directory. We can also make a ```college_major_list.html``` and ```college_major_detail.html``` template.
 
 ```html
 <!-- templates/major_list.html -->
@@ -222,6 +222,42 @@ The html below needs to be pasted into the ```major_list.html``` and ```major_de
 {% endblock content %}
 
 ```
+
+Our ```college_major_list.html``` template is very similar. 
+
+```html
+<!-- templates/college_major_list.html -->
+
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block custom_stylesheets %}
+    <link href="{% static 'css/home.css' %}" rel="stylesheet">
+    <link href="{% static 'css/majors_list.css' %}" rel="stylesheet">
+{% endblock custom_stylesheets %}
+
+{% block content %}
+  <div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+      {% for college_major in object_list %}
+      <div class="col-md-4">
+        <h2>{{ college_major.name }}</h2>
+        <p>{{ college_major.description }}</p>
+        <p><a class="btn btn-secondary" href="{% url 'college_major_detail' college_major.id %}" role="button">View Courses &raquo;</a></p>
+      </div>
+      {% endfor %}
+    <hr>
+
+  </div> <!-- /container -->
+</div>
+
+{% endblock content %}
+
+```
+
+Next up is the ```major_detail.html``` template.
 
 ```html
 <!-- templates/major_detail.html -->
@@ -268,6 +304,53 @@ The html below needs to be pasted into the ```major_list.html``` and ```major_de
 
 ```
 
+The ```college_major_detail.html``` is the last template in this part of the project. This template is a little trickier. We want to loop over all the courses in each college major.
+
+```html
+<!-- templates/college_major_detail.html -->
+
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block custom_stylesheets %}
+    <link href="{% static 'css/advising_guide.css' %}" rel="stylesheet">
+    <link href="{% static 'css/course_list.css' %}" rel="stylesheet">
+{% endblock custom_stylesheets %}
+
+{% block content %}
+<div class="container">
+    <h3>{{ object.name }} {{ object.major }} Advising Guide</h3>
+    <hr>
+    <h4>Engineering Majors</h4>
+
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Major</th>
+                <th scope="col">Abbreviation</th>
+                <th scope="col">Colleges</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for course in object.courses.all %}
+            <tr>
+                <td><a class="course-link-color" href="{% url 'course_detail' course.id %}">{{ course.number }}</a></td>
+                <td>{{ course.name }}</td>
+                <td>PCC, PSU, OSU</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+
+      <hr>
+
+    </div>
+
+{% endblock content %}
+
+```
+
 ## Modify project urls
 
 Now that the course html template is created, we need to create a url pattern that points to the template. When a user browses to https://domain.com/courses, the courses template should pop up. Edit the transfer_project/urls.py file to include a new route for the courses template. 
@@ -296,25 +379,27 @@ urlpatterns = [
 
 from django.urls import path
 
-from .views import MajorDetailView, MajorListView
+from .views import MajorDetailView, MajorListView, CollegeMajorListView, CollegeMajorDetailView
 
 urlpatterns = [
     path("major_list/", MajorListView.as_view(), name="major_list"),
     path("major/<int:pk>/", MajorDetailView.as_view(), name="major_detail"),
+    path("college_major_list/", CollegeMajorListView.as_view(), name="college_major_list"),
+    path("college_major/<int:pk>/", CollegeMajorDetailView.as_view(), name="college_major_detail"),
 ]
 
 ```
 
-## Create two Views
+## Create four Views
 
-In our ```majors/urls.py``` file we used two views: ```MajorListView``` and the ```MajorDetailView```. Both of these views need to be created in ```majors/views.py```.
+In our ```majors/urls.py``` file we used four views. These views need to be created in ```majors/views.py```.
 
 ```python
 # majors/views.py
 
 from django.views.generic import DetailView, ListView
 
-from .models import Major
+from .models import Major, CollegeMajor
 
 
 class MajorDetailView(DetailView):
@@ -325,6 +410,15 @@ class MajorDetailView(DetailView):
 class MajorListView(ListView):
     model = Major
     template_name = "major_list.html"
+
+class CollegeMajorDetailView(DetailView):
+    model = CollegeMajor
+    template_name = "college_major_detail.html"
+
+
+class CollegeMajorListView(ListView):
+    model = CollegeMajor
+    template_name = "college_major_list.html"
 
 ```
 

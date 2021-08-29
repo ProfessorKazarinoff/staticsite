@@ -491,7 +491,8 @@ localhost:8000/major_list/
 
 ## Summary
 
-In this post we created a majors model. We followed the general Django pattern to create a majors list page and a majors detail page on our website
+In this post we created a majors model. We followed the general Django pattern to create a majors list page and a majors detail page on our website.
+
  * majors model
  * project urls
  * majors urls

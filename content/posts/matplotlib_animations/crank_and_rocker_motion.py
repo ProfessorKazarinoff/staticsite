@@ -14,8 +14,7 @@ import matplotlib.animation as animation
 # input parameters
 r = 0.395  # crank radius
 l = 4.27  # connecting rod length
-rr = 1.15
-# rocker radius
+rr = 1.15 # rocker radius
 d = 4.03  # center-to-center distance
 rot_num = 6  # number of crank rotations
 increment = 0.1  # angle incremement

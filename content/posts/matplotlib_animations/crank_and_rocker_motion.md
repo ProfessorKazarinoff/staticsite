@@ -1,48 +1,50 @@
-Title: Crank and Rocker Motion with Python and matplotlib
-Date: 2021-09-20 20:40
-Modified: 2021-09-20 20:40
+Title: Crank and Rocker Motion with Python and Matplotlib
+Date: 2021-09-20 11:54
+Modified: 2021-09-20 11:54
 Status: Draft
 Category: matplotlib
 Tags: python, matplotlib, animation
-Slug: crank-and-rocker-motion
+Slug: crank-and-rocker-motion-with-python-and-matplotlib
 Authors: Peter D. Kazarinoff
-Summary: An animation of crank and rocker motion created with Python and Matplotlib
+Summary: [![crank and rocker still]({static}/posts/matplotlib_animations/images/crank_and_rocker.png)]({filename}/posts/matplotlib_animations/crank_and_rocker_motion.md) An animation of crank and rocker motion created with Python and Matplotlib
 
-Crank and Rocker motion is one of the classic dynamic types of motion that belong to a category of 4-bar motion. Crank and rocker motion is the type of motion that a pumpjack goes through when pumping a fluid. 
+[![crank and rocker still]({static}/posts/matplotlib_animations/images/crank_and_rocker.png)]({filename}/posts/matplotlib_animations/crank_and_rocker_motion.md)
+
+Crank and Rocker motion is one of the classic dynamic types of motion that belong to a category of 4-bar motion. Crank and rocker motion is the type of motion that a pumpjack goes through when pumping a fluid. In this post, you'll learn how to create an animation of crank and rocker motion using Python and Matplotlib.
 
 ## Set up a Python virtual environment
 
-To start this process, we will set up a virtual environment on Python. 
+To start this process, we will set up a Python virtual environment. 
 
 Real Python has a good [introduction to virtual environments](https://realpython.com/blog/python/python-virtual-environments-a-primer/) and why to use them.
 
-I use the Anaconda distribution of Python. The Anaconda distribution of Python comes with the very usefull Anaconda Prompt. Virtual environments can be created using the Anaconda Prompt. Open the Anaconda Prompt from the Windows Start menu and enter the following commands to create a new virtual environment. 
+I use the Anaconda distribution of Python. The Anaconda distribution of Python comes with the very useful Anaconda Prompt. Virtual environments can be created using the Anaconda Prompt. Open the Anaconda Prompt from the Windows Start menu and enter the following commands to create a new virtual environment. 
 
 ```text
-$ conda create -n piston_motion python=3.7
+> conda create -n piston_motion python=3.8
 ```
 
-Now that we have the a new clean virtual environment with Python 3.7 installed, we need to install the necessary packages. Note that our virtual environment ```(piston_motion)```
+Now that we have a new clean virtual environment with Python 3.7 installed, we need to install the necessary packages. Note that our virtual environment ```(piston_motion)```
 
 ```text
-$ conda activate piston_motion
-(piston_motion) $ conda install numpy
-(piston_motion) $ conda install matplotlib
-(piston_motion) $ conda list
-cycler==0.10.0
+> conda activate piston_motion
+(piston_motion) > conda install numpy
+(piston_motion) > conda install matplotlib
+(piston_motion) > conda list
+
+...
+
 matplotlib==2.0.2
-numpy==1.13.1
-pyparsing==2.2.0
-python-dateutil==2.6.1
-pytz==2017.2
-six==1.10.0
+numpy==3.4.2
+
+...
 ```
 
 Open a text editor or code editor and create a new Python file called ```piston_motion.py```. A good code editor to use is Visual Studio Code. Visual Studio Code is free and open source. If you installed the Anaconda distribution of Python, you had the option of installing Visual Studio Code. 
 
 ## Import numpy and matplotlib
 
-We we'll start our ```crank_and_rocker_motion.py``` script by importing the necessary modules
+We will start our ```crank_and_rocker_motion.py``` script by importing the necessary modules
 
 ```python
 # crank_and_rocker_motion.py
@@ -56,18 +58,17 @@ import matplotlib.animation as animation
 
 ## Define the input parameters
 
-To model crank and rocker motion, we need three moving parts. One is the rotating crankshaft. The crankshaft rotates around a central axis with a constant radius. We'll model crankshaft rotation with a line of constant length, one end fixed at the origin and the other rotating in a circle like the hand on a clock. To model this line, we just need two points, the origin at ```x=0``` and ```y=0```  and the end of the line at the point ```x1``` and ```x2```.
+To model crank and rocker motion, we need three moving parts. One is the rotating crankshaft. The crankshaft rotates around a central axis with a constant radius. We'll model crankshaft rotation with a line of constant length, one end fixed at the origin and the other rotating in a circle like a hand on a clock. To model this line, we just need two points, the origin at ```x=0``` and ```y=0```  and the end of the line at the point ```x1``` and ```x2```.
 
-We also need to define a crank radius and define the connecting rod length. We'll define the crank radius and connecting rod length constants at the top of our code. Let's also define a fixed number of rotations.  Without a fixed number of rotations, our animation will run around around indefininelty.
+We also need to define a crank radius and define the connecting rod length. We'll define the crank radius and connecting rod length constants at the top of our code. Let's also define a fixed number of rotations.  Without a fixed number of rotations, our animation will run around and around indefinitely.
 
-The rotation increment defines how fine the 'ticks' are as our crankshaft arm rotates. A 'tick' increment of ```0.1``` results in a smooth animation.
+The rotation increment defines how fine the 'ticks' are when our crankshaft arm rotates. A 'tick' increment of ```0.1``` results in a smooth animation.
 
 ```python
 # input parameters
 r = 0.395  # crank radius
 l = 4.27  # connecting rod length
-rr = 1.15
-# rocker radius
+rr = 1.15 # rocker radius
 d = 4.03  # center-to-center distance
 rot_num = 6  # number of crank rotations
 increment = 0.1  # angle incremement
@@ -77,7 +78,7 @@ s = over / absolute(over)
 
 ## Create an array of crankshaft angles
 
-Next we'll create an array of crankshaft rotation angles. As the crankshaft rotates in our animation, each one of these angles will be 'ticked though'.
+Next, we'll create an array of crankshaft rotation angles. As the crankshaft rotates in our animation, each one of these angles will be 'ticked though'.
 
 ```python
 # create the angle array, where the last angle is the number of rotations*2*pi
@@ -87,7 +88,7 @@ R_Angles = np.append(angle_minus_last, rot_num * 2 * pi)
 
 ## Define the fixed points of the animation
 
-Now we need to definea couple fixed points. The first fixed point is the center of the crankshaft, we'll define this point at the origin ```x=0,y=0```. The second fixed point is the center of the rocker arm. The center of the rocker arm will have the co-ordinates ```x4``` and ```y4```. We'll define the center of the rocker arm at ```x4 = d``` (where ```d``` is the center-to-center distance between the crank and the rocker) and ```y4 = 0```.
+Now we need to define a couple of fixed points. The first fixed point is the center of the crankshaft, we'll define this point at the origin ```x=0,y=0```. The second fixed point is the center of the rocker arm. The center of the rocker arm will have the coordinates ```x4``` and ```y4```. We'll define the center of the rocker arm at ```x4 = d``` (where ```d``` is the center-to-center distance between the crank and the rocker) and ```y4 = 0```.
 
 ```python
 # coordinates of the crank center point : Point 1
@@ -99,9 +100,9 @@ x4 = d
 y4 = 0
 ```
 
-## Create arrays to save the crankshaft and rocker shaft end points
+## Create arrays to save the crankshaft and rocker shaft endpoints
 
-Now that the fixed points are defined, we need to create a set of empty arrays which will contain the moving points in our annimation. These moving points are:
+Now that the fixed points are defined, we need to create a set of empty arrays which will contain the moving points in our animation. These moving points are:
 
  * crankshaft x-position
  * crankshaft y-position
@@ -117,9 +118,9 @@ X3 = np.zeros(len(R_Angles))  # array of rocker x-positions: Point 3
 Y3 = np.zeros(len(R_Angles))  # array of rocker y-positions: Point 3
 ```
 
-## Calculate the crankshaft and rocker shaft end points
+## Calculate the crankshaft and rocker shaft endpoints
 
-Now for the calculations. We have our contants and empty arrays set up. We will loop over each crankshaft angle according to our 'tick' increment. For each crankshaft angle we calculate the corresponding crankshaft endpoint and the corresponding rocker arm end point. These two endpoints are saved in the arrays ```X2,Y2``` and ```X3,Y3```. 
+Now for the calculations. We have our constants and empty arrays set up. We will loop over each crankshaft angle according to our 'tick' increment. For each crankshaft angle, we calculate the corresponding crankshaft endpoint and the corresponding rocker arm endpoint. These two endpoints are saved in the arrays ```X2,Y2``` and ```X3,Y3```. 
 
 ```python
 # find the crank and connecting rod positions for each angle
@@ -170,7 +171,7 @@ ax.set_yticklabels([])
 
 ## Create an initialization function and animation function
 
-Next we'll create to functions. The first function ```init()``` is an initialization function and will be called at the start of our animation. The second function ```animate()``` is the animation function. This is the function that actually produces the animation.
+Next, we'll create two functions. The first function ```init()``` is an initialization function and will be called at the start of our animation. The second function ```animate()``` is the animation function. This is the function that produces the animation.
 
 ```python
 # initialization function
@@ -190,7 +191,7 @@ def animate(i):
 
 ## Call the animation and show the plot
 
-The last part of code is to call the animation function and show the plot. These two lines of code are the final two lines needed to make our crank and rocker animation work.
+The last part of the code is to call the animation function and show the plot. These two lines of code are the final two lines needed to make our crank and rocker animation work.
 
 ```python
 # call the animation
@@ -208,12 +209,12 @@ Save the final changes to ```crank_and_rocker_motion.py```. We can run our Pytho
 
 ## Run the animation
 
-Run the animation by calling the ```crank_and_rocker_motion.py``` script with the Anaconda Prompt. Make sure you activate in the ```(piston_motion)``` virtual enviroment it is not already active.
+Run the animation by calling the ```crank_and_rocker_motion.py``` script with the Anaconda Prompt. Make sure you activate in the ```(piston_motion)``` virtual environment it is not already active.
 
 ```text
-$ dir
+> dir
 crank_and_rocker_motion.py
-$ python crank_and_rocker_motion.py
+> python crank_and_rocker_motion.py
 
 ```
 
@@ -223,4 +224,4 @@ When the animation runs you will see an example of crank and rocker motion like 
 
 ## Summary
 
-In this post, we reviewed how to produce an animation of crank and rocker motion using Python and Matplotlib. First we created a virtual environment and installed NumPy and Matplotlib into the virtual environment. Then we constructed a ```crank_and_rocker_motion.py``` script section by section. Once the ```crank_and_rocker_motion.py```` script was complete, we ran the script from the Anaconda Prompt.
+In this post, we reviewed how to produce an animation of crank and rocker motion using Python and Matplotlib. First, we created a virtual environment and installed NumPy and Matplotlib into the virtual environment. Then we constructed a ```crank_and_rocker_motion.py``` script section by section. Once the ```crank_and_rocker_motion.py```` script was complete, we ran the script from the Anaconda Prompt.

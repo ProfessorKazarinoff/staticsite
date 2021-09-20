@@ -7,7 +7,7 @@ PythonforUndergradEngineers.com/
 
 # import necessary packages
 import numpy as np
-from numpy import pi, sin, cos, sqrt, absolute, arcsin, arccos, arctan, sign
+from numpy import pi, sin, cos, sqrt, absolute, arccos, arctan, sign
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
@@ -30,7 +30,7 @@ R_Angles = np.append(angle_minus_last, rot_num * 2 * pi)
 x1 = 0
 y1 = 0
 
-# Coordinates of the rocker center point: Point 4
+# coordinates of the rocker center point: Point 4
 x4 = d
 y4 = 0
 

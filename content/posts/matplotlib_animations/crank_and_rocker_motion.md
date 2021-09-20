@@ -1,14 +1,14 @@
 Title: Crank and Rocker Motion with Python and matplotlib
-Date: 2018-12-22 20:40
-Modified: 2017-12-22 20:40
+Date: 2021-09-20 20:40
+Modified: 2021-09-20 20:40
 Status: Draft
 Category: matplotlib
 Tags: python, matplotlib, animation
 Slug: crank-and-rocker-motion
 Authors: Peter D. Kazarinoff
-Summary: An animation of crank and rocker motion created with Python and matplotlib
+Summary: An animation of crank and rocker motion created with Python and Matplotlib
 
-Crank and Rocker motion is one of the classic dynamic types of motion that belong to a category of 4-bar motion. Crank and rocker motion is the type of motion that the piston in a cylinder of a car engine goes through as the crankshaft rotates. 
+Crank and Rocker motion is one of the classic dynamic types of motion that belong to a category of 4-bar motion. Crank and rocker motion is the type of motion that a pumpjack goes through when pumping a fluid. 
 
 ## Set up a Python virtual environment
 
@@ -42,31 +42,32 @@ Open a text editor or code editor and create a new Python file called ```piston_
 
 ## Import numpy and matplotlib
 
-We we'll start our ```piston_motion.py``` script by importing the necessary modules
+We we'll start our ```crank_and_rocker_motion.py``` script by importing the necessary modules
 
 ```python
-# piston_motion.py
+# crank_and_rocker_motion.py
 
-#import necessary packages
+# import necessary packages
 import numpy as np
-from numpy import pi, sin, cos, sqrt
+from numpy import pi, sin, cos, sqrt, absolute, arccos, arctan, sign
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 ```
 
 ## Define the input parameters
 
-To model piston motion, we need two moving parts. One is the crankshaft. The crankshaft rotates around a central axis with a constant radius. We'll model crankshaft rotation with a line of constant length, one end fixed at the origin and the other rotating in a circle like the hand on a clock. To model this line, we just need two points, the origin at x=0 and y=0  and the end of the line at the point ```x1``` and ```x2```.
+To model crank and rocker motion, we need three moving parts. One is the rotating crankshaft. The crankshaft rotates around a central axis with a constant radius. We'll model crankshaft rotation with a line of constant length, one end fixed at the origin and the other rotating in a circle like the hand on a clock. To model this line, we just need two points, the origin at ```x=0``` and ```y=0```  and the end of the line at the point ```x1``` and ```x2```.
 
 We also need to define a crank radius and define the connecting rod length. We'll define the crank radius and connecting rod length constants at the top of our code. Let's also define a fixed number of rotations.  Without a fixed number of rotations, our animation will run around around indefininelty.
 
-The rotation increment defines how fine the 'ticks' are as our crankshaft arm rotates. A 'tick' increment of ```0.1``` works to make the animation smooth enough.
+The rotation increment defines how fine the 'ticks' are as our crankshaft arm rotates. A 'tick' increment of ```0.1``` results in a smooth animation.
 
 ```python
 # input parameters
 r = 0.395  # crank radius
 l = 4.27  # connecting rod length
-rr = 1.15;  # rocker radius
+rr = 1.15
+# rocker radius
 d = 4.03  # center-to-center distance
 rot_num = 6  # number of crank rotations
 increment = 0.1  # angle incremement
@@ -86,12 +87,12 @@ R_Angles = np.append(angle_minus_last, rot_num * 2 * pi)
 
 ## Define the fixed points of the animation
 
-Now we need to define to fixed points. The first fixed point is the center of the crankshaft, we'll define this point at the origin ```x=0,y=0```. The second fixed point is the center of the rocker arm. We'll define the center of the rocker arm at ```x=center-to-center distance, y=0```.
+Now we need to definea couple fixed points. The first fixed point is the center of the crankshaft, we'll define this point at the origin ```x=0,y=0```. The second fixed point is the center of the rocker arm. The center of the rocker arm will have the co-ordinates ```x4``` and ```y4```. We'll define the center of the rocker arm at ```x4 = d``` (where ```d``` is the center-to-center distance between the crank and the rocker) and ```y4 = 0```.
 
 ```python
 # coordinates of the crank center point : Point 1
-x1 = 0;
-y1 = 0;
+x1 = 0
+y1 = 0
 
 # Coordinates of the rocker center point: Point 4
 x4 = d
@@ -121,7 +122,7 @@ Y3 = np.zeros(len(R_Angles))  # array of rocker y-positions: Point 3
 Now for the calculations. We have our contants and empty arrays set up. We will loop over each crankshaft angle according to our 'tick' increment. For each crankshaft angle we calculate the corresponding crankshaft endpoint and the corresponding rocker arm end point. These two endpoints are saved in the arrays ```X2,Y2``` and ```X3,Y3```. 
 
 ```python
-# find the crankshaft and connecting rod positions for each angle
+# find the crank and connecting rod positions for each angle
 for index, R_Angle in enumerate(R_Angles, start=0):
     theta1 = R_Angle
     x2 = r * cos(theta1)  # x-cooridnate of the crank: Point 2
@@ -131,8 +132,10 @@ for index, R_Angle in enumerate(R_Angles, start=0):
     phi1 = arctan(y2 / (x2 - d)) + (1 - sign(x2 - d)) * pi / 2
     theta3 = phi1 - s * phi2
     RR_Angle[index] = theta3
-    x3 = rr * cos(theta3) + d;  # x cooridnate of the rocker moving point: Point 3
-    y3 = rr * sin(theta3);  # y cooridnate of the rocker moving point: Point 3
+    x3 = rr * cos(theta3) + d
+    # x cooridnate of the rocker moving point: Point 3
+    y3 = rr * sin(theta3)
+    # y cooridnate of the rocker moving point: Point 3
 
     theta2 = arctan((y3 - y2) / (x3 - x2)) + (1 - sign(x3 - x2)) * pi / 2
 
@@ -142,6 +145,8 @@ for index, R_Angle in enumerate(R_Angles, start=0):
     Y3[index] = y3  # grab the connecting rod y-position
 ```
 
+Now that our constants and calculations are complete, we can work on setting up the animation.
+
 ## Set up the Matplotlib figure
 
 Next, we'll set up our **Matplotlib** figure. Note that we set ```aspect=equal```. This parameter sets the aspect ratio of our plot as 1 to 1. Without the aspect ratio defined as 1 to 1, the crankshaft will look like an oval and the animation looks quite strange.
@@ -149,14 +154,18 @@ Next, we'll set up our **Matplotlib** figure. Note that we set ```aspect=equal``
 ```python
 # set up the figure and subplot
 fig = plt.figure()
-ax = fig.add_subplot(111, aspect='equal', autoscale_on=False, xlim=(-2, 6), ylim=(-2, 3))
+ax = fig.add_subplot(
+    111, aspect="equal", autoscale_on=False, xlim=(-2, 6), ylim=(-2, 3)
+)
 
 # add grid lines, title and take out the axis tick labels
 ax.grid(alpha=0.5)
-ax.set_title('Crank and Rocker Motion')
+ax.set_title("Crank and Rocker Motion")
 ax.set_xticklabels([])
 ax.set_yticklabels([])
-line, = ax.plot([], [], 'o-', lw=5, color='#2b8cbe')  # color from: http://colorbrewer2.org/
+(line, ) = ax.plot(
+    [], [], "o-", lw=5, color="#2b8cbe"
+)  # color from: http://colorbrewer2.org/
 ```
 
 ## Create an initialization function and animation function
@@ -167,7 +176,7 @@ Next we'll create to functions. The first function ```init()``` is an initializa
 # initialization function
 def init():
     line.set_data([], [])
-    return line,
+    return (line,)
 
 
 # animation function
@@ -176,7 +185,7 @@ def animate(i):
     y_points = [y1, Y2[i], Y3[i], y4]
 
     line.set_data(x_points, y_points)
-    return line,
+    return (line,)
 ```
 
 ## Call the animation and show the plot
@@ -185,7 +194,9 @@ The last part of code is to call the animation function and show the plot. These
 
 ```python
 # call the animation
-ani = animation.FuncAnimation(fig, animate, init_func=init, frames=len(X2), interval=40, blit=True, repeat=False)
+ani = animation.FuncAnimation(
+    fig, animate, init_func=init, frames=len(X2), interval=40, blit=True, repeat=False
+)
 ## to save animation, uncomment the line below. Ensure ffmpeg is installed:
 ## ani.save('crank_and_rocker_motion_animation.mp4', fps=30, extra_args=['-vcodec', 'libx264'])
 
@@ -193,23 +204,23 @@ ani = animation.FuncAnimation(fig, animate, init_func=init, frames=len(X2), inte
 plt.show()
 ```
 
-Save the final changes to ```piston_motion.py```. We can run our Python script from the Anaconda Prompt.
+Save the final changes to ```crank_and_rocker_motion.py```. We can run our Python script from the Anaconda Prompt.
 
 ## Run the animation
 
-Run the animation by calling the ```piston_motion.py``` script with the Anaconda Prompt. Make sure you activate in the ```(piston_motion)``` virtual enviroment it is not already activate.
+Run the animation by calling the ```crank_and_rocker_motion.py``` script with the Anaconda Prompt. Make sure you activate in the ```(piston_motion)``` virtual enviroment it is not already active.
 
 ```text
 $ dir
-piston_motion.py
-$ python piston_motion.py
+crank_and_rocker_motion.py
+$ python crank_and_rocker_motion.py
 
 ```
 
-When the animation runs you will see an example of crank and rocker motion like the video below.
+When the animation runs you will see an example of crank and rocker motion like the video below:
 
-![Video]{#}
+{% youtube oC-GPd23ov4 %}
 
 ## Summary
 
-In this post, we reviewed how to produce an animation of crank and rocker motion using Python and Matplotlib. First we created a virtual environment and installed NumPy and Matplotlib into the virtual environment. Then we constructed a ```piston_motion.py``` script section by section. Once the ```piston_motion.py``` script was complete, we ran the script from the Anaconda Promplt.
+In this post, we reviewed how to produce an animation of crank and rocker motion using Python and Matplotlib. First we created a virtual environment and installed NumPy and Matplotlib into the virtual environment. Then we constructed a ```crank_and_rocker_motion.py``` script section by section. Once the ```crank_and_rocker_motion.py```` script was complete, we ran the script from the Anaconda Prompt.

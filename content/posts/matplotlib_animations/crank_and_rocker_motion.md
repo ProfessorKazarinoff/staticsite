@@ -1,7 +1,7 @@
 Title: Crank and Rocker Motion with Python and Matplotlib
-Date: 2021-09-20 11:54
-Modified: 2021-09-20 11:54
-Status: Draft
+Date: 2021-09-27 11:54
+Modified: 2021-09-27 11:54
+Status: published
 Category: matplotlib
 Tags: python, matplotlib, animation
 Slug: crank-and-rocker-motion-with-python-and-matplotlib

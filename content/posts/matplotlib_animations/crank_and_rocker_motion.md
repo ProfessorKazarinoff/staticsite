@@ -1,16 +1,15 @@
 Title: Crank and Rocker Motion with Python and Matplotlib
-Date: 2021-09-27 11:54
-Modified: 2021-09-27 11:54
+Date: 2021-09-27 09:21
+Modified: 2021-09-27 09:21
 Status: published
 Category: matplotlib
 Tags: python, matplotlib, animation
 Slug: crank-and-rocker-motion-with-python-and-matplotlib
 Authors: Peter D. Kazarinoff
-Summary: [![crank and rocker still]({static}/posts/matplotlib_animations/images/crank_and_rocker_animation.gif)]({filename}/posts/matplotlib_animations/crank_and_rocker_motion.md) An animation of crank and rocker motion created with Python and Matplotlib
 
 [![crank and rocker still]({static}/posts/matplotlib_animations/images/crank_and_rocker_animation.gif)]({filename}/posts/matplotlib_animations/crank_and_rocker_motion.md)
 
-Crank and Rocker motion is one of the classic dynamic types of motion that belong to a category of 4-bar motion. Crank and rocker motion is the type of motion that a pumpjack goes through when pumping a fluid. In this post, you'll learn how to create an animation of crank and rocker motion using Python and Matplotlib.
+Crank and rocker motion is one of the classic types of motion that belongs to a category of 4-bar motion. Crank and rocker motion is the type of motion that a pumpjack goes through when pumping a fluid. In this post, you'll learn how to create an animation of crank and rocker motion using Python and Matplotlib.
 
 ## Set up a Python virtual environment
 
@@ -18,13 +17,13 @@ To start this process, we will set up a Python virtual environment.
 
 Real Python has a good [introduction to virtual environments](https://realpython.com/blog/python/python-virtual-environments-a-primer/) and why to use them.
 
-I use the Anaconda distribution of Python. The Anaconda distribution of Python comes with the very useful Anaconda Prompt. Virtual environments can be created using the Anaconda Prompt. Open the Anaconda Prompt from the Windows Start menu and enter the following commands to create a new virtual environment. 
+I use the [Anaconda](https://www.anaconda.com/products/individual) distribution of Python. The Anaconda distribution of Python comes with the very useful Anaconda Prompt. Virtual environments can be created using the Anaconda Prompt. Open the Anaconda Prompt from the Windows Start menu and enter the following commands to create a new virtual environment. 
 
 ```text
 > conda create -n piston_motion python=3.8
 ```
 
-Now that we have a new clean virtual environment with Python 3.7 installed, we need to install the necessary packages. Note that our virtual environment ```(piston_motion)```
+Now that we have a new clean virtual environment with Python 3.8 installed, we need to install the necessary packages. Note that our virtual environment ```(piston_motion)``` is active and shown in parenthesis before the prompt.
 
 ```text
 > conda activate piston_motion
@@ -40,11 +39,11 @@ numpy==3.4.2
 ...
 ```
 
-Open a text editor or code editor and create a new Python file called ```piston_motion.py```. A good code editor to use is Visual Studio Code. Visual Studio Code is free and open source. If you installed the Anaconda distribution of Python, you had the option of installing Visual Studio Code. 
+Open a text editor or code editor and create a new Python file called ```piston_motion.py```. A good code editor to use is [Visual Studio Code](https://code.visualstudio.com/download). Visual Studio Code is free and open source. If you installed the Anaconda distribution of Python, you had the option of installing Visual Studio Code. 
 
-## Import numpy and matplotlib
+## Import NumPy and Matplotlib
 
-We will start our ```crank_and_rocker_motion.py``` script by importing the necessary modules
+We will start our ```crank_and_rocker_motion.py``` script by importing the necessary packages.
 
 ```python
 # crank_and_rocker_motion.py
@@ -58,7 +57,7 @@ import matplotlib.animation as animation
 
 ## Define the input parameters
 
-To model crank and rocker motion, we need three moving parts. One is the rotating crankshaft. The crankshaft rotates around a central axis with a constant radius. We'll model crankshaft rotation with a line of constant length, one end fixed at the origin and the other rotating in a circle like a hand on a clock. To model this line, we just need two points, the origin at ```x=0``` and ```y=0```  and the end of the line at the point ```x1``` and ```x2```.
+To model crank and rocker motion, we need three moving parts. One is the rotating crankshaft. The crankshaft rotates around a central axis with a constant radius. We'll model crankshaft rotation with a line of constant length, one end fixed at the origin and the other rotating in a circle like a hand on a clock. To model this line, we just need two points, the origin at ```x=0``` and ```y=0```  and the end of the line at the point ```x1``` and ```y1```.
 
 We also need to define a crank radius and define the connecting rod length. We'll define the crank radius and connecting rod length constants at the top of our code. Let's also define a fixed number of rotations.  Without a fixed number of rotations, our animation will run around and around indefinitely.
 
@@ -150,7 +149,7 @@ Now that our constants and calculations are complete, we can work on setting up 
 
 ## Set up the Matplotlib figure
 
-Next, we'll set up our **Matplotlib** figure. Note that we set ```aspect=equal```. This parameter sets the aspect ratio of our plot as 1 to 1. Without the aspect ratio defined as 1 to 1, the crankshaft will look like an oval and the animation looks quite strange.
+Next, we'll set up our **Matplotlib** figure. Note that we set ```aspect=equal```. This parameter sets the aspect ratio of our plot as 1-to-1. Without the aspect ratio defined as 1-to-1, the crankshaft will look like an oval and the animation looks quite strange.
 
 ```python
 # set up the figure and subplot
@@ -212,9 +211,9 @@ Save the final changes to ```crank_and_rocker_motion.py```. We can run our Pytho
 Run the animation by calling the ```crank_and_rocker_motion.py``` script with the Anaconda Prompt. Make sure you activate in the ```(piston_motion)``` virtual environment it is not already active.
 
 ```text
-> dir
+(piston_motion) > dir
 crank_and_rocker_motion.py
-> python crank_and_rocker_motion.py
+(piston_motion) > python crank_and_rocker_motion.py
 
 ```
 
@@ -224,4 +223,4 @@ When the animation runs you will see an example of crank and rocker motion like 
 
 ## Summary
 
-In this post, we reviewed how to produce an animation of crank and rocker motion using Python and Matplotlib. First, we created a virtual environment and installed NumPy and Matplotlib into the virtual environment. Then we constructed a ```crank_and_rocker_motion.py``` script section by section. Once the ```crank_and_rocker_motion.py```` script was complete, we ran the script from the Anaconda Prompt.
+In this post, we reviewed how to produce an animation of crank and rocker motion using Python and Matplotlib. First, we created a virtual environment and installed NumPy and Matplotlib into the virtual environment. Then we constructed a ```crank_and_rocker_motion.py``` script section by section. Once the ```crank_and_rocker_motion.py``` script was complete, we ran the script from the Anaconda Prompt.

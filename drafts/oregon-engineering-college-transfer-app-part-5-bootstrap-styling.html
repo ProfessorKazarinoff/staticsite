@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Oregon Engineering College Transfer App - Part 5: Bootstrap Styling - Python for Undergraduate Engineers</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
+<style type="text/css">
+
+    /*some stuff for output/input prompts*/
+    div.cell{border:1px solid transparent;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}div.cell.selected{border-radius:4px;border:thin #ababab solid}
+    div.cell.edit_mode{border-radius:4px;border:thin #008000 solid}
+    div.cell{width:100%;padding:5px 5px 5px 0;margin:0;outline:none}
+    div.prompt{min-width:11ex;padding:.4em;margin:0;font-family:monospace;text-align:right;line-height:1.21429em}
+    @media (max-width:480px){div.prompt{text-align:left}}div.inner_cell{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
+    div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;line-height:1.21429em}
+    div.prompt:empty{padding-top:0;padding-bottom:0}
+    div.input{page-break-inside:avoid;display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;}
+    div.inner_cell{width:90%;}
+    div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;}
+    div.input_prompt{color:navy;border-top:1px solid transparent;}
+    div.output_wrapper{margin-top:5px;position:relative;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+    div.output_scroll{height:24em;width:100%;overflow:auto;border-radius:4px;-webkit-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);-moz-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);}
+    div.output_collapsed{margin:0px;padding:0px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+    div.out_prompt_overlay{height:100%;padding:0px 0.4em;position:absolute;border-radius:4px;}
+    div.out_prompt_overlay:hover{-webkit-box-shadow:inset 0 0 1px #000000;-moz-box-shadow:inset 0 0 1px #000000;box-shadow:inset 0 0 1px #000000;background:rgba(240, 240, 240, 0.5);}
+    div.output_prompt{color:darkred;}
+    
+    a.anchor-link:link{text-decoration:none;padding:0px 20px;visibility:hidden;}
+    h1:hover .anchor-link,h2:hover .anchor-link,h3:hover .anchor-link,h4:hover .anchor-link,h5:hover .anchor-link,h6:hover .anchor-link{visibility:visible;}
+    /* end stuff for output/input prompts*/
+    
+    
+    .highlight-ipynb .hll { background-color: #ffffcc }
+    .highlight-ipynb  { background: #f8f8f8; }
+    .highlight-ipynb .c { color: #408080; font-style: italic } /* Comment */
+    .highlight-ipynb .err { border: 1px solid #FF0000 } /* Error */
+    .highlight-ipynb .k { color: #008000; font-weight: bold } /* Keyword */
+    .highlight-ipynb .o { color: #666666 } /* Operator */
+    .highlight-ipynb .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+    .highlight-ipynb .cp { color: #BC7A00 } /* Comment.Preproc */
+    .highlight-ipynb .c1 { color: #408080; font-style: italic } /* Comment.Single */
+    .highlight-ipynb .cs { color: #408080; font-style: italic } /* Comment.Special */
+    .highlight-ipynb .gd { color: #A00000 } /* Generic.Deleted */
+    .highlight-ipynb .ge { font-style: italic } /* Generic.Emph */
+    .highlight-ipynb .gr { color: #FF0000 } /* Generic.Error */
+    .highlight-ipynb .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+    .highlight-ipynb .gi { color: #00A000 } /* Generic.Inserted */
+    .highlight-ipynb .go { color: #888888 } /* Generic.Output */
+    .highlight-ipynb .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+    .highlight-ipynb .gs { font-weight: bold } /* Generic.Strong */
+    .highlight-ipynb .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+    .highlight-ipynb .gt { color: #0044DD } /* Generic.Traceback */
+    .highlight-ipynb .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+    .highlight-ipynb .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+    .highlight-ipynb .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+    .highlight-ipynb .kp { color: #008000 } /* Keyword.Pseudo */
+    .highlight-ipynb .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+    .highlight-ipynb .kt { color: #B00040 } /* Keyword.Type */
+    .highlight-ipynb .m { color: #666666 } /* Literal.Number */
+    .highlight-ipynb .s { color: #BA2121 } /* Literal.String */
+    .highlight-ipynb .na { color: #7D9029 } /* Name.Attribute */
+    .highlight-ipynb .nb { color: #008000 } /* Name.Builtin */
+    .highlight-ipynb .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+    .highlight-ipynb .no { color: #880000 } /* Name.Constant */
+    .highlight-ipynb .nd { color: #AA22FF } /* Name.Decorator */
+    .highlight-ipynb .ni { color: #999999; font-weight: bold } /* Name.Entity */
+    .highlight-ipynb .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+    .highlight-ipynb .nf { color: #0000FF } /* Name.Function */
+    .highlight-ipynb .nl { color: #A0A000 } /* Name.Label */
+    .highlight-ipynb .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+    .highlight-ipynb .nt { color: #008000; font-weight: bold } /* Name.Tag */
+    .highlight-ipynb .nv { color: #19177C } /* Name.Variable */
+    .highlight-ipynb .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+    .highlight-ipynb .w { color: #bbbbbb } /* Text.Whitespace */
+    .highlight-ipynb .mf { color: #666666 } /* Literal.Number.Float */
+    .highlight-ipynb .mh { color: #666666 } /* Literal.Number.Hex */
+    .highlight-ipynb .mi { color: #666666 } /* Literal.Number.Integer */
+    .highlight-ipynb .mo { color: #666666 } /* Literal.Number.Oct */
+    .highlight-ipynb .sb { color: #BA2121 } /* Literal.String.Backtick */
+    .highlight-ipynb .sc { color: #BA2121 } /* Literal.String.Char */
+    .highlight-ipynb .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+    .highlight-ipynb .s2 { color: #BA2121 } /* Literal.String.Double */
+    .highlight-ipynb .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+    .highlight-ipynb .sh { color: #BA2121 } /* Literal.String.Heredoc */
+    .highlight-ipynb .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+    .highlight-ipynb .sx { color: #008000 } /* Literal.String.Other */
+    .highlight-ipynb .sr { color: #BB6688 } /* Literal.String.Regex */
+    .highlight-ipynb .s1 { color: #BA2121 } /* Literal.String.Single */
+    .highlight-ipynb .ss { color: #19177C } /* Literal.String.Symbol */
+    .highlight-ipynb .bp { color: #008000 } /* Name.Builtin.Pseudo */
+    .highlight-ipynb .vc { color: #19177C } /* Name.Variable.Class */
+    .highlight-ipynb .vg { color: #19177C } /* Name.Variable.Global */
+    .highlight-ipynb .vi { color: #19177C } /* Name.Variable.Instance */
+    .highlight-ipynb .il { color: #666666 } /* Literal.Number.Integer.Long */
+    </style>
+    
+    <style type="text/css">
+    /* Overrides of notebook CSS for static HTML export */
+    div.entry-content {
+      overflow: visible;
+      padding: 8px;
+    }
+    .input_area {
+      padding: 0.2em;
+    }
+    
+    a.heading-anchor {
+     white-space: normal;
+    }
+    
+    .rendered_html
+    code {
+     font-size: .8em;
+    }
+    
+    pre.ipynb {
+      color: black;
+      background: #f7f7f7;
+      border: none;
+      box-shadow: none;
+      margin-bottom: 0;
+      padding: 0;
+      margin: 0px;
+      font-size: 13px;
+    }
+    
+    /* remove the prompt div from text cells */
+    div.text_cell .prompt {
+        display: none;
+    }
+    
+    /* remove horizontal padding from text cells, */
+    /* so it aligns with outer body text */
+    div.text_cell_render {
+        padding: 0.5em 0em;
+    }
+    
+    img.anim_icon{padding:0; border:0; vertical-align:middle; -webkit-box-shadow:none; -box-shadow:none}
+    
+    div.collapseheader {
+        width=100%;
+        padding: 2px;
+        cursor: pointer;
+        font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+    
+    </style>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+    <script type="text/javascript">
+    init_mathjax = function() {
+        if (window.MathJax) {
+            // MathJax loaded
+            MathJax.Hub.Config({
+                tex2jax: {
+                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+                },
+                displayAlign: 'center', // Change this to 'center' to center equations.
+                "HTML-CSS": {
+                    styles: {'.MathJax_Display': {"margin": 0}}
+                }
+            });
+            MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        }
+    }
+    init_mathjax();
+    </script>
+    
+    <link href="../extra/favicon.ico" rel="icon">
+
+<link rel="canonical" href="../drafts/oregon-engineering-college-transfer-app-part-5-bootstrap-styling.html">
+
+        <meta name="author" content="Peter D. Kazarinoff" />
+        <meta name="keywords" content="python,django,web app" />
+        <meta name="description" content="This is the 5th part of a multi-part series on building a web app with Python and Django. The web app will act as a resource for Engineering students at Oregon Community Colleges that want to transfer to 4-year Universities. It will show which classes from their community college engineering program will transfer for which classes in a 4-year University engineering program. In this part of the project, we&#39;ll add bootstrap styling to our home and about pages as well as add a navigation bar." />
+
+        <meta property="og:site_name" content="Python for Undergraduate Engineers" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Oregon Engineering College Transfer App - Part 5: Bootstrap Styling"/>
+        <meta property="og:url" content="../drafts/oregon-engineering-college-transfer-app-part-5-bootstrap-styling.html"/>
+        <meta property="og:description" content="This is the 5th part of a multi-part series on building a web app with Python and Django. The web app will act as a resource for Engineering students at Oregon Community Colleges that want to transfer to 4-year Universities. It will show which classes from their community college engineering program will transfer for which classes in a 4-year University engineering program. In this part of the project, we&#39;ll add bootstrap styling to our home and about pages as well as add a navigation bar."/>
+        <meta property="article:published_time" content="2021-08-25" />
+            <meta property="article:section" content="django" />
+            <meta property="article:tag" content="python" />
+            <meta property="article:tag" content="django" />
+            <meta property="article:tag" content="web app" />
+            <meta property="article:author" content="Peter D. Kazarinoff" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../theme/css/pygments/native.css" rel="stylesheet">
+    <link href="../theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="../theme/css/style.css" type="text/css"/>
+        <link href="../static/css/custom.css" rel="stylesheet">
+
+
+
+</head>
+<body>
+
+<!-- .navbar -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../" class="navbar-brand">
+Python for Undergraduate Engineers            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="../pages/about.html">
+                             About
+                          </a></li>
+                         <li><a href="../pages/book.html">
+                             Book
+                          </a></li>
+                         <li><a href="../pages/gear.html">
+                             Gear
+                          </a></li>
+                         <li><a href="../pages/now.html">
+                             Now
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+
+<!-- .navbar-search -->
+<li>
+    <span>
+        <form class="navbar-search" action="/search.html">
+            <input type="text" name="q" id="tipue_search_input">
+        </form>
+    </span>
+</li>
+<!-- /.navbar-search -->              <li><a href="../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+            <ol class="breadcrumb">
+                <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="../category/django.html" title="django">django</a></li>
+                <li class="active">Oregon Engineering College Transfer App - Part 5: Bootstrap Styling</li>
+            </ol>
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="../drafts/oregon-engineering-college-transfer-app-part-5-bootstrap-styling.html"
+                       rel="bookmark"
+                       title="Permalink to Oregon Engineering College Transfer App - Part 5: Bootstrap Styling">
+                        Oregon Engineering College Transfer App - Part 5: Bootstrap Styling
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2021-08-25T12:40:00-07:00"> Wed 25 August 2021</time>
+    </span>
+
+            <span class="label label-default">Series</span>
+            Part <built-in method index of str object at 0x0000024072AA9630> of 
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="../tag/python.html">python</a>
+        /
+	<a href="../tag/django.html">django</a>
+        /
+	<a href="../tag/web-app.html">web app</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>This is the 5<sup>th</sup> part of a multi-part series on building a web app with Python and Django. The web app will act as a resource for Engineering students at Oregon Community Colleges that want to transfer to 4-year Universities. It will show which classes from their community college engineering program will transfer for which classes in a 4-year University engineering program. In this part of the project, we'll add bootstrap styling to our home and about pages as well as add a navigation bar.</p>
+<div class="toc"><span class="toctitle">Table of contents:</span><ul>
+<li><a href="#what-is-bootstrap">What is Bootstrap?</a></li>
+<li><a href="#add-bootstrap-styling-to-templates">Add Bootstrap styling to templates</a><ul>
+<li><a href="#download-the-bootswatch-materia-theme">Download the bootswatch materia theme</a></li>
+<li><a href="#modify-settingspy-to-point-to-the-new-static-directory">Modify settings.py to point to the new static directory</a></li>
+<li><a href="#run-the-collect-static-command">Run the collect static command</a></li>
+<li><a href="#add-staticfiles-to-gitignore">Add staticfiles/ to .gitignore</a></li>
+</ul>
+</li>
+<li><a href="#modify-the-basehtml-template-to-use-bootstrap">Modify the base.html template to use bootstrap</a><ul>
+<li><a href="#build-a-navhtml-template">Build a nav.html template</a></li>
+<li><a href="#modify-the-homehtml-template-to-use-bootstrap">Modify the home.html template to use bootstrap</a></li>
+<li><a href="#modify-the-abouthtml-template-to-use-bootstrap">Modify the about.html template to use bootstrap</a></li>
+</ul>
+</li>
+<li><a href="#run-the-server-locally-see-if-the-bootstrap-styling-works">Run the server locally. See if the bootstrap styling works.</a></li>
+<li><a href="#re-run-the-tests-for-two-pages">Re-run the tests for two pages</a><ul>
+<li><a href="#run-tests">Run tests</a></li>
+<li><a href="#add-commit-and-push-to-github">Add, commit and push to Github</a></li>
+</ul>
+</li>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#future-work">Future Work</a></li>
+</ul>
+</div>
+<h2 id="what-is-bootstrap">What is Bootstrap?</h2>
+<p>What is Bootstrap and why add it to the Django project? <a href="https://getbootstrap.com/">Bootstrap</a> is a collection of html, javascript and css that produces mobile-responsive web pages. Bootstrap will make our website look good on phones, tablets and laptops. In this part of the project, we'll add bootstrap functionality to our Django templates and produce a navigation menu and styled home and about pages.</p>
+<h2 id="add-bootstrap-styling-to-templates">Add Bootstrap styling to templates</h2>
+<p>OK - Let's add bootstrap styling to our templates. We're going to use the <a href="https://getbootstrap.com/docs/5.1/getting-started/introduction/">bootstrap CDN</a> to add bootstrap's javascript files to our webpages. I like the <a href="https://bootswatch.com/materia/">bootswatch materia theme</a>, so we are going to download the bootswatch materia css and add that to the top of our base template.</p>
+<h3 id="download-the-bootswatch-materia-theme">Download the bootswatch materia theme</h3>
+<p>Download the bootswatch materia theme at <a href="https://bootswatch.com/">https://bootswatch.com/</a> by scrolling down to materia and selecting Download &rarr; bootstrap.min.css. Download <code>bootstrap.min.css</code>. I renamed the file to <code>bootswatch_materia.min.css</code> just so I know I'm using the materia theme and not just bootstrap. </p>
+<p>Create a new directory in the main <code>transfer/</code> project directory called <code>static/</code>. Within the static directory, create a new directory called <code>css/</code>. Move <code>bootswatch_materia.min.css</code> into <code>transfer/statics/css/</code>.</p>
+<h3 id="modify-settingspy-to-point-to-the-new-static-directory">Modify settings.py to point to the new static directory</h3>
+<p>We just made a new directory called <code>static/</code> and inside of <code>static/css/</code> we put <code>bootswatch_materia.min.css</code>. We need to tell Django to look in this directory for static files. </p>
+<p>Open <code>settings.py</code> in the <code>transfer_project</code> directory and add the following lines to the bottom of the file.</p>
+<div class="highlight"><pre><span></span><span class="c1"># transfer_project/settings.py</span>
+<span class="o">...</span>
+
+<span class="c1"># Static files (CSS, JavaScript, Images)</span>
+<span class="c1"># https://docs.djangoproject.com/en/3.2/howto/static-files/</span>
+
+<span class="n">STATIC_URL</span> <span class="o">=</span> <span class="s2">&quot;/static/&quot;</span>
+<span class="n">STATICFILES_DIRS</span> <span class="o">=</span> <span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span><span class="s1">&#39;static&#39;</span><span class="p">),)</span>
+<span class="n">STATIC_ROOT</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span><span class="s1">&#39;staticfiles&#39;</span><span class="p">)</span>
+<span class="n">STATICFILES_STORAGE</span> <span class="o">=</span> <span class="s1">&#39;django.contrib.staticfiles.storage.StaticFilesStorage&#39;</span>
+</pre></div>
+
+
+<h3 id="run-the-collect-static-command">Run the collect static command</h3>
+<p>We specified that our static files are stored in the <code>static/</code> directory. Next we need to run the <code>collectstatic</code> command to copy our <code>.css</code> file into the <code>staticfiles/</code> directory. The development server will look in <code>staticfiles/</code> for our <code>.css</code> file, and we have to make sure it gets coppied into there.</p>
+<div class="highlight"><pre><span></span>&gt; cd Documents
+&gt; cd transfer
+&gt; conda activate transfer
+(transfer) &gt; python manage.py collectstatic
+</pre></div>
+
+
+<p>Notice that a new directory <code>staticfiles/</code> was created. The output will look something like below:</p>
+<div class="highlight"><pre><span></span>129 static files copied to &#39;C:\Users\username\Documents\transfer\staticfiles&#39;.
+</pre></div>
+
+
+<h3 id="add-staticfiles-to-gitignore">Add staticfiles/ to .gitignore</h3>
+<p>Becuase the <code>staticfiles/</code> directory was created programatically, let's add it to our <code>.gitignore</code> file so it isn't saved in version control. Open <code>.gitignore</code> and add <code>staticfiles/</code> at the bottom.</p>
+<div class="highlight"><pre><span></span># .gitignore
+...
+
+staticfiles/
+</pre></div>
+
+
+<p>OK, our css file is in place. Time to modify our templates.</p>
+<h2 id="modify-the-basehtml-template-to-use-bootstrap">Modify the base.html template to use bootstrap</h2>
+<p>In the <code>templates/</code> directory, modify the html file called <code>base.html</code>. Include the following in the template. Note in the block stylesheets section there is a link to the bootswatch materia css. Near the bottom of the page, there are links to the bootstrap javascript. The links for the bootstrap CDN may change, the links I used are <a href="https://getbootstrap.com/docs/5.1/getting-started/introduction/">here</a>.</p>
+<div class="highlight"><pre><span></span><span class="c">&lt;!-- templates/base.html --&gt;</span>
+
+{% load static %}
+
+{% block doctype %}
+    <span class="cp">&lt;!doctype html&gt;</span>
+    <span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;en&quot;</span><span class="p">&gt;</span>
+{% endblock doctype %}
+
+{% block head %}
+    <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    {% block meta %}
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1, shrink-to-fit=no&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;description&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;author&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;Peter Kazarinoff&quot;</span><span class="p">&gt;</span>
+    {% endblock meta %}
+    {% block favicon %}{% endblock favicon %}
+        <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>{% block title %}College Transfer App{% endblock title %}<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+
+        {% block stylesheets %}
+            <span class="c">&lt;!-- bootswatch materia theme --&gt;</span>
+            <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{% static &#39;css/bootswatch_materia.min.css&#39; %}&quot;</span><span class="p">&gt;</span>
+            {% block custom_stylesheets %}
+            {% endblock custom_stylesheets %}
+        {% endblock stylesheets %}
+    <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+{% endblock head %}
+
+{% block body %}
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+{%  block nav %}
+    {% include &quot;nav.html&quot; %}
+{% endblock nav %}
+{% block breadcrumb %}{% endblock breadcrumb %}
+
+  <span class="p">&lt;</span><span class="nt">main</span> <span class="na">role</span><span class="o">=</span><span class="s">&quot;main&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;flex-shrink-0&quot;</span><span class="p">&gt;</span>
+      {% block content %}
+      {% endblock %}
+  <span class="p">&lt;/</span><span class="nt">main</span><span class="p">&gt;</span><span class="c">&lt;!-- /.container --&gt;</span>
+
+{% block javascripts %}
+    <span class="c">&lt;!-- bootstrap js bundle CDN --&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+{% endblock javascripts %}
+
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+{% endblock body %}
+
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span> 
+</pre></div>
+
+
+<p>We included a block in our <code>base.html</code> template for a nav bar. The nav bar section of the base template is shown below.</p>
+<div class="highlight"><pre><span></span>{%  block nav %}
+    {% include &quot;nav.html&quot; %}
+{% endblock nav %}
+</pre></div>
+
+
+<p>So next, we need to design a <code>nav.html</code> template.</p>
+<h3 id="build-a-navhtml-template">Build a nav.html template</h3>
+<p>The <code>base.html</code> template has a section for a nav bar. The nav bar html is included in the <code>base.html</code> template in an <code>{% include "nav.html" %}</code> block. So we need to make a new <code>nav.html</code> template in the <code>templates/</code> directory. Create a new file called <code>nav.html</code> in the <code>templates/</code> directory and copy the code below.</p>
+<div class="highlight"><pre><span></span><span class="c">&lt;!-- templates/nav.html --&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar navbar-expand-lg fixed-top navbar-light bg-light&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;../&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-brand&quot;</span><span class="p">&gt;</span>Oregon Engineering Transfer<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-toggler&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;button&quot;</span> <span class="na">data-bs-toggle</span><span class="o">=</span><span class="s">&quot;collapse&quot;</span> <span class="na">data-bs-target</span><span class="o">=</span><span class="s">&quot;#navbarResponsive&quot;</span> <span class="na">aria-controls</span><span class="o">=</span><span class="s">&quot;navbarResponsive&quot;</span> <span class="na">aria-expanded</span><span class="o">=</span><span class="s">&quot;false&quot;</span> <span class="na">aria-label</span><span class="o">=</span><span class="s">&quot;Toggle navigation&quot;</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-toggler-icon&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;collapse navbar-collapse&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;navbarResponsive&quot;</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">ul</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-nav&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">li</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nav-item dropdown&quot;</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nav-link dropdown-toggle&quot;</span> <span class="na">data-bs-toggle</span><span class="o">=</span><span class="s">&quot;dropdown&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;majors&quot;</span><span class="p">&gt;</span>Majors <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;caret&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;dropdown-menu&quot;</span> <span class="na">aria-labelledby</span><span class="o">=</span><span class="s">&quot;majors&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;dropdown-item&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;</span>Mechanical Engineering<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;dropdown-item&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;</span>Electrical Engineering<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;dropdown-item&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;</span>Civil Engineering<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+          <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+        <span class="p">&lt;</span><span class="nt">li</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nav-item dropdown&quot;</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nav-link dropdown-toggle&quot;</span> <span class="na">data-bs-toggle</span><span class="o">=</span><span class="s">&quot;dropdown&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;colleges&quot;</span><span class="p">&gt;</span>Colleges <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;caret&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;dropdown-menu&quot;</span> <span class="na">aria-labelledby</span><span class="o">=</span><span class="s">&quot;colleges&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;dropdown-item&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;noopener&quot;</span> <span class="na">target</span><span class="o">=</span><span class="s">&quot;_blank&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;</span>Portland State University<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;dropdown-divider&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;dropdown-item&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;</span>Portland Community College<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;dropdown-item&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;</span>Mt. Hood Community College<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+          <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">li</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nav-item&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nav-link&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{% url &#39;about&#39; %}&quot;</span><span class="p">&gt;</span>About<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">ul</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-nav ms-md-auto&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">li</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nav-item&quot;</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">form</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;d-flex&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">input</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-control me-sm-2&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&quot;Search&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-secondary my-2 my-sm-0&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span><span class="p">&gt;</span>Search<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+          <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</pre></div>
+
+
+<h3 id="modify-the-homehtml-template-to-use-bootstrap">Modify the home.html template to use bootstrap</h3>
+<p>Next, modify the home page template to use bootstrap styling. Note the <code>base.html</code> template is used as the parent template.</p>
+<div class="highlight"><pre><span></span><span class="c">&lt;!-- templates/home.html --&gt;</span>
+
+{% extends &#39;base.html&#39; %}
+
+{% load static %}
+
+{% block custom_stylesheets %}
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{% static &#39;css/home.css&#39; %}&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span><span class="p">&gt;</span>
+{% endblock custom_stylesheets %}
+
+{% block content %}
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;jumbotron&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Oregon Engineering Transfer Advising Guides<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;lead&quot;</span><span class="p">&gt;</span>Below are the course transfer guides for engineering students<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-lg btn-success&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span> <span class="na">role</span><span class="o">=</span><span class="s">&quot;button&quot;</span><span class="p">&gt;</span>View All Majors »<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container&quot;</span><span class="p">&gt;</span>
+        <span class="c">&lt;!-- Example row of columns --&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;row&quot;</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;col-md-4&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>Mechanical Engineering<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Mechanical engineering is an engineering branch that combines engineering physics and mathematics principles with materials science to design, analyze, manufacture, and maintain mechanical systems. <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-secondary&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span> <span class="na">role</span><span class="o">=</span><span class="s">&quot;button&quot;</span><span class="p">&gt;</span>View details <span class="ni">&amp;raquo;</span><span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+          <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;col-md-4&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>Civil Engineering<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Civil engineering is a professional engineering discipline that deals with the design, construction, and maintenance of the physical and naturally built environment, including public works such as roads, bridges, canals, dams, airports, sewerage systems, pipelines, structural components of buildings, and railways. <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-secondary&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span> <span class="na">role</span><span class="o">=</span><span class="s">&quot;button&quot;</span><span class="p">&gt;</span>View details <span class="ni">&amp;raquo;</span><span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+          <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;col-md-4&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>Electrical Engineering<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Electrical engineering is an engineering discipline concerned with the study, design and application of equipment, devices and systems which use electricity, electronics, and electromagnetism.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-secondary&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span> <span class="na">role</span><span class="o">=</span><span class="s">&quot;button&quot;</span><span class="p">&gt;</span>View details <span class="ni">&amp;raquo;</span><span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+          <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">hr</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span> <span class="c">&lt;!-- /container --&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+{% endblock content %}
+</pre></div>
+
+
+<h3 id="modify-the-abouthtml-template-to-use-bootstrap">Modify the about.html template to use bootstrap</h3>
+<p>Now modify the about page template to use bootstrap styling. Note again how the <code>base.html</code> template is again used as the parent template.</p>
+<div class="highlight"><pre><span></span><span class="c">&lt;!-- templates/about.html --&gt;</span>
+
+{% extends &#39;base.html&#39; %}
+
+{% load static %}
+
+{% block custom_stylesheets %}
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{% static &#39;css/home.css&#39; %}&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span><span class="p">&gt;</span>
+{% endblock custom_stylesheets %}
+
+{% block content %}
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;jumbotron&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>About Engineering Transfer Advising Guides<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;lead&quot;</span><span class="p">&gt;</span>These guides were constructed with Community College&#39;s transfer guide pages. Additional transfer equivalences were provided by University transfer maps, State transfer equivalencies and University transfer mapping pages.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-lg btn-success&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span> <span class="na">role</span><span class="o">=</span><span class="s">&quot;button&quot;</span><span class="p">&gt;</span>View All Majors »<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span> <span class="c">&lt;!-- /container --&gt;</span>
+{% endblock content %}
+</pre></div>
+
+
+<p>All the new template and css files ends up with the following directory structure:</p>
+<p><img alt="file structure after bootstrap" src="../posts/transfer_app/images/file_structure_after_bootstrap.png"></p>
+<h2 id="run-the-server-locally-see-if-the-bootstrap-styling-works">Run the server locally. See if the bootstrap styling works.</h2>
+<p>OK, let's run the server locally and see if all the bootstrap styling changes made a difference. Run the local server from the Anaconda Prompt using the command below.</p>
+<div class="highlight"><pre><span></span>(transfer)&gt; python manage.py runserver
+</pre></div>
+
+
+<p><img alt="about page with bootstrap styling" src="../posts/transfer_app/images/home_page_bootstrap_stying.png"></p>
+<p><img alt="homepage with bootstrap styling" src="../posts/transfer_app/images/about_page_bootstrap_styling.png"></p>
+<p>Awesome! The home and about pages look great!</p>
+<h2 id="re-run-the-tests-for-two-pages">Re-run the tests for two pages</h2>
+<p>In the last part of the project, we wrote a few tests in <code>pages/tests.py</code> for the homepage and about page. Since we modified the templates, let's run those tests again and see the result.</p>
+<h3 id="run-tests">Run tests</h3>
+<p>Run the tests with the <code>manage.py test</code> command. If the local server is still running key in [Ctrl-c] to stop the server.</p>
+<div class="highlight"><pre><span></span>(transfer)&gt; python manage.py test
+</pre></div>
+
+
+<p>The output I got after running the tests looked something like:</p>
+<div class="highlight"><pre><span></span>AssertionError: False is not true : Couldn&#39;t find &#39;&lt;h1&gt;Home page&lt;/h1&gt;&#39; in response
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.033s
+
+FAILED (failures=2)
+</pre></div>
+
+
+<p>This means we changed the homepage template, but didn't change the tests. Go into <code>pages/tests.py</code> and modify the test to correspond to our new templates.</p>
+<div class="highlight"><pre><span></span><span class="c1"># pages/tests.py</span>
+<span class="o">...</span>
+
+    <span class="k">def</span> <span class="nf">test_home_page_contains_correct_html</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertContains</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="s2">&quot;&lt;h1&gt;Oregon Engineering Transfer Advising Guides&lt;/h1&gt;&quot;</span><span class="p">)</span>
+
+<span class="o">...</span>
+
+    <span class="k">def</span> <span class="nf">test_home_page_contains_correct_html</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/about/&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertContains</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="s2">&quot;&lt;h1&gt;About Engineering Transfer Advising Guides&lt;/h1&gt;&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Let's run the tests again and see if they all pass.</p>
+<div class="highlight"><pre><span></span>(transfer) &gt; python manage.py test
+</pre></div>
+
+
+<p>This time the output shows all the tests pass.</p>
+<div class="highlight"><pre><span></span>----------------------------------------------------------------------
+Ran 10 tests in 0.029s
+
+OK
+</pre></div>
+
+
+<h3 id="add-commit-and-push-to-github">Add, commit and push to Github</h3>
+<p>We've written a lot of code in this part of the project. The last thing to do is add our code to git, commit it and push it up to github.com.</p>
+<div class="highlight"><pre><span></span>&gt; git add .
+&gt; git commit -m &quot;commit message&quot;
+&gt; git push origin main
+</pre></div>
+
+
+<h2 id="summary">Summary</h2>
+<p>We got a lot of work done on the transfer app built with Django and Python. We built a new base template which included the bootstrap CDN. We modified the home and about templates to use some bootstrap elements. We also built a nav template that created a nav bar for the site. Finally we modified two tests, ran the tests and pushed our code up to GitHub.</p>
+<h2 id="future-work">Future Work</h2>
+<p>Next, we need to build a user app into our Django project. The user app will create functionality to allow users to register and login to the site. Eventually these logged-in users will have access to modify the transfer equivalencies.</p>
+            </div>
+            <!-- /.entry-content -->
+<section class="well" id="related-posts">
+    <h4>Related Posts:</h4>
+    <ul>
+        <li><a href="../crank-and-rocker-motion-with-python-and-matplotlib.html">Crank and Rocker Motion with Python and Matplotlib</a></li>
+        <li><a href="../what-is-ansible.html">What is Ansible?</a></li>
+        <li><a href="../git-and-github-for-undergrad-engineers.html">Git and GitHub for Undergrad Engineers</a></li>
+        <li><a href="../live-plotting-with-matplotlib.html">How to make animated plots with Matplotlib and Python</a></li>
+        <li><a href="../calculating-vacancy-concentration-with-python.html">Calculating Vacancy Concentration with Python</a></li>
+    </ul>
+</section>
+<section class="well" id="related-posts">
+    <h4>Article <built-in method index of str object at 0x0000024072AA9630> of the  series</h4>
+</section>
+    <hr />
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style">
+            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+            <a class="addthis_button_tweet"></a>
+    </div>
+    <!-- AddThis Button END -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Ethical Ads -->
+<div class="horizontal" data-ea-publisher="pythonforundergradengineers-com" data-ea-type="image"></div>
+<!-- end Ethical Ads --><div id="aboutme">
+        <p>
+            <img width="100%" class="img-thumbnail" src="../extra/gear-wrench-icon-512-278694.png"/>
+        </p>
+    <p>
+      <strong>About Peter Kazarinoff</strong><br/>
+        I teach engineering at a community college in the Pacific Northwest. I am interested in programming and how to help students. Here I mostly blog about Python, and how programing can be incorporated into engineering education.
+    </p>
+</div><!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Recent Posts -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+  <ul class="list-group" id="recentposts">
+    <li class="list-group-item"><a href="../crank-and-rocker-motion-with-python-and-matplotlib.html">Crank and Rocker Motion with Python and Matplotlib</a></li>
+    <li class="list-group-item"><a href="../what-is-ansible.html">What is Ansible?</a></li>
+    <li class="list-group-item"><a href="../how-to-change-a-github-repo-from-master-to-main.html">How to change a GitHub repo from master to main</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Recent Posts -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="../"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-2">
+      <a href="../tag/engineering.html">engineering</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="../tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="../tag/jupyter.html">jupyter</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="../tag/jupyter-notebook.html">jupyter notebook</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="../tag/matplotlib.html">matplotlib</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="../tag/microcontroller.html">microcontroller</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="../tag/micropython.html">micropython</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="../tag/pelican.html">pelican</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="../tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="../tag/sensor.html">sensor</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Series -->
+<li class="list-group-item">
+  <h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Series</span></h4>
+  <ul class="list-group">
+  </ul>
+</li>
+<!-- End Sidebar/Series -->
+
+
+<!-- Sidebar/Github -->
+<li class="list-group-item">
+  <h4><i class="fa fa-github fa-lg"></i><span class="icon-label">GitHub Repos</span></h4>
+  <div id="gh_repos">
+    <p class="list-group-item">Status updating...</p>
+  </div>
+  <a href="https://github.com/professorkazarinoff">@professorkazarinoff</a> on GitHub
+</li>
+<!-- End Sidebar/Github -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2021 Peter Kazarinoff
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="../theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../theme/js/respond.min.js"></script>
+
+    <script src="../static/js/custom.js"></script>
+
+
+<!-- GitHub JS Code -->
+<script type="text/javascript">
+$(document).ready(function () {
+  if (!window.jXHR) {
+    var jxhr = document.createElement('script');
+    jxhr.type = 'text/javascript';
+    jxhr.src = '../theme/js/jXHR.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(jxhr, s);
+  }
+
+  github.showRepos({
+    user: 'professorkazarinoff',
+    count: 5,
+    skip_forks: true,
+    target: '#gh_repos'
+  });
+});
+</script>
+<script src="../theme/js/github.js" type="text/javascript"></script>
+<!-- End GitHub JS Code -->
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-116330557-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+    $("div.collapseheader").click(function () {
+    $header = $(this).children("span").first();
+    $codearea = $(this).children(".input_area");
+    console.log($(this).children());
+    $codearea.slideToggle(500, function () {
+        $header.text(function () {
+            return $codearea.is(":visible") ? "Collapse Code" : "Expand Code";
+        });
+    });
+});
+});
+</script>
+<!-- Ethical Ads JS-->
+<script async src="https://media.ethicalads.io/media/client/ethicalads.min.js"></script>
+<!-- end Ethical Ads JS -->
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cdd8eb4e16bf94c"></script>
+</body>
+</html>

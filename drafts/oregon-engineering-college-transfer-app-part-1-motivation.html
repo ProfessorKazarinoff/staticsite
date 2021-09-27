@@ -179,14 +179,14 @@
 
         <meta name="author" content="Peter D. Kazarinoff" />
         <meta name="keywords" content="python,django,web app" />
-        <meta name="description" content="This is the first part of a multi-part series on building a web app with Python and Django. The web app will act as a resource for Engineering students at Oregon Community Colleges that want to transfer to 4-year Universities. The transfer web app will show which classes from their community college engineering program will transfer to which classes in a 4-year University engineering program. In this first post, I&#39;ll review the motivation for the project and my initial idea of what the finished app will look like." />
+        <meta name="description" content="This is the first part of a multi-part series on building a web app with Python and Django. The web app or website will act as a resource for Engineering students in Oregon Community Colleges that want to transfer to 4-year Universities. The transfer web app will show which classes …" />
 
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="Oregon Engineering College Transfer App - Part 1: Motivation"/>
         <meta property="og:url" content="../drafts/oregon-engineering-college-transfer-app-part-1-motivation.html"/>
-        <meta property="og:description" content="This is the first part of a multi-part series on building a web app with Python and Django. The web app will act as a resource for Engineering students at Oregon Community Colleges that want to transfer to 4-year Universities. The transfer web app will show which classes from their community college engineering program will transfer to which classes in a 4-year University engineering program. In this first post, I&#39;ll review the motivation for the project and my initial idea of what the finished app will look like."/>
-        <meta property="article:published_time" content="2018-10-15" />
+        <meta property="og:description" content="This is the first part of a multi-part series on building a web app with Python and Django. The web app or website will act as a resource for Engineering students in Oregon Community Colleges that want to transfer to 4-year Universities. The transfer web app will show which classes …"/>
+        <meta property="article:published_time" content="2021-08-23" />
             <meta property="article:section" content="django" />
             <meta property="article:tag" content="python" />
             <meta property="article:tag" content="django" />
@@ -282,11 +282,11 @@ Python for Undergraduate Engineers            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2018-10-15T12:40:00-07:00"> Mon 15 October 2018</time>
+        <i class="fa fa-calendar"></i><time datetime="2021-08-23T12:40:00-07:00"> Mon 23 August 2021</time>
     </span>
 
             <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x000001D0EE8DF810> of 
+            Part <built-in method index of str object at 0x000002407276CD50> of 
 
 
 
@@ -300,23 +300,44 @@ Python for Undergraduate Engineers            </a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>This is the first part of a multi-part series on building a web app with Python and Django. The web app will act as a resource for Engineering students at Oregon Community Colleges that want to transfer to 4-year Universities. The transfer web app will show which classes from their community college engineering program will transfer to which classes in a 4-year University engineering program. In this first post, I'll review the motivation for the project and my initial idea of what the finished app will look like.</p>
+                <p><a href="../drafts/oregon-engineering-college-transfer-app-part-1-motivation.html"><img alt="django pony" src="../posts/transfer_app/images/django_pony.png"></a></p>
+<p>This is the first part of a multi-part series on building a web app with Python and Django. The web app or website will act as a resource for Engineering students in Oregon Community Colleges that want to transfer to 4-year Universities. The transfer web app will show which classes from their community college engineering program will transfer for which classes in a 4-year University engineering program. In this first post, we'll review the motivation for the project and my initial idea of what the finished app will look like.</p>
 <h1 id="the-oregon-engineering-college-transfer-web-app">The Oregon Engineering College Transfer Web App</h1>
-<p>What does that even mean? Students at community colleges in Oregon state, including Portland Community College, Mount Hood Community College, Linn Benton Community College, Lane Community College and Clackamas Community College can transfer to 4-year universities in Oregon state such as Portland State University, Oregon State University and Oregon Institute of Technology.</p>
+<p>What does that even mean? Students at community colleges in Oregon State, including Portland Community College, Mount Hood Community College, Linn Benton Community College, Lane Community College and Clackamas Community College can transfer to 4-year universities in Oregon State such as Portland State University, Oregon State University and Oregon Institute of Technology to finish their 4-year college engineering degress.</p>
+<p>Although there is some standardization in college engineering course offerings in all the Oregon colleges, there are also a lot of differences. For example, ENGR is the course code used at Portland Community College, but ME is the course code used at Portland State for Mechanical Engineering courses.</p>
+<p>Because of these differences in course numbering between colleges, it is useful for students to have an equivalency table that shows which of their community college courses counts for which of the 4-year university courses. Agreements between community colleges and universities about which courses transfer are called <em>articulation agreements</em>.</p>
+<h1 id="examples-of-articulation-agreements">Examples of Articulation Agreements</h1>
+<p>What is an <em>articulation agreement?</em>. An articulation agreement is an agreement between two educational institutions (such as an agreement between two colleges) about what courses at each school lead to the same learning outcomes and can be substitutes for each other. For example at Portland Community College, the Calculus I class is called MTH251. At Portland State, Calculus I is also called MTH251. These two classes lead to the same student learning outcomes and are "equivalent" classes. So when a student takes MTH251 at Portland Community College and transfer to Portland State, they get credit for Calculus 1, just like a student who took MTH251 at Portland State. PCC MTH251 = PSU MTH251.</p>
+<p>A written agreement that formally states PCC's MTH251 counts for PSU's MTH251 is an articulation agreement. For a class to "officially transfer", an articulation agreement needs to be in place. </p>
+<h1 id="why-do-we-need-a-transfer-app">Why do we need a Transfer App?</h1>
+<p>Well, it seems sort of obvious that two classes both called Calculus I, but taught at colleges in Oregon and both with the course code of MTH251 should be "equivalent". But not all classes are so clear cut. For example, all three of the classes below are Circuits 1 and part of a Mechanical and Electrical Engineering degree, but each has a different course number depending on the college.</p>
+<ul>
+<li>Portland Community College: ENGR 221 Electrical Circuits I</li>
+<li>Oregon State University: ENGR 201</li>
+<li>Portland State University: ECE 241</li>
+</ul>
+<p>How would a student know that their ENGR221 class is equivalent to another college's ENGR201 class? That's kind of confusing. The web application we are going to build is going to show these course equivalencies for all of the engineering classes at Oregon Community Colleges and all of the engineering classes at Oregon public universities.</p>
+<h1 id="does-this-type-of-website-already-exhist">Does this type of website already exhist?</h1>
+<p>Well sort of. First there are web pages hosted by each University and each community college that shows which courses transfer from or to their school. But students in Oregon really have to go to each University website to make shure. Some of these web pages are hard to find, and if you take a class at a smaller community college, you might not see your courses listed. </p>
+<p>There is a similar website for California Community Colleges and California State 4-year colleges which has the same functionality that we are going to build. A link and image for California's assist.org site is below.</p>
+<p><a href="https://assist.org/">https://assist.org/</a></p>
+<p><a href="https://assist.org/"><img alt="assist website" src="../posts/transfer_app/images/assist_dot_org.png"></a></p>
+<h1 id="whats-next">What's Next?</h1>
+<p>So now we know what we are building: A website that shows which community college engineering classes transfer for which university classes in Oregon. In the next post, we are going to set up our development environment and start coding. Our development environment is the tools we are going to use to build the website.</p>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">
     <h4>Related Posts:</h4>
     <ul>
+        <li><a href="../crank-and-rocker-motion-with-python-and-matplotlib.html">Crank and Rocker Motion with Python and Matplotlib</a></li>
         <li><a href="../what-is-ansible.html">What is Ansible?</a></li>
         <li><a href="../git-and-github-for-undergrad-engineers.html">Git and GitHub for Undergrad Engineers</a></li>
         <li><a href="../live-plotting-with-matplotlib.html">How to make animated plots with Matplotlib and Python</a></li>
         <li><a href="../calculating-vacancy-concentration-with-python.html">Calculating Vacancy Concentration with Python</a></li>
-        <li><a href="../offset-piston-motion-animation-matplotlib.html">Offset Piston Motion with Python and Matplotlib</a></li>
     </ul>
 </section>
 <section class="well" id="related-posts">
-    <h4>Article <built-in method index of str object at 0x000001D0EE8DF810> of the  series</h4>
+    <h4>Article <built-in method index of str object at 0x000002407276CD50> of the  series</h4>
 </section>
     <hr />
     <!-- AddThis Button BEGIN -->
@@ -349,9 +370,9 @@ Python for Undergraduate Engineers            </a>
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
+    <li class="list-group-item"><a href="../crank-and-rocker-motion-with-python-and-matplotlib.html">Crank and Rocker Motion with Python and Matplotlib</a></li>
     <li class="list-group-item"><a href="../what-is-ansible.html">What is Ansible?</a></li>
     <li class="list-group-item"><a href="../how-to-change-a-github-repo-from-master-to-main.html">How to change a GitHub repo from master to main</a></li>
-    <li class="list-group-item"><a href="../git-and-github-for-undergrad-engineers.html">Git and GitHub for Undergrad Engineers</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->

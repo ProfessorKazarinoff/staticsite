@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>Oregon Engineering College Transfer App - Part 3: Front Page App - Python for Undergraduate Engineers</title>
+    <title>Oregon Engineering College Transfer App - Part 3: A new Django project - Python for Undergraduate Engineers</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -175,18 +175,18 @@
     
     <link href="../extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="../drafts/oregon-engineering-college-transfer-app-part-3-front-page-app.html">
+<link rel="canonical" href="../drafts/oregon-engineering-college-transfer-app-part-3-new-django-project.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
         <meta name="keywords" content="python,django,web app" />
-        <meta name="description" content="This is the third part of a multi-part series on building a web app with Python and Django. The web app will act as a resource for Engineering students at Oregon Community Colleges that want to transfer to 4-year Universities. The transfer web app will show which classes from their community college engineering program will transfer to which classes in a 4-year University engineering program. In this third post, I&#39;ll review building the first pages app. The first app to add to the django project. This includes creating the app at the command line, adding the app to the project, creating a view, and creating a urlpattern. Then we&#39;ll run the server locally and see if the pages app works." />
+        <meta name="description" content="This is the third part of a multi-part series on building a web app with Python and Django. The web app will act as a resource for Engineering students at Oregon Community Colleges that want to transfer to 4-year Universities. The web app will show which classes from their community college engineering program will transfer to which classes at a 4-year University engineering program. In this third post, we&#39;ll create a new Django project. Then we&#39;ll run Django&#39;s built-in development server locally to ensure our project is on the right track." />
 
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
-        <meta property="og:title" content="Oregon Engineering College Transfer App - Part 3: Front Page App"/>
-        <meta property="og:url" content="../drafts/oregon-engineering-college-transfer-app-part-3-front-page-app.html"/>
-        <meta property="og:description" content="This is the third part of a multi-part series on building a web app with Python and Django. The web app will act as a resource for Engineering students at Oregon Community Colleges that want to transfer to 4-year Universities. The transfer web app will show which classes from their community college engineering program will transfer to which classes in a 4-year University engineering program. In this third post, I&#39;ll review building the first pages app. The first app to add to the django project. This includes creating the app at the command line, adding the app to the project, creating a view, and creating a urlpattern. Then we&#39;ll run the server locally and see if the pages app works."/>
-        <meta property="article:published_time" content="2018-10-16" />
+        <meta property="og:title" content="Oregon Engineering College Transfer App - Part 3: A new Django project"/>
+        <meta property="og:url" content="../drafts/oregon-engineering-college-transfer-app-part-3-new-django-project.html"/>
+        <meta property="og:description" content="This is the third part of a multi-part series on building a web app with Python and Django. The web app will act as a resource for Engineering students at Oregon Community Colleges that want to transfer to 4-year Universities. The web app will show which classes from their community college engineering program will transfer to which classes at a 4-year University engineering program. In this third post, we&#39;ll create a new Django project. Then we&#39;ll run Django&#39;s built-in development server locally to ensure our project is on the right track."/>
+        <meta property="article:published_time" content="2021-08-25" />
             <meta property="article:section" content="django" />
             <meta property="article:tag" content="python" />
             <meta property="article:tag" content="django" />
@@ -263,16 +263,16 @@ Python for Undergraduate Engineers            </a>
             <ol class="breadcrumb">
                 <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
                 <li><a href="../category/django.html" title="django">django</a></li>
-                <li class="active">Oregon Engineering College Transfer App - Part 3: Front Page App</li>
+                <li class="active">Oregon Engineering College Transfer App - Part 3: A new Django project</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="../drafts/oregon-engineering-college-transfer-app-part-3-front-page-app.html"
+                    <a href="../drafts/oregon-engineering-college-transfer-app-part-3-new-django-project.html"
                        rel="bookmark"
-                       title="Permalink to Oregon Engineering College Transfer App - Part 3: Front Page App">
-                        Oregon Engineering College Transfer App - Part 3: Front Page App
+                       title="Permalink to Oregon Engineering College Transfer App - Part 3: A new Django project">
+                        Oregon Engineering College Transfer App - Part 3: A new Django project
                     </a>
                 </h1>
             </header>
@@ -282,11 +282,11 @@ Python for Undergraduate Engineers            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2018-10-16T12:40:00-07:00"> Tue 16 October 2018</time>
+        <i class="fa fa-calendar"></i><time datetime="2021-08-25T12:40:00-07:00"> Wed 25 August 2021</time>
     </span>
 
             <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x000001D0F08D6E10> of 
+            Part <built-in method index of str object at 0x000002407103FB70> of 
 
 
 
@@ -300,57 +300,76 @@ Python for Undergraduate Engineers            </a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>This is the third part of a multi-part series on building a web app with Python and Django. The web app will act as a resource for Engineering students at Oregon Community Colleges that want to transfer to 4-year Universities. The transfer web app will show which classes from their community college engineering program will transfer to which classes in a 4-year University engineering program. In this third post, I'll review building the first pages app. The first app to add to the django project. This includes creating the app at the command line, adding the app to the project, creating a view, and creating a urlpattern. Then we'll run the server locally and see if the pages app works.</p>
-<h2 id="django-apps">Django Apps</h2>
-<p>What is a django app and how is it different from a django project? A djano app is part of a django project. One django project can have many apps.</p>
-<h2 id="create-the-pages-app">Create the pages app</h2>
-<h2 id="add-the-pages-app-to-the-list-of-installed-apps">Add the pages app to the list of installed apps</h2>
-<div class="highlight"><pre><span></span><span class="c1"># Application definition</span>
-
-<span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="c1"># django</span>
-    <span class="s1">&#39;django.contrib.admin&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;django.contrib.auth&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;django.contrib.contenttypes&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;django.contrib.sessions&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;django.contrib.messages&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;django.contrib.staticfiles&#39;</span><span class="p">,</span>
-
-    <span class="c1"># project specific</span>
-    <span class="s1">&#39;pages.apps.PagesConfig&#39;</span><span class="p">,</span>
-<span class="p">]</span>
+                <p>This is the third part of a multi-part series on building a web app with Python and Django. The web app will act as a resource for Engineering students at Oregon Community Colleges that want to transfer to 4-year Universities. The web app will show which classes from their community college engineering program will transfer to which classes at a 4-year University engineering program. In this third post, we'll create a new Django project. Then we'll run Django's built-in development server locally to ensure our project is on the right track.</p>
+<h2 id="django-projects-and-django-apps">Django Projects and Django Apps</h2>
+<p>What is a Django project and how is it different from a Django app? A Django app is part of a Django project. One Django project can contain many apps. We'll start out by creating a Django project. Eventually we will add a couple Django apps to the project.</p>
+<h2 id="create-a-django-project">Create a Django Project</h2>
+<p>Our website will be build in one Django project. The command below starts a new Django project in the current working directory. Use the Anaconda Prompt to enter the commands.</p>
+<div class="highlight"><pre><span></span>&gt; cd Documents
+&gt; cd transfer
+&gt; conda activate transfer
+(transfer) &gt; django-admin startproject transfer_project . 
 </pre></div>
 
 
-<h2 id="define-a-homepage-view">Define a homepage view</h2>
-<p>in pages/views.py</p>
-<div class="highlight"><pre><span></span><span class="c1"># pages/views.py</span>
-
-<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
-
-<span class="k">def</span> <span class="nf">homePageView</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s1">&#39;College Transfer App&#39;</span><span class="p">)</span>
+<p>This command creates a few files and a new folder in our <code>transfer/</code> directory. </p>
+<div class="highlight"><pre><span></span>transfer/
+│   .gitignore
+│   LICENSE
+│   manage.py
+│   README.md
+│   requirements.txt
+│   runtime.txt
+│
+└───transfer_project
+        asgi.py
+        settings.py
+        urls.py
+        wsgi.py
+        __init__.py
 </pre></div>
 
 
-<h2 id="configure-the-homepage-url-pattern-in-the-pages-app">Configure the homepage URL pattern in the pages app</h2>
-<h2 id="configure-the-homepage-url-pattern-in-the-overall-transfer-project">Configure the homepage URL pattern in the overall transfer project</h2>
-<h2 id="test-the-server-locally">Test the server locally</h2>
+<h2 id="run-the-local-development-server">Run the local development server</h2>
+<p>Now that our new Django project is created, we can run Django's built-in development server to ensure our Django installation and Django project creation was successful. Key in the command below to start the development server.</p>
+<div class="highlight"><pre><span></span>(transfer) &gt; python manage.py runserver
+</pre></div>
+
+
+<p>Open up a web browser and type the URL below into the address bar</p>
+<div class="highlight"><pre><span></span>localhost:8000
+</pre></div>
+
+
+<p>You should see the Django launch screen with a little rocket, like the picture below.</p>
+<p><img alt="django launch sreen" src="../posts/transfer_app/images/django_launch_screen.png"></p>
+<p>You can key in [Ctrl] + [c] to stop the local development server, and get back to the regular Anaconda Prompt.</p>
+<h2 id="add-commit-and-push-changes-up-to-github">Add, Commit and Push Changes up to GitHub</h2>
+<p>Since we've added new files to our project, we need to add, commit and push these changes up to github.com. Type the commands below into the Anaconda Prompt to ensure the code saved on our local computer is the same as the code saved on GitHub.com</p>
+<div class="highlight"><pre><span></span>&gt; git add .
+&gt; git commit -m &quot;commit message&quot;
+&gt; git push origin main
+</pre></div>
+
+
 <h2 id="summary">Summary</h2>
+<p>In this post, we created a new Django project and ran the Django development server for the first time. Our new project is called <code>transfer_project</code>. When we ran the command to create our new Django project, a new folder and a few new files were created. When we ran the development server, we saw the Django launch screen. Our website build is going great so far.</p>
+<h2 id="next-steps">Next Steps</h2>
+<p>In the next post, we are going to create our first Django App. This Django app is going create the homepage of our website. </p>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">
     <h4>Related Posts:</h4>
     <ul>
+        <li><a href="../crank-and-rocker-motion-with-python-and-matplotlib.html">Crank and Rocker Motion with Python and Matplotlib</a></li>
         <li><a href="../what-is-ansible.html">What is Ansible?</a></li>
         <li><a href="../git-and-github-for-undergrad-engineers.html">Git and GitHub for Undergrad Engineers</a></li>
         <li><a href="../live-plotting-with-matplotlib.html">How to make animated plots with Matplotlib and Python</a></li>
         <li><a href="../calculating-vacancy-concentration-with-python.html">Calculating Vacancy Concentration with Python</a></li>
-        <li><a href="../offset-piston-motion-animation-matplotlib.html">Offset Piston Motion with Python and Matplotlib</a></li>
     </ul>
 </section>
 <section class="well" id="related-posts">
-    <h4>Article <built-in method index of str object at 0x000001D0F08D6E10> of the  series</h4>
+    <h4>Article <built-in method index of str object at 0x000002407103FB70> of the  series</h4>
 </section>
     <hr />
     <!-- AddThis Button BEGIN -->
@@ -383,9 +402,9 @@ Python for Undergraduate Engineers            </a>
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
+    <li class="list-group-item"><a href="../crank-and-rocker-motion-with-python-and-matplotlib.html">Crank and Rocker Motion with Python and Matplotlib</a></li>
     <li class="list-group-item"><a href="../what-is-ansible.html">What is Ansible?</a></li>
     <li class="list-group-item"><a href="../how-to-change-a-github-repo-from-master-to-main.html">How to change a GitHub repo from master to main</a></li>
-    <li class="list-group-item"><a href="../git-and-github-for-undergrad-engineers.html">Git and GitHub for Undergrad Engineers</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->

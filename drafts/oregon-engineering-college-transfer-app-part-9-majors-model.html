@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Oregon Engineering College Transfer App - Part 9: Majors Model - Python for Undergraduate Engineers</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
+<style type="text/css">
+
+    /*some stuff for output/input prompts*/
+    div.cell{border:1px solid transparent;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}div.cell.selected{border-radius:4px;border:thin #ababab solid}
+    div.cell.edit_mode{border-radius:4px;border:thin #008000 solid}
+    div.cell{width:100%;padding:5px 5px 5px 0;margin:0;outline:none}
+    div.prompt{min-width:11ex;padding:.4em;margin:0;font-family:monospace;text-align:right;line-height:1.21429em}
+    @media (max-width:480px){div.prompt{text-align:left}}div.inner_cell{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
+    div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;line-height:1.21429em}
+    div.prompt:empty{padding-top:0;padding-bottom:0}
+    div.input{page-break-inside:avoid;display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;}
+    div.inner_cell{width:90%;}
+    div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;}
+    div.input_prompt{color:navy;border-top:1px solid transparent;}
+    div.output_wrapper{margin-top:5px;position:relative;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+    div.output_scroll{height:24em;width:100%;overflow:auto;border-radius:4px;-webkit-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);-moz-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);}
+    div.output_collapsed{margin:0px;padding:0px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+    div.out_prompt_overlay{height:100%;padding:0px 0.4em;position:absolute;border-radius:4px;}
+    div.out_prompt_overlay:hover{-webkit-box-shadow:inset 0 0 1px #000000;-moz-box-shadow:inset 0 0 1px #000000;box-shadow:inset 0 0 1px #000000;background:rgba(240, 240, 240, 0.5);}
+    div.output_prompt{color:darkred;}
+    
+    a.anchor-link:link{text-decoration:none;padding:0px 20px;visibility:hidden;}
+    h1:hover .anchor-link,h2:hover .anchor-link,h3:hover .anchor-link,h4:hover .anchor-link,h5:hover .anchor-link,h6:hover .anchor-link{visibility:visible;}
+    /* end stuff for output/input prompts*/
+    
+    
+    .highlight-ipynb .hll { background-color: #ffffcc }
+    .highlight-ipynb  { background: #f8f8f8; }
+    .highlight-ipynb .c { color: #408080; font-style: italic } /* Comment */
+    .highlight-ipynb .err { border: 1px solid #FF0000 } /* Error */
+    .highlight-ipynb .k { color: #008000; font-weight: bold } /* Keyword */
+    .highlight-ipynb .o { color: #666666 } /* Operator */
+    .highlight-ipynb .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+    .highlight-ipynb .cp { color: #BC7A00 } /* Comment.Preproc */
+    .highlight-ipynb .c1 { color: #408080; font-style: italic } /* Comment.Single */
+    .highlight-ipynb .cs { color: #408080; font-style: italic } /* Comment.Special */
+    .highlight-ipynb .gd { color: #A00000 } /* Generic.Deleted */
+    .highlight-ipynb .ge { font-style: italic } /* Generic.Emph */
+    .highlight-ipynb .gr { color: #FF0000 } /* Generic.Error */
+    .highlight-ipynb .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+    .highlight-ipynb .gi { color: #00A000 } /* Generic.Inserted */
+    .highlight-ipynb .go { color: #888888 } /* Generic.Output */
+    .highlight-ipynb .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+    .highlight-ipynb .gs { font-weight: bold } /* Generic.Strong */
+    .highlight-ipynb .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+    .highlight-ipynb .gt { color: #0044DD } /* Generic.Traceback */
+    .highlight-ipynb .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+    .highlight-ipynb .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+    .highlight-ipynb .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+    .highlight-ipynb .kp { color: #008000 } /* Keyword.Pseudo */
+    .highlight-ipynb .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+    .highlight-ipynb .kt { color: #B00040 } /* Keyword.Type */
+    .highlight-ipynb .m { color: #666666 } /* Literal.Number */
+    .highlight-ipynb .s { color: #BA2121 } /* Literal.String */
+    .highlight-ipynb .na { color: #7D9029 } /* Name.Attribute */
+    .highlight-ipynb .nb { color: #008000 } /* Name.Builtin */
+    .highlight-ipynb .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+    .highlight-ipynb .no { color: #880000 } /* Name.Constant */
+    .highlight-ipynb .nd { color: #AA22FF } /* Name.Decorator */
+    .highlight-ipynb .ni { color: #999999; font-weight: bold } /* Name.Entity */
+    .highlight-ipynb .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+    .highlight-ipynb .nf { color: #0000FF } /* Name.Function */
+    .highlight-ipynb .nl { color: #A0A000 } /* Name.Label */
+    .highlight-ipynb .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+    .highlight-ipynb .nt { color: #008000; font-weight: bold } /* Name.Tag */
+    .highlight-ipynb .nv { color: #19177C } /* Name.Variable */
+    .highlight-ipynb .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+    .highlight-ipynb .w { color: #bbbbbb } /* Text.Whitespace */
+    .highlight-ipynb .mf { color: #666666 } /* Literal.Number.Float */
+    .highlight-ipynb .mh { color: #666666 } /* Literal.Number.Hex */
+    .highlight-ipynb .mi { color: #666666 } /* Literal.Number.Integer */
+    .highlight-ipynb .mo { color: #666666 } /* Literal.Number.Oct */
+    .highlight-ipynb .sb { color: #BA2121 } /* Literal.String.Backtick */
+    .highlight-ipynb .sc { color: #BA2121 } /* Literal.String.Char */
+    .highlight-ipynb .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+    .highlight-ipynb .s2 { color: #BA2121 } /* Literal.String.Double */
+    .highlight-ipynb .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+    .highlight-ipynb .sh { color: #BA2121 } /* Literal.String.Heredoc */
+    .highlight-ipynb .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+    .highlight-ipynb .sx { color: #008000 } /* Literal.String.Other */
+    .highlight-ipynb .sr { color: #BB6688 } /* Literal.String.Regex */
+    .highlight-ipynb .s1 { color: #BA2121 } /* Literal.String.Single */
+    .highlight-ipynb .ss { color: #19177C } /* Literal.String.Symbol */
+    .highlight-ipynb .bp { color: #008000 } /* Name.Builtin.Pseudo */
+    .highlight-ipynb .vc { color: #19177C } /* Name.Variable.Class */
+    .highlight-ipynb .vg { color: #19177C } /* Name.Variable.Global */
+    .highlight-ipynb .vi { color: #19177C } /* Name.Variable.Instance */
+    .highlight-ipynb .il { color: #666666 } /* Literal.Number.Integer.Long */
+    </style>
+    
+    <style type="text/css">
+    /* Overrides of notebook CSS for static HTML export */
+    div.entry-content {
+      overflow: visible;
+      padding: 8px;
+    }
+    .input_area {
+      padding: 0.2em;
+    }
+    
+    a.heading-anchor {
+     white-space: normal;
+    }
+    
+    .rendered_html
+    code {
+     font-size: .8em;
+    }
+    
+    pre.ipynb {
+      color: black;
+      background: #f7f7f7;
+      border: none;
+      box-shadow: none;
+      margin-bottom: 0;
+      padding: 0;
+      margin: 0px;
+      font-size: 13px;
+    }
+    
+    /* remove the prompt div from text cells */
+    div.text_cell .prompt {
+        display: none;
+    }
+    
+    /* remove horizontal padding from text cells, */
+    /* so it aligns with outer body text */
+    div.text_cell_render {
+        padding: 0.5em 0em;
+    }
+    
+    img.anim_icon{padding:0; border:0; vertical-align:middle; -webkit-box-shadow:none; -box-shadow:none}
+    
+    div.collapseheader {
+        width=100%;
+        padding: 2px;
+        cursor: pointer;
+        font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+    
+    </style>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+    <script type="text/javascript">
+    init_mathjax = function() {
+        if (window.MathJax) {
+            // MathJax loaded
+            MathJax.Hub.Config({
+                tex2jax: {
+                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+                },
+                displayAlign: 'center', // Change this to 'center' to center equations.
+                "HTML-CSS": {
+                    styles: {'.MathJax_Display': {"margin": 0}}
+                }
+            });
+            MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        }
+    }
+    init_mathjax();
+    </script>
+    
+    <link href="../extra/favicon.ico" rel="icon">
+
+<link rel="canonical" href="../drafts/oregon-engineering-college-transfer-app-part-9-majors-model.html">
+
+        <meta name="author" content="Peter D. Kazarinoff" />
+        <meta name="keywords" content="python,django,web app" />
+        <meta name="description" content="This is the 9th part of a multi-part series on building a web app with Python and Django. The web app will act as a resource for Engineering students at Oregon Community Colleges who want to transfer to 4-year Universities. The transfer web app will show which classes from their Community College Engineering program will transfer to which classes in a 4-year University Engineering program. In this 9th part of the series, we are going to create a new Django app and model for majors. An example of a major is Civil Engineering or Mechanical Engineering." />
+
+        <meta property="og:site_name" content="Python for Undergraduate Engineers" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Oregon Engineering College Transfer App - Part 9: Majors Model"/>
+        <meta property="og:url" content="../drafts/oregon-engineering-college-transfer-app-part-9-majors-model.html"/>
+        <meta property="og:description" content="This is the 9th part of a multi-part series on building a web app with Python and Django. The web app will act as a resource for Engineering students at Oregon Community Colleges who want to transfer to 4-year Universities. The transfer web app will show which classes from their Community College Engineering program will transfer to which classes in a 4-year University Engineering program. In this 9th part of the series, we are going to create a new Django app and model for majors. An example of a major is Civil Engineering or Mechanical Engineering."/>
+        <meta property="article:published_time" content="2021-08-26" />
+            <meta property="article:section" content="django" />
+            <meta property="article:tag" content="python" />
+            <meta property="article:tag" content="django" />
+            <meta property="article:tag" content="web app" />
+            <meta property="article:author" content="Peter D. Kazarinoff" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../theme/css/pygments/native.css" rel="stylesheet">
+    <link href="../theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="../theme/css/style.css" type="text/css"/>
+        <link href="../static/css/custom.css" rel="stylesheet">
+
+
+
+</head>
+<body>
+
+<!-- .navbar -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../" class="navbar-brand">
+Python for Undergraduate Engineers            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="../pages/about.html">
+                             About
+                          </a></li>
+                         <li><a href="../pages/book.html">
+                             Book
+                          </a></li>
+                         <li><a href="../pages/gear.html">
+                             Gear
+                          </a></li>
+                         <li><a href="../pages/now.html">
+                             Now
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+
+<!-- .navbar-search -->
+<li>
+    <span>
+        <form class="navbar-search" action="/search.html">
+            <input type="text" name="q" id="tipue_search_input">
+        </form>
+    </span>
+</li>
+<!-- /.navbar-search -->              <li><a href="../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+            <ol class="breadcrumb">
+                <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="../category/django.html" title="django">django</a></li>
+                <li class="active">Oregon Engineering College Transfer App - Part 9: Majors Model</li>
+            </ol>
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="../drafts/oregon-engineering-college-transfer-app-part-9-majors-model.html"
+                       rel="bookmark"
+                       title="Permalink to Oregon Engineering College Transfer App - Part 9: Majors Model">
+                        Oregon Engineering College Transfer App - Part 9: Majors Model
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2021-08-26T12:40:00-07:00"> Thu 26 August 2021</time>
+    </span>
+
+            <span class="label label-default">Series</span>
+            Part <built-in method index of str object at 0x0000024072815E10> of 
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="../tag/python.html">python</a>
+        /
+	<a href="../tag/django.html">django</a>
+        /
+	<a href="../tag/web-app.html">web app</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>This is the 9<sup>th</sup> part of a multi-part series on building a web app with Python and Django. The web app will act as a resource for Engineering students at Oregon Community Colleges who want to transfer to 4-year Universities. The transfer web app will show which classes from their Community College Engineering program will transfer to which classes in a 4-year University Engineering program. In this 9<sup>th</sup> part of the series, we are going to create a new Django app and model for majors. An example of a major is Civil Engineering or Mechanical Engineering.</p>
+<div class="toc"><span class="toctitle">Table of contents:</span><ul>
+<li><a href="#our-project-so-far">Our project so far</a></li>
+<li><a href="#the-general-django-programming-pattern-flow">The general django programming pattern flow</a></li>
+<li><a href="#create-a-majors-app">Create a Majors app</a></li>
+<li><a href="#add-to-majors-to-the-list-of-installed-apps">Add to majors to the list of installed apps</a></li>
+<li><a href="#create-a-majors-model">Create a Majors model</a></li>
+<li><a href="#add-majors-to-the-django-admin">Add majors to the Django admin</a></li>
+<li><a href="#migrate-new-majors-model-to-the-database">Migrate new majors model to the database</a></li>
+<li><a href="#add-a-major-using-the-django-admin">Add a major using the Django Admin</a></li>
+<li><a href="#create-a-majors-template">Create a majors template</a></li>
+<li><a href="#modify-project-urls">Modify project urls</a></li>
+<li><a href="#create-the-majors-url-routes">Create the majors url routes</a></li>
+<li><a href="#create-four-views">Create four Views</a></li>
+<li><a href="#build-tests-for-the-majors-page">Build tests for the majors page</a></li>
+<li><a href="#run-the-development-server">Run the development server</a></li>
+<li><a href="#format-add-commit-and-push-to-github">Format, add, commit and push to github</a></li>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#future-work">Future Work</a></li>
+</ul>
+</div>
+<h2 id="our-project-so-far">Our project so far</h2>
+<p>Our Django site has grown in size. We started out with just a home page and about page, and now we have pages for colleges and courses. The files in our project so far are shown below</p>
+<div class="highlight"><pre><span></span>
+</pre></div>
+
+
+<p>We have created a Django project called <code>transfer_project</code> and created four Django apps, a <code>pages</code> app, a <code>user</code> app, a <code>colleges</code> app and a <code>courses app</code>. We've created a few html templates and url routes that produces a few web pages. We also created two models, a college model and a course model. We linked our college model to our course model so that every course was associated with the college where it was taught. So far we have 3 courses on our site that we entered into the Django admin.</p>
+<p>Next we will create a majors model to save the different engineering majors at each college.</p>
+<h2 id="the-general-django-programming-pattern-flow">The general django programming pattern flow</h2>
+<p>So far we have created three Django apps. The process of creating a new web page that we used to build our home and about pages is the same steps that we'll use to create our courses page.</p>
+<ul>
+<li>create app</li>
+<li>model</li>
+<li>admin</li>
+<li>templates</li>
+<li>project urls</li>
+<li>app urls</li>
+<li>views</li>
+</ul>
+<h2 id="create-a-majors-app">Create a Majors app</h2>
+<div class="highlight"><pre><span></span>&gt; cd Documents
+&gt; cd transfer
+&gt; conda activate transfer
+(transfer) &gt; python manage.py startapp majors
+</pre></div>
+
+
+<h2 id="add-to-majors-to-the-list-of-installed-apps">Add to majors to the list of installed apps</h2>
+<div class="highlight"><pre><span></span><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># django</span>
+    <span class="s2">&quot;django.contrib.admin&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;django.contrib.auth&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;django.contrib.contenttypes&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;django.contrib.sessions&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;django.contrib.messages&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;django.contrib.staticfiles&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;django.contrib.sites&quot;</span><span class="p">,</span>
+    <span class="c1"># 3rd party</span>
+    <span class="s2">&quot;allauth&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;allauth.account&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;allauth.socialaccount&quot;</span><span class="p">,</span>
+    <span class="c1"># project specific</span>
+    <span class="s2">&quot;colleges.apps.CollegesConfig&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;courses.apps.CoursesConfig&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;pages.apps.PagesConfig&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;majors.apps.MajorsConfig&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;accounts&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+
+
+<h2 id="create-a-majors-model">Create a Majors model</h2>
+<p>Now we are going to create a Majors model. The major's model is going to be defined within the colleges app. Each college has a couple majors. We could create a whole new app for majors. But for right now, I think we'll keep it in the college app. Our majors model is defined within the colleges app in the <code>models.py</code> file. Each major as a couple specific properties that we want to keep track of:</p>
+<ul>
+<li>
+<p>Major name: Example Mechanical Engineering</p>
+</li>
+<li>
+<p>Major abreviation: Example ME</p>
+</li>
+<li>
+<p>College: Portland State University</p>
+</li>
+<li>
+<p>Major description: Mechanical Engineering is the engineering of moving mechanical components</p>
+</li>
+<li>
+<p>Courses: Which courses are part of the major</p>
+</li>
+<li>
+<p>Date added: Example Aug 24, 2021</p>
+</li>
+<li>
+<p>Added by: Example Kendra Lowry</p>
+</li>
+<li>
+<p>Possibly others?</p>
+</li>
+</ul>
+<p>As far the relationship between majors and colleges goes, each major only belongs to one college and each college contains many majors. As far as the relationship between majors and courses goes, each major contains many courses and each course can be part of many majors. We'll create two models in the <code>majors/models.py</code> file. One model <code>Major</code> will be for the "generic" major like Mechanical Engineering or Electrical Engineering. Then we'll have a more specific model for a major at a particular college, such as Mechanical Engineering at Portland State University.</p>
+<div class="highlight"><pre><span></span><span class="c1"># majors/models.py</span>
+
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+<span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">reverse</span>
+<span class="kn">from</span> <span class="nn">colleges.models</span> <span class="kn">import</span> <span class="n">College</span>
+<span class="kn">from</span> <span class="nn">courses.models</span> <span class="kn">import</span> <span class="n">Course</span>
+
+<span class="k">class</span> <span class="nc">Major</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">abbreviation</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">ordering</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;abbreviation&quot;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">f</span><span class="s2">&quot;{self.abbreviation} - {self.name}&quot;</span>
+
+    <span class="k">def</span> <span class="nf">get_absolute_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="s2">&quot;major_detail&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)])</span>
+
+
+<span class="k">class</span> <span class="nc">CollegeMajor</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">major</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Major</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">)</span>
+    <span class="n">college</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">College</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">courses</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span><span class="n">Course</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">ordering</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;major&quot;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">f</span><span class="s2">&quot;{self.major.abbreviation} - {self.major.name} at {self.college.abbreviation}&quot;</span>
+
+    <span class="k">def</span> <span class="nf">get_absolute_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="s2">&quot;college_major_detail&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)])</span>
+</pre></div>
+
+
+<h2 id="add-majors-to-the-django-admin">Add majors to the Django admin</h2>
+<div class="highlight"><pre><span></span><span class="c1"># majors/admin.py</span>
+
+<span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Major</span><span class="p">,</span> <span class="n">CollegeMajor</span>
+
+<span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Major</span><span class="p">)</span>
+<span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">CollegeMajor</span><span class="p">)</span>
+</pre></div>
+
+
+<h2 id="migrate-new-majors-model-to-the-database">Migrate new majors model to the database</h2>
+<p>Now that the majors model is added, we need to migrate the model to the database.</p>
+<div class="highlight"><pre><span></span>(transfer) $ python manage.py makemigrations
+(transfer) $ python manage.py migrate
+</pre></div>
+
+
+<h2 id="add-a-major-using-the-django-admin">Add a major using the Django Admin</h2>
+<p>Now that our major model is created, we should be able to add a new major in the Django admin. Start the local development server with the command below:</p>
+<div class="highlight"><pre><span></span>(transfer-app) &gt; python manage.py runserver
+</pre></div>
+
+
+<p>Browse to the Django admin at the URL below</p>
+<div class="highlight"><pre><span></span>localhost:8000/admin
+</pre></div>
+
+
+<p>Log in with your super user credentials and add two majors. Let's have one major belong to one college and the another major belong to the other college in the database. </p>
+<h2 id="create-a-majors-template">Create a majors template</h2>
+<p>Next, we'll build a majors page that shows all the majors we added to the database in the Django admin. That means we need to create a majors list template. Let's put this tempate in the <code>templates/majors/</code> directory. The directory strucutre of the entire Django project is below:</p>
+<div class="highlight"><pre><span></span>├───pages
+├───templates
+│   ├───pages
+│   ├───colleges
+│   ├───courses
+│   ├───majors
+│   │   └───majors.html
+│   └───users
+├───transfer_project
+└───users
+</pre></div>
+
+
+<p>The html below needs to be pasted into the <code>major_list.html</code> and <code>major_detail</code> files in the <code>templates/</code> directory. We can also make a <code>college_major_list.html</code> and <code>college_major_detail.html</code> template.</p>
+<div class="highlight"><pre><span></span><span class="c">&lt;!-- templates/major_list.html --&gt;</span>
+
+{% extends &#39;base.html&#39; %}
+
+{% load static %}
+
+{% block custom_stylesheets %}
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{% static &#39;css/home.css&#39; %}&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{% static &#39;css/majors_list.css&#39; %}&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span><span class="p">&gt;</span>
+{% endblock custom_stylesheets %}
+
+{% block content %}
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container&quot;</span><span class="p">&gt;</span>
+    <span class="c">&lt;!-- Example row of columns --&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;row&quot;</span><span class="p">&gt;</span>
+      {% for major in object_list %}
+      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;col-md-4&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>{{ major.name }}<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>{{ major.description }}<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-secondary&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{% url &#39;major_detail&#39; major.id %}&quot;</span> <span class="na">role</span><span class="o">=</span><span class="s">&quot;button&quot;</span><span class="p">&gt;</span>View Courses <span class="ni">&amp;raquo;</span><span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+      {% endfor %}
+    <span class="p">&lt;</span><span class="nt">hr</span><span class="p">&gt;</span>
+
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span> <span class="c">&lt;!-- /container --&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+{% endblock content %}
+</pre></div>
+
+
+<p>Our <code>college_major_list.html</code> template is very similar. </p>
+<div class="highlight"><pre><span></span><span class="c">&lt;!-- templates/college_major_list.html --&gt;</span>
+
+{% extends &#39;base.html&#39; %}
+
+{% load static %}
+
+{% block custom_stylesheets %}
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{% static &#39;css/home.css&#39; %}&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{% static &#39;css/majors_list.css&#39; %}&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span><span class="p">&gt;</span>
+{% endblock custom_stylesheets %}
+
+{% block content %}
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container&quot;</span><span class="p">&gt;</span>
+    <span class="c">&lt;!-- Example row of columns --&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;row&quot;</span><span class="p">&gt;</span>
+      {% for college_major in object_list %}
+      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;col-md-4&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>{{ college_major.name }}<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>{{ college_major.description }}<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-secondary&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{% url &#39;college_major_detail&#39; college_major.id %}&quot;</span> <span class="na">role</span><span class="o">=</span><span class="s">&quot;button&quot;</span><span class="p">&gt;</span>View Courses <span class="ni">&amp;raquo;</span><span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+      {% endfor %}
+    <span class="p">&lt;</span><span class="nt">hr</span><span class="p">&gt;</span>
+
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span> <span class="c">&lt;!-- /container --&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+{% endblock content %}
+</pre></div>
+
+
+<p>Next up is the <code>major_detail.html</code> template.</p>
+<div class="highlight"><pre><span></span><span class="c">&lt;!-- templates/major_detail.html --&gt;</span>
+
+{% extends &#39;base.html&#39; %}
+
+{% load static %}
+
+{% block custom_stylesheets %}
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{% static &#39;css/advising_guide.css&#39; %}&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{% static &#39;css/course_list.css&#39; %}&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span><span class="p">&gt;</span>
+{% endblock custom_stylesheets %}
+
+{% block content %}
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>{{ object.name }} Advising Guide<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">hr</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>Engineering Majors<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
+
+    <span class="p">&lt;</span><span class="nt">table</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;table&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">thead</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;thead-light&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">th</span> <span class="na">scope</span><span class="o">=</span><span class="s">&quot;col&quot;</span><span class="p">&gt;</span>Major<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">th</span> <span class="na">scope</span><span class="o">=</span><span class="s">&quot;col&quot;</span><span class="p">&gt;</span>Abbreviation<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">th</span> <span class="na">scope</span><span class="o">=</span><span class="s">&quot;col&quot;</span><span class="p">&gt;</span>Colleges<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">thead</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">tbody</span><span class="p">&gt;</span>
+            {% for major in object.majors.all %}
+            <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;course-link-color&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{% url &#39;major_detail&#39; major.id %}&quot;</span><span class="p">&gt;</span>{{ major.name }}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>{{ major.abbreviation }}<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>PCC, PSU, OSU<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+            {% endfor %}
+        <span class="p">&lt;/</span><span class="nt">tbody</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">table</span><span class="p">&gt;</span>
+
+      <span class="p">&lt;</span><span class="nt">hr</span><span class="p">&gt;</span>
+
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+{% endblock content %}
+</pre></div>
+
+
+<p>The <code>college_major_detail.html</code> is the last template in this part of the project. This template is a little trickier. We want to loop over all the courses in each college major.</p>
+<div class="highlight"><pre><span></span><span class="c">&lt;!-- templates/college_major_detail.html --&gt;</span>
+
+{% extends &#39;base.html&#39; %}
+
+{% load static %}
+
+{% block custom_stylesheets %}
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{% static &#39;css/advising_guide.css&#39; %}&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{% static &#39;css/course_list.css&#39; %}&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span><span class="p">&gt;</span>
+{% endblock custom_stylesheets %}
+
+{% block content %}
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>{{ object.name }} {{ object.major }} Advising Guide<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">hr</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>Engineering Majors<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
+
+    <span class="p">&lt;</span><span class="nt">table</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;table&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">thead</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;thead-light&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">th</span> <span class="na">scope</span><span class="o">=</span><span class="s">&quot;col&quot;</span><span class="p">&gt;</span>Major<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">th</span> <span class="na">scope</span><span class="o">=</span><span class="s">&quot;col&quot;</span><span class="p">&gt;</span>Abbreviation<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">th</span> <span class="na">scope</span><span class="o">=</span><span class="s">&quot;col&quot;</span><span class="p">&gt;</span>Colleges<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">thead</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">tbody</span><span class="p">&gt;</span>
+            {% for course in object.courses.all %}
+            <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;course-link-color&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{% url &#39;course_detail&#39; course.id %}&quot;</span><span class="p">&gt;</span>{{ course.number }}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>{{ course.name }}<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>PCC, PSU, OSU<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+            {% endfor %}
+        <span class="p">&lt;/</span><span class="nt">tbody</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">table</span><span class="p">&gt;</span>
+
+      <span class="p">&lt;</span><span class="nt">hr</span><span class="p">&gt;</span>
+
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+{% endblock content %}
+</pre></div>
+
+
+<h2 id="modify-project-urls">Modify project urls</h2>
+<p>Now that the course html template is created, we need to create a url pattern that points to the template. When a user browses to https://domain.com/courses, the courses template should pop up. Edit the transfer_project/urls.py file to include a new route for the courses template. </p>
+<div class="highlight"><pre><span></span><span class="c1"># transfer_project/urls.py</span>
+
+<span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+<span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">include</span><span class="p">,</span> <span class="n">path</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">path</span><span class="p">(</span><span class="s2">&quot;admin/&quot;</span><span class="p">,</span> <span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">urls</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s2">&quot;accounts/&quot;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s2">&quot;allauth.urls&quot;</span><span class="p">)),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s2">&quot;colleges/&quot;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s2">&quot;colleges.urls&quot;</span><span class="p">)),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s2">&quot;courses/&quot;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s2">&quot;courses.urls&quot;</span><span class="p">)),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s2">&quot;majors/&quot;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s2">&quot;majors.urls&quot;</span><span class="p">)),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s2">&quot;pages.urls&quot;</span><span class="p">)),</span>
+<span class="p">]</span>
+</pre></div>
+
+
+<h2 id="create-the-majors-url-routes">Create the majors url routes</h2>
+<div class="highlight"><pre><span></span><span class="c1"># majors/urls.py</span>
+
+<span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span>
+
+<span class="kn">from</span> <span class="nn">.views</span> <span class="kn">import</span> <span class="n">MajorDetailView</span><span class="p">,</span> <span class="n">MajorListView</span><span class="p">,</span> <span class="n">CollegeMajorListView</span><span class="p">,</span> <span class="n">CollegeMajorDetailView</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">path</span><span class="p">(</span><span class="s2">&quot;major_list/&quot;</span><span class="p">,</span> <span class="n">MajorListView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;major_list&quot;</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s2">&quot;major/&lt;int:pk&gt;/&quot;</span><span class="p">,</span> <span class="n">MajorDetailView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;major_detail&quot;</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s2">&quot;college_major_list/&quot;</span><span class="p">,</span> <span class="n">CollegeMajorListView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;college_major_list&quot;</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s2">&quot;college_major/&lt;int:pk&gt;/&quot;</span><span class="p">,</span> <span class="n">CollegeMajorDetailView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;college_major_detail&quot;</span><span class="p">),</span>
+<span class="p">]</span>
+</pre></div>
+
+
+<h2 id="create-four-views">Create four Views</h2>
+<p>In our <code>majors/urls.py</code> file we used four views. These views need to be created in <code>majors/views.py</code>.</p>
+<div class="highlight"><pre><span></span><span class="c1"># majors/views.py</span>
+
+<span class="kn">from</span> <span class="nn">django.views.generic</span> <span class="kn">import</span> <span class="n">DetailView</span><span class="p">,</span> <span class="n">ListView</span>
+
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Major</span><span class="p">,</span> <span class="n">CollegeMajor</span>
+
+
+<span class="k">class</span> <span class="nc">MajorDetailView</span><span class="p">(</span><span class="n">DetailView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Major</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s2">&quot;major_detail.html&quot;</span>
+
+
+<span class="k">class</span> <span class="nc">MajorListView</span><span class="p">(</span><span class="n">ListView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Major</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s2">&quot;major_list.html&quot;</span>
+
+<span class="k">class</span> <span class="nc">CollegeMajorDetailView</span><span class="p">(</span><span class="n">DetailView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">CollegeMajor</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s2">&quot;college_major_detail.html&quot;</span>
+
+
+<span class="k">class</span> <span class="nc">CollegeMajorListView</span><span class="p">(</span><span class="n">ListView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">CollegeMajor</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s2">&quot;college_major_list.html&quot;</span>
+</pre></div>
+
+
+<h2 id="build-tests-for-the-majors-page">Build tests for the majors page</h2>
+<p>Since we have two new pages, we need to write some new tests. We already have a couple tests. Each time we added a page to our website, we added a new test. These tests are for the majors pages.</p>
+<div class="highlight"><pre><span></span><span class="c1"># majors/tests.py</span>
+
+<span class="kn">from</span> <span class="nn">django.test</span> <span class="kn">import</span> <span class="n">SimpleTestCase</span><span class="p">,</span> <span class="n">TestCase</span>
+
+<span class="k">class</span> <span class="nc">MajorsListPageTests</span><span class="p">(</span><span class="n">SimpleTestCase</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">test_home_page_status_code</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_home_view_uses_correct_template</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s1">&#39;home&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTemplateUsed</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="s1">&#39;home.html&#39;</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">MajorsDetailPageTest</span><span class="p">(</span><span class="n">SimpleTestCase</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">test_about_page_status_code</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/about/&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_about_view_uses_correct_template</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s1">&#39;about&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTemplateUsed</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="s1">&#39;about.html&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Now let's run our tests and see if they all pass. At the Anaconda Prompt, type:</p>
+<div class="highlight"><pre><span></span>(transfer-app) &gt; python manage.py test
+</pre></div>
+
+
+<p>Everything passes! Great. Another part of the Django project down.</p>
+<h2 id="run-the-development-server">Run the development server</h2>
+<p>Run the development server and see our major pages in action. </p>
+<div class="highlight"><pre><span></span>(transfer-app) &gt; python mange.py runserver
+</pre></div>
+
+
+<p>browse to the list of majors</p>
+<div class="highlight"><pre><span></span>localhost:8000/major_list/
+</pre></div>
+
+
+<h2 id="format-add-commit-and-push-to-github">Format, add, commit and push to github</h2>
+<div class="highlight"><pre><span></span>(transfer) &gt; isort .
+(transfer) &gt; black .
+(transfer) &gt; git add .
+(transfer) &gt; git commit -m &quot;commit message&quot;
+(transfer) &gt; git push origin main
+</pre></div>
+
+
+<h2 id="summary">Summary</h2>
+<p>In this post we created a majors model. We followed the general Django pattern to create a majors list page and a majors detail page on our website.</p>
+<ul>
+<li>majors model</li>
+<li>project urls</li>
+<li>majors urls</li>
+<li>major list template</li>
+<li>major detial template</li>
+<li>major list view</li>
+<li>major detail view</li>
+<li>tests of our majors pages</li>
+</ul>
+<h2 id="future-work">Future Work</h2>
+<p>Next, we are going to link our classes together with an articuluation model. This model will give us the relationship between a course at a community college and a course at a 4-year university. This is the main business logic of our app.</p>
+            </div>
+            <!-- /.entry-content -->
+<section class="well" id="related-posts">
+    <h4>Related Posts:</h4>
+    <ul>
+        <li><a href="../crank-and-rocker-motion-with-python-and-matplotlib.html">Crank and Rocker Motion with Python and Matplotlib</a></li>
+        <li><a href="../what-is-ansible.html">What is Ansible?</a></li>
+        <li><a href="../git-and-github-for-undergrad-engineers.html">Git and GitHub for Undergrad Engineers</a></li>
+        <li><a href="../live-plotting-with-matplotlib.html">How to make animated plots with Matplotlib and Python</a></li>
+        <li><a href="../calculating-vacancy-concentration-with-python.html">Calculating Vacancy Concentration with Python</a></li>
+    </ul>
+</section>
+<section class="well" id="related-posts">
+    <h4>Article <built-in method index of str object at 0x0000024072815E10> of the  series</h4>
+</section>
+    <hr />
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style">
+            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+            <a class="addthis_button_tweet"></a>
+    </div>
+    <!-- AddThis Button END -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Ethical Ads -->
+<div class="horizontal" data-ea-publisher="pythonforundergradengineers-com" data-ea-type="image"></div>
+<!-- end Ethical Ads --><div id="aboutme">
+        <p>
+            <img width="100%" class="img-thumbnail" src="../extra/gear-wrench-icon-512-278694.png"/>
+        </p>
+    <p>
+      <strong>About Peter Kazarinoff</strong><br/>
+        I teach engineering at a community college in the Pacific Northwest. I am interested in programming and how to help students. Here I mostly blog about Python, and how programing can be incorporated into engineering education.
+    </p>
+</div><!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Recent Posts -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+  <ul class="list-group" id="recentposts">
+    <li class="list-group-item"><a href="../crank-and-rocker-motion-with-python-and-matplotlib.html">Crank and Rocker Motion with Python and Matplotlib</a></li>
+    <li class="list-group-item"><a href="../what-is-ansible.html">What is Ansible?</a></li>
+    <li class="list-group-item"><a href="../how-to-change-a-github-repo-from-master-to-main.html">How to change a GitHub repo from master to main</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Recent Posts -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="../"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-2">
+      <a href="../tag/engineering.html">engineering</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="../tag/flask.html">flask</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="../tag/jupyter.html">jupyter</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="../tag/jupyter-notebook.html">jupyter notebook</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="../tag/matplotlib.html">matplotlib</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="../tag/microcontroller.html">microcontroller</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="../tag/micropython.html">micropython</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="../tag/pelican.html">pelican</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="../tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="../tag/sensor.html">sensor</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Series -->
+<li class="list-group-item">
+  <h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Series</span></h4>
+  <ul class="list-group">
+  </ul>
+</li>
+<!-- End Sidebar/Series -->
+
+
+<!-- Sidebar/Github -->
+<li class="list-group-item">
+  <h4><i class="fa fa-github fa-lg"></i><span class="icon-label">GitHub Repos</span></h4>
+  <div id="gh_repos">
+    <p class="list-group-item">Status updating...</p>
+  </div>
+  <a href="https://github.com/professorkazarinoff">@professorkazarinoff</a> on GitHub
+</li>
+<!-- End Sidebar/Github -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2021 Peter Kazarinoff
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="../theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../theme/js/respond.min.js"></script>
+
+    <script src="../static/js/custom.js"></script>
+
+
+<!-- GitHub JS Code -->
+<script type="text/javascript">
+$(document).ready(function () {
+  if (!window.jXHR) {
+    var jxhr = document.createElement('script');
+    jxhr.type = 'text/javascript';
+    jxhr.src = '../theme/js/jXHR.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(jxhr, s);
+  }
+
+  github.showRepos({
+    user: 'professorkazarinoff',
+    count: 5,
+    skip_forks: true,
+    target: '#gh_repos'
+  });
+});
+</script>
+<script src="../theme/js/github.js" type="text/javascript"></script>
+<!-- End GitHub JS Code -->
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-116330557-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+    $("div.collapseheader").click(function () {
+    $header = $(this).children("span").first();
+    $codearea = $(this).children(".input_area");
+    console.log($(this).children());
+    $codearea.slideToggle(500, function () {
+        $header.text(function () {
+            return $codearea.is(":visible") ? "Collapse Code" : "Expand Code";
+        });
+    });
+});
+});
+</script>
+<!-- Ethical Ads JS-->
+<script async src="https://media.ethicalads.io/media/client/ethicalads.min.js"></script>
+<!-- end Ethical Ads JS -->
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cdd8eb4e16bf94c"></script>
+</body>
+</html>

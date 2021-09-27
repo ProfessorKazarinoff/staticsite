@@ -6,9 +6,9 @@ Category: matplotlib
 Tags: python, matplotlib, animation
 Slug: crank-and-rocker-motion-with-python-and-matplotlib
 Authors: Peter D. Kazarinoff
-Summary: [![crank and rocker still]({static}/posts/matplotlib_animations/images/crank_and_rocker.png)]({filename}/posts/matplotlib_animations/crank_and_rocker_motion.md) An animation of crank and rocker motion created with Python and Matplotlib
+Summary: [![crank and rocker still]({static}/posts/matplotlib_animations/images/crank_and_rocker_animation.gif)]({filename}/posts/matplotlib_animations/crank_and_rocker_motion.md) An animation of crank and rocker motion created with Python and Matplotlib
 
-[![crank and rocker still]({static}/posts/matplotlib_animations/images/crank_and_rocker.png)]({filename}/posts/matplotlib_animations/crank_and_rocker_motion.md)
+[![crank and rocker still]({static}/posts/matplotlib_animations/images/crank_and_rocker_animation.gif)]({filename}/posts/matplotlib_animations/crank_and_rocker_motion.md)
 
 Crank and Rocker motion is one of the classic dynamic types of motion that belong to a category of 4-bar motion. Crank and rocker motion is the type of motion that a pumpjack goes through when pumping a fluid. In this post, you'll learn how to create an animation of crank and rocker motion using Python and Matplotlib.
 

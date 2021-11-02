@@ -1,8 +1,8 @@
-Title: Add an Inset Curve to a Matplotlib Plot
+Title: How to add an Inset Curve with Matplotlib and Python
 Slug: add-inset-curve-to-matplotlib-plot
-Date: 2021-10-28 09:30
-Modified: 2021-10-28 09:30
-Status: draft
+Date: 2021-11-02 09:15
+Modified: 2021-11-02 09:25
+Status: published
 Category: matplotlib
 Tags: python, matplotlib, engineering, jupyter, notebook
 JavaScripts: ipynb_mathjax_inline.js

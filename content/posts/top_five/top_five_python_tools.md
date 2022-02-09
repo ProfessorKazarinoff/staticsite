@@ -7,7 +7,7 @@ Tags: top five, anaconda, jupyter notebook, conda
 Slug: top-5-python-tools
 Authors: Peter D. Kazarinoff
 
-[![Top Five Megaphone]({static}/posts/top_five/images/megaphone_five.png)]({filename}/posts/top_five/2019_top_five.md)
+[![Top 5 Python Tools]({static}/posts/top_five/images/five_tools_logos_composition.png)]({filename}/posts/top_five/top_five_python_tools.md)
 
 This post contains my top 5 Python tools. These 5 tools are the ones I use the most and recommend for Python programmers. These tools help me write, run and revise code and they make me a more productive programmer.
 

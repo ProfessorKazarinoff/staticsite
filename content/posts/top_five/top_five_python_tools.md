@@ -47,7 +47,7 @@ You can also use **conda** and **pip** side by side. I often create my virtual e
 
 ## 5. VS Code
 
-![vs code logo]({static}/posts/top_five/images/vs_code_icon.svg)
+![vs code logo]({static}/posts/top_five/images/vs_code_logo.jpg)
 
 My favorite code editor right now is [VS Code](https://code.visualstudio.com/) (also called Visual Studio Code). VS Code is free to install and use. Like Anaconda, VS Code installs in _user space_ so you don't need administrator privileges to install and run it. You can install the Python extension in VS Code to add additional features that are useful for Python programmers.
 

@@ -1,10 +1,10 @@
 Title: Why Should Engineers Learn Python?
-Date: 2017-10-16 10:40
-Modified: 2017-10-17 08:50
+Date: 2022-05-22 10:40
+Modified: 2022-05-22 08:50
 Status: Draft
 Category: Python
 Tags: python, engineering, education
-Slug: why-python-for-engineers
+Slug: why-should-engineers-learn-python
 Authors: Peter D. Kazarinoff
 Summary: Engineers have the option of learning any number of programming languages. MATLAB, LabView, C, C#, C++, Java are all potential languages to learn. Python is one of the best options though. I'll lay out the reasons below.
 

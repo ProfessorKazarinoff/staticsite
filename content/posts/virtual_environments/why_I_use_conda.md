@@ -1,12 +1,12 @@
-Title: Why I love conda
-Date: 2017-10-20 8:20
-Modified: 2017-10-10 8:21
+Title: Why I use Conda
+Date: 2022-05-22 8:20
+Modified: 2022-05-22 8:21
 Status: Draft
 Category: Python
 Tags: python, virtualenvs, anaconda, conda
-Slug: why-i-love-conda
-Authors: Peter D. Kazarinoff
-Summary: This post is a love letter of sorts to the Anaconda Prompt. All the reasons I love to use conda and why I think conda is often a better way to go than using pip.
+Slug: why-i-use-conda
+Authors: Peter D. Kazarnoff
+Summary: This post is a love letter of sorts to the Anaconda Prompt and Conda. The reasons I love to use Conda and why I think Conda is often a better tool for Engineers to use than pip.
 
 ### The conda works on Windows
 

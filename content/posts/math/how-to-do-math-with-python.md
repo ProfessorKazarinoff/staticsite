@@ -1,8 +1,8 @@
 Title: How to do Math with Python
 Slug: how-to-do-math-with-Python
-Date: 2022-06-11 09:15
-Modified: 2022-06-11 09:25
-Status: draft
+Date: 2022-06-12 09:15
+Modified: 2022-06-12 09:25
+Status: published
 Category: math
 Tags: python, math
 Author: Peter D. Kazarinoff

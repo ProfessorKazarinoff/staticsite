@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>Installing Jupyter on a Chromebook - Python for Undergraduate Engineers</title>
+    <title>pyscript - Python for Undergraduate Engineers</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -175,24 +175,16 @@
     
     <link href="../extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="../drafts/installing-jupyter-on-a-chromebook.html">
 
-        <meta name="author" content="Peter D. Kazarinoff" />
-        <meta name="keywords" content="python,chromebook,installation,jupyter" />
-        <meta name="description" content="Why Jupyter notebooks on a Chromebook? Open Termux Install Numpy, matplotlib, and pandas We&#39;ll start off installing numpy first. This is going to take a while. It took my little chromebook over 10 minutes and I wasn&#39;t sure that it was still working during the process. For me numpy 1 …" />
+    <meta name="author" content="Peter Kazarinoff" />
+    <meta name="keywords" content="pyscript" />
 
+    <!-- Open Graph tags -->
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
-        <meta property="og:type" content="article"/>
-        <meta property="og:title" content="Installing Jupyter on a Chromebook"/>
-        <meta property="og:url" content="../drafts/installing-jupyter-on-a-chromebook.html"/>
-        <meta property="og:description" content="Why Jupyter notebooks on a Chromebook? Open Termux Install Numpy, matplotlib, and pandas We&#39;ll start off installing numpy first. This is going to take a while. It took my little chromebook over 10 minutes and I wasn&#39;t sure that it was still working during the process. For me numpy 1 …"/>
-        <meta property="article:published_time" content="2018-10-28" />
-            <meta property="article:section" content="chromebook" />
-            <meta property="article:tag" content="python" />
-            <meta property="article:tag" content="chromebook" />
-            <meta property="article:tag" content="installation" />
-            <meta property="article:tag" content="jupyter" />
-            <meta property="article:author" content="Peter D. Kazarinoff" />
+        <meta property="og:type" content="website"/>
+        <meta property="og:title" content="Python for Undergraduate Engineers"/>
+        <meta property="og:url" content=".."/>
+        <meta property="og:description" content="Python for Undergraduate Engineers"/>
 
 
 
@@ -261,82 +253,11 @@ Python for Undergraduate Engineers            </a>
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-9">
-            <ol class="breadcrumb">
-                <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="../category/chromebook.html" title="chromebook">chromebook</a></li>
-                <li class="active">Installing Jupyter on a Chromebook</li>
-            </ol>
-    <section id="content">
-        <article>
-            <header class="page-header">
-                <h1>
-                    <a href="../drafts/installing-jupyter-on-a-chromebook.html"
-                       rel="bookmark"
-                       title="Permalink to Installing Jupyter on a Chromebook">
-                        Installing Jupyter on a Chromebook
-                    </a>
-                </h1>
-            </header>
-            <div class="entry-content">
-                <div class="panel">
-                    <div class="panel-body">
-<footer class="post-info">
-    <span class="label label-default">Date</span>
-    <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2018-10-28T10:30:00-07:00"> Sun 28 October 2018</time>
-    </span>
-
-
-
-
-
-<span class="label label-default">Tags</span>
-	<a href="../tag/python.html">python</a>
-        /
-	<a href="../tag/chromebook.html">chromebook</a>
-        /
-	<a href="../tag/installation.html">installation</a>
-        /
-	<a href="../tag/jupyter.html">jupyter</a>
-    
-</footer><!-- /.post-info -->                    </div>
-                </div>
-                <h2 id="why-jupyter-notebooks-on-a-chromebook">Why Jupyter notebooks on a Chromebook?</h2>
-<h2 id="open-termux">Open Termux</h2>
-<h2 id="install-numpy-matplotlib-and-pandas">Install Numpy, matplotlib, and pandas</h2>
-<p>We'll start off installing numpy first. This is going to take a while. It took my little chromebook over 10 minutes and I wasn't sure that it was still working during the process. For me numpy 1.12 did not install, but numpy 1.15 (the current version as of writing this post) did install.</p>
-<div class="highlight"><pre><span></span>$ LDFLAGS=&quot;-lm -lcompiler_rt&quot; pip install numpy==1.15
-</pre></div>
-
-
-<div class="highlight"><pre><span></span>$ LDFLAGS=&quot;-lm -lcompiler_rt&quot; pip install matplotlib
-</pre></div>
-
-
-<p>need to also install xlrd library for excel to import .xls and .xlsx data files.</p>
-<h2 id="install-jupyter">Install Jupyter</h2>
-<h2 id="open-a-jupyter-notebook">Open a Jupyter notebook</h2>
-            </div>
-            <!-- /.entry-content -->
-<section class="well" id="related-posts">
-    <h4>Related Posts:</h4>
-    <ul>
-        <li><a href="../add-inset-curve-to-matplotlib-plot.html">How to add an Inset Curve with Matplotlib and Python</a></li>
-        <li><a href="../stream-S01-E01-jupyterhub-intro.html">My first Twitch Stream: S01-E01 JupyterHub Intro and Tools</a></li>
-        <li><a href="../jupyterhub-deployment-on-running-in-production.html">Hear my story about deploying JupyterHub on the Running in Production Podcast</a></li>
-        <li><a href="../deploy-jupyter-notebook-voila-heroku.html">Deploy a Jupyter Notebook Online with Voila and Heroku</a></li>
-        <li><a href="../slides-from-pydata-pdx-presentation.html">Slides from my PyDataPDX Presentaion</a></li>
-    </ul>
-</section>
-    <hr />
-    <!-- AddThis Button BEGIN -->
-    <div class="addthis_toolbox addthis_default_style">
-            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-            <a class="addthis_button_tweet"></a>
-    </div>
-    <!-- AddThis Button END -->
-        </article>
-    </section>
+    <ol class="breadcrumb">
+        <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+        <li><a href="../" title="Tags">Tags</a></li>
+        <li class="active">pyscript</li>
+    </ol>
 
         </div>
         <div class="col-sm-3" id="sidebar">
@@ -359,9 +280,6 @@ Python for Undergraduate Engineers            </a>
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
-    <li class="list-group-item"><a href="../top-5-python-tools.html">Top 5 Python Tools</a></li>
-    <li class="list-group-item"><a href="../add-inset-curve-to-matplotlib-plot.html">How to add an Inset Curve with Matplotlib and Python</a></li>
-    <li class="list-group-item"><a href="../crank-and-rocker-motion-with-python-and-matplotlib.html">Crank and Rocker Motion with Python and Matplotlib</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
@@ -425,7 +343,7 @@ Python for Undergraduate Engineers            </a>
    <div class="container-fluid">
       <hr>
       <div class="row">
-         <div class="col-xs-10">&copy; 2022 Peter Kazarinoff
+         <div class="col-xs-10">&copy;  Peter Kazarinoff
             &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
             <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
             <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
@@ -500,6 +418,5 @@ jQuery(document).ready(function($) {
 <!-- Ethical Ads JS-->
 <script async src="https://media.ethicalads.io/media/client/ethicalads.min.js"></script>
 <!-- end Ethical Ads JS -->
-    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cdd8eb4e16bf94c"></script>
 </body>
 </html>

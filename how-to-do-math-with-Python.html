@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>Building a Drop Timer using Micropython on an Adadfruit Feather Huzzah ESP8266 - Python for Undergraduate Engineers</title>
+    <title>How to do Math with Python - Python for Undergraduate Engineers</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -173,39 +173,35 @@
     init_mathjax();
     </script>
     
-    <link href="../extra/favicon.ico" rel="icon">
+    <link href="./extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="../drafts/micropython-drop-timer-intro.html">
+<link rel="canonical" href="./how-to-do-math-with-Python.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
-        <meta name="keywords" content="python,micropython,esp8266,microcontroller,WiFi,timer" />
-        <meta name="description" content="This is the first part of a multipart series on building a drop timer using Micropython. In this first post, I&#39;ll explain what the drop timer is and what it will be used for. I&#39;ll also go over some of the constraints that both make the project more difficult and …" />
+        <meta name="keywords" content="python,math" />
+        <meta name="description" content="Python can be used like a calculator to do math. Operations like addition, subtraction, multiplication, and division can be done with Python. In this post, you&#39;ll learn how to do math with Python. Arithmetic¶Python can be used as a calculator to make arithmetic calculations. Try the following commands in …" />
 
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
-        <meta property="og:title" content="Building a Drop Timer using Micropython on an Adadfruit Feather Huzzah ESP8266"/>
-        <meta property="og:url" content="../drafts/micropython-drop-timer-intro.html"/>
-        <meta property="og:description" content="This is the first part of a multipart series on building a drop timer using Micropython. In this first post, I&#39;ll explain what the drop timer is and what it will be used for. I&#39;ll also go over some of the constraints that both make the project more difficult and …"/>
-        <meta property="article:published_time" content="2018-02-17" />
-            <meta property="article:section" content="micropython" />
+        <meta property="og:title" content="How to do Math with Python"/>
+        <meta property="og:url" content="./how-to-do-math-with-Python.html"/>
+        <meta property="og:description" content="Python can be used like a calculator to do math. Operations like addition, subtraction, multiplication, and division can be done with Python. In this post, you&#39;ll learn how to do math with Python. Arithmetic¶Python can be used as a calculator to make arithmetic calculations. Try the following commands in …"/>
+        <meta property="article:published_time" content="2022-06-12" />
+            <meta property="article:section" content="math" />
             <meta property="article:tag" content="python" />
-            <meta property="article:tag" content="micropython" />
-            <meta property="article:tag" content="esp8266" />
-            <meta property="article:tag" content="microcontroller" />
-            <meta property="article:tag" content="WiFi" />
-            <meta property="article:tag" content="timer" />
+            <meta property="article:tag" content="math" />
             <meta property="article:author" content="Peter D. Kazarinoff" />
 
 
 
     <!-- Bootstrap -->
-        <link rel="stylesheet" href="../theme/css/bootstrap.flatly.min.css" type="text/css"/>
-    <link href="../theme/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="./theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="./theme/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="../theme/css/pygments/native.css" rel="stylesheet">
-    <link href="../theme/tipuesearch/tipuesearch.css" rel="stylesheet">
-    <link rel="stylesheet" href="../theme/css/style.css" type="text/css"/>
-        <link href="../static/css/custom.css" rel="stylesheet">
+    <link href="./theme/css/pygments/native.css" rel="stylesheet">
+    <link href="./theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="./theme/css/style.css" type="text/css"/>
+        <link href="./static/css/custom.css" rel="stylesheet">
 
 
 
@@ -222,21 +218,21 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="../" class="navbar-brand">
+            <a href="./" class="navbar-brand">
 Python for Undergraduate Engineers            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                         <li><a href="../pages/about.html">
+                         <li><a href="./pages/about.html">
                              About
                           </a></li>
-                         <li><a href="../pages/book.html">
+                         <li><a href="./pages/book.html">
                              Book
                           </a></li>
-                         <li><a href="../pages/gear.html">
+                         <li><a href="./pages/gear.html">
                              Gear
                           </a></li>
-                         <li><a href="../pages/now.html">
+                         <li><a href="./pages/now.html">
                              Now
                           </a></li>
             </ul>
@@ -250,7 +246,7 @@ Python for Undergraduate Engineers            </a>
         </form>
     </span>
 </li>
-<!-- /.navbar-search -->              <li><a href="../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+<!-- /.navbar-search -->              <li><a href="./archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -264,18 +260,18 @@ Python for Undergraduate Engineers            </a>
     <div class="row">
         <div class="col-sm-9">
             <ol class="breadcrumb">
-                <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="../category/micropython.html" title="micropython">micropython</a></li>
-                <li class="active">Building a Drop Timer using Micropython on an Adadfruit Feather Huzzah ESP8266</li>
+                <li><a href="." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="./category/math.html" title="math">math</a></li>
+                <li class="active">How to do Math with Python</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="../drafts/micropython-drop-timer-intro.html"
+                    <a href="./how-to-do-math-with-Python.html"
                        rel="bookmark"
-                       title="Permalink to Building a Drop Timer using Micropython on an Adadfruit Feather Huzzah ESP8266">
-                        Building a Drop Timer using Micropython on an Adadfruit Feather Huzzah ESP8266
+                       title="Permalink to How to do Math with Python">
+                        How to do Math with Python
                     </a>
                 </h1>
             </header>
@@ -285,47 +281,192 @@ Python for Undergraduate Engineers            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2018-02-17T09:01:00-08:00"> Sat 17 February 2018</time>
+        <i class="fa fa-calendar"></i><time datetime="2022-06-12T09:15:00-07:00"> Sun 12 June 2022</time>
     </span>
 
-            <span class="label label-default">Series</span>
-            Part <built-in method index of str object at 0x000001A76B379130> of 
 
 
 
 
 <span class="label label-default">Tags</span>
-	<a href="../tag/python.html">python</a>
+	<a href="./tag/python.html">python</a>
         /
-	<a href="../tag/micropython.html">micropython</a>
-        /
-	<a href="../tag/esp8266.html">esp8266</a>
-        /
-	<a href="../tag/microcontroller.html">microcontroller</a>
-        /
-	<a href="../tag/wifi.html">WiFi</a>
-        /
-	<a href="../tag/timer.html">timer</a>
+	<a href="./tag/math.html">math</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>This is the first part of a multipart series on building a drop timer using Micropython. In this first post, I'll explain what the drop timer is and what it will be used for. I'll also go over some of the constraints that both make the project more difficult and make it more contained.</p>
-<p>Problem: Create a system to calculate the drop time of student parachutes dropped from two stories high. The timing system will need to calculat the time between the parachute release and the parachute hitting the ground.</p>
-<p>Constraints: The WiFi network has username and password security in addition to an SSID. The parachutes carry a small weight. Part of the time can fit in this weight, but the weight can not have a wire in it.</p>
+                <p><a href="./how-to-do-math-with-Python.html"><img alt="math-image" src="./posts/math/images/math-image.png"></a></p>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Python can be used like a calculator to do math.  Operations like addition, subtraction, multiplication, and division can be done with Python. In this post, you'll learn how to do math with Python.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Arithmetic">Arithmetic<a class="anchor-link" href="#Arithmetic">&#182;</a></h2><p>Python can be used as a calculator to make arithmetic calculations.</p>
+<p>Try the following commands in a Python REPL or in a Jupyter notebok using the arithmetic operators <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Addition">Addition<a class="anchor-link" href="#Addition">&#182;</a></h3><p>Let's try addition first. Let's add 5 and 3 together. Note the <code>&gt;&gt;&gt;</code> prompt is shown to represent the Python REPL, not a character to type.</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="mi">5</span> <span class="o">+</span> <span class="mi">3</span>
+<span class="mi">8</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Subtraction">Subtraction<a class="anchor-link" href="#Subtraction">&#182;</a></h3><p>Substraction is completed in Python using the minus sign <code>-</code>.</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="mi">8</span> <span class="o">-</span> <span class="mf">1.5</span>
+<span class="mf">6.5</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Multiplication">Multiplication<a class="anchor-link" href="#Multiplication">&#182;</a></h3><p>What is the total mass if we have 2 batteries, and each battery has a mass of 5 kg? We can use Python to solve this problem. Multiplication in Python is completed using an asterisk <code>*</code>. Note an asterisk is used, not an <code>x</code>.</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="mi">5</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="mi">10</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Division">Division<a class="anchor-link" href="#Division">&#182;</a></h3><p>The formula for density is below, where $D$ is density, $m$ is mass and $v$ is volume.</p>
+$$ D = \frac{m}{v} $$<p>Let's set $m = 5000$ and $v=2500$. Then we can use Python and the division operator <code>/</code> to solve for $D$.</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="mi">5000</span> <span class="o">/</span> <span class="mi">2500</span>
+<span class="mf">2.0</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Exponents">Exponents<a class="anchor-link" href="#Exponents">&#182;</a></h3><p>The length, width, and height of a battery is 3 cm. What is the area of the base of the battery?</p>
+<p>To complete this problem, use the double asterisk symbol <code>**</code> to raise a number to a power. Note a double asterisk <code>**</code> is used and not the carrot or circumflex character <code>^</code>.</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="mi">3</span> <span class="o">**</span> <span class="mi">2</span>
+<span class="mi">9</span>
+</pre></div>
+<p>What is the volume of the battery if each the length, width, and height of the battery are all 3 cm?</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="mi">3</span> <span class="o">**</span> <span class="mi">3</span>
+<span class="mi">27</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Using-the-previous-result">Using the previous result<a class="anchor-link" href="#Using-the-previous-result">&#182;</a></h3><p>Find the mass of the two batteries and two cables.</p>
+<p>We can use Python to find the mass of the batteries and then use the answer, which Python saves as an underscore _ to use in our next operation. (The underscore <code>_</code> in Python is comparable to the <code>ans</code> variable in MATLAB)</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="mi">2</span> <span class="o">*</span> <span class="mi">5</span> 
+<span class="mi">10</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">_</span> <span class="o">+</span> <span class="mf">1.5</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="mf">12.5</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Summary">Summary<a class="anchor-link" href="#Summary">&#182;</a></h3><p>A summary of the arithmetic operations in Python is below:</p>
+<table class="table table-striped table-bordered table-hover">
+<thead><tr>
+<th>Operator</th>
+<th>Description</th>
+<th>Example</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>+</code></td>
+<td>addition</td>
+<td><code>2 + 3</code></td>
+<td><code>5</code></td>
+</tr>
+<tr>
+<td><code>-</code></td>
+<td>subtraction</td>
+<td><code>8 - 6</code></td>
+<td><code>2</code></td>
+</tr>
+<tr>
+<td><code>-</code></td>
+<td>negative number</td>
+<td><code>-4</code></td>
+<td><code>-4</code></td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>multiplication</td>
+<td><code>5 * 2</code></td>
+<td><code>10</code></td>
+</tr>
+<tr>
+<td><code>/</code></td>
+<td>division</td>
+<td><code>6 / 3</code></td>
+<td><code>2</code></td>
+</tr>
+<tr>
+<td><code>**</code></td>
+<td>raises a number to a power</td>
+<td><code>10**2</code></td>
+<td><code>100</code></td>
+</tr>
+<tr>
+<td><code>_</code></td>
+<td>returns last saved value</td>
+<td><code>_ + 7</code></td>
+<td><code>107</code></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+ 
+
+
+
+<h3 id="support">Support</h3>
+<p>Want to learn more about doing math with Python? Check out my book <strong>Problem Solving with Python</strong> on Amazon (<a href="https://www.amazon.com/gp/product/1693405415/ref=as_li_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=1693405415&amp;linkCode=as2&amp;tag=peterkazarino-20&amp;linkId=5bae1c66b2fc4f944a352f8826f819d1">Affiliate Link</a>):</p>
+<p><a target="_blank"  href="https://www.amazon.com/gp/product/1693405415/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1693405415&linkCode=as2&tag=peterkazarino-20&linkId=14354dd726a3531e49b53451b9af1f80"><img border="0" src="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&MarketPlace=US&ASIN=1693405415&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL250_&tag=peterkazarino-20" ></a></p>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">
     <h4>Related Posts:</h4>
     <ul>
-        <li><a href="../micropython-wifi.html">Using Micropython to connect an Adafruit Feather Huzzah ESP8266 to WiFi</a></li>
-        <li><a href="../upload-py-files-to-esp8266-running-micropython.html">How to upload .py-files onto an ESP8266 running MicroPython</a></li>
-        <li><a href="../micropython-upload-code.html">Upload Micropython Code to an Adafruit Feather Huzzah ESP8266</a></li>
-        <li><a href="../micropython-temp-sensor.html">Using a Temperature Sensor with Micropython running on an Adafruit Feather Huzzah ESP8266</a></li>
-        <li><a href="../micropython-install.html">Installing Micropython on an Adafruit Feather Huzzah ESP8266</a></li>
+        <li><a href="./creating-taylor-series-functions-with-python.html">Taylor Series in Python</a></li>
+        <li><a href="./add-inset-curve-to-matplotlib-plot.html">How to add an Inset Curve with Matplotlib and Python</a></li>
+        <li><a href="./crank-and-rocker-motion-with-python-and-matplotlib.html">Crank and Rocker Motion with Python and Matplotlib</a></li>
+        <li><a href="./what-is-ansible.html">What is Ansible?</a></li>
+        <li><a href="./git-and-github-for-undergrad-engineers.html">Git and GitHub for Undergrad Engineers</a></li>
     </ul>
-</section>
-<section class="well" id="related-posts">
-    <h4>Article <built-in method index of str object at 0x000001A76B379130> of the  series</h4>
 </section>
     <hr />
     <!-- AddThis Button BEGIN -->
@@ -344,7 +485,7 @@ Python for Undergraduate Engineers            </a>
 <div class="horizontal" data-ea-publisher="pythonforundergradengineers-com" data-ea-type="image"></div>
 <!-- end Ethical Ads --><div id="aboutme">
         <p>
-            <img width="100%" class="img-thumbnail" src="../extra/gear-wrench-icon-512-278694.png"/>
+            <img width="100%" class="img-thumbnail" src="./extra/gear-wrench-icon-512-278694.png"/>
         </p>
     <p>
       <strong>About Peter Kazarinoff</strong><br/>
@@ -358,59 +499,50 @@ Python for Undergraduate Engineers            </a>
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
-    <li class="list-group-item"><a href="../top-5-python-tools.html">Top 5 Python Tools</a></li>
-    <li class="list-group-item"><a href="../add-inset-curve-to-matplotlib-plot.html">How to add an Inset Curve with Matplotlib and Python</a></li>
-    <li class="list-group-item"><a href="../crank-and-rocker-motion-with-python-and-matplotlib.html">Crank and Rocker Motion with Python and Matplotlib</a></li>
+    <li class="list-group-item"><a href="./how-to-do-math-with-Python.html">How to do Math with Python</a></li>
+    <li class="list-group-item"><a href="./top-5-python-tools.html">Top 5 Python Tools</a></li>
+    <li class="list-group-item"><a href="./add-inset-curve-to-matplotlib-plot.html">How to add an Inset Curve with Matplotlib and Python</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
 
 <!-- Sidebar/Tag Cloud -->
 <li class="list-group-item">
-  <a href="../"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <a href="./"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
   <ul class="list-group list-inline tagcloud" id="tags">
     <li class="list-group-item tag-2">
-      <a href="../tag/engineering.html">engineering</a>
+      <a href="./tag/engineering.html">engineering</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="../tag/flask.html">flask</a>
+      <a href="./tag/flask.html">flask</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="../tag/jupyter.html">jupyter</a>
+      <a href="./tag/jupyter.html">jupyter</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="../tag/jupyter-notebook.html">jupyter notebook</a>
+      <a href="./tag/jupyter-notebook.html">jupyter notebook</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="../tag/matplotlib.html">matplotlib</a>
+      <a href="./tag/matplotlib.html">matplotlib</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="../tag/microcontroller.html">microcontroller</a>
+      <a href="./tag/microcontroller.html">microcontroller</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="../tag/micropython.html">micropython</a>
+      <a href="./tag/micropython.html">micropython</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="../tag/pelican.html">pelican</a>
+      <a href="./tag/pelican.html">pelican</a>
     </li>
     <li class="list-group-item tag-1">
-      <a href="../tag/python.html">python</a>
+      <a href="./tag/python.html">python</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="../tag/sensor.html">sensor</a>
+      <a href="./tag/sensor.html">sensor</a>
     </li>
   </ul>
 </li>
 <!-- End Sidebar/Tag Cloud -->
-
-<!-- Sidebar/Series -->
-<li class="list-group-item">
-  <h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Series</span></h4>
-  <ul class="list-group">
-  </ul>
-</li>
-<!-- End Sidebar/Series -->
-
 
 <!-- Sidebar/Github -->
 <li class="list-group-item">
@@ -441,15 +573,15 @@ Python for Undergraduate Engineers            </a>
       </div>
    </div>
 </footer>
-<script src="../theme/js/jquery.min.js"></script>
+<script src="./theme/js/jquery.min.js"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="../theme/js/bootstrap.min.js"></script>
+<script src="./theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="../theme/js/respond.min.js"></script>
+<script src="./theme/js/respond.min.js"></script>
 
-    <script src="../static/js/custom.js"></script>
+    <script src="./static/js/custom.js"></script>
 
 
 <!-- GitHub JS Code -->
@@ -458,7 +590,7 @@ $(document).ready(function () {
   if (!window.jXHR) {
     var jxhr = document.createElement('script');
     jxhr.type = 'text/javascript';
-    jxhr.src = '../theme/js/jXHR.js';
+    jxhr.src = './theme/js/jXHR.js';
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(jxhr, s);
   }
@@ -471,7 +603,7 @@ $(document).ready(function () {
   });
 });
 </script>
-<script src="../theme/js/github.js" type="text/javascript"></script>
+<script src="./theme/js/github.js" type="text/javascript"></script>
 <!-- End GitHub JS Code -->
     <!-- Google Analytics -->
     <script type="text/javascript">

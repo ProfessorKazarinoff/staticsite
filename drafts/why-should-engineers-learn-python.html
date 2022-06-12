@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>Nb Grader - An Introduction - Python for Undergraduate Engineers</title>
+    <title>Why Should Engineers Learn Python? - Python for Undergraduate Engineers</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -175,22 +175,22 @@
     
     <link href="../extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="../drafts/nb-grader-an-introduction.html">
+<link rel="canonical" href="../drafts/why-should-engineers-learn-python.html">
 
         <meta name="author" content="Peter D. Kazarinoff" />
-        <meta name="keywords" content="jupyter,jupyterhub,nbgrader" />
-        <meta name="description" content="In this post, I am going to describe what Nb Grader is and how if fits into Jupyter and JupyterHub. By the end of reading this post, you should know what Nb Grader is and explain why it is used. Table of contents: What is Nb Grader? How is Nb …" />
+        <meta name="keywords" content="python,engineering,education" />
+        <meta name="description" content="Engineers have the option of learning any number of programming languages. MATLAB, LabView, C, C#, C++, Java are all potential languages to learn. Python is one of the best options though. I&#39;ll lay out the reasons below." />
 
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
-        <meta property="og:title" content="Nb Grader - An Introduction"/>
-        <meta property="og:url" content="../drafts/nb-grader-an-introduction.html"/>
-        <meta property="og:description" content="In this post, I am going to describe what Nb Grader is and how if fits into Jupyter and JupyterHub. By the end of reading this post, you should know what Nb Grader is and explain why it is used. Table of contents: What is Nb Grader? How is Nb …"/>
-        <meta property="article:published_time" content="2020-12-28" />
-            <meta property="article:section" content="jupyterhub" />
-            <meta property="article:tag" content="jupyter" />
-            <meta property="article:tag" content="jupyterhub" />
-            <meta property="article:tag" content="nbgrader" />
+        <meta property="og:title" content="Why Should Engineers Learn Python?"/>
+        <meta property="og:url" content="../drafts/why-should-engineers-learn-python.html"/>
+        <meta property="og:description" content="Engineers have the option of learning any number of programming languages. MATLAB, LabView, C, C#, C++, Java are all potential languages to learn. Python is one of the best options though. I&#39;ll lay out the reasons below."/>
+        <meta property="article:published_time" content="2022-05-22" />
+            <meta property="article:section" content="Python" />
+            <meta property="article:tag" content="python" />
+            <meta property="article:tag" content="engineering" />
+            <meta property="article:tag" content="education" />
             <meta property="article:author" content="Peter D. Kazarinoff" />
 
 
@@ -262,17 +262,17 @@ Python for Undergraduate Engineers            </a>
         <div class="col-sm-9">
             <ol class="breadcrumb">
                 <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="../category/jupyterhub.html" title="jupyterhub">jupyterhub</a></li>
-                <li class="active">Nb Grader - An Introduction</li>
+                <li><a href="../category/python.html" title="Python">Python</a></li>
+                <li class="active">Why Should Engineers Learn Python?</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="../drafts/nb-grader-an-introduction.html"
+                    <a href="../drafts/why-should-engineers-learn-python.html"
                        rel="bookmark"
-                       title="Permalink to Nb Grader - An Introduction">
-                        Nb Grader - An Introduction
+                       title="Permalink to Why Should Engineers Learn Python?">
+                        Why Should Engineers Learn Python?
                     </a>
                 </h1>
             </header>
@@ -282,7 +282,7 @@ Python for Undergraduate Engineers            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2020-12-28T09:21:00-08:00"> Mon 28 December 2020</time>
+        <i class="fa fa-calendar"></i><time datetime="2022-05-22T10:40:00-07:00"> Sun 22 May 2022</time>
     </span>
 
 
@@ -290,36 +290,37 @@ Python for Undergraduate Engineers            </a>
 
 
 <span class="label label-default">Tags</span>
-	<a href="../tag/jupyter.html">jupyter</a>
+	<a href="../tag/python.html">python</a>
         /
-	<a href="../tag/jupyterhub.html">jupyterhub</a>
+	<a href="../tag/engineering.html">engineering</a>
         /
-	<a href="../tag/nbgrader.html">nbgrader</a>
+	<a href="../tag/education.html">education</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>In this post, I am going to describe what Nb Grader is and how if fits into Jupyter and JupyterHub. By the end of reading this post, you should know what Nb Grader is and explain why it is used.</p>
-<div class="toc"><span class="toctitle">Table of contents:</span><ul>
-<li><a href="#what-is-nb-grader">What is Nb Grader?</a></li>
-<li><a href="#how-is-nb-grader-different-from-jupyter-jupyter-notebooks-and-jupyterhub">How is Nb Grader different from Jupyter, Jupyter Notebooks, and JupyterHub</a></li>
-<li><a href="#where-is-nb-grader-used">Where is Nb Grader Used?</a></li>
-<li><a href="#summary">Summary</a></li>
-</ul>
-</div>
-<h2 id="what-is-nb-grader">What is Nb Grader?</h2>
-<h2 id="how-is-nb-grader-different-from-jupyter-jupyter-notebooks-and-jupyterhub">How is Nb Grader different from Jupyter, Jupyter Notebooks, and JupyterHub</h2>
-<h2 id="where-is-nb-grader-used">Where is Nb Grader Used?</h2>
-<h2 id="summary">Summary</h2>
+                <p>You might be wondering "why should an engineer learn Python?" There are other programming languages in the engineering world such as MATLAB, LabView, C, Java. What makes Python useful for engineers?</p>
+<h3 id="python-is-a-powerful-programming-language">Python is a powerful programming language</h3>
+<p>Python defines the types of objects you build into your code. Unlike some other languages such as C, you do not need to declare the object type. The object type is also mutable, you can change the type of object easily and on the fly. There is a wide array of object types built into Python. Objects can change in size. Python objects can also contain mixed data types. Strings and floating point numbers can be part of the same list.</p>
+<p>Python has an extensive standard library. A huge number of object types, functions and methods are available for use without importing any external modules. These include math functions, list methods, calls to a computers system. There is a lot that can be done with the standard library. The first couple chapters of this book will just use the standard library. It can do a lot.</p>
+<p>Python has over 100,000 external packages available for download and use. They are easy to install off of the Python package index, commonly called PyPI ("pie pee eye"). There is a Python package for just about everything. There are packages which can: interact with the web, make complex computations, do unit conversions, plot data, work with .csv, .xls, and .pdf files, manipulate images and video, read data from sensors and test equipment, train machine learning algorithms, design web apps, work with GIS data, work with astronautical data, and many more added every day. In this book we will use some of the more useful Python packages for engineers such as numpy, matplotlib, pandas, and scipy.</p>
+<h3 id="python-is-easy-to-learn-and-use">Python is easy to learn and use</h3>
+<p>Engineers solve the world's problems in teams. One way Python helps solve these problems faster than other programming languages is that it is easy to learn and use. Python programs tends to be shorter and quicker to write than a program that does a similar function in other languages. In the rapid design, prototype, test, iterate cycle programming solutions can be spun up quickly. Python is also an easy language for fellow engineers on your team to learn. It is also quite human readable. While programmers can become preoccupied with a programs run time, it is development time that takes the longest.</p>
+<h3 id="python-is-transportable">Python is transportable</h3>
+<p>Python can be installed and run on each of the three major operating systems: Windows, Mac and Linux. On Mac and Linux Python comes installed out of the box. Just open up a terminal in on a Mac OSX or Linux machine and type pthyon. That's it, you are now using Python. On Windows I recommend downloading and using the Ananaconda distribution. </p>
+<h3 id="python-is-free">Python is free</h3>
+<p>MATLAB and LabView cost students and colleges to use and cost companies even more. Python is free to download and use. It is open source. Anyone is free to modify, contribute to, and propose improvements.</p>
+<h3 id="python-is-growing">Python is growing</h3>
+<p>Python is growing in popularity. It is particularly growing in the data sciences and in use with GIS systems, physical modeling, machine learning and computer vision. These are growing team problem solving areas for engineers.</p>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">
     <h4>Related Posts:</h4>
     <ul>
-        <li><a href="../stream-S01-E01-jupyterhub-intro.html">My first Twitch Stream: S01-E01 JupyterHub Intro and Tools</a></li>
-        <li><a href="../jupyterhub-deployment-on-running-in-production.html">Hear my story about deploying JupyterHub on the Running in Production Podcast</a></li>
-        <li><a href="../slides-from-pydata-pdx-presentation.html">Slides from my PyDataPDX Presentaion</a></li>
-        <li><a href="../slides-from-pypdx-west-presentation.html">Slides from my PyPDX West Presentaion</a></li>
-        <li><a href="../moving-from-matlab-to-python-on-talkpython.html">Hear my story about moving from MATLAB to Python on TalkPython</a></li>
+        <li><a href="../add-inset-curve-to-matplotlib-plot.html">How to add an Inset Curve with Matplotlib and Python</a></li>
+        <li><a href="../calculating-vacancy-concentration-with-python.html">Calculating Vacancy Concentration with Python</a></li>
+        <li><a href="../offset-piston-motion-animation-matplotlib.html">Offset Piston Motion with Python and Matplotlib</a></li>
+        <li><a href="../how-to-make-y-y-plots-with-matplotlib.html">How to make y-y plots with Matplotlib</a></li>
+        <li><a href="../deflection-of-a-truncated-cone-with-python.html">Estimating the Deflection of a Truncated Cone using Python</a></li>
     </ul>
 </section>
     <hr />
@@ -353,9 +354,9 @@ Python for Undergraduate Engineers            </a>
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
+    <li class="list-group-item"><a href="../how-to-do-math-with-Python.html">How to do Math with Python</a></li>
     <li class="list-group-item"><a href="../top-5-python-tools.html">Top 5 Python Tools</a></li>
     <li class="list-group-item"><a href="../add-inset-curve-to-matplotlib-plot.html">How to add an Inset Curve with Matplotlib and Python</a></li>
-    <li class="list-group-item"><a href="../crank-and-rocker-motion-with-python-and-matplotlib.html">Crank and Rocker Motion with Python and Matplotlib</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>Installing JupyterLab on a Chromebook - Python for Undergraduate Engineers</title>
+    <title>Why I use Conda - Python for Undergraduate Engineers</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -175,25 +175,24 @@
     
     <link href="../extra/favicon.ico" rel="icon">
 
-<link rel="canonical" href="../drafts/installing-jupyterlab-on-a-chromebook.html">
+<link rel="canonical" href="../drafts/why-i-use-conda.html">
 
-        <meta name="author" content="Peter D. Kazarinoff" />
-        <meta name="keywords" content="python,chromebook,installation,jupyter,jupyterlab" />
-        <meta name="description" content="What is JupyterLab? Why JupyterLab on a Chromebook? Open Termux Install JupyterLab Open JupyterLab" />
+        <meta name="author" content="Peter D. Kazarnoff" />
+        <meta name="keywords" content="python,virtualenvs,anaconda,conda" />
+        <meta name="description" content="This post is a love letter of sorts to the Anaconda Prompt and Conda. The reasons I love to use Conda and why I think Conda is often a better tool for Engineers to use than pip." />
 
         <meta property="og:site_name" content="Python for Undergraduate Engineers" />
         <meta property="og:type" content="article"/>
-        <meta property="og:title" content="Installing JupyterLab on a Chromebook"/>
-        <meta property="og:url" content="../drafts/installing-jupyterlab-on-a-chromebook.html"/>
-        <meta property="og:description" content="What is JupyterLab? Why JupyterLab on a Chromebook? Open Termux Install JupyterLab Open JupyterLab"/>
-        <meta property="article:published_time" content="2018-10-28" />
-            <meta property="article:section" content="chromebook" />
+        <meta property="og:title" content="Why I use Conda"/>
+        <meta property="og:url" content="../drafts/why-i-use-conda.html"/>
+        <meta property="og:description" content="This post is a love letter of sorts to the Anaconda Prompt and Conda. The reasons I love to use Conda and why I think Conda is often a better tool for Engineers to use than pip."/>
+        <meta property="article:published_time" content="2022-05-22" />
+            <meta property="article:section" content="Python" />
             <meta property="article:tag" content="python" />
-            <meta property="article:tag" content="chromebook" />
-            <meta property="article:tag" content="installation" />
-            <meta property="article:tag" content="jupyter" />
-            <meta property="article:tag" content="jupyterlab" />
-            <meta property="article:author" content="Peter D. Kazarinoff" />
+            <meta property="article:tag" content="virtualenvs" />
+            <meta property="article:tag" content="anaconda" />
+            <meta property="article:tag" content="conda" />
+            <meta property="article:author" content="Peter D. Kazarnoff" />
 
 
 
@@ -264,17 +263,17 @@ Python for Undergraduate Engineers            </a>
         <div class="col-sm-9">
             <ol class="breadcrumb">
                 <li><a href=".." title="Python for Undergraduate Engineers"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="../category/chromebook.html" title="chromebook">chromebook</a></li>
-                <li class="active">Installing JupyterLab on a Chromebook</li>
+                <li><a href="../category/python.html" title="Python">Python</a></li>
+                <li class="active">Why I use Conda</li>
             </ol>
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="../drafts/installing-jupyterlab-on-a-chromebook.html"
+                    <a href="../drafts/why-i-use-conda.html"
                        rel="bookmark"
-                       title="Permalink to Installing JupyterLab on a Chromebook">
-                        Installing JupyterLab on a Chromebook
+                       title="Permalink to Why I use Conda">
+                        Why I use Conda
                     </a>
                 </h1>
             </header>
@@ -284,7 +283,7 @@ Python for Undergraduate Engineers            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2018-10-28T10:30:00-07:00"> Sun 28 October 2018</time>
+        <i class="fa fa-calendar"></i><time datetime="2022-05-22T08:20:00-07:00"> Sun 22 May 2022</time>
     </span>
 
 
@@ -294,31 +293,35 @@ Python for Undergraduate Engineers            </a>
 <span class="label label-default">Tags</span>
 	<a href="../tag/python.html">python</a>
         /
-	<a href="../tag/chromebook.html">chromebook</a>
+	<a href="../tag/virtualenvs.html">virtualenvs</a>
         /
-	<a href="../tag/installation.html">installation</a>
+	<a href="../tag/anaconda.html">anaconda</a>
         /
-	<a href="../tag/jupyter.html">jupyter</a>
-        /
-	<a href="../tag/jupyterlab.html">jupyterlab</a>
+	<a href="../tag/conda.html">conda</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <h2 id="what-is-jupyterlab">What is JupyterLab?</h2>
-<h2 id="why-jupyterlab-on-a-chromebook">Why JupyterLab on a Chromebook?</h2>
-<h2 id="open-termux">Open Termux</h2>
-<h2 id="install-jupyterlab">Install JupyterLab</h2>
-<h2 id="open-jupyterlab">Open JupyterLab</h2>
+                <h3 id="the-conda-works-on-windows">The conda works on Windows</h3>
+<p>Conda, how I love thee. Conda, you work on windows. My machine at work is a Windows 10 Desktop. From the windows start menu it always available:</p>
+<p><img alt="conda prompt on windows start menu" src="../images/conda_in_windows_start_menu.png"></p>
+<h3 id="conda-works-in-windows-locked-down-by-your-it-department-or-school">Conda works in Windows Locked down by your IT Department or school</h3>
+<p>Conda, how I love thee. Pip installing python packages on Windows can be a kind of a nightmare or at least full of surprises. pip isn't automatically available from the windows command window. It takes some configuration and messing around with settings deep inside the bowels of windows settings to get it to work. If you finally are able to get pip to work from the windows command line, you still may not be able to install packages because windows won't let you install them. Installing packages is easy with wonderful conda.</p>
+<h3 id="conda-handles-virtual-environments">Conda handles virtual environments</h3>
+<p>Conda, how I love thee. Using <code>virlenv</code> and <code>virtualenv wrapper</code> works pretty great actually, but in windows you have to be in the right directory in order to fire them off. When you open the conda prompt you just type <code>activate</code>.  Doesn't matter which directory you are in.</p>
+<h3 id="the-conda-prompt-behaves-like-a-regular-linux-or-mac-terminal">The conda prompt behaves like a regular linux or mac terminal</h3>
+<p>In the conda prompt, you can type regular commands like <code>ls</code>. At the windows prompt you have to type <code>dir</code>. At the conda prompt you can <code>cd</code> into directories with "regular" file paths. <code>cd code/python/plotting</code> in Windows the slashes go the other way. It makes me feel like I'm typing LaTeX commands. cd <code>code\python\plotting</code>.</p>
+<p>### You can install non-python packages with conda</p>
+<p>Conda, how I love thee. You can install non-python packages which can be tough to set up especially on windows. This includes packages like ffmpeg and tessearct that aren't python packages, but do have python wrapper packages.</p>
             </div>
             <!-- /.entry-content -->
 <section class="well" id="related-posts">
     <h4>Related Posts:</h4>
     <ul>
-        <li><a href="../add-inset-curve-to-matplotlib-plot.html">How to add an Inset Curve with Matplotlib and Python</a></li>
-        <li><a href="../stream-S01-E01-jupyterhub-intro.html">My first Twitch Stream: S01-E01 JupyterHub Intro and Tools</a></li>
-        <li><a href="../jupyterhub-deployment-on-running-in-production.html">Hear my story about deploying JupyterHub on the Running in Production Podcast</a></li>
-        <li><a href="../deploy-jupyter-notebook-voila-heroku.html">Deploy a Jupyter Notebook Online with Voila and Heroku</a></li>
-        <li><a href="../slides-from-pydata-pdx-presentation.html">Slides from my PyDataPDX Presentaion</a></li>
+        <li><a href="../virtualenv-in-osx-linux-windows.html">Python Virtual Environments in OS X, Linux and Windows 10</a></li>
+        <li><a href="../new-virtual-environment-with-conda.html">Create a new virtual environment with Conda</a></li>
+        <li><a href="../installing-anaconda-on-windows.html">Installing Anaconda on Windows</a></li>
+        <li><a href="../opening-a-jupyter-notebook-on-windows.html">Opening a Jupyter Notebook on Windows</a></li>
+        <li><a href="../top-5-python-tools.html">Top 5 Python Tools</a></li>
     </ul>
 </section>
     <hr />
@@ -352,9 +355,9 @@ Python for Undergraduate Engineers            </a>
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
+    <li class="list-group-item"><a href="../how-to-do-math-with-Python.html">How to do Math with Python</a></li>
     <li class="list-group-item"><a href="../top-5-python-tools.html">Top 5 Python Tools</a></li>
     <li class="list-group-item"><a href="../add-inset-curve-to-matplotlib-plot.html">How to add an Inset Curve with Matplotlib and Python</a></li>
-    <li class="list-group-item"><a href="../crank-and-rocker-motion-with-python-and-matplotlib.html">Crank and Rocker Motion with Python and Matplotlib</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->

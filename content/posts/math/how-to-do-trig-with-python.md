@@ -1,10 +1,10 @@
 Title: How to do Trig with Python
 Slug: how-to-do-trig-with-Python
-Date: 2022-06-12 09:15
-Modified: 2022-06-12 09:25
+Date: 2022-06-13 09:15
+Modified: 2022-06-13 09:25
 Status: draft
 Category: math
-Tags: python, math
+Tags: python, math, standard library
 Author: Peter D. Kazarinoff
 
 [![math-image]({static}/posts/math/images/math-image.png)]({filename}/posts/math/how-to-do-math-with-python.md)

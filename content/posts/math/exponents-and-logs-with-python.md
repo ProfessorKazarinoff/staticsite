@@ -1,7 +1,7 @@
 Title: Exponents and Logs with Python
 Slug: exponents-and-logs-with-python
-Date: 2022-06-13 09:15
-Modified: 2022-06-13 09:25
+Date: 2022-06-27 09:15
+Modified: 2022-06-27 09:25
 Status: draft
 Category: math
 Tags: python, math, standard library

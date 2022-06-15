@@ -7,7 +7,7 @@ Category: math
 Tags: python, math, standard library
 Author: Peter D. Kazarinoff
 
-[![math-image]({static}/posts/math/images/trig-image.jpeg)]({filename}/posts/math/how-to-do-math-with-python.md)
+[![math-image]({static}/posts/math/images/exp-log-plot.png)]({filename}/posts/math/how-to-do-math-with-python.md)
 
 {% notebook ../code/math/exponents-and-logs-with-python.ipynb %}
 

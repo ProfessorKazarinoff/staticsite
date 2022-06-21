@@ -1,13 +1,13 @@
 Title: Exponents and Logs with Python
 Slug: exponents-and-logs-with-python
-Date: 2022-06-27 09:15
-Modified: 2022-06-27 09:25
-Status: draft
+Date: 2022-06-27 09:00
+Modified: 2022-06-27 09:00
+Status: published
 Category: math
 Tags: python, math, standard library
 Author: Peter D. Kazarinoff
 
-[![math-image]({static}/posts/math/images/exp-log-plot.png)]({filename}/posts/math/how-to-do-math-with-python.md)
+[![math-image]({static}/posts/math/images/exp-log-plot.png)]({filename}/posts/math/exponents-and-logs-with-python.md)
 
 {% notebook ../code/math/exponents-and-logs-with-python.ipynb %}
 

@@ -7,7 +7,7 @@ Category: numpy
 Tags: python, math, numpy
 Author: Peter D. Kazarinoff
 
-[![math-image]({static}/posts/math/images/exp-log-plot.png)]({filename}/posts/math/exponents-and-logs-with-python.md)
+[![math-image]({static}/posts/numpy/images/cards-in-library.jpeg)]({filename}/posts/numpy/how-to-index-numpy-arrays.md)
 
 {% notebook ../code/numpy/how-to-index-numpy-arrays.ipynb %}
 

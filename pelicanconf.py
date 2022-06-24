@@ -59,6 +59,7 @@ STATIC_PATHS = ['images','extra','code',
                 'pages/gear/images',
                 'posts/engr231/images',
                 'posts/math/images',
+                'posts/numpy/images',
                 ]
                 
 PLUGIN_PATHS = ['pelican-plugins','extra-plugins']

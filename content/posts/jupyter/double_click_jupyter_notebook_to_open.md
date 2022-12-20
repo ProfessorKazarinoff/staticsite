@@ -1,12 +1,14 @@
 Title: How to open a Jupyter notebook by double-clicking
-Date: 2022-12-19 09:20
-Modified: 2022-12-19 09:21
-Status: draft
+Date: 2022-12-20 09:20
+Modified: 2022-12-20 09:21
+Status: published
 Category: jupyter
 Tags: jupyter, python, anaconda, windows, jupyter notebook
 Slug: how-to-open-a-jupyter-notebook-by-double-clicking
 Authors: Peter D. Kazarinoff
-Summary: In this post, we will run through how you can double-click a Jupyter notebook to open it.  **Jupyter notebooks** are one way engineers can write and execute **Python** code. But when you double-click a Jupyter notebook on your computer, it probably doesn't open right. Learn how to open Jupyter notebooks by double-clicking using the steps in this post.
+Summary: [![Top 5 Python Tools]({static}/posts/jupyter/images/double-click-ipynb.png)]({filename}/posts/jupyter/double_click_jupyter_notebook_to_open.md) <br> In this post, we will run through how you can **double-click a Jupyter notebook to open it**.  Jupyter notebooks are one way engineers can write and execute Python code. But when you double-click a Jupyter notebook on your computer, it probably doesn't open or it opens in notepad at looks like nonsense. Learn how to open Jupyter notebooks by double-clicking using the steps in this post.
+
+[![Top 5 Python Tools]({static}/posts/jupyter/images/double-click-ipynb.png)]({filename}/posts/jupyter/double_click_jupyter_notebook_to_open.md) <br>
 
 This is a set of optional steps to open ```.ipynb``` files by double-clicking them. This set of steps may introduce other problems in your system, but the process is reversible. These steps only work on Windows using the Anaconda distribution of Python.
 
@@ -17,7 +19,7 @@ To use the steps below, the following prerequisites are needed:
  * a Windows computer
  * the Anaconda Distribution of Python installed
 
-## Three steps:
+## Three steps
 
 1. Find and copy the location of Anaconda on your computer
 

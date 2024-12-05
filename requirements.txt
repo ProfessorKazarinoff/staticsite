@@ -13,7 +13,7 @@ numpy==1.17.3
 pandas==0.25.2
 pelican==4.2.0
 pint==0.9
-Pygments==2.4.2
+Pygments==2.7.4
 pymdown-extensions==6.1
 sympy==1.4
 xlrd==1.2.0
